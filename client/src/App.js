@@ -7,8 +7,17 @@ import Artist from "./Components/register/user/Artist";
 import MyPageLayout from "./Components/MyPage/Index";
 import MyArtist from "./Components/MyPage/MyRoom/MyArtist";
 import MyLisener from "./Components/MyPage/MyRoom/MyLisener";
+import { useEffect } from "react";
+import axios from "axios";
 
 function App() {
+  useEffect(() => {
+    axios
+      .get("/api/test")
+      .then((res) => console.log(res))
+      .catch();
+  });
+
   return (
     <>
       <Routes>
