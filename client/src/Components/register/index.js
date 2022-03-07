@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const Legister = () => {
   return (
     <div>
-      <Link to="Lisener">
+      <Link to="/Lisener">
         <button>청취자 가입</button>
       </Link>
-      <Link to="Artist">
+      <Link to="/Artist">
         <button>아티스트 가입</button>
       </Link>
     </div>
