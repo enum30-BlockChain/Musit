@@ -1,14 +1,20 @@
 import "./App.css";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LegisterLayout from "./Components/Index";
 import Legister from "./Components/register/index";
 import Lisener from "./Components/register/user/Lisener";
 import Artist from "./Components/register/user/Artist";
+import Metamask from "./Web3/Metamask";
 import MyPageLayout from "./Components/MyPage/Index";
 import MyArtist from "./Components/MyPage/MyRoom/MyArtist";
 import MyLisener from "./Components/MyPage/MyRoom/MyLisener";
 
 function App() {
+  useEffect(() => {
+    Metamask.enableEthereum();
+  }, []);
+
   return (
     <>
       <Routes>
