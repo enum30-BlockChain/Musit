@@ -7,6 +7,9 @@ export const LegisterLayout = () => {
       <Link to="/Legister">
         <button>Legister</button>
       </Link>
+      <Link to="/MyPageLayout">
+        <button>MyPage</button>
+      </Link>
       <div>메인페이지입니다.</div>
     </>
   );
