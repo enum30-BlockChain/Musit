@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const LegisterLayout = () => {
+export { default as Legister } from "../Components/register/index";
+export { default as MyPageLayout } from "../Components/MyPage/Index";
+
+export const MainLayout = () => {
   return (
     <>
       <Link to="/Legister">
@@ -15,4 +18,4 @@ export const LegisterLayout = () => {
   );
 };
 
-export default LegisterLayout;
+export default MainLayout;

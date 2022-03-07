@@ -1,10 +1,10 @@
 import "./App.css";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import LegisterLayout from "./Components/Index";
+import MainLayout from "./Components/Index";
 import Legister from "./Components/register/index";
-import Lisener from "./Components/register/user/Lisener";
-import Artist from "./Components/register/user/Artist";
+import Lisener from "./Components/register/user/Lisener/Lisener";
+import Artist from "./Components/register/user/Artist/Artist";
 import Metamask from "./Web3/Metamask";
 import MyPageLayout from "./Components/MyPage/Index";
 import MyArtist from "./Components/MyPage/MyRoom/MyArtist";
@@ -19,7 +19,7 @@ function App() {
     <>
       <Routes>
         <Route path="/">
-          <Route index element={<LegisterLayout />}></Route>
+          <Route index element={<MainLayout />}></Route>
           <Route path="legister" element={<Legister />}></Route>
           <Route path="Lisener" element={<Lisener />}></Route>
           <Route path="Artist" element={<Artist />}></Route>

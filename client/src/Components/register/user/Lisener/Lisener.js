@@ -1,21 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import LisenerType from "./LisenerType";
 
 const Lisener = () => {
+  const [MusicTypes, setMusicTypes] = useState(["Pop", "k-pop", "Trot"]);
+  const [Country, setCountry] = useState("");
+
+  const handleInputType = (e) => {};
+  const handleInputContry = (e) => {
+    setCountry(e.target.value);
+  };
+
+  const handleOnclick = (e) => {
+    setSelected(e.target.value);
+    alert(MusicTypes[selected] + "장르를 좋아합니다.");
+  };
+
+  const [selected, setSelected] = useState("");
+
   return (
     <div>
-      <div>
+      <div className="music-type">
         <div>좋아하는장르</div>
-        <p>
-          Pop <input type="checkbox" />
-        </p>
-        <p>
-          k-pop <input type="checkbox" />
-        </p>
-        <p>
-          트로트 <input type="checkbox" />
-        </p>
+        <div className="MusicTypeName">장르명</div>
       </div>
-      <select name="country">
+      {MusicTypes.map((MusicType, index) => (
+        <LisenerType
+          id={index + 1}
+          key={index}
+          name={MusicType}
+          setSelected={setSelected}
+        />
+      ))}
+
+      <select className="country">
         <option value="">Country...</option>
         <option value="AF">Afghanistan</option>
         <option value="AL">Albania</option>
@@ -265,7 +282,7 @@ const Lisener = () => {
         <option value="ZM">Zambia</option>
         <option value="ZW">Zimbabwe</option>
       </select>
-      <button>회원가입</button>
+      <button onClick={handleOnclick}>회원가입</button>
     </div>
   );
 };
