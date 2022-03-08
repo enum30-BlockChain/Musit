@@ -5,17 +5,18 @@ const Lisener = () => {
   const [MusicTypes, setMusicTypes] = useState(["Pop", "k-pop", "Trot"]);
   const [Country, setCountry] = useState("");
 
-  const handleInputType = (e) => {};
-  const handleInputContry = (e) => {
-    setCountry(e.target.value);
-  };
-
   const handleOnclick = (e) => {
     setSelected(e.target.value);
     alert(MusicTypes[selected] + "장르를 좋아합니다.");
   };
 
+  const onChangeCountry = (e) => {
+    setOption(e.target.value);
+    console.log(e.target.value);
+    alert(e.target.value + "국적입니다.");
+  };
   const [selected, setSelected] = useState("");
+  const [Option, setOption] = useState("");
 
   return (
     <div>
@@ -32,13 +33,17 @@ const Lisener = () => {
         />
       ))}
 
-      <select className="country">
+      <select
+        className="country"
+        country="my-country"
+        onChange={onChangeCountry}
+      >
         <option value="">Country...</option>
         <option value="AF">Afghanistan</option>
         <option value="AL">Albania</option>
-        <option value="DZ">Algeria</option>
+        <option value="Algeria">Algeria</option>
         <option value="AS">American Samoa</option>
-        <option value="AD">Andorra</option>
+        <option value="Andorra">Andorra</option>
         <option value="AG">Angola</option>
         <option value="AI">Anguilla</option>
         <option value="AG">Antigua &amp; Barbuda</option>
