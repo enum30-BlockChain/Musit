@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-module.exports = class User extends Sequelize.Model {
+module.exports = class Music extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
@@ -56,7 +56,7 @@ module.exports = class User extends Sequelize.Model {
       {
         sequelize,
         timestamps: false,
-        modelName: "User",
+        modelName: "Music",
         tableName: "users",
         paranoid: false,
         charset: "utf8mb4",

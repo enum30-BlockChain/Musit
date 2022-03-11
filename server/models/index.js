@@ -1,45 +1,33 @@
-"use strict";
-
-const fs = require("fs");
-const path = require("path");
+require("dotenv").config();
+const User = require("./user");
+const Artist = require("./artist");
+const Music = require("./music");
 const Sequelize = require("sequelize");
-const basename = path.basename(__filename);
+
 const env = process.env.NODE_ENV || "development";
+
+// MYSQL Connecttion 설정 불러오기
 const config = require(__dirname + "/../config/config.js")[env];
+const sequelize = new Sequelize(
+  config.database,
+  config.username,
+  config.password,
+  config
+);
+
+//db객체에 모든 테이블 넣기
 const db = {};
-
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  );
-}
-
-fs.readdirSync(__dirname)
-  .filter((file) => {
-    return (
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
-    );
-  })
-  .forEach((file) => {
-    const model = require(path.join(__dirname, file))(
-      sequelize,
-      Sequelize.DataTypes
-    );
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.User = User;
+db.Team = Artist;
+db.Music = Music;
+
+User.init(sequelize);
+Artist.init(sequelize);
+Music.init(sequelize);
+
+User.associate(db);
+Artist.associate(db);
+Music.associate(db);
 
 module.exports = db;

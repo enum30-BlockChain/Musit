@@ -1,25 +1,68 @@
-"use strict";
-const { Model } = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
-  class artist extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
+const Sequelize = require("sequelize");
+
+module.exports = class Atist extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init(
+      {
+        user_id: {
+          primaryKey: true,
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
+        user_password: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
+        user_name: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
+        user_age: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        },
+        user_area: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
+        user_gender: {
+          type: Sequelize.STRING(45),
+          allowNull: true,
+        },
+        user_mail: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
+        user_position: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
+        user_team: {
+          type: Sequelize.STRING(45),
+          allowNull: true,
+        },
+        user_aboutMe: {
+          type: Sequelize.STRING(45),
+          allowNull: true,
+        },
+        user_grade: {
+          type: Sequelize.STRING(45),
+          allowNull: true,
+        },
+        salt: {
+          type: Sequelize.STRING(45),
+        },
+      },
+      {
+        sequelize,
+        timestamps: false,
+        modelName: "Atist",
+        tableName: "users",
+        paranoid: false,
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
+      }
+    );
   }
-  artist.init(
-    {
-      nickname: DataTypes.STRING,
-      auction_right: DataTypes.TINYINT,
-    },
-    {
-      sequelize,
-      modelName: "artist",
-    }
-  );
-  return artist;
+  static associate(db) {}
 };
