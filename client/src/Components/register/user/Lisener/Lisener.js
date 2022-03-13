@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LisenerType from "./LisenerType";
 
 const Lisener = () => {
   const [MusicTypes, setMusicTypes] = useState(["Pop", "k-pop", "Trot"]);
   const [Country, setCountry] = useState("");
+  const [User, setUser] = useState([MusicTypes, Country]);
 
   const handleOnclick = (e) => {
     setSelected(e.target.value);
     alert(MusicTypes[selected] + "장르를 좋아합니다.");
+    setUser({ ...User, [MusicTypes[selected]]: e.target.value });
+    console.log(MusicTypes[selected]);
   };
 
   const onChangeCountry = (e) => {
@@ -32,7 +35,6 @@ const Lisener = () => {
           setSelected={setSelected}
         />
       ))}
-
       <select
         className="country"
         country="my-country"
