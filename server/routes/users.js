@@ -7,14 +7,9 @@ router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 /* POST sign-in, check DB. */
-console.log(11111111111111111111);
-console.log(Users);
-console.log(222222222222222222222);
+
 router.post("/signin", async (req, res, next) => {
-  console.log(33333333333333);
   try {
-    console.log(444444444444444);
-    console.log(Users);
     const user = await Users.findAll({
       where: {
         myfavorite: "가수:이루, 제목: 흰눈",
@@ -23,6 +18,29 @@ router.post("/signin", async (req, res, next) => {
     });
     res.send(user);
     console.log(user);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.post("/signup", async (req, res, next) => {
+  try {
+    const myfavorite = req.body.myfavorite;
+    const nation = hash(req.body.nation);
+    const user = await Users.findAll({
+      where: {
+        nation: nation,
+      },
+    });
+    if (user) {
+      res.send("내용이 부족하다?");
+    } else {
+      await Users.create({
+        myfavorite: myfavorite,
+        nation: nation,
+      });
+      res.send("Created successfully");
+    }
   } catch (err) {
     console.error(err);
   }

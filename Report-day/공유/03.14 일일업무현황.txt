@@ -1,0 +1,29 @@
+*일일업무보고
+
+<오전 보고(09:30)>
+1. 오늘 해야할 일
+
+   - 주말 작업 상황
+      - server 작업 -> mysql 연동
+         - mysql연동 -> CRUD(Atist and user)내용 삽입 및 조회 확인
+
+   - 금일 작업 상황
+      - server and client 동시실행을 위한 proxy 작업
+      - server User에 담을 client User 선언 client State를 통한 유동적 작업
+
+- 팀별 주요 할 일 리스트
+
+   - 전체적인 UI 기본 폼 셋팅하기
+   - mysql Axios 통하여 server and client 연동하여 정보소통
+   - ipfs 업로드 관련하여 작업 및 코딩 진행 
+   - solidity 관련 block 경매 및 내용 공유
+
+2. 업무 이슈
+   - server proxy 관련하여 충돌 -> middleware설치 proxy.js 따로 관리하여 문제해결
+
+- 회사 컨펌사항
+   - 오늘까지 전체적인 structure 작성 및 계획 컨펌 요청
+   - 앞으로의 역할분담 및 코딩의 계획성 컨펌 요청
+
+- Zoom콜 필요한 경우 요청
+   - 별도의 요청 없음

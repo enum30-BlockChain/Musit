@@ -1,0 +1,23 @@
+0314 오후 업무 보고
+
+1. 일일 업무 보고
+	
+   - 당일 완료한 업무
+      - server and client 동시실행을 위한 proxy 작업
+      - server User에 담을 client User 선언 client State를 통한 유동적 작업
+      - ipfs 업로드 or 다운로드기능
+   
+   - 당일 완료하지 못한 업무
+      - mysql에 client에대한 내용을 server를 통해 db저장 완료 못함
+      - ipfs 업로드 및 다운로드가능
+	
+   - 미완료 업무 사유
+      - ipfs 음원 → 하지만 용량크기로 인한 임의로 다운이안되는 error
+      - mysql -> client and server proxy 충돌로 인한 axios and server start error 해결중
+					
+   - 미완료 업무 해결 방안
+      - ipfs 음원 -> ipfs 내용 재숙지 및 코딩 작성
+      - mysql DB -> client and server colide delete and axios connection client recoding	
+
+2. 기타 보고 사항	
+   - 없음.
