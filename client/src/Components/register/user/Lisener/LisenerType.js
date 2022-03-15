@@ -1,9 +1,10 @@
 import React from "react";
 import "./LisenerType.css";
-const LisenerType = ({ id, name, setSelected }) => {
+const LisenerType = ({ id, name, setSelected, setOption }) => {
   const handleOnclick = (e) => {
     setSelected(e.target.value);
   };
+
   return (
     <div className="music-type-container">
       <div className="music-type-name">{name}</div>
