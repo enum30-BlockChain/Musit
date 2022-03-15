@@ -1,16 +1,46 @@
 import React, { useState } from "react";
 import "./ArtistType.css";
 import ArtisType from "./ArtisType";
+import axios from "axios";
 
 const Artist = () => {
-  const [Names, setName] = useState(["진영", "철순", "해민", "석훈"]);
-  const [select, setSelect] = useState("");
+  const [inputs, setInputs] = useState({ nickname: "" });
+  const [signinResult, setSigninResult] = useState({
+    type: "info",
+    text: `Please fill out the forms and press the SUBMIT.`,
+  });
+
+  const submitOnClick = async () => {
+    const url = "http://localhost:5000/users/signup";
+    const response = await axios.post(url, inputs);
+    // console.log(response.data);
+    if (response.data.includes("success")) {
+      setSigninResult({
+        type: "success",
+        text: `Account was created successfully!. Reload automatically in few seconds`,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } else if (response.data.includes("Existed")) {
+      setSigninResult({
+        type: "warning",
+        text: "This Email is already used.",
+      });
+    }
+  };
+
+  const onChange = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+    console.log(e.target.value);
+    console.log(inputs);
+  };
 
   return (
     <>
-      {Names.map((name, index) => (
-        <ArtisType id={index + 1} key={index} name={Names} />
-      ))}
+      <div>
+        <ArtisType onChange={onChange} submitOnClick={submitOnClick} />
+      </div>
       <div className="Artist-type-container">
         국가정보
         <select name="country">
