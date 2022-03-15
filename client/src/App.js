@@ -25,6 +25,7 @@ function App() {
     
     toast.classList.add("active")
     progress.classList.add("active")
+    console.log(progress);
     
     setTimeout(() => {
       toast.classList.remove("active");

@@ -88,6 +88,10 @@
 @keyframes progress {
   100%{
     right: 100%;
+    background-color: #e71010;
+  }
+  0%{
+    background-color: var(--point-color);
   }
 }
 
