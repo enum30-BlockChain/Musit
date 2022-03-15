@@ -9,6 +9,7 @@ import Metamask from "./Web3/Metamask";
 import MyPageLayout from "./Components/MyPage/Index";
 import MyArtist from "./Components/MyPage/MyRoom/MyArtist";
 import MyLisener from "./Components/MyPage/MyRoom/MyLisener";
+import Fileupload from "./Components/fileupload";
 
 function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
           <Route path="MyArtist" element={<MyArtist />}></Route>
           <Route path="MyLisener" element={<MyLisener />}></Route>
+          <Route path="fileupload" element={<Fileupload />}></Route>
         </Route>
       </Routes>
     </>
