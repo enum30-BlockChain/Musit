@@ -1,6 +1,6 @@
 import React from "react";
 
-const ArtisType = ({ onChange, submitOnClick }) => {
+const ArtisType = ({ onChange }) => {
   return (
     <>
       <div className="artist-name">
@@ -11,7 +11,6 @@ const ArtisType = ({ onChange, submitOnClick }) => {
           name="nickname"
           onChange={onChange}
         />
-        <button onClick={submitOnClick}>중복확인</button>
       </div>
     </>
   );
