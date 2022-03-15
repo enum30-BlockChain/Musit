@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { Users } = require("../models/index");
+const { User } = require("../models/index");
 
-/* GET Users listing. */
+/* GET User listing. */
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
@@ -10,7 +10,7 @@ router.get("/", function (req, res, next) {
 
 router.post("/signin", async (req, res, next) => {
   try {
-    const user = await Users.findAll({
+    const user = await User.findAll({
       where: {
         myfavorite: "가수:이루, 제목: 흰눈",
         nation: "대한민국",
@@ -25,17 +25,20 @@ router.post("/signin", async (req, res, next) => {
 router.post("/signup", async (req, res, next) => {
   try {
     console.log("signup을 server에 요청하였습니다.");
-    const user = await Users.findOne({
+    const user = await User.findOne({
       where: {
         address: req.body.address,
       },
     });
-    if (user) {
+    if (req.body.address == "") {
+      res.send("User address null");
+    } else if (user) {
       res.send("Already Existed");
     } else {
-      await Users.create({
+      await User.create({
+        nickname: req.body.nickname,
         address: req.body.address,
-        myfavorite: req.body.myfavorite,
+        genre: req.body.genre,
         nation: req.body.nation,
       });
       res.send("Created successfully");

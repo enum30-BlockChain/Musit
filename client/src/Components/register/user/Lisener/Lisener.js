@@ -5,12 +5,13 @@ import axios from "axios";
 import Metamask from "../../../../Web3/Metamask";
 
 const Lisener = () => {
-  const [myfavorite, setMyfavorite] = useState(["Pop", "k-pop", "Trot"]);
+  const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
   const [nation, setnNation] = useState([""]);
   const [user, setUser] = useState({});
   const [selected, setSelected] = useState("");
   const [option, setOption] = useState("");
   const [address, setAddress] = useState("");
+  const [nickname, setNickname] = useState("");
 
   useEffect(() => {
     const init = async () => {
@@ -21,12 +22,18 @@ const Lisener = () => {
     return () => {};
   }, []);
 
+  const onChangeNick = (e) => {
+    setNickname(e.target.value);
+    console.log(e.target.value);
+  };
+
   const handleOnclick = () => {
-    alert(myfavorite[selected] + "장르를 좋아합니다.");
+    alert(genre[selected] + "장르를 좋아합니다.");
     setUser({
       address: address,
-      myfavorite: myfavorite[selected],
+      genre: genre[selected],
       nation: option,
+      nickname: nickname,
     });
   };
   console.log(user);
@@ -42,7 +49,7 @@ const Lisener = () => {
         <div>좋아하는장르</div>
         <div className="MusicTypeName">장르명</div>
       </div>
-      {myfavorite.map((MusicType, index) => (
+      {genre.map((MusicType, index) => (
         <LisenerType
           id={index + 1}
           key={index}
@@ -58,6 +65,11 @@ const Lisener = () => {
           setOption={setOption}
         />
       ))}
+      <div>
+        <p>
+          닉네임<input type="text" onChange={onChangeNick}></input>
+        </p>
+      </div>
       <button onClick={handleOnclick}>확정</button>
       <button onClick={UserHandleOnClick}>회원가입</button>
     </div>

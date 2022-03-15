@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Users extends Model {
+  class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,21 +11,40 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Users.init(
+  User.init(
     {
-      address: DataTypes.STRING,
-      nation: DataTypes.STRING,
-      myfavorite: DataTypes.STRING,
-      action_right: DataTypes.TINYINT,
-      play_time: DataTypes.TIME,
-      play_count: DataTypes.INTEGER,
-      play_redo: DataTypes.STRING,
-      play_music: DataTypes.STRING,
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+      },
+      nickname: { type: DataTypes.STRING, allowNull: false, unique: true },
+      nation: { type: DataTypes.STRING, allowNull: false },
+      genre: { type: DataTypes.TINYINT, allowNull: true },
+      play_time: { type: DataTypes.TIME, allowNull: true },
+      play_count: { type: DataTypes.INTEGER, allowNull: true },
+      play_redo: { type: DataTypes.STRING, allowNull: true },
+      play_music: { type: DataTypes.STRING, allowNull: true },
     },
     {
       sequelize,
-      modelName: "Users",
+      timestamps: false,
+      modelName: "User",
+      tableName: "user",
+      charset: "utf8mb4",
+      collate: "utf8mb4_general_ci",
     }
   );
-  return Users;
+  return User;
 };
+/*
+  `address` varchar(42) NOT NULL,
+  `nickname` varchar(45) NOT NULL,
+  `nation` varchar(45) NOT NULL,
+  `genre` varchar(45) DEFAULT NULL,
+  `play_time` time NOT NULL DEFAULT '00:00:00',
+  `play_count` int NOT NULL,
+  `play_redo` varchar(45) NOT NULL,
+  `play_music` varchar(45) NOT NULL,
+  PRIMARY KEY (`address`)
+   */
