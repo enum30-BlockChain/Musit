@@ -1,6 +1,6 @@
 import React from "react";
 import "./LisenerType.css";
-const LisenerType = ({ id, name, setSelected, setOption }) => {
+const LisenerType = ({ id, name, setSelected }) => {
   const handleOnclick = (e) => {
     setSelected(e.target.value);
   };
