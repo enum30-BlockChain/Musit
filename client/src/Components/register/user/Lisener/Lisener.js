@@ -2,28 +2,44 @@ import React, { useEffect, useState } from "react";
 import LisenerType from "./LisenerType";
 import CountryType from "./CountryType";
 import axios from "axios";
+import Metamask from "../../../../Web3/Metamask";
 
 const Lisener = () => {
-  const [myfavorite, setMyfavorite] = useState(["Pop", "k-pop", "Trot"]);
+  const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
   const [nation, setnNation] = useState([""]);
-  const [User, setUser] = useState([]);
+  const [user, setUser] = useState({});
   const [selected, setSelected] = useState("");
-  const [Option, setOption] = useState("");
+  const [option, setOption] = useState("");
+  const [address, setAddress] = useState("");
+  const [nickname, setNickname] = useState("");
 
-  // useEffect(() => {
-  //   console.log(User);
-  // }, [User]);
+  useEffect(() => {
+    const init = async () => {
+      const accounts = await Metamask.getAccounts();
+      setAddress(accounts[0]);
+    };
+    init();
+    return () => {};
+  }, []);
 
-  const handleOnclick = async () => {
-    alert(myfavorite[selected] + "장르를 좋아합니다.");
-    setUser((User) => [
-      ...User,
-      "장르 : " + myfavorite[selected],
-      "국가 : " + Option,
-    ]);
-    console.log(User);
+  const onChangeNick = (e) => {
+    setNickname(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleOnclick = () => {
+    alert(genre[selected] + "장르를 좋아합니다.");
+    setUser({
+      address: address,
+      genre: genre[selected],
+      nation: option,
+      nickname: nickname,
+    });
+  };
+  console.log(user);
+  const UserHandleOnClick = async () => {
     const url = "http://localhost:5000/users/signup";
-    const response = await axios.post(url, User);
+    const response = await axios.post(url, user);
     console.log(response.data);
   };
 
@@ -33,7 +49,7 @@ const Lisener = () => {
         <div>좋아하는장르</div>
         <div className="MusicTypeName">장르명</div>
       </div>
-      {myfavorite.map((MusicType, index) => (
+      {genre.map((MusicType, index) => (
         <LisenerType
           id={index + 1}
           key={index}
@@ -49,7 +65,13 @@ const Lisener = () => {
           setOption={setOption}
         />
       ))}
-      <button onClick={handleOnclick}>회원가입</button>
+      <div>
+        <p>
+          닉네임<input type="text" onChange={onChangeNick}></input>
+        </p>
+      </div>
+      <button onClick={handleOnclick}>확정</button>
+      <button onClick={UserHandleOnClick}>회원가입</button>
     </div>
   );
 };
