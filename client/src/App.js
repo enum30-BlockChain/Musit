@@ -10,14 +10,40 @@ import MyPageLayout from "./Components/MyPage/Index";
 import MyArtist from "./Components/MyPage/MyRoom/MyArtist";
 import MyLisener from "./Components/MyPage/MyRoom/MyLisener";
 import Fileupload from "./Components/fileupload";
+import Toast from "./Components/toast/Toast";
+import Button from "./Components/styledComponents/button";
 
 function App() {
   useEffect(() => {
     Metamask.enableEthereum();
   }, []);
 
+  const showToastOnClick = () => {
+    const toast = document.querySelector(".toast-container");
+    const progress = document.querySelector(".progress");
+    const closeIcon = document.querySelector(".close");
+    
+    toast.classList.add("active")
+    progress.classList.add("active")
+    
+    setTimeout(() => {
+      toast.classList.remove("active");
+    }, 5000)
+
+    setTimeout(() => {
+      progress.classList.remove("active");
+    }, 5300)
+
+    closeIcon.addEventListener("click", () => {
+      toast.classList.remove("active");
+    });
+  }
+
+
   return (
     <>
+    <Toast/>
+    <Button onClick={showToastOnClick}>Show Toast</Button>
       <Routes>
         <Route path="/">
           <Route index element={<MainLayout />}></Route>
