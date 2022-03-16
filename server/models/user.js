@@ -21,10 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       nickname: { type: DataTypes.STRING, allowNull: false, unique: true },
       nation: { type: DataTypes.STRING, allowNull: false },
       genre: { type: DataTypes.TINYINT, allowNull: true },
-      play_time: { type: DataTypes.TIME, allowNull: true },
-      play_count: { type: DataTypes.INTEGER, allowNull: true },
-      play_redo: { type: DataTypes.STRING, allowNull: true },
-      play_music: { type: DataTypes.STRING, allowNull: true },
+      recent_played: { type: DataTypes.STRING, allowNull: true },
     },
     {
       sequelize,
