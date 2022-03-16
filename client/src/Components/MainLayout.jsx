@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 import Metamask from "../web3/metamask";
 import axios from "axios";
-=======
 import Navbar from "./navBar/Navbar.jsx";
 import Footer from "./footer/Footer.jsx";
->>>>>>> fac8408e8471a46dbdd4cd42aa96f63335c23581
 
 export { default as Register } from "./register/Register";
 export { default as MyPageLayout } from "./myPage/MyPage";
