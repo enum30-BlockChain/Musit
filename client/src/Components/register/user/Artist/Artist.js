@@ -56,8 +56,8 @@ const Artist = () => {
       nation: option,
       nickname: inputs,
     });
-    console.log(inputs);
   };
+  console.log(inputs);
 
   return (
     <>
