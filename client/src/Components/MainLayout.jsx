@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Navbar from "./navBar/Navbar.jsx";
 
 export { default as Register } from "./register/Register";
 export { default as MyPageLayout } from "./myPage/MyPage";

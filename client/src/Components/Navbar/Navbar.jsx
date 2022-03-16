@@ -7,7 +7,7 @@ function Navbar() {
     /* <img class="logo"> */
   }
 
-  <div>navbar 로고랑 들어갈꺼야 </div>;
+  <div>navbar 랑 로고 들어갈꺼야 </div>;
   // <button class="loginButton">login</button>;
 }
 
