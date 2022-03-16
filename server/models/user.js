@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: { name: "user_address", allowNull: false },
         targetKey: "address",
       });
+      User.hasMany(models.ArtistLike, {
+        foreignKey: { name: "user_address", allowNull: false },
+        targetKey: "address",
+      });
     }
   }
   User.init(
