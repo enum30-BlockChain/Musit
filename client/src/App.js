@@ -23,7 +23,7 @@ function App() {
           <Route index element={<MainLayout />}></Route>
           <Route path="legister" element={<Legister />}></Route>
           <Route path="Lisener" element={<Lisener />}></Route>
-          <Route path="Artist" element={<Artist />}></Route>
+        <Route path="Artist" element={<Artist />}></Route>
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
           <Route path="MyArtist" element={<MyArtist />}></Route>
           <Route path="MyLisener" element={<MyLisener />}></Route>
