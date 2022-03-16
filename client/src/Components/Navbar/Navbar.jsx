@@ -1,14 +1,7 @@
 import React from "react";
 
 function Navbar() {
-  return;
-
-  {
-    /* <img class="logo"> */
-  }
-
-  <div>navbar 랑 로고 들어갈꺼야 </div>;
-  // <button class="loginButton">login</button>;
+  return <div>Navbar 는 이곳에 </div>;
 }
 
 export default Navbar;
