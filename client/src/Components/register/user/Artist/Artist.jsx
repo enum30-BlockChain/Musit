@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./ArtistType.css";
 import ArtisType from "./ArtisType";
 import axios from "axios";
-import Metamask from "../../../../Web3/Metamask";
+import Metamask from "../../../../web3/metamask";
 import CountryType from "./CountryType";
 
 const Artist = () => {

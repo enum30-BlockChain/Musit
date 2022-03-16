@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const { create } = require("ipfs-http-client");
 
 
-export const Fileupload = () => {
+export const FileUpload = () => {
     const [upLoadText, setUpLoadText] = useState("")
     const [ipfsHash, setipfsHash] = useState("")
     const [Hash, setHash] = useState("")
@@ -159,4 +159,4 @@ export const Fileupload = () => {
   );
 };
 
-export default Fileupload;
+export default FileUpload;
