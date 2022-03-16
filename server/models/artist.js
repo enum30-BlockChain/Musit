@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class artist extends Model {
+  class Artist extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,10 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  artist.init(
+  Artist.init(
     {
-      nickname: DataTypes.STRING,
-      auction_right: DataTypes.TINYINT,
+      artist_name: { type: DataTypes.STRING, primaryKey: true },
+      user_address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      likes: { type: DataTypes.INTEGER, allowNull: true },
+      nation: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,
@@ -25,5 +30,5 @@ module.exports = (sequelize, DataTypes) => {
       collate: "utf8mb4_general_ci",
     }
   );
-  return artist;
+  return Artist;
 };

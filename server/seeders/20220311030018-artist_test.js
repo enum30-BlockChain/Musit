@@ -6,12 +6,14 @@ module.exports = {
 
     for (let i = 1; i < 10; i++) {
       let art = {
-        nickname: "오늘은 번째",
-        auction_right: "true",
+        artist_name: "내이름이야",
+        user_address: "123281378213",
+        likes: "13213",
+        nation: "대한민국",
       };
       artistList = [...artistList, art];
     }
-    await queryInterface.bulkInsert("artists", artistList, {});
+    await queryInterface.bulkInsert("artist", artistList, {});
   },
 
   async down(queryInterface, Sequelize) {

@@ -11,10 +11,6 @@ const Artist = () => {
   const [nation, setnNation] = useState([""]);
   const [option, setOption] = useState("");
   const [address, setAddress] = useState("");
-  const [signinResult, setSigninResult] = useState({
-    type: "info",
-    text: `Please fill out the forms and press the SUBMIT.`,
-  });
 
   useEffect(() => {
     const init = async () => {
@@ -26,23 +22,9 @@ const Artist = () => {
   }, []);
 
   const submitOnClick = async () => {
-    const url = "http://localhost:5000/users/signup";
+    const url = "http://localhost:5000/artists/signup";
     const response = await axios.post(url, inputs);
-    // console.log(response.data);
-    if (response.data.includes("success")) {
-      setSigninResult({
-        type: "success",
-        text: `Account was created successfully!. Reload automatically in few seconds`,
-      });
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    } else if (response.data.includes("Existed")) {
-      setSigninResult({
-        type: "warning",
-        text: "This Email is already used.",
-      });
-    }
+    console.log(response.data);
   };
 
   const onChange = (e) => {
