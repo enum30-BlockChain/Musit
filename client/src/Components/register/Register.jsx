@@ -1,13 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export { default as Lisener } from "./user/Lisener";
-export { default as Artist } from "./user/Artist";
-
-const Legister = () => {
+const Register = () => {
   return (
     <div>
-      <Link to="/Lisener">
+      <Link to="/Listener">
         <button>청취자 가입</button>
       </Link>
       <Link to="/Artist">
@@ -17,4 +14,4 @@ const Legister = () => {
   );
 };
 
-export default Legister;
+export default Register;
