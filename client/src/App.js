@@ -47,7 +47,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<MainLayout />}></Route>
-          <Route path="legister" element={<Register />}></Route>
+          <Route path="Register" element={<Register />}></Route>
           <Route path="Listener" element={<Listener />}></Route>
           <Route path="Artist" element={<Artist />}></Route>
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
