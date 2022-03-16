@@ -22,29 +22,28 @@ function App() {
     const toast = document.querySelector(".toast-container");
     const progress = document.querySelector(".progress");
     const closeIcon = document.querySelector(".close");
-    
-    toast.classList.add("active")
-    progress.classList.add("active")
+
+    toast.classList.add("active");
+    progress.classList.add("active");
     console.log(progress);
-    
+
     setTimeout(() => {
       toast.classList.remove("active");
-    }, 5000)
+    }, 5000);
 
     setTimeout(() => {
       progress.classList.remove("active");
-    }, 5300)
+    }, 5300);
 
     closeIcon.addEventListener("click", () => {
       toast.classList.remove("active");
     });
-  }
-
+  };
 
   return (
     <>
-    <Toast/>
-    <Button onClick={showToastOnClick}>Show Toast</Button>
+      <Toast />
+      <Button onClick={showToastOnClick}>Show Toast</Button>
       <Routes>
         <Route path="/">
           <Route index element={<MainLayout />}></Route>

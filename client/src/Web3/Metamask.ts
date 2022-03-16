@@ -29,7 +29,7 @@ export default class Metamask {
               currentChainId = chainId;
               console.log(`Current Network: ${currentChainId}`);
             });
-          
+
           this.handlingChanges();
         }
         // legacy web3
@@ -76,9 +76,11 @@ export default class Metamask {
       try {
         if (window.ethereum) {
           const provider = window.ethereum;
-          provider.request({method: "eth_chainId"}).then((chainId: string) => {
-            resolve(chainId);
-          })
+          provider
+            .request({ method: "eth_chainId" })
+            .then((chainId: string) => {
+              resolve(chainId);
+            });
         }
       } catch (error) {
         reject(error);
@@ -95,6 +97,5 @@ export default class Metamask {
         console.log(`Network is changed to ${chainId}`);
       });
     }
-  }
+  };
 }
-
