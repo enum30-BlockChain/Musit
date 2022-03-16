@@ -7,17 +7,17 @@ router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 /* POST sign-in, check DB. */
-
-router.post("/signin", async (req, res, next) => {
+router.post("/find", async (req, res, next) => {
   try {
     const user = await User.findAll({
       where: {
-        myfavorite: "가수:이루, 제목: 흰눈",
-        nation: "대한민국",
+        nickname: req.body.nickname,
+        nation: req.body.nation,
+        address: req.body.address,
       },
     });
-    res.send(user);
     console.log(user);
+    res.send(user);
   } catch (err) {
     console.error(err);
   }
