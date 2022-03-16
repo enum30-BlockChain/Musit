@@ -1,6 +1,6 @@
 import { WaveGroup } from "./wavegroup.js";
 
-class App {
+class WaveBackground {
   constructor() {
     this.canvas = document.createElement("canvas");
     this.ctx = this.canvas.getContext("2d");
@@ -36,8 +36,8 @@ class App {
   }
 }
 
-// 윈도우 로드가 되면 앱을 생성해주기
-window.onload = () => {
-  const test = new App();
-  console.log(test);
-};
+// // 윈도우 로드가 되면 앱을 생성해주기
+// window.onload = () => {
+//   const test = new App();
+//   console.log(test);
+// };
