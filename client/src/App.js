@@ -11,7 +11,7 @@ import MyArtist from "./Components/MyPage/MyRoom/MyArtist";
 import MyLisener from "./Components/MyPage/MyRoom/MyLisener";
 import Fileupload from "./Components/fileupload";
 import Toast from "./Components/toast/Toast";
-import Button from "./Components/styledComponents/button";
+import Button from "./Components/styledComponents/Button.styled";
 
 function App() {
   useEffect(() => {
