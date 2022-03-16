@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import LisenerType from "./LisenerType";
+import ListenerType from "./ListenerType";
 import CountryType from "./CountryType";
 import axios from "axios";
-import Metamask from "../../../../Web3/Metamask";
+import Metamask from "../../../../web3/metamask";
 
-const Lisener = () => {
+const Listener = () => {
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
   const [nation, setnNation] = useState([""]);
   const [user, setUser] = useState({});
@@ -50,7 +50,7 @@ const Lisener = () => {
         <div className="MusicTypeName">장르명</div>
       </div>
       {genre.map((MusicType, index) => (
-        <LisenerType
+        <ListenerType
           id={index + 1}
           key={index}
           name={MusicType}
@@ -76,4 +76,4 @@ const Lisener = () => {
   );
 };
 
-export default Lisener;
+export default Listener;
