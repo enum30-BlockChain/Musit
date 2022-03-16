@@ -25,6 +25,8 @@ router.post("/signin", async (req, res, next) => {
 router.post("/signup", async (req, res, next) => {
   try {
     console.log("signup을 server에 요청하였습니다.");
+    console.log(User);
+    console.log(req.body);
     const user = await User.findOne({
       where: {
         address: req.body.address,

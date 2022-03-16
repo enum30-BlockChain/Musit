@@ -43,7 +43,6 @@ router.post("/signup", async (req, res, next) => {
       await Artist.create({
         artist_name: req.body.nickname,
         user_address: req.body.address,
-        nation: req.body.nation,
       });
       res.send("Created successfully");
     }

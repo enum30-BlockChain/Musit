@@ -4,7 +4,6 @@ import "./ArtistType.css";
 import ArtisType from "./ArtisType";
 import axios from "axios";
 import Metamask from "../../../../web3/metamask";
-import CountryType from "./CountryType";
 
 const Artist = () => {
   const [inputs, setInputs] = useState("");
@@ -35,7 +34,6 @@ const Artist = () => {
   const handleOnclick = () => {
     setInputs({
       address: address,
-      nation: option,
       nickname: inputs,
     });
   };
@@ -47,14 +45,6 @@ const Artist = () => {
         <ArtisType onChange={onChange} />
       </div>
       <div className="Artist-type-container">
-        {nation.map((nation, index) => (
-          <CountryType
-            id={index + 1}
-            key={index}
-            name={nation}
-            setOption={setOption}
-          />
-        ))}
         <button onClick={handleOnclick}>확정</button>
         <button onClick={submitOnClick}>회원가입</button>
       </div>

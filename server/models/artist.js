@@ -9,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Artist.belongsTo(models.User, {
+        foreignKey: { name: "user_address", allowNull: false },
+        allowNull: false,
+        sourceKey: "address",
+      });
     }
   }
   Artist.init(
     {
       artist_name: { type: DataTypes.STRING, primaryKey: true },
-      user_address: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       likes: { type: DataTypes.INTEGER, allowNull: true },
-      nation: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,
