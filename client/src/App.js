@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "./components/MainLayout.jsx";
-import Legister from "./components/register/Register.jsx";
+import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
 import Metamask from "./web3/metamask.ts";
@@ -48,7 +48,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<MainLayout />}></Route>
-          <Route path="legister" element={<Legister />}></Route>
+          <Route path="Register" element={<Register />}></Route>
           <Route path="Listener" element={<Listener />}></Route>
           <Route path="Artist" element={<Artist />}></Route>
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
