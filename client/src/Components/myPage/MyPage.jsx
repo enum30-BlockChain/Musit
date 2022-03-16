@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MyPageLayout = () => {
+const MyPage = () => {
   return (
     <>
-      <Link to="/MyLisener">
+      <Link to="/MyListener">
         <button>청취자 페이지</button>
       </Link>
       <Link to="/MyArtist">
@@ -14,4 +14,4 @@ const MyPageLayout = () => {
   );
 };
 
-export default MyPageLayout;
+export default MyPage;

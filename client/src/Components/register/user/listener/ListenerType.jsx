@@ -1,6 +1,6 @@
 import React from "react";
-import "./LisenerType.css";
-const LisenerType = ({ id, name, setSelected, setOption }) => {
+import "./ListenerType.css";
+const ListenerType = ({ id, name, setSelected }) => {
   const handleOnclick = (e) => {
     setSelected(e.target.value);
   };
@@ -20,4 +20,4 @@ const LisenerType = ({ id, name, setSelected, setOption }) => {
   );
 };
 
-export default LisenerType;
+export default ListenerType;

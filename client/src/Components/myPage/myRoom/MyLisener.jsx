@@ -1,6 +1,6 @@
 import React from "react";
 
-const MyLisener = () => {
+const MyListener = () => {
   return (
     <>
       <div>이용권 정보 조회</div>
@@ -13,4 +13,4 @@ const MyLisener = () => {
   );
 };
 
-export default MyLisener;
+export default MyListener;

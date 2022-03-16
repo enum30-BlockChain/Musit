@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export { default as Legister } from "../Components/register/index";
-export { default as MyPageLayout } from "../Components/MyPage/Index";
+export { default as Legister } from "./register/Register";
+export { default as MyPageLayout } from "./myPage/MyPage";
 
 export const MainLayout = () => {
   return (
