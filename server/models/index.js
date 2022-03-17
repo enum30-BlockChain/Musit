@@ -12,7 +12,7 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize(
+  sequelize = new Sequelize(  //sequelize connect
     config.database,
     config.username,
     config.password,
@@ -30,7 +30,7 @@ fs.readdirSync(__dirname)
     const model = require(path.join(__dirname, file))(
       sequelize,
       Sequelize.DataTypes
-    );
+      );
     db[model.name] = model;
   });
 

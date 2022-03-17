@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: { name: "artist_name", allowNull: false },
         sourceKey: "artist_name",
       });
-      
       Music.hasMany(models.MusicLike, {
         foreignKey: { name: "ipfs_hash", allowNull: false },
         sourceKey: "ipfs_hash",
@@ -23,9 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       title: { type: DataTypes.STRING, allowNull: false },
-      play_time: { type: DataTypes.TIME, allowNull: false },
+      play_time: { type: DataTypes.INTEGER, allowNull: false },
       play_count: { type: DataTypes.INTEGER, allowNull: false },
       like: { type: DataTypes.INTEGER, allowNull: false },
+      img_file: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,
