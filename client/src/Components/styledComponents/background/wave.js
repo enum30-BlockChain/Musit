@@ -62,5 +62,3 @@ export class Wave {
     ctx.closePath();
   }
 }
-
-//retena display component

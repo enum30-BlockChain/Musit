@@ -8,6 +8,8 @@ const cors = require("cors");
 //각 모델 라우터
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const filesRouter = require("./routes/files/files.js");
+
 const artistsRouter = require("./routes/artists");
 const models = require("./models/index");
 
@@ -22,6 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //라우터 실행
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/files", filesRouter);
 app.use("/artists", artistsRouter);
 
 //mysql table 생성해줌

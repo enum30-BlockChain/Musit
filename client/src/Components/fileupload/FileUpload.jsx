@@ -8,8 +8,8 @@ export const FileUpload = () => {
     const [ipfsHash, setipfsHash] = useState("")
     const [Hash, setHash] = useState("")
     const [getText, setgetText] = useState("")
-    const [getText1, setgetText1] = useState("")
-    const [bufferArray,setbufferArray] = useState([])
+    const [getText1, setgetText1] = useState([])
+    const [bufferArray,setbufferArray] = useState("https://ipfs.io/ipfs/")
     async function ipfsClient() {   //서버오픈
         const ipfs = await create(
             {
@@ -40,12 +40,15 @@ export const FileUpload = () => {
     async function getData1() {
         let ipfs = await ipfsClient();
         let asyncitr = ipfs.cat(Hash)
-    
+        let box =[]
         for await (const itr of asyncitr) {
             let data = itr
-            setgetText1(data)
-            console.log(data)
+            box.push(data)
         }
+        setgetText1(box)
+        console.log(box)
+        // setbufferArray(`https://ipfs.io/ipfs/${Hash}`)
+        // console.log(bufferArray)
     }
 
     //파일 미리볼 url을 저장해줄 state
@@ -71,7 +74,7 @@ export const FileUpload = () => {
   const content = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 5, 0, 0, 0, 5, 8, 6, 0, 0, 0, 141, 111, 38, 229, 0, 0, 0, 28, 73, 68, 65, 84, 8, 215, 99, 248, 255, 255, 63, 195, 127, 6, 32, 5, 195, 32, 18, 132, 208, 49, 241, 130, 88, 205, 4, 0, 14, 245, 53, 203, 209, 142, 14, 31, 0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
   
   const see = URL.createObjectURL(
-    new Blob([getText1.buffer], { type:  'audio/mp3'  } )
+    new Blob(getText1, { type:  'audio/mp3'  } )
   );
 
   
@@ -90,10 +93,10 @@ export const FileUpload = () => {
     <p> </p>
     <h1>{getText1}</h1>
     
-    {/* <img   src='https://ipfs.io/ipfs/QmdcTfJskTCktdfdL7JKCUHNngjG8ntoSuwpp9Bw6gjJ4E' /> */}
-    {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
+    {/* <img   src="https://ipfs.io/ipfs/Qmf4MtHdYo87H2fmwGPq6ktGTy67VTpw81XnAKCpP65hBC" />
+    <audio src={bufferArray} autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
 
-    <audio src={see} autoplay loop controls>오디오 지원되지 않는 브라우저</audio>
+    <audio src={see}autoplay loop controls>오디오 지원되지 않는 브라우저</audio>
     <img id="my-img" src= {see } /> 
     <h1>이미지 미리보기</h1>
       <table>
