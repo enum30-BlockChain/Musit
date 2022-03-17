@@ -7,8 +7,8 @@ import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
 import Metamask from "./web3/metamask.ts";
 import MyPageLayout from "./components/myPage/MyPage.jsx";
-import MyArtist from "./components/myPage/myRoom/MyArtist.jsx";
-import MyListener from "./components/myPage/myRoom/MyListener.jsx";
+import MyArtist from "./components/myPage/myRoom/artistroom/MyArtist";
+import MyListener from "./components/myPage/myRoom/userRoom/MyListener";
 import Fileupload from "./components/fileupload/FileUpload.jsx";
 import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 // import Toast from "./components/toast/Toast.jsx";
@@ -56,7 +56,9 @@ function App() {
           <Route path="MyArtist" element={<MyArtist />}></Route>
           <Route path="MyListener" element={<MyListener />}></Route>
           <Route path="fileupload" element={<Fileupload />}></Route>
-          <Route path="imgupload" element={<ImgUpload />}> </Route>
+          <Route path="imgupload" element={<ImgUpload />}>
+            {" "}
+          </Route>
           <Route path="Footer" element={<Footer />}></Route>
         </Route>
       </Routes>

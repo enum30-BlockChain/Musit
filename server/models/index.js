@@ -1,5 +1,5 @@
 "use strict";
-
+//모듈 설치 실행
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -8,6 +8,7 @@ const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
 const db = {};
 
+//sequlize실행시 조건문(.env)
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
@@ -20,6 +21,7 @@ if (config.use_env_variable) {
   );
 }
 
+//각 모델들을 Model 객체 안에 넣은것들을 반복문 넣어주는건가
 fs.readdirSync(__dirname)
   .filter((file) => {
     return (

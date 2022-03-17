@@ -50,4 +50,20 @@ router.post("/signup", async (req, res, next) => {
     console.error(err);
   }
 });
+
+router.post("/likeList", async (req, res, next) => {
+  console.log(req.body.address);
+  try {
+    const findname = await Artist.findOne({
+      where: {
+        user_address: req.body.address,
+      },
+    });
+
+    res.send(findname);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;
