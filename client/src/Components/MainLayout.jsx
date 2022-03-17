@@ -9,6 +9,9 @@ export { default as Register } from "./register/Register";
 export { default as MyPageLayout } from "./myPage/MyPage";
 
 export const MainLayout = () => {
+  const [address, setAddress] = useState("");
+  const [nickname, setNickname] = useState("");
+
   useEffect(() => {
     const init = async () => {
       const accounts = await Metamask.getAccounts();
@@ -17,9 +20,6 @@ export const MainLayout = () => {
     init();
     return () => {};
   }, []);
-
-  const [address, setAddress] = useState("");
-  const [nickname, setNickname] = useState("");
 
   const LoginOnClick = async () => {
     const url = "http://localhost:5000/users/signin";
