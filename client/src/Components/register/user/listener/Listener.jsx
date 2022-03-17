@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ListenerType from "./ListenerType";
 import CountryType from "./CountryType";
 import axios from "axios";
-import Metamask from "../../../../web3/Metamask";
+import Metamask from "../../../../web3/metamask";
 
 const Listener = () => {
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);

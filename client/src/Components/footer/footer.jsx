@@ -1,6 +1,6 @@
 import React from "react";
 
-const footer = () => {
+const Footer = () => {
   return (
     <div>
       <p>footer는 이곳에</p>
@@ -8,4 +8,4 @@ const footer = () => {
   );
 };
 
-export default footer;
+export default Footer;

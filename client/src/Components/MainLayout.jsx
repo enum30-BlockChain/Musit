@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Metamask from "../web3/metamask";
 import axios from "axios";
-import Navbar from "./navBar/Navbar.jsx";
+import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer.jsx";
 
 export { default as Register } from "./register/Register";
