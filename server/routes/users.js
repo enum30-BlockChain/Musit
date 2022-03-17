@@ -8,7 +8,7 @@ router.get("/", function (req, res, next) {
 });
 /* POST sign-in, check DB. */
 router.post("/signin", async (req, res, next) => {
-  console.log(req.body);
+  console.log(req.body.address);
   try {
     const findname = await User.findOne({
       where: {
