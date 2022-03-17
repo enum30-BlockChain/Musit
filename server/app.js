@@ -7,6 +7,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const filesRouter = require("./routes/files/files.js");
 
+const artistsRouter = require("./routes/artists");
 const models = require("./models/index");
 const cors = require("cors");
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/files", filesRouter);
+app.use("/artists", artistsRouter);
 
 models.sequelize
   .sync()
