@@ -19,19 +19,11 @@ export const MainLayout = () => {
   }, []);
 
   const [address, setAddress] = useState("");
-  const [login, setLogin] = useState("");
   const [nickname, setNickname] = useState("");
-
-  const CheckOnClick = () => {
-    setLogin({
-      address: address,
-    });
-    console.log(address);
-  };
 
   const LoginOnClick = async () => {
     const url = "http://localhost:5000/users/signin";
-    const response = await axios.post(url, login);
+    const response = await axios.post(url, { address });
     // console.log(response.data);
     console.log(response.data.nickname);
     setNickname({
@@ -48,10 +40,7 @@ export const MainLayout = () => {
         <button>MyPage</button>
       </Link>
       <div>
-        <p>
-          내지갑 주소는 : {address}
-          <button onClick={CheckOnClick}>주소확인</button>
-        </p>
+        <p>내지갑 주소는 : {address}</p>
         <div>
           <div>내 닉네임 :{nickname.nickname}</div>
           <button onClick={LoginOnClick}>내정보확인</button>
