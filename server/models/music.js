@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-const db = require(".");
+
 module.exports = (sequelize, DataTypes) => {
   class Music extends Model {
     static associate(models) {
@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: { name: "artist_name", allowNull: false },
         sourceKey: "artist_name",
       });
+      
       Music.hasMany(models.MusicLike, {
         foreignKey: { name: "ipfs_hash", allowNull: false },
         sourceKey: "ipfs_hash",

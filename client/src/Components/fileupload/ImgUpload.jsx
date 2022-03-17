@@ -6,11 +6,15 @@ function ImgUpload() {
 
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [audiofile, setaudiofile] = useState("");
+  const [duration, setDuration] = useState("")
+  const [currentTime, setCurrentTime] = useState("")
   const [DBdata, setDBdata] = useState({
     cover_img_link : '',
     music_link : '',
     music_title : '',
+    music_duration : '',
     artist_name : '',
+
     });
 
   const formData = new FormData();  //server로 img파일 보내기위해 사용
@@ -53,27 +57,49 @@ function ImgUpload() {
   };
 
   const submit = async() => {
+    DBdata.music_duration = duration;
     await postImg();
     await postAudio();
     console.log(DBdata);
     await axios
-      .post("http://localhost:5000/files/create",DBdata)
-      .then(res => DBdata.cover_img_link = res.data.downLoadLink)
-      .catch(err => alert(err));
+      .post("http://localhost:5000/files/create", DBdata)
+      .then((res) => {
+        DBdata.cover_img_link = res.data.downLoadLink;
+        console.log('db보내기성공')
+      })
+      .catch((err) => alert(err));
   }
 
   return (
     <>
       <p>albumCoverImg</p>
       <input name="imgUpload" type="file" accept="image/*" onChange={getImg} />
+      {/* <img src={"https://musit-album-cover.s3.ap-northeast-2.amazonaws.com/20220317163212_pngwing.com.png"}></img> */}
       <p>music</p>
       <input type="file" accept="audio/*" onChange={getAudio} />
+      {audiofile && (
+        <audio
+          src={URL.createObjectURL(audiofile)}
+          onLoadedData={(e) => {
+            setDuration(e.currentTarget.duration);
+            // console.log(e.currentTarget.duration);
+          }}
+          onTimeUpdate= {(e) =>{
+            // console.log(e.currentTarget.currentTime)
+          }}
+          autoplay
+          loop
+          controls
+        >
+          오디오 지원되지 않는 브라우저
+        </audio>
+      )}
       <p>title</p>
       <input onChange={getTitle} />
       <p>artist</p>
       <input onChange={getArtist} />
       {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
-      <p/>
+      <p />
       <button onClick={submit}> submit </button>
     </>
   );

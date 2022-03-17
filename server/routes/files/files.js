@@ -11,6 +11,7 @@ files.post("/imgupload", (req, res, next) => {
     } else if (err) {
       return next(err);
     }
+    console.log(req.file)
     // console.log("원본파일명 : " + req.file.originalname);
     // console.log("저장파일명 : " + req.file.filename);
     // console.log("크기 : " + req.file.size);
