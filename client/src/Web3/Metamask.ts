@@ -160,16 +160,20 @@ export default class Metamask {
 		const provider = window.ethereum;
 		if (provider) {
 			provider.on("accountsChanged", (accounts: string[]) => {
-				const message: string 
-          = `📗Selected account is changed.\n(Address: ${shortAddress(accounts[0])})`;;
-				console.log(message);
-				return new Response({ address: accounts[0] }, message);
+				if(accounts.length > 0) {
+					const message: string 
+						= `📗Selected account is changed.\n(Address: ${shortAddress(accounts[0])})`;;
+					console.log(message);
+					return new Response({ address: accounts[0] }, message);
+				}
 			});
 			provider.on("chainChanged", (chainId: string) => {
-				const network = chainIdToNetworkName(chainId);
-				const message: string = `🌏Network is changed.\n(New network: ${network})`;
-				console.log(message);
-				return new Response({ network }, message);
+				if (chainId) {
+					const network = chainIdToNetworkName(chainId);
+					const message: string = `🌏Network is changed.\n(New network: ${network})`;
+					console.log(message);
+					return new Response({ network }, message);
+				}
 			});
 			const message: string = "🌈Listening on wallet status.";
 			console.log(message);
