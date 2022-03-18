@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./ArtistType.css";
 import ArtisType from "./ArtisType";
 import axios from "axios";
-import Metamask from "../../../../web3/metamask";
+import Metamask from "../../../../web3/Metamask";
 import CountryType from "./CountryType";
 
 const Artist = () => {
@@ -18,7 +18,7 @@ const Artist = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
+      const accounts = await Metamask.getAccounts().data;
       setAddress(accounts[0]);
     };
     init();
