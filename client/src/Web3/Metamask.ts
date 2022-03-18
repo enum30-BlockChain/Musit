@@ -82,6 +82,7 @@ export default class Metamask {
 				});
 				const message: string
           = `🦊Metamask is enabled.\n(Address: ${shortAddress(accounts[0])})`;
+        console.log(message);
 				return new Response(accounts, message);
 			} catch (error: any) {
 				const message: string = "🤬 " + error.message;
@@ -155,7 +156,7 @@ export default class Metamask {
 		}
 	};
 
-	static handlingChanges = async (): Promise<ResponseType<object>> => {
+	static walletListener = async (): Promise<ResponseType<object>> => {
 		const provider = window.ethereum;
 		if (provider) {
 			provider.on("accountsChanged", (accounts: string[]) => {
