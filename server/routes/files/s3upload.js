@@ -1,7 +1,7 @@
-const AWS =  require ("aws-sdk"); //s3연결 페키지
-const multer = require('multer');
-const moment = require('moment');
-const multerS3 = require('multer-s3');
+const AWS =  require ("aws-sdk");   //s3연결 페키지
+const multer = require('multer');   //client로부터 formdata가져올수있음
+const moment = require('moment');   //시간 표시 module
+const multerS3 = require('multer-s3');  //s3올리는 module
 require("dotenv").config();
 
 const s3 = new AWS.S3({ //s3.Connect
