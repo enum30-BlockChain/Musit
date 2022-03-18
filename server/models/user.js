@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       genre: { type: DataTypes.STRING, allowNull: false },
       recent_played: { type: DataTypes.STRING, allowNull: true },
       subscription: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.TINYINT,
         allowNull: true,
         defaultValue: false,
       },

@@ -14,7 +14,6 @@ const LikeList = () => {
     init();
     return () => {};
   }, []);
-  console.log(address);
 
   const LoginOnClick = async () => {
     const url = "http://localhost:5000/artists/likeList";
@@ -22,7 +21,6 @@ const LikeList = () => {
     console.log(response.data);
     setAtistList({ atistList: response.data.artist_name });
   };
-  console.log(atistList);
   return (
     <div>
       <button onClick={LoginOnClick}>LikeList</button>

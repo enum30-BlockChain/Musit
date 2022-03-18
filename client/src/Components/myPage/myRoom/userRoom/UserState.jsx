@@ -23,9 +23,9 @@ const UserState = () => {
     setSubscription({
       subscription: response.data.subscription,
     });
-    if (subscription.subscription === false) {
+    if (!subscription.subscription) {
       setSubscriptiontext("나는 이용권이 없어요");
-    } else if (subscription.subscription === true) {
+    } else {
       setSubscriptiontext("이용권이 있어요");
     }
   };
@@ -38,7 +38,6 @@ const UserState = () => {
       subscription: response.data.subscription,
     });
   };
-
   return (
     <div>
       <div>나의 주소는 : {address}</div>
