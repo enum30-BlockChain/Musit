@@ -14,9 +14,8 @@ export const MainLayout = () => {
 
   useEffect(() => {
     const init = async () => {
-      const response = await Metamask.getAccounts();
-      const accounts = response.data;
-      setAddress(accounts[0]);
+      const metamaskResponse = await Metamask.getAccounts();
+      setAddress(metamaskResponse.data[0]);
     };
     init();
     return () => {};
@@ -31,7 +30,7 @@ export const MainLayout = () => {
       nickname: response.data.nickname,
     });
   };
-  console.log(nickname);
+  
   return (
     <>
       <Navbar />

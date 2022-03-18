@@ -18,7 +18,7 @@ import Footer from "./components/footer/Footer.jsx";
 function App() {
   useEffect(() => {
     const init = async () => {
-      await Metamask.enableEthereum()
+      await Metamask.connectWallet()
       await Metamask.handlingChanges()
     }
     init();
@@ -31,7 +31,6 @@ function App() {
 
     toast.classList.add("active");
     progress.classList.add("active");
-    console.log(progress);
 
     setTimeout(() => {
       toast.classList.remove("active");

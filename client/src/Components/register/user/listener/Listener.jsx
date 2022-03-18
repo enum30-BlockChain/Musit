@@ -15,9 +15,8 @@ const Listener = () => {
 
   useEffect(() => {
     const init = async () => {
-      const response = await Metamask.getAccounts();
-      const accounts = response.data;
-      setAddress(accounts[0]);
+      const metamaskResponse = await Metamask.getAccounts();
+      setAddress(metamaskResponse.data[0]);
     };
     init();
     return () => {};
