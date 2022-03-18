@@ -30,7 +30,7 @@ files.post("/create", async (req, res, next) => {
       where: { ipfs_hash: data.music_link },
     });
     if (!artist_name) {
-      //중복되지않으면 crate
+      //아티스트가있으면 crate
       await Music.create({
         ipfs_hash: data.music_link,
         title: data.music_title,
@@ -45,7 +45,8 @@ files.post("/create", async (req, res, next) => {
       res.send({ result: 1, message: "이미등록된 음원입니다." });
     }
   } catch (err) {
-    res.send({ result: 2, message: err });
+    console.log(err)
+    res.send({ result: 2, message: '에러*_* 다시해주셈'});
   }
 });
 

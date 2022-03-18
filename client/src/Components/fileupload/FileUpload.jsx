@@ -7,6 +7,7 @@ function FileUpload() {
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [audiofile, setaudiofile] = useState("");
   const [duration, setDuration] = useState("")
+  const [musicTitle, setMusicTitle] = useState("")
   const [currentTime, setCurrentTime] = useState("")    //TODO : 나중에 스트리밍할때쓸려고나둠
   const [DBdata, setDBdata] = useState({
     cover_img_link : '',
@@ -14,7 +15,6 @@ function FileUpload() {
     music_title : '',
     music_duration : '',
     artist_name : '',
-
     });
 
   const formData = new FormData();  //server로 img파일 보내기위해 사용
@@ -35,7 +35,7 @@ function FileUpload() {
     setaudiofile(e.target.files[0]);
   };
   const getTitle = (e) => {
-    DBdata.music_title =  e.target.value;
+    setMusicTitle (e.target.value);
   };
   const getArtist = (e) => {
     DBdata.artist_name = e.target.value;
@@ -55,36 +55,45 @@ function FileUpload() {
     let result = await ipfs.add(audiofile)
      DBdata.music_link = result.path;
   };
-  const submit = async() => {
-    DBdata.music_duration = duration;
-    await postImg();
-    await postAudio();
-    console.log(DBdata);
-    //TODO : 아티스트 이름은 useEffect로 처음에 불러와서 보낼꺼니깐있는거어서 상관 x
-    //TODO : 지금은 안불러와서 있는 아티스트 이름넣어줘야 db저장가능
-    
-    await axios
-      .post("http://localhost:5000/files/create", DBdata)
-      .then((res) => {
-        if ((res.data.result= 0)) {
-          alert(res.data.message);
-        } else if ((res.data.result = 1)) {
-          alert(res.data.message);
-        }else if ((res.data.result = 2)) {
-          alert(res.data.message);
-      }})
-      .catch((err) => alert(err));
-      //실행후 초기화
-      setAlbumCoverImgFile("")
-      setaudiofile("")
-      setDBdata({
-        cover_img_link : '',
-        music_link : '',
-        music_title : '',
-        music_duration : '',
-        artist_name : '',
-        })
+
+  const isValidDBdata = () => {
+    if(albumCoverImgFile===""){
+      alert('앨범파일 넣어주세요')
+      return false
+    }else if(audiofile===""){
+      alert('오디오파일 넣어주세요')
+      return false
+    }else if(musicTitle===""){
+      alert('노래제목을 넣어주세요')
+      return false
+    }
+    return true
   }
+  const submit = async () => {
+    if (isValidDBdata()) {
+      await postImg();
+      await postAudio();
+      DBdata.music_duration = duration;
+      DBdata.music_title = musicTitle;
+      //TODO : 아티스트 이름은 useEffect로 처음에 불러와서 보낼꺼니깐있는거어서 상관 x
+      //TODO : 지금은 안불러와서 있는 아티스트 이름넣어줘야 db저장가능
+      await axios
+        .post("http://localhost:5000/files/create", DBdata)
+        .then((res) => {
+          if ((res.data.result = 0)) {
+            alert(res.data.message);
+            document.location.href = "/";
+          } else if ((res.data.result = 1)) {
+            alert(res.data.message);
+            document.location.href = "/fileupload";
+          } else if ((res.data.result = 2)) {
+            alert(res.data.message);
+            document.location.href = "/fileupload";
+          }
+        })
+        .catch((err) => alert(err));
+    }
+  };
 
   return (
     <>
@@ -112,7 +121,7 @@ function FileUpload() {
         </audio>
       )}
       <p>title</p>
-      <input onChange={getTitle} />
+      <input onChange={getTitle} value={musicTitle}/>
       <p>artist</p>
       <input onChange={getArtist} />
       {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
