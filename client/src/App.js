@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     const init = async () => {
       await Metamask.connectWallet()
-      await Metamask.handlingChanges()
+      await Metamask.walletListener()
     }
     init();
   }, []);
