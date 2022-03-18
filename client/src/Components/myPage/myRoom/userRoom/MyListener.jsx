@@ -14,7 +14,9 @@ const MyListener = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
+      const responseMetamask = await Metamask.getAccounts();
+      const accounts = responseMetamask.data;
+      console.log(responseMetamask.message);
       setAddress(accounts[0]);
       const url = "http://localhost:5000/users/signin";
       const response = await axios.post(url, { address });

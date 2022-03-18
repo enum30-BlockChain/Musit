@@ -15,7 +15,8 @@ const Listener = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts().data;
+      const response = await Metamask.getAccounts();
+      const accounts = response.data;
       setAddress(accounts[0]);
     };
     init();
@@ -36,7 +37,7 @@ const Listener = () => {
       nickname: nickname,
     });
   };
-  console.log(user);
+  
   const UserHandleOnClick = async () => {
     const url = "http://localhost:5000/users/signup";
     const response = await axios.post(url, user);

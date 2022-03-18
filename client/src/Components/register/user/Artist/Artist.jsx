@@ -13,7 +13,8 @@ const Artist = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts().data;
+      const response = await Metamask.getAccounts();
+      const accounts = response.data;
       setAddress(accounts[0]);
     };
     init();
@@ -37,7 +38,7 @@ const Artist = () => {
       nickname: inputs,
     });
   };
-  console.log(inputs);
+
 
   return (
     <>

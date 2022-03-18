@@ -14,7 +14,8 @@ export const MainLayout = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
+      const response = await Metamask.getAccounts();
+      const accounts = response.data;
       setAddress(accounts[0]);
     };
     init();

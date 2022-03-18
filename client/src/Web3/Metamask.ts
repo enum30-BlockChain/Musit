@@ -55,7 +55,7 @@ const chainIdToNetworkName = (chainId: string): string => {
 
 class Metamask {
   // 연결된 지갑 디앱 실행하기
-  static enableEthereum = async (): Promise<ResponseType<string>> => {
+  static enableEthereum = async (): Promise<ResponseType<string[]>> => {
     const provider = window.ethereum;
     let accountList: string[];
     if (provider) {
@@ -65,20 +65,20 @@ class Metamask {
         });
         const message: string = `Metamask🦊 is enabled and connected with ${accountList[0]}`;
 
-        return new Response(accountList[0], message);
+        return new Response(accountList, message);
       } catch (error: any) {
         const message = "😥 " + error.message;
-        return new Response("", message);
+        return new Response([""], message);
       }
     } else {
       const message: string =
         "You must install Metamask🦊, a virtual Ethereum wallet, in your browser.";
-      return new Response("", message);
+      return new Response([""], message);
     }
   };
 
   // 연결된 지갑 주소 배열 불러오기
-  static getAccounts = async (): Promise<ResponseType<string>> => {
+  static getAccounts = async (): Promise<ResponseType<string[]>> => {
     const provider = window.ethereum;
     let accountList: string[];
     if (provider) {
@@ -87,19 +87,19 @@ class Metamask {
           method: "eth_accounts",
         });
         if (accountList.length > 0) {
-          const message = "Metamask🦊 is connected. Returns connected account.";
-          return new Response(accountList[0], message);
+          const message = "Metamask🦊 is connected.";
+          return new Response(accountList, message);
         } else {
           const message = "Metamask🦊 is not connected.";
-          return new Response("", message);
+          return new Response([""], message);
         }
       } catch (error: any) {
-        return new Response("", error.message);
+        return new Response([""], error.message);
       }
     } else {
       const message =
         "You must install Metamask🦊, a virtual Ethereum wallet, in your browser.";
-      return new Response("", message);
+      return new Response([""], message);
     }
   };
 
