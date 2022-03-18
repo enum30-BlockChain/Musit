@@ -1,7 +1,10 @@
 import "./App.css";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+//pages
 import MainLayout from "./components/MainLayout.jsx";
+// import Songs from "./components/songs/Songs.jsx";
+//
 import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
@@ -46,6 +49,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<MainLayout />}></Route>
+          {/* <Route path="Songs" element={<Songs />}></Route> */}
           <Route path="Register" element={<Register />}></Route>
           <Route path="Listener" element={<Listener />}></Route>
           <Route path="Artist" element={<Artist />}></Route>
