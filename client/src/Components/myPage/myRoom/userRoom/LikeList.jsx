@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const LikeList = ({ address }) => {
   const [atistList, setAtistList] = useState("");
-
-  console.log(address);
 
   const LoginOnClick = async () => {
     const url = "http://localhost:5000/artists/likeList";
