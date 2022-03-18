@@ -50,4 +50,14 @@ router.post("/signup", async (req, res, next) => {
     console.error(err);
   }
 });
+
+router.get("/artistList", async (req, res, next) => {
+  try {
+    const findname = await Artist.findAll();
+    res.send(findname);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;

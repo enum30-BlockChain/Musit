@@ -3,6 +3,7 @@ import classes from "./Navbar.scss";
 import { BiMenuAltRight } from "react-icons/bi";
 // import { AiOutlineClose } from "react-icons/ai";
 
+<<<<<<< HEAD
 const Navbar = () => {
   return (
     <header className={classes.header}>
@@ -28,5 +29,10 @@ const Navbar = () => {
     </header>
   );
 };
+=======
+function Navbar() {
+  return <div>Navbar 는 이곳에 </div>;
+}
+>>>>>>> main
 
 export default Navbar;

@@ -1,13 +1,8 @@
 "use strict";
 const { Model } = require("sequelize");
-const db = require(".");
+
 module.exports = (sequelize, DataTypes) => {
   class Music extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       Music.belongsTo(models.Artist, {
         foreignKey: { name: "artist_name", allowNull: false },
@@ -27,9 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       title: { type: DataTypes.STRING, allowNull: false },
-      play_time: { type: DataTypes.TIME, allowNull: false },
+      play_time: { type: DataTypes.INTEGER, allowNull: false },
       play_count: { type: DataTypes.INTEGER, allowNull: false },
       like: { type: DataTypes.INTEGER, allowNull: false },
+      img_file: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,

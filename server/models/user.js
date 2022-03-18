@@ -32,8 +32,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       nickname: { type: DataTypes.STRING, allowNull: false, unique: true },
       nation: { type: DataTypes.STRING, allowNull: false },
-      genre: { type: DataTypes.TINYINT, allowNull: true },
+      genre: { type: DataTypes.STRING, allowNull: false },
       recent_played: { type: DataTypes.STRING, allowNull: true },
+      subscription: {
+        type: DataTypes.TINYINT,
+        allowNull: true,
+        defaultValue: false,
+      },
     },
     {
       sequelize,
