@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Metamask from "../../../../web3/metamask";
-import UserList from "./UserList";
-import UserState from "./UserState";
+import UserList from "./page/UserList";
+import UserState from "./page/UserState";
 import axios from "axios";
+import RecentPlayed from "./page/RecentPlayed";
 
 const MyListener = () => {
   const [address, setAddress] = useState("");
@@ -29,7 +30,7 @@ const MyListener = () => {
       />
       <div>총 재생시간</div>
       <div>청취 곡수</div>
-      <div>Recently played</div>
+      <RecentPlayed />
       <div>나의 재생목록</div>
       <UserList address={address} />
     </>

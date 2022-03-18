@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import ArtistCard from "./ArtistCard";
-import SongCard from "./SongCard";
+import ArtistCard from "../card/ArtistCard";
+import SongCard from "../card/SongCard";
 
 const UserList = ({ address }) => {
   const [artistList, setAtistList] = useState([]);
