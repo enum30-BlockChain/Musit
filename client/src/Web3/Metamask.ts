@@ -1,3 +1,6 @@
+/**
+ * Interface declaration
+ */
 interface Window {
   ethereum: any;
   web3: any;
@@ -10,24 +13,21 @@ interface ResponseType<T> {
 
 declare let window: Window;
 
-class Response <T>{
-  public data: T;
-  public message: string;
-
-  constructor(data: T, message: string) {
-    this.data = data;
-    this.message = message;
-  }
-}
+/**
+ * Enum declaration
+ */
 
 enum ChainId {
-  MAIN,
+  MAIN = 1,
   ROPSTEN = 3,
   RINKEBY,
   GOERLI,
   KOVAN = 42,
 }
 
+/**
+ * Function declaration
+ */
 const chainIdToNetworkName = (chainId: string): string => {
   let network: string;
   switch (parseInt(chainId, 16)) {
@@ -47,15 +47,29 @@ const chainIdToNetworkName = (chainId: string): string => {
       network = "Kovan_Test_Network";
       break;
     default:
-      network = "";
+      network = "Unknown";
       break;
   }
   return network;
 }
 
-class Metamask {
+
+/**
+ * Class declaration
+ */
+class Response <T>{
+  public data: T;
+  public message: string;
+
+  constructor(data: T, message: string) {
+    this.data = data;
+    this.message = message;
+  }
+}
+
+export default class Metamask {
   // 연결된 지갑 디앱 실행하기
-  static enableEthereum = async (): Promise<ResponseType<string[]>> => {
+  static connectWallet = async (): Promise<ResponseType<string[]>> => {
     const provider = window.ethereum;
     let accountList: string[];
     if (provider) {
@@ -63,16 +77,16 @@ class Metamask {
         accountList = await provider.request({
           method: "eth_requestAccounts",
         });
-        const message: string = `Metamask🦊 is enabled and connected with ${accountList[0]}`;
+        const message: string = `🦊Metamask is enabled.\n(Address: ${accountList[0].slice(0,5)}...${accountList[0].slice(-3)})`;
 
         return new Response(accountList, message);
       } catch (error: any) {
-        const message = "😥 " + error.message;
+        const message = "🤬 " + error.message;
         return new Response([""], message);
       }
     } else {
       const message: string =
-        "You must install Metamask🦊, a virtual Ethereum wallet, in your browser.";
+        "🤬You must install Metamask.";
       return new Response([""], message);
     }
   };
@@ -87,10 +101,10 @@ class Metamask {
           method: "eth_accounts",
         });
         if (accountList.length > 0) {
-          const message = "Metamask🦊 is connected.";
+          const message = `🦊Metamask is connected.\n(Address: ${accountList[0].slice(0,5)}...${accountList[0].slice(-3)})`;
           return new Response(accountList, message);
         } else {
-          const message = "Metamask🦊 is not connected.";
+          const message = "🤬Metamask is not connected.";
           return new Response([""], message);
         }
       } catch (error: any) {
@@ -98,13 +112,13 @@ class Metamask {
       }
     } else {
       const message =
-        "You must install Metamask🦊, a virtual Ethereum wallet, in your browser.";
+        "🤬You must install Metamask.";
       return new Response([""], message);
     }
   };
 
   // 연결된 네트워크 아이디 불러오기
-  static getChainId = async (): Promise<ResponseType<string>> => {
+  static getNetwork = async (): Promise<ResponseType<string>> => {
     const provider = window.ethereum;
     let network: string;
     if (provider) {
@@ -114,9 +128,9 @@ class Metamask {
         });
         network = chainIdToNetworkName(chainId);
         const failMsg =
-          "Cannot find network! Metamask🦊 might be not connected.";
+          "😓Cannot find network!\nMetamask might be not connected.";
         const successMsg = `${network} is connected`;
-        return network == ""
+        return network === "unknown" || ""
           ? new Response(network, failMsg)
           : new Response(network, successMsg);
       } catch (error: any) {
@@ -124,7 +138,7 @@ class Metamask {
       }
     } else {
       const message =
-        "You must install Metamask🦊, a virtual Ethereum wallet, in your browser.";
+        "🤬You must install Metamask.";
       return new Response("", message);
     }
   };
@@ -132,25 +146,24 @@ class Metamask {
   static handlingChanges = async (): Promise<ResponseType<object>> => {
     const provider = window.ethereum;
     if (provider) {
-      provider.on("accountsChanged", (accounts: string[]) => {
-        const message = `Selected account is changed to ${accounts[0]}`;
+      provider.on("accountsChanged", (accountList: string[]) => {
+        const message = `📗Selected account is changed.\n(New address: ${accountList[0].slice(0,5)}...${accountList[0].slice(-3)})`;
         console.log(message);
-        return new Response({address: accounts[0]}, message);
+        return new Response({address: accountList[0]}, message);
       });
       provider.on("chainChanged", (chainId: string) => {
-        const message = `Network is changed to ${chainId}`;
-        console.log(message);
         const network = chainIdToNetworkName(chainId);
+        const message = `🌏Network is changed.\n(New network: ${network})`;
+        console.log(message);
         return new Response({network}, message);
       });
-      const message = "Listening to changes of account/network."
+      const message = "🌈Listening on wallet status."
+      console.log(message);
       return new Response({}, message);
     } else {
       const message =
-        "You must install Metamask🦊, a virtual Ethereum wallet, in your browser.";
+        "🤬You must install Metamask.";
       return new Response({}, message);
     }
   };
 }
-
-export default Metamask;
