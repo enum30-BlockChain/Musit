@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./ArtistType.css";
 import ArtisType from "./ArtisType";
 import axios from "axios";
-import Metamask from "../../../../web3/metamask";
+import Metamask from "../../../../web3/Metamask";
 
 const Artist = () => {
   const [inputs, setInputs] = useState("");
@@ -13,7 +13,8 @@ const Artist = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
+      const response = await Metamask.getAccounts();
+      const accounts = response.data;
       setAddress(accounts[0]);
     };
     init();
@@ -37,7 +38,7 @@ const Artist = () => {
       nickname: inputs,
     });
   };
-  console.log(inputs);
+
 
   return (
     <>

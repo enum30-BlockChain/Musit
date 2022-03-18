@@ -5,7 +5,7 @@ import MainLayout from "./components/MainLayout.jsx";
 import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
-import Metamask from "./web3/metamask.ts";
+import Metamask from "./web3/Metamask";
 import MyPageLayout from "./components/myPage/MyPage.jsx";
 import MyArtist from "./components/myPage/myRoom/artistroom/MyArtist";
 import MyListener from "./components/myPage/myRoom/userRoom/MyListener";
@@ -17,7 +17,11 @@ import Footer from "./components/footer/Footer.jsx";
 
 function App() {
   useEffect(() => {
-    Metamask.enableEthereum();
+    const init = async () => {
+      await Metamask.enableEthereum()
+      await Metamask.handlingChanges()
+    }
+    init();
   }, []);
 
   const showToastOnClick = () => {

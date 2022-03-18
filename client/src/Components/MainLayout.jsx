@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Metamask from "../web3/metamask";
+import Metamask from "../web3/Metamask";
 import axios from "axios";
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer.jsx";
@@ -14,7 +14,8 @@ export const MainLayout = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
+      const response = await Metamask.getAccounts();
+      const accounts = response.data;
       setAddress(accounts[0]);
     };
     init();

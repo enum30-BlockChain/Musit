@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Metamask from "../../../../web3/metamask";
+import Metamask from "../../../../web3/Metamask";
 import UserList from "./page/UserList";
 import UserState from "./page/UserState";
 import axios from "axios";
@@ -14,7 +14,9 @@ const MyListener = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
+      const responseMetamask = await Metamask.getAccounts();
+      const accounts = responseMetamask.data;
+      console.log(responseMetamask.message);
       setAddress(accounts[0]);
       const url = "http://localhost:5000/users/signin";
       const response = await axios.post(url, { address });
