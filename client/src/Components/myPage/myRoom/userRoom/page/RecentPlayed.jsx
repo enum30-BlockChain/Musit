@@ -11,6 +11,7 @@ const RecentPlayed = () => {
   return (
     <>
       <div>
+        <li>최근재생항목</li>
         {recent.map((remusic, index) => (
           <RecentCard id={index} key={index} name={remusic} />
         ))}

@@ -22,7 +22,6 @@ const UserState = ({ address, response, setResponse }) => {
   };
   return (
     <div>
-      <div>나의 주소는 : {address}</div>
       <div>
         <button onClick={BuyOnclick}>이용권 구매하기</button>
       </div>

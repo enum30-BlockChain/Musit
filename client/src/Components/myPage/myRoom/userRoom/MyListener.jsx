@@ -4,6 +4,9 @@ import UserList from "./page/UserList";
 import UserState from "./page/UserState";
 import axios from "axios";
 import RecentPlayed from "./page/RecentPlayed";
+import MyPlayed from "./page/MyPlayed";
+import ListenCount from "./page/ListenCount";
+import TotalTime from "./page/TotalTime";
 
 const MyListener = () => {
   const [address, setAddress] = useState("");
@@ -23,15 +26,16 @@ const MyListener = () => {
 
   return (
     <>
+      <div>나의 주소는 : {address}</div>
       <UserState
         address={address}
         response={response}
         setResponse={setResponse}
       />
-      <div>총 재생시간</div>
-      <div>청취 곡수</div>
+      <TotalTime />
+      <ListenCount />
       <RecentPlayed />
-      <div>나의 재생목록</div>
+      <MyPlayed />
       <UserList address={address} />
     </>
   );
