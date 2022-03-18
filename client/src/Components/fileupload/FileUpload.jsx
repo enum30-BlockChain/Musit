@@ -100,7 +100,7 @@ function FileUpload() {
       <p>albumCoverImg</p>
       <input name="imgUpload" type="file" accept="image/*" onChange={getImg} />
       {albumCoverImgFile && (
-      <img src={URL.createObjectURL(albumCoverImgFile)}></img>)}
+      <img src={URL.createObjectURL(albumCoverImgFile)} style={{width:"200px"}}></img>)}
       <p>music</p>
       <input type="file" accept="audio/*" onChange={getAudio} />
       {audiofile && (

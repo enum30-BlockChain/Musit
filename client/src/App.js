@@ -10,7 +10,7 @@ import MyPageLayout from "./components/myPage/MyPage.jsx";
 import MyArtist from "./components/myPage/myRoom/artistroom/MyArtist";
 import MyListener from "./components/myPage/myRoom/userRoom/MyListener";
 import Fileupload from "./components/fileupload/FileUpload.jsx";
-import ImgUpload from "./components/fileupload/ImgUpload.jsx";
+import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
 // import Toast from "./components/toast/Toast.jsx";
 // import Button from "./components/styledComponents/Button.styled.jsx";
 import Footer from "./components/footer/Footer.jsx";
@@ -56,9 +56,7 @@ function App() {
           <Route path="MyArtist" element={<MyArtist />}></Route>
           <Route path="MyListener" element={<MyListener />}></Route>
           <Route path="fileupload" element={<Fileupload />}></Route>
-          <Route path="imgupload" element={<ImgUpload />}>
-            {" "}
-          </Route>
+          <Route path="MusicSearch" element={<MusicSearch />}></Route>
           <Route path="Footer" element={<Footer />}></Route>
         </Route>
       </Routes>
