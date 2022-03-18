@@ -82,13 +82,13 @@ function FileUpload() {
         .then((res) => {
           if ((res.data.result = 0)) {
             alert(res.data.message);
-            document.location.href = "/";
+            window.location.href = "/musicsearch";
           } else if ((res.data.result = 1)) {
             alert(res.data.message);
-            document.location.href = "/fileupload";
+            window.location.href = "/fileupload";
           } else if ((res.data.result = 2)) {
             alert(res.data.message);
-            document.location.href = "/fileupload";
+            window.location.href = "/fileupload";
           }
         })
         .catch((err) => alert(err));

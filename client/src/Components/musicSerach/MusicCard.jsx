@@ -4,27 +4,24 @@ import React ,{useState,createContext,useEffect} from 'react'
 export const MusicCardContext = createContext();
 
  function MusicCard(props) {
-    console.log(props.audio)
   return (
     <>
-      <table>
-        <thead>
-          <th>타이틀</th>
-          <th>작곡가</th>
-          <th>img</th>
-          <th>auido</th>
-        </thead>
-        <tbody>
-          <tb>{props.title}</tb>
-          <tb>{props.artistName}</tb>
-          <tb>
-            <img src={props.img} style={{width:"200px"}} />
-          </tb>
-          <tb>
+      <tbody>
+        <tr>
+          <td>{props.id}</td>
+          <td>{props.title}</td>
+          <td>{props.artistName}</td>
+          <td>
+            <img src={props.img} style={{ width: "100px" }} />
+          </td>
+          <td>
             <audio src={props.audio} controls />
-          </tb>
-        </tbody>
-      </table>
+          </td>
+          <td>{props.count}</td>
+          <td>{props.like}</td>
+          <td><button> 수정 </button> </td>
+        </tr>
+      </tbody>
     </>
   );
 }
