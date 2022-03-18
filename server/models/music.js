@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-const db = require(".");
+
 module.exports = (sequelize, DataTypes) => {
   class Music extends Model {
     static associate(models) {
@@ -22,9 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       title: { type: DataTypes.STRING, allowNull: false },
-      play_time: { type: DataTypes.TIME, allowNull: false },
+      play_time: { type: DataTypes.INTEGER, allowNull: false },
       play_count: { type: DataTypes.INTEGER, allowNull: false },
       like: { type: DataTypes.INTEGER, allowNull: false },
+      img_file: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,
