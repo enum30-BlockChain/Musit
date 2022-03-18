@@ -7,11 +7,13 @@ import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
 import Metamask from "./web3/Metamask.ts";
 import MyPageLayout from "./components/myPage/MyPage.jsx";
-import MyArtist from "./components/myPage/myRoom/MyArtist.jsx";
-import MyListener from "./components/myPage/myRoom/MyListener.jsx";
+import MyArtist from "./components/myPage/myRoom/artistroom/MyArtist";
+import MyListener from "./components/myPage/myRoom/userRoom/MyListener";
 import Fileupload from "./components/fileupload/FileUpload.jsx";
-import Toast from "./components/toast/Toast.jsx";
-import Button from "./components/styledComponents/Button.styled.jsx";
+import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
+// import Toast from "./components/toast/Toast.jsx";
+// import Button from "./components/styledComponents/Button.styled.jsx";
+import Footer from "./components/footer/Footer.jsx";
 
 function App() {
   useEffect(() => {
@@ -23,29 +25,28 @@ function App() {
     const toast = document.querySelector(".toast-container");
     const progress = document.querySelector(".progress");
     const closeIcon = document.querySelector(".close");
-    
-    toast.classList.add("active")
-    progress.classList.add("active")
+
+    toast.classList.add("active");
+    progress.classList.add("active");
     console.log(progress);
-    
+
     setTimeout(() => {
       toast.classList.remove("active");
-    }, 5000)
+    }, 5000);
 
     setTimeout(() => {
       progress.classList.remove("active");
-    }, 5300)
+    }, 5300);
 
     closeIcon.addEventListener("click", () => {
       toast.classList.remove("active");
     });
-  }
-
+  };
 
   return (
     <>
-    <Toast/>
-    <Button onClick={showToastOnClick}>Show Toast</Button>
+      {/* <Toast />
+      <Button onClick={showToastOnClick}>Show Toast</Button> */}
       <Routes>
         <Route path="/">
           <Route index element={<MainLayout />}></Route>
@@ -56,6 +57,8 @@ function App() {
           <Route path="MyArtist" element={<MyArtist />}></Route>
           <Route path="MyListener" element={<MyListener />}></Route>
           <Route path="fileupload" element={<Fileupload />}></Route>
+          <Route path="MusicSearch" element={<MusicSearch />}></Route>
+          <Route path="Footer" element={<Footer />}></Route>
         </Route>
       </Routes>
     </>
