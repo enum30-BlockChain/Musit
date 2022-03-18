@@ -7,7 +7,6 @@ const UserState = ({ address, response, setResponse }) => {
   );
 
   useEffect(() => {
-    console.log(response.subscription);
     if (!response.subscription) {
       setSubscriptiontext("");
     } else {

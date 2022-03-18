@@ -51,15 +51,9 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-router.post("/likeList", async (req, res, next) => {
-  console.log(req.body.address);
+router.get("/artistList", async (req, res, next) => {
   try {
-    const findname = await Artist.findOne({
-      where: {
-        user_address: req.body.address,
-      },
-    });
-
+    const findname = await Artist.findAll();
     res.send(findname);
   } catch (err) {
     console.error(err);

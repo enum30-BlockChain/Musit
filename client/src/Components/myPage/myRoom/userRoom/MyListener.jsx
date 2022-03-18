@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Metamask from "../../../../web3/metamask";
-import LikeList from "./LikeList";
+import UserList from "./UserList";
 import UserState from "./UserState";
 import axios from "axios";
 
@@ -31,7 +31,7 @@ const MyListener = () => {
       <div>청취 곡수</div>
       <div>Recently played</div>
       <div>나의 재생목록</div>
-      <LikeList address={address} />
+      <UserList address={address} />
     </>
   );
 };
