@@ -1,16 +1,42 @@
-import React from "react";
-import LikeList from "./LikeList";
-import UserState from "./UserState";
+import React, { useEffect, useState } from "react";
+import Metamask from "../../../../web3/metamask";
+import UserList from "./page/UserList";
+import UserState from "./page/UserState";
+import axios from "axios";
+import RecentPlayed from "./page/RecentPlayed";
+import MyPlayed from "./page/MyPlayed";
+import ListenCount from "./page/ListenCount";
+import TotalTime from "./page/TotalTime";
 
 const MyListener = () => {
+  const [address, setAddress] = useState("");
+  const [response, setResponse] = useState("");
+
+  useEffect(() => {
+    const init = async () => {
+      const accounts = await Metamask.getAccounts();
+      setAddress(accounts[0]);
+      const url = "http://localhost:5000/users/signin";
+      const response = await axios.post(url, { address });
+      setResponse(response.data);
+    };
+    init();
+    return () => {};
+  }, [address]);
+
   return (
     <>
-      <UserState />
-      <div>총 재생시간</div>
-      <div>청취 곡수</div>
-      <div>Recently played</div>
-      <div>나의 재생목록</div>
-      <LikeList />
+      <div>나의 주소는 : {address}</div>
+      <UserState
+        address={address}
+        response={response}
+        setResponse={setResponse}
+      />
+      <TotalTime />
+      <ListenCount />
+      <RecentPlayed />
+      <MyPlayed />
+      <UserList address={address} />
     </>
   );
 };

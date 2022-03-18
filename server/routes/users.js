@@ -6,7 +6,7 @@ const { User } = require("../models/index");
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
-/* POST sign-in, check DB. */
+/* Nickname client mainLayout response data send. */
 router.post("/signin", async (req, res, next) => {
   console.log(req.body.address);
   try {

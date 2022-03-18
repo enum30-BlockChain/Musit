@@ -30,6 +30,7 @@ export const MainLayout = () => {
       nickname: response.data.nickname,
     });
   };
+  console.log(nickname);
   return (
     <>
       <Navbar />
