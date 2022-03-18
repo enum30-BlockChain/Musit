@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Metamask from "../../../../web3/metamask";
+import React, { useState } from "react";
 import axios from "axios";
 
-const UserState = () => {
-  const [address, setAddress] = useState("");
+const UserState = ({ address }) => {
   const [subscription, setSubscription] = useState("");
   const [subscriptiontext, setSubscriptiontext] = useState("");
-
-  useEffect(() => {
-    const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
-    };
-    init();
-    return () => {};
-  }, []);
 
   const CheckOnClick = async () => {
     const url = "http://localhost:5000/users/signin";

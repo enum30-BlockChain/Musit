@@ -1,19 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Metamask from "../../../../web3/metamask";
+import React, { useState } from "react";
 import axios from "axios";
 
-const LikeList = () => {
-  const [address, setAddress] = useState("");
+const LikeList = ({ address }) => {
   const [atistList, setAtistList] = useState("");
 
-  useEffect(() => {
-    const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
-    };
-    init();
-    return () => {};
-  }, []);
+  console.log(address);
 
   const LoginOnClick = async () => {
     const url = "http://localhost:5000/artists/likeList";
