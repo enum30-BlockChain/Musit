@@ -1,11 +1,13 @@
 import React from "react";
-
-const Footer = () => {
+import "./Footer.scss";
+function Footer() {
   return (
-    <div>
-      <p>footer는 이곳에</p>
+    <div className="footer">
+      <div className="contents">
+        <h2 className="title">This is Footer</h2>
+      </div>
     </div>
   );
-};
+}
 
 export default Footer;

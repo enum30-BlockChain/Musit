@@ -50,4 +50,14 @@ files.post("/create", async (req, res, next) => {
   }
 });
 
+files.get("/", async (req, res, next) => {
+  try {
+    const songList = await Music.findAll();
+    res.send(songList)
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+});
+
 module.exports = files;
