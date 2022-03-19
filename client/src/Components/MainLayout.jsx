@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Metamask from "../web3/metamask";
+import Metamask from "../web3/Metamask";
 import axios from "axios";
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer.jsx";
+import Button from "./styledComponents/Button.styled"
 
 export { default as Register } from "./register/Register";
 export { default as MyPageLayout } from "./myPage/MyPage";
@@ -14,8 +15,8 @@ export const MainLayout = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
+      const metamaskResponse = await Metamask.getAccounts();
+      setAddress(metamaskResponse.data[0]);
     };
     init();
     return () => {};
@@ -30,7 +31,12 @@ export const MainLayout = () => {
       nickname: response.data.nickname,
     });
   };
-  console.log(nickname);
+
+  const connectOnClick = async () => {
+    const { data } = await Metamask.connectWallet();
+    setAddress(data[0])
+  }
+  
   return (
     <>
       <Navbar />
@@ -41,7 +47,7 @@ export const MainLayout = () => {
         <button>MyPage</button>
       </Link>
       <div>
-        <p>내지갑 주소는 : {address}</p>
+        {address ? <p>내지갑 주소는 : {address}</p> : <Button onClick={connectOnClick}>Connect</Button>}
         <div>
           <div>내 닉네임 :{nickname.nickname}</div>
           <button onClick={LoginOnClick}>내정보확인</button>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ListenerType from "./ListenerType";
 import CountryType from "./CountryType";
 import axios from "axios";
-import Metamask from "../../../../web3/metamask";
+import Metamask from "../../../../web3/Metamask";
 
 const Listener = () => {
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
@@ -15,8 +15,8 @@ const Listener = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
+      const metamaskResponse = await Metamask.getAccounts();
+      setAddress(metamaskResponse.data[0]);
     };
     init();
     return () => {};
@@ -36,7 +36,7 @@ const Listener = () => {
       nickname: nickname,
     });
   };
-  console.log(user);
+  
   const UserHandleOnClick = async () => {
     const url = "http://localhost:5000/users/signup";
     const response = await axios.post(url, user);
