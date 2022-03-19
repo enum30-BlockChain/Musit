@@ -58,13 +58,14 @@ router.post("/buy", async (req, res, next) => {
         address: req.body.address,
       },
     });
-    console.log(user.dataValues.subscription);
+    console.log(user);
+    // console.log(user.dataValues.subscription);
     if (user.dataValues.subscription == false) {
       User.update(
         {
           subscription: true,
         },
-        { where: { subscription: user.dataValues.subscription } }
+        { where: { address: req.body.address } }
       );
     }
     res.send("이용권을 구매햇어요");
