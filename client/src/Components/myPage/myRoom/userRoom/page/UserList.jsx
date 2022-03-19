@@ -18,7 +18,7 @@ const UserList = ({ address }) => {
     const response = await axios.get(url);
     setAtistList(response.data);
   };
-  console.log(artistList);
+  
   return (
     <div>
       <button onClick={LoginOnClick}>UserList</button>

@@ -73,7 +73,7 @@ class Response<T> {
 
 export default class Metamask {
 	// 연결된 지갑 디앱 실행하기
-	static connectWallet = async (): Promise<ResponseType<string[]>> => {
+	static connectWallet = async (setAddress: Function): Promise<ResponseType<string[]>> => {
 		const provider = window.ethereum;
 		let accounts: string[];
 		if (provider) {
@@ -81,6 +81,8 @@ export default class Metamask {
 				accounts = await provider.request({
 					method: "eth_requestAccounts",
 				});
+				if(setAddress) setAddress(accounts[0])
+
 				const message: string
           = `🦊Metamask is enabled.\n(Address: ${shortAddress(accounts[0])})`;
         console.log(message);
@@ -98,7 +100,7 @@ export default class Metamask {
 	};
 
 	// 연결된 지갑 주소 배열 불러오기
-	static getAccounts = async (): Promise<ResponseType<string[]>> => {
+	static getAccounts = async (setAddress: Function): Promise<ResponseType<string[]>> => {
 		const provider = window.ethereum;
 		let accounts: string[];
 		if (provider) {
@@ -106,6 +108,7 @@ export default class Metamask {
 				accounts = await provider.request({
 					method: "eth_accounts",
 				});
+				if(setAddress) setAddress(accounts[0])
 				if (accounts.length > 0) {
 					const message: string
             = `🦊Metamask is connected.\n(Address: ${shortAddress(accounts[0])})`;
@@ -157,10 +160,11 @@ export default class Metamask {
 		}
 	};
 
-	static walletListener = async (): Promise<ResponseType<string>> => {
+	static walletListener = async (setAddress: Function): Promise<ResponseType<string>> => {
 		const provider = window.ethereum;
 		if (provider) {
 			provider.on("accountsChanged", (accounts: string[]) => {
+				if(setAddress) setAddress(accounts[0])
 				if(accounts.length > 0) {
 					const message: string 
 						= `📗Selected account is changed.\n(Address: ${shortAddress(accounts[0])})`;;
@@ -170,7 +174,6 @@ export default class Metamask {
 					const message: string 
 						= "😖Wallet is disconnected.";;
 					console.log(message);
-					window.location.reload();
 					return new Response("", message);
 				}
 			});
@@ -180,7 +183,7 @@ export default class Metamask {
 					const network = chainIdToNetworkName(chainId);
 					const message: string = `🌏Network is changed.\n(New network: ${network})`;
 					console.log(message);
-					window.location.reload();
+					window.location.reload()
 					return new Response(network, message);
 				}
 			});
