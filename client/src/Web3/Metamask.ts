@@ -157,7 +157,7 @@ export default class Metamask {
 		}
 	};
 
-	static walletListener = async (): Promise<ResponseType<object>> => {
+	static walletListener = async (): Promise<ResponseType<string>> => {
 		const provider = window.ethereum;
 		if (provider) {
 			provider.on("accountsChanged", (accounts: string[]) => {
@@ -165,24 +165,32 @@ export default class Metamask {
 					const message: string 
 						= `📗Selected account is changed.\n(Address: ${shortAddress(accounts[0])})`;;
 					console.log(message);
-					return new Response({ address: accounts[0] }, message);
+					return new Response(accounts[0], message);
+				} else {
+					const message: string 
+						= "😖Wallet is disconnected.";;
+					console.log(message);
+					window.location.reload();
+					return new Response("", message);
 				}
 			});
+
 			provider.on("chainChanged", (chainId: string) => {
 				if (chainId) {
 					const network = chainIdToNetworkName(chainId);
 					const message: string = `🌏Network is changed.\n(New network: ${network})`;
 					console.log(message);
-					window.location.reload()
-					return new Response({ network }, message);
+					window.location.reload();
+					return new Response(network, message);
 				}
 			});
+
 			const message: string = "🌈Listening on wallet status.";
 			console.log(message);
-			return new Response({}, message);
+			return new Response("", message);
 		} else {
 			const message: string = "🤬You must install Metamask.";
-			return new Response({}, message);
+			return new Response("", message);
 		}
 	};
 }
