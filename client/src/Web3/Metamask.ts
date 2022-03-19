@@ -4,6 +4,7 @@
 interface Window {
 	ethereum: any;
 	web3: any;
+	location: any;
 }
 
 interface ResponseType<T> {
@@ -172,6 +173,7 @@ export default class Metamask {
 					const network = chainIdToNetworkName(chainId);
 					const message: string = `🌏Network is changed.\n(New network: ${network})`;
 					console.log(message);
+					window.location.reload()
 					return new Response({ network }, message);
 				}
 			});

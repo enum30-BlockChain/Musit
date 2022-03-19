@@ -4,6 +4,7 @@ import Metamask from "../web3/Metamask";
 import axios from "axios";
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer.jsx";
+import Button from "./styledComponents/Button.styled"
 
 export { default as Register } from "./register/Register";
 export { default as MyPageLayout } from "./myPage/MyPage";
@@ -30,6 +31,11 @@ export const MainLayout = () => {
       nickname: response.data.nickname,
     });
   };
+
+  const connectOnClick = async () => {
+    const { data } = await Metamask.connectWallet();
+    setAddress(data[0])
+  }
   
   return (
     <>
@@ -41,7 +47,7 @@ export const MainLayout = () => {
         <button>MyPage</button>
       </Link>
       <div>
-        <p>내지갑 주소는 : {address}</p>
+        {address ? <p>내지갑 주소는 : {address}</p> : <Button onClick={connectOnClick}>Connect</Button>}
         <div>
           <div>내 닉네임 :{nickname.nickname}</div>
           <button onClick={LoginOnClick}>내정보확인</button>
