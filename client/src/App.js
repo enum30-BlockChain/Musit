@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "./components/MainLayout.jsx";
 import Register from "./components/register/Register.jsx";
@@ -14,9 +14,12 @@ import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
 import Footer from "./components/footer/Footer.jsx";
 
 function App() {
+  const [address, setAddress] = useState("");
+
 	useEffect(() => {
 		const init = async () => {
-			await Metamask.walletListener();
+			await Metamask.getAccounts(setAddress);
+      await Metamask.walletListener(setAddress);
 		};
 		init();
 	}, []);
@@ -25,13 +28,13 @@ function App() {
 		<>
 			<Routes>
 				<Route path="/">
-					<Route index element={<MainLayout />}></Route>
+					<Route index element={<MainLayout address={address} setAddress={setAddress}/>}></Route>
 					<Route path="Register" element={<Register />}></Route>
-					<Route path="Listener" element={<Listener />}></Route>
-					<Route path="Artist" element={<Artist />}></Route>
+					<Route path="Listener" element={<Listener address={address}/>}></Route>
+					<Route path="Artist" element={<Artist address={address}/>}></Route>
 					<Route path="MyPageLayout" element={<MyPageLayout />}></Route>
 					<Route path="MyArtist" element={<MyArtist />}></Route>
-					<Route path="MyListener" element={<MyListener />}></Route>
+					<Route path="MyListener" element={<MyListener address={address}/>}></Route>
 					<Route path="fileupload" element={<Fileupload />}></Route>
 					<Route path="MusicSearch" element={<MusicSearch />}></Route>
 					<Route path="Footer" element={<Footer />}></Route>
