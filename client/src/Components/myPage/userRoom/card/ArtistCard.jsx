@@ -1,10 +1,9 @@
 import React from "react";
 
-const ArtistCard = ({ id, name, likes, setlikes, setSelect }) => {
-  const OnClickCheck = (e) => {
+const ArtistCard = ({ id, name, setSelect, select }) => {
+  const LikeOnClick = (e) => {
     setSelect(e.target.value);
-    // console.log(e.target.value);
-    // alert("가수" + name + "좋아합니다.");
+    console.log(e.target.value);
   };
   return (
     <>
@@ -16,10 +15,9 @@ const ArtistCard = ({ id, name, likes, setlikes, setSelect }) => {
               type="checkbox"
               name="likes"
               value={id}
-              onClick={OnClickCheck}
+              onClick={LikeOnClick}
             ></input>
           </div>
-          {likes}
         </div>
       </div>
     </>

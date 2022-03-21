@@ -12,6 +12,7 @@ const UserList = ({ address }) => {
   }, []);
 
   const [artistList, setAtistList] = useState([]);
+  const [count, setCount] = useState([]);
   const [song, setSong] = useState([
     "사랑노래",
     "사랑아",
@@ -22,16 +23,23 @@ const UserList = ({ address }) => {
   const [likes, setlikes] = useState(0);
   const [select, setSelect] = useState("");
 
+  const LoginOnClick = async () => {
+    const url = "http://localhost:5000/artists/artistList";
+    const response = await axios.get(url);
+    console.log(response.data);
+    setAtistList(response.data);
+  };
   const LikeOnClick = async () => {
     if (artistList[select] !== 0) {
       const likeSelect = artistList[select].artist_name;
       const selectArtistLikes = artistList[select].likes;
       alert("가수" + likeSelect + "좋아합니다.");
-      const url = "http://localhost:5000/artistlike/like";
+      const url = "http://localhost:5000/artistlikes/like";
       const response = await axios.post(url, { address, likeSelect });
       console.log(response.data.likes);
     }
   };
+
   return (
     <div>
       <div>
@@ -40,6 +48,7 @@ const UserList = ({ address }) => {
           <SongCard id={index} key={index} name={music} />
         ))}
       </div>
+      <button onClick={LoginOnClick}>UserList</button>
       <div>
         Artist List :
         {artistList.map((list, index) => (
@@ -47,13 +56,12 @@ const UserList = ({ address }) => {
             id={index}
             key={index}
             name={list.artist_name}
-            likes={list.likes}
-            setlikes={setlikes}
             setSelect={setSelect}
+            select={select}
           />
         ))}
+        <button onClick={LikeOnClick}>좋아요</button>
       </div>
-      <button onClick={LikeOnClick}>좋아요</button>
     </div>
   );
 };
