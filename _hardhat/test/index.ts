@@ -1,19 +1,26 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
+const Musit = require("../artifacts/contracts/MusitNFT.sol/MusitNFT.json");
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
+describe("MusitNFT", function () {
+  // it("Deploy test", async function () {
+  //   // const signer = await ethers.getSigners();
+  //   // expect(signer).to.equal([]);
 
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
+  //   const MusitNFT = await ethers.getContractFactory("MusitNFT");
+  //   const musitNFT = await MusitNFT.deploy();
+  //   await musitNFT.deployed();
 
-    // wait until the transaction is mined
-    await setGreetingTx.wait();
-
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
-  });
+  //   expect(typeof musitNFT.address).to.equal("string");
+  // });
+  it("", async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = await provider.getSigner();
+    // const abi = Musit.abi;
+    // const contractAddress = "0xb712342eFf565b50289aE1090239f24D239D92a1";
+    // const MusitNFT = new ethers.Contract(contractAddress, abi, signer);
+    const txt = "asdf"
+    expect(txt).to.be.a('string');
+  })
 });
