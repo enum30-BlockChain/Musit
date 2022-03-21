@@ -13,12 +13,13 @@ import MyArtist from "./components/myPage/myRoom/artistroom/MyArtist";
 import MyListener from "./components/myPage/myRoom/userRoom/MyListener";
 import Fileupload from "./components/fileupload/FileUpload.jsx";
 
-import Navbar from "./components/navBar/Navbar.jsx";
+// import Navbar from "./components/navBar/Navbar.jsx";
 // import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
 import Footer from "./components/footer/footer.jsx";
 
 function App() {
+  const [adress, setAdress] = (useState = "");
   useEffect(() => {
     Metamask.enableEthereum();
   }, []);
@@ -47,14 +48,17 @@ function App() {
 
   return (
     <>
-      <Navbar />
       {/* <Toast />
       <Button onClick={showToastOnClick}>Show Toast</Button> */}
 
+      {/* <Navbar /> */}
       <Routes>
         <Route path="/">
-          <Route index element={<MainLayout />}></Route>
-          {/* <Route path="Songs" element={<Songs />}></Route> */}
+          <Route
+            index
+            element={<MainLayout adress={adress} setAddress={setAddress} />}
+          ></Route>
+
           <Route path="Register" element={<Register />}></Route>
           <Route path="Listener" element={<Listener />}></Route>
           <Route path="Artist" element={<Artist />}></Route>

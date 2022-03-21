@@ -4,7 +4,7 @@ function Footer() {
   return (
     <div className="footer">
       <div className="contents">
-        <h2 className="title">This is Footer</h2>
+        <a className="title"> Musit X Enum30 jinyong chulsoon sokuri hamin</a>
       </div>
     </div>
   );

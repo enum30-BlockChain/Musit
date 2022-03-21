@@ -1,10 +1,9 @@
 .main-header {
   // position: fixed;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; //왼쪽정렬
   align-items: center;
   height: 65px;
-  // width: 100vw;
   padding: 0 6vw;
   color: #000;
   z-index: 1;
@@ -21,7 +20,7 @@
     list-style: none;
     .nav-link {
       display: flex;
-      // //   list-style: none;
+      list-style: none;
     }
   }
 }

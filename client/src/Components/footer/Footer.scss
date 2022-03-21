@@ -1,10 +1,13 @@
 .footer {
-  height: auto;
   position: absolute;
-
+  z-index: 1;
+  align-items: center;
   bottom: 0;
+  padding: 0 6vw;
 
-  // background-color #ffffff;
+  // opacity: 0.5; 투명도
+
+  // background: rgba(0, 0, 0, 0.5);
 }
 .contents {
   max-width: auto;
@@ -18,5 +21,8 @@
 
 .title {
   // font-weight: 600;
-  color: blue;
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+  padding: 0 3vw;
 }

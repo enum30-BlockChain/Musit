@@ -1,9 +1,8 @@
 import React, { useEffect, useStaste } from "react";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
-
-// import Matamask from "./../../web3/matamask.ts";
-// import axios from "axios";
+import Matamask from "./../../web3/matamask.ts";
+import axios from "axios";
 
 export const Navbar = () => {
   // const [address, setAddress] = useState("");
