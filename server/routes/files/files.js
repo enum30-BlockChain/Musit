@@ -12,11 +12,11 @@ files.post("/imgupload", (req, res, next) => {
     } else if (err) {
       return next(err);
     }
-    // console.log(req.file)
+    console.log(req.file)
     // console.log("원본파일명 : " + req.file.originalname);
     // console.log("저장파일명 : " + req.file.filename);
     // console.log("크기 : " + req.file.size);
-    // console.log('경로 : ' + req.file.location) s3 업로드시 업로드 url을 가져옴
+    // console.log('경로 : ' + req.file.location) //s3 업로드시 업로드 url을 가져옴
     return res.send({
       downLoadLink: req.file.location,
     });
@@ -26,19 +26,19 @@ files.post("/imgupload", (req, res, next) => {
 files.post("/create", async (req, res, next) => {
   try {
     const data = req.body;
-    const artist_name = await Music.findOne({
+    const ipfs_hash = await Music.findOne({
       where: { ipfs_hash: data.music_link },
     });
-    if (!artist_name) {
+    if (!ipfs_hash) {
       //아티스트가있으면 crate
       await Music.create({
         ipfs_hash: data.music_link,
         title: data.music_title,
         play_time: data.music_duration,
         play_count: 0,
-        like: 0,
         artist_name: data.artist_name,
         img_file: data.cover_img_link,
+        Genre: data.music_genre.join(),
       });
       res.send({ result: 0, message: "정상등록이완료되었습니다." });
     } else {
@@ -48,6 +48,29 @@ files.post("/create", async (req, res, next) => {
     console.log(err)
     res.send({ result: 2, message: '에러*_* 다시해주셈'});
   }
+});
+
+files.post("/modify",async (req,res,next)=>{
+  try{
+    const data = req.body;
+    console.log(data)
+    await Music.update({
+      ipfs_hash: data.music_link,
+      title: data.music_title,
+      play_time: data.duration,
+      play_count: data.count,
+      img_file: data.cover_img_link,
+      Genre: data.genre.join(),
+      artist_name: data.artist_name,
+    },
+     { where: { ipfs_hash: data.music_link }
+    });
+    res.send({ result: 0, message: "수정이 완료되었습니다." });
+  }catch(err){
+    console.log(err)
+    res.send({ result: 2, message: '에러*_* 다시해주셈'});
+  }
+
 });
 
 files.get("/", async (req, res, next) => {

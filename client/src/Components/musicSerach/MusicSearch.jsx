@@ -32,6 +32,7 @@ function MusicSearch() {
             <th>auido</th>
             <th>play_count</th>
             <th>like</th>
+            <th>genre</th>
             <th>수정</th>
           </tr>
         </thead>
@@ -42,9 +43,11 @@ function MusicSearch() {
             title={song.title}
             artistName={song.artist_name}
             img={song.img_file}
-            like={song.like}
+            duration={song.play_time}
+            // like={song.like}  //TODO:use이펙트로 불러온다음 그값을 더해서 넣어줄꺼임
             count={song.play_count}
-            audio={`https://ipfs.io/ipfs/${song.ipfs_hash}`}
+            audio={song.ipfs_hash}
+            genre={song.Genre}
           />
         );    
   })}
