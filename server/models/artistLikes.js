@@ -24,7 +24,9 @@ module.exports = (sequelize, DataTypes) => {
   ArtistLike.init(
     {
       Id: { type: DataTypes.INTEGER, primaryKey: true },
+      likes: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     },
+
     {
       sequelize,
       timestamps: false,
