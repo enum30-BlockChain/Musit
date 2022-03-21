@@ -2,14 +2,55 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 // TODO: ERC721, Ownable 컨트랙트 불러오기
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract SongNFT { // 불러온 컨트랙트들 상속하기
-  /**
-    TODO: 
-    1. variables : 민팅가격, 발행 총 수량, 현재까지 발행된 민팅 수량, 민팅 가능 여부 State, 토큰 uri, 자금 회수용 지갑(?), 주소 당 최대 민팅 수량, 트랜잭션 당 최대 민팅 수량 
-    2. mapping : 주소 당 민팅 총 수량
-    3. constructor : payable, ERC721을 통해서 토큰 이름 및 심볼 적기
-    4. function : 민팅 가능 여부 설정 함수, 토큰 uri 설정 함수, 토큰 uri 출력 함수, 출금 함수, 민팅 함수
-  */
-  
+  uint256 public mintPrice; // 민팅가격
+  uint256 public maxSupply; // 발행 총 수량
+  uint256 public totalSupplied; // 현재까지 발행된 NFT 수량
+  uint256 public maxMintsPerWallet; // 지갑 당 민팅 최대 수량
+  uint256 public maxMintsPerTx; // 트랜잭션 당 민팅 최대 수량
+  bool public isMintEnabled;  // 민팅 시작 결정
+  string public baseTokenUri; // 토큰 URI
+
+  mapping (address => uint256) mintsPerWallet;
+
+  constructor () payable ERC721("Musit","MUSIT") {
+    mintPrice = 0.01 ether;
+    maxSupply = 1000;
+    maxMintsPerWallet = 3;
+    maxMintsPerTx = 1;
+    _setBaseURI("https://ipfs.io/ipfs/");
+  }
+
+  function minting(uint256 _amount) external payable {
+    require(isMintEnabled, "Minting is not enabled");
+    require(msg.value == mintPrice, "Wrong mint value");
+    require(totalSupplied + _amount <= maxSupply, "Exceed total supply. Adjust minting amount and retry it.");
+    require(_amount <= maxMintsPerTx, "");
+    require(_amount + mintsPerWallet[msg.sender] <= maxMintsPerWallet);
+
+    for (uint256 i = 0; i < _amount; i++) {
+      uint256 newTokenId = ++totalSupplied;
+      _safeMint(msg.sender, newTokenId);
+    }
+  }
+  function setMintPrice(uint256 _mintPrice) external onlyOwner {
+    mintPrice = _mintPrice;
+  }
+  function setMaxSupply(uint256 _maxSupply) external onlyOwner {
+    maxSupply = _maxSupply;
+  }
+  function setMaxMintsPerWallet(uint256 _maxMintsPerWallet) external onlyOwner {
+    maxMintsPerWallet = _maxMintsPerWallet;
+  }
+  function setMaxMintsPerTx(uint256 _maxMintsPerTx) external onlyOwner {
+    maxMintsPerTx = _maxMintsPerTx;
+  }
+
+  function setMintEnable(bool _isMintEnabled) external onlyOwner {
+    isMintEnabled = _isMintEnabled;
+  }
 }
