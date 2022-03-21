@@ -1,101 +1,199 @@
-import Web3 from "web3";
+/**
+ * Interface declaration
+ */
 interface Window {
-  ethereum: any;
-  web3: any;
+	ethereum: any;
+	web3: any;
+	location: any;
 }
+
+interface ResponseType<T> {
+	readonly data: T;
+	readonly message: string;
+}
+
 declare let window: Window;
 
+/**
+ * Enum declaration
+ */
+
+enum ChainId {
+	MAIN = 1,
+	ROPSTEN = 3,
+	RINKEBY,
+	GOERLI,
+	KOVAN = 42,
+}
+
+/**
+ * Function declaration
+ */
+const chainIdToNetworkName = (chainId: string): string => {
+	let network: string;
+	switch (parseInt(chainId, 16)) {
+		case ChainId.MAIN:
+			network = "Mainnet";
+			break;
+		case ChainId.ROPSTEN:
+			network = "Ropsten_Test_Network";
+			break;
+		case ChainId.RINKEBY:
+			network = "Ropsten_Test_Network";
+			break;
+		case ChainId.GOERLI:
+			network = "Goerli_Test_Network";
+			break;
+		case ChainId.KOVAN:
+			network = "Kovan_Test_Network";
+			break;
+		default:
+			network = "Unknown";
+			break;
+	}
+	return network;
+};
+
+const shortAddress = (address: string): string => {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`
+}
+
+/**
+ * Class declaration
+ */
+class Response<T> {
+	public data: T;
+	public message: string;
+
+	constructor(data: T, message: string) {
+		this.data = data;
+		this.message = message;
+	}
+}
+
 export default class Metamask {
-  // 연결된 지갑 디앱 실행하기
-  static enableEthereum = () =>
-    new Promise((resolve, reject) => {
-      let provider;
-      let selectedAccount: string;
-      let currentChainId: string;
-      try {
-        // modern web3
-        if (window.ethereum) {
-          console.log("Modern web3 is installed");
-          provider = window.ethereum;
-          provider
-            .request({ method: "eth_requestAccounts" }) // enable web3
-            .then((accounts: string[]) => {
-              selectedAccount = accounts[0];
-              console.log(`Selected account is ${selectedAccount}`);
-            });
-          provider
-            .request({ method: "eth_chainId" })
-            .then((chainId: string) => {
-              currentChainId = chainId;
-              console.log(`Current Network: ${currentChainId}`);
-            });
+	// 연결된 지갑 디앱 실행하기
+	static connectWallet = async (setAddress: Function): Promise<ResponseType<string[]>> => {
+		const provider = window.ethereum;
+		let accounts: string[];
+		if (provider) {
+			try {
+				accounts = await provider.request({
+					method: "eth_requestAccounts",
+				});
+				if(setAddress) setAddress(accounts[0])
 
-          this.handlingChanges();
-        }
-        // legacy web3
-        else if (window.web3) {
-          console.log("Legacy web3 is installed");
-          provider = window.web3;
-        }
-        // Test network
-        else {
-          console.log("Web3 test network");
-          provider = new Web3.providers.HttpProvider("http://localhost:8545");
-        }
-        const web3 = new Web3(provider);
-        resolve(web3);
-      } catch (error) {
-        reject(error);
-      }
-    });
+				const message: string
+          = `🦊Metamask is enabled.\n(Address: ${shortAddress(accounts[0])})`;
+        console.log(message);
+				return new Response(accounts, message);
+			} catch (error: any) {
+				const message: string = "🤬 " + error.message;
+				console.log(message);
+				return new Response([], message);
+			}
+		} else {
+			const message: string = "🤬You must install Metamask.";
+			console.log(message);
+			return new Response([], message);
+		}
+	};
 
-  // 연결된 지갑 주소 배열 불러오기
-  static getAccounts = () =>
-    new Promise((resolve, reject) => {
-      try {
-        if (window.ethereum) {
-          const provider = window.ethereum;
-          let accounts;
-          provider
-            .request({ method: "eth_requestAccounts" })
-            .then((response: string[]) => {
-              accounts = response;
-              resolve(accounts);
-            });
-        } else {
-          resolve(undefined);
-        }
-      } catch (error) {
-        reject(error);
-      }
-    });
+	// 연결된 지갑 주소 배열 불러오기
+	static getAccounts = async (setAddress: Function): Promise<ResponseType<string[]>> => {
+		const provider = window.ethereum;
+		let accounts: string[];
+		if (provider) {
+			try {
+				accounts = await provider.request({
+					method: "eth_accounts",
+				});
+				if(setAddress) setAddress(accounts[0])
+				if (accounts.length > 0) {
+					const message: string
+            = `🦊Metamask is connected.\n(Address: ${shortAddress(accounts[0])})`;
+					console.log(message);
+					return new Response(accounts, message);
+				} else {
+					const message: string = "🤬Metamask is not connected.";
+					console.log(message);
+					return new Response([], message);
+				}
+			} catch (error: any) {
+				const message: string = "🤬 " + error.message;
+				console.log(message);
+				return new Response([], message);
+			}
+		} else {
+			const message: string = "🤬You must install Metamask.";
+			console.log(message);
+			return new Response([], message);
+		}
+	};
 
-  // 연결된 네트워크 아이디 불러오기
-  static getChainId = () =>
-    new Promise((resolve, reject) => {
-      try {
-        if (window.ethereum) {
-          const provider = window.ethereum;
-          provider
-            .request({ method: "eth_chainId" })
-            .then((chainId: string) => {
-              resolve(chainId);
-            });
-        }
-      } catch (error) {
-        reject(error);
-      }
-    });
+	// 연결된 네트워크 아이디 불러오기
+	static getNetwork = async (): Promise<ResponseType<string>> => {
+		const provider = window.ethereum;
+		let network: string;
+		if (provider) {
+			try {
+				const chainId = await provider.request({
+					method: "eth_chainId",
+				});
+				network = chainIdToNetworkName(chainId);
+				const cannotFindMsg =
+					"😓Cannot find network!\nMetamask might be not connected.";
+				const connectedMsg = `${network} is connected`;
+				let message: string =
+					network === "unknown" || "" ? cannotFindMsg : connectedMsg;
+				console.log(message);
+				return new Response(network, message);
+			} catch (error: any) {
+				const message: string = "🤬 " + error.message;
+				console.log(message);
+				return new Response("", message);
+			}
+		} else {
+			const message: string = "🤬You must install Metamask.";
+			console.log(message);
+			return new Response("", message);
+		}
+	};
 
-  static handlingChanges = () => {
-    if (window.ethereum) {
-      const provider = window.ethereum;
-      provider.on("accountsChanged", (accounts: string[]) => {
-        console.log(`Selected account is changed to ${accounts[0]}`);
-      });
-      provider.on("chainChanged", (chainId: string) => {
-        console.log(`Network is changed to ${chainId}`);
-      });
-    }
-  };
+	static walletListener = async (setAddress: Function): Promise<ResponseType<string>> => {
+		const provider = window.ethereum;
+		if (provider) {
+			provider.on("accountsChanged", (accounts: string[]) => {
+				if(setAddress) setAddress(accounts[0])
+				if(accounts.length > 0) {
+					const message: string 
+						= `📗Selected account is changed.\n(Address: ${shortAddress(accounts[0])})`;;
+					console.log(message);
+					return new Response(accounts[0], message);
+				} else {
+					const message: string 
+						= "😖Wallet is disconnected.";;
+					console.log(message);
+					return new Response("", message);
+				}
+			});
+
+			provider.on("chainChanged", (chainId: string) => {
+				if (chainId) {
+					const network = chainIdToNetworkName(chainId);
+					const message: string = `🌏Network is changed.\n(New network: ${network})`;
+					console.log(message);
+					window.location.reload()
+					return new Response(network, message);
+				}
+			});
+
+			const message: string = "🌈Listening on wallet status.";
+			console.log(message);
+			return new Response("", message);
+		} else {
+			const message: string = "🤬You must install Metamask.";
+			return new Response("", message);
+		}
+	};
 }

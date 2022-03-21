@@ -3,22 +3,11 @@ import React, { useEffect, useState } from "react";
 import "./ArtistType.css";
 import ArtisType from "./ArtisType";
 import axios from "axios";
-import Metamask from "../../../../web3/matamask.ts";
 
-const Artist = () => {
+const Artist = ({ address }) => {
   const [inputs, setInputs] = useState("");
   const [nation, setnNation] = useState([""]);
   const [option, setOption] = useState("");
-  const [address, setAddress] = useState("");
-
-  useEffect(() => {
-    const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
-    };
-    init();
-    return () => {};
-  }, []);
 
   const submitOnClick = async () => {
     const url = "http://localhost:5000/artists/signup";
@@ -37,7 +26,6 @@ const Artist = () => {
       nickname: inputs,
     });
   };
-  console.log(inputs);
 
   return (
     <>

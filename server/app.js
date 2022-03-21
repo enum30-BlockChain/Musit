@@ -9,8 +9,8 @@ const cors = require("cors");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const filesRouter = require("./routes/files/files.js");
-
 const artistsRouter = require("./routes/artists");
+const artistlikesRouter = require("./routes/artistlikes");
 const models = require("./models/index");
 
 const app = express();
@@ -26,6 +26,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/files", filesRouter);
 app.use("/artists", artistsRouter);
+app.use("/artistlikes", artistlikesRouter);
 
 //mysql table 생성해줌
 models.sequelize

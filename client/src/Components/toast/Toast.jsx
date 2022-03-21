@@ -1,9 +1,9 @@
-import React from 'react'
-import "./toast.css"
+import React from "react";
+import "./toast.css";
 
 const Toast = () => {
   return (
-    <div className='toast-container'>
+    <div className="toast-container">
       <div className="toast-content">
         <i className="fas fa-solid fa-check check"></i>
         <div className="toast-message">
@@ -14,7 +14,7 @@ const Toast = () => {
       <i className="fa-solid fa-xmark close"></i>
       <div className="progress"></div>
     </div>
-  )
-}
+  );
+};
 
-export default Toast
+export default Toast;

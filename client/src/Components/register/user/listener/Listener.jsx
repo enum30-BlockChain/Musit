@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ListenerType from "./ListenerType";
 import CountryType from "./CountryType";
 import axios from "axios";
-import Metamask from "../../../../web3/matamask.ts";
 
-const Listener = () => {
+const Listener = ({ address }) => {
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
   const [nation, setnNation] = useState([""]);
   const [user, setUser] = useState({});
   const [selected, setSelected] = useState("");
   const [option, setOption] = useState("");
-  const [address, setAddress] = useState("");
   const [nickname, setNickname] = useState("");
-
-  useEffect(() => {
-    const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
-    };
-    init();
-    return () => {};
-  }, []);
 
   const onChangeNick = (e) => {
     setNickname(e.target.value);
@@ -36,7 +25,7 @@ const Listener = () => {
       nickname: nickname,
     });
   };
-  console.log(user);
+
   const UserHandleOnClick = async () => {
     const url = "http://localhost:5000/users/signup";
     const response = await axios.post(url, user);

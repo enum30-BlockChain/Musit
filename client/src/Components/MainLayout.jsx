@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Metamask from "./../web3/matamask.ts";
@@ -9,25 +9,21 @@ import axios from "axios";
 export const MainLayout = ({ address, setAddress }) => {
   const [nickname, setNickname] = useState("");
 
-  useEffect(() => {
-    const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
-    };
-    init();
-    return () => {};
-  }, []);
-
   const LoginOnClick = async () => {
     const url = "http://localhost:5000/users/signin";
     const response = await axios.post(url, { address });
     // console.log(response.data);
-    console.log(response.data.nickname);
+    console.log(response.data);
     setNickname({
       nickname: response.data.nickname,
     });
   };
-  console.log(nickname);
+
+  const connectOnClick = async () => {
+    const { data } = await Metamask.connectWallet();
+    setAddress(data[0]);
+  };
+
   return (
     <>
       <Link to="/Register">
@@ -38,7 +34,11 @@ export const MainLayout = ({ address, setAddress }) => {
       </Link>
       <MyPage />
       <div>
-        <p>내지갑 주소는 : {address}</p>
+        {address ? (
+          <p>내지갑 주소는 : {address}</p>
+        ) : (
+          <button onClick={connectOnClick}>Connect</button>
+        )}
         <div>
           <div>내 닉네임 :{nickname.nickname}</div>
           <button onClick={LoginOnClick}>내정보확인</button>
