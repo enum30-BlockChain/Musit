@@ -7,10 +7,15 @@ router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 
-router.get("/list", async (req, res, next) => {
+router.post("/list", async (req, res, next) => {
+  console.log(req.body);
   try {
-    const findname = await ArtistLike.findAll();
-    res.send(findname);
+    const artistlike = await ArtistLike.findAll({
+      where: {
+        user_address: req.body.address,
+      },
+    });
+    res.send(artistlike);
   } catch (err) {
     console.error(err);
   }
@@ -27,6 +32,7 @@ router.post("/like", async (req, res, next) => {
         user_address: req.body.address,
       },
     });
+    res.send(artist);
     if (artist == null) {
       const artist = await ArtistLike.create({
         Id: req.body.likeSelect,
@@ -69,6 +75,8 @@ router.post("/like", async (req, res, next) => {
           },
         }
       );
+      res.send(like);
+      console.log(like);
     }
   } catch (err) {
     console.error(err);
