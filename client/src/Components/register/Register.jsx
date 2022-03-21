@@ -4,14 +4,6 @@ import { Link } from "react-router-dom";
 const Register = () => {
   return (
     <div>
-<<<<<<< HEAD
-      {/* <Link to="/Listener">
-        <button>청취자 가입</button>
-      </Link>
-      <Link to="/Artist">
-        <button>아티스트 가입</button>
-      </Link> */}
-=======
       <div>
         <Link to="/Listener">
           <button>청취자 가입</button>
@@ -31,7 +23,6 @@ const Register = () => {
         <input type="hidden">{/* <a selectbox-toggle>korea</a> */}</input>
       </div>
       <button>Submit</button>
->>>>>>> main
     </div>
   );
 };

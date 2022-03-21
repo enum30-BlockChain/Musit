@@ -1,11 +1,27 @@
-@import "./variavles.scss";
+.main-header {
+  // position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 65px;
+  // width: 100vw;
+  padding: 0 6vw;
+  color: #000;
+  z-index: 1;
 
-// .header {
-//   background: $dark;
-//   width: 100%;
-//   height: $headerHeight;
-//   padding: 0 1.5rem;
-//   @include breakpoint(md) {
-//     padding: 0 3rem;
-//   }
-// }
+  a {
+    text-decoration: none;
+    color: inherit;
+    text-transform: uppercase;
+    padding: 0 3vw;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    .nav-link {
+      display: flex;
+      // //   list-style: none;
+    }
+  }
+}

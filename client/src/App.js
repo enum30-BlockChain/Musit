@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 //pages
 import MainLayout from "./components/MainLayout.jsx";
 // import Songs from "./components/songs/Songs.jsx";
-//
 import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
@@ -13,18 +12,11 @@ import MyPageLayout from "./components/myPage/MyPage.jsx";
 import MyArtist from "./components/myPage/myRoom/artistroom/MyArtist";
 import MyListener from "./components/myPage/myRoom/userRoom/MyListener";
 import Fileupload from "./components/fileupload/FileUpload.jsx";
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import Navbar from "./components/navBar/Navbar.jsx";
-=======
-import ImgUpload from "./components/fileupload/ImgUpload.jsx";
-=======
+// import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
->>>>>>> main
-// import Toast from "./components/toast/Toast.jsx";
-// import Button from "./components/styledComponents/Button.styled.jsx";
->>>>>>> main
-import Footer from "./components/footer/Footer.jsx";
+import Footer from "./components/footer/footer.jsx";
 
 function App() {
   useEffect(() => {
@@ -55,12 +47,10 @@ function App() {
 
   return (
     <>
-<<<<<<< HEAD
-      <Navbar></Navbar>
-=======
+      <Navbar />
       {/* <Toast />
       <Button onClick={showToastOnClick}>Show Toast</Button> */}
->>>>>>> main
+
       <Routes>
         <Route path="/">
           <Route index element={<MainLayout />}></Route>
@@ -76,7 +66,7 @@ function App() {
           <Route path="Footer" element={<Footer />}></Route>
         </Route>
       </Routes>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }
