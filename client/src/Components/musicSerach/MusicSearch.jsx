@@ -4,7 +4,7 @@ import MusicCard from './MusicCard';
 
 function MusicSearch() {
     const [songList, setSongList] = useState("")
-
+    const [artist, setArtist] = useState("")
      const getSongList = async () => {
        axios
          .get("http://localhost:5000/files")
@@ -14,15 +14,26 @@ function MusicSearch() {
             })
          .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
      };
+     const getArtist = async () => {
+       axios
+         .get("http://localhost:5000/artists/artistList")
+         .then((res) => {
+             console.log(res.data);
+            // setArtist(res.data);            
+            })
+         .catch((err) => alert("아티스트 목록을 불러오지못했습니다.", err));
+     };
 
      useEffect(() => {
          getSongList()
+         getArtist()
         }, [])
 
   return (
   <>
   <table  style={{margin:"auto"}}>
         <caption> 우왕 </caption>
+        <button onClick={getArtist}>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</button>
         <thead>
           <tr>
             <th>순번 </th>
@@ -32,6 +43,7 @@ function MusicSearch() {
             <th>auido</th>
             <th>play_count</th>
             <th>like</th>
+            <th>genre</th>
             <th>수정</th>
           </tr>
         </thead>
@@ -42,9 +54,11 @@ function MusicSearch() {
             title={song.title}
             artistName={song.artist_name}
             img={song.img_file}
-            like={song.like}
+            duration={song.play_time}
+            // like={song.like}  //TODO:use이펙트로 불러온다음 그값을 더해서 넣어줄꺼임
             count={song.play_count}
-            audio={`https://ipfs.io/ipfs/${song.ipfs_hash}`}
+            audio={song.ipfs_hash}
+            genre={song.Genre}
           />
         );    
   })}

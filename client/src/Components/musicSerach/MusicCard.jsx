@@ -1,9 +1,15 @@
-import axios from 'axios'
-import React ,{useState,createContext,useEffect} from 'react'
-
-export const MusicCardContext = createContext();
+import React ,{useState} from 'react'
+import Modal from './Modal';
 
  function MusicCard(props) {
+  const [modal, setModal] = useState(false);
+  const onPopup = () => {
+    setModal(true);
+  };
+
+  const onClose = () => {
+    setModal(false);
+  };
   return (
     <>
       <tbody>
@@ -15,13 +21,15 @@ export const MusicCardContext = createContext();
             <img src={props.img} style={{ width: "100px" }} />
           </td>
           <td>
-            <audio src={props.audio} controls />
+            <audio src={`https://ipfs.io/ipfs/${props.audio}`} controls />
           </td>
           <td>{props.count}</td>
           <td>{props.like}</td>
-          <td><button> 수정 </button> </td>
+          <td>{props.genre}</td>
+          <td><button onClick={onPopup}> 수정 </button> </td>
         </tr>
       </tbody>
+      {modal && <Modal props={props} onClose={onClose} />}
     </>
   );
 }
