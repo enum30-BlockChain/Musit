@@ -6,9 +6,6 @@ import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer.jsx";
 import Button from "./styledComponents/Button.styled";
 
-// export { default as Register } from "./register/Register";
-// export { default as MyPageLayout } from "./myPage/MyPage";
-
 export const MainLayout = ({ address, setAddress }) => {
   const [nickname, setNickname] = useState("");
 
