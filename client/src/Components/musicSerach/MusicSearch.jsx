@@ -4,7 +4,7 @@ import MusicCard from './MusicCard';
 
 function MusicSearch() {
     const [songList, setSongList] = useState("")
-
+    const [artist, setArtist] = useState("")
      const getSongList = async () => {
        axios
          .get("http://localhost:5000/files")
@@ -14,15 +14,26 @@ function MusicSearch() {
             })
          .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
      };
+     const getArtist = async () => {
+       axios
+         .get("http://localhost:5000/artists/artistList")
+         .then((res) => {
+             console.log(res.data);
+            // setArtist(res.data);            
+            })
+         .catch((err) => alert("아티스트 목록을 불러오지못했습니다.", err));
+     };
 
      useEffect(() => {
          getSongList()
+         getArtist()
         }, [])
 
   return (
   <>
   <table  style={{margin:"auto"}}>
         <caption> 우왕 </caption>
+        <button onClick={getArtist}>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</button>
         <thead>
           <tr>
             <th>순번 </th>

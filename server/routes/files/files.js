@@ -30,7 +30,7 @@ files.post("/create", async (req, res, next) => {
       where: { ipfs_hash: data.music_link },
     });
     if (!ipfs_hash) {
-      //아티스트가있으면 crate
+      //ipfs_hash가있으면 crate
       await Music.create({
         ipfs_hash: data.music_link,
         title: data.music_title,
@@ -70,7 +70,6 @@ files.post("/modify",async (req,res,next)=>{
     console.log(err)
     res.send({ result: 2, message: '에러*_* 다시해주셈'});
   }
-
 });
 
 files.get("/", async (req, res, next) => {
