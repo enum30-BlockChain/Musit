@@ -16,6 +16,7 @@ import axios from "axios";
         count : props.count,
         genre : ""
      });
+     
      const formData = new FormData(); 
 
      const postImg = async() => {              //multer하고 s3저장후 링크가져오기

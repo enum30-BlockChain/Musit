@@ -44,8 +44,8 @@ function App() {
             path="MyListener"
             element={<MyListener address={address} />}
           ></Route>
-          <Route path="fileupload" element={<Fileupload />}></Route>
-          <Route path="MusicSearch" element={<MusicSearch />}></Route>
+          <Route path="fileupload" element={<Fileupload address={address} />}></Route>
+          <Route path="MusicSearch" element={<MusicSearch address={address} />}></Route>
           <Route path="Footer" element={<Footer />}></Route>
         </Route>
       </Routes>
