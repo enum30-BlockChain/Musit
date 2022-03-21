@@ -11,20 +11,20 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       ArtistLike.belongsTo(models.User, {
         foreignKey: { name: "user_address", allowNull: false },
-        allowNull: false,
         sourceKey: "address",
       });
       ArtistLike.belongsTo(models.Artist, {
         foreignKey: { name: "artist_artist_name", allowNull: false },
-        allowNull: false,
         sourceKey: "artist_name",
       });
     }
   }
   ArtistLike.init(
     {
-      Id: { type: DataTypes.INTEGER, primaryKey: true },
+      Id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+      likes: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     },
+
     {
       sequelize,
       timestamps: false,

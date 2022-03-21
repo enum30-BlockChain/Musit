@@ -40,27 +40,4 @@ router.get("/artistList", async (req, res, next) => {
   }
 });
 
-router.post("/like", async (req, res, next) => {
-  try {
-    console.log("like을 server에 요청하였습니다.");
-    console.log(req.body.likeSelect);
-    const artist = await Artist.findOne({
-      where: {
-        artist_name: req.body.likeSelect,
-      },
-    });
-    console.log(artist.dataValues);
-    Artist.update(
-      {
-        likes: artist.dataValues.likes + 1,
-      },
-      {
-        where: { artist_name: req.body.likeSelect },
-      }
-    );
-  } catch (err) {
-    console.error(err);
-  }
-});
-
 module.exports = router;
