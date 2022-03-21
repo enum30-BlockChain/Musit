@@ -12,6 +12,8 @@ import MyListener from "./components/myPage/myRoom/userRoom/MyListener";
 import Fileupload from "./components/fileupload/FileUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
 import Footer from "./components/footer/Footer.jsx";
+import {testFunc} from "./web3/test"
+
 
 function App() {
   const [address, setAddress] = useState("");
@@ -20,6 +22,7 @@ function App() {
 		const init = async () => {
 			await Metamask.getAccounts(setAddress);
       await Metamask.walletListener(setAddress);
+			testFunc()
 		};
 		init();
 	}, []);
