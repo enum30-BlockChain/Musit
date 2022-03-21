@@ -27,10 +27,9 @@ const UserList = ({ address }) => {
       alert("가수" + likeSelect + "좋아합니다.");
       const url = "http://localhost:5000/artists/like";
       const response = await axios.post(url, { address, likeSelect });
-      console.log(response.data);
+      console.log(response.data.likes);
     }
   };
-
   return (
     <div>
       <button onClick={LoginOnClick}>UserList</button>

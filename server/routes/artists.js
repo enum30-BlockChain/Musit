@@ -49,7 +49,20 @@ router.post("/like", async (req, res, next) => {
         artist_name: req.body.likeSelect,
       },
     });
-    console.log(artist.dataValues);
+    if (artist.dataValues.likes <= 0) {
+      console.log(artist);
+    } else {
+      Artist.update(
+        {
+          likes: artist.dataValues.likes - 1,
+        },
+        {
+          where: { artist_name: req.body.likeSelect },
+        }
+      );
+      return res.send(artist);
+    }
+
     Artist.update(
       {
         likes: artist.dataValues.likes + 1,
@@ -58,6 +71,7 @@ router.post("/like", async (req, res, next) => {
         where: { artist_name: req.body.likeSelect },
       }
     );
+    res.send(artist);
   } catch (err) {
     console.error(err);
   }
