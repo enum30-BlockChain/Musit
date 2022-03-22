@@ -66,6 +66,4 @@ contract MusitNFT is ERC721URIStorage, Ownable {
     emit MintMusitNFT(newTokenId, _tokenURI);
     totalSupplied = newTokenId;
   }
-
-  
 }
