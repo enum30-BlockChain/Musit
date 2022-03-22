@@ -160,7 +160,6 @@ function FileUpload({address}) {
           // onTimeUpdate= {(e) =>{
           //   console.log(e.currentTarget.currentTime)
           // }}
-          on
           autoplay
           loop
           controls
