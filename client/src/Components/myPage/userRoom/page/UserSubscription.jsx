@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const UserState = ({ address, response, setResponse }) => {
-  const [subscriptiontext, setSubscriptiontext] = useState(
-    response.subscription
-  );
+const UserSubscription = ({ address, response, setResponse }) => {
+  const [subscriptiontext, setSubscriptiontext] = useState();
 
   useEffect(() => {
     if (!response.subscription) {
@@ -30,4 +28,4 @@ const UserState = ({ address, response, setResponse }) => {
   );
 };
 
-export default UserState;
+export default UserSubscription;

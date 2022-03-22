@@ -24,11 +24,13 @@ const LikeCard = ({ id, name, address }) => {
           {likedetail.map((ArtistDetail, index) => {
             return (
               <>
-                <th>{ArtistDetail.title}</th>
-                <th>{ArtistDetail.Genre}</th>
-                <th>{ArtistDetail.Artist.artist_name}</th>
-                <th>{ArtistDetail.Artist.likes}</th>
-                <img src={ArtistDetail.img_file} style={{ width: "100px" }} />
+                <div className="Myfavorite_artist">
+                  <p>title: {ArtistDetail.title}</p>
+                  <p>Genre: {ArtistDetail.Genre}</p>
+                  <p>ArtistName: {ArtistDetail.Artist.artist_name}</p>
+                  <p>Like:{ArtistDetail.Artist.likes}</p>
+                  <img src={ArtistDetail.img_file} style={{ width: "100px" }} />
+                </div>
               </>
             );
           })}
