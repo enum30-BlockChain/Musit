@@ -13,7 +13,7 @@ import MyArtist from "./components/myPage/artistroom/MyArtist";
 import MyListener from "./components/myPage/userRoom/MyListener";
 import Fileupload from "./components/fileupload/FileUpload.jsx";
 
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/navbar/Navbar.jsx";
 // import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
 import Footer from "./components/footer/footer";
