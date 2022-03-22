@@ -7,13 +7,13 @@ import MainLayout from "./components/MainLayout.jsx";
 import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
-import Metamask from "./web3/Metamask";
+import Metamask from "./web3/Matamask";
 import MyPageLayout from "./components/myPage/MyPage.jsx";
 import MyArtist from "./components/myPage/artistroom/MyArtist";
 import MyListener from "./components/myPage/userRoom/MyListener";
 import Fileupload from "./components/fileupload/FileUpload.jsx";
 
-import Navbar from "./components/navBar/Navbar.jsx";
+import Navbar from "./components/navbar/Navbar.jsx";
 // import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
 import Footer from "./components/footer/Footer.jsx";

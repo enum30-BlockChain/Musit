@@ -39,6 +39,9 @@ function MusicSearch(props) {
           </tr>
         </thead>
     {songList && songList.map((song, i) => {
+      const findLike = song.MusicLikes.find(
+        (like) => like.user_address === props.address
+      );
         return (
           <MusicCard
             id={i}
@@ -46,12 +49,13 @@ function MusicSearch(props) {
             artistName={song.artist_name}
             img={song.img_file}
             duration={song.play_time}
-            // like={song.like}  //TODO:use이펙트로 불러온다음 그값을 더해서 넣어줄꺼임
+            like={song.MusicLikes.length} 
             count={song.play_count}
             audio={song.ipfs_hash}
             genre={song.Genre}
             address={props.address}
             artistAddress={song.Artist.user_address}
+            checkBox={findLike}
           />
         );    
   })}
