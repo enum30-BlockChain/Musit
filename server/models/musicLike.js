@@ -23,8 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   MusicLike.init(
     {
-      Id: { type: DataTypes.INTEGER, primaryKey: true },
-      like: { type: DataTypes.INTEGER, allowNull: false },
+      Id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     },
     {
       sequelize,

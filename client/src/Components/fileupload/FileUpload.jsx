@@ -68,27 +68,30 @@ function FileUpload({address}) {
   };
 
   const isValidDBdata = () => {
-    if(albumCoverImgFile===""){
-      alert('앨범파일 넣어주세요')
-      return false
-    }else if(audiofile===""){
-      alert('오디오파일 넣어주세요')
-      return false
-    }else if(musicTitle===""){
-      alert('노래제목을 넣어주세요')
-      return false
-    }else if(checkedInputs.length== 0 ){
-      alert('장르를 체크해주세요')
-      return false
+    if (DBdata.artist_name === "") {
+      alert("로그인을 해주세요");
+      return false;
+    } else if (albumCoverImgFile === "") {
+      alert("앨범파일 넣어주세요");
+      return false;
+    } else if (audiofile === "") {
+      alert("오디오파일 넣어주세요");
+      return false;
+    } else if (musicTitle === "") {
+      alert("노래제목을 넣어주세요");
+      return false;
+    } else if (checkedInputs.length == 0) {
+      alert("장르를 체크해주세요");
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const submit = async () => {
+    await findArtist();
     if (isValidDBdata()) {
       await postImg();
       await postAudio();
-      await findArtist();
       DBdata.music_duration = duration;
       DBdata.music_title = musicTitle;
       DBdata.music_genre = checkedInputs;
@@ -99,10 +102,10 @@ function FileUpload({address}) {
         .then((res) => {
           if (res.data.result = 0) {
             alert(res.data.message);
-            document.location.href="/musicsearch";
+              window.location.href="/musicsearch";
           } else if (res.data.result = 1) {
             alert(res.data.message);
-              window.location.href = "/fileupload";
+              window.location.href = "/musicsearch";
           } else if (res.data.result = 2) {
             alert(res.data.message);
               window.location.href = "/fileupload";
@@ -121,9 +124,9 @@ function FileUpload({address}) {
   };
 
   const findArtist = async () =>{
-    artistList.forEach(a => {
+    artistList.map(a => {
       if(a.user_address === address){
-        DBdata.artist_name=a.artist_name;
+        DBdata.artist_name = a.artist_name;
         return DBdata;
       }
     });

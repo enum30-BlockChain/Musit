@@ -9,6 +9,7 @@ const cors = require("cors");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const filesRouter = require("./routes/files/files.js");
+const musicRouter = require("./routes/music.js");
 const artistsRouter = require("./routes/artists");
 const artistlikesRouter = require("./routes/artistlikes");
 const models = require("./models/index");
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/files", filesRouter);
+app.use("/music", musicRouter);
 app.use("/artists", artistsRouter);
 app.use("/artistlikes", artistlikesRouter);
 
