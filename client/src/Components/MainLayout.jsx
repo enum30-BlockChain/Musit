@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Metamask from "../web3/Metamask";
+import Metamask from "../web3/Matamask";
 import axios from "axios";
-import Navbar from "./navbar/Navbar";
-import Footer from "./footer/Footer.jsx";
 import Button from "./styledComponents/Button.styled";
 
 export const MainLayout = ({ address, setAddress }) => {
@@ -26,7 +24,6 @@ export const MainLayout = ({ address, setAddress }) => {
 
   return (
     <>
-      <Navbar />
       <Link to="/Register">
         <button>Register</button>
       </Link>
@@ -45,7 +42,6 @@ export const MainLayout = ({ address, setAddress }) => {
         </div>
       </div>
       <div>메인페이지입니다.</div>
-      <Footer />
     </>
   );
 };
