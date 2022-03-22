@@ -1,32 +1,29 @@
 import {ethers} from "ethers";
 
+const MusitNFT = require("./MusitNFT.json");
+const ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
+
 interface Window {
   ethereum: any;
 }
 declare let window: Window;
 
-export default class Ethers {
-  static provider = new ethers.providers.Web3Provider(window.ethereum);
+const provider = new ethers.providers.AlchemyProvider("ropsten", ALCHEMY_API_KEY);
+const contract = new ethers.Contract(MusitNFT.contractAddress, MusitNFT.abi, provider);
 
-  static async getAccounts () {
-    if (window.ethereum) {
-      try {
-        const accounts = await this.provider.listAccounts();
-        if(accounts.length > 0) {
-          return accounts;
-        } else {
-          return []
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      return 
+export default class Ethers {
+
+  static async getAccount () {
+    try {
+      return await provider.getSigner();
+    } catch (error) {
+      console.log(error)
+      return ""
     }
   }
 
-  static async connectMetaMask () {
-    if (window.ethereum) {
-      await this.provider.send("eth_requestAccounts", [])
-    }
+  static async setIsMintEnabled (setIsMintEnabled: boolean) {
+    const data = contract
+    console.log(data)
   }
 }

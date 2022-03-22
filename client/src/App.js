@@ -8,6 +8,7 @@ import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
 import Metamask from "./web3/Matamask";
+import Ethers from "./web3/Ethers";
 import MyPageLayout from "./components/myPage/MyPage.jsx";
 import MyArtist from "./components/myPage/artistroom/MyArtist";
 import MyListener from "./components/myPage/userRoom/MyListener";
@@ -17,6 +18,7 @@ import Navbar from "./components/navbar/Navbar.jsx";
 // import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
 import Footer from "./components/footer/Footer.jsx";
+import YshTest from "./components/ysh/YshTest";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -59,6 +61,7 @@ function App() {
             element={<MusicSearch address={address} />}
           ></Route>
           <Route path="Footer" element={<Footer />}></Route>
+          <Route path="/ysh" element={<YshTest />}></Route>
         </Route>
       </Routes>
       <Footer />
