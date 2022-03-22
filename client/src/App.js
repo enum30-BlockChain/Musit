@@ -16,7 +16,7 @@ import Fileupload from "./components/fileupload/FileUpload.jsx";
 import Navbar from "./components/navbar/Navbar.jsx";
 // import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
-import Footer from "./components/footer/Footer";
+import Footer from "./components/footer/footer";
 
 function App() {
   const [address, setAddress] = useState("");
