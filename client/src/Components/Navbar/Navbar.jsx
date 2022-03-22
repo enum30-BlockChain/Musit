@@ -25,7 +25,7 @@ export const Navbar = () => {
   return (
     <header class="main-header">
       <div class="logo">
-        <Link to="/App">
+        <Link to="/">
           <a>Musit X Eunm30</a>
         </Link>
       </div>
