@@ -131,34 +131,32 @@ export default class Metamask {
 		}
 	};
 
-	// 연결된 네트워크 아이디 불러오기
-	static getNetwork = async (): Promise<ResponseType<string>> => {
-		const provider = window.ethereum;
-		let network: string;
-		if (provider) {
-			try {
-				const chainId = await provider.request({
-					method: "eth_chainId",
-				});
-				network = chainIdToNetworkName(chainId);
-				const cannotFindMsg =
-					"😓Cannot find network!\nMetamask might be not connected.";
-				const connectedMsg = `${network} is connected`;
-				let message: string =
-					network === "unknown" || "" ? cannotFindMsg : connectedMsg;
-				console.log(message);
-				return new Response(network, message);
-			} catch (error: any) {
-				const message: string = "🤬 " + error.message;
-				console.log(message);
-				return new Response("", message);
-			}
-		} else {
-			const message: string = "🤬You must install Metamask.";
-			console.log(message);
-			return new Response("", message);
-		}
-	};
+  // 연결된 네트워크 아이디 불러오기
+  static getNetwork = async (): Promise<ResponseType<string>> => {
+    const provider = window.ethereum;
+    let network: string;
+    if (provider) {
+      try {
+        const chainId = await provider.networkVersion;
+        network = chainIdToNetworkName(chainId);
+        const cannotFindMsg =
+          "😓Cannot find network!\nMetamask might be not connected.";
+        const connectedMsg = `${network} is connected`;
+        let message: string =
+          network === "unknown" || "" ? cannotFindMsg : connectedMsg;
+        console.log(message);
+        return new Response(network, message);
+      } catch (error: any) {
+        const message: string = "🤬 " + error.message;
+        console.log(message);
+        return new Response("", message);
+      }
+    } else {
+      const message: string = "🤬You must install Metamask.";
+      console.log(message);
+      return new Response("", message);
+    }
+  };
 
 	static walletListener = async (setAddress: Function): Promise<ResponseType<string>> => {
 		const provider = window.ethereum;

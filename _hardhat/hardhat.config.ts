@@ -24,21 +24,46 @@ task("deployMusitNFT", "Deploy contract", async (_: string, hre) => {
   return hre.ethers.getContractFactory("MusitNFT", accounts[0]).then((contractFactory) => contractFactory.deploy()).then((result) => {
     console.log(result.address);
   });
-
 })
 
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
+const getApiKey = (provider: string): string | undefined => {
+  if (provider === "alchemy") return process.env.ALCHEMY_API_KEY;
+  else if (provider === "infura") return process.env.INFURA_API_KEY;
+  else return "";
+};
+
+const getURL = (provider: string): string => {
+  const apiKey = getApiKey(provider);
+  if (provider && apiKey) {
+    if (provider == "alchemy") {
+      return `https://eth-${provider}.alchemyapi.io/v2/${apiKey}`;
+    } else if (provider == "infura") {
+      return `https://${provider}.infura.io/v3/${apiKey}`;
+    } else return "";
+  } else return "";
+};
+
+const getPrivateKey = (): string[] => {
+  return process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
+};
+
+
+
 const config: HardhatUserConfig = {
   solidity: "0.8.4",
   defaultNetwork: "ropsten",
   networks: {
     ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      url: getURL("alchemy"),
+      accounts: getPrivateKey(),
+    },
+    rinkeby: {
+      url: getURL("alchemy"),
+      accounts: getPrivateKey(),
     },
   },
   gasReporter: {
