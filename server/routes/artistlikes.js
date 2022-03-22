@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { ArtistLike } = require("../models/index");
+const { ArtistLike, Artist } = require("../models/index");
 
 /* GET ArtistLike listing. */
 router.get("/", function (req, res, next) {
@@ -26,6 +26,7 @@ router.post("/like", async (req, res, next) => {
     console.log("like을 server에 요청하였습니다.");
     console.log(req.body);
     console.log(req.body.likeSelect);
+
     const artist = await ArtistLike.findOne({
       where: {
         artist_artist_name: req.body.likeSelect,
@@ -40,44 +41,41 @@ router.post("/like", async (req, res, next) => {
         user_address: req.body.address,
         likes: req.body.likes,
       });
-      const like = await ArtistLike.update(
+      const artistlike = await ArtistLike.findAll({
+        include: {
+          model: Artist,
+          where: { artist_name: req.body.likeSelect },
+        },
+      });
+      console.log(artistlike);
+      console.log(11111111111111111);
+      console.log(artistlike.length);
+      console.log(11111111111111111);
+      const likes = await Artist.findAll({
+        where: {
+          artist_name: req.body.likeSelect,
+        },
+      });
+      const likesup = await Artist.update(
         {
-          likes: artist.dataValues.likes + 1,
+          likes: artistlike.length++,
         },
         {
           where: {
-            artist_artist_name: req.body.likeSelect,
-            user_address: req.body.address,
+            artist_name: req.body.likeSelect,
           },
         }
       );
-    } else if (artist.dataValues.likes >= 1) {
-      const like = await ArtistLike.update(
-        {
-          likes: artist.dataValues.likes - 1,
-        },
-        {
-          where: {
-            artist_artist_name: req.body.likeSelect,
-            user_address: req.body.address,
-          },
-        }
-      );
-    } else {
-      const like = await ArtistLike.update(
-        {
-          likes: artist.dataValues.likes + 1,
-        },
-        {
-          where: {
-            artist_artist_name: req.body.likeSelect,
-            user_address: req.body.address,
-          },
-        }
-      );
-      res.send(like);
-      console.log(like);
+      console.log(likesup);
     }
+    // else if (artist !== null) {
+    //   const artistdelete = await ArtistLike.destroy(
+    //     {
+    //       artist_artist_name: req.body.likeSelect,
+    //     },
+    //     { where: { artist_name: req.body.likeSelect }, truncate: true }
+    //   );
+    // }
   } catch (err) {
     console.error(err);
   }

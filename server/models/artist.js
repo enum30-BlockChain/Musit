@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   Artist.init(
     {
       artist_name: { type: DataTypes.STRING, primaryKey: true },
+      likes: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     },
     {
       sequelize,
@@ -33,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Artist",
       tableName: "artist",
       charset: "utf8mb4",
-      collate: "utf8mb4_0900_ai_ci",
+      collate: "utf8mb4_general_ci",
     }
   );
   return Artist;
