@@ -68,14 +68,12 @@ const Register = () => {
           <div>
             <p>0xlaijf3234</p>
             <button type="button" class="">
-              Vrify
+              Vrify your Metamask Address
             </button>
           </div>
           <p>닉네임</p>
           <input type="text" onChange={onChangeNick}></input>
-
           <p>Nations</p>
-
           <div>
             {" "}
             {nation.map((nation, index) => (
@@ -87,17 +85,20 @@ const Register = () => {
               />
             ))}
           </div>
-          <p>선호하는 장르를 선택해주세요 </p>
-          <p>Genre</p>
-          {genre.map((MusicType, index) => (
-            <ListenerType
-              id={index + 1}
-              key={index}
-              name={MusicType}
-              setSelected={setSelected}
-            />
-          ))}
-          <button onClick={handleOnclick}>장르확정</button>
+          s
+          <div>
+            <p>선호하는 장르를 선택해주세요 </p>
+            <p>Genre</p>
+            {genre.map((MusicType, index) => (
+              <ListenerType
+                id={index + 1}
+                key={index}
+                name={MusicType}
+                setSelected={setSelected}
+              />
+            ))}
+            <button onClick={handleOnclick}>장르확정</button>
+          </div>
           <button onClick={UserHandleOnClick}>회원가입</button>
         </div>
       </div>
