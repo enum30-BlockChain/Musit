@@ -6,7 +6,7 @@ import Metamask from "../../../../web3/matamask.ts";
 
 const Listener = () => {
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
-  const [nation, setnNation] = useState([""]);
+  const [nation, setNation] = useState([""]);
   const [user, setUser] = useState({});
   const [selected, setSelected] = useState("");
   const [option, setOption] = useState("");
