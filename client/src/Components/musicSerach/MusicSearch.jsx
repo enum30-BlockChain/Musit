@@ -9,6 +9,7 @@ function MusicSearch(props) {
      await axios
       .get("http://localhost:5000/files")
       .then((res) => {
+        console.log(res.data)
         setSongList(res.data);
       })
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
