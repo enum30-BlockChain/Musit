@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Metamask from "../web3/Metamask";
+import Metamask from "../web3/Matamask";
 import axios from "axios";
 import Button from "./styledComponents/Button.styled";
 
