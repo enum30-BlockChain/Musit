@@ -13,10 +13,7 @@ const ArtistCard = ({ id, name, setSelect, select, artistList, address }) => {
       const url = "http://localhost:5000/artistlikes/like";
       const response = await axios
         .post(url, { address, likeSelect })
-        .then((res) => {
-          console.log(res.data);
-          console.log(res.data);
-        });
+        .then((res) => {});
     }
   };
 
