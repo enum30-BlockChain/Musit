@@ -4,9 +4,10 @@ import axios from 'axios'
 
  function MusicCard(props) {
   const [modal, setModal] = useState(false);
-  const [checkedInputs, setCheckedInputs] = useState(props.checkBox);
+  const [checkedInputs, setCheckedInputs] = useState();
   const [likeCount, setlikeCount] = useState(props.like);
-  
+  const [palyeCount, setpalyeCount] = useState(props.count);
+
   const onPopup = () => {
     setModal(true);
   };
@@ -16,15 +17,25 @@ import axios from 'axios'
     setModal(false);
   };
 
+  const palyCountAdd = async ()=>{
+    setpalyeCount(palyeCount+1)
+    const content = {palyeCount:palyeCount,
+                    audio:props.audio}
+    await axios
+      .post("http://localhost:5000/music/add",content)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+  }
+
   const changeHandler = async (checked) => {
     await axios
     .post("http://localhost:5000/music/like",props)
     .then((res) => {
     })
-    .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
-
+    .catch((err) => alert("회원가입부터하세용.", err));
     if (checked) {
-      console.log("체크")
       setCheckedInputs(true);
       setlikeCount(likeCount+1);
     } else {
@@ -32,6 +43,11 @@ import axios from 'axios'
       setlikeCount(likeCount-1);
     }
   };
+
+  useEffect(() => {
+      setCheckedInputs(props.checkBox);
+  }, [props]);
+ 
   if (props.address === props.artistAddress) {
     return (
       <>
@@ -44,9 +60,18 @@ import axios from 'axios'
               <img src={props.img} style={{ width: "100px" }} />
             </td>
             <td>
-              <audio src={`https://ipfs.io/ipfs/${props.audio}`} controls />
+              <audio
+                src={`https://ipfs.io/ipfs/${props.audio}`}
+                onEnded={() => {
+                  palyCountAdd();
+                }}
+                onAbort ={(e)=>{
+                  console.log(e)
+                }}
+                controls
+              />
             </td>
-            <td>{props.count}</td>
+            <td>{palyeCount}</td>
             <td>
               <input
                 type="checkbox"
@@ -59,7 +84,7 @@ import axios from 'axios'
             </td>
             <td>{props.genre}</td>
             <td>
-              <button onClick={onPopup}> 수정 </button>{" "}
+              <button onClick={onPopup}> 수정 </button>
             </td>
           </tr>
         </tbody>
@@ -69,34 +94,42 @@ import axios from 'axios'
   }else if(props.address!==props.artistAddress){
     return (
       <>
-        <tbody>
-          <tr>
-            <td>{props.id}</td>
-            <td>{props.title}</td>
-            <td>{props.artistName}</td>
-            <td>
-              <img src={props.img} style={{ width: "100px" }} />
-            </td>
-            <td>
-              <audio src={`https://ipfs.io/ipfs/${props.audio}`} controls />
-            </td>
-            <td>{props.count}</td>
-            <td>
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  changeHandler(e.currentTarget.checked);
-                }}
-                checked={checkedInputs}
-              />
-              {likeCount}
-            </td>
-            <td>{props.genre}</td>
-              <td><button onClick={onPopup} disabled > 수정 </button> </td>
-          </tr>
-        </tbody>
-        {modal && <Modal props={props} onClose={onClose} />}
-      </>
+      <tbody>
+        <tr>
+          <td>{props.id}</td>
+          <td>{props.title}</td>
+          <td>{props.artistName}</td>
+          <td>
+            <img src={props.img} style={{ width: "100px" }} />
+          </td>
+          <td>
+          <audio
+              src={`https://ipfs.io/ipfs/${props.audio}`}
+              onEnded={()=>{
+                palyCountAdd()
+              }}
+              controls
+            />
+          </td>
+          <td>{palyeCount}</td>
+          <td>
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                changeHandler(e.currentTarget.checked);
+              }}
+              checked={checkedInputs}
+            />
+            {likeCount}
+          </td>
+          <td>{props.genre}</td>
+          <td>
+            <button onClick={onPopup} disabled> 수정 </button>
+          </td>
+        </tr>
+      </tbody>
+      {modal && <Modal props={props} onClose={onClose} />}
+    </>
     );
   }
   

@@ -33,6 +33,19 @@ musics.post("/like", async (req, res, next) => {
     console.log(err);
   }
 });
-  
+
+musics.post("/add", async (req, res, next) => {
+  try {
+    const data = req.body;
+    await Music.update({
+      play_count: data.palyeCount+1,
+    },
+     { where: { ipfs_hash: data.audio }
+    });
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+});
 
 module.exports = musics;
