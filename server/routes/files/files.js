@@ -3,11 +3,7 @@ const multer = require("multer");
 const upload = require("./s3upload");
 const files = express.Router();
 
-<<<<<<< HEAD
-const { Music, Artist } = require("../../models/index.js");
-=======
-const { Music,Artist,MusicLike } = require("../../models/index.js");
->>>>>>> main
+const { Music, Artist, MusicLike } = require("../../models/index.js");
 
 files.post("/imgupload", (req, res, next) => {
   upload(req, res, function (err) {
@@ -105,6 +101,5 @@ files.post("/likesong", async (req, res, next) => {
     console.log(err);
   }
 });
-
 
 module.exports = files;
