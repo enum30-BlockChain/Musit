@@ -6,13 +6,7 @@ import LikeCard from "../card/LikeCard";
 
 const UserList = ({ address }) => {
   const [artistList, setAtistList] = useState([]);
-  const [song, setSong] = useState([
-    "사랑노래",
-    "사랑아",
-    "사랑비",
-    "사랑",
-    "사랑애",
-  ]);
+  const [song, setSong] = useState([]);
   const [select, setSelect] = useState("");
   const [likelist, setLikelist] = useState([""]);
 
@@ -36,7 +30,8 @@ const UserList = ({ address }) => {
   return (
     <div>
       <div>
-        Song List :
+        <button>Song List</button>
+
         {song.map((music, index) => (
           <SongCard id={index} key={index} name={music} />
         ))}

@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import RecentCard from "../card/RecentCard";
 const RecentPlayed = () => {
-  const [recent, setRecent] = useState([
-    "사랑비",
-    "사랑아",
-    "사랑꾼",
-    "사랑나비",
-    "사랑저격",
-  ]);
+  const [recent, setRecent] = useState([]);
   return (
     <>
       <div>
