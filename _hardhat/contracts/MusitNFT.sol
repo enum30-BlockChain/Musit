@@ -27,7 +27,7 @@ contract MusitNFT is ERC721URIStorage, Ownable {
   mapping (address => mapping(uint256 => uint256)) ownedNFT; // 주소가 소유한 NFT : 주소 => (tokenId => tokenURI)
 
   constructor () ERC721("Musit NFT","MUSIT") {
-    mintPrice = 1 ether;
+    mintPrice = 0.01 ether;
     maxSupply = 20;
     maxMintsPerWallet = 2;
     maxMintsPerTx = 1;

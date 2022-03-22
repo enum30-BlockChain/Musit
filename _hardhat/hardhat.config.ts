@@ -36,13 +36,13 @@ const getApiKey = (provider: string): string | undefined => {
   else return "";
 };
 
-const getURL = (provider: string): string => {
+const getURL = (provider: string, network: string): string => {
   const apiKey = getApiKey(provider);
   if (provider && apiKey) {
     if (provider == "alchemy") {
-      return `https://eth-${provider}.alchemyapi.io/v2/${apiKey}`;
+      return `https://eth-${network}.alchemyapi.io/v2/${apiKey}`;
     } else if (provider == "infura") {
-      return `https://${provider}.infura.io/v3/${apiKey}`;
+      return `https://${network}.infura.io/v3/${apiKey}`;
     } else return "";
   } else return "";
 };
@@ -58,11 +58,11 @@ const config: HardhatUserConfig = {
   defaultNetwork: "ropsten",
   networks: {
     ropsten: {
-      url: getURL("alchemy"),
+      url: getURL("alchemy", "ropsten"),
       accounts: getPrivateKey(),
     },
     rinkeby: {
-      url: getURL("alchemy"),
+      url: getURL("alchemy", "rinkeby"),
       accounts: getPrivateKey(),
     },
   },

@@ -36,16 +36,16 @@ const chainIdToNetworkName = (chainId: string): string => {
 			network = "Mainnet";
 			break;
 		case ChainId.ROPSTEN:
-			network = "Ropsten_Test_Network";
+			network = "Ropsten";
 			break;
 		case ChainId.RINKEBY:
-			network = "Ropsten_Test_Network";
+			network = "Rinkeby";
 			break;
 		case ChainId.GOERLI:
-			network = "Goerli_Test_Network";
+			network = "Goerli";
 			break;
 		case ChainId.KOVAN:
-			network = "Kovan_Test_Network";
+			network = "Kovan";
 			break;
 		default:
 			network = "Unknown";
@@ -73,7 +73,7 @@ class Response<T> {
 
 export default class Metamask {
 	// 연결된 지갑 디앱 실행하기
-	static connectWallet = async (setAddress: Function): Promise<ResponseType<string[]>> => {
+	static connectWallet = async (setAddress?: Function): Promise<ResponseType<string[]>> => {
 		const provider = window.ethereum;
 		let accounts: string[];
 		if (provider) {
@@ -100,7 +100,7 @@ export default class Metamask {
 	};
 
 	// 연결된 지갑 주소 배열 불러오기
-	static getAccounts = async (setAddress: Function): Promise<ResponseType<string[]>> => {
+	static getAccounts = async (setAddress?: Function): Promise<ResponseType<string[]>> => {
 		const provider = window.ethereum;
 		let accounts: string[];
 		if (provider) {
@@ -137,7 +137,9 @@ export default class Metamask {
     let network: string;
     if (provider) {
       try {
-        const chainId = await provider.networkVersion;
+        const chainId = await provider.request({
+          method: "eth_chainId"
+        });
         network = chainIdToNetworkName(chainId);
         const cannotFindMsg =
           "😓Cannot find network!\nMetamask might be not connected.";
@@ -158,7 +160,7 @@ export default class Metamask {
     }
   };
 
-	static walletListener = async (setAddress: Function): Promise<ResponseType<string>> => {
+	static walletListener = async (setAddress?: Function): Promise<ResponseType<string>> => {
 		const provider = window.ethereum;
 		if (provider) {
 			provider.on("accountsChanged", (accounts: string[]) => {
