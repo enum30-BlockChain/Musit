@@ -21,7 +21,6 @@ const UserList = ({ address }) => {
   const LikeListOnClick = () => {
     const url = "http://localhost:5000/artistlikes/list";
     const response = axios.post(url, { address }).then((res) => {
-      console.log(res.data);
       setLikelist(res.data);
     });
   };
@@ -30,20 +29,18 @@ const UserList = ({ address }) => {
   return (
     <div>
       <div>
-        <button>Song List</button>
-
         {song.map((music, index) => (
           <SongCard id={index} key={index} name={music} />
         ))}
       </div>
       <div>
-        LikeList :
         {likelist.map((LikeList, index) => (
           <LikeCard
             id={index}
             key={index}
             name={LikeList.artist_artist_name}
             likes={LikeList.likes}
+            address={address}
           />
         ))}
       </div>
@@ -51,7 +48,7 @@ const UserList = ({ address }) => {
 
       <button onClick={LoginOnClick}>List</button>
       <div>
-        Artist List :
+        Artist List
         {artistList.map((list, index) => (
           <ArtistCard
             id={index}

@@ -3,7 +3,7 @@ const multer = require("multer");
 const upload = require("./s3upload");
 const files = express.Router();
 
-const { Music,Artist } = require("../../models/index.js");
+const { Music, Artist } = require("../../models/index.js");
 
 files.post("/imgupload", (req, res, next) => {
   upload(req, res, function (err) {
@@ -26,7 +26,7 @@ files.post("/imgupload", (req, res, next) => {
 files.post("/create", async (req, res, next) => {
   try {
     const data = req.body;
-    console.log(data)
+    console.log(data);
     const ipfs_hash = await Music.findOne({
       where: { ipfs_hash: data.music_link },
     });
@@ -46,39 +46,55 @@ files.post("/create", async (req, res, next) => {
       res.send({ result: 1, message: "이미등록된 음원입니다." });
     }
   } catch (err) {
-    console.log(err)
-    res.send({ result: 2, message: '에러*_* 다시해주셈'});
+    console.log(err);
+    res.send({ result: 2, message: "에러*_* 다시해주셈" });
   }
 });
 
-files.post("/modify",async (req,res,next)=>{
-  try{
+files.post("/modify", async (req, res, next) => {
+  try {
     const data = req.body;
-    console.log(data)
-    await Music.update({
-      ipfs_hash: data.music_link,
-      title: data.music_title,
-      play_time: data.duration,
-      play_count: data.count,
-      img_file: data.cover_img_link,
-      Genre: data.genre.join(),
-      artist_name: data.artist_name,
-    },
-     { where: { ipfs_hash: data.music_link }
-    });
+    console.log(data);
+    await Music.update(
+      {
+        ipfs_hash: data.music_link,
+        title: data.music_title,
+        play_time: data.duration,
+        play_count: data.count,
+        img_file: data.cover_img_link,
+        Genre: data.genre.join(),
+        artist_name: data.artist_name,
+      },
+      { where: { ipfs_hash: data.music_link } }
+    );
     res.send({ result: 0, message: "수정이 완료되었습니다." });
-  }catch(err){
-    console.log(err)
-    res.send({ result: 2, message: '에러*_* 다시해주셈'});
+  } catch (err) {
+    console.log(err);
+    res.send({ result: 2, message: "에러*_* 다시해주셈" });
   }
 });
 
 files.get("/", async (req, res, next) => {
   try {
-    const songList = await Music.findAll(
-      { include: {model: Artist}}
-    );
-    res.send(songList)
+    const songList = await Music.findAll({ include: { model: Artist } });
+    res.send(songList);
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+});
+
+files.post("/likesong", async (req, res, next) => {
+  try {
+    const songList = await Music.findAll({
+      include: {
+        model: Artist,
+        where: {
+          artist_name: req.body.name,
+        },
+      },
+    });
+    res.send(songList);
   } catch (err) {
     next(err);
     console.log(err);

@@ -4,9 +4,8 @@ import axios from "axios";
 const ArtistCard = ({ id, name, setSelect, select, artistList, address }) => {
   const selectOnClick = (e) => {
     setSelect(e.target.value);
-    console.log(select);
   };
-  console.log(select);
+
   const likeOnClick = async () => {
     if (artistList[select] !== 0) {
       const likeSelect = artistList[select].artist_name;

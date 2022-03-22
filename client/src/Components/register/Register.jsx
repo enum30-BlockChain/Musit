@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CountryType from "./../register/user/listener/CountryType.jsx";
 import ListenerType from "./../register/user/listener/ListenerType.jsx";
-import Metamask from "./../../web3/Matamask";
+import Metamask from "../../web3/Matamask";
 import axios from "axios";
 import "./Register.css";
 
@@ -32,11 +32,10 @@ const Register = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
+      await Metamask.getAccounts(setAddress);
+      await Metamask.walletListener(setAddress);
     };
     init();
-    return () => {};
   }, []);
 
   const onChangeNick = (e) => {

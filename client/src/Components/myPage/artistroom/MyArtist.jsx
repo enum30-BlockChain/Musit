@@ -25,7 +25,7 @@ const MyArtist = () => {
       console.log(res.data);
     });
   };
-  console.log(totallike);
+
   return (
     <>
       <div>나의 주소는 : {address}</div>
