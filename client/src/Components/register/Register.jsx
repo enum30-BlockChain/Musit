@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import CountryType from "./../register/user/listener/CountryType.jsx";
-import ListenerType from "./../register/user/listener/ListenerType.jsx";
+import CountryType from "./user/listener/CountryType.jsx";
+import ListenerType from "./user/listener/ListenerType.jsx";
 import Metamask from "../../web3/Matamask";
 import axios from "axios";
 import "./Register.css";
@@ -66,7 +66,6 @@ const Register = () => {
         <div class="box">
           <p>Adress</p>
           <div>
-            
             <button type="button" class="">
               Vrify your Metamask Address
             </button>
