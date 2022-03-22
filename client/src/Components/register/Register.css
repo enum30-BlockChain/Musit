@@ -1,0 +1,15 @@
+.container {
+  text-align: center;
+  width: 100%;
+  padding: 30px;
+
+  /* border: 1px solid black; */
+}
+.grid {
+  radius: 30%;
+  text-align: left;
+  border: 1px solid black;
+  width: 35%;
+  display: inline-block;
+  height: 500px;
+}

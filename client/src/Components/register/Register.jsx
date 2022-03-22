@@ -3,6 +3,7 @@ import CountryType from "./../register/user/listener/CountryType.jsx";
 import ListenerType from "./../register/user/listener/ListenerType.jsx";
 import Metamask from "./../../web3/matamask.ts";
 import axios from "axios";
+import "./Register.css";
 
 const Register = () => {
   const [genre, setGenre] = useState([
@@ -64,14 +65,15 @@ const Register = () => {
       <div class="grid">
         <div class="box">
           <p>Adress</p>
-          <p>0xlaijf3234</p>
-          <button type="button" class="">
-            Vrify
-          </button>
+          <div>
+            <p>0xlaijf3234</p>
+            <button type="button" class="">
+              Vrify
+            </button>
+          </div>
           <p>닉네임</p>
-
           <input type="text" onChange={onChangeNick}></input>
-          <button onClick={handleOnclick}>Vrify</button>
+
           <p>Nations</p>
 
           <div>
@@ -95,6 +97,7 @@ const Register = () => {
               setSelected={setSelected}
             />
           ))}
+          <button onClick={handleOnclick}>장르확정</button>
           <button onClick={UserHandleOnClick}>회원가입</button>
         </div>
       </div>
