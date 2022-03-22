@@ -4,6 +4,7 @@ import Metamask from "../web3/Matamask";
 import axios from "axios";
 import Button from "./styledComponents/Button.styled";
 import Hoveringcard from "./contents/Hoveringcard";
+// import FileUpload from "./fileupload/FileUpload";
 
 export const MainLayout = ({ address, setAddress }) => {
   const [nickname, setNickname] = useState("");
@@ -43,7 +44,7 @@ export const MainLayout = ({ address, setAddress }) => {
         </div>
       </div>
       <div>메인페이지입니다.</div>
-
+      {/* <FileUpload /> */}
       <Hoveringcard />
     </>
   );
