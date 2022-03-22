@@ -3,7 +3,7 @@ const multer = require("multer");
 const upload = require("./s3upload");
 const files = express.Router();
 
-const { Music } = require("../../models/index.js");
+const { Music,Artist } = require("../../models/index.js");
 
 files.post("/imgupload", (req, res, next) => {
   upload(req, res, function (err) {
@@ -12,7 +12,7 @@ files.post("/imgupload", (req, res, next) => {
     } else if (err) {
       return next(err);
     }
-    console.log(req.file)
+    // console.log(req.file)
     // console.log("원본파일명 : " + req.file.originalname);
     // console.log("저장파일명 : " + req.file.filename);
     // console.log("크기 : " + req.file.size);
@@ -26,6 +26,7 @@ files.post("/imgupload", (req, res, next) => {
 files.post("/create", async (req, res, next) => {
   try {
     const data = req.body;
+    console.log(data)
     const ipfs_hash = await Music.findOne({
       where: { ipfs_hash: data.music_link },
     });
@@ -74,7 +75,9 @@ files.post("/modify",async (req,res,next)=>{
 
 files.get("/", async (req, res, next) => {
   try {
-    const songList = await Music.findAll();
+    const songList = await Music.findAll(
+      { include: {model: Artist}}
+    );
     res.send(songList)
   } catch (err) {
     next(err);

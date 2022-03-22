@@ -5,7 +5,7 @@ import axios from "axios";
 
 const Listener = ({ address }) => {
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
-  const [nation, setnNation] = useState([""]);
+  const [nation, setNation] = useState([""]);
   const [user, setUser] = useState({});
   const [selected, setSelected] = useState("");
   const [option, setOption] = useState("");
@@ -25,7 +25,7 @@ const Listener = ({ address }) => {
       nickname: nickname,
     });
   };
-  
+
   const UserHandleOnClick = async () => {
     const url = "http://localhost:5000/users/signup";
     const response = await axios.post(url, user);

@@ -2,38 +2,29 @@ import axios from 'axios'
 import React ,{useState,useEffect} from 'react'
 import MusicCard from './MusicCard';
 
-function MusicSearch() {
-    const [songList, setSongList] = useState("")
-    const [artist, setArtist] = useState("")
-     const getSongList = async () => {
-       axios
-         .get("http://localhost:5000/files")
-         .then((res) => {
-            //  console.log(res.data);
-            setSongList(res.data);            
-            })
-         .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
-     };
-     const getArtist = async () => {
-       axios
-         .get("http://localhost:5000/artists/artistList")
-         .then((res) => {
-             console.log(res.data);
-            // setArtist(res.data);            
-            })
-         .catch((err) => alert("아티스트 목록을 불러오지못했습니다.", err));
-     };
+function MusicSearch(props) {
+  const [songList, setSongList] = useState("");
+  
+  const getSongList = async () => {
+     await axios
+      .get("http://localhost:5000/files")
+      .then((res) => {
+        setSongList(res.data);
+      })
+      .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+  };
 
-     useEffect(() => {
-         getSongList()
-         getArtist()
-        }, [])
+  useEffect(() => {
+    const init = async () => {
+      await getSongList();
+    }
+    init();
+  }, []);
 
   return (
   <>
   <table  style={{margin:"auto"}}>
         <caption> 우왕 </caption>
-        <button onClick={getArtist}>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</button>
         <thead>
           <tr>
             <th>순번 </th>
@@ -59,6 +50,8 @@ function MusicSearch() {
             count={song.play_count}
             audio={song.ipfs_hash}
             genre={song.Genre}
+            address={props.address}
+            artistAddress={song.Artist.user_address}
           />
         );    
   })}
