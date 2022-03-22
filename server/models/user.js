@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const db = require(".");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -8,7 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Artist, {
+        foreignKey: { name: "user_address", allowNull: false },
+        targetKey: "address",
+      });
+      User.hasMany(models.ArtistLike, {
+        foreignKey: { name: "user_address", allowNull: false },
+        targetKey: "address",
+      });
+      User.hasMany(models.MusicLike, {
+        foreignKey: { name: "user_address", allowNull: false },
+        targetKey: "address",
+      });
     }
   }
   User.init(
@@ -20,11 +32,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       nickname: { type: DataTypes.STRING, allowNull: false, unique: true },
       nation: { type: DataTypes.STRING, allowNull: false },
-      genre: { type: DataTypes.TINYINT, allowNull: true },
-      play_time: { type: DataTypes.TIME, allowNull: true },
-      play_count: { type: DataTypes.INTEGER, allowNull: true },
-      play_redo: { type: DataTypes.STRING, allowNull: true },
-      play_music: { type: DataTypes.STRING, allowNull: true },
+      genre: { type: DataTypes.STRING, allowNull: false },
+      recent_played: { type: DataTypes.STRING, allowNull: true },
+      subscription: {
+        type: DataTypes.TINYINT,
+        allowNull: true,
+        defaultValue: false,
+      },
     },
     {
       sequelize,
@@ -32,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
       tableName: "user",
       charset: "utf8mb4",
-      collate: "utf8mb4_general_ci",
+      collate: "utf8mb4_0900_ai_ci",
     }
   );
   return User;

@@ -1,0 +1,20 @@
+1. 회원가입이 되어있을때 닉네임이 나온다.->
+회원가입이 되어있을대는 닉네임이 바로나오고
+
+회원가입이 되어있지않을때 닉네임이 나오지않는다.
+
+-> 회원가입을하고 새로고침을하면 닉네임이 나온다.
+
+artistlike
+user-artistlike
+->user_address -> artistlike 보내주기 1:1 수정
+
+artistlike
+artist-artistlike
+->artist_name -> artistlike 보내주기 1:1 수정
+
+music
+music-musiclike
+->ipfs_hash -> musiclike 보내주기 1:1 수정
+
+default value 넣는법

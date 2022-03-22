@@ -1,162 +1,196 @@
 import React, { useEffect, useState } from "react";
-
+import axios from "axios";
 const { create } = require("ipfs-http-client");
 
+function FileUpload({address}) {
 
-export const FileUpload = () => {
-    const [upLoadText, setUpLoadText] = useState("")
-    const [ipfsHash, setipfsHash] = useState("")
-    const [Hash, setHash] = useState("")
-    const [getText, setgetText] = useState("")
-    const [getText1, setgetText1] = useState("")
-    const [bufferArray,setbufferArray] = useState([])
-    async function ipfsClient() {   //서버오픈
-        const ipfs = await create(
-            {
-                host: "ipfs.infura.io",
-                port: 5001,
-                protocol: "https"
-            }
-        );
-        return ipfs;
-    }
+  const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
+  const [checkedInputs, setCheckedInputs] = useState([]);
+  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+  const [audiofile, setaudiofile] = useState("");
+  const [duration, setDuration] = useState("")
+  const [musicTitle, setMusicTitle] = useState("")
+  const [currentTime, setCurrentTime] = useState("")    //TODO : 나중에 스트리밍할때쓸려고나둠
+  const [artistList, setartistList] = useState("")
+  const [DBdata, setDBdata] = useState({
+    cover_img_link : '',
+    music_link : '',
+    music_title : '',
+    music_duration : '',
+    artist_name : '',
+    music_genre : '',
+    });
 
-    async function saveText() {
-        let ipfs = await ipfsClient();
-        let result = await ipfs.add(upLoadText);
-        setipfsHash(result.path);
-    }
+  const formData = new FormData();  //server로 img파일 보내기위해 사용
+ 
+  async function ipfsClient() {    //ipfs 서버연결
+    const ipfs = await create({
+      host: "ipfs.infura.io",
+      port: 5001,
+      protocol: "https",
+    });
+    return ipfs;
+  }
 
-    async function getData() {
-        let ipfs = await ipfsClient();
-        let asyncitr = ipfs.cat(Hash)
-    
-        for await (const itr of asyncitr) {
-
-            let data = Buffer.from(itr).toString()
-            setgetText(data)
-        }
-    }
-    async function getData1() {
-        let ipfs = await ipfsClient();
-        let asyncitr = ipfs.cat(Hash)
-    
-        for await (const itr of asyncitr) {
-            let data = itr
-            setgetText1(data)
-            console.log(data)
-        }
-    }
-
-    //파일 미리볼 url을 저장해줄 state
-  const [fileImage, setFileImage] = useState("");
-  // 파일 저장
-  const saveFileImage = (e) => {
-    // setFileImage(URL.createObjectURL(e.target.files[0]));
-    setFileImage(e.target.files[0]);
-    console.log(fileImage)
+  const getImg = (e) => {
+    setAlbumCoverImgFile(e.target.files[0]);
   };
-  const uploadFileImage = async (e) => {
-    let ipfs = await ipfsClient();
-    let result = await ipfs.add(fileImage);
-    console.log(result);
+  const getAudio = (e) => {
+    setaudiofile(e.target.files[0]);
   };
-  // 파일 삭제
-  const deleteFileImage = () => {
-    URL.revokeObjectURL(fileImage);
-    setFileImage("");
+  const getTitle = (e) => {
+    setMusicTitle (e.target.value);
   };
-
-  //해시값으로받은 img Uint8Array
-  const content = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 5, 0, 0, 0, 5, 8, 6, 0, 0, 0, 141, 111, 38, 229, 0, 0, 0, 28, 73, 68, 65, 84, 8, 215, 99, 248, 255, 255, 63, 195, 127, 6, 32, 5, 195, 32, 18, 132, 208, 49, 241, 130, 88, 205, 4, 0, 14, 245, 53, 203, 209, 142, 14, 31, 0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
   
-  const see = URL.createObjectURL(
-    new Blob([getText1.buffer], { type:  'audio/mp3'  } )
-  );
+  const postImg = async() => {              //multer하고 s3저장후 링크가져오기
+    formData.append("img", albumCoverImgFile);
+    await axios
+      .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
+      .then(res => DBdata.cover_img_link = res.data.downLoadLink)
+      .catch(err => alert(err));
+    return DBdata
+  };
 
+  const postAudio = async() => {              //multer하고 s3저장후 링크가져오기
+    let ipfs = await ipfsClient();
+    let result = await ipfs.add(audiofile)
+     DBdata.music_link = result.path;
+  };
+
+
+  const changeHandler = (checked, value) => {
+    if (checked) {
+      setCheckedInputs([...checkedInputs, value]);
+    } else {
+      // 체크 해제
+      setCheckedInputs(checkedInputs.filter((el) => el !== value));
+    }
+  };
+
+  const isValidDBdata = () => {
+    if(albumCoverImgFile===""){
+      alert('앨범파일 넣어주세요')
+      return false
+    }else if(audiofile===""){
+      alert('오디오파일 넣어주세요')
+      return false
+    }else if(musicTitle===""){
+      alert('노래제목을 넣어주세요')
+      return false
+    }else if(checkedInputs.length== 0 ){
+      alert('장르를 체크해주세요')
+      return false
+    }
+    return true
+  }
+
+  const submit = async () => {
+    if (isValidDBdata()) {
+      await postImg();
+      await postAudio();
+      await findArtist();
+      DBdata.music_duration = duration;
+      DBdata.music_title = musicTitle;
+      DBdata.music_genre = checkedInputs;
+      //TODO : 아티스트 이름은 useEffect로 처음에 불러와서 보낼꺼니깐있는거어서 상관 x
+      //TODO : 지금은 안불러와서 있는 아티스트 이름넣어줘야 db저장가능
+      await axios
+        .post("http://localhost:5000/files/create", DBdata)
+        .then((res) => {
+          if (res.data.result = 0) {
+            alert(res.data.message);
+            document.location.href="/musicsearch";
+          } else if (res.data.result = 1) {
+            alert(res.data.message);
+              window.location.href = "/fileupload";
+          } else if (res.data.result = 2) {
+            alert(res.data.message);
+              window.location.href = "/fileupload";
+          }
+        })
+        .catch((err) => alert(err));
+    }
+  };
+
+  const getArtist = async () => {
+    await axios
+      .get("http://localhost:5000/artists/artistList") //formData multer가읽을수있다.
+      .then((res) =>{setartistList(res.data)
+      })
+      .catch((err) => alert(err));
+  };
+
+  const findArtist = async () =>{
+    artistList.forEach(a => {
+      if(a.user_address === address){
+        DBdata.artist_name=a.artist_name;
+        return DBdata;
+      }
+    });
+  }
+
+  useEffect(() => {
+    const init = async () => {
+    await  getArtist()};
+    init()
+  }, [])
   
   return (
     <>
-    <p/>
-    <input value={upLoadText} onChange={(e)=>{setUpLoadText(e.target.value)}}/>
-    <button onClick={saveText}>saveText</button>
-    <p>생성해쉬값 : {ipfsHash}</p>
-    <input value={Hash} onChange={(e)=>{setHash(e.target.value)}}/>
-    <button onClick={getData}>get Text</button>
-    <p> </p>
-    <h1>{getText}</h1>
-    <input value={Hash} onChange={(e)=>{setHash(e.target.value)}}/>
-    <button onClick={getData1}>get Array</button>
-    <p> </p>
-    <h1>{getText1}</h1>
-    
-    {/* <img   src='https://ipfs.io/ipfs/QmdcTfJskTCktdfdL7JKCUHNngjG8ntoSuwpp9Bw6gjJ4E' /> */}
-    {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
-
-    <audio src={see} autoplay loop controls>오디오 지원되지 않는 브라우저</audio>
-    <img id="my-img" src= {see } /> 
-    <h1>이미지 미리보기</h1>
-      <table>
-        <tbody>
-          <tr>
-            <th>이미지</th>
-            <td>
-              <div>
-                {fileImage && (
-                  <img
-                    alt="sample"
-                    src={URL.createObjectURL(fileImage)}
-                    style={{ margin: "auto" }}
-                  />
-                )}
-                {fileImage && (
-                <audio src={URL.createObjectURL(fileImage)} autoplay loop controls>오디오 지원되지 않는 브라우저</audio>
-                )}
-                <div
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <input
-                    name="imgUpload"
-                    type="file"
-                    // accept="image/*"
-                    onChange={saveFileImage}
-                  />
-
-                  <button
-                    style={{
-                      backgroundColor: "gray",
-                      color: "white",
-                      width: "55px",
-                      height: "40px",
-                      cursor: "pointer",
-                    }}
-                    onClick={uploadFileImage}
-                  >
-                    등록
-                  </button>
-                  <button
-                    style={{
-                      backgroundColor: "gray",
-                      color: "white",
-                      width: "55px",
-                      height: "40px",
-                      cursor: "pointer",
-                    }}
-                    onClick={ deleteFileImage}
-                  >
-                    삭제
-                  </button>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <p>albumCoverImg</p>
+      <input name="imgUpload" type="file" accept="image/*" onChange={getImg} />
+      {albumCoverImgFile && (
+        <img
+          src={URL.createObjectURL(albumCoverImgFile)}
+          style={{ width: "200px" }}
+        ></img>
+      )}
+      <p>music</p>
+      <input type="file" accept="audio/*" onChange={getAudio} />
+      {audiofile && (
+        <audio
+          src={URL.createObjectURL(audiofile)}
+          onLoadedData={(e) => {
+            setDuration(e.currentTarget.duration);
+            // console.log(e.currentTarget.duration);
+          }}
+          // onTimeUpdate= {(e) =>{
+          //   console.log(e.currentTarget.currentTime)
+          // }}
+          on
+          autoplay
+          loop
+          controls
+        >
+          오디오 지원되지 않는 브라우저
+        </audio>
+      )}
+      <p>title</p>
+      <input onChange={getTitle} value={musicTitle} />
+      <p>genre</p>
+      <form> 
+      {genre.map((MusicType, index) => {
+        return (
+          <>
+            <label>
+              {MusicType}
+              <input
+                type={"checkbox"}
+                name={"MusicType"}
+                value={MusicType}
+                onChange={(e) => {
+                  changeHandler(e.currentTarget.checked, MusicType);
+                }}
+                checked={checkedInputs.includes(MusicType) ? true : false}
+              />
+            </label>
+          </>
+        )})}
+      </form>
+      {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
+      <p />
+      <button onClick={submit}> submit </button>
     </>
   );
-};
-
+}
 export default FileUpload;
