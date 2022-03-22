@@ -33,7 +33,6 @@ router.post("/like", async (req, res, next) => {
         user_address: req.body.address,
       },
     });
-    res.send(artist);
     if (artist == null) {
       const artist = await ArtistLike.create({
         Id: req.body.likeSelect,
@@ -47,18 +46,9 @@ router.post("/like", async (req, res, next) => {
           where: { artist_name: req.body.likeSelect },
         },
       });
-      console.log(artistlike);
-      console.log(11111111111111111);
-      console.log(artistlike.length);
-      console.log(11111111111111111);
-      const likes = await Artist.findAll({
-        where: {
-          artist_name: req.body.likeSelect,
-        },
-      });
       const likesup = await Artist.update(
         {
-          likes: artistlike.length++,
+          likes: artistlike.length,
         },
         {
           where: {
@@ -67,15 +57,30 @@ router.post("/like", async (req, res, next) => {
         }
       );
       console.log(likesup);
+    } else {
+      var artistdelete = await ArtistLike.destroy({
+        where: {
+          artist_artist_name: req.body.likeSelect,
+          user_address: req.body.address,
+        },
+      });
+      const artistlike = await ArtistLike.findAll({
+        include: {
+          model: Artist,
+          where: { artist_name: req.body.likeSelect },
+        },
+      });
+      var artistupdate = await Artist.update(
+        {
+          likes: artistlike.length,
+        },
+        {
+          where: {
+            artist_name: req.body.likeSelect,
+          },
+        }
+      );
     }
-    // else if (artist !== null) {
-    //   const artistdelete = await ArtistLike.destroy(
-    //     {
-    //       artist_artist_name: req.body.likeSelect,
-    //     },
-    //     { where: { artist_name: req.body.likeSelect }, truncate: true }
-    //   );
-    // }
   } catch (err) {
     console.error(err);
   }
