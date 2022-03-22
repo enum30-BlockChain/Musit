@@ -76,8 +76,10 @@ files.post("/modify", async (req, res, next) => {
 });
 
 files.get("/", async (req, res, next) => {
+  console.log(11111111111111);
   try {
     const songList = await Music.findAll({ include: { model: Artist } });
+    console.log(songList);
     res.send(songList);
   } catch (err) {
     next(err);
@@ -87,7 +89,7 @@ files.get("/", async (req, res, next) => {
 
 files.post("/likesong", async (req, res, next) => {
   try {
-    const songList = await Music.findAll({
+    const songlike = await Music.findAll({
       include: {
         model: Artist,
         where: {
@@ -95,7 +97,7 @@ files.post("/likesong", async (req, res, next) => {
         },
       },
     });
-    res.send(songList);
+    res.send(songlike);
   } catch (err) {
     next(err);
     console.log(err);
