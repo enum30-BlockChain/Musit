@@ -66,7 +66,7 @@ const Register = () => {
         <div class="box">
           <p>Adress</p>
           <div>
-            <p>0xlaijf3234</p>
+            
             <button type="button" class="">
               Vrify your Metamask Address
             </button>
