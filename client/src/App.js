@@ -1,7 +1,9 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+//pages
 import MainLayout from "./components/MainLayout.jsx";
+// import Songs from "./components/songs/Songs.jsx";
 import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
@@ -10,6 +12,9 @@ import MyPageLayout from "./components/myPage/MyPage.jsx";
 import MyArtist from "./components/myPage/artistroom/MyArtist";
 import MyListener from "./components/myPage/userRoom/MyListener";
 import Fileupload from "./components/fileupload/FileUpload.jsx";
+
+import Navbar from "./components/navBar/Navbar.jsx";
+// import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
 import Footer from "./components/footer/Footer.jsx";
 
@@ -26,6 +31,7 @@ function App() {
 
   return (
     <>
+      <Navbar />
       <Routes>
         <Route path="/">
           <Route
@@ -44,11 +50,18 @@ function App() {
             path="MyListener"
             element={<MyListener address={address} />}
           ></Route>
-          <Route path="fileupload" element={<Fileupload />}></Route>
-          <Route path="MusicSearch" element={<MusicSearch />}></Route>
+          <Route
+            path="fileupload"
+            element={<Fileupload address={address} />}
+          ></Route>
+          <Route
+            path="MusicSearch"
+            element={<MusicSearch address={address} />}
+          ></Route>
           <Route path="Footer" element={<Footer />}></Route>
         </Route>
       </Routes>
+      <Footer />
     </>
   );
 }

@@ -21,41 +21,55 @@ router.post("/like", async (req, res, next) => {
     console.log("like을 server에 요청하였습니다.");
     console.log(req.body);
     console.log(req.body.likeSelect);
-    const artistlike = await ArtistLike.findOne({
+    const artist = await ArtistLike.findOne({
       where: {
-        Id: req.body.likeSelect,
+        artist_artist_name: req.body.likeSelect,
+        user_address: req.body.address,
       },
     });
-    console.log(artistlike);
-    await ArtistLike.create({
-      Id: req.body.likeSelect,
-      artist_artist_name: req.body.likeSelect,
-      user_address: req.body.address,
-      likes: req.body.likeSelect,
-    });
-    if (artistlike.dataValues.likes <= 0) {
-      console.log(artistlike);
-    } else {
-      ArtistLike.update(
+    if (artist == null) {
+      const artist = await ArtistLike.create({
+        Id: req.body.likeSelect,
+        artist_artist_name: req.body.likeSelect,
+        user_address: req.body.address,
+        likes: req.body.likes,
+      });
+      const like = await ArtistLike.update(
         {
-          likes: artistlike.dataValues.likes - 1,
+          likes: artist.dataValues.likes + 1,
         },
         {
-          where: { artist_name: req.body.likeSelect },
+          where: {
+            artist_artist_name: req.body.likeSelect,
+            user_address: req.body.address,
+          },
         }
       );
-      return res.send(artistlike);
+    } else if (artist.dataValues.likes >= 1) {
+      const like = await ArtistLike.update(
+        {
+          likes: artist.dataValues.likes - 1,
+        },
+        {
+          where: {
+            artist_artist_name: req.body.likeSelect,
+            user_address: req.body.address,
+          },
+        }
+      );
+    } else {
+      const like = await ArtistLike.update(
+        {
+          likes: artist.dataValues.likes + 1,
+        },
+        {
+          where: {
+            artist_artist_name: req.body.likeSelect,
+            user_address: req.body.address,
+          },
+        }
+      );
     }
-
-    ArtistLike.update(
-      {
-        likes: artist.dataValues.likes + 1,
-      },
-      {
-        where: { artist_name: req.body.likeSelect },
-      }
-    );
-    res.send(artist);
   } catch (err) {
     console.error(err);
   }

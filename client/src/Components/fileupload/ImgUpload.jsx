@@ -94,10 +94,10 @@ export const ImgUpload = () => {
     <h1>{getText1}</h1>
     
     {/* <img   src="https://ipfs.io/ipfs/Qmf4MtHdYo87H2fmwGPq6ktGTy67VTpw81XnAKCpP65hBC" />
-    <audio src={bufferArray} autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
+    <audio src={bufferArray} autoplay loop controls>오디오 지원되지 않는 브라우저</audio>
 
     <audio src={see}autoplay loop controls>오디오 지원되지 않는 브라우저</audio>
-    <img id="my-img" src= {see } /> 
+    <img id="my-img" src= {see } />  */}
     <h1>이미지 미리보기</h1>
       <table>
         <tbody>

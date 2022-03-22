@@ -2,22 +2,24 @@ import axios from 'axios'
 import React ,{useState,useEffect} from 'react'
 import MusicCard from './MusicCard';
 
-function MusicSearch() {
-    const [songList, setSongList] = useState("")
+function MusicSearch(props) {
+  const [songList, setSongList] = useState("");
+  
+  const getSongList = async () => {
+     await axios
+      .get("http://localhost:5000/files")
+      .then((res) => {
+        setSongList(res.data);
+      })
+      .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+  };
 
-     const getSongList = async () => {
-       axios
-         .get("http://localhost:5000/files")
-         .then((res) => {
-            //  console.log(res.data);
-            setSongList(res.data);            
-            })
-         .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
-     };
-
-     useEffect(() => {
-         getSongList()
-        }, [])
+  useEffect(() => {
+    const init = async () => {
+      await getSongList();
+    }
+    init();
+  }, []);
 
   return (
   <>
@@ -32,6 +34,7 @@ function MusicSearch() {
             <th>auido</th>
             <th>play_count</th>
             <th>like</th>
+            <th>genre</th>
             <th>수정</th>
           </tr>
         </thead>
@@ -42,9 +45,13 @@ function MusicSearch() {
             title={song.title}
             artistName={song.artist_name}
             img={song.img_file}
-            like={song.like}
+            duration={song.play_time}
+            // like={song.like}  //TODO:use이펙트로 불러온다음 그값을 더해서 넣어줄꺼임
             count={song.play_count}
-            audio={`https://ipfs.io/ipfs/${song.ipfs_hash}`}
+            audio={song.ipfs_hash}
+            genre={song.Genre}
+            address={props.address}
+            artistAddress={song.Artist.user_address}
           />
         );    
   })}
