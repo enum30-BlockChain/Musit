@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
   ArtistLike.init(
     {
       Id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-      likes: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     },
 
     {
@@ -31,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "ArtistLike",
       tableName: "artistlike",
       charset: "utf8mb4",
-      collate: "utf8mb4_0900_ai_ci",
+      collate: "utf8mb4_general_ci",
     }
   );
   return ArtistLike;

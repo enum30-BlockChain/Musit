@@ -26,7 +26,6 @@ const MyListener = () => {
 
   return (
     <>
-      <div>나의 주소는 : {address}</div>
       <UserState
         address={address}
         response={response}
