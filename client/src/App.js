@@ -44,7 +44,7 @@ function App() {
             element={<MainLayout address={address} setAddress={setAddress} />}
           ></Route>
 
-          <Route path="Register" element={<Register />}></Route>
+          <Route path="Register" element={<Register address={address}/>}></Route>
 
           <Route
             path="Listener"
@@ -55,7 +55,7 @@ function App() {
 
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
 
-          <Route path="MyArtist" element={<MyArtist />}></Route>
+          <Route path="MyArtist" element={<MyArtist address={address} />}></Route>
 
           <Route path="MyListener" element={<MyListener address={address} />}>
             <Route
