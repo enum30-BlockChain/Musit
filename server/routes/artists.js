@@ -80,7 +80,7 @@ router.post("/signup", async (req, res, next) => {
 });
 
 //아티스트 회원가입내용 조회
-router.get("/artistList", async (req, res, next) => {
+router.get("/List", async (req, res, next) => {
   try {
     const findname = await Artist.findAll();
     res.send(findname);

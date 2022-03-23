@@ -15,7 +15,6 @@ const MyListener = () => {
       setAddress(metamaskResponse.data[0]);
       const url = "http://localhost:5000/users/signin";
       const response = await axios.post(url, { address });
-      console.log(response);
       setResponse(response.data);
     };
     init();
@@ -31,9 +30,12 @@ const MyListener = () => {
         <p>
           <Link to="/MyListener/UserList">UserList</Link>
         </p>
+        <p>
+          <Link to="/MyListener/myplaylist">MyPlayList</Link>
+        </p>
       </sidebar>
-      <Outlet context = {[address, response, setResponse, 2]}/>
-      
+      <Outlet context={[address, response, setResponse]} />
+
       {/* <div>
         <UserSubscription
           address={address}

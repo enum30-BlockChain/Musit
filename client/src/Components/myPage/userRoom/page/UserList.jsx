@@ -14,7 +14,7 @@ const UserList = () => {
 
   //아티스트조회 함수 이벤트 핸들러
   const LoginOnClick = async () => {
-    const url = "http://localhost:5000/artists/artistList";
+    const url = "http://localhost:5000/artists/list";
     const response = await axios.get(url);
     setAtistList(response.data);
   };

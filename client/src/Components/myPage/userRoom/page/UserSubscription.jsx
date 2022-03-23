@@ -4,16 +4,15 @@ import { useOutletContext } from "react-router-dom";
 
 const UserSubscription = () => {
   const [subscriptiontext, setSubscriptiontext] = useState();
-  
+
   const [address, response, setResponse] = useOutletContext();
 
   useEffect(() => {
-    // if (!response.subscription) {
-    //   setSubscriptiontext("");
-    // } else {
-    //   setSubscriptiontext("1개월 이용권이 있어요");
-    // }
-    console.log(response);
+    if (!response.subscription) {
+      setSubscriptiontext("");
+    } else {
+      setSubscriptiontext("1개월 이용권이 있어요");
+    }
   }, []);
 
   const BuyOnclick = async () => {
