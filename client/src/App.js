@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 //pages
 import MainLayout from "./components/MainLayout.jsx";
-// import Songs from "./components/songs/Songs.jsx";
+import Songs from "./components/songs/Songs.jsx";
 import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
@@ -44,6 +44,7 @@ function App() {
             element={<Listener address={address} />}
           ></Route>
           <Route path="Artist" element={<Artist address={address} />}></Route>
+          <Route path="Songs" element={<Songs />}></Route>
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
           <Route path="MyArtist" element={<MyArtist />}></Route>
           <Route
