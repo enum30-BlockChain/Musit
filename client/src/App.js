@@ -22,6 +22,8 @@ import UserSubscription from "./components/myPage/userRoom/page/UserSubscription
 import UserList from "./components/myPage/userRoom/page/UserList";
 import MyPlayList from "./components/myPage/userRoom/page/MyPlayList";
 import YshTest from "./components/ysh/YshTest";
+import TotalPlayList from "./components/myPage/userRoom/page/TotalPlayList";
+import RecentlyPlayed from "./components/myPage/userRoom/page/RecentlyPlayed";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -64,6 +66,8 @@ function App() {
             ></Route>
             <Route path="UserList" element={<UserList />}></Route>
             <Route path="myplaylist" element={<MyPlayList />}></Route>
+            <Route path="totalplaylist" element={<TotalPlayList />}></Route>
+            <Route path="recentlyplayed" element={<RecentlyPlayed />}></Route>
           </Route>
 
           <Route

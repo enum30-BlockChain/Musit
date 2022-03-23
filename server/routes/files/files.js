@@ -86,6 +86,7 @@ files.get("/", async (req, res, next) => {
         },
       ],
     });
+    console.log(songList);
     res.send(songList);
   } catch (err) {
     next(err);
