@@ -44,6 +44,10 @@ import axios from 'axios'
     }
   };
 
+  const postTime = async()=>{
+    console.log("전송")
+  }
+
   useEffect(() => {
       setCheckedInputs(props.checkBox);
   }, [props]);
@@ -62,11 +66,11 @@ import axios from 'axios'
             <td>
               <audio
                 src={`https://ipfs.io/ipfs/${props.audio}`}
+                onPlay={()=>{
+                  setInterval(postTime, 1000);
+                  }}
                 onEnded={() => {
                   palyCountAdd();
-                }}
-                onAbort ={(e)=>{
-                  console.log(e)
                 }}
                 controls
               />
@@ -108,6 +112,9 @@ import axios from 'axios'
               onEnded={()=>{
                 palyCountAdd()
               }}
+              onPlay={()=>{
+                setInterval(postTime, 1000);
+                }}
               controls
             />
           </td>
