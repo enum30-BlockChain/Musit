@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./LikeCard.css";
 
 const LikeCard = ({ id, name, address }) => {
   const [song, setSong] = useState([]);
@@ -25,11 +26,18 @@ const LikeCard = ({ id, name, address }) => {
             return (
               <>
                 <div className="Myfavorite_artist">
-                  <p>title: {ArtistDetail.title}</p>
-                  <p>Genre: {ArtistDetail.Genre}</p>
-                  <p>ArtistName: {ArtistDetail.Artist.artist_name}</p>
-                  <p>Like:{ArtistDetail.Artist.likes}</p>
-                  <img src={ArtistDetail.img_file} style={{ width: "100px" }} />
+                  <div>
+                    <p>title: {ArtistDetail.title}</p>
+                    <p>Genre: {ArtistDetail.Genre}</p>
+                    <p>ArtistName: {ArtistDetail.Artist.artist_name}</p>
+                    <p>Like:{ArtistDetail.Artist.likes}</p>
+                  </div>
+                  <div>
+                    <img
+                      src={ArtistDetail.img_file}
+                      style={{ width: "100px" }}
+                    />
+                  </div>
                 </div>
               </>
             );

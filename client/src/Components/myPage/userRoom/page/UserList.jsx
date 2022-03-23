@@ -16,6 +16,7 @@ const UserList = ({ address }) => {
     const response = await axios.get(url);
     setAtistList(response.data);
   };
+  console.log(address);
 
   //내가 좋아하는 아티스트를 불러오는 핸들러
   const LikeListOnClick = () => {

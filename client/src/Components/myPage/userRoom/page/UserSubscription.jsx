@@ -15,7 +15,6 @@ const UserSubscription = ({ address, response, setResponse }) => {
   const BuyOnclick = async () => {
     const url = "http://localhost:5000/users/buy";
     const response = await axios.post(url, { address });
-    console.log(response.data);
     setResponse({ ...response, subscription: true });
   };
   return (

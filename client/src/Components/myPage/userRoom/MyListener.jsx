@@ -3,7 +3,7 @@ import Metamask from "../../../web3/Matamask";
 import UserList from "./page/UserList";
 import UserSubscription from "./page/UserSubscription";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 const MyListener = () => {
   const [address, setAddress] = useState("");
@@ -32,16 +32,23 @@ const MyListener = () => {
         </p>
       </sidebar>
       <div>
-        <div>
-          <UserSubscription
-            address={address}
-            response={response}
-            setResponse={setResponse}
-          />
-        </div>
-        <div>
-          <UserList address={address} />
-        </div>
+        {/* <Route
+          path="UserSubscription"
+          element={
+            <UserSubscription
+              address={address}
+              response={response}
+              setResponse={setResponse}
+            />
+          }
+        ></Route>
+        <Route path="UserList" element={<UserList address={address} />}></Route> */}
+        <UserSubscription
+          address={address}
+          response={response}
+          setResponse={setResponse}
+        />
+        <UserList address={address} />
       </div>
     </>
   );
