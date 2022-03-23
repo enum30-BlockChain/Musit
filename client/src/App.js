@@ -16,14 +16,11 @@ import Fileupload from "./components/fileupload/FileUpload.jsx";
 import Navbar from "./components/navbar/Navbar.jsx";
 // import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
-<<<<<<< HEAD
-import Footer from "./components/footer/Footer";
-=======
 import Footer from "./components/footer/Footer.jsx";
 import UserSubscription from "./components/myPage/userRoom/page/UserSubscription";
 import UserList from "./components/myPage/userRoom/page/UserList";
 import MyPlayList from "./components/myPage/userRoom/page/MyPlayList";
->>>>>>> jeon
+import Sidebar from "./components/myPage/Sidebar";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -45,24 +42,16 @@ function App() {
             index
             element={<MainLayout address={address} setAddress={setAddress} />}
           ></Route>
-
           <Route path="Register" element={<Register />}></Route>
-
           <Route
             path="Listener"
             element={<Listener address={address} />}
           ></Route>
-
           <Route path="Artist" element={<Artist address={address} />}></Route>
-<<<<<<< HEAD
           <Route path="Songs" element={<Songs />}></Route>
-=======
-
->>>>>>> main
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
-
           <Route path="MyArtist" element={<MyArtist />}></Route>
-
+          <Route path="Sidebar" element={<Sidebar />}></Route>
           <Route path="MyListener" element={<MyListener address={address} />}>
             <Route
               path="UserSubscription"

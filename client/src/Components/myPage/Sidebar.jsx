@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Metamask from "./../../web3/Matamask";
 import axios from "axios";
-import UserState from "./userRoom/page/UserState";
+import UserState from "./userRoom/page/UserSubscription";
 import "./Sidebar.scss";
 
-function Sidebar() {
+const Sidebar = () => {
   const [address, setAddress] = useState("");
   const [response, setResponse] = useState("");
 
@@ -21,7 +21,7 @@ function Sidebar() {
   }, [address]);
 
   return (
-    <div class="sidebar">
+    <div class="sidenav">
       <div class="user">
         <span class="user-state"></span>
         <div>나의 주소는 : {address}</div>
@@ -69,6 +69,6 @@ function Sidebar() {
       </div>
     </div>
   );
-}
+};
 
 export default Sidebar;

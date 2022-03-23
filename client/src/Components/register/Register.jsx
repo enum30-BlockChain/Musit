@@ -96,10 +96,14 @@ const Register = () => {
                   setSelected={setSelected}
                 />
               ))}
+              <button class="genre-set" onClick={handleOnclick}>
+                장르확정
+              </button>
             </div>
-            <button onClick={handleOnclick}>장르확정</button>
           </div>
-          <button onClick={UserHandleOnClick}>회원가입</button>
+          <button class="submit" onClick={UserHandleOnClick}>
+            회원가입
+          </button>
         </div>
       </div>
     </div>

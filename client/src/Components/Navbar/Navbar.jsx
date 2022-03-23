@@ -1,26 +1,31 @@
-import React, { useEffect, useStaste } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
-
-// import Matamask from "./../../web3/matamask.ts";
-// import axios from "axios";
+import Metamask from "../../web3/Matamask";
+import axios from "axios";
 
 export const Navbar = () => {
-  // const [address, setAddress] = useState("");
-  // useEffect(() => {
-  //   const init = async () => {
-  //     const accounts = await Matamask.getAccounts();
-  //     setAddress(accounts[0]);
-  //   };
-  //   init();
-  //   return () => {};
-  // }, []);
+  const [address, setAddress] = useState("");
+  const [nickname, setNickname] = useState("");
+  useEffect(() => {
+    const init = async () => {
+      const accounts = await Metamask.getAccounts();
+      setAddress(accounts[0]);
+    };
+    init();
+    return () => {};
+  }, []);
 
-  // const Login = async () => {
-  //   const url = "http://localhost:5000/users/signin";
-  //   const response = await axios.post(url, { address });
-  //   console.log(response.nickname);
-  // };
+  const connectOnClick = async () => {
+    const { data } = await Metamask.connectWallet();
+    setAddress(data[0]);
+  };
+
+  const Login = async () => {
+    const url = "http://localhost:5000/users/signin";
+    const response = await axios.post(url, { address });
+    console.log(response.nickname);
+  };
 
   return (
     <>
@@ -45,11 +50,22 @@ export const Navbar = () => {
               <button>Search</button>
             </li>
           </li>
+          <Link to="/">
+            <li class="nav-link">
+              <a href="#">Main</a>
+            </li>
+          </Link>
+
           <li class="nav-link">
-            <a href="#">menu</a>
-          </li>
-          <li class="nav-link">
-            <button>Login</button>
+            {address ? (
+              <p>
+                {address}
+                {nickname}
+                <button>logout</button>
+              </p>
+            ) : (
+              <button onClick={connectOnClick}>Connect</button>
+            )}
           </li>
         </ul>
       </header>

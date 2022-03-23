@@ -1,41 +1,41 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import "./Hoveringcard.scss";
+import "./Hoveringcard.scss";
 
 function Hoveringcard() {
   return (
     <div id="app" class="container">
       <Link to="/Register">
-        <card class="imgplace">
+        <div class="imgplace">
           <h1 slot="header" class="hovering-card">
             {" "}
             Auction{" "}
           </h1>
-          <p slot="content"> Join the enum3xMusit auction</p>
-        </card>
+          <p slot="content"> Join the Enum3 x Musit auction</p>
+        </div>
       </Link>
       <Link to="/Register">
-        <card class="imgplace">
+        <div class="imgplace">
           <h1 slot="header" class="hovering-card">
             Store
           </h1>
-          <p slot="content"> Join the enum3xMusit Store</p>
-        </card>
+          <p slot="content"> Join the Enum3 x Musit Store</p>
+        </div>
       </Link>
       <Link to="/Register">
-        <card class="imgplace">
+        <div class="imgplace">
           <h1 slot="header" class="hovering-card">
             {" "}
             Songs{" "}
           </h1>
-          <p slot="content"> Join the enum3xMusit Songs</p>
-        </card>
+          <p slot="content"> Join the Enum3 x Musit Songs</p>
+        </div>
       </Link>
-      <Link to="/Register">
-        <card class="imgplace">
+      <Link to="/MyPageLayout">
+        <div class="imgplace">
           <h1 slot="header"> My room </h1>
-          <p slot="content"> Join the enum3xMusit My room</p>
-        </card>
+          <p slot="content"> Join the Enum3 x Musit My room</p>
+        </div>
       </Link>
     </div>
   );
