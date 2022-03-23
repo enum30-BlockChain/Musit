@@ -3,10 +3,6 @@ import Metamask from "../../../web3/Matamask";
 import UserList from "./page/UserList";
 import UserState from "./page/UserState";
 import axios from "axios";
-import RecentPlayed from "./page/RecentPlayed";
-import MyPlayed from "./page/MyPlayed";
-import ListenCount from "./page/ListenCount";
-import TotalTime from "./page/TotalTime";
 
 const MyListener = () => {
   const [address, setAddress] = useState("");
@@ -31,10 +27,6 @@ const MyListener = () => {
         response={response}
         setResponse={setResponse}
       />
-      <TotalTime />
-      <ListenCount />
-      <RecentPlayed />
-      <MyPlayed />
       <UserList address={address} />
     </>
   );

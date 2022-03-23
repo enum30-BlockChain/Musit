@@ -25,6 +25,7 @@ const LikeCard = ({ id, name, address }) => {
             return (
               <>
                 <th>{ArtistDetail.title}</th>
+                <th>{ArtistDetail.Genre}</th>
                 <th>{ArtistDetail.Artist.artist_name}</th>
                 <th>{ArtistDetail.Artist.likes}</th>
                 <img src={ArtistDetail.img_file} style={{ width: "100px" }} />

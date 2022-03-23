@@ -1,8 +1,8 @@
-import React ,{useState,useEffect} from 'react'
-import Modal from './Modal';
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import Modal from "./Model.jsx";
+import axios from "axios";
 
- function MusicCard(props) {
+function MusicCard(props) {
   const [modal, setModal] = useState(false);
   const [checkedInputs, setCheckedInputs] = useState();
   const [likeCount, setlikeCount] = useState(props.like);
@@ -13,34 +13,31 @@ import axios from 'axios'
   };
 
   const onClose = () => {
-    console.log(props.artist)
     setModal(false);
   };
 
-  const palyCountAdd = async ()=>{
-    setpalyeCount(palyeCount+1)
-    const content = {palyeCount:palyeCount,
-                    audio:props.audio}
+  const palyCountAdd = async () => {
+    setpalyeCount(palyeCount + 1);
+    const content = { palyeCount: palyeCount, audio: props.audio };
     await axios
-      .post("http://localhost:5000/music/add",content)
+      .post("http://localhost:5000/music/add", content)
       .then((res) => {
-        console.log(res)
+        console.log(res);
       })
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
-  }
+  };
 
   const changeHandler = async (checked) => {
     await axios
-    .post("http://localhost:5000/music/like",props)
-    .then((res) => {
-    })
-    .catch((err) => alert("회원가입부터하세용.", err));
+      .post("http://localhost:5000/music/like", props)
+      .then((res) => {})
+      .catch((err) => alert("회원가입부터하세용.", err));
     if (checked) {
       setCheckedInputs(true);
-      setlikeCount(likeCount+1);
+      setlikeCount(likeCount + 1);
     } else {
       setCheckedInputs(false);
-      setlikeCount(likeCount-1);
+      setlikeCount(likeCount - 1);
     }
   };
 
@@ -49,9 +46,9 @@ import axios from 'axios'
   }
 
   useEffect(() => {
-      setCheckedInputs(props.checkBox);
+    setCheckedInputs(props.checkBox);
   }, [props]);
- 
+
   if (props.address === props.artistAddress) {
     return (
       <>
@@ -72,6 +69,12 @@ import axios from 'axios'
                 onEnded={() => {
                   palyCountAdd();
                 }}
+<<<<<<< HEAD
+=======
+                onAbort={(e) => {
+                  console.log(e);
+                }}
+>>>>>>> c8c7c5fb7b1e2f7d4279c77cf2a497a0228d9b53
                 controls
               />
             </td>
@@ -95,9 +98,10 @@ import axios from 'axios'
         {modal && <Modal props={props} onClose={onClose} />}
       </>
     );
-  }else if(props.address!==props.artistAddress){
+  } else if (props.address !== props.artistAddress) {
     return (
       <>
+<<<<<<< HEAD
       <tbody>
         <tr>
           <td>{props.id}</td>
@@ -137,8 +141,48 @@ import axios from 'axios'
       </tbody>
       {modal && <Modal props={props} onClose={onClose} />}
     </>
+=======
+        <tbody>
+          <tr>
+            <td>{props.id}</td>
+            <td>{props.title}</td>
+            <td>{props.artistName}</td>
+            <td>
+              <img src={props.img} style={{ width: "100px" }} />
+            </td>
+            <td>
+              <audio
+                src={`https://ipfs.io/ipfs/${props.audio}`}
+                onEnded={() => {
+                  palyCountAdd();
+                }}
+                controls
+              />
+            </td>
+            <td>{palyeCount}</td>
+            <td>
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  changeHandler(e.currentTarget.checked);
+                }}
+                checked={checkedInputs}
+              />
+              {likeCount}
+            </td>
+            <td>{props.genre}</td>
+            <td>
+              <button onClick={onPopup} disabled>
+                {" "}
+                수정{" "}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        {modal && <Modal props={props} onClose={onClose} />}
+      </>
+>>>>>>> c8c7c5fb7b1e2f7d4279c77cf2a497a0228d9b53
     );
   }
-  
 }
 export default MusicCard;
