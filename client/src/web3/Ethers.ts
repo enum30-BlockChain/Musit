@@ -7,12 +7,6 @@ interface Window {
 }
 declare let window: Window;
 
-const ALCHEMY_API_KEY = process.env.REACT_APP_ALCHEMY_API_KEY;
-const PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY? process.env.REACT_APP_PRIVATE_KEY : "";
-const network = "ropsten";
-const provider = new ethers.providers.AlchemyProvider(network, ALCHEMY_API_KEY);
-// const signer = new ethers.Wallet(PRIVATE_KEY, provider)
-
 const metamask = new ethers.providers.Web3Provider(window.ethereum);
 const signer = metamask.getSigner();
 const contract = new ethers.Contract(
@@ -24,15 +18,36 @@ const contract = new ethers.Contract(
 export default class Ethers {
   static async test() {
     try {
+
+			const mintingEstGas = await contract.estimateGas.minting("", {value: contract.mintPrice()}) // 함수의 예상 가스 비
+			const gasPrice = await signer.getGasPrice() 
+			
+			console.log(ethers.utils.formatUnits(mintingEstGas));
+			console.log(ethers.utils.formatUnits(gasPrice));
+			
+    } catch (error) {
+      console.log(error);
+			return "🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬";
+    }
+  }
+	
+  static async minting(tokenURI: string) {
+    try {
+
+			const mintingEstGas = await contract.estimateGas.minting(tokenURI, {value: contract.mintPrice()}) // 함수의 예상 가스 비
+			const gasPrice = await signer.getGasPrice() 
+			
+			// console.log(ethers.utils.formatUnits(mintingEstGas));
+			// console.log(ethers.utils.formatUnits(gasPrice));
+			
       const options = {
         value: ethers.utils.parseEther("0.01"),
-        gasLimit: 1000000,
-        gasPrice: 15000000000,
+        gasPrice: gasPrice,
       }
       return await contract.minting("tokenURI", options);
     } catch (error) {
       console.log(error);
-			return "🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬";
+			return "";
     }
   }
 
@@ -45,15 +60,15 @@ export default class Ethers {
     }
   }
 
-	static async sendTx() {
+	static async sendTx(recieverAddress: string, amountEth: number) {
 		try {
       const gas_price = await signer.getGasPrice()
       const gas_limit = ethers.utils.hexlify(21000)
       const nonce = await signer.getTransactionCount()
-      const value = ethers.utils.parseEther("1")
+      const value = ethers.utils.parseEther(String(amountEth))
       const tx = {
         from: signer.getAddress(),
-        to: "0x2Eb8c98E360d146165b8F1f819F8863d41C4Eb6D",
+        to: recieverAddress,
         value: value,
         nonce: nonce,
         gasLimit: gas_limit,

@@ -31,7 +31,7 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-router.get("/artistList", async (req, res, next) => {
+router.get("/list:address", async (req, res, next) => {
   try {
     const findname = await Artist.findAll();
     res.send(findname);

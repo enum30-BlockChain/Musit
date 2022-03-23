@@ -3,8 +3,10 @@ import Ethers from '../../web3/Ethers'
 
 const YshTest = () => {
   async function init () {
-    // const result = await Ethers.test()
-    console.log(await Ethers.getIsMintEnabled())
+    // console.log(await Ethers.setIsMintEnabled(true))
+    console.log(await Ethers.getTotalSupplied())
+    const result = await Ethers.minting("a;sodfjals;dfl");
+    console.log(result);
   } 
 
   useEffect(() => {
