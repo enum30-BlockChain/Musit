@@ -13,7 +13,6 @@ export const MainLayout = ({ address, setAddress }) => {
     const url = "http://localhost:5000/users/signin";
     const response = await axios.post(url, { address });
     // console.log(response.data);
-    console.log(response.data);
     setNickname({
       nickname: response.data.nickname,
     });

@@ -9,7 +9,7 @@ function FileUpload({ address }) {
   const [audiofile, setaudiofile] = useState("");
   const [duration, setDuration] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
-  // const [currentTime, setCurrentTime] = useState("")    //TODO : 나중에 스트리밍할때쓸려고나둠
+  // const [currentTime, setCurrentTime] = useState(""); //TODO : 나중에 스트리밍할때쓸려고나둠
   const [artistList, setartistList] = useState("");
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
@@ -118,7 +118,7 @@ function FileUpload({ address }) {
 
   const getArtist = async () => {
     await axios
-      .get("http://localhost:5000/artists/artistList") //formData multer가읽을수있다.
+      .get("http://localhost:5000/artists/list") //formData multer가읽을수있다.
       .then((res) => {
         setartistList(res.data);
       })
@@ -163,7 +163,6 @@ function FileUpload({ address }) {
           // onTimeUpdate= {(e) =>{
           //   console.log(e.currentTarget.currentTime)
           // }}
-          on
           autoplay
           loop
           controls

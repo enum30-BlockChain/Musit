@@ -32,11 +32,10 @@ const Register = () => {
 
   useEffect(() => {
     const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
+      await Metamask.getAccounts(setAddress);
+      await Metamask.walletListener(setAddress);
     };
     init();
-    return () => {};
   }, []);
 
   const onChangeNick = (e) => {
