@@ -23,13 +23,29 @@ const MyListener = () => {
     <>
       <sidebar>
         <p>
-          <Link to="/MyListener/UserSubscription">UserSubscription</Link>
+          <Link to="/MyListener/UserSubscription">
+            <button>UserSubscription</button>
+          </Link>
         </p>
         <p>
-          <Link to="/MyListener/UserList">UserList</Link>
+          <Link to="/MyListener/UserList">
+            <button>UserList</button>
+          </Link>
         </p>
         <p>
-          <Link to="/MyListener/myplaylist">MyPlayList</Link>
+          <Link to="/MyListener/myplaylist">
+            <button>MyPlayList</button>
+          </Link>
+        </p>
+        <p>
+          <Link to="/MyListener/totalplaylist">
+            <button>TotalPlayList</button>
+          </Link>
+        </p>
+        <p>
+          <Link to="/MyListener/recentlyplayed">
+            <button>RecentlyPlayed</button>
+          </Link>
         </p>
       </sidebar>
       <Outlet context={[address, response, setResponse]} />
