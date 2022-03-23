@@ -1,32 +1,133 @@
-import {ethers} from "ethers";
+import { ethers } from "ethers";
+import MusitNFT from "./MusitNFT.json";
+
 
 interface Window {
   ethereum: any;
 }
 declare let window: Window;
 
+const metamask = new ethers.providers.Web3Provider(window.ethereum);
+const signer = metamask.getSigner();
+const contract = new ethers.Contract(
+	MusitNFT.contractAddress,
+	MusitNFT.abi,
+	signer
+);
+
 export default class Ethers {
-  static provider = new ethers.providers.Web3Provider(window.ethereum);
+  static async test() {
+    try {
 
-  static async getAccounts () {
-    if (window.ethereum) {
-      try {
-        const accounts = await this.provider.listAccounts();
-        if(accounts.length > 0) {
-          return accounts;
-        } else {
-          return []
-        }
-      } catch (error) {
-        console.log(error);
+			const mintingEstGas = await contract.estimateGas.minting("", {value: contract.mintPrice()}) // 함수의 예상 가스 비
+			const gasPrice = await signer.getGasPrice() 
+			
+			console.log(ethers.utils.formatUnits(mintingEstGas));
+			console.log(ethers.utils.formatUnits(gasPrice));
+			
+    } catch (error) {
+      console.log(error);
+			return "🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬";
+    }
+  }
+	
+  static async minting(tokenURI: string) {
+    try {
+
+			const mintingEstGas = await contract.estimateGas.minting(tokenURI, {value: contract.mintPrice()}) // 함수의 예상 가스 비
+			const gasPrice = await signer.getGasPrice() 
+			
+			// console.log(ethers.utils.formatUnits(mintingEstGas));
+			// console.log(ethers.utils.formatUnits(gasPrice));
+			
+      const options = {
+        value: ethers.utils.parseEther("0.01"),
+        gasPrice: gasPrice,
       }
-      return 
+      return await contract.minting("tokenURI", options);
+    } catch (error) {
+      console.log(error);
+			return "";
     }
   }
 
-  static async connectMetaMask () {
-    if (window.ethereum) {
-      await this.provider.send("eth_requestAccounts", [])
+  static async setIsMintEnabled(enable: boolean) {
+    try {
+      return await contract.setIsMintEnabled(enable)
+    } catch (error) {
+      console.log(error);
+			return "";
     }
   }
+
+	static async sendTx(recieverAddress: string, amountEth: number) {
+		try {
+      const gas_price = await signer.getGasPrice()
+      const gas_limit = ethers.utils.hexlify(21000)
+      const nonce = await signer.getTransactionCount()
+      const value = ethers.utils.parseEther(String(amountEth))
+      const tx = {
+        from: signer.getAddress(),
+        to: recieverAddress,
+        value: value,
+        nonce: nonce,
+        gasLimit: gas_limit,
+        gasPrice: gas_price,
+      }
+			return await signer.sendTransaction(tx)
+		} catch (error) {
+			console.log(error);
+			return "";
+		}
+	}
+
+	static async getContractAddress() {
+		try {
+			return contract.address;
+		} catch (error) {
+			console.log(error);
+			return "";
+		}
+	}
+  
+	static async getTotalSupplied() {
+		try {
+			return parseInt(await contract.totalSupplied(), 16);
+		} catch (error) {
+			console.log(error);
+			return "";
+		}
+	}
+
+	static async getMaxMintsPerWallet() {
+		try {
+			return parseInt(await contract.maxMintsPerWallet(), 16);
+		} catch (error) {
+			console.log(error);
+			return "";
+		}
+	}
+
+	static async getMaxSupply() {
+		try {
+			return parseInt(await contract.maxSupply(), 16);
+		} catch (error) {
+			console.log(error);
+			return "";
+		}
+	}
+
+	static async getMintPrice() {
+		try {
+			const mintPrice = await contract.mintPrice();
+			return ethers.utils.formatEther(mintPrice);
+		} catch (error) {
+			console.log(error);
+			return "";
+		}
+	}
+
+	static async getIsMintEnabled() {
+    return await contract.isMintEnabled();
+	}
 }

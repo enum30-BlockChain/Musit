@@ -7,7 +7,8 @@ import MainLayout from "./components/MainLayout.jsx";
 import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
-import Metamask from "./web3/Matamask";
+import Metamask from "./web3/Metamask";
+import Ethers from "./web3/Ethers";
 import MyPageLayout from "./components/myPage/MyPage.jsx";
 import MyArtist from "./components/myPage/artistroom/MyArtist";
 import MyListener from "./components/myPage/userRoom/MyListener";
@@ -20,6 +21,7 @@ import Footer from "./components/footer/Footer.jsx";
 import UserSubscription from "./components/myPage/userRoom/page/UserSubscription";
 import UserList from "./components/myPage/userRoom/page/UserList";
 import MyPlayList from "./components/myPage/userRoom/page/MyPlayList";
+import YshTest from "./components/ysh/YshTest";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -75,6 +77,7 @@ function App() {
           ></Route>
 
           <Route path="Footer" element={<Footer />}></Route>
+          <Route path="/ysh" element={<YshTest />}></Route>
         </Route>
       </Routes>
       <Footer />

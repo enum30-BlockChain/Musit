@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Metamask from "../../../web3/Matamask";
+import Metamask from "../../../web3/Metamask";
 import axios from "axios";
 import { Link, Outlet } from "react-router-dom";
 
