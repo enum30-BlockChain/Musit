@@ -7,7 +7,7 @@ import MainLayout from "./components/MainLayout.jsx";
 import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
 import Artist from "./components/register/user/artist/Artist.jsx";
-import Metamask from "./web3/Matamask";
+import Metamask from "./web3/Metamask";
 import Ethers from "./web3/Ethers";
 import MyPageLayout from "./components/myPage/MyPage.jsx";
 import MyArtist from "./components/myPage/artistroom/MyArtist";
