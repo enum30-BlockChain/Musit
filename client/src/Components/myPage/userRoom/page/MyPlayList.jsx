@@ -3,17 +3,28 @@ import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 
 const MyPlayList = () => {
-  const [address, ,] = useOutletContext();
   const [likesong, setLikesong] = useState("");
+  const [select, setSelect] = useState("");
+  const [address] = useOutletContext();
 
   useEffect(() => {
-    const url = "http://localhost:5000/artists/list";
-    const response = axios.get(url);
-    console.log(response.data);
-    // setLikesong(response.data);
+    const url = "http://localhost:5000/music/likes/like";
+    const response = axios.post(url, { address }).then((res) => {
+      setLikesong(res.data);
+    });
   }, []);
-
-  return <div>MyPlayList</div>;
+  console.log(likesong);
+  const LikeOnClick = () => {
+    const url = "http://localhost:5000/music/likes/likesong";
+    const response = axios.post(url, { likesong }).then((res) => {});
+  };
+  return (
+    <>
+      <div>
+        <button onClick={LikeOnClick}>MyPlayList</button>
+      </div>
+    </>
+  );
 };
 
 export default MyPlayList;

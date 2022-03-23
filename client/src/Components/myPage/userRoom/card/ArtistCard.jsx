@@ -25,11 +25,8 @@ const ArtistCard = ({ id, name, setSelect, select, artistList, address }) => {
     const url = "http://localhost:5000/files/likesong";
     const response = await axios.post(url, { address, name }).then((res) => {
       console.log(res.data);
-      if (res.data !== null) {
-        setArtist(res.data);
-        return false;
-      }
-      alert("음원을 등록안했어요");
+      setArtist(res.data);
+      return false;
     });
   };
 
