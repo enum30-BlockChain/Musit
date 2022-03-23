@@ -1,9 +1,9 @@
 var express = require('express');
-const musics = express.Router();
+const music = express.Router();
 const { MusicLike,Music  } = require("../models/index");
 
 /* GET home page. */
-musics.post("/like", async (req, res, next) => {
+music.post("/like", async (req, res, next) => {
   try {
     const data = req.body;
     const overlap = await Music.findOne({       //지금노래에서 
@@ -34,7 +34,7 @@ musics.post("/like", async (req, res, next) => {
   }
 });
 
-musics.post("/add", async (req, res, next) => {
+music.post("/add", async (req, res, next) => {
   try {
     const data = req.body;
     await Music.update({
@@ -48,4 +48,4 @@ musics.post("/add", async (req, res, next) => {
   }
 });
 
-module.exports = musics;
+module.exports = music;

@@ -3,8 +3,14 @@ const router = express.Router();
 const { User } = require("../models/index");
 
 /* GET User listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+router.get("/", async (req, res, next) =>{
+  try {
+    const userList = await User.findAll({});
+    res.send(userList);
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
 });
 /* Nickname client mainLayout response data send. */
 router.post("/signin", async (req, res, next) => {
@@ -71,6 +77,23 @@ router.post("/buy", async (req, res, next) => {
     res.send("이용권을 구매햇어요");
   } catch (err) {
     console.error(err);
+  }
+});
+
+router.post("/recent", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const lump = [data.hash,data.title,data.time].join('-');
+    await User.update(
+      {
+        recent_played:lump
+      },
+      { where: { address: data.address } }
+    );
+    res.send({ result: 0, message: "recent수정이 완료" });
+  } catch (err) {
+    console.log(err);
+    res.send({ result: 2, message: "에러*_* 다시해주셈" });
   }
 });
 
