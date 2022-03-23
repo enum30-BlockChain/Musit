@@ -69,12 +69,6 @@ function MusicCard(props) {
                 onEnded={() => {
                   palyCountAdd();
                 }}
-<<<<<<< HEAD
-=======
-                onAbort={(e) => {
-                  console.log(e);
-                }}
->>>>>>> c8c7c5fb7b1e2f7d4279c77cf2a497a0228d9b53
                 controls
               />
             </td>
@@ -101,7 +95,6 @@ function MusicCard(props) {
   } else if (props.address !== props.artistAddress) {
     return (
       <>
-<<<<<<< HEAD
       <tbody>
         <tr>
           <td>{props.id}</td>
@@ -141,47 +134,6 @@ function MusicCard(props) {
       </tbody>
       {modal && <Modal props={props} onClose={onClose} />}
     </>
-=======
-        <tbody>
-          <tr>
-            <td>{props.id}</td>
-            <td>{props.title}</td>
-            <td>{props.artistName}</td>
-            <td>
-              <img src={props.img} style={{ width: "100px" }} />
-            </td>
-            <td>
-              <audio
-                src={`https://ipfs.io/ipfs/${props.audio}`}
-                onEnded={() => {
-                  palyCountAdd();
-                }}
-                controls
-              />
-            </td>
-            <td>{palyeCount}</td>
-            <td>
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  changeHandler(e.currentTarget.checked);
-                }}
-                checked={checkedInputs}
-              />
-              {likeCount}
-            </td>
-            <td>{props.genre}</td>
-            <td>
-              <button onClick={onPopup} disabled>
-                {" "}
-                수정{" "}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-        {modal && <Modal props={props} onClose={onClose} />}
-      </>
->>>>>>> c8c7c5fb7b1e2f7d4279c77cf2a497a0228d9b53
     );
   }
 }
