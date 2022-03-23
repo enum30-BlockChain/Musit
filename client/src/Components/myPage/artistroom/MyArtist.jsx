@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Metamask from "../../../web3/Metamask";
 import axios from "axios";
 
-const MyArtist = () => {
-  const [address, setAddress] = useState("");
+const MyArtist = ({ address }) => {
   const [nickname, setNickname] = useState("");
   const [totallike, setTotalLike] = useState("");
 
   useEffect(() => {
     const init = async () => {
-      const metamaskResponse = await Metamask.getAccounts();
-      setAddress(metamaskResponse.data[0]);
       const url = "http://localhost:5000/artists/signin";
       const response = await axios.post(url, { address });
       setNickname(response.data.artist_name);

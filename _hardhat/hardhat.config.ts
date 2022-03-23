@@ -19,11 +19,14 @@ task("accounts", "Prints the list of accounts", async (_, hre) => {
   }
 });
 
-task("deployMusitNFT", "Deploy contract", async (_: string, hre) => {
+task("deployNFT", "Deploy contract", async (_: string, hre) => {
   const accounts = await hre.ethers.getSigners();
-  return hre.ethers.getContractFactory("MusitNFT", accounts[0]).then((contractFactory) => contractFactory.deploy()).then((result) => {
-    console.log(result.address);
-  });
+  return hre.ethers
+    .getContractFactory("MusitNFT", accounts[0])
+    .then((contractFactory) => contractFactory.deploy())
+    .then((result) => {
+      console.log(result.address);
+    });
 })
 
 

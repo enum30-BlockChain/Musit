@@ -53,9 +53,11 @@ contract MusitNFT is ERC721URIStorage, Ownable {
     isMintEnabled = _isMintEnabled;
   }
 
-  function getMintsPerWallet () external view onlyOwner returns (address) {
+  function getMintsPerWallet () external view returns (address) {
     return mintsPerWallet[msg.sender];
   }
+
+  
 
   function minting (string memory _tokenURI) external payable {
     require(isMintEnabled, "Mint system is not enabled yet.");

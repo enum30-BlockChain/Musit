@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import CountryType from "./../register/user/listener/CountryType.jsx";
 import ListenerType from "./../register/user/listener/ListenerType.jsx";
-import Metamask from "../../web3/Metamask";
 import axios from "axios";
 import "./Register.css";
 
-const Register = () => {
+const Register = ({address}) => {
   const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
@@ -27,16 +26,7 @@ const Register = () => {
   const [user, setUser] = useState({});
   const [selected, setSelected] = useState("");
   const [option, setOption] = useState("");
-  const [address, setAddress] = useState("");
   const [nickname, setNickname] = useState("");
-
-  useEffect(() => {
-    const init = async () => {
-      await Metamask.getAccounts(setAddress);
-      await Metamask.walletListener(setAddress);
-    };
-    init();
-  }, []);
 
   const onChangeNick = (e) => {
     setNickname(e.target.value);
