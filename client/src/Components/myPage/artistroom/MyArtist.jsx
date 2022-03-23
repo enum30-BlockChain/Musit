@@ -20,7 +20,7 @@ const MyArtist = () => {
   }, [address]);
 
   const TotalLikeOnClick = () => {
-    const url = "http://localhost:5000/artists/totallike";
+    const url = "http://localhost:5000/artists/like";
     const response = axios.post(url, { address }).then((res) => {
       console.log(res.data);
     });

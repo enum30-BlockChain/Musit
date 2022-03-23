@@ -21,7 +21,7 @@ const UserList = () => {
 
   //내가 좋아하는 아티스트를 불러오는 핸들러
   const LikeListOnClick = () => {
-    const url = "http://localhost:5000/artistlikes/list";
+    const url = "http://localhost:5000/artists/likes/list";
     const response = axios.post(url, { address }).then((res) => {
       setLikelist(res.data);
     });

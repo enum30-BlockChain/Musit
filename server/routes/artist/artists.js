@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { Artist, ArtistLike } = require("../models/index");
+const likesRouter = require("./likes");
+const { Artist, ArtistLike } = require("../../models/index");
 
-/* GET Artist listing. */
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 
-router.post("/totallike", async (req, res, next) => {
+router.post("/like", async (req, res, next) => {
   console.log(req.body.address);
   try {
     console.log("signin을 server에 요청하였습니다.");
@@ -80,7 +80,7 @@ router.post("/signup", async (req, res, next) => {
 });
 
 //아티스트 회원가입내용 조회
-router.get("/List", async (req, res, next) => {
+router.get("/list", async (req, res, next) => {
   try {
     const findname = await Artist.findAll();
     res.send(findname);
@@ -88,5 +88,8 @@ router.get("/List", async (req, res, next) => {
     console.error(err);
   }
 });
+
+router.use("/likes", likesRouter);
+/* GET Artist listing. */
 
 module.exports = router;

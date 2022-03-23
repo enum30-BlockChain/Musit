@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { ArtistLike, Artist } = require("../models/index");
+
+const { ArtistLike, Artist } = require("../../models/index");
 
 /* GET ArtistLike listing. */
 router.get("/", function (req, res, next) {

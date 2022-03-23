@@ -16,14 +16,10 @@ import Fileupload from "./components/fileupload/FileUpload.jsx";
 import Navbar from "./components/navbar/Navbar.jsx";
 // import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
-<<<<<<< HEAD
-import Footer from "./components/footer/Footer";
-=======
 import Footer from "./components/footer/Footer.jsx";
 import UserSubscription from "./components/myPage/userRoom/page/UserSubscription";
 import UserList from "./components/myPage/userRoom/page/UserList";
 import MyPlayList from "./components/myPage/userRoom/page/MyPlayList";
->>>>>>> jeon
 
 function App() {
   const [address, setAddress] = useState("");

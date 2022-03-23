@@ -14,7 +14,7 @@ const ArtistCard = ({ id, name, setSelect, select, artistList, address }) => {
       alert("가수" + likeSelect + "좋아합니다.");
       console.log(likeSelect);
       console.log(address);
-      const url = "http://localhost:5000/artistlikes/like";
+      const url = "http://localhost:5000/artists/likes/like";
       const response = await axios
         .post(url, { address, likeSelect })
         .then((res) => {});
