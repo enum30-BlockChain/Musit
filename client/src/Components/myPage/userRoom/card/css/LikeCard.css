@@ -1,0 +1,7 @@
+.Myfavorite_artist {
+  text-align: center;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  box-sizing: border-box;
+}

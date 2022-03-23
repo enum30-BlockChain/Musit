@@ -2,28 +2,28 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 const { create } = require("ipfs-http-client");
 
-function FileUpload({address}) {
-
+function FileUpload({ address }) {
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [audiofile, setaudiofile] = useState("");
-  const [duration, setDuration] = useState("")
-  const [musicTitle, setMusicTitle] = useState("")
-  const [currentTime, setCurrentTime] = useState("")    //TODO : 나중에 스트리밍할때쓸려고나둠
-  const [artistList, setartistList] = useState("")
+  const [duration, setDuration] = useState("");
+  const [musicTitle, setMusicTitle] = useState("");
+  const [currentTime, setCurrentTime] = useState(""); //TODO : 나중에 스트리밍할때쓸려고나둠
+  const [artistList, setartistList] = useState("");
   const [DBdata, setDBdata] = useState({
-    cover_img_link : '',
-    music_link : '',
-    music_title : '',
-    music_duration : '',
-    artist_name : '',
-    music_genre : '',
-    });
+    cover_img_link: "",
+    music_link: "",
+    music_title: "",
+    music_duration: "",
+    artist_name: "",
+    music_genre: "",
+  });
 
-  const formData = new FormData();  //server로 img파일 보내기위해 사용
- 
-  async function ipfsClient() {    //ipfs 서버연결
+  const formData = new FormData(); //server로 img파일 보내기위해 사용
+
+  async function ipfsClient() {
+    //ipfs 서버연결
     const ipfs = await create({
       host: "ipfs.infura.io",
       port: 5001,
@@ -39,24 +39,25 @@ function FileUpload({address}) {
     setaudiofile(e.target.files[0]);
   };
   const getTitle = (e) => {
-    setMusicTitle (e.target.value);
+    setMusicTitle(e.target.value);
   };
-  
-  const postImg = async() => {              //multer하고 s3저장후 링크가져오기
+
+  const postImg = async () => {
+    //multer하고 s3저장후 링크가져오기
     formData.append("img", albumCoverImgFile);
     await axios
       .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
-      .then(res => DBdata.cover_img_link = res.data.downLoadLink)
-      .catch(err => alert(err));
-    return DBdata
+      .then((res) => (DBdata.cover_img_link = res.data.downLoadLink))
+      .catch((err) => alert(err));
+    return DBdata;
   };
 
-  const postAudio = async() => {              //multer하고 s3저장후 링크가져오기
+  const postAudio = async () => {
+    //multer하고 s3저장후 링크가져오기
     let ipfs = await ipfsClient();
-    let result = await ipfs.add(audiofile)
-     DBdata.music_link = result.path;
+    let result = await ipfs.add(audiofile);
+    DBdata.music_link = result.path;
   };
-
 
   const changeHandler = (checked, value) => {
     if (checked) {
@@ -100,15 +101,15 @@ function FileUpload({address}) {
       await axios
         .post("http://localhost:5000/files/create", DBdata)
         .then((res) => {
-          if (res.data.result = 0) {
+          if ((res.data.result = 0)) {
             alert(res.data.message);
-              window.location.href="/musicsearch";
-          } else if (res.data.result = 1) {
+            window.location.href = "/musicsearch";
+          } else if ((res.data.result = 1)) {
             alert(res.data.message);
-              window.location.href = "/musicsearch";
-          } else if (res.data.result = 2) {
+            window.location.href = "/musicsearch";
+          } else if ((res.data.result = 2)) {
             alert(res.data.message);
-              window.location.href = "/fileupload";
+            window.location.href = "/fileupload";
           }
         })
         .catch((err) => alert(err));
@@ -117,27 +118,29 @@ function FileUpload({address}) {
 
   const getArtist = async () => {
     await axios
-      .get("http://localhost:5000/artists/artistList") //formData multer가읽을수있다.
-      .then((res) =>{setartistList(res.data)
+      .get("http://localhost:5000/artists/list") //formData multer가읽을수있다.
+      .then((res) => {
+        setartistList(res.data);
       })
       .catch((err) => alert(err));
   };
 
-  const findArtist = async () =>{
-    artistList.map(a => {
-      if(a.user_address === address){
+  const findArtist = async () => {
+    artistList.map((a) => {
+      if (a.user_address === address) {
         DBdata.artist_name = a.artist_name;
         return DBdata;
       }
     });
-  }
+  };
 
   useEffect(() => {
     const init = async () => {
-    await  getArtist()};
-    init()
-  }, [])
-  
+      await getArtist();
+    };
+    init();
+  }, []);
+
   return (
     <>
       <p>albumCoverImg</p>
@@ -170,24 +173,25 @@ function FileUpload({address}) {
       <p>title</p>
       <input onChange={getTitle} value={musicTitle} />
       <p>genre</p>
-      <form> 
-      {genre.map((MusicType, index) => {
-        return (
-          <>
-            <label>
-              {MusicType}
-              <input
-                type={"checkbox"}
-                name={"MusicType"}
-                value={MusicType}
-                onChange={(e) => {
-                  changeHandler(e.currentTarget.checked, MusicType);
-                }}
-                checked={checkedInputs.includes(MusicType) ? true : false}
-              />
-            </label>
-          </>
-        )})}
+      <form>
+        {genre.map((MusicType, index) => {
+          return (
+            <>
+              <label>
+                {MusicType}
+                <input
+                  type={"checkbox"}
+                  name={"MusicType"}
+                  value={MusicType}
+                  onChange={(e) => {
+                    changeHandler(e.currentTarget.checked, MusicType);
+                  }}
+                  checked={checkedInputs.includes(MusicType) ? true : false}
+                />
+              </label>
+            </>
+          );
+        })}
       </form>
       {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
       <p />

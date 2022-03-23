@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useOutletContext } from "react-router-dom";
 
-const UserState = ({ address, response, setResponse }) => {
-  const [subscriptiontext, setSubscriptiontext] = useState(
-    response.subscription
-  );
+const UserSubscription = () => {
+  const [subscriptiontext, setSubscriptiontext] = useState();
+
+  const [address, response, setResponse] = useOutletContext();
 
   useEffect(() => {
     if (!response.subscription) {
@@ -12,12 +13,11 @@ const UserState = ({ address, response, setResponse }) => {
     } else {
       setSubscriptiontext("1개월 이용권이 있어요");
     }
-  }, [response]);
+  }, []);
 
   const BuyOnclick = async () => {
     const url = "http://localhost:5000/users/buy";
     const response = await axios.post(url, { address });
-    console.log(response.data);
     setResponse({ ...response, subscription: true });
   };
   return (
@@ -30,4 +30,4 @@ const UserState = ({ address, response, setResponse }) => {
   );
 };
 
-export default UserState;
+export default UserSubscription;

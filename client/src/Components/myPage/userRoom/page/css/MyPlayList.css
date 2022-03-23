@@ -1,0 +1,15 @@
+.my-playlist {
+  text-align: center;
+  display: inline-flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  list-style-type: none;
+  border: 1px solid black;
+}
+.li {
+  list-style-type: none;
+}
+
+.my-playlist .div {
+  border: 1px solid black;
+}

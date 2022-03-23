@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CountryType from "./../register/user/listener/CountryType.jsx";
 import ListenerType from "./../register/user/listener/ListenerType.jsx";
-import Metamask from "../../web3/Matamask";
+import Metamask from "../../web3/Metamask";
 import axios from "axios";
 import "./Register.css";
 

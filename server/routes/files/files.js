@@ -93,6 +93,9 @@ files.get("/", async (req, res, next) => {
 });
 
 files.post("/likesong", async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.body.name);
+  console.log(req.body.address);
   try {
     const songList = await Music.findAll({
       include: {
