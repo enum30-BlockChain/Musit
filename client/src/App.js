@@ -16,7 +16,7 @@ import Fileupload from "./components/fileupload/FileUpload.jsx";
 import Navbar from "./components/navbar/Navbar.jsx";
 // import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
-import Footer from "./components/footer/footer";
+import Footer from "./components/footer/Footer.jsx";
 import UserSubscription from "./components/myPage/userRoom/page/UserSubscription";
 import UserList from "./components/myPage/userRoom/page/UserList";
 
@@ -55,11 +55,10 @@ function App() {
           <Route path="MyArtist" element={<MyArtist />}></Route>
 
           <Route
-            path="MyListener"
-            element={<MyListener address={address} />}
-          ></Route>
-          {/* <Route path="UserSubscription" element={<UserSubscription />}></Route>
-          <Route path="UserList" element={<UserList />}></Route> */}
+            path="MyListener" element={<MyListener address={address} />}>
+            <Route path="UserSubscription" element={<UserSubscription/>}></Route>
+            <Route path="UserList" element={<UserList />}></Route>
+          </Route>
 
           <Route
             path="fileupload"

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useOutletContext } from "react-router-dom";
 
-const UserSubscription = ({ address, response, setResponse }) => {
+const UserSubscription = () => {
   const [subscriptiontext, setSubscriptiontext] = useState();
+  
+  const [address, response, setResponse] = useOutletContext();
 
   useEffect(() => {
-    if (!response.subscription) {
-      setSubscriptiontext("");
-    } else {
-      setSubscriptiontext("1개월 이용권이 있어요");
-    }
-  }, [response]);
+    // if (!response.subscription) {
+    //   setSubscriptiontext("");
+    // } else {
+    //   setSubscriptiontext("1개월 이용권이 있어요");
+    // }
+    console.log(response);
+  }, []);
 
   const BuyOnclick = async () => {
     const url = "http://localhost:5000/users/buy";

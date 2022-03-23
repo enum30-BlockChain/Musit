@@ -3,7 +3,7 @@ import Metamask from "../../../web3/Matamask";
 import UserList from "./page/UserList";
 import UserSubscription from "./page/UserSubscription";
 import axios from "axios";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, Outlet } from "react-router-dom";
 
 const MyListener = () => {
   const [address, setAddress] = useState("");
@@ -15,6 +15,7 @@ const MyListener = () => {
       setAddress(metamaskResponse.data[0]);
       const url = "http://localhost:5000/users/signin";
       const response = await axios.post(url, { address });
+      console.log(response);
       setResponse(response.data);
     };
     init();
@@ -25,31 +26,22 @@ const MyListener = () => {
     <>
       <sidebar>
         <p>
-          <Link to="/UserSubscription">UserSubscription</Link>
+          <Link to="/MyListener/UserSubscription">UserSubscription</Link>
         </p>
         <p>
-          <Link to="/UserList">UserList</Link>
+          <Link to="/MyListener/UserList">UserList</Link>
         </p>
       </sidebar>
-      <div>
-        {/* <Route
-          path="UserSubscription"
-          element={
-            <UserSubscription
-              address={address}
-              response={response}
-              setResponse={setResponse}
-            />
-          }
-        ></Route>
-        <Route path="UserList" element={<UserList address={address} />}></Route> */}
+      <Outlet context = {[address, response, setResponse, 2]}/>
+      
+      {/* <div>
         <UserSubscription
           address={address}
           response={response}
           setResponse={setResponse}
         />
         <UserList address={address} />
-      </div>
+      </div> */}
     </>
   );
 };
