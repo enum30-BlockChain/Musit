@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ArtistCard from "../card/ArtistCard";
 import SongCard from "../card/SongCard";
 import LikeCard from "../card/LikeCard";
+import { useOutletContext } from "react-router-dom";
 
-const UserList = ({ address }) => {
+const UserList = () => {
   const [artistList, setAtistList] = useState([]);
   const [song, setSong] = useState([]);
   const [select, setSelect] = useState("");
   const [likelist, setLikelist] = useState([""]);
+  const [address] = useOutletContext();
 
   //아티스트조회 함수 이벤트 핸들러
   const LoginOnClick = async () => {
-    const url = "http://localhost:5000/artists/artistList";
+    const url = "http://localhost:5000/artists/list";
     const response = await axios.get(url);
     setAtistList(response.data);
   };

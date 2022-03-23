@@ -16,7 +16,14 @@ import Fileupload from "./components/fileupload/FileUpload.jsx";
 import Navbar from "./components/navbar/Navbar.jsx";
 // import ImgUpload from "./components/fileupload/ImgUpload.jsx";
 import MusicSearch from "./components/musicSerach/MusicSearch.jsx";
+<<<<<<< HEAD
 import Footer from "./components/footer/Footer";
+=======
+import Footer from "./components/footer/Footer.jsx";
+import UserSubscription from "./components/myPage/userRoom/page/UserSubscription";
+import UserList from "./components/myPage/userRoom/page/UserList";
+import MyPlayList from "./components/myPage/userRoom/page/MyPlayList";
+>>>>>>> jeon
 
 function App() {
   const [address, setAddress] = useState("");
@@ -38,26 +45,39 @@ function App() {
             index
             element={<MainLayout address={address} setAddress={setAddress} />}
           ></Route>
+
           <Route path="Register" element={<Register />}></Route>
+
           <Route
             path="Listener"
             element={<Listener address={address} />}
           ></Route>
+
           <Route path="Artist" element={<Artist address={address} />}></Route>
+
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
+
           <Route path="MyArtist" element={<MyArtist />}></Route>
-          <Route
-            path="MyListener"
-            element={<MyListener address={address} />}
-          ></Route>
+
+          <Route path="MyListener" element={<MyListener address={address} />}>
+            <Route
+              path="UserSubscription"
+              element={<UserSubscription />}
+            ></Route>
+            <Route path="UserList" element={<UserList />}></Route>
+            <Route path="myplaylist" element={<MyPlayList />}></Route>
+          </Route>
+
           <Route
             path="fileupload"
             element={<Fileupload address={address} />}
           ></Route>
+
           <Route
             path="MusicSearch"
             element={<MusicSearch address={address} />}
           ></Route>
+
           <Route path="Footer" element={<Footer />}></Route>
         </Route>
       </Routes>
