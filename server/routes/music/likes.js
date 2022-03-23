@@ -7,15 +7,9 @@ router.post("/like", async (req, res, next) => {
   console.log(req.body.address);
   try {
     const songind_ipfs = await Music.findAll({
-      include: {
-        model: MusicLike,
-        require: false,
-        where: { user_address: req.body.address },
-      },
+      include: { model: MusicLike, where: { user_address: req.body.address } },
     });
-    console.log(222222222222);
     console.log(songind_ipfs);
-    console.log(222222222222);
     res.send(songind_ipfs);
   } catch (err) {
     console.error(err);

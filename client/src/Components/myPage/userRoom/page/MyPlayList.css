@@ -1,0 +1,6 @@
+.my-playlist {
+  text-align: center;
+  display: inline-flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
