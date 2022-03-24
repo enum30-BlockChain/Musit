@@ -1,0 +1,8 @@
+.count-card {
+  text-align: center;
+  display: inline-flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  list-style-type: none;
+  border: 1px solid black;
+}
