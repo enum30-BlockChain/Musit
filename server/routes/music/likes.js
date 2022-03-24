@@ -7,32 +7,28 @@ router.post("/like", async (req, res, next) => {
   console.log(req.body.address);
   try {
     const songind_ipfs = await Music.findAll({
-      include: {
-        model: MusicLike,
-        require: false,
-        where: { user_address: req.body.address },
-      },
+      include: { model: MusicLike, where: { user_address: req.body.address } },
     });
-    console.log(222222222222);
-    console.log(songind_ipfs);
-    console.log(222222222222);
     res.send(songind_ipfs);
   } catch (err) {
     console.error(err);
   }
 });
 
-// router.post("/likesong", async (req, res, next) => {
-//   console.log(req.body.likesong);
-
-//   try {
-//     const song = await Music.findAll({
-//       where: { user_address: req.body.address },
-//     });
-//     res.send(song);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// });
+router.post("/likedetail", async (req, res, next) => {
+  console.log("server에서 likedetail 요청하였습니다.");
+  console.log(req.body.select);
+  try {
+    const songind_ipfs = await Music.findAll({
+      include: { model: MusicLike, where: { ipfs_hash: req.body.select } },
+    });
+    console.log(11111111);
+    console.log(songind_ipfs);
+    console.log(11111111);
+    res.send(songind_ipfs);
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 module.exports = router;

@@ -4,10 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-
+import Background from "./components/styledComponents/Background.jsx";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+      <Background />
       <App />
     </BrowserRouter>
   </React.StrictMode>,

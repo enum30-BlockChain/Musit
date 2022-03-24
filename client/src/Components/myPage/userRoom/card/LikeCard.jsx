@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./LikeCard.css";
+import "./css/LikeCard.css";
 
 const LikeCard = ({ id, name, address }) => {
   const [song, setSong] = useState([]);

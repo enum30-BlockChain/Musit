@@ -4,6 +4,7 @@ import MusicCard from "./MusicCard";
 
 function MusicSearch(props) {
   const [songList, setSongList] = useState("");
+  const [userList, setUserList] = useState("");
 
   const getSongList = async () => {
     await axios
@@ -14,13 +15,22 @@ function MusicSearch(props) {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
+  const getUser = async ()=>{
+    await axios
+      .get("http://localhost:5000/users")
+      .then((res) => {
+        setUserList(res.data);
+      })
+      .catch((err) => alert("errrrrrrr.", err));
+  }
+
   useEffect(() => {
     const init = async () => {
       await getSongList();
+      await  getUser();
     };
     init();
-  }, []);
-
+  }, [props.address]);
   return (
     <>
       <table style={{ margin: "auto" }}>
@@ -57,6 +67,7 @@ function MusicSearch(props) {
                 address={props.address}
                 artistAddress={song.Artist.user_address}
                 checkBox={findLike}
+                userList={userList}
               />
             );
           })}

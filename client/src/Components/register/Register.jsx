@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import CountryType from "./../register/user/listener/CountryType.jsx";
-import ListenerType from "./../register/user/listener/ListenerType.jsx";
+import CountryType from "./user/listener/CountryType.jsx";
+import ListenerType from "./user/listener/ListenerType.jsx";
 import axios from "axios";
 import "./Register.css";
 
@@ -50,18 +50,22 @@ const Register = ({address}) => {
   };
 
   return (
-    <div class="container">
-      <div class="grid">
-        <div class="box">
+    <div className="container">
+      <div className="grid">
+        <div className="box">
           <p>Adress</p>
           <div>
-            <p>0xlaijf3234</p>
-            <button type="button" class="">
+            <p>{address}</p>
+            <button type="button" className="">
               Vrify your Metamask Address
             </button>
           </div>
           <label>닉네임</label>
-          <input type="text" onChange={onChangeNick}></input>
+          <input
+            type="text"
+            placeholder="닉네임"
+            onChange={onChangeNick}
+          ></input>
           <p>Nations</p>
           <div>
             {" "}
@@ -78,7 +82,7 @@ const Register = ({address}) => {
           <div>
             <p>선호하는 장르를 선택해주세요 </p>
             <p>Genre</p>
-            <div class="genre">
+            <div className="genre">
               {genre.map((MusicType, index) => (
                 <ListenerType
                   id={index + 1}
@@ -87,10 +91,14 @@ const Register = ({address}) => {
                   setSelected={setSelected}
                 />
               ))}
+              <button className="genre-set" onClick={handleOnclick}>
+                장르확정
+              </button>
             </div>
-            <button onClick={handleOnclick}>장르확정</button>
           </div>
-          <button onClick={UserHandleOnClick}>회원가입</button>
+          <button className="submit" onClick={UserHandleOnClick}>
+            회원가입
+          </button>
         </div>
       </div>
     </div>
