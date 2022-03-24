@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import Metamask from "../../../web3/Metamask";
+=======
+import Metamask from "../../../web3/Matamask";
+import UserList from "./page/UserList";
+import UserSubscription from "./page/UserSubscription";
+// import Sidebar from "./../Sidebar";
+>>>>>>> min1
 import axios from "axios";
 import { Link, Outlet } from "react-router-dom";
 
@@ -48,7 +55,21 @@ const MyListener = () => {
           </Link>
         </p>
       </sidebar>
+<<<<<<< HEAD
       <Outlet context={[address, response, setResponse]} />
+=======
+
+      <Outlet context={[address, response, setResponse]} />
+      {/* <Sidebar /> */}
+      {/* <div>
+        <UserSubscription
+          address={address}
+          response={response}
+          setResponse={setResponse}
+        />
+        <UserList address={address} />
+      </div> */}
+>>>>>>> min1
     </>
   );
 };

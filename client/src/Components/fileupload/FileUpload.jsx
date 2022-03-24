@@ -9,7 +9,7 @@ function FileUpload({ address }) {
   const [audiofile, setaudiofile] = useState("");
   const [duration, setDuration] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
-  const [currentTime, setCurrentTime] = useState(""); //TODO : 나중에 스트리밍할때쓸려고나둠
+  // const [currentTime, setCurrentTime] = useState(""); //TODO : 나중에 스트리밍할때쓸려고나둠
   const [artistList, setartistList] = useState("");
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
