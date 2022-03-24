@@ -6,7 +6,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
-import hre from "hardhat";
+import { ethers } from "hardhat";
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ task("accounts", "Prints the list of accounts", async (_, hre) => {
   }
 });
 
-task("deployNFT", "Deploy NFT contract", async (_: string, hre) => {
+task("deployNFT", "Deploy NFT contract", async (_, hre) => {
   const accounts = await hre.ethers.getSigners();
   return hre.ethers
     .getContractFactory("MusitNFT", accounts[0])
@@ -29,13 +29,6 @@ task("deployNFT", "Deploy NFT contract", async (_: string, hre) => {
       console.log(result.address);
     });
 })
-
-task("deploy", "Deploy contracts", async() => {
-  hre.run("scripts/deploy.ts").then((result) => {
-    console.log(result);
-  })
-})
-
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
