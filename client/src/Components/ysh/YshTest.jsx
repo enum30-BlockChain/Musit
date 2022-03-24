@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect } from 'react'
 import Ethers from '../../web3/Ethers'
 
@@ -20,13 +19,6 @@ const YshTest = () => {
       <div>
         <h1>YSH TEST PAGE</h1>
       </div>
-=======
-import React from "react";
-const YshTest = () => {
-  return (
-    <>
-      <div>dfkljlk</div>
->>>>>>> min1
     </>
   );
 };

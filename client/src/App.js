@@ -20,14 +20,11 @@ import Footer from "./components/footer/Footer.jsx";
 import UserSubscription from "./components/myPage/userRoom/page/UserSubscription";
 import UserList from "./components/myPage/userRoom/page/UserList";
 import MyPlayList from "./components/myPage/userRoom/page/MyPlayList";
-<<<<<<< HEAD
 import YshTest from "./components/ysh/YshTest";
 import TotalPlayList from "./components/myPage/userRoom/page/TotalPlayList";
 import RecentlyPlayed from "./components/myPage/userRoom/page/RecentlyPlayed";
-=======
 import Auction from "./components/auction/Auction";
 import Store from "./components/store/Store";
->>>>>>> min1
 
 function App() {
   const [address, setAddress] = useState("");
