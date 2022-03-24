@@ -1,15 +1,10 @@
-import React from 'react'
-
+import React from "react";
 const YshTest = () => {
-  
-
   return (
     <>
-      <div>
-    
-      </div>
+      <div>dfkljlk</div>
     </>
-  )
-}
+  );
+};
 
-export default YshTest
+export default YshTest;

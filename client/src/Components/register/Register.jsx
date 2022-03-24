@@ -65,12 +65,17 @@ const Register = () => {
         <div class="box">
           <p>Adress</p>
           <div>
+            <p>{address}</p>
             <button type="button" class="">
               Vrify your Metamask Address
             </button>
           </div>
           <label>닉네임</label>
-          <input type="text" onChange={onChangeNick}></input>
+          <input
+            type="text"
+            placeholder="닉네임"
+            onChange={onChangeNick}
+          ></input>
           <p>Nations</p>
           <div>
             {" "}

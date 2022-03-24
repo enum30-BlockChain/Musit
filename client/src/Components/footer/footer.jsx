@@ -3,8 +3,9 @@ import "./Footer.scss";
 function Footer() {
   return (
     <div className="footer">
+      <hr class="hr"></hr>
       <div className="contents">
-        <h2 className="title">This is Footer</h2>
+        <h3 className="title">This is Footer</h3>
       </div>
     </div>
   );

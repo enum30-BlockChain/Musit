@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Metamask from "../web3/Matamask";
 import axios from "axios";
-import Hoveringcard from "./contents/Hoveringcard";
+import Hoveringcard from "./hoverCard/Hoveringcard";
 
 export const MainLayout = ({ address, setAddress }) => {
   const [nickname, setNickname] = useState("");

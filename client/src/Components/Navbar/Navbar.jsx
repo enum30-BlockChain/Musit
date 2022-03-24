@@ -16,6 +16,14 @@ export const Navbar = () => {
     return () => {};
   }, []);
 
+  const LoginOnClick = async () => {
+    const url = "http://localhost:5000/users/signin";
+    const response = await axios.post(url, { address });
+    // console.log(response.data);
+    setNickname({
+      nickname: response.data.nickname,
+    });
+  };
   const connectOnClick = async () => {
     const { data } = await Metamask.connectWallet();
     setAddress(data[0]);
