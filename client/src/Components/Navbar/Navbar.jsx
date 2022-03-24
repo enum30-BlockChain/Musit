@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
-import Metamask from "../../web3/Matamask";
 import axios from "axios";
+import Metamask from "../../web3/Metamask";
 
-export const Navbar = () => {
-  const [address, setAddress] = useState("");
+export const Navbar = ({address, setAddress}) => {
   const [nickname, setNickname] = useState("");
-  useEffect(() => {
-    const init = async () => {
-      const accounts = await Metamask.getAccounts();
-      setAddress(accounts[0]);
-    };
-    init();
-    return () => {};
-  }, []);
+  
 
   const LoginOnClick = async () => {
     const url = "http://localhost:5000/users/signin";

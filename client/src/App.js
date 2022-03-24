@@ -39,14 +39,14 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar address={address} setAddress={setAddress}/>
       <Routes>
         <Route path="/">
           <Route
             index
             element={<MainLayout address={address} setAddress={setAddress} />}
           ></Route>
-          <Route path="Register" element={<Register />}></Route>
+          <Route path="Register" element={<Register address={address} />}></Route>
           <Route
             path="Listener"
             element={<Listener address={address} />}
