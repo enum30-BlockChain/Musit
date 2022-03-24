@@ -35,36 +35,38 @@ export const Navbar = () => {
     console.log(response.nickname);
   };
 
+  const enterToSearch = (event) => {
+    if (event.keyCode == 13) {
+      // searchData();
+    }
+  };
+
   return (
     <>
-      <header class="main-header">
-        <div class="logo">
+      <header className="main-header">
+        <div className="logo">
           <Link to="/">
             <h3>Musit X Eunm30</h3>
           </Link>
         </div>
-        <label for="menu-btn" class="menu-icon">
-          <span class="meue-icon__line"></span>
+        <label htmlFor="menu-btn" className="menu-icon">
+          <span className="meue-icon__line"></span>
         </label>
-        <ul class="nav-links">
-          <li class="nav-link">
-            <li>
-              <input
-                type="text"
-                placeholder={"Songs Search"}
-                //엔터로 검색이 가능하게
-                onkeypress="if( event.keyCode == 13 ){searchData();}"
-              ></input>
-              <button>Search</button>
-            </li>
+        <ul className="nav-links">
+          <li className="nav-link">
+            <input
+              type="text"
+              placeholder={"Songs Search"}
+              //엔터로 검색이 가능하게
+              onKeyPress={enterToSearch}
+            ></input>
+            <button>Search</button>
           </li>
-          <Link to="/">
-            <li class="nav-link">
-              <a href="#">Main</a>
-            </li>
-          </Link>
+          <li className="nav-link">
+            <Link to="/">main</Link>
+          </li>
 
-          <li class="nav-link">
+          <li className="nav-link">
             {address ? (
               <p>
                 {address}

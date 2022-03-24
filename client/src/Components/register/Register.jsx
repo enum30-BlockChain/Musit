@@ -60,13 +60,13 @@ const Register = () => {
   };
 
   return (
-    <div class="container">
-      <div class="grid">
-        <div class="box">
+    <div className="container">
+      <div className="grid">
+        <div className="box">
           <p>Adress</p>
           <div>
             <p>{address}</p>
-            <button type="button" class="">
+            <button type="button" className="">
               Vrify your Metamask Address
             </button>
           </div>
@@ -92,7 +92,7 @@ const Register = () => {
           <div>
             <p>선호하는 장르를 선택해주세요 </p>
             <p>Genre</p>
-            <div class="genre">
+            <div className="genre">
               {genre.map((MusicType, index) => (
                 <ListenerType
                   id={index + 1}
@@ -101,12 +101,12 @@ const Register = () => {
                   setSelected={setSelected}
                 />
               ))}
-              <button class="genre-set" onClick={handleOnclick}>
+              <button className="genre-set" onClick={handleOnclick}>
                 장르확정
               </button>
             </div>
           </div>
-          <button class="submit" onClick={UserHandleOnClick}>
+          <button className="submit" onClick={UserHandleOnClick}>
             회원가입
           </button>
         </div>

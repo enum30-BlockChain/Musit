@@ -2,12 +2,12 @@ import React from "react";
 
 const MusicPlayer = () => {
   return (
-    <div class="player">
-      <div class="thumb">
-        <img class="album-cover" />
-        <div class="info">
-          <div class="detail">
-            <div class="title">thdfjlkdfkjlsdflke</div>
+    <div className="player">
+      <div className="thumb">
+        <img className="album-cover" />
+        <div className="info">
+          <div className="detail">
+            <div className="title">thdfjlkdfkjlsdflke</div>
           </div>
         </div>
       </div>

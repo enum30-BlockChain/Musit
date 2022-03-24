@@ -21,9 +21,9 @@ const Sidebar = () => {
   }, [address]);
 
   return (
-    <div class="sidenav">
-      <div class="user">
-        <span class="user-state"></span>
+    <div className="sidenav">
+      <div className="user">
+        <span className="user-state"></span>
         <div>나의 주소는 : {address}</div>
         <UserState
           address={address}
@@ -31,7 +31,7 @@ const Sidebar = () => {
           setResponse={setResponse}
         />
       </div>
-      <div class="side-menu">
+      <div className="side-menu">
         {/* -----------------아티스트 노출------------------ */}
         <ul>
           <li>
