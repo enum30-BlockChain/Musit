@@ -53,13 +53,11 @@ contract MusitNFT is ERC721URIStorage, Ownable {
     isMintEnabled = _isMintEnabled;
   }
 
-  function getMintsPerWallet () external view returns (address) {
+  function getMintsPerWallet () external view returns (uint256) {
     return mintsPerWallet[msg.sender];
   }
 
-  
-
-  function minting (string memory _tokenURI) external payable {
+  function minting (string memory _tokenURI) external payable returns (uint256) {
     require(isMintEnabled, "Mint system is not enabled yet.");
     require(msg.value == mintPrice, "Wrong value sent.");
     require(totalSupplied <= maxSupply, " Sold out!");
@@ -72,5 +70,7 @@ contract MusitNFT is ERC721URIStorage, Ownable {
     emit MintMusitNFT(newTokenId, _tokenURI);
     mintsPerWallet[msg.sender]++;
     totalSupplied = newTokenId;
+
+    return newTokenId;
   }
 }
