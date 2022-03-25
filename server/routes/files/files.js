@@ -3,7 +3,7 @@ const multer = require("multer");
 const upload = require("./s3upload");
 const files = express.Router();
 
-const { Music, Artist, MusicLike } = require("../../models/index.js");
+const { Music, Artist, MusicLike, User } = require("../../models/index.js");
 
 files.post("/imgupload", (req, res, next) => {
   upload(req, res, function (err) {
@@ -111,6 +111,28 @@ files.post("/likesong", async (req, res, next) => {
   }
 });
 
-
+files.post("/myplay", async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.body.address);
+  console.log(req.body.song[0]);
+  try {
+    const songList = await Music.findOne({
+      include: [
+        {
+          model: MusicLike,
+          where: {
+            ipfs_hash: req.body.song[0],
+            user_address: req.body.address,
+          },
+        },
+      ],
+    });
+    console.log(songList);
+    res.send(songList);
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+});
 
 module.exports = files;
