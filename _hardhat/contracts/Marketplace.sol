@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
@@ -22,7 +23,7 @@ contract Marketplace is ReentrancyGuard, MusitNFT {
     bool sold;
   }
   
-  event Offered (
+  event Enrolled (
     uint256 itemId,
     uint256 tokenId,
     uint256 price,
@@ -45,9 +46,9 @@ contract Marketplace is ReentrancyGuard, MusitNFT {
     feePercent = _feePercent;
   }
 
-  function createItem(IERC721 _nft, uint256 _tokenId, uint256 _price) external nonReentrant {
+  function enrollItem(IERC721 _nft, uint256 _tokenId, uint256 _price) external nonReentrant {
     require(_price > 0, "Price must be greater than zero");
-    require(msg.sender == ownerOf(_tokenId));
+    // require(msg.sender == ownerOf(_tokenId), "Only owner can enroll");
 
     itemCount.increment();
     uint256 itemId = itemCount.current();
@@ -62,7 +63,7 @@ contract Marketplace is ReentrancyGuard, MusitNFT {
       false
     );
 
-    emit Offered (
+    emit Enrolled (
       itemId,
       _tokenId,
       _price,
