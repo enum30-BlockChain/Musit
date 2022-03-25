@@ -1,15 +1,16 @@
 import { ethers, Signer } from "ethers";
 import MusitNFT from "./MusitNFT.json";
 
-
 interface Window {
   ethereum: any;
 }
 declare let window: Window;
 
+const network = "ropsten"
+const alchemy = new ethers.providers.AlchemyProvider(network, process.env.REACT_APP_ALCHEMY_API_KEY)
 const metamask = new ethers.providers.Web3Provider(window.ethereum);
 const signer = metamask.getSigner();
-const contract = new ethers.Contract(
+const musitNFT = new ethers.Contract(
 	MusitNFT.contractAddress,
 	MusitNFT.abi,
 	signer
@@ -18,9 +19,16 @@ const contract = new ethers.Contract(
 export default class Ethers {
   static async test() {
     try {
-			const result = await contract.mintsPerWallet()
-			console.log(result);
+			// const result = await musitNFT.mintsPerWallet()
+			// console.log(result);
 			
+			// console.log(ethers.utils.formatUnits(mintingEstGas));
+			// console.log(ethers.utils.formatUnits(gasPrice));
+			
+      const options = {
+        value: ethers.utils.parseEther("0.01"),
+      }
+      console.log (await musitNFT.minting("tokenURI", options));
 			
     } catch (error) {
       console.log(error);
@@ -44,7 +52,7 @@ export default class Ethers {
 
   static async minting(tokenURI: string) {
     try {
-			const mintingEstGas = await contract.estimateGas.minting(tokenURI, {value: contract.mintPrice()}) // 함수의 예상 가스 비
+			const mintingEstGas = await musitNFT.estimateGas.minting(tokenURI, {value: musitNFT.mintPrice()})
 			const gasPrice = await signer.getGasPrice() 
 			
 			// console.log(ethers.utils.formatUnits(mintingEstGas));
@@ -54,7 +62,7 @@ export default class Ethers {
         value: ethers.utils.parseEther("0.01"),
         gasPrice: gasPrice,
       }
-      return await contract.minting("tokenURI", options);
+      return await musitNFT.minting("tokenURI", options);
     } catch (error) {
       console.log(error);
 			return "";
@@ -63,7 +71,7 @@ export default class Ethers {
 
   static async setIsMintEnabled(enable: boolean) {
     try {
-      return await contract.setIsMintEnabled(enable)
+      return await musitNFT.setIsMintEnabled(enable)
     } catch (error) {
       console.log(error);
 			return "";
@@ -93,7 +101,7 @@ export default class Ethers {
 
 	static async getContractAddress() {
 		try {
-			return contract.address;
+			return musitNFT.address;
 		} catch (error) {
 			console.log(error);
 			return "";
@@ -102,7 +110,7 @@ export default class Ethers {
   
 	static async getTotalSupplied() {
 		try {
-			return await contract.totalSupplied();
+			return await musitNFT.totalSupplied();
 		} catch (error) {
 			console.log(error);
 			return "";
@@ -111,7 +119,7 @@ export default class Ethers {
 
 	static async getMaxMintsPerWallet() {
 		try {
-			return parseInt(await contract.maxMintsPerWallet(), 16);
+			return parseInt(await musitNFT.maxMintsPerWallet(), 16);
 		} catch (error) {
 			console.log(error);
 			return "";
@@ -120,7 +128,7 @@ export default class Ethers {
 
 	static async getMaxSupply() {
 		try {
-			return parseInt(await contract.maxSupply(), 16);
+			return parseInt(await musitNFT.maxSupply(), 16);
 		} catch (error) {
 			console.log(error);
 			return "";
@@ -129,7 +137,7 @@ export default class Ethers {
 
 	static async getMintPrice() {
 		try {
-			const mintPrice = await contract.mintPrice();
+			const mintPrice = await musitNFT.mintPrice();
 			return ethers.utils.formatEther(mintPrice);
 		} catch (error) {
 			console.log(error);
@@ -138,6 +146,6 @@ export default class Ethers {
 	}
 
 	static async getIsMintEnabled() {
-    return await contract.isMintEnabled();
+    return await musitNFT.isMintEnabled();
 	}
 }

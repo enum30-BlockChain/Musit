@@ -7,9 +7,7 @@ const YshTest = () => {
   const [signMessage, setSignMessage] = useState("Verify signer");
 
   async function init () {
-    // console.log(await Ethers.minting("asfasdfa"))
-    // const result = await Ethers.minting("a;sodfjals;dfl");
-    // console.log(result);
+    await Ethers.test()
   } 
 
   useEffect(() => {
@@ -18,6 +16,10 @@ const YshTest = () => {
   
   async function mintingOnClick (tokenURI) {
     console.log(await Ethers.minting(tokenURI))
+  }
+
+  async function mintingEnableOnClick () {
+    console.log(await Ethers.setIsMintEnabled(true))
   }
 
   async function mintingOnChange (e) {
@@ -42,8 +44,11 @@ const YshTest = () => {
         </div>
 
         <div>
+        </div>
+        <div>
           <input onChange={mintingOnChange} placeholder="tokenURI" type="text" />
           <Button onClick={() => mintingOnClick(tokenURI)}>Minting</Button>
+          <Button onClick={() => mintingEnableOnClick()}>Enable</Button>
         </div>
       </div>
     </>
