@@ -47,7 +47,7 @@ const YshTest = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default YshTest
+export default YshTest;

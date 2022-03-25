@@ -4,6 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 
 const MyListener = ({address}) => {
   const [response, setResponse] = useState("");
+  const [song, setSong] = useState();
 
   useEffect(() => {
     const init = async () => {
@@ -15,20 +16,43 @@ const MyListener = ({address}) => {
     return () => {};
   }, [address]);
 
+  const MusicOnClick = () => {
+    const url = "http://localhost:5000/users/played";
+    const response = axios.post(url, { address }).then((res) => {
+      setSong(res.data);
+    });
+  };
+
   return (
     <>
       <sidebar>
         <p>
-          <Link to="/MyListener/UserSubscription">UserSubscription</Link>
+          <Link to="/MyListener/UserSubscription">
+            <button>UserSubscription</button>
+          </Link>
         </p>
         <p>
-          <Link to="/MyListener/UserList">UserList</Link>
+          <Link to="/MyListener/UserList">
+            <button>UserList</button>
+          </Link>
         </p>
         <p>
-          <Link to="/MyListener/myplaylist">MyPlayList</Link>
+          <Link to="/MyListener/myplaylist">
+            <button>MyPlayList</button>
+          </Link>
+        </p>
+        <p>
+          <Link to="/MyListener/totalplaylist">
+            <button>TotalPlayList</button>
+          </Link>
+        </p>
+        <p>
+          <Link to="/MyListener/recentlyplayed">
+            <button onClick={MusicOnClick}>recentlyplayed</button>
+          </Link>
         </p>
       </sidebar>
-      <Outlet context={[address, response, setResponse]} />
+      <Outlet context={[address, response, setResponse, song]} />
     </>
   );
 };
