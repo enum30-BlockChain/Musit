@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import Songs from "../songs/Songs";
 import MusicCard from "./MusicCard";
 
 function MusicSearch(props) {
   const [songList, setSongList] = useState("");
+  const [likeList, setLikeList] = useState("");
   const [userList, setUserList] = useState("");
 
   const getSongList = async () => {
@@ -24,10 +26,20 @@ function MusicSearch(props) {
       .catch((err) => alert("errrrrrrr.", err));
   }
 
+  const getLikeList = async ()=>{
+    await axios
+      .post("http://localhost:5000/music/likes/like",{address:props.address})
+      .then((res) => {
+        setLikeList(res.data)
+      })
+      .catch((err) => alert("errrrrrrr.", err));
+  }
+
   useEffect(() => {
     const init = async () => {
       await getSongList();
       await  getUser();
+      await getLikeList()
     };
     init();
   }, [props.address]);
@@ -72,6 +84,7 @@ function MusicSearch(props) {
             );
           })}
       </table>
+      <Songs songList={likeList}/>
     </>
   );
 }
