@@ -84,7 +84,7 @@ function MusicSearch(props) {
             );
           })}
       </table>
-      <Songs songList={likeList}/>
+      <Songs songList={likeList} address={props.address} userList={userList}/>
     </>
   );
 }

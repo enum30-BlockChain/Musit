@@ -1,6 +1,7 @@
 import React, { component,useEffect,useState } from "react";
 import "./Songs.scss";
 import bts from "./music/bts.mp3";
+import axios from "axios";
 // import { Helmet } from "react-helmet";
 
 export const Songs = (props) => {
@@ -12,22 +13,50 @@ export const Songs = (props) => {
   const progressContainer = document.getElementById("progress-container");
   const title = document.getElementById("title");
   const cover = document.getElementById("cover");
-  
   const [count,setCount] =useState(0);
-  let songs = props.songList[count]
-
+  const [palyeCount, setpalyeCount] = useState("");
+  const [hash, sethash] = useState("");
+  const [tilte, setTilte] = useState("");
+  const [currentTime, setcurrentTime] = useState(0);
+  let song = props.songList[count]
   useEffect(() => {
-    if(songs){
-      title.innerText = songs.title;
-      audio.src = `https://ipfs.io/ipfs/${songs.ipfs_hash}`;
-      cover.src = songs.img_file;
+
+    if(song){
+      const getcurrentTime = props.userList.find( 
+        (adr) => adr.address === props.address
+      );
+      const arry = getcurrentTime.recent_played.split("-"); //receent찾아와서
+      const songs = props.songList
+      const index = songs.findIndex(i=>i.ipfs_hash==arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
+      
+      if(index === -1){
+          setpalyeCount(song.play_count);
+          sethash(song.ipfs_hash);
+          setTilte(song.title);
+          console.log(song.ipfs_hash);
+          title.innerText = song.title;
+          audio.src = `https://ipfs.io/ipfs/${song.ipfs_hash}`;
+          cover.src = song.img_file;
+        }else{
+          setpalyeCount(songs[index].play_count)
+          sethash(songs[index].ipfs_hash)
+          setTilte(songs[index].title)
+          title.innerText = songs[index].title;
+          audio.src = `https://ipfs.io/ipfs/${songs[index].ipfs_hash}`;
+          cover.src = songs[index].img_file;
+          setcurrentTime(arry[2])
+        }
     }
   }, [props])
 
-  function loadSong(songs) {
-    title.innerText = songs.title;
-    audio.src = `https://ipfs.io/ipfs/${songs.ipfs_hash}`;
-    cover.src = songs.img_file;
+  function loadSong(song) {  //노래불러올때
+    setpalyeCount(song.play_count)
+    sethash(song.ipfs_hash)
+    setTilte(song.title)
+    setcurrentTime(0)
+    title.innerText = song.title;
+    audio.src = `https://ipfs.io/ipfs/${song.ipfs_hash}`;
+    cover.src = song.img_file;
   }
 
   function prevSong() {
@@ -43,7 +72,7 @@ export const Songs = (props) => {
   function nextSong() {
     let num = count
     num ++;
-    if (num > props.songList - 1) {
+    if (num > props.songList.length - 1) {
       num = 0;
     }
     setCount(num)
@@ -145,7 +174,32 @@ function DurTime(e) {
   // console.log(min_d + ":" + sec_d)
 }
 
+const palyCountAdd = async () => {
+  setpalyeCount(palyeCount + 1);
+  const content = { palyeCount: palyeCount, audio: hash };
+  await axios
+    .post("http://localhost:5000/music/add", content)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+};
 
+const [savePoint,setSavePoint] =useState(0);
+const postTime = async(saveTime)=>{
+  let sendInt = savePoint % 20;   //20으로 나누면 5초정도됨
+  const content = { time: saveTime, address: props.address, hash:hash, title:tilte };
+  if (!sendInt) {
+    setSavePoint(savePoint+1);
+    await axios
+    .post("http://localhost:5000/users/recent", content)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+  }
+  setSavePoint(savePoint+1);
+}
   return (
     <>
       {/* <Helmet>
@@ -157,15 +211,31 @@ function DurTime(e) {
       <div className="music-container">
         <div className="music-info">
           <h4 id="title"></h4>
-          <div id="progress-container" className="progress-container" onClick={(e)=>setProgress(e)}>
-            <div className="progress" style={{width:`${percent}%`}}></div>
+          <div
+            id="progress-container"
+            className="progress-container"
+            onClick={(e) => setProgress(e)}
+          >
+            <div className="progress" style={{ width: `${percent}%` }}></div>
           </div>
         </div>
-        {/* //Todo : 여기에 노래 src넣어주고 */}
-        <audio 
-        id="audio" 
-        src={bts} 
-        onTimeUpdate={(e)=>{DurTime(e);updateProgress(e);}}/>
+        <audio
+          id="audio"
+          src={bts}
+          onLoadedData={() => {   //불러올때
+           audio.currentTime = currentTime;
+           }}
+          onTimeUpdate={(e) => {
+            const saveTime = Math.floor(e.currentTarget.currentTime);
+            postTime(saveTime);
+            DurTime(e);
+            updateProgress(e);
+          }}
+          onEnded={() => {
+            nextSong();
+            palyCountAdd();
+          }}
+        />
         <div className="img-container">
           <img
             src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=1260/uploads/users/114/posts/34296/final_image/Final-image.jpg"
@@ -174,7 +244,7 @@ function DurTime(e) {
           />
         </div>
         <div className="navigation">
-          <button id="prev" className="action-btn"  onClick={prevSong}>
+          <button id="prev" className="action-btn" onClick={prevSong}>
             <i className="fas fa-backward"></i>
           </button>
           <button
