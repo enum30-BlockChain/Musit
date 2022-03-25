@@ -2,7 +2,6 @@ const musicContainer = document.getElementById("music-container");
 const playBtn = document.getElementById("play");
 const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
-
 const audio = document.getElementById("audio");
 const progress = document.getElementById("progress");
 const progressContainer = document.getElementById("progress-container");
@@ -82,6 +81,7 @@ function updateProgress(e) {
 function setProgress(e) {
   const width = this.clientWidth;
   const clickX = e.offsetX;
+  console.log(e.target)
   const duration = audio.duration;
 
   audio.currentTime = (clickX / width) * duration;

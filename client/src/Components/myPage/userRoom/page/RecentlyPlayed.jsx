@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { useOutletContext } from "react-router-dom";
+import axios from "axios";
+import RecentCard from "../card/RecentCard";
 
 const RecentlyPlayed = () => {
-  return <div>RecentlyPlayed</div>;
+  const [address, , , song] = useOutletContext();
+
+  return (
+    <>
+      <div>
+        <RecentCard song={song} address={address} />
+      </div>
+    </>
+  );
 };
 
 export default RecentlyPlayed;

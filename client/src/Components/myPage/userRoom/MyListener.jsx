@@ -4,6 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 
 const MyListener = ({address}) => {
   const [response, setResponse] = useState("");
+  const [song, setSong] = useState();
 
   useEffect(() => {
     const init = async () => {
@@ -14,6 +15,13 @@ const MyListener = ({address}) => {
     init();
     return () => {};
   }, [address]);
+
+  const MusicOnClick = () => {
+    const url = "http://localhost:5000/users/played";
+    const response = axios.post(url, { address }).then((res) => {
+      setSong(res.data);
+    });
+  };
 
   return (
     <>
@@ -40,11 +48,11 @@ const MyListener = ({address}) => {
         </p>
         <p>
           <Link to="/MyListener/recentlyplayed">
-            <button>RecentlyPlayed</button>
+            <button onClick={MusicOnClick}>recentlyplayed</button>
           </Link>
         </p>
       </sidebar>
-      <Outlet context={[address, response, setResponse]} />
+      <Outlet context={[address, response, setResponse, song]} />
     </>
   );
 };
