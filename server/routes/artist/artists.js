@@ -3,6 +3,8 @@ const router = express.Router();
 const likesRouter = require("./likes");
 const { Artist, ArtistLike } = require("../../models/index");
 
+router.use("/likes", likesRouter);
+
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
@@ -34,21 +36,6 @@ router.post("/like", async (req, res, next) => {
       }
     );
     console.log(likesup);
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-router.post("/signin", async (req, res, next) => {
-  console.log(req.body.address);
-  try {
-    console.log("signin을 server에 요청하였습니다.");
-    const artist = await Artist.findOne({
-      where: {
-        user_address: req.body.address,
-      },
-    });
-    res.send(artist);
   } catch (err) {
     console.error(err);
   }
@@ -89,7 +76,21 @@ router.get("/list", async (req, res, next) => {
   }
 });
 
-router.use("/likes", likesRouter);
+//아티스트 signin 과 list 합치는거 여부 체크
+router.post("/signin", async (req, res, next) => {
+  console.log(req.body.address);
+  try {
+    console.log("signin을 server에 요청하였습니다.");
+    const artist = await Artist.findOne({
+      where: {
+        user_address: req.body.address,
+      },
+    });
+    res.send(artist);
+  } catch (err) {
+    console.error(err);
+  }
+});
 /* GET Artist listing. */
 
 module.exports = router;

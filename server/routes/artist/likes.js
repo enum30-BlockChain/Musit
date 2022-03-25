@@ -23,10 +23,9 @@ router.post("/list", async (req, res, next) => {
 });
 
 router.post("/like", async (req, res, next) => {
+  console.log(req.body);
   try {
     console.log("like을 server에 요청하였습니다.");
-    console.log(req.body);
-    console.log(req.body.likeSelect);
 
     const artist = await ArtistLike.findOne({
       where: {
@@ -57,7 +56,6 @@ router.post("/like", async (req, res, next) => {
           },
         }
       );
-      console.log(likesup);
     } else {
       var artistdelete = await ArtistLike.destroy({
         where: {
@@ -82,6 +80,7 @@ router.post("/like", async (req, res, next) => {
         }
       );
     }
+    res.send(artist);
   } catch (err) {
     console.error(err);
   }

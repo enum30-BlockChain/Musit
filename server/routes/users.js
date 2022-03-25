@@ -29,8 +29,6 @@ router.post("/signin", async (req, res, next) => {
 router.post("/signup", async (req, res, next) => {
   try {
     console.log("signup을 server에 요청하였습니다.");
-    console.log(User);
-    console.log(req.body);
     const user = await User.findOne({
       where: {
         address: req.body.address,
@@ -57,15 +55,12 @@ router.post("/signup", async (req, res, next) => {
 router.post("/buy", async (req, res, next) => {
   try {
     console.log("Buy server에 요청하였습니다.");
-    console.log(User);
-    console.log(req.body);
     const user = await User.findOne({
       where: {
         address: req.body.address,
       },
     });
     console.log(user);
-    // console.log(user.dataValues.subscription);
     if (user.dataValues.subscription == false) {
       User.update(
         {
@@ -83,6 +78,7 @@ router.post("/buy", async (req, res, next) => {
 router.post("/recent", async (req, res, next) => {
   try {
     const data = req.body;
+    console.log(data);
     const lump = [data.hash, data.title, data.time].join("-");
     await User.update(
       {
@@ -98,32 +94,13 @@ router.post("/recent", async (req, res, next) => {
 });
 
 router.post("/played", async (req, res, next) => {
-  console.log(111111111111);
-  console.log(req.body.address);
-  console.log(111111111111);
   try {
     const playname = await User.findOne({
       where: {
         address: req.body.address,
       },
     });
-    console.log(222222222222);
-    console.log(playname);
-    console.log(222222222222);
-    console.log(333333333333);
-    console.log(playname.dataValues);
-    console.log(333333333333);
-    console.log(4444444444444);
-    console.log(playname.dataValues.recent_played);
-    console.log(4444444444444);
-
     const recent = playname.dataValues.recent_played.split("-");
-    console.log(5555555555555);
-    console.log(recent);
-    console.log(5555555555555);
-    console.log(6666666666666);
-    console.log(recent[0]);
-    console.log(6666666666666);
     res.send(recent);
   } catch (err) {
     console.log(err);
