@@ -2,8 +2,9 @@ import React, { component,useEffect,useState } from "react";
 import "./Songs.scss";
 import bts from "./music/bts.mp3";
 import axios from "axios";
-// import { Helmet } from "react-helmet";
-
+import {Box,Stack,Slider  } from '@mui/material';
+import {VolumeDown,VolumeUp} from '@mui/icons-material';
+{/* <props likeList address userList/> */}
 export const Songs = (props) => {
   const [state, setstate] = useState("pause");
   const [percent, setPercent] = useState("0");
@@ -18,6 +19,7 @@ export const Songs = (props) => {
   const [hash, sethash] = useState("");
   const [tilte, setTilte] = useState("");
   const [currentTime, setcurrentTime] = useState(0);
+  const [value, setValue] = useState(100);
   let song = props.songList[count]
   useEffect(() => {
 
@@ -200,6 +202,11 @@ const postTime = async(saveTime)=>{
   }
   setSavePoint(savePoint+1);
 }
+
+  const handleChange = (event, newValue) => {
+    audio.volume = newValue*0.01;
+    setValue(newValue);
+  };
   return (
     <>
       {/* <Helmet>
@@ -222,9 +229,10 @@ const postTime = async(saveTime)=>{
         <audio
           id="audio"
           src={bts}
-          onLoadedData={() => {   //불러올때
-           audio.currentTime = currentTime;
-           }}
+          onLoadedData={() => {
+            //불러올때
+            audio.currentTime = currentTime;
+          }}
           onTimeUpdate={(e) => {
             const saveTime = Math.floor(e.currentTarget.currentTime);
             postTime(saveTime);
@@ -257,6 +265,20 @@ const postTime = async(saveTime)=>{
           <button id="next" className="action-btn" onClick={nextSong}>
             <i className="fas fa-forward"></i>
           </button>
+          <Box sx={{ width: 100 }}>
+            <Stack
+              spacing={2}
+              direction="row"
+              sx={{ mb: 1 }}
+              alignItems="center"
+            >
+              <Slider
+                aria-label="Volume"
+                value={value}
+                onChange={handleChange}
+              />
+            </Stack>
+          </Box>
         </div>
       </div>
     </>
