@@ -6,13 +6,6 @@ const { MusicLike, Music } = require("../../models/index");
 /* GET home page. */
 router.post("/like", async (req, res, next) => {
   try {
-    console.log(
-      "아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아"
-    );
-    console.log(req.body);
-    console.log(
-      "아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아"
-    );
     const data = req.body;
     const overlap = await Music.findOne({
       //지금노래에서
