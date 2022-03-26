@@ -1,7 +1,7 @@
 /**
  * Interface declaration
  */
- interface Window {
+interface Window {
   ethereum: any;
   web3: any;
   location: any;
