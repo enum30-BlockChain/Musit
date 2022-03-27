@@ -106,6 +106,32 @@ router.post("/music", async (req, res, next) => {
     console.error(err);
   }
 });
+
+router.post("/change", async (req, res, next) => {
+  console.log(req.body);
+  try {
+    console.log("http://localhost:5000/artists/change");
+    const artist = await Artist.findOne({
+      where: {
+        user_address: req.body.address,
+      },
+    });
+    const artist_change = await Artist.update(
+      {
+        artist_name: req.body.select,
+      },
+      {
+        where: {
+          user_address: req.body.address,
+        },
+      }
+    );
+    res.send(artist_change);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 /* GET Artist listing. */
 
 module.exports = router;
