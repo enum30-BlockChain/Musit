@@ -3,9 +3,15 @@ import axios from "axios";
 
 const MyArtist = ({ address }) => {
   const [nickname, setNickname] = useState("");
-  const [select, setSelect] = useState("");
   const [totallike, setTotalLike] = useState("");
   const [music, setMusic] = useState("");
+  const [song, setSong] = useState();
+
+  //내가 바꾸고 싶은 닉네임 선택
+  const [select, setSelect] = useState("");
+
+  //내가 최근 재생했던 목록 선택
+  const [search, setSearch] = useState("");
 
   //and 연산자를 사용하기위한 useState input을 숨기기위한 조건문
   const [visible, setVisible] = useState(false);
@@ -47,6 +53,13 @@ const MyArtist = ({ address }) => {
     });
   };
 
+  const RecentedOnClick = () => {
+    const url = "http://localhost:5000/artists/played";
+    const response = axios.post(url, { address }).then((res) => {
+      setSong(res.data);
+    });
+  };
+
   return (
     <>
       <div>나의 주소는 : {address}</div>
@@ -83,7 +96,9 @@ const MyArtist = ({ address }) => {
       <div>곡별 재생시간</div>
       <div>총 재생시간</div>
       <div>청취 곡수</div>
-      <div>Recently played</div>
+      <div>
+        <button onClick={RecentedOnClick}>최근 재생목록</button>
+      </div>
       <div>My favorite</div>
       <div>나의 재생목록</div>
     </>

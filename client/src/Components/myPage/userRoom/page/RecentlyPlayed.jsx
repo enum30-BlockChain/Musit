@@ -1,6 +1,4 @@
-import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import axios from "axios";
 import RecentCard from "../card/RecentCard";
 
 const RecentlyPlayed = () => {

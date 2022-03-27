@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, Outlet } from "react-router-dom";
 
-const MyListener = ({address}) => {
+const MyListener = ({ address }) => {
   const [response, setResponse] = useState("");
   const [song, setSong] = useState();
 
@@ -23,6 +23,7 @@ const MyListener = ({address}) => {
     });
   };
 
+  console.log(song);
   return (
     <>
       <sidebar>

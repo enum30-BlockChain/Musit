@@ -94,13 +94,20 @@ router.post("/recent", async (req, res, next) => {
 });
 
 router.post("/played", async (req, res, next) => {
+  console.log(req.body.address);
   try {
     const playname = await User.findOne({
       where: {
         address: req.body.address,
       },
     });
+    console.log(11111111111111111);
+    console.log(playname);
+    console.log(1111111111111111111);
     const recent = playname.dataValues.recent_played.split("-");
+    console.log(222222222222222);
+    console.log(recent);
+    console.log(222222222222222);
     res.send(recent);
   } catch (err) {
     console.log(err);
