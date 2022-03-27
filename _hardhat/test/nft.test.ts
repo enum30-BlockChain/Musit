@@ -52,23 +52,23 @@ describe("MusitNFT", function () {
   // })
 
   describe("Enroll items into marketplace", async () => {
-
     beforeEach(async () => {
-      await musitNFT.connect(deployer).setIsMintEnabled(true);
       await musitNFT.connect(addr1).minting(URI, { value: ethToWei(0.01) });
-      await musitNFT.connect(addr1).approve(musitNFT.address, 1);
+      await musitNFT.connect(addr1).approve(marketplace.address, 1);
     });
 
     it("Should track new item's info, transfer NFT from seller to marketplace, and emit Enrolled event", async () => {
       expect(await musitNFT.ownerOf(1)).to.equal(addr1.address);
 
       await expect(
-        marketplace.connect(addr1).enrollItem(musitNFT.address, 1, ethToWei(price))
+        marketplace
+          .connect(addr1)
+          .enrollItem(musitNFT.address, 1, ethToWei(price))
       )
-      .to.emit(marketplace, "Enrolled")
-      .withArgs(1, 1, ethToWei(price), addr1.address, musitNFT.address);
+        .to.emit(marketplace, "Enrolled")
+        .withArgs(1, 1, ethToWei(price), addr1.address, musitNFT.address);
 
-      // expect(await musitNFT.ownerOf(1)).to.equal(marketplace.address);
+      expect(await musitNFT.ownerOf(1)).to.equal(marketplace.address);
 
       const item = await marketplace.items(1);
       expect(item.itemId).to.equal(1);
@@ -79,15 +79,43 @@ describe("MusitNFT", function () {
       expect(item.sold).to.equal(false);
     });
 
-    it("Should fail if price is set to 0",async () => {
+    it("Should fail if price is set to 0", async () => {
       price = 0;
       await expect(
         marketplace.connect(addr1).enrollItem(musitNFT.address, 1, 0)
       ).to.be.revertedWith("Price must be greater than zero");
-    })
+    });
   });
 
   describe("Purchasing marketplace items", () => {
     let price = 2;
-  })
+
+    beforeEach(async () => {
+      await musitNFT.connect(addr1).minting(URI, { value: ethToWei(0.01) });
+      await musitNFT.connect(addr1).approve(marketplace.address, 1);
+      await marketplace
+        .connect(addr1)
+        .enrollItem(musitNFT.address, 1, ethToWei(price));
+    });
+
+    it("Should update item as sold, pay seller, transfer NFT to buyer, charge fees and emit Bought event", async () => {
+      const sellerInitialBalance = await addr1.getBalance();
+      const feeAccountInitialBalance = await deployer.getBalance();
+
+      let totalPriceInWei = await marketplace.getTotalPrice(1);
+
+      await expect(
+        marketplace.connect(addr2).purchaseItem(1, { value: totalPriceInWei })
+      )
+        .to.emit(marketplace, "Bought")
+        .withArgs(
+          1,
+          1,
+          ethToWei(price),
+          addr1.address,
+          addr2.address,
+          musitNFT.address
+        );
+    });
+  });
 });

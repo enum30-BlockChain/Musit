@@ -17,7 +17,6 @@ contract MusitNFT is ERC721URIStorage, Ownable {
   uint256 public totalSupplied; // 현재까지 발행된 총 수량
   uint256 public maxSupply; // 발행 총 수량
   uint256 public maxMintsPerWallet; // 지갑 당 민팅 총 수량
-  bool public isMintEnabled;  // 민팅 가능 여부 결정
   Counters.Counter public tokenCount; // 발행할 NFT 토큰 Id
 
   mapping (address => uint256) mintsPerWallet; // 주소 => 현재까지 완료한 민팅 개수
@@ -40,16 +39,11 @@ contract MusitNFT is ERC721URIStorage, Ownable {
     maxMintsPerWallet = _maxMintsPerWallet;
   }
 
-  function setIsMintEnabled (bool _isMintEnabled) external onlyOwner {
-    isMintEnabled = _isMintEnabled;
-  }
-
   function getMintsPerWallet () external view returns (uint256) {
     return mintsPerWallet[msg.sender];
   }
 
   function minting (string memory _tokenURI) external payable returns (uint256) {
-    require(isMintEnabled, "Mint system is not enabled yet.");
     require(msg.value == mintPrice, "Wrong value sent.");
     require(totalSupplied <= maxSupply, " Sold out!");
     require(mintsPerWallet[msg.sender] <= maxMintsPerWallet, "Exceed total supply.");
