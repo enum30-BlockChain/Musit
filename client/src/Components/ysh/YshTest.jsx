@@ -18,10 +18,6 @@ const YshTest = () => {
     console.log(await Ethers.minting(tokenURI))
   }
 
-  async function mintingEnableOnClick () {
-    console.log(await Ethers.setIsMintEnabled(true))
-  }
-
   async function mintingOnChange (e) {
     setTokenURI(e.target.value);
   }
@@ -44,11 +40,8 @@ const YshTest = () => {
         </div>
 
         <div>
-        </div>
-        <div>
           <input onChange={mintingOnChange} placeholder="tokenURI" type="text" />
           <Button onClick={() => mintingOnClick(tokenURI)}>Minting</Button>
-          <Button onClick={() => mintingEnableOnClick()}>Enable</Button>
         </div>
       </div>
     </>

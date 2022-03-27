@@ -69,35 +69,26 @@ export default class Ethers {
     }
   }
 
-  static async setIsMintEnabled(enable: boolean) {
-    try {
-      return await musitNFT.setIsMintEnabled(enable)
-    } catch (error) {
-      console.log(error);
-			return "";
-    }
-  }
-
-	static async sendTx(recieverAddress: string, amountEth: number) {
-		try {
-      const gas_price = await signer.getGasPrice()
-      const gas_limit = ethers.utils.hexlify(21000)
-      const nonce = await signer.getTransactionCount()
-      const value = ethers.utils.parseEther(String(amountEth))
-      const tx = {
-        from: signer.getAddress(),
-        to: recieverAddress,
-        value: value,
-        nonce: nonce,
-        gasLimit: gas_limit,
-        gasPrice: gas_price,
-      }
-			return await signer.sendTransaction(tx)
-		} catch (error) {
-			console.log(error);
-			return "";
-		}
-	}
+	// static async sendTx(recieverAddress: string, amountEth: number) {
+	// 	try {
+  //     const gas_price = await signer.getGasPrice()
+  //     const gas_limit = ethers.utils.hexlify(21000)
+  //     const nonce = await signer.getTransactionCount()
+  //     const value = ethers.utils.parseEther(String(amountEth))
+  //     const tx = {
+  //       from: signer.getAddress(),
+  //       to: recieverAddress,
+  //       value: value,
+  //       nonce: nonce,
+  //       gasLimit: gas_limit,
+  //       gasPrice: gas_price,
+  //     }
+	// 		return await signer.sendTransaction(tx)
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 		return "";
+	// 	}
+	// }
 
 	static async getContractAddress() {
 		try {
@@ -143,9 +134,5 @@ export default class Ethers {
 			console.log(error);
 			return "";
 		}
-	}
-
-	static async getIsMintEnabled() {
-    return await musitNFT.isMintEnabled();
 	}
 }
