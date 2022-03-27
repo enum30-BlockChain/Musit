@@ -1,12 +1,15 @@
-const { expect } = require("chai");
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { expect } from "chai";
+import { Contract } from "ethers";
+import { ethers } from "hardhat";
 
-const ethToWei = (eth) => ethers.utils.parseEther(eth.toString())
-const weiToEth = (wei) => ethers.utils.formatEther(wei.toString())
+const ethToWei = (eth: number | string) => ethers.utils.parseEther(eth.toString())
+const weiToEth = (wei: number | string) => ethers.utils.formatEther(wei.toString())
 
 describe("MusitNFT", function () {
-  let deployer, addr1, addr2, musitNFT, marketplace, URI;
+  let deployer: SignerWithAddress, addr1: SignerWithAddress, addr2 : SignerWithAddress, musitNFT: Contract, marketplace: Contract, URI: string;
   let feePercent = 1;
-  
+  URI = "Token URI";
   this.beforeEach(async () => {
     // Signer 정보들 받아오기
     [deployer, addr1, addr2] = await ethers.getSigners();
@@ -30,8 +33,6 @@ describe("MusitNFT", function () {
   })
 
   describe("Minting NFT", async () => {
-    URI = "Token URI";
-    
     it("Should track each minted NFT", async () => {
       await musitNFT.connect(deployer).setIsMintEnabled(true);
       await musitNFT.connect(addr1).minting(URI, {value: ethToWei(0.01)})
@@ -51,8 +52,8 @@ describe("MusitNFT", function () {
     })
 
     it("Should track new item's info, transfer NFT from seller to marketplace, and emit Enrolled event", async () => {
-      expect(
-        await marketplace.connect(addr1).enrollItem(musitNFT.address, 1, ethToWei(price))
+      await expect(
+        marketplace.connect(addr1).enrollItem(musitNFT.address, 1, ethToWei(price))
       )
         .to.emit(marketplace, "Enrolled")
         .withArgs(1, 1, ethToWei(price), addr1.address, musitNFT.address);

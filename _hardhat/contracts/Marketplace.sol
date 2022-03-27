@@ -2,12 +2,10 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "./MusitNFT.sol";
 
-contract Marketplace is ReentrancyGuard, MusitNFT {
+contract Marketplace is ReentrancyGuard {
   using Counters for Counters.Counter;
 
   address payable public immutable feeAccount; // fee를 받을 주소
