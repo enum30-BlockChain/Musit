@@ -45,6 +45,14 @@ const MyListener = ({ address }) => {
   const [imageChange, setImageChange] = useState(false);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [img, setImg] = useState("");
+<<<<<<< HEAD
+=======
+  const [newimg, setNewimg] = useState("");
+  const [imgdata, setImgdata] = useState({
+    cover_img_link: "",
+    address: "",
+  });
+>>>>>>> jeon
 
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
