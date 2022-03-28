@@ -3,7 +3,6 @@ import "./Songs.scss";
 import bts from "./music/bts.mp3";
 import axios from "axios";
 import {Box,Stack,Slider  } from '@mui/material';
-import {VolumeDown,VolumeUp} from '@mui/icons-material';
 {/* <props likeList address userList/> */}
 export const Songs = (props) => {
   const [state, setstate] = useState("pause");
@@ -22,16 +21,26 @@ export const Songs = (props) => {
   const [value, setValue] = useState(100);
   let song = props.songList[count]
   useEffect(() => {
-
-    if(song){
-      const getcurrentTime = props.userList.find( 
+    
+    if (song) {
+      const getcurrentTime = props.userList.find(
         (adr) => adr.address === props.address
       );
-      const arry = getcurrentTime.recent_played.split("-"); //receent찾아와서
-      const songs = props.songList
-      const index = songs.findIndex(i=>i.ipfs_hash==arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
-      
-      if(index === -1){
+      if (getcurrentTime.recent_played == null) {
+        setpalyeCount(song.play_count);
+        sethash(song.ipfs_hash);
+        setTilte(song.title);
+        console.log(song.ipfs_hash);
+        title.innerText = song.title;
+        audio.src = `https://ipfs.io/ipfs/${song.ipfs_hash}`;
+        cover.src = song.img_file;
+      } else {
+        const arry = getcurrentTime.recent_played.split("-"); //receent찾아와서
+        const songs = props.songList;
+        const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
+        console.log(arry);
+
+        if (index === -1) {
           setpalyeCount(song.play_count);
           sethash(song.ipfs_hash);
           setTilte(song.title);
@@ -39,15 +48,16 @@ export const Songs = (props) => {
           title.innerText = song.title;
           audio.src = `https://ipfs.io/ipfs/${song.ipfs_hash}`;
           cover.src = song.img_file;
-        }else{
-          setpalyeCount(songs[index].play_count)
-          sethash(songs[index].ipfs_hash)
-          setTilte(songs[index].title)
+        } else {
+          setpalyeCount(songs[index].play_count);
+          sethash(songs[index].ipfs_hash);
+          setTilte(songs[index].title);
           title.innerText = songs[index].title;
           audio.src = `https://ipfs.io/ipfs/${songs[index].ipfs_hash}`;
           cover.src = songs[index].img_file;
-          setcurrentTime(arry[2])
+          setcurrentTime(arry[2]);
         }
+      }
     }
   }, [props])
 
@@ -234,10 +244,15 @@ const postTime = async(saveTime)=>{
             audio.currentTime = currentTime;
           }}
           onTimeUpdate={(e) => {
-            const saveTime = Math.floor(e.currentTarget.currentTime);
-            postTime(saveTime);
-            DurTime(e);
-            updateProgress(e);
+            console.log(savePoint)
+            if(savePoint>0){
+              const saveTime = Math.floor(e.currentTarget.currentTime);
+              postTime(saveTime);
+              DurTime(e);
+              updateProgress(e);
+            }
+            setSavePoint(savePoint+1);
+
           }}
           onEnded={() => {
             nextSong();
