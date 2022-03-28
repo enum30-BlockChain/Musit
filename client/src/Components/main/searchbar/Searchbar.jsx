@@ -3,7 +3,7 @@ import "./Searchbar.css"
 import Button from '@mui/material/Button';
 import Metamask from '../../../web3/Metamask';
 
-export const Searchbar = () => {
+export const Searchbar = ({address}) => {
   const connectOnclick = () => {
     Metamask.connectWallet();
   }
@@ -21,7 +21,7 @@ export const Searchbar = () => {
         <div className="profile">
           <img src="images/profile.jpg" alt="profile" />
         </div>
-        <Button
+        {address ? "address" : <Button
           variant="contained"
           sx={{
             color: "var(--black-light-color)",
@@ -30,7 +30,8 @@ export const Searchbar = () => {
           onClick={connectOnclick}
         >
           CONNECT
-        </Button>
+        </Button>}
+        
       </div>
 		</div>
 	);

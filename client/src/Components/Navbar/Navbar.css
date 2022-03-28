@@ -69,7 +69,7 @@
   position: relative;
 }
 
-.nav-links li a:hover:before {
+/* .side-nav .nav-links li a:hover:before {
   content: "";
   position: absolute;
   left: -7px;
@@ -77,9 +77,15 @@
   width: 5px;
   border-radius: 50%;
   background-color: var(--primary-color);
-}
+} */
 
-body.dark .nav-links li a:hover:before {
+body.dark .side-nav .nav-links li a:hover:before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
   background-color: var(--text-color);
 }
 
@@ -105,11 +111,11 @@ body.dark .nav-links li a:hover:before {
   pointer-events: none;
 }
 
-.nav-links li a:hover :is(i, .link-name) {
+.side-nav .nav-links li a:hover :is(i, .link-name) {
   color: var(--primary-color);
 }
 
-body.dark .nav-links li a:hover :is(i, .link-name) {
+body.dark .side-nav .nav-links li a:hover :is(i, .link-name) {
   color: var(--text-color);
 }
 

@@ -9,16 +9,17 @@ import { Store } from "./store/Store";
 import { Auction } from "./auction/Auction";
 import { Artist } from "./artist/Artist";
 import Metamask from "../../web3/Metamask";
+import { Playbar } from "./playbar/Playbar";
 
 export const Main = () => {
 	const [address, setAddress] = useState("");
 	async function init () {
-		const [accounts] = await Metamask.getAccounts();
-		console.log(accounts)
-		setAddress(accounts[0]);
+		await Metamask.getAccounts(setAddress);
+		await Metamask.walletListener(setAddress);
 	} 
 
 	useEffect(() => {
+		init()
 		const sidebarToggle = document.querySelector(".sidebar-toggle");
 		const sidebar = document.querySelector("nav");
 
@@ -41,17 +42,20 @@ export const Main = () => {
 
 	return (
 		<section className="main">
-			<Searchbar />
-			<Routes>
-				<Route path="/">
-					<Route index element={<Dashboard />} />
-					<Route path="mypage" element={<Mypage />} />
-					<Route path="music" element={<Music />} />
-					<Route path="store" element={<Store />} />
-					<Route path="auction" element={<Auction />} />
-					<Route path="artist" element={<Artist />} />
-				</Route>
-			</Routes>
+			<Searchbar address={address}/>
+			<div className="main-content"> 
+				<Routes>
+					<Route path="/">
+						<Route index element={<Dashboard />} />
+						<Route path="mypage" element={<Mypage />} />
+						<Route path="music" element={<Music />} />
+						<Route path="store" element={<Store />} />
+						<Route path="auction" element={<Auction />} />
+						<Route path="artist" element={<Artist />} />
+					</Route>
+				</Routes>
+			</div>
+			<Playbar/>
 		</section>
 	);
 };
