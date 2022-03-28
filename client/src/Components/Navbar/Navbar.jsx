@@ -60,6 +60,12 @@ export const Navbar = () => {
 							<span className="link-name">AUCTION</span>
 						</Link>
 					</li>
+					<li>
+						<Link to="/artist">
+							<i class="uil uil-palette"></i>
+							<span className="link-name">ARTIST</span>
+						</Link>
+					</li>
 				</ul>
 
 				<ul className="logout-mode">
