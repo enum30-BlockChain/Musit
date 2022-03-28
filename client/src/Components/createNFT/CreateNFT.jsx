@@ -13,7 +13,7 @@ function CreateNFT() {
   
   return (
     <Stack
-      sx={{ display: "flex" }}
+      sx={{ display: "flex",width:"80%" }}
       direction="column"
       justifyContent="flex-start"
       alignItems="center"
@@ -29,13 +29,13 @@ function CreateNFT() {
         <Box sx={{mt:3,}}>
           <Button component="label">
           <Box sx={{ height:345,width:345, p: 2, border: "4px dashed grey" }}>
-        {albumCoverImgFile ? '' : <CloudUploadIcon sx={{color:'gray', height:"100%",width:"100%",  }} />}
-          {albumCoverImgFile && (
+           {albumCoverImgFile ? '' : <CloudUploadIcon sx={{color:'gray', height:"100%",width:"100%",  }} />}
+           {albumCoverImgFile && (
             <img
               src={URL.createObjectURL(albumCoverImgFile)}
               style={{ width: "100%",height:"100%" }}
             ></img>
-          )}
+            )}
             <input
               id={"file-input"}
               style={{ display: "none" }}
@@ -47,7 +47,7 @@ function CreateNFT() {
           </Button>
         </Box>
         <Box>
-          <div>createNFT</div>
+        <Typography variant="h4" sx={{mt:2,}}>Responsive h3</Typography>
         </Box>
         <Box>
           <div>createNFT</div>
