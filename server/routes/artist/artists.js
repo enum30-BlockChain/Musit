@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const likesRouter = require("./likes");
-const { Artist, ArtistLike, Music } = require("../../models/index");
+const { Artist, ArtistLike, Music, User } = require("../../models/index");
 
 router.use("/likes", likesRouter);
 
@@ -88,6 +88,20 @@ router.post("/signin", async (req, res, next) => {
       },
     });
     res.send(artist);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+//아티스트 signin 과 list 합치는거 여부 체크
+router.post("/image", async (req, res, next) => {
+  console.log(req.body.address);
+  console.log("signin을 server에 요청하였습니다.");
+  try {
+    const artist = await Artist.findOne({
+      include: { model: User, where: { address: req.body.address } },
+    });
+    res.send(artist.User.img);
   } catch (err) {
     console.error(err);
   }

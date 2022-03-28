@@ -45,23 +45,13 @@ const MyListener = ({ address }) => {
   const [imageChange, setImageChange] = useState(false);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [img, setImg] = useState("");
-  const [newimg, setNewimg] = useState("");
-  const [imgdata, setImgdata] = useState({
-    cover_img_link: "",
-    address: "",
-  });
 
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
     formData.append("img", img);
     const url = "http://localhost:5000/files/imgupload";
-    await axios
-      .post(url, formData) //formData multer가읽을수있다.
-      .then((res) => {
-        imgdata.cover_img_link = res.data.downLoadLink;
-      })
-      .catch((err) => alert(err));
-    return newimg;
+    const result = await axios.post(url, formData); //formData multer가읽을수있다.
+    return result.data;
   };
 
   const getImg = (e) => {
@@ -70,11 +60,13 @@ const MyListener = ({ address }) => {
   };
 
   const Submit = async () => {
-    await postImg();
-    console.log(imgdata);
-    imgdata.address = address;
+    const newimg = await postImg();
+    console.log(newimg);
     await axios
-      .post("http://localhost:5000/users/changeimg", { imgdata })
+      .post("http://localhost:5000/users/changeimg", {
+        address,
+        downloadLink: newimg.downLoadLink,
+      })
       .then((res) => {})
       .catch((err) => alert(err));
   };

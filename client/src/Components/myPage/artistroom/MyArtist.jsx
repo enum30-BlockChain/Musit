@@ -2,22 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const MyArtist = ({ address }) => {
-  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
-  const [img, setImg] = useState("");
   const [nickname, setNickname] = useState("");
   const [totallike, setTotalLike] = useState("");
   const [music, setMusic] = useState("");
   const [song, setSong] = useState();
-  const [contents, setContents] = useState({
-    cover_img_link: img,
-    artist_name: nickname,
-  });
 
   //내가 바꾸고 싶은 닉네임 선택
   const [select, setSelect] = useState("");
-
-  //내가 최근 재생했던 목록 선택
-  const [search, setSearch] = useState("");
 
   //and 연산자를 사용하기위한 useState input을 숨기기위한 조건문
   const [visible, setVisible] = useState(false);
@@ -28,28 +19,29 @@ const MyArtist = ({ address }) => {
       const response = await axios.post(url, { address });
       setNickname(response.data.artist_name);
     };
+    //artists user의 이미지가 있으면 내용을 넣어준다. user의 이미지가 없을시 artists에서 넣어준다.
+    const UserImage = async () => {
+      const url = "http://localhost:5000/artists/image";
+      const response = await axios.post(url, { address });
+      setImage(response.data);
+    };
     init();
+    UserImage();
     return () => {};
   }, [address]);
 
-  console.log(nickname);
-
   const IdOnChange = (e) => {
     setSelect(e.target.value);
-    console.log(e.target.value);
   };
 
   const NickNameOnClick = () => {
     const url = "http://localhost:5000/artists/change";
-    const response = axios.post(url, { address, select }).then((res) => {
-      console.log(res.data);
-    });
+    const response = axios.post(url, { address, select }).then((res) => {});
   };
 
   const TotalLikeOnClick = () => {
     const url = "http://localhost:5000/artists/like";
     const response = axios.post(url, { address }).then((res) => {
-      console.log(res.data);
       setTotalLike(res.data);
     });
   };
@@ -68,21 +60,25 @@ const MyArtist = ({ address }) => {
     });
   };
 
+  ////////////////////////////////////////////////////////////////////////////////////
+
+  const [image, setImage] = useState("");
+
+  //
+  const [imageChange, setImageChange] = useState("");
+
+  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+
+  const [img, setImg] = useState("");
+
   const formData = new FormData();
 
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
-    if (img === albumCoverImgFile) {
-      console.log("바뀐게없네");
-      return albumCoverImgFile;
-    } else if (img !== albumCoverImgFile) {
-      formData.append("img", img);
-      await axios
-        .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
-        .then((res) => (contents.cover_img_link = res.data.downLoadLink))
-        .catch((err) => alert(err));
-      return contents;
-    }
+    formData.append("img", img);
+    const url = "http://localhost:5000/files/imgupload";
+    const result = await axios.post(url, formData).catch((err) => alert(err));
+    return result.data;
   };
 
   const getImg = (e) => {
@@ -91,16 +87,15 @@ const MyArtist = ({ address }) => {
   };
 
   const Submit = async () => {
-    await postImg();
-    console.log(contents);
+    const newimg = await postImg();
     await axios
-      .post("http://localhost:5000/files/modify", contents)
-      .then((res) => {
-        console.log(res);
+      .post("http://localhost:5000/users/changeimg", {
+        address,
+        downloadLink: newimg.downLoadLink,
       })
+      .then((res) => {})
       .catch((err) => alert(err));
   };
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <>
@@ -143,18 +138,31 @@ const MyArtist = ({ address }) => {
       </div>
       <div>My favorite</div>
       <div>나의 재생목록</div>
-
       <div>
-        <button onClick={Submit}>이미지넣기</button>
-        <div>
-          <p>img</p>
-          <input
-            name="imgUpload"
-            type="file"
-            accept="image/*"
-            onChange={getImg}
-          />
-        </div>
+        <img src={image} style={{ width: "100" }} />
+        {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
+        <button
+          onClick={() => {
+            setImageChange(!imageChange);
+          }}
+        >
+          {/* imageChange 취소나 닉네임에 따라 true false */}
+          {imageChange ? "변경완료" : "내사진변경"}
+        </button>
+        {imageChange && (
+          <div>
+            <input
+              type="file"
+              name="imgUpload"
+              accept="image/*"
+              onChange={getImg}
+            ></input>
+            {albumCoverImgFile && (
+              <img style={{ width: "100px" }} src={albumCoverImgFile}></img>
+            )}
+            <button onClick={Submit}>올리기</button>
+          </div>
+        )}
       </div>
     </>
   );
