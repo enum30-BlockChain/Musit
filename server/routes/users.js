@@ -80,6 +80,40 @@ router.post("/change", async (req, res, next) => {
 });
 
 router.post("/changeimg", async (req, res, next) => {
+  console.log("http://localhost:5000/users/changeimg");
+  console.log(111111111);
+  console.log(req.body);
+  console.log(req.body.imgdata);
+  console.log(111111111);
+  try {
+    const users = await User.findOne({
+      where: {
+        address: req.body.imgdata.address,
+      },
+    });
+    console.log(2222222222);
+    console.log(users);
+    console.log(2222222222);
+    const users_change = await User.update(
+      {
+        img: req.body.imgdata.cover_img_link,
+      },
+      {
+        where: {
+          address: req.body.imgdata.address,
+        },
+      }
+    );
+    console.log(3333333333);
+    console.log(users_change);
+    console.log(3333333333);
+    res.send(users_change);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.post("/changeimg", async (req, res, next) => {
   console.log(req.body);
   try {
     console.log("http://localhost:5000/users/change");
@@ -88,9 +122,12 @@ router.post("/changeimg", async (req, res, next) => {
         address: req.body.address,
       },
     });
+    console.log(2222222222222);
+    console.log(users);
+    console.log(2222222222222);
     const users_change = await User.update(
       {
-        img: req.body.selectimg,
+        img: req.body.img,
       },
       {
         where: {
@@ -98,9 +135,9 @@ router.post("/changeimg", async (req, res, next) => {
         },
       }
     );
-    console.log(11111111);
+    console.log(3333333333);
     console.log(users_change);
-    console.log(11111111);
+    console.log(3333333333);
     res.send(users_change);
   } catch (err) {
     console.error(err);
