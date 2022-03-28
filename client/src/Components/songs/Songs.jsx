@@ -38,13 +38,10 @@ export const Songs = (props) => {
         const arry = getcurrentTime.recent_played.split("-"); //receent찾아와서
         const songs = props.songList;
         const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
-        console.log(arry);
-
         if (index === -1) {
           setpalyeCount(song.play_count);
           sethash(song.ipfs_hash);
           setTilte(song.title);
-          console.log(song.ipfs_hash);
           title.innerText = song.title;
           audio.src = `https://ipfs.io/ipfs/${song.ipfs_hash}`;
           cover.src = song.img_file;
@@ -244,7 +241,6 @@ const postTime = async(saveTime)=>{
             audio.currentTime = currentTime;
           }}
           onTimeUpdate={(e) => {
-            console.log(savePoint)
             if(savePoint>0){
               const saveTime = Math.floor(e.currentTarget.currentTime);
               postTime(saveTime);
