@@ -1,78 +1,98 @@
-import React, { useEffect, useState } from "react";
-import "./Navbar.scss";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Metamask from "../../web3/Metamask";
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import "./Navbar.css"
 
-export const Navbar = ({address, setAddress}) => {
-  const [nickname, setNickname] = useState("");
+export const Navbar = () => {
   
-
-  const LoginOnClick = async () => {
-    const url = "http://localhost:5000/users/signin";
-    const response = await axios.post(url, { address });
-    // console.log(response.data);
-    setNickname({
-      nickname: response.data.nickname,
-    });
-  };
-  const connectOnClick = async () => {
-    const { data } = await Metamask.connectWallet();
-    setAddress(data[0]);
-  };
-
-  const Login = async () => {
-    const url = "http://localhost:5000/users/signin";
-    const response = await axios.post(url, { address });
-    console.log(response.nickname);
-  };
-
-  const enterToSearch = (event) => {
-    if (event.keyCode == 13) {
-      // searchData();
+  useEffect(() => {
+    const body = document.querySelector("body");
+    const modeToggle = document.querySelector(".mode-toggle");
+    
+    let getDarkMode = localStorage.getItem("dark_mode");
+    if (getDarkMode && getDarkMode === "on") {
+      body.classList.toggle("dark");
     }
-  };
-
+  
+    modeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark")
+      if(body.classList.contains("dark")) {
+        localStorage.setItem("dark_mode", "on")
+      } else {
+        localStorage.setItem("dark_mode", "off")
+      }
+    })
+  }, [])
   return (
-    <>
-      <header className="main-header">
-        <div className="logo">
-          <Link to="/">
-            <h3>Musit X Eunm30</h3>
-          </Link>
-        </div>
-        <label htmlFor="menu-btn" className="menu-icon">
-          <span className="meue-icon__line"></span>
-        </label>
-        <ul className="nav-links">
-          <li className="nav-link">
-            <input
-              type="text"
-              placeholder={"Songs Search"}
-              //엔터로 검색이 가능하게
-              onKeyPress={enterToSearch}
-            ></input>
-            <button>Search</button>
-          </li>
-          <li className="nav-link">
-            <Link to="/">main</Link>
-          </li>
+		<nav className='side-nav'>
+			<Link to={"/"}>
+				<div className="logo-name-container">
+					<div className="logo-image">
+						<img src="images/Musit_logo.png" alt="logo" />
+					</div>
 
-          <li className="nav-link">
-            {address ? (
-              <p>
-                {address}
-                {nickname}
-                <button>logout</button>
-              </p>
-            ) : (
-              <button onClick={connectOnClick}>Connect</button>
-            )}
-          </li>
-        </ul>
-      </header>
-    </>
-  );
-};
+					<span className="logo-name nav-links">MUSIT</span>
+				</div>
+			</Link>
 
-export default Navbar;
+			<div className="menu-items">
+				<ul className="nav-links">
+					<li>
+						<Link to="/dashboard">
+            <i class="uil uil-create-dashboard"></i>
+							<span className="link-name">Dashboard</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="/content">
+							<i class="uil uil-files-landscapes"></i>
+							<span className="link-name">Content</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="#">
+							<i class="uil uil-chart"></i>
+							<span className="link-name">Analystics</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="#">
+							<i class="uil uil-thumbs-up"></i>
+							<span className="link-name">Like</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="#">
+							<i class="uil uil-comment-dots"></i>
+							<span className="link-name">Comments</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="#">
+							<i class="uil uil-share"></i>
+							<span className="link-name">Share</span>
+						</Link>
+					</li>
+				</ul>
+
+				<ul className="logout-mode">
+					<li>
+						<Link to="#">
+							<i class="uil uil-signout"></i>
+							<span className="link-name">Logout</span>
+						</Link>
+					</li>
+
+					<li className="mode">
+						<Link to="#">
+							<i class="uil uil-moon"></i>
+							<span className="link-name">Dark Mode</span>
+						</Link>
+						<div className="mode-toggle">
+							<span className="switch"></span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	);
+}

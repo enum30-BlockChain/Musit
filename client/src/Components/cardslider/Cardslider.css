@@ -1,0 +1,11 @@
+.cardslider {
+  position: relative;
+}
+.cardslider .card .image{
+  height: 140px;
+  width: 140px;
+}
+.cardslider .card .image img{
+  height: 100%;
+  width: 100%;
+}
