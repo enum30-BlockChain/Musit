@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Metamask from "./../../web3/Matamask";
+
 import axios from "axios";
 import UserState from "./userRoom/page/UserSubscription";
 import "./Sidebar.scss";
+import Metamask from "../../web3/Metamask";
 
 const Sidebar = () => {
   const [address, setAddress] = useState("");
