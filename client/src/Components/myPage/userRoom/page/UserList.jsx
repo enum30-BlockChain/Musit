@@ -46,9 +46,9 @@ const UserList = () => {
           />
         ))}
       </div>
-      <button onClick={LikeListOnClick}>LikeList</button>
+      <button onClick={LikeListOnClick}>ArtistLikeList</button>
 
-      <button onClick={LoginOnClick}>List</button>
+      <button onClick={LoginOnClick}>ArtistList</button>
       <div>
         Artist List
         {artistList.map((list, index) => (
