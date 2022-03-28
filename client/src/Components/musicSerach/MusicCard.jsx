@@ -2,6 +2,7 @@ import React, { useState, useEffect,useRef  } from "react";
 import Modal from "./Model.jsx";
 import axios from "axios";
 
+// props
 function MusicCard(props) {
   const audioPlayer = useRef();
   const [modal, setModal] = useState(false);
