@@ -1,11 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard/Dashboard";
 import "./Main.css";
-import { Cardslider } from "../cardslider/Cardslider";
+import { Mypage } from "./mypage/Mypage";
+import { Music } from "./music/Music";
+import { Store } from "./store/Store";
+import { Auction } from "./auction/Auction";
+import { Artist } from "./artist/Artist";
+import Metamask from "../../web3/Metamask";
 
 export const Main = () => {
+	const [address, setAddress] = useState("");
+	async function init () {
+		const [accounts] = await Metamask.getAccounts();
+		console.log(accounts)
+		setAddress(accounts[0]);
+	} 
+
 	useEffect(() => {
 		const sidebarToggle = document.querySelector(".sidebar-toggle");
 		const sidebar = document.querySelector("nav");
@@ -23,6 +35,8 @@ export const Main = () => {
 				localStorage.setItem("menu_status", "open");
 			}
 		});
+
+		
 	}, []);
 
 	return (
@@ -31,8 +45,11 @@ export const Main = () => {
 			<Routes>
 				<Route path="/">
 					<Route index element={<Dashboard />} />
-					<Route path="dashboard" element={<Dashboard />} />
-					<Route path="content" element={<Cardslider />} />
+					<Route path="mypage" element={<Mypage />} />
+					<Route path="music" element={<Music />} />
+					<Route path="store" element={<Store />} />
+					<Route path="auction" element={<Auction />} />
+					<Route path="artist" element={<Artist />} />
 				</Route>
 			</Routes>
 		</section>

@@ -5,7 +5,7 @@ export const Activity = () => {
   return (
 		<div className="activity">
 			<div className="title">
-				<i class="uil uil-history"></i>
+				<i className="uil uil-history"></i>
 				<span className="text">Recent Activity</span>
 			</div>
 

@@ -10,10 +10,10 @@ export const Searchbar = () => {
 
   return (
 		<div className="searchbar">
-			<i class="uil uil-bars sidebar-toggle"></i>
+			<i className="uil uil-bars sidebar-toggle"></i>
 
 			<div className="search-box">
-				<i class="uil uil-search"></i>
+				<i className="uil uil-search"></i>
 				<input type="text" placeholder="Search here..." />
 			</div>
 

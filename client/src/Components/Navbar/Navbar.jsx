@@ -38,31 +38,31 @@ export const Navbar = () => {
 				<ul className="nav-links">
 					<li>
 						<Link to="/mypage">
-							<i class="uil uil-create-dashboard"></i>
+							<i className="uil uil-create-dashboard"></i>
 							<span className="link-name">MYPAGE</span>
 						</Link>
 					</li>
 					<li>
 						<Link to="/music">
-							<i class="uil uil-music"></i>
+							<i className="uil uil-music"></i>
 							<span className="link-name">MUSIC</span>
 						</Link>
 					</li>
 					<li>
 						<Link to="/store">
-							<i class="uil uil-store"></i>
+							<i className="uil uil-store"></i>
 							<span className="link-name">STORE</span>
 						</Link>
 					</li>
 					<li>
 						<Link to="/auction">
-							<i class="uil uil-arrow-growth"></i>
+							<i className="uil uil-arrow-growth"></i>
 							<span className="link-name">AUCTION</span>
 						</Link>
 					</li>
 					<li>
 						<Link to="/artist">
-							<i class="uil uil-palette"></i>
+							<i className="uil uil-palette"></i>
 							<span className="link-name">ARTIST</span>
 						</Link>
 					</li>
@@ -71,14 +71,14 @@ export const Navbar = () => {
 				<ul className="logout-mode">
 					<li>
 						<Link to="#">
-							<i class="uil uil-signout"></i>
+							<i className="uil uil-signout"></i>
 							<span className="link-name">Logout</span>
 						</Link>
 					</li>
 
 					<li className="mode">
 						<Link to="#">
-							<i class="uil uil-moon"></i>
+							<i className="uil uil-moon"></i>
 							<span className="link-name">Dark Mode</span>
 						</Link>
 						<div className="mode-toggle">
