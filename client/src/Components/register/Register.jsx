@@ -68,8 +68,8 @@ const Register = ({ address }) => {
     formData.append("img", albumCoverImgFile);
     await axios
       .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
-      .then((res) => (DBdata.cover_img_link = res.data.downLoadLink));
-    console.log(DBdata.cover_img_link).catch((err) => alert(err));
+      .then((res) => (DBdata.cover_img_link = res.data.downLoadLink))
+      .catch((err) => alert(err));
     return DBdata;
   };
 
