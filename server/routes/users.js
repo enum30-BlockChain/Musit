@@ -27,6 +27,12 @@ router.post("/signin", async (req, res, next) => {
   }
 });
 router.post("/signup", async (req, res, next) => {
+  console.log(111111111111111);
+  console.log(req.body);
+  console.log(111111111111111);
+  console.log(22222222222222222);
+  console.log(req.body.img);
+  console.log(22222222222222222);
   try {
     console.log("signup을 server에 요청하였습니다.");
     const user = await User.findOne({
@@ -44,6 +50,7 @@ router.post("/signup", async (req, res, next) => {
         address: req.body.address,
         genre: req.body.genre,
         nation: req.body.nation,
+        img: req.body.img,
       });
       res.send("Created successfully");
     }
