@@ -6,7 +6,7 @@ import MainLayout from "./components/MainLayout.jsx";
 import Songs from "./components/songs/Songs.jsx";
 import Register from "./components/register/Register.jsx";
 import Listener from "./components/register/user/listener/Listener.jsx";
-import Artist from "./components/register/user/artist/Artist.jsx";
+import Artist from "./components/register/user/artist/Artist";
 import Metamask from "./web3/Metamask";
 import Ethers from "./web3/Ethers";
 import MyPageLayout from "./components/myPage/MyPage.jsx";
@@ -47,9 +47,10 @@ function App() {
             index
             element={<MainLayout address={address} setAddress={setAddress} />}
           ></Route>
-
-          <Route path="Register" element={<Register address={address}/>}></Route>
-
+          <Route
+            path="Register"
+            element={<Register address={address} />}
+          ></Route>
           <Route
             path="Listener"
             element={<Listener address={address} />}
@@ -57,7 +58,10 @@ function App() {
           <Route path="Artist" element={<Artist address={address} />}></Route>
           <Route path="Songs" element={<Songs />}></Route>
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
-          <Route path="MyArtist" element={<MyArtist address={address}/>}></Route>{" "}
+          <Route
+            path="MyArtist"
+            element={<MyArtist address={address} />}
+          ></Route>{" "}
           <Route path="Auction" element={<Auction />}></Route>{" "}
           <Route path="Store" element={<Store />}></Route>
           <Route path="MyListener" element={<MyListener address={address} />}>
@@ -71,8 +75,11 @@ function App() {
             <Route path="recentlyplayed" element={<RecentlyPlayed />}></Route>
           </Route>
           <Route path="fileupload" element={<Fileupload address={address} />} />
-          <Route path="MusicSearch"element={<MusicSearch address={address} />} />
-          <Route path="createnft"element={<CreateNFT address={address} />} />
+          <Route
+            path="MusicSearch"
+            element={<MusicSearch address={address} />}
+          />
+          <Route path="createnft" element={<CreateNFT address={address} />} />
           <Route path="Footer" element={<Footer />}></Route>
           <Route path="/ysh" element={<YshTest />}></Route>
         </Route>
