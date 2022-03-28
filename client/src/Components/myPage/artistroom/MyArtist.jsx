@@ -2,10 +2,22 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const MyArtist = ({ address }) => {
+  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+  const [img, setImg] = useState("");
   const [nickname, setNickname] = useState("");
-  const [select, setSelect] = useState("");
   const [totallike, setTotalLike] = useState("");
   const [music, setMusic] = useState("");
+  const [song, setSong] = useState();
+  const [contents, setContents] = useState({
+    cover_img_link: img,
+    artist_name: nickname,
+  });
+
+  //내가 바꾸고 싶은 닉네임 선택
+  const [select, setSelect] = useState("");
+
+  //내가 최근 재생했던 목록 선택
+  const [search, setSearch] = useState("");
 
   //and 연산자를 사용하기위한 useState input을 숨기기위한 조건문
   const [visible, setVisible] = useState(false);
@@ -19,6 +31,8 @@ const MyArtist = ({ address }) => {
     init();
     return () => {};
   }, [address]);
+
+  console.log(nickname);
 
   const IdOnChange = (e) => {
     setSelect(e.target.value);
@@ -46,6 +60,47 @@ const MyArtist = ({ address }) => {
       setMusic(res.data);
     });
   };
+
+  const RecentedOnClick = () => {
+    const url = "http://localhost:5000/artists/played";
+    const response = axios.post(url, { address }).then((res) => {
+      setSong(res.data);
+    });
+  };
+
+  const formData = new FormData();
+
+  const postImg = async () => {
+    //multer하고 s3저장후 링크가져오기
+    if (img === albumCoverImgFile) {
+      console.log("바뀐게없네");
+      return albumCoverImgFile;
+    } else if (img !== albumCoverImgFile) {
+      formData.append("img", img);
+      await axios
+        .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
+        .then((res) => (contents.cover_img_link = res.data.downLoadLink))
+        .catch((err) => alert(err));
+      return contents;
+    }
+  };
+
+  const getImg = (e) => {
+    setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0])); //화면에 띄우는 img
+    setImg(e.target.files[0]); //수정할 데이터 img 보낼꺼
+  };
+
+  const Submit = async () => {
+    await postImg();
+    console.log(contents);
+    await axios
+      .post("http://localhost:5000/files/modify", contents)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => alert(err));
+  };
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <>
@@ -83,9 +138,24 @@ const MyArtist = ({ address }) => {
       <div>곡별 재생시간</div>
       <div>총 재생시간</div>
       <div>청취 곡수</div>
-      <div>Recently played</div>
+      <div>
+        <button onClick={RecentedOnClick}>최근 재생목록</button>
+      </div>
       <div>My favorite</div>
       <div>나의 재생목록</div>
+
+      <div>
+        <button onClick={Submit}>이미지넣기</button>
+        <div>
+          <p>img</p>
+          <input
+            name="imgUpload"
+            type="file"
+            accept="image/*"
+            onChange={getImg}
+          />
+        </div>
+      </div>
     </>
   );
 };

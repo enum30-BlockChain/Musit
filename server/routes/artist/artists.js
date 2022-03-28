@@ -132,6 +132,25 @@ router.post("/change", async (req, res, next) => {
   }
 });
 
+router.post("/played", async (req, res, next) => {
+  console.log("최근재생목록 불러오려함");
+  console.log(req.body);
+  console.log("최근재생목록 불러오려함");
+  try {
+    const playname = await Artist.findOne({
+      where: {
+        user_address: req.body.address,
+      },
+    });
+    console.log(playname);
+    const recent = playname.dataValues.recent_played.split("-");
+    res.send(recent);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+});
+
 /* GET Artist listing. */
 
 module.exports = router;
