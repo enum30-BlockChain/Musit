@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { ethers, Signer } from "ethers";
 import MusitNFT from "./MusitNFT.json";
 
 
@@ -18,12 +18,9 @@ const contract = new ethers.Contract(
 export default class Ethers {
   static async test() {
     try {
-
-			const mintingEstGas = await contract.estimateGas.minting("", {value: contract.mintPrice()}) // 함수의 예상 가스 비
-			const gasPrice = await signer.getGasPrice() 
+			const result = await contract.mintsPerWallet()
+			console.log(result);
 			
-			console.log(ethers.utils.formatUnits(mintingEstGas));
-			console.log(ethers.utils.formatUnits(gasPrice));
 			
     } catch (error) {
       console.log(error);
@@ -31,9 +28,22 @@ export default class Ethers {
     }
   }
 	
+	static async signToVerify (message: string): Promise<boolean | string >{
+		try {
+			let messageHash = ethers.utils.solidityKeccak256(['string'], [message]);
+			let arrayMessage = ethers.utils.arrayify(messageHash);
+			const singedMessage = await signer.signMessage(messageHash);
+			const result = ethers.utils.verifyMessage(arrayMessage, singedMessage) === await signer.getAddress();
+			console.log(result);
+			return result;
+		} catch (error) {
+			console.log(error);
+			return ""
+		}
+	}
+
   static async minting(tokenURI: string) {
     try {
-
 			const mintingEstGas = await contract.estimateGas.minting(tokenURI, {value: contract.mintPrice()}) // 함수의 예상 가스 비
 			const gasPrice = await signer.getGasPrice() 
 			
@@ -92,7 +102,7 @@ export default class Ethers {
   
 	static async getTotalSupplied() {
 		try {
-			return parseInt(await contract.totalSupplied(), 16);
+			return await contract.totalSupplied();
 		} catch (error) {
 			console.log(error);
 			return "";

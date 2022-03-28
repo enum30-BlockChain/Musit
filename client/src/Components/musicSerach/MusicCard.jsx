@@ -93,10 +93,10 @@ function MusicCard(props) {
                     audioPlayer.current.currentTime = arry[2];
                   }
                 }}
-                onTimeUpdate={(e) => {
-                  const saveTime = Math.floor(e.currentTarget.currentTime);
-                  postTime(saveTime);
-                }}
+                // onTimeUpdate={(e) => {
+                //   const saveTime = Math.floor(e.currentTarget.currentTime);
+                //   postTime(saveTime);
+                // }}
                 onEnded={() => {
                   palyCountAdd();
                 }}
@@ -150,7 +150,7 @@ function MusicCard(props) {
                 }}
                 onTimeUpdate={(e) => {
                   const saveTime = Math.floor(e.currentTarget.currentTime);
-                  postTime(saveTime);
+                  // postTime(saveTime);
                 }}
                 onEnded={() => {
                   palyCountAdd();

@@ -68,10 +68,11 @@ function App() {
           <Route path="Artist" element={<Artist address={address} />}></Route>
           <Route path="Songs" element={<Songs />}></Route>
           <Route path="MyPageLayout" element={<MyPageLayout />}></Route>
-          <Route path="MyArtist" element={<MyArtist />}></Route>{" "}
-          <Route path="MyArtist" element={<MyArtist />}></Route>
+          <Route
+            path="MyArtist"
+            element={<MyArtist address={address} />}
+          ></Route>{" "}
           <Route path="Auction" element={<Auction />}></Route>{" "}
-          <Route path="MyArtist" element={<MyArtist />}></Route>
           <Route path="Store" element={<Store />}></Route>
           <Route path="MyListener" element={<MyListener address={address} />}>
             <Route
