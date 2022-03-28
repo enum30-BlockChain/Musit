@@ -23,7 +23,7 @@ export const Navbar = () => {
     })
   }, [])
   return (
-		<nav className='side-nav'>
+		<nav className="side-nav">
 			<Link to={"/"}>
 				<div className="logo-name-container">
 					<div className="logo-image">
@@ -37,39 +37,27 @@ export const Navbar = () => {
 			<div className="menu-items">
 				<ul className="nav-links">
 					<li>
-						<Link to="/dashboard">
-            <i class="uil uil-create-dashboard"></i>
-							<span className="link-name">Dashboard</span>
+						<Link to="/mypage">
+							<i class="uil uil-create-dashboard"></i>
+							<span className="link-name">MYPAGE</span>
 						</Link>
 					</li>
 					<li>
-						<Link to="/content">
-							<i class="uil uil-files-landscapes"></i>
-							<span className="link-name">Content</span>
+						<Link to="/music">
+							<i class="uil uil-music"></i>
+							<span className="link-name">MUSIC</span>
 						</Link>
 					</li>
 					<li>
-						<Link to="#">
-							<i class="uil uil-chart"></i>
-							<span className="link-name">Analystics</span>
+						<Link to="/store">
+							<i class="uil uil-store"></i>
+							<span className="link-name">STORE</span>
 						</Link>
 					</li>
 					<li>
-						<Link to="#">
-							<i class="uil uil-thumbs-up"></i>
-							<span className="link-name">Like</span>
-						</Link>
-					</li>
-					<li>
-						<Link to="#">
-							<i class="uil uil-comment-dots"></i>
-							<span className="link-name">Comments</span>
-						</Link>
-					</li>
-					<li>
-						<Link to="#">
-							<i class="uil uil-share"></i>
-							<span className="link-name">Share</span>
+						<Link to="/auction">
+							<i class="uil uil-arrow-growth"></i>
+							<span className="link-name">AUCTION</span>
 						</Link>
 					</li>
 				</ul>
