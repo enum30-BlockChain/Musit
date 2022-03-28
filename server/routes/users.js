@@ -83,12 +83,11 @@ router.post("/changeimg", async (req, res, next) => {
   console.log("http://localhost:5000/users/changeimg");
   console.log(111111111);
   console.log(req.body);
-  console.log(req.body.imgdata);
   console.log(111111111);
   try {
     const users = await User.findOne({
       where: {
-        address: req.body.imgdata.address,
+        address: req.body.address,
       },
     });
     console.log(2222222222);
@@ -96,11 +95,11 @@ router.post("/changeimg", async (req, res, next) => {
     console.log(2222222222);
     const users_change = await User.update(
       {
-        img: req.body.imgdata.cover_img_link,
+        img: req.body.downloadLink,
       },
       {
         where: {
-          address: req.body.imgdata.address,
+          address: req.body.address,
         },
       }
     );
