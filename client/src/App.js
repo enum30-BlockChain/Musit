@@ -25,9 +25,20 @@ import TotalPlayList from "./components/myPage/userRoom/page/TotalPlayList";
 import RecentlyPlayed from "./components/myPage/userRoom/page/RecentlyPlayed";
 import Auction from "./components/auction/Auction";
 import Store from "./components/store/Store";
+//side bar
+import { Helmet } from "react-helmet";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle } from "./components/styledComponents/globalStyles";
+import { darkTheme, lightTheme } from "./components/styledComponents/theme";
+import Layout from "./components/myPage/sidebar/Layout";
+
+// export const ThemeContext = React.createContext(null);
 
 function App() {
   const [address, setAddress] = useState("");
+  //side bar
+  const [theme, setTheme] = useState("light");
+  const themeStyle = theme === "light" ? lightTheme : darkTheme;
 
   useEffect(() => {
     const init = async () => {
@@ -39,14 +50,17 @@ function App() {
 
   return (
     <>
-      <Navbar address={address} setAddress={setAddress}/>
+      <Navbar address={address} setAddress={setAddress} />
       <Routes>
         <Route path="/">
           <Route
             index
             element={<MainLayout address={address} setAddress={setAddress} />}
           ></Route>
-          <Route path="Register" element={<Register address={address} />}></Route>
+          <Route
+            path="Register"
+            element={<Register address={address} />}
+          ></Route>
           <Route
             path="Listener"
             element={<Listener address={address} />}
@@ -80,6 +94,29 @@ function App() {
           <Route path="Footer" element={<Footer />}></Route>
           <Route path="/ysh" element={<YshTest />}></Route>
         </Route>
+        {/* side bar */}
+        {/* <ThemeContext.Provider value={{ setTheme, theme }}>
+          <ThemeProvider theme={themeStyle}>
+            <GlobalStyle />
+            <Helmet>
+              <link rel="preconnect" href="https://fonts.googleapis.com" />
+              <link
+                rel="preconnect"
+                href="https://fonts.gstatic.com"
+                crossorigin
+              />
+              <link
+                href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Poppins:wght@400;500;700&display=swap"
+                rel="stylesheet"
+              />
+            </Helmet>
+            <>
+              <Layout>
+                <Routes />
+              </Layout>
+            </>
+          </ThemeProvider>
+        </ThemeContext.Provider> */}
       </Routes>
       <Footer />
     </>

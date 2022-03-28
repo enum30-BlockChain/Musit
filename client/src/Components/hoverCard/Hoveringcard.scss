@@ -1,5 +1,5 @@
 .container {
-  text-decoration: none;
+  text-decoration: inherit;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -7,5 +7,20 @@
 }
 
 .imgplace {
-  padding: 80px 40px;
+  text-decoration: none;
+  margin: 40px;
+  height: 300px;
+  width: 270px;
+  opacity: 0.8;
+  position: relative;
+  flex: 0 0 240px;
+
+  // background-color: #333;
+  overflow: hidden;
+  box-shadow: rgba(black, 0.66) 0 30px 60px 0;
+  background-color: rgba(255, 255, 255, 0.308);
+
+  .h1 {
+    text-decoration: inherit;
+  }
 }

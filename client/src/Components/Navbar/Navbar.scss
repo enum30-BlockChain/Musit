@@ -5,10 +5,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 70px;
   width: 100vw;
   padding: 0 4vw;
   z-index: 1000;
+  background-color: rgba(114, 114, 114, 0.596);
 
   a {
     text-decoration: none;
@@ -24,5 +25,24 @@
       display: flex;
       list-style: none;
     }
+  }
+  .togglemainbtn {
+    list-style: none;
+  }
+
+  .show-menu {
+    width: 376px;
+    height: 600px;
+    position: absolute;
+    left: 1287px;
+    transition: 1s;
+  }
+
+  .hide-menu {
+    width: 376px;
+    height: 500px;
+    position: absolute;
+    left: -376px;
+    transition: 1s;
   }
 }

@@ -4,9 +4,15 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Metamask from "../../web3/Metamask";
 
-export const Navbar = ({address, setAddress}) => {
+export const Navbar = ({ address, setAddress }) => {
   const [nickname, setNickname] = useState("");
-  
+
+  //toggle menu
+  const [openmain, setOpenmain] = useState(false);
+
+  const onClickmain = (e) => {
+    setOpenmain((openmain) => !openmain);
+  };
 
   const LoginOnClick = async () => {
     const url = "http://localhost:5000/users/signin";
@@ -54,10 +60,28 @@ export const Navbar = ({address, setAddress}) => {
             ></input>
             <button>Search</button>
           </li>
-          <li className="nav-link">
-            <Link to="/">main</Link>
-          </li>
-
+          <ul className="togglemainbtn">
+            <li>
+              <span onClick={() => onClickmain()}>MENU</span>
+            </li>
+            <ul className={openmain ? "show-menu" : "hide-menu"}>
+              <li className="nav-link" onClick="hide-menu">
+                <Link to="/">MAIN PAGE</Link>
+              </li>
+              <li className="nav-link" onClick="hide-menu">
+                <Link to="/Auction">AUCTION</Link>
+              </li>
+              <li className="nav-link" onClick="hide-menu">
+                <Link to="/Store">STORE</Link>
+              </li>
+              <li className="nav-link" onClick="hide-menu">
+                <Link to="/Songs">SONGS</Link>
+              </li>
+              <li className="nav-link" onClick="hide-menu">
+                <Link to="/Mypage">MY ROOM</Link>
+              </li>
+            </ul>
+          </ul>
           <li className="nav-link">
             {address ? (
               <p>

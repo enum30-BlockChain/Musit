@@ -1,9 +1,32 @@
+//codepen.io/plavookac/pen/QMwObb - wave
+//https://wweb.dev/resources/animated-css-background-generator/ - moving css
 import React from "react";
 import "./Background.css";
 function Background() {
   return (
     <>
-      <div className="d-flex flex-column justify-content-center w-100 h-100"></div>
+      <div className="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </>
   );
 }

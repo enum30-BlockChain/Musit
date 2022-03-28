@@ -23,9 +23,18 @@ export const MainLayout = ({ address, setAddress }) => {
 
   return (
     <>
-      <Link to="/Register">
-        <button>Register</button>
-      </Link>
+      <button>
+        <Link to="/Register">Register </Link>
+      </button>
+
+      <button>
+        <Link to="/FileUpload">fileupload </Link>
+      </button>
+
+      <button>
+        <Link to="/ImgUpload">ImgUpload </Link>
+      </button>
+
       <div>메인페이지입니다.</div>
       {/* <FileUpload /> */}
       <Hoveringcard />

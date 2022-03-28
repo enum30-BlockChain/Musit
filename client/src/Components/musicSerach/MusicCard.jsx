@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef  } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Modal from "./Model.jsx";
 import axios from "axios";
 
@@ -8,7 +8,7 @@ function MusicCard(props) {
   const [checkedInputs, setCheckedInputs] = useState();
   const [likeCount, setlikeCount] = useState(props.like);
   const [palyeCount, setpalyeCount] = useState(props.count);
-  
+
   const onPopup = () => {
     setModal(true);
   };
@@ -44,25 +44,30 @@ function MusicCard(props) {
   };
 
   let savePoint = 0;
-  const postTime = async(saveTime)=>{
-    let sendInt = savePoint % 20;   //20으로 나누면 5초정도됨
-    const content = { time: saveTime, address: props.address, hash:props.audio, title:props.title };
+  const postTime = async (saveTime) => {
+    let sendInt = savePoint % 20; //20으로 나누면 5초정도됨
+    const content = {
+      time: saveTime,
+      address: props.address,
+      hash: props.audio,
+      title: props.title,
+    };
     if (!sendInt) {
       savePoint++;
       await axios
-      .post("http://localhost:5000/users/recent", content)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+        .post("http://localhost:5000/users/recent", content)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
     }
     savePoint++;
-  }
+  };
 
-   useEffect(() => {
-     setCheckedInputs(props.checkBox);
-   }, [props]);
- 
+  useEffect(() => {
+    setCheckedInputs(props.checkBox);
+  }, [props]);
+
   if (props.address === props.artistAddress) {
     return (
       <>
@@ -78,12 +83,15 @@ function MusicCard(props) {
               <audio
                 ref={audioPlayer}
                 src={`https://ipfs.io/ipfs/${props.audio}`}
-                onLoadedData={() => {   //불러올때
-                 const getcurrentTime = props.userList.find((adr)=>adr.address===props.address)
-                 const arry = getcurrentTime.recent_played.split("-")
-                 if (arry[0]===props.audio){
-                   audioPlayer.current.currentTime = arry[2];
-                 }
+                onLoadedData={() => {
+                  //불러올때
+                  const getcurrentTime = props.userList.find(
+                    (adr) => adr.address === props.address
+                  );
+                  const arry = getcurrentTime.recent_played.split("-");
+                  if (arry[0] === props.audio) {
+                    audioPlayer.current.currentTime = arry[2];
+                  }
                 }}
                 onTimeUpdate={(e) => {
                   const saveTime = Math.floor(e.currentTarget.currentTime);
@@ -127,15 +135,18 @@ function MusicCard(props) {
               <img src={props.img} style={{ width: "100px" }} />
             </td>
             <td>
-            <audio
+              <audio
                 ref={audioPlayer}
                 src={`https://ipfs.io/ipfs/${props.audio}`}
-                onLoadedData={() => {   //불러올때
-                 const getcurrentTime = props.userList.find((adr)=>adr.address===props.address)
-                 const arry = getcurrentTime.recent_played.split("-")
-                 if (arry[0]===props.audio){
-                   audioPlayer.current.currentTime = arry[2];
-                 }
+                onLoadedData={() => {
+                  //불러올때
+                  const getcurrentTime = props.userList.find(
+                    (adr) => adr.address === props.address
+                  );
+                  const arry = getcurrentTime.recent_played.split("-");
+                  if (arry[0] === props.audio) {
+                    audioPlayer.current.currentTime = arry[2];
+                  }
                 }}
                 onTimeUpdate={(e) => {
                   const saveTime = Math.floor(e.currentTarget.currentTime);
@@ -146,7 +157,7 @@ function MusicCard(props) {
                 }}
                 controls
               />
-           </td>
+            </td>
             <td>{palyeCount}</td>
             <td>
               <input
@@ -160,7 +171,10 @@ function MusicCard(props) {
             </td>
             <td>{props.genre}</td>
             <td>
-              <button onClick={onPopup} disabled> 수정 </button>
+              <button onClick={onPopup} disabled>
+                {" "}
+                수정{" "}
+              </button>
             </td>
           </tr>
         </tbody>
