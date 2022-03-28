@@ -43,21 +43,21 @@ function MusicCard(props) {
     }
   };
 
-  let savePoint = 0;
-  const postTime = async(saveTime)=>{
-    let sendInt = savePoint % 20;   //20으로 나누면 5초정도됨
-    const content = { time: saveTime, address: props.address, hash:props.audio, title:props.title };
-    if (!sendInt) {
-      savePoint++;
-      await axios
-      .post("http://localhost:5000/users/recent", content)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
-    }
-    savePoint++;
-  }
+  // let savePoint = 0;
+  // const postTime = async(saveTime)=>{
+  //   let sendInt = savePoint % 20;   //20으로 나누면 5초정도됨
+  //   const content = { time: saveTime, address: props.address, hash:props.audio, title:props.title };
+  //   if (!sendInt) {
+  //     savePoint++;
+  //     await axios
+  //     .post("http://localhost:5000/users/recent", content)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+  //   }
+  //   savePoint++;
+  // }
 
    useEffect(() => {
      setCheckedInputs(props.checkBox);
@@ -137,10 +137,10 @@ function MusicCard(props) {
                    audioPlayer.current.currentTime = arry[2];
                  }
                 }}
-                onTimeUpdate={(e) => {
-                  const saveTime = Math.floor(e.currentTarget.currentTime);
+                // onTimeUpdate={(e) => {
+                //   const saveTime = Math.floor(e.currentTarget.currentTime);
                   // postTime(saveTime);
-                }}
+                // }}
                 onEnded={() => {
                   palyCountAdd();
                 }}
