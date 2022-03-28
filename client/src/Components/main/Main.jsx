@@ -10,6 +10,10 @@ import { Auction } from "./auction/Auction";
 import { Artist } from "./artist/Artist";
 import Metamask from "../../web3/Metamask";
 import { Playbar } from "./playbar/Playbar";
+import { Favorite } from "./mypage/favorite/Favorite";
+import { Playlist } from "./mypage/playlist/Playlist";
+import { Collection } from "./mypage/collection/Collection";
+import { History } from "./mypage/history/History";
 
 export const Main = () => {
 	const [address, setAddress] = useState("");
@@ -47,7 +51,12 @@ export const Main = () => {
 				<Routes>
 					<Route path="/">
 						<Route index element={<Dashboard />} />
-						<Route path="mypage" element={<Mypage />} />
+						<Route path="mypage" element={<Mypage address={address} />}>
+							<Route path="favorite" element={<Favorite address={address} />} />
+							<Route path="playlist" element={<Playlist address={address} />} />
+							<Route path="collection" element={<Collection address={address} />} />
+							<Route path="history" element={<History address={address} />} />
+						</Route>
 						<Route path="music" element={<Music />} />
 						<Route path="store" element={<Store />} />
 						<Route path="auction" element={<Auction />} />

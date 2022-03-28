@@ -19,7 +19,7 @@ export const Searchbar = ({address}) => {
 
       <div className="user-info">
         <div className="profile">
-          <img src="images/profile.jpg" alt="profile" />
+          <img src="/images/profile.jpg" alt="profile" />
         </div>
         {address ? "address" : <Button
           variant="contained"

@@ -69,16 +69,6 @@
   position: relative;
 }
 
-/* .side-nav .nav-links li a:hover:before {
-  content: "";
-  position: absolute;
-  left: -7px;
-  height: 5px;
-  width: 5px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-} */
-
 body.dark .side-nav .nav-links li a:hover:before {
   content: "";
   position: absolute;
@@ -112,6 +102,10 @@ body.dark .side-nav .nav-links li a:hover:before {
 }
 
 .side-nav .nav-links li a:hover :is(i, .link-name) {
+  color: var(--primary-color);
+}
+
+.side-nav .nav-links li.active :is(i, .link-name) {
   color: var(--primary-color);
 }
 

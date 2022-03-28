@@ -45,9 +45,17 @@
 
 .mypage .user-nav .nav-links li{
   position: relative;
+}
 
+.mypage .user-nav .nav-links li :is(i, .link-name) {
+  color: var(--black-light-color);
+  transition: var(--tran-03);
 }
 
 .user-nav .nav-links a:hover :is(i, .link-name){
+  color: var(--primary-color);
+}
+
+.user-nav .nav-links li.active :is(i, .link-name){
   color: var(--primary-color);
 }

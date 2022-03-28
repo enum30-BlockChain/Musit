@@ -21,13 +21,26 @@ export const Navbar = () => {
         localStorage.setItem("dark_mode", "off")
       }
     })
+		
+		const links = document.querySelectorAll(".side-nav .nav-links li");
+		links.forEach((link) => {
+			link.addEventListener("click", () => {
+				// 이전에 active 된 메뉴 삭제
+				links.forEach((link) => {
+					link.classList.remove("active");
+				});
+				// 지금 클릭한 메뉴 active
+				link.classList.add("active");
+			});
+		});
   }, [])
+
   return (
 		<nav className="side-nav">
 			<Link to={"/"}>
 				<div className="logo-name-container">
 					<div className="logo-image">
-						<img src="images/Musit_logo.png" alt="logo" />
+						<img src="/images/Musit_logo.png" alt="logo" />
 					</div>
 
 					<span className="logo-name nav-links">MUSIT</span>
