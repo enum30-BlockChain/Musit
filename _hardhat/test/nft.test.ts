@@ -1,12 +1,12 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
+import { BigNumber } from "ethers";
 import { ethers } from "hardhat";
 import { Marketplace, MusitNFT } from "../typechain";
 
 const ethToWei = (eth: number | string) =>
   ethers.utils.parseEther(eth.toString());
-const weiToEth = (wei: number | string) =>
-  ethers.utils.formatEther(wei.toString());
+const weiToEth = (wei: BigNumber) => ethers.utils.formatEther(wei);
 
 describe("MusitNFT", function () {
   let deployer: SignerWithAddress,
@@ -89,6 +89,7 @@ describe("MusitNFT", function () {
 
   describe("Purchasing marketplace items", () => {
     let price = 2;
+    let totalPriceInWei;
 
     beforeEach(async () => {
       await musitNFT.connect(addr1).minting(URI, { value: ethToWei(0.01) });
@@ -116,6 +117,47 @@ describe("MusitNFT", function () {
           addr2.address,
           musitNFT.address
         );
+
+      const sellerFinalBalance = await addr1.getBalance();
+      const feeAccountFinalBalance = await deployer.getBalance();
+
+      expect(+weiToEth(sellerFinalBalance)).to.equal(
+        +weiToEth(sellerInitialBalance) + price
+      );
+      const fee = (feePercent / 100) * price;
+      expect(+weiToEth(await marketplace.getTotalPrice(1))).to.equal(
+        price + fee
+      );
+      expect(+weiToEth(feeAccountFinalBalance)).to.equal(
+        +weiToEth(feeAccountInitialBalance) + +fee
+      );
+
+      expect(await musitNFT.ownerOf(1)).to.equal(addr2.address);
+      expect((await marketplace.items(1)).sold).to.equal(true);
+    });
+
+    it("Should fail for invalid item ids, sold items and when not enough ether is paid", async () => {
+      let totalPriceInWei = await marketplace.getTotalPrice(1);
+
+      await expect(
+        marketplace.connect(addr2).purchaseItem(2, { value: totalPriceInWei })
+      ).to.be.revertedWith("Item doesn't exist");
+      await expect(
+        marketplace.connect(addr2).purchaseItem(0, { value: totalPriceInWei })
+      ).to.be.revertedWith("Item doesn't exist");
+
+      await expect(
+        marketplace.connect(addr2).purchaseItem(1, { value: ethToWei(price) })
+      ).to.be.revertedWith("Not enough ether to cover item price and market fee");
+
+      await marketplace
+        .connect(addr2)
+        .purchaseItem(1, { value: totalPriceInWei });
+      await expect(
+        marketplace
+          .connect(deployer)
+          .purchaseItem(1, { value: totalPriceInWei })
+      ).to.be.revertedWith("Sold out!")
     });
   });
 });
