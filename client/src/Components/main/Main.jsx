@@ -52,18 +52,9 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-<<<<<<< HEAD
-  }, []);
+  }, [address]);
 
   const [loginState, setLoginState] = useState();
-=======
-  }, [address]);
-  /////////////////////////////////////////////////////
-
-  const [loginState, setLoginState] = useState("");
-
-  console.log(loginState);
->>>>>>> jeon
 
   return (
     <section className="main">
