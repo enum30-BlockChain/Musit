@@ -4,12 +4,20 @@ import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 
 export const Mypage = ({ address }) => {
+<<<<<<< HEAD
   const [userdata, setUserdata] = useState("");
+=======
+  const [nickname, setNickname] = useState("");
+>>>>>>> main2
 
   async function init() {
     const url = "http://localhost:5000/users/signin";
     const response = await axios.post(url, { address });
+<<<<<<< HEAD
     setUserdata(response.data);
+=======
+    setNickname(response.data.nickname);
+>>>>>>> main2
   }
 
   //TODO: user info(address, nickname, myfavorite, ...),
@@ -32,6 +40,7 @@ export const Mypage = ({ address }) => {
     console.log(e.target);
   }
 
+<<<<<<< HEAD
   //내가 바꾸고 싶은 닉네임 선택
   const [select, setSelect] = useState("");
 
@@ -130,6 +139,23 @@ export const Mypage = ({ address }) => {
             }}
           ></button>
         </div>
+=======
+  return (
+    <div className="mypage">
+      <div className="user-card">
+        <div className="user-image">
+          <img src="/images/profile.jpg" alt="user profile" />
+        </div>
+        <div className="user-info">
+          <h2 className="nickname">Nickname</h2>
+          {nickname}
+          <h2 className="address">Address</h2>
+          <span>{address}</span>
+          <h2 className="subscription">Subscription</h2>
+          <span>월이용권 </span>
+        </div>
+        <i className="uil uil-setting"></i>
+>>>>>>> main2
       </div>
 
       <nav className="user-nav">

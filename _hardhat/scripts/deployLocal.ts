@@ -1,5 +1,4 @@
-import fs from "fs";
-import hre, { artifacts, ethers } from "hardhat";
+import hre, { ethers } from "hardhat";
 
 async function main() {
   hre.run("compile")
@@ -15,27 +14,6 @@ async function main() {
 
   await musitNFT.deployed();
   console.log("MusitNFT address:", musitNFT.address);
-  
-  saveJsonFilesToClientFolder(musitNFT, "MusitNFT")
-}
-
-interface Contract {
-  address: string;
-}
-
-function saveJsonFilesToClientFolder(contract: Contract, name: string) {
-  const contractsDir = __dirname + "/../../client/src/web3/";
-
-  if(!fs.existsSync(contractsDir)) {
-    fs.mkdirSync(contractsDir);
-  }
-
-  const contractArtifact = artifacts.readArtifactSync(name);
-
-  fs.writeFileSync(
-    contractsDir + `/${name}.json`,
-    JSON.stringify({contractAddress: contract.address, ...contractArtifact}, undefined, 4)
-  )
 }
 
 main()
