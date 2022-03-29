@@ -81,7 +81,7 @@ router.get("/list", async (req, res, next) => {
 
 //아티스트 signin 과 list 합치는거 여부 체크
 router.post("/signin", async (req, res, next) => {
-  console.log(req.body.address);
+  // console.log(req.body.address);
   try {
     console.log("signin을 server에 요청하였습니다.");
     const artist = await Artist.findOne({
@@ -90,6 +90,20 @@ router.post("/signin", async (req, res, next) => {
       },
     });
     res.send(artist);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.post("/img", async (req, res, next) => {
+  try {
+    const findname = await User.findOne({
+      include: { model: Artist, where: { user_address: req.body.address } },
+      where: {
+        address: req.body.address,
+      },
+    });
+    res.send(findname);
   } catch (err) {
     console.error(err);
   }
@@ -112,7 +126,7 @@ router.post("/music", async (req, res, next) => {
 router.post("/change", async (req, res, next) => {
   console.log(req.body);
   try {
-    console.log("http://localhost:5000/artists/change");
+    console.log("http://localhost:5000/users/change");
     const artist = await Artist.findOne({
       where: {
         user_address: req.body.address,

@@ -23,10 +23,11 @@ const Register = ({ address }) => {
     "Dance",
   ]);
   const [nation, setNation] = useState([""]);
-  const [user, setUser] = useState({});
-  const [selected, setSelected] = useState("");
   const [option, setOption] = useState("");
+
+  const [user, setUser] = useState({});
   const [nickname, setNickname] = useState("");
+  const [selected, setSelected] = useState("");
   const [img, setImg] = useState("");
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [DBdata, setDBdata] = useState({

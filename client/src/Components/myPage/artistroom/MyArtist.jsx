@@ -8,6 +8,7 @@ const MyArtist = ({ address }) => {
   const [totallike, setTotalLike] = useState("");
   const [music, setMusic] = useState("");
   const [song, setSong] = useState();
+  const [artists, setArtists] = useState("");
   const [contents, setContents] = useState({
     cover_img_link: img,
     artist_name: nickname,
@@ -28,28 +29,28 @@ const MyArtist = ({ address }) => {
       const response = await axios.post(url, { address });
       setNickname(response.data.artist_name);
     };
+    const artistimg = async () => {
+      const url = "http://localhost:5000/artists/img";
+      const response = await axios.post(url, { address });
+      setArtists(response.data);
+    };
+    artistimg();
     init();
     return () => {};
   }, [address]);
 
-  console.log(nickname);
-
   const IdOnChange = (e) => {
     setSelect(e.target.value);
-    console.log(e.target.value);
   };
 
   const NickNameOnClick = () => {
     const url = "http://localhost:5000/artists/change";
-    const response = axios.post(url, { address, select }).then((res) => {
-      console.log(res.data);
-    });
+    const response = axios.post(url, { address, select }).then((res) => {});
   };
 
   const TotalLikeOnClick = () => {
     const url = "http://localhost:5000/artists/like";
     const response = axios.post(url, { address }).then((res) => {
-      console.log(res.data);
       setTotalLike(res.data);
     });
   };
@@ -73,7 +74,6 @@ const MyArtist = ({ address }) => {
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
     if (img === albumCoverImgFile) {
-      console.log("바뀐게없네");
       return albumCoverImgFile;
     } else if (img !== albumCoverImgFile) {
       formData.append("img", img);
@@ -92,12 +92,9 @@ const MyArtist = ({ address }) => {
 
   const Submit = async () => {
     await postImg();
-    console.log(contents);
     await axios
       .post("http://localhost:5000/files/modify", contents)
-      .then((res) => {
-        console.log(res);
-      })
+      .then((res) => {})
       .catch((err) => alert(err));
   };
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,6 +102,9 @@ const MyArtist = ({ address }) => {
   return (
     <>
       <div>나의 주소는 : {address}</div>
+      <div>
+        내사진 : <img src={artists.img} style={{ width: "100px" }} />
+      </div>
       <div>
         나의 닉네임 : {nickname}
         {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
