@@ -64,6 +64,7 @@ router.post("/signup", async (req, res, next) => {
         address: req.body.address,
         genre: req.body.genre,
         nation: req.body.nation,
+        img: req.body.img,
       });
       res.send("Created successfully");
     }
