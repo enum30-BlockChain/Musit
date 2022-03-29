@@ -26,7 +26,7 @@ export const Main = () => {
     await Metamask.getAccounts(setAddress);
     await Metamask.walletListener(setAddress);
   }
-
+  //나의 지금 로그인상태 확인
   async function loginCheck() {
     const url = "http://localhost:5000/users/signin";
     const response = await axios.post(url, { address });
@@ -52,9 +52,18 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
+<<<<<<< HEAD
   }, []);
 
   const [loginState, setLoginState] = useState();
+=======
+  }, [address]);
+  /////////////////////////////////////////////////////
+
+  const [loginState, setLoginState] = useState("");
+
+  console.log(loginState);
+>>>>>>> jeon
 
   return (
     <section className="main">
@@ -63,22 +72,31 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
-
-            <Route path="mypage" element={<Mypage address={address} />}>
-              <Route path="favorite" element={<Favorite address={address} />} />
-              <Route path="playlist" element={<Playlist address={address} />} />
-              <Route
-                path="collection"
-                element={<Collection address={address} />}
-              />
-              <Route path="history" element={<History address={address} />} />
-            </Route>
-
-            <Route path="register" element={<Register />}>
-              <Route path="listener" element={<Listener address={address} />} />
-              <Route path="artists" element={<Artist address={address} />} />
-            </Route>
-
+            {address === loginState.address ? (
+              <Route path="mypage" element={<Mypage address={address} />}>
+                <Route
+                  path="favorite"
+                  element={<Favorite address={address} />}
+                />
+                <Route
+                  path="playlist"
+                  element={<Playlist address={address} />}
+                />
+                <Route
+                  path="collection"
+                  element={<Collection address={address} />}
+                />
+                <Route path="history" element={<History address={address} />} />
+              </Route>
+            ) : (
+              <Route path="register" element={<Register />}>
+                <Route
+                  path="listener"
+                  element={<Listener address={address} />}
+                />
+                <Route path="artists" element={<Artist address={address} />} />
+              </Route>
+            )}
             <Route path="music" element={<Music />} />
             <Route path="store" element={<Store />} />
             <Route path="auction" element={<Auction />} />
