@@ -27,38 +27,6 @@ enum ChainId {
 }
 
 /**
- * Function declaration
- */
-const chainIdToNetworkName = (chainId: string): string => {
-	let network: string;
-	switch (parseInt(chainId, 16)) {
-		case ChainId.MAIN:
-			network = "Mainnet";
-			break;
-		case ChainId.ROPSTEN:
-			network = "Ropsten";
-			break;
-		case ChainId.RINKEBY:
-			network = "Rinkeby";
-			break;
-		case ChainId.GOERLI:
-			network = "Goerli";
-			break;
-		case ChainId.KOVAN:
-			network = "Kovan";
-			break;
-		default:
-			network = "Unknown";
-			break;
-	}
-	return network;
-};
-
-const shortAddress = (address: string): string => {
-  return `${address.slice(0, 6)}...${address.slice(-4)}`;
-};
-
-/**
  * Class declaration
  */
 class Response<T> {
@@ -198,3 +166,35 @@ export default class Metamask {
     }
   };
 }
+
+/**
+ * Function declaration
+ */
+const chainIdToNetworkName = (chainId: string): string => {
+	let network: string;
+	switch (parseInt(chainId, 16)) {
+		case ChainId.MAIN:
+			network = "Mainnet";
+			break;
+		case ChainId.ROPSTEN:
+			network = "Ropsten";
+			break;
+		case ChainId.RINKEBY:
+			network = "Rinkeby";
+			break;
+		case ChainId.GOERLI:
+			network = "Goerli";
+			break;
+		case ChainId.KOVAN:
+			network = "Kovan";
+			break;
+		default:
+			network = "Unknown";
+			break;
+	}
+	return network;
+};
+
+const shortAddress = (address: string): string => {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+};

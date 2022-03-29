@@ -1,4 +1,4 @@
-import { ethers, Signer } from "ethers";
+import { ethers } from "ethers";
 import MusitNFT from "./MusitNFT.json";
 
 
