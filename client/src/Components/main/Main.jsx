@@ -59,31 +59,22 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
-            {address === loginState ? (
-              <Route path="mypage" element={<Mypage address={address} />}>
-                <Route
-                  path="favorite"
-                  element={<Favorite address={address} />}
-                />
-                <Route
-                  path="playlist"
-                  element={<Playlist address={address} />}
-                />
-                <Route
-                  path="collection"
-                  element={<Collection address={address} />}
-                />
-                <Route path="history" element={<History address={address} />} />
-              </Route>
-            ) : (
-              <Route path="register" element={<Register />}>
-                <Route
-                  path="listener"
-                  element={<Listener address={address} />}
-                />
-                <Route path="artists" element={<Artist address={address} />} />
-              </Route>
-            )}
+
+            <Route path="mypage" element={<Mypage address={address} />}>
+              <Route path="favorite" element={<Favorite address={address} />} />
+              <Route path="playlist" element={<Playlist address={address} />} />
+              <Route
+                path="collection"
+                element={<Collection address={address} />}
+              />
+              <Route path="history" element={<History address={address} />} />
+            </Route>
+
+            <Route path="register" element={<Register />}>
+              <Route path="listener" element={<Listener address={address} />} />
+              <Route path="artists" element={<Artist address={address} />} />
+            </Route>
+
             <Route path="music" element={<Music />} />
             <Route path="store" element={<Store />} />
             <Route path="auction" element={<Auction />} />
