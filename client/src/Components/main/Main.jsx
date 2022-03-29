@@ -17,6 +17,8 @@ import { History } from "./mypage/history/History";
 import Register from "./register/Register";
 import Listener from "./register/user/listener/Listener";
 
+import axios from "axios";
+
 export const Main = () => {
   const [address, setAddress] = useState("");
   async function init() {
@@ -25,12 +27,14 @@ export const Main = () => {
   }
 
   async function loginCheck() {
-    await Metamask.getAccounts(setAddress);
-    await Metamask.walletListener(setAddress);
+    const url = "http://localhost:5000/users/signin";
+    const response = await axios.post(url, { address });
+    setLoginState(response.data);
   }
 
   useEffect(() => {
     init();
+    loginCheck();
     const sidebarToggle = document.querySelector(".sidebar-toggle");
     const sidebar = document.querySelector("nav");
 
