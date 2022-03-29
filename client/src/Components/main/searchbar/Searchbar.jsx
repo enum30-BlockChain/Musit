@@ -14,7 +14,7 @@ export const Searchbar = ({ address }) => {
   //[] 변하면 다시한번더 렌더링한다. uesEffect안의 함수 재실행
 
   async function user() {
-    const url = `http://localhost:5000/users/detail/${address}`;
+    const url = "http://localhost:5000/users/" + address;
     const response = await axios.get(url);
     setGuest(response.data);
     return response.data;

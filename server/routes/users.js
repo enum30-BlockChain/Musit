@@ -13,12 +13,15 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/detail/:address", async (req, res, next) => {
+router.get("/:address", async (req, res, next) => {
   try {
     const userone = await User.findOne({
       where: { address: req.params.address },
     });
     console.log(userone);
+    if (userone == null) {
+      res.send("회원가입 내용이 확인되지 않습니다.");
+    }
     res.send(userone);
   } catch (err) {
     next(err);
