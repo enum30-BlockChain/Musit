@@ -24,6 +24,11 @@ export const Main = () => {
     await Metamask.walletListener(setAddress);
   }
 
+  async function loginCheck() {
+    await Metamask.getAccounts(setAddress);
+    await Metamask.walletListener(setAddress);
+  }
+
   useEffect(() => {
     init();
     const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -44,6 +49,10 @@ export const Main = () => {
     });
   }, []);
 
+  /////////////////////////////////////////////////////
+
+  const [loginState, setLoginState] = useState();
+
   return (
     <section className="main">
       <Searchbar address={address} />
@@ -51,23 +60,35 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
-            <Route path="mypage" element={<Mypage address={address} />}>
-              <Route path="favorite" element={<Favorite address={address} />} />
-              <Route path="playlist" element={<Playlist address={address} />} />
-              <Route
-                path="collection"
-                element={<Collection address={address} />}
-              />
-              <Route path="history" element={<History address={address} />} />
-            </Route>
+            {address === loginState ? (
+              <Route path="mypage" element={<Mypage address={address} />}>
+                <Route
+                  path="favorite"
+                  element={<Favorite address={address} />}
+                />
+                <Route
+                  path="playlist"
+                  element={<Playlist address={address} />}
+                />
+                <Route
+                  path="collection"
+                  element={<Collection address={address} />}
+                />
+                <Route path="history" element={<History address={address} />} />
+              </Route>
+            ) : (
+              <Route path="register" element={<Register />}>
+                <Route
+                  path="listener"
+                  element={<Listener address={address} />}
+                />
+                <Route path="artists" element={<Artist address={address} />} />
+              </Route>
+            )}
             <Route path="music" element={<Music />} />
             <Route path="store" element={<Store />} />
             <Route path="auction" element={<Auction />} />
             <Route path="artist" element={<Artist />} />
-            <Route path="register" element={<Register />}>
-              <Route path="listener" element={<Listener address={address} />} />
-              <Route path="artists" element={<Artist address={address} />} />
-            </Route>
           </Route>
         </Routes>
       </div>
