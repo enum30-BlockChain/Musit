@@ -20,7 +20,6 @@ const Img = styled('img')({
 });
 
 export default function SongCard(props) {
-  console.log(props)
   const postInfo= ()=>{
     props.setmusicmodal(props.music)
   }

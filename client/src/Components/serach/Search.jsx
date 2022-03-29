@@ -88,12 +88,12 @@ function Search(props) {
       >
       {findArtist && findArtist.map((artist)=>{
         return(
-          <ArtistCard artist={artist} setArtistModal={setArtistModal}/>
+          <ArtistCard artist={artist} setArtistModal={setArtistModal} />
         )
       })}
       </Stack>
+      {artistModal && <ArtistModal  sx={{ display: 'block' }} artistModal={artistModal} setArtistModal={setArtistModal} setmusicmodal={setmusicmodal}/>}
       {musicmodal && <MusicPlayerSlider  sx={{ display: 'block' }} musicmodal={musicmodal} setmusicmodal={setmusicmodal} />}
-      {artistModal && <ArtistModal  sx={{ display: 'block' }} artistModal={artistModal} setArtistModal={setArtistModal} />}
 
       
     </>

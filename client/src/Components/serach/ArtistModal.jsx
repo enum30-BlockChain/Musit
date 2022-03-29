@@ -2,6 +2,7 @@ import  React,{useRef,useState} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import {Box,Avatar} from '@mui/material';
 import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
 import SongCard from './SongCard';
 
 const WallPaper = styled('div')({
@@ -66,50 +67,61 @@ const CoverImage = styled('div')({
 
 
 export default function ArtistModal(props) {
-  console.log(props)
   const TotalCount = props.artistModal.Music  //play총합
                       .map(e =>e.play_count)
                       .reduce((prev, curr) => prev + curr, 0);
   
-  const musics = props.Music                      
+  const musics = props.artistModal.Music   
   return (
     <Box sx={{ width: "100%", overflow: "hidden" }}>
       <Widget>
 
-        <Box sx={{ display: "flex", alignItems: "center", alignItems: 'flex-start' }}>
+        <Box sx={{display: "flex", alignItems: "center", alignItems: 'flex-start' }}>
           <Avatar
-              sx={{borderRadius: "75%", width:250,height:250}}
+              sx={{ml:5,mt:3, width:250,height:250}}
               alt="Remy Sharp"
               src={props.artistModal.User.img}
             />
-          <Box sx={{mt:1, ml:10 }}>
-            <Typography variant="h3" gutterBottom component="div">
-              <b> 
-                {props.artistModal.artist_name}
-              </b>
-            </Typography>
-            <Typography variant="h4" gutterBottom component="div">
-             up load music :  {props.artistModal.Music.length}
-            </Typography>
-            <Typography sx={{mt:3}} variant="h5" gutterBottom component="div">
-             total paly count : {TotalCount}
-            </Typography>
+          <Box sx={{ width: "100%", ml:10, display: "flex",justifyContent:'space-between'}} >
+            <Box sx={{mt:3}}>
+              <Typography variant="h3" gutterBottom component="div">
+                <b> 
+                  {props.artistModal.artist_name}
+                </b>
+              </Typography>
+              <Typography sx={{mt:5}} variant="h4" gutterBottom component="div">
+              up load music :  {props.artistModal.Music.length}
+              </Typography>
+              <Typography sx={{mt:5}} variant="h5" gutterBottom component="div">
+              total paly count : {TotalCount}
+              </Typography>
+            </Box> 
+            <Box sx={{mt:1, mr:3}}>
+             <CloseIcon sx={{ fontSize: 60,cursor:"pointer" }} onClick={()=>{props.setArtistModal("");}} />             
+            </Box>
           </Box>
         </Box>
 
-        <Box sx={{ display: "flex", alignItems: "center", alignItems: 'flex-start' }}>
-          <Box sx={{mt:4, ml:1 }}>
+        {/* music List */}
+        <Box sx={{ display: "flex", flexDirection: 'column',  alignItems: 'flex-start' }}>
+          <Box sx={{mt:4, ml:5 }}>
             <Typography variant="h3"  component="div">
               <b> 
                 Music List
               </b>
             </Typography>
           </Box>
+          <Box sx={{mt:4, ml:5,display: "flex", flexDirection: 'row' }}>
+             { musics.map((music)=>{ 
+              return(<SongCard music={music} setmusicmodal={props.setmusicmodal}/>)
+              })}
+          </Box>
         </Box>
         
-
       </Widget>
-      <WallPaper sx={{cursor:"pointer"}} onClick={()=>{props.setArtistModal("");}} />
+      {/* <WallPaper sx={{cursor:"pointer"}} 
+       onClick={()=>{props.setArtistModal("");}}
+       /> */}
     </Box>
   );
 }

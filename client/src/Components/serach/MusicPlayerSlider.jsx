@@ -92,7 +92,6 @@ export default function MusicPlayerSlider(props) {
   const [paused, setPaused] = useState(true);
   
   const palyCountAdd = async () => {
-    console.log(props.musicmodal.play_count+1)
     const content = { palyeCount: props.musicmodal.play_count, audio: props.musicmodal.ipfs_hash };
     await axios
       .post("http://localhost:5000/music/add", content)
