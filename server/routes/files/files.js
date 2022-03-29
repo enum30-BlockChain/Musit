@@ -78,7 +78,7 @@ files.get("/", async (req, res, next) => {
   try {
     const songList = await Music.findAll({
       include: [
-        { model: Artist },
+        { model: Artist, include:{model:User}},
         {
           model: MusicLike,
         },

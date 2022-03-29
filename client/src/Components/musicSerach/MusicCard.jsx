@@ -2,6 +2,7 @@ import React, { useState, useEffect,useRef  } from "react";
 import Modal from "./Model.jsx";
 import axios from "axios";
 
+// props
 function MusicCard(props) {
   const audioPlayer = useRef();
   const [modal, setModal] = useState(false);
@@ -63,7 +64,7 @@ function MusicCard(props) {
      setCheckedInputs(props.checkBox);
    }, [props]);
  
-  if (props.address === props.artistAddress) {
+ 
     return (
       <>
         <tbody>
@@ -108,65 +109,15 @@ function MusicCard(props) {
             </td>
             <td>{props.genre}</td>
             <td>
-              <button onClick={onPopup}> 수정 </button>
+              {props.address === props.artistAddress 
+              ? <button onClick={onPopup}> 수정 </button>
+              : <button onClick={onPopup} disabled> 수정 </button> }
             </td>
           </tr>
         </tbody>
         {modal && <Modal props={props} onClose={onClose} />}
       </>
     );
-  } else if (props.address !== props.artistAddress) {
-    return (
-      <>
-        <tbody>
-          <tr>
-            <td>{props.id}</td>
-            <td>{props.title}</td>
-            <td>{props.artistName}</td>
-            <td>
-              <img src={props.img} style={{ width: "100px" }} />
-            </td>
-            <td>
-            <audio
-                ref={audioPlayer}
-                src={`https://ipfs.io/ipfs/${props.audio}`}
-                onLoadedData={() => {   //불러올때
-                 const getcurrentTime = props.userList.find((adr)=>adr.address===props.address)
-                 const arry = getcurrentTime.recent_played.split("-")
-                 if (arry[0]===props.audio){
-                   audioPlayer.current.currentTime = arry[2];
-                 }
-                }}
-                // onTimeUpdate={(e) => {
-                //   const saveTime = Math.floor(e.currentTarget.currentTime);
-                  // postTime(saveTime);
-                // }}
-                onEnded={() => {
-                  palyCountAdd();
-                }}
-                controls
-              />
-           </td>
-            <td>{palyeCount}</td>
-            <td>
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  changeHandler(e.currentTarget.checked);
-                }}
-                checked={checkedInputs}
-              />
-              {likeCount}
-            </td>
-            <td>{props.genre}</td>
-            <td>
-              <button onClick={onPopup} disabled> 수정 </button>
-            </td>
-          </tr>
-        </tbody>
-        {modal && <Modal props={props} onClose={onClose} />}
-      </>
-    );
-  }
+ 
 }
 export default MusicCard;

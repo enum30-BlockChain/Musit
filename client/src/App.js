@@ -26,6 +26,7 @@ import RecentlyPlayed from "./components/myPage/userRoom/page/RecentlyPlayed";
 import Auction from "./components/auction/Auction";
 import Store from "./components/store/Store";
 import CreateNFT from "./components/createNFT/CreateNFT.jsx";
+import Search from "./components/serach/Search";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -73,6 +74,8 @@ function App() {
           <Route path="fileupload" element={<Fileupload address={address} />} />
           <Route path="MusicSearch"element={<MusicSearch address={address} />} />
           <Route path="createnft"element={<CreateNFT address={address} />} />
+          <Route path="search"element={<Search address={address} />} />
+
           <Route path="Footer" element={<Footer />}></Route>
           <Route path="/ysh" element={<YshTest />}></Route>
         </Route>

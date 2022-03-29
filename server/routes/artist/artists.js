@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const likesRouter = require("./likes");
-const { Artist, ArtistLike, Music, User } = require("../../models/index");
+const { Artist, ArtistLike, Music,User } = require("../../models/index");
 
 router.use("/likes", likesRouter);
 
@@ -70,7 +70,9 @@ router.post("/signup", async (req, res, next) => {
 //아티스트 회원가입내용 조회
 router.get("/list", async (req, res, next) => {
   try {
-    const findname = await Artist.findAll();
+    const findname = await Artist.findAll({
+      include:{model:User},
+    });
     res.send(findname);
   } catch (err) {
     console.error(err);
