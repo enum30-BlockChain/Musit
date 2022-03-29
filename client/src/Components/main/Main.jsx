@@ -14,57 +14,64 @@ import { Favorite } from "./mypage/favorite/Favorite";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
+import Register from "./register/Register";
+import Listener from "./register/user/listener/Listener";
 
 export const Main = () => {
-	const [address, setAddress] = useState("");
-	async function init () {
-		await Metamask.getAccounts(setAddress);
-		await Metamask.walletListener(setAddress);
-	} 
+  const [address, setAddress] = useState("");
+  async function init() {
+    await Metamask.getAccounts(setAddress);
+    await Metamask.walletListener(setAddress);
+  }
 
-	useEffect(() => {
-		init()
-		const sidebarToggle = document.querySelector(".sidebar-toggle");
-		const sidebar = document.querySelector("nav");
+  useEffect(() => {
+    init();
+    const sidebarToggle = document.querySelector(".sidebar-toggle");
+    const sidebar = document.querySelector("nav");
 
-		let getMenuStatus = localStorage.getItem("menu_status");
-		if (getMenuStatus && getMenuStatus === "close") {
-			sidebar.classList.toggle("close");
-		}
+    let getMenuStatus = localStorage.getItem("menu_status");
+    if (getMenuStatus && getMenuStatus === "close") {
+      sidebar.classList.toggle("close");
+    }
 
-		sidebarToggle.addEventListener("click", () => {
-			sidebar.classList.toggle("close");
-			if (sidebar.classList.contains("close")) {
-				localStorage.setItem("menu_status", "close");
-			} else {
-				localStorage.setItem("menu_status", "open");
-			}
-		});
+    sidebarToggle.addEventListener("click", () => {
+      sidebar.classList.toggle("close");
+      if (sidebar.classList.contains("close")) {
+        localStorage.setItem("menu_status", "close");
+      } else {
+        localStorage.setItem("menu_status", "open");
+      }
+    });
+  }, []);
 
-		
-	}, []);
-
-	return (
-		<section className="main">
-			<Searchbar address={address}/>
-			<div className="main-content"> 
-				<Routes>
-					<Route path="/">
-						<Route index element={<Dashboard />} />
-						<Route path="mypage" element={<Mypage address={address} />}>
-							<Route path="favorite" element={<Favorite address={address} />} />
-							<Route path="playlist" element={<Playlist address={address} />} />
-							<Route path="collection" element={<Collection address={address} />} />
-							<Route path="history" element={<History address={address} />} />
-						</Route>
-						<Route path="music" element={<Music />} />
-						<Route path="store" element={<Store />} />
-						<Route path="auction" element={<Auction />} />
-						<Route path="artist" element={<Artist />} />
-					</Route>
-				</Routes>
-			</div>
-			<Playbar/>
-		</section>
-	);
+  return (
+    <section className="main">
+      <Searchbar address={address} />
+      <div className="main-content">
+        <Routes>
+          <Route path="/">
+            <Route index element={<Dashboard />} />
+            <Route path="mypage" element={<Mypage address={address} />}>
+              <Route path="favorite" element={<Favorite address={address} />} />
+              <Route path="playlist" element={<Playlist address={address} />} />
+              <Route
+                path="collection"
+                element={<Collection address={address} />}
+              />
+              <Route path="history" element={<History address={address} />} />
+            </Route>
+            <Route path="music" element={<Music />} />
+            <Route path="store" element={<Store />} />
+            <Route path="auction" element={<Auction />} />
+            <Route path="artist" element={<Artist />} />
+            <Route path="register" element={<Register />}>
+              <Route path="listener" element={<Listener address={address} />} />
+              <Route path="artists" element={<Artist address={address} />} />
+            </Route>
+          </Route>
+        </Routes>
+      </div>
+      <Playbar />
+    </section>
+  );
 };
