@@ -25,7 +25,7 @@ export const Main = () => {
     await Metamask.getAccounts(setAddress);
     await Metamask.walletListener(setAddress);
   }
-
+  //나의 지금 로그인상태 확인
   async function loginCheck() {
     const url = "http://localhost:5000/users/signin";
     const response = await axios.post(url, { address });
@@ -51,11 +51,12 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-  }, []);
-
+  }, [address]);
   /////////////////////////////////////////////////////
 
-  const [loginState, setLoginState] = useState();
+  const [loginState, setLoginState] = useState("");
+
+  console.log(loginState);
 
   return (
     <section className="main">
@@ -64,7 +65,7 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
-            {address === loginState ? (
+            {address === loginState.address ? (
               <Route path="mypage" element={<Mypage address={address} />}>
                 <Route
                   path="favorite"
