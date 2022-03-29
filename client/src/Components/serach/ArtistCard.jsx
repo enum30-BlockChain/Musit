@@ -17,6 +17,9 @@ const Img = styled('img')({
 });
 
 export default function ArtistCard(props) {
+  const postInfo = ()=>{
+  props.setArtistModal(props.artist)
+  }
   return (
     <Paper
       sx={{
@@ -37,6 +40,7 @@ export default function ArtistCard(props) {
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
             <Avatar
+              onClick={postInfo}
               alt="Remy Sharp"
               src={props.artist.User.img}
               sx={{ width: 128, height: 128 }}

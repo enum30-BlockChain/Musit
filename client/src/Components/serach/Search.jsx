@@ -4,11 +4,13 @@ import axios from "axios";
 import MusicPlayerSlider from "./MusicPlayerSlider";
 import SongCard from "./SongCard";
 import ArtistCard from "./ArtistCard";
+import ArtistModal from "./ArtistModal";
  
 
 function Search(props) {
-  const [artistModal,setartistModal] = useState("");
-  const [artistModalInfo,setartistModalInfo] = useState("")
+  const [musicmodal,setmusicmodal] = useState("");
+  const [artistModal,setArtistModal] = useState("");
+  
   const [songList, setSongList] = useState("");
   const [artistList, setArtistList] = useState("");
   const [findMusic,setFindMusic] = useState("");
@@ -51,7 +53,7 @@ function Search(props) {
     setFindMusic(searchMusicNameData);
     setFindArtist(searchAtistData);
   }
-
+  
   return (
     <>
       <TextField
@@ -71,7 +73,7 @@ function Search(props) {
       >
       {findMusic && findMusic.map((music)=>{
         return(
-          <SongCard music={music} setartistModal={setartistModal} />
+          <SongCard music={music} setmusicmodal={setmusicmodal} />
         )
       })}
       </Stack>
@@ -86,11 +88,12 @@ function Search(props) {
       >
       {findArtist && findArtist.map((artist)=>{
         return(
-          <ArtistCard artist={artist}/>
+          <ArtistCard artist={artist} setArtistModal={setArtistModal}/>
         )
       })}
       </Stack>
-      {artistModal && <MusicPlayerSlider  sx={{ display: 'block' }} artistModal={artistModal} setartistModal={setartistModal} />}
+      {musicmodal && <MusicPlayerSlider  sx={{ display: 'block' }} musicmodal={musicmodal} setmusicmodal={setmusicmodal} />}
+      {artistModal && <ArtistModal  sx={{ display: 'block' }} artistModal={artistModal} setArtistModal={setArtistModal} />}
 
       
     </>

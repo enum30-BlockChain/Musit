@@ -71,7 +71,8 @@ router.post("/signup", async (req, res, next) => {
 router.get("/list", async (req, res, next) => {
   try {
     const findname = await Artist.findAll({
-      include:{model:User},
+      include:[{model:User},
+      {model:Music}]
     });
     res.send(findname);
   } catch (err) {

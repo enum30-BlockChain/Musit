@@ -1,4 +1,5 @@
 import  React,{useRef,useState} from 'react';
+import axios from "axios";
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -86,10 +87,21 @@ const TinyText = styled(Typography)({
 export default function MusicPlayerSlider(props) {
   const audioPlayer = useRef();
   const theme = useTheme();
-  const duration = props.artistModal.play_time // seconds
+  const duration = props.musicmodal.play_time // seconds
   const [position, setPosition] = useState(0);
   const [paused, setPaused] = useState(true);
   
+  const palyCountAdd = async () => {
+    console.log(props.musicmodal.play_count+1)
+    const content = { palyeCount: props.musicmodal.play_count, audio: props.musicmodal.ipfs_hash };
+    await axios
+      .post("http://localhost:5000/music/add", content)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+  };
+
   function formatDuration(value) {      //시간 정리
     const minute = Math.floor(value / 60);
     const secondLeft = value - minute * 60;
@@ -98,19 +110,21 @@ export default function MusicPlayerSlider(props) {
   const mainIconColor = theme.palette.mode === 'dark' ? '#fff' : '#000';
   const lightIconColor =
     theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
-    console.log(props.artistModal)
   return (
     <Box sx={{ width: "100%", overflow: "hidden" }}>
       <Widget>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <CoverImage>
-            <img alt="이미지주소 넣으셈" src={props.artistModal.img_file} />
+            <img alt="이미지주소 넣으셈" src={props.musicmodal.img_file} />
           </CoverImage>
           <audio
             ref={audioPlayer}
-            src={`https://ipfs.io/ipfs/${props.artistModal.ipfs_hash}`}
+            src={`https://ipfs.io/ipfs/${props.musicmodal.ipfs_hash}`}
             onTimeUpdate={(e) => {
               setPosition(Math.floor(e.currentTarget.currentTime));
+            }}
+            onEnded={() => {
+              palyCountAdd();
             }}
           />
           <Stack
@@ -126,17 +140,17 @@ export default function MusicPlayerSlider(props) {
                 color="text.secondary"
                 fontWeight={500}
               >
-                Genre: {props.artistModal.Genre}
+                Genre: {props.musicmodal.Genre}
               </Typography>
               <Typography noWrap>
-                <b> {props.artistModal.title}</b>
+                <b> {props.musicmodal.title}</b>
               </Typography>
               <Typography noWrap letterSpacing={-0.25}>
-                {props.artistModal.artist_name}
+                {props.musicmodal.artist_name}
               </Typography>
             </Box>
             <Box sx={{display:"flex", flexDirection: 'column', justifyContent: 'space-between'}}>
-             <CloseIcon cursor="pointer" fontSize="large" onClick={()=>{props.setartistModal("");}} /> 
+             <CloseIcon cursor="pointer" fontSize="large" onClick={()=>{props.setmusicmodal("");}} /> 
               <FavoriteBorderIcon
                 sx={{ color: pink[300] }}
                 cursor="pointer"
@@ -272,7 +286,7 @@ export default function MusicPlayerSlider(props) {
           <VolumeUpRounded htmlColor={lightIconColor} />
         </Stack>
       </Widget>
-      {/* <WallPaper sx={{cursor:"pointer"}} onClick={()=>{props.setartistModal("");}} /> */}
+      {/* <WallPaper sx={{cursor:"pointer"}} onClick={()=>{props.setmusicmodal("");}} /> */}
     </Box>
   );
 }
