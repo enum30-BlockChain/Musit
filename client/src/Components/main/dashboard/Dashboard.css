@@ -1,0 +1,29 @@
+.dashboard {
+  padding-top: 50px;
+}
+
+.dashboard .title {
+  display: flex;
+  align-items: center;
+  margin: 70px 0 30px 0;
+}
+
+.dashboard .title i {
+  position: relative;
+  height: 35px;
+  width: 35px;
+  background-color: var(--primary-color);
+  border-radius: 6px;
+  color: var(--title-icon-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.dashboard .title .text {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-color);
+  margin-left: 10px;
+}

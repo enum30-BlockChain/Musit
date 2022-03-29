@@ -1,0 +1,61 @@
+.mypage {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.mypage .user-card {
+  display: flex;
+  width: 100%;
+  height: 300px;
+}
+
+.mypage .user-card .user-info{
+  display: flex;
+  flex-direction: column;
+}
+
+.mypage .user-card .user-image {
+  width: 256px;
+  height: 256px;
+  border-radius: 50%;
+}
+
+.mypage .user-card .user-image img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.mypage .user-nav {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--black-light-color);
+  border-bottom: 1px solid var(--black-light-color);
+  padding: 10px 0;
+}
+
+.mypage .user-nav .nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 700px;
+}
+
+.mypage .user-nav .nav-links li{
+  position: relative;
+}
+
+.mypage .user-nav .nav-links li :is(i, .link-name) {
+  color: var(--black-light-color);
+  transition: var(--tran-03);
+}
+
+.user-nav .nav-links a:hover :is(i, .link-name){
+  color: var(--primary-color);
+}
+
+.user-nav .nav-links li.active :is(i, .link-name){
+  color: var(--primary-color);
+}

@@ -1,78 +1,105 @@
-import React, { useEffect, useState } from "react";
-import "./Navbar.scss";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Metamask from "../../web3/Metamask";
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import "./Navbar.css"
 
-export const Navbar = ({address, setAddress}) => {
-  const [nickname, setNickname] = useState("");
+export const Navbar = () => {
   
-
-  const LoginOnClick = async () => {
-    const url = "http://localhost:5000/users/signin";
-    const response = await axios.post(url, { address });
-    // console.log(response.data);
-    setNickname({
-      nickname: response.data.nickname,
-    });
-  };
-  const connectOnClick = async () => {
-    const { data } = await Metamask.connectWallet();
-    setAddress(data[0]);
-  };
-
-  const Login = async () => {
-    const url = "http://localhost:5000/users/signin";
-    const response = await axios.post(url, { address });
-    console.log(response.nickname);
-  };
-
-  const enterToSearch = (event) => {
-    if (event.keyCode == 13) {
-      // searchData();
+  useEffect(() => {
+    const body = document.querySelector("body");
+    const modeToggle = document.querySelector(".mode-toggle");
+    
+    let getDarkMode = localStorage.getItem("dark_mode");
+    if (getDarkMode && getDarkMode === "on") {
+      body.classList.toggle("dark");
     }
-  };
+  
+    modeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark")
+      if(body.classList.contains("dark")) {
+        localStorage.setItem("dark_mode", "on")
+      } else {
+        localStorage.setItem("dark_mode", "off")
+      }
+    })
+		
+		const links = document.querySelectorAll(".side-nav .nav-links li");
+		links.forEach((link) => {
+			link.addEventListener("click", () => {
+				// 이전에 active 된 메뉴 삭제
+				links.forEach((link) => {
+					link.classList.remove("active");
+				});
+				// 지금 클릭한 메뉴 active
+				link.classList.add("active");
+			});
+		});
+  }, [])
 
   return (
-    <>
-      <header className="main-header">
-        <div className="logo">
-          <Link to="/">
-            <h3>Musit X Eunm30</h3>
-          </Link>
-        </div>
-        <label htmlFor="menu-btn" className="menu-icon">
-          <span className="meue-icon__line"></span>
-        </label>
-        <ul className="nav-links">
-          <li className="nav-link">
-            <input
-              type="text"
-              placeholder={"Songs Search"}
-              //엔터로 검색이 가능하게
-              onKeyPress={enterToSearch}
-            ></input>
-            <button>Search</button>
-          </li>
-          <li className="nav-link">
-            <Link to="/">main</Link>
-          </li>
+		<nav className="side-nav">
+			<Link to={"/"}>
+				<div className="logo-name-container">
+					<div className="logo-image">
+						<img src="/images/Musit_logo.png" alt="logo" />
+					</div>
 
-          <li className="nav-link">
-            {address ? (
-              <p>
-                {address}
-                {nickname}
-                <button>logout</button>
-              </p>
-            ) : (
-              <button onClick={connectOnClick}>Connect</button>
-            )}
-          </li>
-        </ul>
-      </header>
-    </>
-  );
-};
+					<span className="logo-name nav-links">MUSIT</span>
+				</div>
+			</Link>
 
-export default Navbar;
+			<div className="menu-items">
+				<ul className="nav-links">
+					<li>
+						<Link to="/mypage">
+							<i className="uil uil-create-dashboard"></i>
+							<span className="link-name">MYPAGE</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="/music">
+							<i className="uil uil-music"></i>
+							<span className="link-name">MUSIC</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="/store">
+							<i className="uil uil-store"></i>
+							<span className="link-name">STORE</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="/auction">
+							<i className="uil uil-arrow-growth"></i>
+							<span className="link-name">AUCTION</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="/artist">
+							<i className="uil uil-palette"></i>
+							<span className="link-name">ARTIST</span>
+						</Link>
+					</li>
+				</ul>
+
+				<ul className="logout-mode">
+					<li>
+						<Link to="#">
+							<i className="uil uil-signout"></i>
+							<span className="link-name">Logout</span>
+						</Link>
+					</li>
+
+					<li className="mode">
+						<Link to="#">
+							<i className="uil uil-moon"></i>
+							<span className="link-name">Dark Mode</span>
+						</Link>
+						<div className="mode-toggle">
+							<span className="switch"></span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	);
+}
