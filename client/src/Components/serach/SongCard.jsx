@@ -4,6 +4,9 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { pink } from '@mui/material/colors';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -13,6 +16,9 @@ const Img = styled('img')({
 });
 
 export default function SongCard(props) {
+  const postInfo= ()=>{
+    props.setartistModal(props.music)
+  }
   return (
     <Paper
       sx={{
@@ -27,7 +33,7 @@ export default function SongCard(props) {
       <Grid container spacing={2}>
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
-            <Img alt="complex" src= {props.music.img_file} />
+            <Img alt="complex" src= {props.music.img_file} onClick={postInfo} />
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>
@@ -49,17 +55,17 @@ export default function SongCard(props) {
               <Typography variant="body2" gutterBottom>
                 {props.music.artist_name}
               </Typography>
+                {/* <FavoriteBorderIcon
+                      sx={{ color: pink[300] }}
+                      cursor="pointer"
+                      fontSize="large"
+                    /> */}
+                  <FavoriteIcon
+                    sx={{ color: pink[300] }}
+                    cursor="pointer"
+                    fontSize="large"
+                  />
             </Grid>
-            <Grid item>
-              <Typography sx={{ cursor: "pointer" }} variant="body2">
-             
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid item>
-            <Typography variant="subtitle1" component="div">
-              🤍
-            </Typography>
           </Grid>
         </Grid>
       </Grid>

@@ -7,10 +7,10 @@ import ArtistCard from "./ArtistCard";
  
 
 function Search(props) {
+  const [artistModal,setartistModal] = useState("");
+  const [artistModalInfo,setartistModalInfo] = useState("")
   const [songList, setSongList] = useState("");
   const [artistList, setArtistList] = useState("");
-  const [modal,setModal] = useState("");
-
   const [findMusic,setFindMusic] = useState("");
   const [findArtist,setFindArtist] = useState("");
 
@@ -51,6 +51,7 @@ function Search(props) {
     setFindMusic(searchMusicNameData);
     setFindArtist(searchAtistData);
   }
+
   return (
     <>
       <TextField
@@ -70,11 +71,10 @@ function Search(props) {
       >
       {findMusic && findMusic.map((music)=>{
         return(
-          <SongCard music={music}/>
+          <SongCard music={music} setartistModal={setartistModal} />
         )
       })}
       </Stack>
-      {modal && <MusicPlayerSlider />}
       <Typography variant="h4" gutterBottom>
         Artist
       </Typography>
@@ -85,12 +85,12 @@ function Search(props) {
         spacing={2}
       >
       {findArtist && findArtist.map((artist)=>{
-        console.log(artist)
         return(
           <ArtistCard artist={artist}/>
         )
       })}
       </Stack>
+      {artistModal && <MusicPlayerSlider  sx={{ display: 'block' }} artistModal={artistModal} setartistModal={setartistModal} />}
 
       
     </>

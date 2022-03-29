@@ -6,7 +6,9 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import Avatar from '@mui/material/Avatar';
 import { borderRadius } from '@mui/system';
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { pink } from '@mui/material/colors';
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
@@ -15,7 +17,6 @@ const Img = styled('img')({
 });
 
 export default function ArtistCard(props) {
-    console.log(props.artist.artist_name)
   return (
     <Paper
       sx={{
@@ -34,12 +35,12 @@ export default function ArtistCard(props) {
         alignItems="center"
       >
         <Grid item>
-            <ButtonBase sx={{ width: 128, height: 128, borderRadius:"50%"}}>
+          <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
             <Avatar
               alt="Remy Sharp"
               src={props.artist.User.img}
               sx={{ width: 128, height: 128 }}
-            /> 
+            />
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>
@@ -62,7 +63,6 @@ export default function ArtistCard(props) {
                   {props.artist.artist_name}
                 </Typography>
               </div>
-              
             </Grid>
             <Grid item>
               <Typography
@@ -72,9 +72,16 @@ export default function ArtistCard(props) {
             </Grid>
           </Grid>
           <Grid item>
-            <Typography variant="subtitle1" component="div">
-              🤍
-            </Typography>
+            <FavoriteBorderIcon
+              sx={{ color: pink[300] }}
+              cursor="pointer"
+              fontSize="large"
+            />
+            {/* <FavoriteIcon
+              sx={{ color: pink[300] }}
+              cursor="pointer"
+              fontSize="large"
+            /> */}
           </Grid>
         </Grid>
       </Grid>

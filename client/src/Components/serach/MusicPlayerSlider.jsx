@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React,{useRef,useState} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -11,6 +11,10 @@ import FastForwardRounded from '@mui/icons-material/FastForwardRounded';
 import FastRewindRounded from '@mui/icons-material/FastRewindRounded';
 import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded';
 import VolumeDownRounded from '@mui/icons-material/VolumeDownRounded';
+import CloseIcon from '@mui/icons-material/Close';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { pink } from '@mui/material/colors';
 
 const WallPaper = styled('div')({
   position: 'absolute',
@@ -47,10 +51,12 @@ const WallPaper = styled('div')({
 const Widget = styled('div')(({ theme }) => ({
   padding: 16,
   borderRadius: 16,
-  width: 343,
+  width: 500,
   maxWidth: '100%',
   margin: 'auto',
-  position: 'relative',
+  position: 'absolute',
+  top:"35%",
+  left:"35%",
   zIndex: 1,
   backgroundColor:
     theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.4)',
@@ -77,12 +83,14 @@ const TinyText = styled(Typography)({
   letterSpacing: 0.2,
 });
 
-export default function MusicPlayerSlider() {
+export default function MusicPlayerSlider(props) {
+  const audioPlayer = useRef();
   const theme = useTheme();
-  const duration = 200; // seconds
-  const [position, setPosition] = React.useState(0);
-  const [paused, setPaused] = React.useState(false);
-  function formatDuration(value) {
+  const duration = props.artistModal.play_time // seconds
+  const [position, setPosition] = useState(0);
+  const [paused, setPaused] = useState(true);
+  
+  function formatDuration(value) {      //시간 정리
     const minute = Math.floor(value / 60);
     const secondLeft = value - minute * 60;
     return `${minute}:${secondLeft < 9 ? `0${secondLeft}` : secondLeft}`;
@@ -90,27 +98,57 @@ export default function MusicPlayerSlider() {
   const mainIconColor = theme.palette.mode === 'dark' ? '#fff' : '#000';
   const lightIconColor =
     theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
+    console.log(props.artistModal)
   return (
-    <Box sx={{ width: '100%', overflow: 'hidden' }}>
+    <Box sx={{ width: "100%", overflow: "hidden" }}>
       <Widget>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <CoverImage>
-            <img
-              alt="이미지주소 넣으셈"
-              src="이미지주소"
-            />
+            <img alt="이미지주소 넣으셈" src={props.artistModal.img_file} />
           </CoverImage>
-          <Box sx={{ ml: 1.5, minWidth: 0 }}>
-            <Typography variant="caption" color="text.secondary" fontWeight={500}>
-              아티스트
-            </Typography>
-            <Typography noWrap>
-              <b>คนเก่าเขาทำไว้ดี (Can&apos;t win)</b>
-            </Typography>
-            <Typography noWrap letterSpacing={-0.25}>
-              Chilling Sunday &mdash; คนเก่าเขาทำไว้ดี
-            </Typography>
-          </Box>
+          <audio
+            ref={audioPlayer}
+            src={`https://ipfs.io/ipfs/${props.artistModal.ipfs_hash}`}
+            onTimeUpdate={(e) => {
+              setPosition(Math.floor(e.currentTarget.currentTime));
+            }}
+          />
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+            sx={{ m: 1.5, width: "80%" }}
+          >
+            <Box sx={{ m: 1.5, minWidth: 0 }}>
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                fontWeight={500}
+              >
+                Genre: {props.artistModal.Genre}
+              </Typography>
+              <Typography noWrap>
+                <b> {props.artistModal.title}</b>
+              </Typography>
+              <Typography noWrap letterSpacing={-0.25}>
+                {props.artistModal.artist_name}
+              </Typography>
+            </Box>
+            <Box sx={{display:"flex", flexDirection: 'column', justifyContent: 'space-between'}}>
+             <CloseIcon cursor="pointer" fontSize="large" onClick={()=>{props.setartistModal("");}} /> 
+              <FavoriteBorderIcon
+                sx={{ color: pink[300] }}
+                cursor="pointer"
+                fontSize="large"
+              />
+              <FavoriteIcon
+                sx={{ color: pink[300] }}
+                cursor="pointer"
+                fontSize="large"
+              />
+            </Box>
+          </Stack>
         </Box>
         <Slider
           aria-label="time-indicator"
@@ -119,39 +157,42 @@ export default function MusicPlayerSlider() {
           min={0}
           step={1}
           max={duration}
-          onChange={(_, value) => setPosition(value)}
+          onChange={(_, value) => {
+            setPosition(value);
+            audioPlayer.current.currentTime = value;
+          }}
           sx={{
-            color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
+            color: theme.palette.mode === "dark" ? "#fff" : "rgba(0,0,0,0.87)",
             height: 4,
-            '& .MuiSlider-thumb': {
+            "& .MuiSlider-thumb": {
               width: 8,
               height: 8,
-              transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
-              '&:before': {
-                boxShadow: '0 2px 12px 0 rgba(0,0,0,0.4)',
+              transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
+              "&:before": {
+                boxShadow: "0 2px 12px 0 rgba(0,0,0,0.4)",
               },
-              '&:hover, &.Mui-focusVisible': {
+              "&:hover, &.Mui-focusVisible": {
                 boxShadow: `0px 0px 0px 8px ${
-                  theme.palette.mode === 'dark'
-                    ? 'rgb(255 255 255 / 16%)'
-                    : 'rgb(0 0 0 / 16%)'
+                  theme.palette.mode === "dark"
+                    ? "rgb(255 255 255 / 16%)"
+                    : "rgb(0 0 0 / 16%)"
                 }`,
               },
-              '&.Mui-active': {
+              "&.Mui-active": {
                 width: 20,
                 height: 20,
               },
             },
-            '& .MuiSlider-rail': {
+            "& .MuiSlider-rail": {
               opacity: 0.28,
             },
           }}
         />
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
             mt: -2,
           }}
         >
@@ -160,9 +201,9 @@ export default function MusicPlayerSlider() {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             mt: -1,
           }}
         >
@@ -170,41 +211,60 @@ export default function MusicPlayerSlider() {
             <FastRewindRounded fontSize="large" htmlColor={mainIconColor} />
           </IconButton>
           <IconButton
-            aria-label={paused ? 'play' : 'pause'}
-            onClick={() => setPaused(!paused)}
+            aria-label={paused ? "play" : "pause"}
+            onClick={() => {
+              setPaused(!paused);
+              if (paused === true) {
+                audioPlayer.current.play();
+              } else if (paused === false) {
+                audioPlayer.current.pause();
+              }
+            }}
           >
             {paused ? (
               <PlayArrowRounded
-                sx={{ fontSize: '3rem' }}
+                sx={{ fontSize: "3rem" }}
                 htmlColor={mainIconColor}
               />
             ) : (
-              <PauseRounded sx={{ fontSize: '3rem' }} htmlColor={mainIconColor} />
+              <PauseRounded
+                sx={{ fontSize: "3rem" }}
+                htmlColor={mainIconColor}
+              />
             )}
           </IconButton>
           <IconButton aria-label="next song">
             <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />
           </IconButton>
         </Box>
-        <Stack spacing={2} direction="row" sx={{ mb: 1, px: 1 }} alignItems="center">
+        <Stack
+          spacing={2}
+          direction="row"
+          sx={{ mb: 1, px: 1 }}
+          alignItems="center"
+        >
           <VolumeDownRounded htmlColor={lightIconColor} />
           <Slider
             aria-label="Volume"
-            defaultValue={30}
+            defaultValue={100}
+            onChange={(_, value) => {
+              audioPlayer.current.volume = value * 0.01;
+            }}
             sx={{
-              color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
-              '& .MuiSlider-track': {
-                border: 'none',
+              color:
+                theme.palette.mode === "dark" ? "#fff" : "rgba(0,0,0,0.87)",
+              "& .MuiSlider-track": {
+                border: "none",
               },
-              '& .MuiSlider-thumb': {
+              "& .MuiSlider-thumb": {
                 width: 24,
                 height: 24,
-                backgroundColor: '#fff',
-                '&:before': {
-                  boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
+                backgroundColor: "#fff",
+                "&:before": {
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
                 },
-                '&:hover, &.Mui-focusVisible, &.Mui-active': {
-                  boxShadow: 'none',
+                "&:hover, &.Mui-focusVisible, &.Mui-active": {
+                  boxShadow: "none",
                 },
               },
             }}
@@ -212,7 +272,7 @@ export default function MusicPlayerSlider() {
           <VolumeUpRounded htmlColor={lightIconColor} />
         </Stack>
       </Widget>
-      <WallPaper />
+      {/* <WallPaper sx={{cursor:"pointer"}} onClick={()=>{props.setartistModal("");}} /> */}
     </Box>
   );
 }
