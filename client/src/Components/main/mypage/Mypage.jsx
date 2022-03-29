@@ -75,6 +75,11 @@ export const Mypage = ({ address }) => {
               <span className="link-name"> History</span>
             </Link>
           </li>
+          <li>
+            <Link to="/mypage/subscription">
+              <span className="link-name"> Subscription</span>
+            </Link>
+          </li>
         </ul>
       </nav>
       <div className="detail">

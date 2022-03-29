@@ -161,7 +161,6 @@ body.dark .switch::before {
   left: 20px;
 }
 
-
 @media (max-width: 1000px) {
   .side-nav {
     width: 73px;
@@ -191,22 +190,22 @@ body.dark .switch::before {
     pointer-events: auto;
   }
 
-  nav.side-nav~section.main {
+  nav.side-nav ~ section.main {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav.side-nav.close~section.main {
+  nav.side-nav.close ~ section.main {
     left: 250px;
     width: calc(100% - 250px);
   }
 
-  nav.side-nav~section.main .searchbar {
+  nav.side-nav ~ section.main .searchbar {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav.side-nav.close~section.main .searchbar {
+  nav.side-nav.close ~ section.main .searchbar {
     left: 250px;
     width: calc(100% - 250px);
   }
@@ -245,22 +244,22 @@ body.dark .switch::before {
     pointer-events: none;
   }
 
-  nav.side-nav~section.main {
+  nav.side-nav ~ section.main {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav.side-nav.close~section.main {
+  nav.side-nav.close ~ section.main {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav.side-nav~section.main .searchbar {
+  nav.side-nav ~ section.main .searchbar {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav.side-nav.close~section.main .searchbar {
+  nav.side-nav.close ~ section.main .searchbar {
     left: 73px;
     width: calc(100% - 73px);
   }

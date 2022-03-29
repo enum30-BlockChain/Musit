@@ -1,0 +1,8 @@
+.subscription-box {
+  display: flex;
+  justify-content: center;
+}
+
+.subscription-btn {
+  justify-content: center;
+}

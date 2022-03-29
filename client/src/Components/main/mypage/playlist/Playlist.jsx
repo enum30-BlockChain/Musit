@@ -1,8 +1,12 @@
-import "./Playlist.css"
-import React from 'react'
+import "./Playlist.css";
+import React from "react";
+import StickyHeadTable from "../../../mui/StickyHeadTable";
 
 export const Playlist = () => {
   return (
-    <div>Playlist</div>
-  )
-}
+    <>
+      <StickyHeadTable />
+      <div>Playlist</div>;
+    </>
+  );
+};
