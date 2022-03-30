@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Artist.belongsTo(models.User, {
         foreignKey: { name: "user_address", allowNull: false },
+        onDelete: "cascade",
         sourceKey: "address",
       });
       Artist.hasMany(models.ArtistLike, {
@@ -26,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   Artist.init(
     {
       artist_name: { type: DataTypes.STRING, primaryKey: true },
+      img: { type: DataTypes.STRING, allowNull: false, unique: true },
       likes: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     },
     {

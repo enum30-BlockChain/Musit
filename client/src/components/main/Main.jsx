@@ -20,6 +20,7 @@ import RegisterArtist from "./register/user/artists/RegisterArtist";
 
 import axios from "axios";
 import { Create } from "./create/Create";
+import { ArtistsList } from "./artist/favorite/ArtistsList";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -27,7 +28,7 @@ export const Main = () => {
   const [songList, setSongList] = useState("");
   const [likeList, setLikeList] = useState("");
   const [userList, setUserList] = useState("");
-  const [artistState, setArtistState] = useState({ address: "" });
+  const [artistState, setArtistState] = useState();
 
   async function init() {
     const reponse = await Metamask.getAccounts(setAddress);
@@ -109,7 +110,6 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
-
             <Route
               path="mypage"
               element={
@@ -158,9 +158,16 @@ export const Main = () => {
                   <RegisterArtist address={address} />
                 )
               }
-            />
-            <Route path="cteate" element={<Create address={address} />} />
+            >
+              <Route
+                path="list"
+                element={
+                  <ArtistsList artistState={artistState} address={address} />
+                }
+              />
+            </Route>
           </Route>
+          <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
       <Playbar songList={likeList} address={address} userList={userList} />

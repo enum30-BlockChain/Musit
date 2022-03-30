@@ -10,9 +10,18 @@ export const Artist = ({ address, artistState, loginState }) => {
   const [visible, setVisible] = useState(false);
   //내사진 변경을 위한 클릭 hidden 버튼 생성
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+  const [image, setImage] = useState("");
   const [img, setImg] = useState("");
 
-  console.log(artistState);
+  useEffect(() => {
+    const UserImage = async () => {
+      const url = "http://localhost:5000/artists/image";
+      const response = await axios.post(url, { address });
+      setImage(response.data);
+    };
+    UserImage();
+    return () => {};
+  }, []);
 
   function navlinkOnClick(e) {
     console.log(e.target);
@@ -26,7 +35,7 @@ export const Artist = ({ address, artistState, loginState }) => {
 
   //내가 닉네임의 내용을 변환할 때 부르는 함수
   const NickNameOnClick = async () => {
-    const url = "http://localhost:5000/users/change";
+    const url = "http://localhost:5000/artists/change";
     const response = await axios.post(url, { address, select });
     return console.log(response.data);
   };
@@ -64,11 +73,11 @@ export const Artist = ({ address, artistState, loginState }) => {
   return (
     <>
       <div className="artistpage">
-        <div className="user-card">
+        <div className="artist-card">
           {/* 내이미지공간 */}
-          <div className="user-image">
+          <div className="artist-image">
             {/* 현재 이미지 불러오기 */}
-            <img src={loginState.img} alt="user profile" />
+            <img src={image} alt="artist profile" />
             {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
             {visible && (
               <div>
@@ -85,8 +94,8 @@ export const Artist = ({ address, artistState, loginState }) => {
               </div>
             )}
           </div>
-          <div className="user-info">
-            <h2 className="nickname">Nickname</h2>
+          <div className="artist-info">
+            <h2 className="nickname">ArtistName</h2>
             {artistState.artist_name}
             {visible && (
               <div>
@@ -95,8 +104,8 @@ export const Artist = ({ address, artistState, loginState }) => {
             )}
             <h2 className="address">Address</h2>
             <span>{address}</span>
-            <h2 className="subscription">Subscription</h2>
-            <span>{loginState.subscription}월이용권 </span>
+            <h2 className="likes">Like</h2>
+            <span>좋아요 : {artistState.likes} </span>
           </div>
           {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
           <div>
@@ -109,12 +118,12 @@ export const Artist = ({ address, artistState, loginState }) => {
             ></button>
           </div>
         </div>
-        <nav className="user-nav">
+        <nav className="artist-nav">
           <ul className="nav-links" onClick={navlinkOnClick}>
             <li>
-              <Link to="/mypage/favorite">
+              <Link to="/artist/list">
                 <i className="uil uil-favorite"></i>
-                <span className="link-name"> Favorite</span>
+                <span className="link-name"> Artists</span>
               </Link>
             </li>
           </ul>
@@ -126,3 +135,8 @@ export const Artist = ({ address, artistState, loginState }) => {
     </>
   );
 };
+
+{
+  /* <span>{loginState.subscription}월이용권 </span>
+<h2 className="subscription">Subscription</h2> */
+}
