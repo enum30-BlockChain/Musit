@@ -6,6 +6,10 @@ import "./Listener.css";
 import { Outlet } from "react-router-dom";
 
 const Listener = ({ address }) => {
+  useEffect(() => {
+    alert("회원가입하세요");
+  }, []);
+
   const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
@@ -38,12 +42,10 @@ const Listener = ({ address }) => {
 
   const onChangeNick = (e) => {
     setNickname(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleOnclick = async () => {
     await postImg();
-    alert(genre[selected] + "장르를 좋아합니다.");
     setUser({
       address: address,
       genre: genre[selected],
@@ -51,10 +53,12 @@ const Listener = ({ address }) => {
       nickname: nickname,
       img: DBdata.cover_img_link,
     });
+    return user;
   };
 
-  console.log(user);
   const UserHandleOnClick = async () => {
+    const userdata = await handleOnclick();
+    console.log(user);
     const url = "http://localhost:5000/users/signup";
     const response = await axios.post(url, user);
     console.log(response.data);
@@ -98,14 +102,18 @@ const Listener = ({ address }) => {
               style={{ width: "200px" }}
             ></img>
           )}
-          <label>닉네임</label>
-          <input
-            type="text"
-            placeholder="닉네임"
-            onChange={onChangeNick}
-          ></input>
-          <p>Nations</p>
           <div>
+            <label>닉네임</label>
+            <li>
+              <input
+                type="text"
+                placeholder="닉네임"
+                onChange={onChangeNick}
+              ></input>
+            </li>
+          </div>
+          <div>
+            <p>Nations</p>
             {nation.map((nation, index) => (
               <CountryType
                 id={index + 1}
@@ -115,28 +123,22 @@ const Listener = ({ address }) => {
               />
             ))}
           </div>
-          <div>
-            <p>선호하는 장르를 선택해주세요 </p>
+          <div className="genre">
             <p>Genre</p>
-            <div className="genre">
-              {genre.map((MusicType, index) => (
-                <ListenerType
-                  id={index + 1}
-                  key={index}
-                  name={MusicType}
-                  setSelected={setSelected}
-                />
-              ))}
-              <button className="genre-set" onClick={handleOnclick}>
-                장르확정
-              </button>
-            </div>
+            {genre.map((MusicType, index) => (
+              <ListenerType
+                id={index + 1}
+                key={index}
+                name={MusicType}
+                setSelected={setSelected}
+              />
+            ))}
           </div>
           <button className="submit" onClick={UserHandleOnClick}>
             회원가입
           </button>
         </div>
-        <Outlet />;
+        <Outlet />
       </div>
     </div>
   );

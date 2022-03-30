@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Searchbar } from "./searchbar/Searchbar";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard/Dashboard";
 import "./Main.css";
 import { Mypage } from "./mypage/Mypage";
@@ -16,7 +16,6 @@ import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
 import Listener from "./register/user/listener/Listener";
-import Artists from "./register/user/artists/Artists";
 
 import axios from "axios";
 
@@ -56,9 +55,6 @@ export const Main = () => {
     });
   }, [address]);
 
-  console.log(loginState);
-  console.log(address);
-
   return (
     <section className="main">
       <Searchbar address={address} />
@@ -66,35 +62,29 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
-            {address === loginState.address ? (
-              <Route path="mypage" element={<Mypage address={address} />}>
-                <Route
-                  path="favorite"
-                  element={<Favorite address={address} />}
-                />
-                <Route
-                  path="playlist"
-                  element={<Playlist address={address} />}
-                />
-                <Route
-                  path="collection"
-                  element={<Collection address={address} />}
-                />
-                <Route path="history" element={<History address={address} />} />
-                <Route
-                  path="subscription"
-                  element={<Subscription address={address} />}
-                />
-              </Route>
-            ) : (
-              <Route path="mypage" element={<Mypage address={address} />}>
-                <Route
-                  path="listener"
-                  element={<Listener address={address} />}
-                />
-                <Route path="artists" element={<Artists address={address} />} />
-              </Route>
-            )}
+
+            <Route
+              path="mypage"
+              element={
+                loginState ? (
+                  <Mypage address={address} />
+                ) : (
+                  <Listener address={address} />
+                )
+              }
+            >
+              <Route path="favorite" element={<Favorite address={address} />} />
+              <Route path="playlist" element={<Playlist address={address} />} />
+              <Route
+                path="collection"
+                element={<Collection address={address} />}
+              />
+              <Route path="history" element={<History address={address} />} />
+              <Route
+                path="subscription"
+                element={<Subscription address={address} />}
+              />
+            </Route>
 
             <Route path="music" element={<Music />} />
             <Route path="store" element={<Store />} />
