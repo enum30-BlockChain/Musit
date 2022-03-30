@@ -68,6 +68,10 @@ export const Main = () => {
                 element={<Collection address={address} />}
               />
               <Route path="history" element={<History address={address} />} />
+              <Route
+                path="subscription"
+                element={<Subscription address={address} />}
+              />
             </Route>
 
             <Route path="register" element={<Register />}>

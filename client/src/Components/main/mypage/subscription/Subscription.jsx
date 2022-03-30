@@ -1,27 +1,26 @@
 import "./Subscription.css";
 import React from "react";
+import Button from "@mui/material/Button";
 
 export const Subscription = () => {
   return (
-    <div className="subscription-box">
-      <h2>Subscription</h2>
-      <div className="subscription-btn">
-        <button
-        // onClick={}
-        >
-          1 month subscription
-        </button>
-        <button
-        // onClick={}
-        >
-          3 month subscription
-        </button>
-        <button
-        // onClick={}
-        >
-          6 month subscription
-        </button>
+    <>
+      <h2 className="sub">Subscription Options</h2>
+      <div className="sub-box">
+        <div className="sub-card">
+          <h3 className="sub-index">1 Month Supscription</h3>
+          <Button>0.1 ethereum</Button>
+        </div>
+        <div className="sub-card">
+          <h3 className="sub-index">3 Month Supscription</h3>
+
+          <Button>0.3 ethereum</Button>
+        </div>
+        <div className="sub-card">
+          <h3 className="sub-index">6 Month Supscription</h3>
+          <Button>0.5 ethereum</Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
