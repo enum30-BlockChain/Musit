@@ -58,8 +58,7 @@ const getPrivateKey = (): string[] => {
 
 const config: HardhatUserConfig = {
   solidity: "0.8.4",
-  defaultNetwork: "hardhat",
-
+  defaultNetwork: "ropsten",
   networks: {
     ropsten: {
       url: getURL("alchemy", "ropsten"),
