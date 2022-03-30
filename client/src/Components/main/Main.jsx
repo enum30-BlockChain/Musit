@@ -16,12 +16,14 @@ import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
 import Listener from "./register/user/listener/Listener";
+import Artists from "./register/user/artists/Artists";
 
 import axios from "axios";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
   const [loginState, setLoginState] = useState({ address: "" });
+  const [artistState, setArtistState] = useState({ address: "" });
 
   async function init() {
     await Metamask.getAccounts(setAddress);
@@ -30,6 +32,11 @@ export const Main = () => {
   //나의 지금 로그인상태 확인
 
   useEffect(() => {
+    const artistsCheck = async () => {
+      const url = "http://localhost:5000/artists/signin";
+      const response = await axios.post(url, { address });
+      return setArtistState(response.data);
+    };
     const loginCheck = async () => {
       const url = "http://localhost:5000/users/signin";
       const response = await axios.post(url, { address });
@@ -37,6 +44,7 @@ export const Main = () => {
     };
     init();
     loginCheck();
+    artistsCheck();
     const sidebarToggle = document.querySelector(".sidebar-toggle");
     const sidebar = document.querySelector("nav");
 
@@ -89,7 +97,10 @@ export const Main = () => {
             <Route path="music" element={<Music />} />
             <Route path="store" element={<Store />} />
             <Route path="auction" element={<Auction />} />
-            <Route path="artist" element={<Artist />} />
+            <Route
+              path="artist"
+              element={artistState ? <Artist /> : <Artists address={address} />}
+            />
           </Route>
         </Routes>
       </div>

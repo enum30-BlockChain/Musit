@@ -28,7 +28,6 @@ const Listener = ({ address }) => {
     "Dance",
   ]);
   const [nation, setNation] = useState([""]);
-  const [user, setUser] = useState({});
   const [selected, setSelected] = useState("");
   const [option, setOption] = useState("");
   const [nickname, setNickname] = useState("");
@@ -44,23 +43,18 @@ const Listener = ({ address }) => {
     setNickname(e.target.value);
   };
 
-  const handleOnclick = async () => {
+  const UserHandleOnClick = async () => {
     await postImg();
-    setUser({
+    const userdata = {
       address: address,
       genre: genre[selected],
       nation: option,
       nickname: nickname,
       img: DBdata.cover_img_link,
-    });
-    return user;
-  };
-
-  const UserHandleOnClick = async () => {
-    const userdata = await handleOnclick();
-    console.log(user);
+    };
+    console.log(userdata);
     const url = "http://localhost:5000/users/signup";
-    const response = await axios.post(url, user);
+    const response = await axios.post(url, userdata);
     console.log(response.data);
   };
 
