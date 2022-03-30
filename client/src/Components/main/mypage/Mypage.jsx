@@ -5,6 +5,13 @@ import axios from "axios";
 
 export const Mypage = ({ address }) => {
   const [userdata, setUserdata] = useState("");
+  //내가 바꾸고 싶은 닉네임 선택
+  const [select, setSelect] = useState("");
+  //and 연산자를 사용하기위한 useState input을 숨기기위한 조건문
+  const [visible, setVisible] = useState(false);
+  //내사진 변경을 위한 클릭 hidden 버튼 생성
+  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+  const [img, setImg] = useState("");
 
   async function init() {
     const url = "http://localhost:5000/users/signin";
@@ -32,12 +39,6 @@ export const Mypage = ({ address }) => {
     console.log(e.target);
   }
 
-  //내가 바꾸고 싶은 닉네임 선택
-  const [select, setSelect] = useState("");
-
-  //and 연산자를 사용하기위한 useState input을 숨기기위한 조건문
-  const [visible, setVisible] = useState(false);
-
   //내가 input창에서 변한값을 넣어줄 함수
   const idonchange = (e) => {
     console.log(e.target.value);
@@ -54,10 +55,6 @@ export const Mypage = ({ address }) => {
   //////////////////////////////////////////////////////////////////////////////////////////
   //S3에 보내는데이터는 formData에 담아서 보내야한다.
   const formData = new FormData();
-
-  //내사진 변경을 위한 클릭 hidden 버튼 생성
-  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
-  const [img, setImg] = useState("");
 
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
