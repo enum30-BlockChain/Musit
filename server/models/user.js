@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       nation: { type: DataTypes.STRING, allowNull: false },
       genre: { type: DataTypes.STRING, allowNull: false },
       recent_played: { type: DataTypes.STRING, allowNull: true },
+      img: { type: DataTypes.STRING, allowNull: false, unique: true },
       subscription: {
         type: DataTypes.TINYINT,
         allowNull: true,

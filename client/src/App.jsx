@@ -1,14 +1,16 @@
 import "./App.css";
-import { Main } from "./components/main/Main";
+import { Main } from "./components/main/Main.jsx";
 import { Navbar } from "./components/navbar/Navbar";
 
-function App() {
-	return (
-		<>
-			<Navbar />
-			<Main />
-		</>
-	);
-}
+import React from "react";
+
+const App = () => {
+  return (
+    <>
+      <Navbar />
+      <Main />
+    </>
+  );
+};
 
 export default App;
