@@ -1,0 +1,27 @@
+@import "../../../styles/variables.css";
+
+.store .itemcard-container .itemCard {
+  background-color: var(--box4-color);
+  width: 300px;
+  height: 300px;
+  margin: 15px;
+}
+
+.store .itemcard-container .MuiCardHeader-root .MuiSvgIcon-root  {
+  color: #FFF;
+}
+
+.store .itemcard-container .itemCard .MuiCardHeader-subheader{
+  color: var(--black-light-color);
+}
+
+.store .itemcard-container .itemCard img {
+  background-color: red;
+}
+
+.store .itemcard-container .itemCard .description p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--black-light-color);
+}

@@ -1,3 +1,4 @@
+import { Contract } from "ethers";
 import fs from "fs";
 import hre, { artifacts, ethers } from "hardhat";
 
@@ -19,9 +20,6 @@ async function main() {
   saveJsonFilesToClientFolder(musitNFT, "MusitNFT")
 }
 
-interface Contract {
-  address: string;
-}
 
 function saveJsonFilesToClientFolder(contract: Contract, name: string) {
   const contractsDir = __dirname + "/../../client/src/web3/";

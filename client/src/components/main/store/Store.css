@@ -1,0 +1,17 @@
+@import "../../../styles/variables.css";
+
+.store .title {
+  color: var(--text-color);
+  font-size: 36px;
+  font-weight: 500;
+  margin-left: 30px;
+}
+
+.store .itemcard-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  transition: var(--tran-05);
+}
