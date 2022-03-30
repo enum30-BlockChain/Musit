@@ -45,7 +45,6 @@ export const Main = () => {
   useEffect(() => {
     init();
   }, []);
-
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";
     const response = await axios.post(url, { address });
@@ -140,6 +139,7 @@ export const Main = () => {
                   songList={songList}
                   likeList={likeList}
                   userList={userList}
+                  address={address}
                 />
               }
             />

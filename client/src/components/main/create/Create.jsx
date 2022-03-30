@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 const { create } = require("ipfs-http-client");
 
-export const Create = ({address}) => {
+export const Create = ({ address }) => {
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
@@ -178,7 +178,7 @@ export const Create = ({address}) => {
         {genre.map((MusicType, index) => {
           return (
             <>
-              <label>
+              <label id={index}>
                 {MusicType}
                 <input
                   type={"checkbox"}

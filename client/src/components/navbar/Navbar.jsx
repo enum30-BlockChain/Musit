@@ -81,8 +81,8 @@ export const Navbar = () => {
 
           <li>
             <Link to="/cteate">
-              <i className="uil uil-palette"></i>
-              <span className="link-name">Create</span>
+              <i class="uil uil-upload"></i>
+              <span className="link-name">CREATE</span>
             </Link>
           </li>
         </ul>

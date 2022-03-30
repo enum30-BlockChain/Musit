@@ -4,12 +4,16 @@ import axios from "axios";
 
 // props
 function MusicCard(props) {
-  console.log(props)
-  const audioPlayer = useRef();
+  const audioPlayer = useRef("");
   const [modal, setModal] = useState(false);
-  const [checkedInputs, setCheckedInputs] = useState();
-  const [likeCount, setlikeCount] = useState(props.like);
-  const [palyeCount, setpalyeCount] = useState(props.count);
+  const [checkedInputs, setCheckedInputs] = useState("");
+  const [likeCount, setlikeCount] = useState("");
+  const [palyeCount, setpalyeCount] = useState("");
+  
+  useEffect(() => {
+    setlikeCount(props.like)
+    setpalyeCount(props.count)
+  }, [props])
   
   const onPopup = () => {
     setModal(true);
@@ -68,7 +72,6 @@ function MusicCard(props) {
  
     return (
       <>
-        <tbody>
           <tr>
             <td>{props.id}</td>
             <td>{props.title}</td>
@@ -115,7 +118,6 @@ function MusicCard(props) {
               : <button onClick={onPopup} disabled> 수정 </button> }
             </td>
           </tr>
-        </tbody>
         {modal && <Modal props={props} onClose={onClose} />}
       </>
     );
