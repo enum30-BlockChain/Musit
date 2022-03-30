@@ -1,7 +1,6 @@
 @import "../../styles/variables.css";
 
 .main {
-  letter-spacing: 2px;
   position: relative;
   left: 250px;
   background-color: var(--panel-color);
