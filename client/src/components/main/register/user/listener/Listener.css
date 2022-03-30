@@ -12,13 +12,11 @@
 
   /* box-shadow: 0 0 10px rgba; */
   background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 2%;
+  border-radius: 12px;
   padding: 10px;
   text-align: left;
-  border: 2px solid white;
-  width: 400px;
+  border: 1px solid white;
   display: inline-block;
-  height: 560px;
 }
 .genre {
   margin: 30px 30px;
