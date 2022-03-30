@@ -1,6 +1,14 @@
 .favorite {
-  height: 100%;
+  display: flex;
+  text-align: center;
 }
-.favorite .table-container {
-  height: 100%;
+
+.favorite .musicfavorite {
+  margin: 5px;
+  width: 50%;
+}
+
+.favorite .artistfavorite {
+  margin: 5px;
+  width: 50%;
 }

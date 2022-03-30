@@ -4,6 +4,7 @@ import ListenerType from "./ListenerType.jsx";
 import axios from "axios";
 import "./Listener.css";
 import { Outlet } from "react-router-dom";
+import { Input, Button } from "@mui/material";
 
 const Listener = ({ address }) => {
   useEffect(() => {
@@ -82,14 +83,11 @@ const Listener = ({ address }) => {
     <div className="mypage">
       <div className="grid">
         <div className="box">
-          <p>Address</p>
+          <h2>Address</h2>
           <div>
             <p>{address}</p>
-            <button type="button" className="">
-              Vrify your Metamask Address
-            </button>
           </div>
-          <p>albumCoverImg</p>
+          <h2>Profile Image</h2>
           <input
             name="imgUpload"
             type="file"
@@ -103,13 +101,13 @@ const Listener = ({ address }) => {
             ></img>
           )}
           <div>
-            <label>닉네임</label>
+            <h2>Nickname</h2>
             <li>
-              <input
+              <Input
                 type="text"
-                placeholder="닉네임"
+                placeholder="Nickname"
                 onChange={onChangeNick}
-              ></input>
+              ></Input>
             </li>
           </div>
           <div>
@@ -134,9 +132,9 @@ const Listener = ({ address }) => {
               />
             ))}
           </div>
-          <button className="submit" onClick={UserHandleOnClick}>
-            회원가입
-          </button>
+          <Button className="submit" onClick={UserHandleOnClick}>
+            Submit
+          </Button>
         </div>
         <Outlet />
       </div>

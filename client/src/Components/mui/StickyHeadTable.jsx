@@ -1,64 +1,45 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import * as React from "react";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
 
-function createColumn (id, label, minWidth, align, format) {
+function createColumn(id, label, minWidth, align, format) {
   return { id, label, minWidth, align, format };
 }
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+  { id: "albumcover", label: "Album Cover", minWidth: 30 },
+  { id: "music", label: "Music Title", minWidth: 120 },
+  { id: "artist", label: "Artist", minWidth: 120 },
   {
-    id: 'population',
-    label: 'Population',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+    id: "play-btn",
+    label: "Music Play",
+    minWidth: 120,
+    align: "left",
+    // format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+    id: "like-btn",
+    label: "Like",
+    minWidth: 50,
+    align: "",
+    // format: (value) => value.toLocaleString("en-US"),
   },
-  {
-    id: 'density',
-    label: 'Density',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
+  { id: "" },
 ];
 
-function createRow(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
+// function createRow(albumcover, music, artist) {
+//   const density = population / size;
+//   return { name, code, population, size, density };
+// }
 
 const rows = [
-  createRow('India', 'IN', 1324171354, 3287263),
-  createRow('China', 'CN', 1403500365, 9596961),
-  createRow('Italy', 'IT', 60483973, 301340),
-  createRow('United States', 'US', 327167434, 9833520),
-  createRow('Canada', 'CA', 37602103, 9984670),
-  createRow('Australia', 'AU', 25475400, 7692024),
-  createRow('Germany', 'DE', 83019200, 357578),
-  createRow('Ireland', 'IE', 4857000, 70273),
-  createRow('Mexico', 'MX', 126577691, 1972550),
-  createRow('Japan', 'JP', 126317000, 377973),
-  createRow('France', 'FR', 67022000, 640679),
-  createRow('United Kingdom', 'GB', 67545757, 242495),
-  createRow('Russia', 'RU', 146793744, 17098246),
-  createRow('Nigeria', 'NG', 200962417, 923768),
-  createRow('Brazil', 'BR', 210147125, 8515767),
+  // createRow("India", "IN", 1324171354, 3287263)
 ];
 
 export default function StickyHeadTable() {
@@ -75,7 +56,10 @@ export default function StickyHeadTable() {
   };
 
   return (
-    <Paper className='table-container' sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper
+      className="table-container"
+      sx={{ width: "100%", overflow: "hidden" }}
+    >
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -101,7 +85,7 @@ export default function StickyHeadTable() {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
+                          {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
                         </TableCell>

@@ -5,8 +5,10 @@ import StickyHeadTable from "../../../mui/StickyHeadTable";
 export const Playlist = () => {
   return (
     <>
-      <StickyHeadTable />
-      <div>Playlist</div>;
+      <div className="playilist">
+        <h2>My Play List</h2>
+        <StickyHeadTable />
+      </div>
     </>
   );
 };
