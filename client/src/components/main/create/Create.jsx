@@ -1,15 +1,9 @@
 import "./Create.css";
-<<<<<<< HEAD
-import React from "react";
-
-export const Create = () => {
-  return <div>Collection</div>;
-=======
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 const { create } = require("ipfs-http-client");
 
-export const Create = ({address}) => {
+export const Create = ({ address }) => {
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
@@ -205,5 +199,4 @@ export const Create = ({address}) => {
       <button onClick={submit}> submit </button>
     </>
   );
->>>>>>> ff2b640e4716a6998d1dc9d172c031eaa14f3000
 };
