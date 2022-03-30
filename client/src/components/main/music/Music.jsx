@@ -17,21 +17,7 @@ export const Music = (props) => {
   }, [props])
   return (
     <>
-      <table style={{ margin: "auto" }}>
-        <caption> 우왕 </caption>
-        <thead>
-          <tr>
-            <th>순번 </th>
-            <th>타이틀</th>
-            <th>작곡가</th>
-            <th>img</th>
-            <th>auido</th>
-            <th>play_count</th>
-            <th>like</th>
-            <th>genre</th>
-            <th>수정</th>
-          </tr>
-        </thead>
+      
         {songList &&
           songList.map((song, i) => {
             const findLike = song.MusicLikes.find(
@@ -58,7 +44,7 @@ export const Music = (props) => {
               </>
             );
           })}
-      </table>
+      
     </>
   )
 }

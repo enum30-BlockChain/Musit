@@ -6,22 +6,23 @@ import {Box,Stack,Slider  } from '@mui/material';
 export const Playbar = (props) => {
   const [state, setstate] = useState("pause");
   const [percent, setPercent] = useState("0");
-  const musicContainer = document.querySelector(".music-container");
-  const playBtn = document.querySelector("#play");
-  const audio = document.querySelector("#audio");
-  const progressContainer = document.getElementById("progress-container");
-  const title = document.getElementById("title");
-  const cover = document.getElementById("cover");
   const [count,setCount] =useState(0);
   const [palyeCount, setpalyeCount] = useState("");
   const [hash, sethash] = useState("");
   const [tilte, setTilte] = useState("");
   const [currentTime, setcurrentTime] = useState(0);
   const [value, setValue] = useState(100);
-  let song = props.songList[count]
+
+  const musicContainer = document.querySelector(".music-container");
+  const playBtn = document.querySelector("#play");
+  const audio = document.querySelector("#audio");
+  const progressContainer = document.getElementById("progress-container");
+  const title = document.getElementById("title");
+  const cover = document.getElementById("cover");
+  
   useEffect(() => {
-    
-    if (song) {
+    let song = props.songList[count]
+    if (song && props.userList) {
       const getcurrentTime = props.userList.find(
         (adr) => adr.address === props.address
       );

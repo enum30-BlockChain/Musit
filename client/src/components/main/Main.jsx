@@ -17,9 +17,36 @@ import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
 import Listener from "./register/user/listener/Listener";
 import Artists from "./register/user/artists/Artists";
-
-import axios from "axios";
 import { Create } from "./create/Create";
+import axios from "axios";
+
+import {createStore} from 'redux'
+import {Provider, useSelector, useDispatch} from 'react-redux';
+
+const getSongList = async () => {
+  await axios
+    .get("http://localhost:5000/files")
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+};
+console.log(getSongList())
+function reducer(currentState, action) {
+
+  if(currentState === undefined){
+    
+    return{
+      songList:getSongList(),
+      number:1,
+    }
+  }
+
+  const newState = {...currentState}
+  return newState;
+}
+const store = createStore(reducer);
+
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -36,7 +63,7 @@ export const Main = () => {
     loginCheck(reponse.data[0]);
     getSongList();
     getUser();
-    getLikeList();
+    getLikeList(reponse.data[0]);
     artistsCheck(reponse.data[0]);
     sidebarToggle();
   }
@@ -92,10 +119,11 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
-  const getLikeList = async ()=>{
+  const getLikeList = async (address)=>{
     await axios
       .post("http://localhost:5000/music/likes/like",{address})
       .then((res) => {
+        console.log(res.data)
         setLikeList(res.data)
       })
       .catch((err) => alert("errrrrrrr.", err));
@@ -103,47 +131,67 @@ export const Main = () => {
 
   return (
     <section className="main">
-      <Searchbar address={address} />
-      <div className="main-content">
-        <Routes>
-          <Route path="/">
-            <Route index element={<Dashboard />} />
+      <Provider store={store}>
+        <Searchbar address={address} />
+        <div className="main-content">
+          <Routes>
+            <Route path="/">
+              <Route index element={<Dashboard />} />
 
-            <Route
-              path="mypage"
-              element={
-                loginState ? (
-                  <Mypage address={address} />
-                ) : (
-                  <Listener address={address} />
-                )
-              }
-            >
-              <Route path="favorite" element={<Favorite address={address} />} />
-              <Route path="playlist" element={<Playlist address={address} />} />
               <Route
-                path="collection"
-                element={<Collection address={address} />}
-              />
-              <Route path="history" element={<History address={address} />} />
+                path="mypage"
+                element={
+                  loginState ? (
+                    <Mypage address={address} />
+                  ) : (
+                    <Listener address={address} />
+                  )
+                }
+              >
+                <Route
+                  path="favorite"
+                  element={<Favorite address={address} />}
+                />
+                <Route
+                  path="playlist"
+                  element={<Playlist address={address} />}
+                />
+                <Route
+                  path="collection"
+                  element={<Collection address={address} />}
+                />
+                <Route path="history" element={<History address={address} />} />
+                <Route
+                  path="subscription"
+                  element={<Subscription address={address} />}
+                />
+              </Route>
+
               <Route
-                path="subscription"
-                element={<Subscription address={address} />}
+                path="music"
+                element={
+                  <Music
+                    songList={songList}
+                    likeList={likeList}
+                    userList={userList}
+                    address={address}
+                  />
+                }
               />
+              <Route path="store" element={<Store />} />
+              <Route path="auction" element={<Auction />} />
+              <Route
+                path="artist"
+                element={
+                  artistState ? <Artist /> : <Artists address={address} />
+                }
+              />
+              <Route path="cteate" element={<Create address={address} />} />
             </Route>
-
-            <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList} address={address}/>} />
-            <Route path="store" element={<Store />} />
-            <Route path="auction" element={<Auction />} />
-            <Route
-              path="artist"
-              element={artistState ? <Artist /> : <Artists address={address} />}
-            />
-            <Route path="cteate" element={<Create address={address} />} />
-          </Route>
-        </Routes>
-      </div>
-      <Playbar songList={likeList} address={address} userList={userList}/>
+          </Routes>
+        </div>
+        <Playbar songList={likeList} address={address} userList={userList} />
+      </Provider>
     </section>
   );
 };
