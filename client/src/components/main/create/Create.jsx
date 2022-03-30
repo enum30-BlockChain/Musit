@@ -178,7 +178,7 @@ export const Create = ({address}) => {
         {genre.map((MusicType, index) => {
           return (
             <>
-              <label>
+              <label id={index}>
                 {MusicType}
                 <input
                   type={"checkbox"}

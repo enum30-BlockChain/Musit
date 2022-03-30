@@ -12,10 +12,9 @@ export const Music = (props) => {
   useEffect(() => {
     setSongList(props.songList)
     setLikeList(props.likeList)
-    setUserList(props.UserList)
+    setUserList(props.userList)
     setAddress(props.address)
   }, [props])
-  
   return (
     <>
       <table style={{ margin: "auto" }}>
@@ -39,21 +38,24 @@ export const Music = (props) => {
               (like) => like.user_address === address
             );
             return (
-              <MusicCard
-                id={i}
-                title={song.title}
-                artistName={song.artist_name}
-                img={song.img_file}
-                duration={song.play_time}
-                like={song.MusicLikes.length}
-                count={song.play_count}
-                audio={song.ipfs_hash}
-                genre={song.Genre}
-                address={address}
-                artistAddress={song.Artist.user_address}
-                checkBox={findLike}
-                userList={userList}
-              />
+              <>
+               <MusicCard
+                 id={i}
+                 key={i}
+                 title={song.title}
+                 artistName={song.artist_name}
+                 img={song.img_file}
+                 duration={song.play_time}
+                 like={song.MusicLikes.length}
+                 count={song.play_count}
+                 audio={song.ipfs_hash}
+                 genre={song.Genre}
+                 address={address}
+                 artistAddress={song.Artist.user_address}
+                 checkBox={findLike}
+                 userList={userList}
+               />
+              </>
             );
           })}
       </table>
