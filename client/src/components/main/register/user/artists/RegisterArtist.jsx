@@ -4,7 +4,7 @@ import "./ArtistType.css";
 import ArtisType from "./ArtisType";
 import axios from "axios";
 
-const Artists = ({ address }) => {
+const RegisterArtist = ({ address }) => {
   const [inputs, setInputs] = useState("");
 
   const submitOnClick = async () => {
@@ -34,4 +34,4 @@ const Artists = ({ address }) => {
   );
 };
 
-export default Artists;
+export default RegisterArtist;

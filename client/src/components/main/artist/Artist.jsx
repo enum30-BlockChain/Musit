@@ -4,6 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 
 export const Artist = ({ address, artistState }) => {
+  console.log(artistState);
   return (
     <>
       <div className="artistpage">

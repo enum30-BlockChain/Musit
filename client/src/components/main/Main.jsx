@@ -15,20 +15,19 @@ import { Subscription } from "./mypage/subscription/Subscription";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
-import Listener from "./register/user/listener/Listener";
-import Artists from "./register/user/artists/Artists";
+import RegisterUser from "./register/user/listener/RegisterUser";
+import RegisterArtist from "./register/user/artists/RegisterArtist";
 
 import axios from "axios";
 import { Create } from "./create/Create";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
-  const [loginState, setLoginState] = useState({ address: "" });
+  const [loginState, setLoginState] = useState();
   const [songList, setSongList] = useState("");
   const [likeList, setLikeList] = useState("");
   const [userList, setUserList] = useState("");
-
-  const [artistState, setArtistState] = useState({ address: "" });
+  const [artistState, setArtistState] = useState("");
 
   async function init() {
     await Metamask.getAccounts(setAddress);
@@ -112,7 +111,7 @@ export const Main = () => {
                 loginState ? (
                   <Mypage address={address} />
                 ) : (
-                  <Listener address={address} />
+                  <RegisterUser address={address} />
                 )
               }
             >
@@ -145,9 +144,9 @@ export const Main = () => {
               path="artist"
               element={
                 artistState ? (
-                  <Artist />
+                  <Artist address={address} artistState={artistState} />
                 ) : (
-                  <Artists address={address} artistState={artistState} />
+                  <RegisterArtist address={address} />
                 )
               }
             />
