@@ -19,6 +19,7 @@ import Listener from "./register/user/listener/Listener";
 import Artists from "./register/user/artists/Artists";
 
 import axios from "axios";
+import { Create } from "./create/Create";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -26,32 +27,35 @@ export const Main = () => {
   const [songList, setSongList] = useState("");
   const [likeList, setLikeList] = useState("");
   const [userList, setUserList] = useState("");
-  
   const [artistState, setArtistState] = useState({ address: "" });
 
   async function init() {
-    await Metamask.getAccounts(setAddress);
+    const reponse = await Metamask.getAccounts(setAddress);
     await Metamask.walletListener(setAddress);
-  }
-  //나의 지금 로그인상태 확인
-
-  useEffect(() => {
-    const artistsCheck = async () => {
-      const url = "http://localhost:5000/artists/signin";
-      const response = await axios.post(url, { address });
-      return setArtistState(response.data);
-    };
-    const loginCheck = async () => {
-      const url = "http://localhost:5000/users/signin";
-      const response = await axios.post(url, { address });
-      return setLoginState(response.data);
-    };
-    init();
-    loginCheck();
+    //나의 지금 로그인상태 확인
+    loginCheck(reponse.data[0]);
     getSongList();
     getUser();
     getLikeList();
-    artistsCheck();
+    artistsCheck(reponse.data[0]);
+    sidebarToggle();
+  }
+
+  useEffect(() => {
+    init();
+  }, []);
+  const artistsCheck = async (address) => {
+    const url = "http://localhost:5000/artists/signin";
+    const response = await axios.post(url, { address });
+    return setArtistState(response.data);
+  };
+  const loginCheck = async (address) => {
+    const url = "http://localhost:5000/users/signin";
+    const response = await axios.post(url, { address });
+    return setLoginState(response.data);
+  };
+
+  const sidebarToggle = () => {
     const sidebarToggle = document.querySelector(".sidebar-toggle");
     const sidebar = document.querySelector("nav");
 
@@ -68,10 +72,7 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-  }, [address]);
-
-  console.log(loginState);
-  console.log(address);
+  }
 
   const getSongList = async () => {
     await axios
@@ -131,13 +132,14 @@ export const Main = () => {
               />
             </Route>
 
-            <Route path="music" element={<Music />} />
+            <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList} address={address}/>} />
             <Route path="store" element={<Store />} />
             <Route path="auction" element={<Auction />} />
             <Route
               path="artist"
               element={artistState ? <Artist /> : <Artists address={address} />}
             />
+            <Route path="cteate" element={<Create address={address} />} />
           </Route>
         </Routes>
       </div>
