@@ -19,6 +19,7 @@ import Listener from "./register/user/listener/Listener";
 import Artists from "./register/user/artists/Artists";
 
 import axios from "axios";
+import { Create } from "./create/Create";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -70,6 +71,10 @@ export const Main = () => {
     });
   }, [address]);
 
+<<<<<<< HEAD:client/src/Components/main/Main.jsx
+=======
+
+>>>>>>> main:client/src/components/main/Main.jsx
   const getSongList = async () => {
     await axios
       .get("http://localhost:5000/files")
@@ -128,7 +133,7 @@ export const Main = () => {
               />
             </Route>
 
-            <Route path="music" element={<Music />} />
+            <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList}/>} />
             <Route path="store" element={<Store />} />
             <Route path="auction" element={<Auction />} />
             <Route
@@ -141,6 +146,7 @@ export const Main = () => {
                 )
               }
             />
+            <Route path="cteate" element={<Create address={address} />} />
           </Route>
         </Routes>
       </div>
