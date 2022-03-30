@@ -14,6 +14,7 @@ export const Searchbar = ({ address }) => {
   const number = useSelector((state)=>{return state.number})    //redux 사용할때
   const songList = useSelector((state)=>{return state.songList})    //redux 사용할때
   console.log(number)
+  console.log(songList)
 
 
 
