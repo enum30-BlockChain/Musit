@@ -27,31 +27,36 @@ export const Main = () => {
   const [songList, setSongList] = useState("");
   const [likeList, setLikeList] = useState("");
   const [userList, setUserList] = useState("");
-  const [artistState, setArtistState] = useState("");
+  const [artistState, setArtistState] = useState({ address: "" });
 
   async function init() {
-    await Metamask.getAccounts(setAddress);
+    const reponse = await Metamask.getAccounts(setAddress);
     await Metamask.walletListener(setAddress);
-  }
-  //나의 지금 로그인상태 확인
-
-  useEffect(() => {
-    const artistsCheck = async () => {
-      const url = "http://localhost:5000/artists/signin";
-      const response = await axios.post(url, { address });
-      return setArtistState(response.data);
-    };
-    const loginCheck = async () => {
-      const url = "http://localhost:5000/users/signin";
-      const response = await axios.post(url, { address });
-      return setLoginState(response.data);
-    };
-    init();
-    loginCheck();
+    //나의 지금 로그인상태 확인
+    loginCheck(reponse.data[0]);
     getSongList();
     getUser();
     getLikeList();
-    artistsCheck();
+    artistsCheck(reponse.data[0]);
+    sidebarToggle();
+  }
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  const artistsCheck = async (address) => {
+    const url = "http://localhost:5000/artists/signin";
+    const response = await axios.post(url, { address });
+    return setArtistState(response.data);
+  };
+  const loginCheck = async (address) => {
+    const url = "http://localhost:5000/users/signin";
+    const response = await axios.post(url, { address });
+    return setLoginState(response.data);
+  };
+
+  const sidebarToggle = () => {
     const sidebarToggle = document.querySelector(".sidebar-toggle");
     const sidebar = document.querySelector("nav");
 
@@ -68,7 +73,7 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-  }, [address]);
+  };
 
   const getSongList = async () => {
     await axios
