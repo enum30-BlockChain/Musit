@@ -4,7 +4,23 @@ import axios from "axios";
 const { create } = require("ipfs-http-client");
 
 export const Create = ({ address }) => {
-  const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
+  const [genre, setgenre] = useState([
+    "Pop",
+    "K-pop",
+    "Classical Music",
+    "Jazz",
+    "Trot",
+    "Hip-pop",
+    "CCM",
+    "Ballad",
+    "Contry Music",
+    "Folk Music",
+    "Reggae",
+    "Disco",
+    "Rock",
+    "Electronic",
+    "Dance",
+  ]);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [audiofile, setaudiofile] = useState("");
@@ -144,7 +160,8 @@ export const Create = ({ address }) => {
 
   return (
     <>
-      <p>albumCoverImg</p>
+      <h1>Create your music file</h1>
+      <h2>Album Cover Image</h2>
       <input name="imgUpload" type="file" accept="image/*" onChange={getImg} />
       {albumCoverImgFile && (
         <img
