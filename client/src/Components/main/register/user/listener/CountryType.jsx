@@ -3,7 +3,6 @@ import "./ListenerType.css";
 const CountryType = ({ setOption }) => {
   const onChangeCountry = (e) => {
     setOption(e.target.value);
-    alert(e.target.value + "국적입니다.");
   };
 
   return (

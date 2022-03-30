@@ -6,25 +6,20 @@ import axios from "axios";
 
 const Artists = ({ address }) => {
   const [inputs, setInputs] = useState("");
-  const [nation, setnNation] = useState([""]);
-  const [option, setOption] = useState("");
 
   const submitOnClick = async () => {
+    const artistsdata = {
+      address,
+      nickname: inputs,
+    };
+    console.log(artistsdata);
     const url = "http://localhost:5000/artists/signup";
-    const response = await axios.post(url, inputs);
+    const response = await axios.post(url, artistsdata);
     console.log(response.data);
   };
 
   const onChange = (e) => {
     setInputs(e.target.value);
-    console.log(inputs);
-  };
-
-  const handleOnclick = () => {
-    setInputs({
-      address: address,
-      nickname: inputs,
-    });
   };
 
   return (
@@ -33,7 +28,6 @@ const Artists = ({ address }) => {
         <ArtisType onChange={onChange} />
       </div>
       <div className="Artist-type-container">
-        <button onClick={handleOnclick}>확정</button>
         <button onClick={submitOnClick}>회원가입</button>
       </div>
     </>
