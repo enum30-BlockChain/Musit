@@ -71,10 +71,6 @@ export const Main = () => {
     });
   }, [address]);
 
-<<<<<<< HEAD:client/src/Components/main/Main.jsx
-=======
-
->>>>>>> main:client/src/components/main/Main.jsx
   const getSongList = async () => {
     await axios
       .get("http://localhost:5000/files")
@@ -133,7 +129,16 @@ export const Main = () => {
               />
             </Route>
 
-            <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList}/>} />
+            <Route
+              path="music"
+              element={
+                <Music
+                  songList={songList}
+                  likeList={likeList}
+                  userList={userList}
+                />
+              }
+            />
             <Route path="store" element={<Store />} />
             <Route path="auction" element={<Auction />} />
             <Route
