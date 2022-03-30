@@ -23,6 +23,10 @@ import axios from "axios";
 export const Main = () => {
   const [address, setAddress] = useState("");
   const [loginState, setLoginState] = useState({ address: "" });
+  const [songList, setSongList] = useState("");
+  const [likeList, setLikeList] = useState("");
+  const [userList, setUserList] = useState("");
+  
   const [artistState, setArtistState] = useState({ address: "" });
 
   async function init() {
@@ -44,6 +48,9 @@ export const Main = () => {
     };
     init();
     loginCheck();
+    getSongList();
+    getUser();
+    getLikeList();
     artistsCheck();
     const sidebarToggle = document.querySelector(".sidebar-toggle");
     const sidebar = document.querySelector("nav");
@@ -62,6 +69,36 @@ export const Main = () => {
       }
     });
   }, [address]);
+
+  console.log(loginState);
+  console.log(address);
+
+  const getSongList = async () => {
+    await axios
+      .get("http://localhost:5000/files")
+      .then((res) => {
+        setSongList(res.data);
+      })
+      .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+  };
+
+  const getUser = async ()=>{
+    await axios
+      .get("http://localhost:5000/users")
+      .then((res) => {
+        setUserList(res.data);
+      })
+      .catch((err) => alert("errrrrrrr.", err));
+  };
+
+  const getLikeList = async ()=>{
+    await axios
+      .post("http://localhost:5000/music/likes/like",{address})
+      .then((res) => {
+        setLikeList(res.data)
+      })
+      .catch((err) => alert("errrrrrrr.", err));
+  };
 
   return (
     <section className="main">
@@ -104,7 +141,7 @@ export const Main = () => {
           </Route>
         </Routes>
       </div>
-      <Playbar />
+      <Playbar songList={likeList} address={address} userList={userList}/>
     </section>
   );
 };

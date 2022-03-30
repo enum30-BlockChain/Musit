@@ -1,9 +1,0 @@
-.playbar {
-  position: absolute;
-  z-index: 20;
-  left: 0;
-  bottom: 0;
-  height: 80px;
-  width: 100%;
-  background-color: red;
-}
