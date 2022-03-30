@@ -13,7 +13,7 @@
   z-index: 10;
 }
 
-nav.side-nav.close~.main .searchbar {
+nav.side-nav.close ~ .main .searchbar {
   left: 73px;
   width: calc(100% - 73px);
 }
