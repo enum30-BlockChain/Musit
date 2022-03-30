@@ -78,7 +78,7 @@ function MusicCard(props) {
             <td>
               <audio
                 ref={audioPlayer}
-                src={`https://ipfs.io/ipfs/${props.audio}`}
+                src={`https://ipfs.infura.io/ipfs/${props.audio}`}
                 onLoadedData={() => {   //불러올때
                  const getcurrentTime = props.userList.find((adr)=>adr.address===props.address)
                  const arry = getcurrentTime.recent_played.split("-")

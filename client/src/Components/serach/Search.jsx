@@ -73,7 +73,7 @@ function Search(props) {
       >
       {findMusic && findMusic.map((music)=>{
         return(
-          <SongCard music={music} setmusicmodal={setmusicmodal} />
+          <SongCard music={music} setmusicmodal={setmusicmodal} address={props.address}/>
         )
       })}
       </Stack>
@@ -92,7 +92,7 @@ function Search(props) {
         )
       })}
       </Stack>
-      {artistModal && <ArtistModal  sx={{ display: 'block' }} artistModal={artistModal} setArtistModal={setArtistModal} setmusicmodal={setmusicmodal}/>}
+      {artistModal && <ArtistModal  sx={{ display: 'block' }} artistModal={artistModal} setArtistModal={setArtistModal} setmusicmodal={setmusicmodal} />}
       {musicmodal && <MusicPlayerSlider  sx={{ display: 'block' }} musicmodal={musicmodal} setmusicmodal={setmusicmodal} />}
 
       

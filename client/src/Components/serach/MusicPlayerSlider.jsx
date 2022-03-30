@@ -87,7 +87,7 @@ const TinyText = styled(Typography)({
 export default function MusicPlayerSlider(props) {
   const audioPlayer = useRef();
   const theme = useTheme();
-  const duration = props.musicmodal.play_time // seconds
+  const [duration,setDuration] = useState(0); // seconds
   const [position, setPosition] = useState(0);
   const [paused, setPaused] = useState(true);
   
@@ -118,7 +118,10 @@ export default function MusicPlayerSlider(props) {
           </CoverImage>
           <audio
             ref={audioPlayer}
-            src={`https://ipfs.io/ipfs/${props.musicmodal.ipfs_hash}`}
+            src={`https://ipfs.infura.io/ipfs/${props.musicmodal.ipfs_hash}`}
+            onLoadedData ={(e)=>{
+              setDuration(Math.floor(e.currentTarget.duration))
+            }}
             onTimeUpdate={(e) => {
               setPosition(Math.floor(e.currentTarget.currentTime));
             }}

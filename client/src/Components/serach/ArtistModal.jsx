@@ -3,7 +3,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import {Box,Avatar} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
-import SongCard from './SongCard';
+import ArtistSongCard from './ArtistSongCard';
 
 const WallPaper = styled('div')({
   position: 'absolute',
@@ -67,6 +67,7 @@ const CoverImage = styled('div')({
 
 
 export default function ArtistModal(props) {
+  console.log(props.address)
   const TotalCount = props.artistModal.Music  //play총합
                       .map(e =>e.play_count)
                       .reduce((prev, curr) => prev + curr, 0);
@@ -113,7 +114,7 @@ export default function ArtistModal(props) {
           </Box>
           <Box sx={{mt:4, ml:5,display: "flex", flexDirection: 'row' }}>
              { musics.map((music)=>{ 
-              return(<SongCard music={music} setmusicmodal={props.setmusicmodal}/>)
+              return(<ArtistSongCard music={music} setmusicmodal={props.setmusicmodal}/>)
               })}
           </Box>
         </Box>

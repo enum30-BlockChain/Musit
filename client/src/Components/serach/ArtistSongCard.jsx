@@ -18,13 +18,8 @@ const Img = styled('img')({
   maxHeight: '100%',
 });
 
-export default function SongCard(props) {
-  const [TotalLike, setTotalLike] = useState(props.music.MusicLikes.length);
-  const [findlike,setFindlike] = useState(
-    props.music.MusicLikes
-      .filter((song)=>{
-        return (song.user_address.indexOf(props.address)>-1);
-        }));
+export default function ArtistSongCard(props) {
+ 
   const postInfo= ()=>{
     props.setmusicmodal(props.music)
   }
@@ -39,7 +34,6 @@ export default function SongCard(props) {
     <Paper
       sx={{
         p: 2,
-        ml: 5,
         maxWidth: 350,
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -82,36 +76,7 @@ export default function SongCard(props) {
                 </Typography>
               </Box>
 
-              {findlike.length === 0  //따봉
-              ?(
-              <Box sx={{display:"flex"}}>
-                <ThumbUpOffAltOutlinedIcon
-                   onClick={()=>{
-                    likecountpost();
-                    setTotalLike(TotalLike+1);
-                    setFindlike(1);
-                  }}
-                  sx={{ mr:0.5}}
-                  cursor="pointer"
-                  fontSize="small"
-                />{TotalLike}
-              </Box>
-              )
-              :(
-                <Box sx={{display:"flex"}}>
-                  <ThumbUpOffAltRoundedIcon
-                    onClick={()=>{
-                      likecountpost();
-                      setTotalLike(TotalLike-1);
-                      setFindlike("");
-                    }}
-                    sx={{ mr:0.5}}
-                    cursor="pointer"
-                    fontSize="small"
-                  />{TotalLike}
-                </Box>
-                )
-              }
+            
             </Grid>
           </Grid>
       </Grid>
