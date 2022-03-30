@@ -59,6 +59,7 @@ router.post("/signup", async (req, res, next) => {
       await Artist.create({
         artist_name: req.body.nickname,
         user_address: req.body.address,
+        img: req.body.img,
       });
       res.send("Created successfully");
     }
@@ -93,19 +94,20 @@ router.post("/signin", async (req, res, next) => {
   }
 });
 
-//아티스트 signin 과 list 합치는거 여부 체크
-router.post("/image", async (req, res, next) => {
-  console.log(req.body.address);
-  console.log("signin을 server에 요청하였습니다.");
-  try {
-    const artist = await Artist.findOne({
-      include: { model: User, where: { address: req.body.address } },
-    });
-    res.send(artist.User.img);
-  } catch (err) {
-    console.error(err);
-  }
-});
+// 아티스트 이미지 테이블이 따로 생기면서 없어질 예정
+// //아티스트 signin 과 list 합치는거 여부 체크
+// router.post("/image", async (req, res, next) => {
+//   console.log(req.body.address);
+//   console.log("signin을 server에 요청하였습니다.");
+//   try {
+//     const artist = await Artist.findOne({
+//       include: { model: User, where: { address: req.body.address } },
+//     });
+//     res.send(artist.User.img);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// });
 
 router.post("/music", async (req, res, next) => {
   console.log(req.body);
@@ -133,6 +135,31 @@ router.post("/change", async (req, res, next) => {
     const artist_change = await Artist.update(
       {
         artist_name: req.body.select,
+      },
+      {
+        where: {
+          user_address: req.body.address,
+        },
+      }
+    );
+    res.send(artist_change);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.post("/changeimg", async (req, res, next) => {
+  console.log("http://localhost:5000/artists/changeimg");
+  console.log(req.body);
+  try {
+    const artist = await Artist.findOne({
+      where: {
+        user_address: req.body.address,
+      },
+    });
+    const artist_change = await Artist.update(
+      {
+        img: req.body.downloadLink,
       },
       {
         where: {

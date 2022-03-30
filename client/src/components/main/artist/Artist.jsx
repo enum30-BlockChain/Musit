@@ -13,15 +13,18 @@ export const Artist = ({ address, artistState, loginState }) => {
   const [image, setImage] = useState("");
   const [img, setImg] = useState("");
 
-  useEffect(() => {
-    const UserImage = async () => {
-      const url = "http://localhost:5000/artists/image";
-      const response = await axios.post(url, { address });
-      setImage(response.data);
-    };
-    UserImage();
-    return () => {};
-  }, []);
+  //기존에 시작되면 artists의 어드레서로 유저어드레스를 찾아줘야했는데 필요없게됨
+  // useEffect(() => {
+  //   const UserImage = async () => {
+  //     const url = "http://localhost:5000/artists/image";
+  //     const response = await axios.post(url, { address });
+  //     setImage(response.data);
+  //   };
+  //   UserImage();
+  //   return () => {};
+  // }, []);
+  //useEffect사용할일 있으면 바로 쓰기위해 선언만
+  useEffect(() => {}, []);
 
   function navlinkOnClick(e) {
     console.log(e.target);
@@ -50,6 +53,7 @@ export const Artist = ({ address, artistState, loginState }) => {
     formData.append("img", img);
     const url = "http://localhost:5000/files/imgupload";
     const result = await axios.post(url, formData); //formData multer가읽을수있다.
+    console.log(result);
     return result.data;
   };
 
@@ -62,7 +66,7 @@ export const Artist = ({ address, artistState, loginState }) => {
     const newimg = await postImg();
     console.log(newimg);
     await axios
-      .post("http://localhost:5000/users/changeimg", {
+      .post("http://localhost:5000/artists/changeimg", {
         address,
         downloadLink: newimg.downLoadLink,
       })
@@ -70,6 +74,7 @@ export const Artist = ({ address, artistState, loginState }) => {
       .catch((err) => alert(err));
   };
 
+  console.log(artistState);
   return (
     <>
       <div className="artistpage">
@@ -77,7 +82,7 @@ export const Artist = ({ address, artistState, loginState }) => {
           {/* 내이미지공간 */}
           <div className="artist-image">
             {/* 현재 이미지 불러오기 */}
-            <img src={image} alt="artist profile" />
+            <img src={artistState.img} alt="artist profile" />
             {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
             {visible && (
               <div>
@@ -106,6 +111,8 @@ export const Artist = ({ address, artistState, loginState }) => {
             <span>{address}</span>
             <h2 className="likes">Like</h2>
             <span>좋아요 : {artistState.likes} </span>
+            <h2 className="subscription">Subscription</h2>
+            <span>{loginState.subscription}월이용권 </span>
           </div>
           {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
           <div>
@@ -135,8 +142,3 @@ export const Artist = ({ address, artistState, loginState }) => {
     </>
   );
 };
-
-{
-  /* <span>{loginState.subscription}월이용권 </span>
-<h2 className="subscription">Subscription</h2> */
-}
