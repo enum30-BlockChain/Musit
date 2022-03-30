@@ -144,7 +144,11 @@ export const Main = () => {
               path="artist"
               element={
                 artistState ? (
-                  <Artist address={address} artistState={artistState} />
+                  <Artist
+                    address={address}
+                    artistState={artistState}
+                    loginState={loginState}
+                  />
                 ) : (
                   <RegisterArtist address={address} />
                 )
