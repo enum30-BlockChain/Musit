@@ -78,10 +78,11 @@ export const Navbar = () => {
               <span className="link-name">ARTIST</span>
             </Link>
           </li>
+
           <li>
-            <Link to="/register">
+            <Link to="/cteate">
               <i className="uil uil-palette"></i>
-              <span className="link-name">REGISTER</span>
+              <span className="link-name">Create</span>
             </Link>
           </li>
         </ul>
