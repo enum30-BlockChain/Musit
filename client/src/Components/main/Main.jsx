@@ -26,7 +26,7 @@ export const Main = () => {
   const [songList, setSongList] = useState("");
   const [likeList, setLikeList] = useState("");
   const [userList, setUserList] = useState("");
-  
+
   const [artistState, setArtistState] = useState({ address: "" });
 
   async function init() {
@@ -70,9 +70,6 @@ export const Main = () => {
     });
   }, [address]);
 
-  console.log(loginState);
-  console.log(address);
-
   const getSongList = async () => {
     await axios
       .get("http://localhost:5000/files")
@@ -82,7 +79,7 @@ export const Main = () => {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
-  const getUser = async ()=>{
+  const getUser = async () => {
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
@@ -91,11 +88,11 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
-  const getLikeList = async ()=>{
+  const getLikeList = async () => {
     await axios
-      .post("http://localhost:5000/music/likes/like",{address})
+      .post("http://localhost:5000/music/likes/like", { address })
       .then((res) => {
-        setLikeList(res.data)
+        setLikeList(res.data);
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
@@ -136,12 +133,18 @@ export const Main = () => {
             <Route path="auction" element={<Auction />} />
             <Route
               path="artist"
-              element={artistState ? <Artist /> : <Artists address={address} />}
+              element={
+                artistState ? (
+                  <Artist />
+                ) : (
+                  <Artists address={address} artistState={artistState} />
+                )
+              }
             />
           </Route>
         </Routes>
       </div>
-      <Playbar songList={likeList} address={address} userList={userList}/>
+      <Playbar songList={likeList} address={address} userList={userList} />
     </section>
   );
 };
