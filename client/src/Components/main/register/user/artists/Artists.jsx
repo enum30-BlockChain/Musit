@@ -4,7 +4,7 @@ import "./ArtistType.css";
 import ArtisType from "./ArtisType";
 import axios from "axios";
 
-const Artist = ({ address }) => {
+const Artists = ({ address }) => {
   const [inputs, setInputs] = useState("");
   const [nation, setnNation] = useState([""]);
   const [option, setOption] = useState("");
@@ -40,4 +40,4 @@ const Artist = ({ address }) => {
   );
 };
 
-export default Artist;
+export default Artists;

@@ -13,15 +13,15 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/detail/:address", async (req, res, next) => {
-  console.log(1111111111111111);
-  console.log(req.params.address);
-  console.log(1111111111111111);
+router.get("/:address", async (req, res, next) => {
   try {
     const userone = await User.findOne({
       where: { address: req.params.address },
     });
     console.log(userone);
+    if (userone == null) {
+      res.send("회원가입 내용이 확인되지 않습니다.");
+    }
     res.send(userone);
   } catch (err) {
     next(err);
@@ -31,7 +31,7 @@ router.get("/detail/:address", async (req, res, next) => {
 
 /* Nickname client mainLayout response data send. */
 router.post("/signin", async (req, res, next) => {
-  console.log(req.body.address);
+  console.log(req.body);
   try {
     const findname = await User.findOne({
       where: {
@@ -64,6 +64,7 @@ router.post("/signup", async (req, res, next) => {
         address: req.body.address,
         genre: req.body.genre,
         nation: req.body.nation,
+        img: req.body.img,
       });
       res.send("Created successfully");
     }

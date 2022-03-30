@@ -80,6 +80,16 @@ export const Mypage = ({ address }) => {
               <span className="link-name"> Subscription</span>
             </Link>
           </li>
+          <li>
+            <Link to="/mypage/listener">
+              <span className="link-name"> listener</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/mypage/artists">
+              <span className="link-name"> artists</span>
+            </Link>
+          </li>
         </ul>
       </nav>
       <div className="detail">
