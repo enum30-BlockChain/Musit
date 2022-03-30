@@ -35,7 +35,6 @@ export const Main = () => {
     await Metamask.walletListener(setAddress);
   }
   //나의 지금 로그인상태 확인
-
   useEffect(() => {
     const artistsCheck = async () => {
       const url = "http://localhost:5000/artists/signin";
@@ -69,7 +68,7 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-  }, [address]);
+  }, []);
 
 
   const getSongList = async () => {
@@ -130,7 +129,7 @@ export const Main = () => {
               />
             </Route>
 
-            <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList}/>} />
+            <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList} address={address}/>} />
             <Route path="store" element={<Store />} />
             <Route path="auction" element={<Auction />} />
             <Route

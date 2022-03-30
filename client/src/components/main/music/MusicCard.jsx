@@ -4,12 +4,16 @@ import axios from "axios";
 
 // props
 function MusicCard(props) {
-  console.log(props)
   const audioPlayer = useRef();
   const [modal, setModal] = useState(false);
   const [checkedInputs, setCheckedInputs] = useState();
-  const [likeCount, setlikeCount] = useState(props.like);
-  const [palyeCount, setpalyeCount] = useState(props.count);
+  const [likeCount, setlikeCount] = useState("");
+  const [palyeCount, setpalyeCount] = useState("");
+  
+  useEffect(() => {
+    setlikeCount(props.like)
+    setpalyeCount(props.count)
+  }, [props])
   
   const onPopup = () => {
     setModal(true);

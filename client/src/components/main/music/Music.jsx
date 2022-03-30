@@ -4,11 +4,18 @@ import MusicCard from "./MusicCard.jsx";
 // recent played/ my favorit / ranking  list
 
 export const Music = (props) => {
-  const [songList, setSongList] = useState(props.songList);
-  const [likeList, setLikeList] = useState(props.likeList);
-  const [userList, setUserList] = useState(props.UserList);
-  console.log(songList)
+  const [songList, setSongList] = useState("");
+  const [likeList, setLikeList] = useState("");
+  const [userList, setUserList] = useState("");
+  const [address, setAddress] = useState("");
 
+  useEffect(() => {
+    setSongList(props.songList)
+    setLikeList(props.likeList)
+    setUserList(props.UserList)
+    setAddress(props.address)
+  }, [props])
+  
   return (
     <>
       <table style={{ margin: "auto" }}>
@@ -29,9 +36,8 @@ export const Music = (props) => {
         {songList &&
           songList.map((song, i) => {
             const findLike = song.MusicLikes.find(
-              (like) => like.user_address === props.address
+              (like) => like.user_address === address
             );
-            console.log(song)
             return (
               <MusicCard
                 id={i}
@@ -43,7 +49,7 @@ export const Music = (props) => {
                 count={song.play_count}
                 audio={song.ipfs_hash}
                 genre={song.Genre}
-                address={props.address}
+                address={address}
                 artistAddress={song.Artist.user_address}
                 checkBox={findLike}
                 userList={userList}
