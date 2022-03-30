@@ -32,26 +32,8 @@ export const Main = () => {
   async function init() {
     const reponse = await Metamask.getAccounts(setAddress);
     await Metamask.walletListener(setAddress);
-<<<<<<< HEAD
-  }
-  //나의 지금 로그인상태 확인
-  useEffect(() => {
-    const artistsCheck = async () => {
-      const url = "http://localhost:5000/artists/signin";
-      const response = await axios.post(url, { address });
-      return setArtistState(response.data);
-    };
-    const loginCheck = async () => {
-      const url = "http://localhost:5000/users/signin";
-      const response = await axios.post(url, { address });
-      return setLoginState(response.data);
-    };
-    init();
-    loginCheck();
-=======
     //나의 지금 로그인상태 확인
     loginCheck(reponse.data[0]);
->>>>>>> main
     getSongList();
     getUser();
     getLikeList();
@@ -91,12 +73,7 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-<<<<<<< HEAD
-  }, []);
-
-=======
   }
->>>>>>> main
 
   const getSongList = async () => {
     await axios
