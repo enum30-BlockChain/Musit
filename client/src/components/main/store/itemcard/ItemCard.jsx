@@ -6,15 +6,19 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./ItemCard.css";
+import ItemModal from "./ItemModal";
+import { CardContent, Typography } from "@mui/material";
 
 export default function ItemCard(props) {
-	console.log(props);
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
 	return (
 		<>
-			<Card className="itemCard">
+			<Card className="itemCard" onClick={handleOpen}>
 				<CardHeader
-					title={props.title}
+					title={`${props.title} #${props.tokenId}`}
 					subheader={props.genre}
           height="100"
           avatar={
@@ -38,7 +42,7 @@ export default function ItemCard(props) {
 					</Typography>
 				</CardContent> */}
 			</Card>
+      <ItemModal open={open} handleClose={handleClose} itemInfo={props} />
 		</>
-		//TODO: 클릭시 모달창 띄워서 상세 페이지 보여주기
 	);
 }

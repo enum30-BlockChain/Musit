@@ -134,7 +134,7 @@ export const Main = () => {
             </Route>
 
             <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList}/>} />
-            <Route path="store" element={<Store />} />
+            <Route path="store" element={<Store address={address}/>} />
             <Route path="auction" element={<Auction />} />
             <Route
               path="artist"

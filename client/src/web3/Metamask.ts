@@ -42,11 +42,11 @@ class Response<T> {
 export default class Metamask {
 	// 연결된 지갑 디앱 실행하기
 	static connectWallet = async (setAddress?: Function): Promise<ResponseType<string[]>> => {
-		const provider = window.ethereum;
+		const metamask = window.ethereum;
 		let accounts: string[];
-		if (provider) {
+		if (metamask) {
 			try {
-				accounts = await provider.request({
+				accounts = await metamask.request({
 					method: "eth_requestAccounts",
 				});
 				if(setAddress) setAddress(accounts[0])
@@ -70,11 +70,11 @@ export default class Metamask {
 
 	// 연결된 지갑 주소 배열 불러오기
 	static getAccounts = async (setAddress?: Function): Promise<ResponseType<string[]>> => {
-		const provider = window.ethereum;
+		const metamask = window.ethereum;
 		let accounts: string[];
-		if (provider) {
+		if (metamask) {
 			try {
-				accounts = await provider.request({
+				accounts = await metamask.request({
 					method: "eth_accounts",
 				});
 				if(setAddress) setAddress(accounts[0])
@@ -102,11 +102,11 @@ export default class Metamask {
 
   // 연결된 네트워크 아이디 불러오기
   static getNetwork = async (): Promise<ResponseType<string>> => {
-    const provider = window.ethereum;
+    const metamask = window.ethereum;
     let network: string;
-    if (provider) {
+    if (metamask) {
       try {
-        const chainId = await provider.request({
+        const chainId = await metamask.request({
           method: "eth_chainId"
         });
         network = chainIdToNetworkName(chainId);
@@ -130,9 +130,9 @@ export default class Metamask {
   };
 
 	static walletListener = async (setAddress?: Function): Promise<ResponseType<string>> => {
-		const provider = window.ethereum;
-		if (provider) {
-			provider.on("accountsChanged", (accounts: string[]) => {
+		const metamask = window.ethereum;
+		if (metamask) {
+			metamask.on("accountsChanged", (accounts: string[]) => {
 				if(setAddress) setAddress(accounts[0])
 				if(accounts.length > 0) {
 					const message: string 
@@ -147,7 +147,7 @@ export default class Metamask {
 				}
 			});
 
-      provider.on("chainChanged", (chainId: string) => {
+      metamask.on("chainChanged", (chainId: string) => {
         if (chainId) {
           const network = chainIdToNetworkName(chainId);
           const message: string = `🌏Network is changed.\n(New network: ${network})`;
