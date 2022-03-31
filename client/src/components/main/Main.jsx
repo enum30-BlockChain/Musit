@@ -19,6 +19,7 @@ import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
 
 import axios from "axios";
+import Search from "./serach/Search";
 import { Create } from "./create/Create";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
 
@@ -37,7 +38,7 @@ export const Main = () => {
     loginCheck(reponse.data[0]);
     getSongList();
     getUser();
-    getLikeList();
+    getLikeList(reponse.data[0]);
     artistsCheck(reponse.data[0]);
     sidebarToggle();
   }
@@ -76,6 +77,7 @@ export const Main = () => {
   };
 
   const getSongList = async () => {
+    //노래 전체목록
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
@@ -85,6 +87,7 @@ export const Main = () => {
   };
 
   const getUser = async () => {
+    //유저 전체목록
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
@@ -93,7 +96,8 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
-  const getLikeList = async () => {
+  const getLikeList = async (address) => {
+    //내가 좋아요누른 노래
     await axios
       .post("http://localhost:5000/music/likes/like", { address })
       .then((res) => {
@@ -144,6 +148,7 @@ export const Main = () => {
               }
             />
             <Route path="store" element={<Store />} />
+            {/* <Route path="auction" element={<Auction />} /> */}
             <Route path="auctionupload" element={<Auctionupload />} />
             <Route
               path="artist"
@@ -166,11 +171,14 @@ export const Main = () => {
                 }
               />
             </Route>
+
+            <Route path="search" element={<Search address={address} />} />
+            <Route path="cteate" element={<Create address={address} />} />
           </Route>
           <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
-      <Playbar songList={likeList} address={address} userList={userList} />
+      <Playbar likeList={likeList} address={address} userList={userList} />
     </section>
   );
 };

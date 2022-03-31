@@ -3,10 +3,14 @@ import "./Searchbar.css";
 import Button from "@mui/material/Button";
 import Metamask from "../../../web3/Metamask";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Provider, useSelector, useDispatch } from "react-redux";
 
 export const Searchbar = ({ address }) => {
   const [guest, setGuest] = useState("");
+  const [searching, setseraching] = useState("");
+  const navigate = useNavigate(); //페이지이동하면서 정보담아서 옮길수있따
+  const dispatch = useDispatch(); //redux 초기값 넣어주자
 
   useEffect(() => {
     user();
@@ -27,7 +31,15 @@ export const Searchbar = ({ address }) => {
     Metamask.connectWallet();
   };
 
-  const changehandler = (e) => {};
+  const changehandler = (e) => {
+    if (e.key == "Enter") {
+      navigate("/search", { state: searching });
+    }
+  };
+  const getsSearchWord = (e) => {
+    dispatch({ type: "SEARCHING", payload: e.target.value });
+    setseraching(e.target.value);
+  };
 
   return (
     <div className="searchbar">
@@ -37,7 +49,8 @@ export const Searchbar = ({ address }) => {
         <input
           type="text"
           placeholder="Search here..."
-          onChange={changehandler}
+          onKeyPress={changehandler}
+          onChange={getsSearchWord}
         />
       </div>
 
