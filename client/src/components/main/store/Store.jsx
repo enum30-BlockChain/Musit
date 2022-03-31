@@ -1,8 +1,8 @@
 import "./Store.css"
 import React, { useEffect, useState } from 'react'
-import ItemCard from "./itemcard/ItemCard"
 import Ethers from "../../../web3/Ethers";
-import StoreNavbar from "./storenavbar/StoreNavbar";
+import { Outlet } from "react-router";
+import { Link } from "react-router-dom";
 
 
 function createTestArray (num) {
@@ -36,30 +36,23 @@ export const Store = ({address}) => {
 
 	async function loadMyNFTs() {
 		if (address) {
-			const musitNFT = Ethers.loadContracts().musitNFT;
-			const filter = musitNFT.filters.Minted(null, null, address)
-			const myMintedList =await Promise.all((await musitNFT.queryFilter(filter)).map(async (event) => {
-				const item = event.args
-				const tokenURI = await musitNFT.tokenURI(item.tokenId)
-				const metadata = await (await fetch(tokenURI)).json();
-				const tokenId = item.tokenId.toNumber()
-				
-				return {
-					tokenId,
-					...metadata
-				}
-			}))
-
-			console.log(myMintedList);
-			setNftItems(myMintedList)
-			
 		}
+		const musitNFT = Ethers.loadContracts().musitNFT;
+		const filter = musitNFT.filters.Minted(null, null, address)
+		const myMintedList =await Promise.all((await musitNFT.queryFilter(filter)).map(async (event) => {
+			const item = event.args
+			const tokenURI = await musitNFT.tokenURI(item.tokenId)
+			const metadata = await (await fetch(tokenURI)).json();
+			const tokenId = item.tokenId.toNumber()
+			
+			return {
+				tokenId,
+				...metadata
+			}
+		}))
+		setNftItems(myMintedList)
 	}
-	
-	function card (e) {
-		e.preventDefault()
-		console.log(e.target)
-	}
+
 
 	async function loadItems () {
 		const marketplace = Ethers.loadContracts().marketplace;
@@ -72,23 +65,20 @@ export const Store = ({address}) => {
 
   return (
 		<div className="store">
-			<StoreNavbar/>
+			<nav className="store-nav">
+				<ul className="nav-links">
+					<li>
+						<Link to="/store/mynfts">
+							<i class="uil uil-headphones"></i>
+							<span className="link-name"> MyNFTs</span>
+						</Link>
+					</li>
+				</ul>
+			</nav>
+
 			<div className="title">Musit NFT Store</div>
 			<button onClick={mintingOnClick}>Minting</button>
-			<div className="itemcard-container">
-				{nftItems.map((data, index) => (
-					<div className={card-`${index}`} onClick={card} >
-						<ItemCard
-							key={index}
-							tokenId={data.tokenId}
-							title={data.title}
-							genre={data.genre}
-							image={data.image}
-							description={data.description}
-						/>
-					</div>
-				))}
-			</div>
+				<Outlet context={[address, nftItems]}/>
 		</div>
 	);
 }

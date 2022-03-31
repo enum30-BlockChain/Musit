@@ -20,6 +20,7 @@ import Artists from "./register/user/artists/Artists";
 
 import axios from "axios";
 import { Create } from "./create/Create";
+import Mynfts from "./store/mynfts/Mynfts";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -134,7 +135,9 @@ export const Main = () => {
             </Route>
 
             <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList}/>} />
-            <Route path="store" element={<Store address={address}/>} />
+            <Route path="store" element={<Store address={address}/>} >
+              <Route path="mynfts" element={<Mynfts />}/>
+            </Route>
             <Route path="auction" element={<Auction />} />
             <Route
               path="artist"
