@@ -44,7 +44,7 @@ router.post("/add", async (req, res, next) => {
       {
         play_count: data.palyeCount + 1,
       },
-      { where: { ipfs_hash: data.audio } }
+      { where: { ipfs_hash: data.ipfs_hash, } }
     );
   } catch (err) {
     next(err);
