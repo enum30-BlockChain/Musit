@@ -1,0 +1,15 @@
+.auction-layout {
+  text-align: center;
+}
+.auction-layout .auction-box .auction-imgbox img {
+  position: fixed;
+  border-radius: 50%;
+  margin-top: 40px;
+  margin-left: 50px;
+  object-fit: cover;
+  height: 400px;
+  width: 400px;
+  left: 0;
+  position: absolute;
+  animation: rotate 8s linear infinite;
+}

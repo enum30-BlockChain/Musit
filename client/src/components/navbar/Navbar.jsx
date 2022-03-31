@@ -67,7 +67,7 @@ export const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/auction">
+            <Link to="/auctionupload">
               <i className="uil uil-arrow-growth"></i>
               <span className="link-name">AUCTION</span>
             </Link>

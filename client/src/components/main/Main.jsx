@@ -1,14 +1,14 @@
+import "./Main.css";
+import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard/Dashboard";
-import "./Main.css";
 import { Mypage } from "./mypage/Mypage";
 import { Music } from "./music/Music";
 import { Store } from "./store/Store";
-import { Auction } from "./auction/Auction";
+import { Auctionupload } from "./auction/Auctionupload";
 import { Artist } from "./artist/Artist";
-import Metamask from "../../web3/Metamask";
 import { Playbar } from "./playbar/Playbar";
 import { Favorite } from "./mypage/favorite/Favorite";
 import { Subscription } from "./mypage/subscription/Subscription";
@@ -72,7 +72,7 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-  }
+  };
 
   const getSongList = async () => {
     await axios
@@ -83,7 +83,7 @@ export const Main = () => {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
-  const getUser = async ()=>{
+  const getUser = async () => {
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
@@ -92,11 +92,11 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
-  const getLikeList = async ()=>{
+  const getLikeList = async () => {
     await axios
-      .post("http://localhost:5000/music/likes/like",{address})
+      .post("http://localhost:5000/music/likes/like", { address })
       .then((res) => {
-        setLikeList(res.data)
+        setLikeList(res.data);
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
@@ -132,9 +132,19 @@ export const Main = () => {
               />
             </Route>
 
-            <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList} address={address}/>} />
+            <Route
+              path="music"
+              element={
+                <Music
+                  songList={songList}
+                  likeList={likeList}
+                  userList={userList}
+                  address={address}
+                />
+              }
+            />
             <Route path="store" element={<Store />} />
-            <Route path="auction" element={<Auction />} />
+            <Route path="auctionupload" element={<Auctionupload />} />
             <Route
               path="artist"
               element={artistState ? <Artist /> : <Artists address={address} />}
@@ -143,7 +153,7 @@ export const Main = () => {
           </Route>
         </Routes>
       </div>
-      <Playbar songList={likeList} address={address} userList={userList}/>
+      <Playbar songList={likeList} address={address} userList={userList} />
     </section>
   );
 };
