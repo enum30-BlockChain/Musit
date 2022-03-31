@@ -8,14 +8,18 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
-export default function StickyHeadTable({ userdata, findMusic }) {
+export default function StickyHeadTable({ findMusic, findartist }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [favorit, setFavorit] = React.useState([""]);
+  const [artists, setArtists] = React.useState([""]);
 
   React.useEffect(() => {
     if (findMusic) {
       setFavorit(findMusic);
+    }
+    if (findartist) {
+      setArtists(findartist);
     }
   }, [findMusic]);
 
@@ -100,9 +104,9 @@ export default function StickyHeadTable({ userdata, findMusic }) {
     ),
   ];
 
-  console.log(favorit);
   ///////////////////////////////////////////////////////////////
 
+  console.log(artists);
   return (
     <Paper
       className="table-container"

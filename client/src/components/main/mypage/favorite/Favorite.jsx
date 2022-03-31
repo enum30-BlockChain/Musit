@@ -7,6 +7,7 @@ import axios from "axios";
 export const Favorite = ({ address }) => {
   const [userdata, setUserdata] = useState("");
   const [findMusic, setFindMusic] = useState("");
+  const [findartist, setFindartist] = useState("");
 
   async function userdetail() {
     const url = "http://localhost:5000/users/signin";
@@ -20,9 +21,16 @@ export const Favorite = ({ address }) => {
     setFindMusic(response.data);
   }
 
+  async function favoriteartist() {
+    const url = "http://localhost:5000/artists/likes/list";
+    const response = await axios.post(url, { address });
+    setFindartist(response.data);
+  }
+
   useEffect(() => {
     userdetail();
     musicfavorite();
+    favoriteartist();
   }, []);
 
   return (
@@ -34,6 +42,7 @@ export const Favorite = ({ address }) => {
             sx={{ width: "50%" }}
             userdata={userdata}
             findMusic={findMusic}
+            findartist={findartist}
           />
         </div>
         <div className="artistfavorite">
