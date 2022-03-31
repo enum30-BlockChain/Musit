@@ -8,21 +8,18 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/like", async (req, res, next) => {
-  console.log(req.body.address);
   try {
     console.log("signin을 server에 요청하였습니다.");
     const artist = await ArtistLike.findAll({
       include: { model: Artist, where: { user_address: req.body.address } },
     });
     // console.log(artist);
-    console.log(artist.length);
     res.send(artist);
     const likes = await Artist.findAll({
       where: {
         user_address: req.body.address,
       },
     });
-    console.log(likes);
     const likesup = await Artist.update(
       {
         likes: artist.length,
@@ -33,14 +30,12 @@ router.post("/like", async (req, res, next) => {
         },
       }
     );
-    console.log(likesup);
   } catch (err) {
     console.error(err);
   }
 });
 
 router.post("/signin", async (req, res, next) => {
-  console.log(req.body.address);
   try {
     console.log("signin을 server에 요청하였습니다.");
     const artist = await Artist.findOne({
@@ -57,8 +52,6 @@ router.post("/signin", async (req, res, next) => {
 //아티스트 회원 가입
 router.post("/signup", async (req, res, next) => {
   try {
-    console.log("signup을 server에 요청하였습니다.");
-    console.log(req.body);
     const artist = await Artist.findOne({
       where: {
         user_address: req.body.address,

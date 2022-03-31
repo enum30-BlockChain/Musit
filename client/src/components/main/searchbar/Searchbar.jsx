@@ -27,13 +27,15 @@ export const Searchbar = ({ address }) => {
     Metamask.connectWallet();
   };
 
+  const changehandler= (e)=>{
+  }
+
   return (
     <div className="searchbar">
-      <i className="uil uil-bars sidebar-toggle"></i>
-
+      <i className="uil uil-bars sidebar-toggle"  ></i>
       <div className="search-box">
         <i className="uil uil-search"></i>
-        <input type="text" placeholder="Search here..." />
+        <input type="text" placeholder="Search here..." onChange={changehandler}/>
       </div>
 
       <div className="user-info">
