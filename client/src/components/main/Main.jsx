@@ -1,14 +1,14 @@
+import "./Main.css";
+import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard/Dashboard";
-import "./Main.css";
 import { Mypage } from "./mypage/Mypage";
 import { Music } from "./music/Music";
 import { Store } from "./store/Store";
-import { Auction } from "./auction/Auction";
+import { Auctionupload } from "./auction/Auctionupload";
 import { Artist } from "./artist/Artist";
-import Metamask from "../../web3/Metamask";
 import { Playbar } from "./playbar/Playbar";
 import { Favorite } from "./mypage/favorite/Favorite";
 import { Subscription } from "./mypage/subscription/Subscription";
@@ -17,9 +17,10 @@ import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
 import Listener from "./register/user/listener/Listener";
 import Artists from "./register/user/artists/Artists";
-import { Create } from "./create/Create";
+
 import axios from "axios";
 import Search from "./serach/Search";
+import { Create } from "./create/Create";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -44,13 +45,11 @@ export const Main = () => {
   useEffect(() => {
     init();
   }, []);
-
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";
     const response = await axios.post(url, { address });
     return setArtistState(response.data);
   };
-
   const loginCheck = async (address) => {
     const url = "http://localhost:5000/users/signin";
     const response = await axios.post(url, { address });
@@ -74,8 +73,8 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-  }
- 
+  };
+
   const getSongList = async () => {   //노래 전체목록
     await axios
       .get("http://localhost:5000/files")
@@ -146,7 +145,8 @@ export const Main = () => {
               }
             />
             <Route path="store" element={<Store />} />
-            <Route path="auction" element={<Auction />} />
+            {/* <Route path="auction" element={<Auction />} /> */}
+            <Route path="auctionupload" element={<Auctionupload />} />
             <Route
               path="artist"
               element={artistState ? <Artist /> : <Artists address={address} />}

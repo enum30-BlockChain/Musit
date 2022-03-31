@@ -9,16 +9,18 @@ export const Subscription = () => {
       <div className="sub-box">
         <div className="sub-card">
           <h3 className="sub-index">1 Month Supscription</h3>
-          <Button>0.1 ethereum</Button>
+          0.1 ethereum
+          <Button>BUY</Button>
         </div>
         <div className="sub-card">
-          <h3 className="sub-index">3 Month Supscription</h3>
-
-          <Button>0.3 ethereum</Button>
+          <h3 className="sub-index">3 Months Supscription</h3>
+          0.3 ethereum
+          <Button>BUY</Button>
         </div>
         <div className="sub-card">
-          <h3 className="sub-index">6 Month Supscription</h3>
-          <Button>0.5 ethereum</Button>
+          <h3 className="sub-index">6 Months Supscription</h3>
+          0.6 ethereum
+          <Button>BUY</Button>
         </div>
       </div>
     </>
