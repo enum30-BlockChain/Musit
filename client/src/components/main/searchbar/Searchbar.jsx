@@ -21,21 +21,24 @@ export const Searchbar = ({ address }) => {
   }
 
   const sliceAddress =
-    address.substr(0, 5) + "..." + address.substr(address.length - 4, 4);
+    address.substr(0, 5) + "∙∙∙" + address.substr(address.length - 4, 4);
 
   const connectOnclick = () => {
     Metamask.connectWallet();
   };
 
-  const changehandler= (e)=>{
-  }
+  const changehandler = (e) => {};
 
   return (
     <div className="searchbar">
-      <i className="uil uil-bars sidebar-toggle"  ></i>
+      <i className="uil uil-bars sidebar-toggle"></i>
       <div className="search-box">
         <i className="uil uil-search"></i>
-        <input type="text" placeholder="Search here..." onChange={changehandler}/>
+        <input
+          type="text"
+          placeholder="Search here..."
+          onChange={changehandler}
+        />
       </div>
 
       <div className="user-info">

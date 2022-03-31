@@ -27,7 +27,7 @@ export const Auctionupload = () => {
         </div>
         <div className="auction-box">
           <h2>Price (Ethereum only)</h2>
-          <Input type="text" placeholder="Amount" sx={{ width: 255 }}></Input>
+          <Input type="text" placeholder="Amount" sx={{ width: 400 }}></Input>
           <h2>Duration</h2>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
@@ -36,7 +36,9 @@ export const Auctionupload = () => {
               onChange={(newValue) => {
                 setAuctionStsrtDate(newValue);
               }}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => (
+                <TextField sx={{ width: 400 }} {...params} />
+              )}
             />
           </LocalizationProvider>
 
