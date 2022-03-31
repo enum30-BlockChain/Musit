@@ -23,6 +23,7 @@ export const Playbar = (props) => {
   const progressContainer = document.getElementById("progress-container");
   const title = document.getElementById("title");
   const cover = document.getElementById("cover");
+
   const mySonglist = useSelector((state)=>{return state.mySonglist}); 
   const dispatch = useDispatch();                               //redux 초기값 넣어주자
   
@@ -46,7 +47,7 @@ export const Playbar = (props) => {
         const songs = props.likeList;
         const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
         setCount(index);                                              //목록맞춰주기 다음으로 넘길때 오류 발생 안함
-        dispatch({type:'SONG_LIST_UPDATE', payload:  props.likeList})    //리덕스로 목록쏴주고 
+        dispatch({type:'SONG_LIST_UPDATE', payload:  props.likeList});   //리덕스로 목록쏴주고 
 
         if (index === -1) {
           setpalyeCount(song.play_count);
@@ -211,7 +212,7 @@ const palyCountAdd = async () => {
     .then((res) => {
       console.log(res);
     })
-    .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+    .catch((err) => console.log("노래목록을 불러오지못했습니다.", err));
 };
 
 const [savePoint,setSavePoint] =useState(0);
@@ -223,9 +224,8 @@ const postTime = async(saveTime)=>{
     await axios
     .post("http://localhost:5000/users/recent", content)
     .then((res) => {
-      console.log(res.data);
     })
-    .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+    .catch((err) => console.log("노래목록을 불러오지못했습니다.", err));
   }
   setSavePoint(savePoint+1);
 }

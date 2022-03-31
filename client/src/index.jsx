@@ -12,6 +12,7 @@ function reducer(currentState, action) {
   if(currentState === undefined){
     return{
       mySonglist:[],
+      searchWord:"22222222",
     };
   }
 
@@ -22,7 +23,9 @@ function reducer(currentState, action) {
     newState.mySonglist.push(action.payload);
   }else if(action.type === 'SONG_LIST_POP'){
     newState.mySonglist = action.payload;
-   
+  }
+  if(action.type === 'SEARCHING'){
+    newState.searchWord = action.payload;
   }
   return newState;
 }

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const likesRouter = require("./likes");
-const { Artist, ArtistLike } = require("../../models/index");
+const { Artist, ArtistLike ,User,Music} = require("../../models/index");
 
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
@@ -76,7 +76,10 @@ router.post("/signup", async (req, res, next) => {
 //아티스트 회원가입내용 조회
 router.get("/list", async (req, res, next) => {
   try {
-    const findname = await Artist.findAll();
+    const findname = await Artist.findAll({
+      include:[{model:User},
+      {model:Music}]
+    });
     res.send(findname);
   } catch (err) {
     console.error(err);

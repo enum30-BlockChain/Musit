@@ -19,6 +19,7 @@ import Listener from "./register/user/listener/Listener";
 import Artists from "./register/user/artists/Artists";
 import { Create } from "./create/Create";
 import axios from "axios";
+import Search from "./serach/Search";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -104,65 +105,65 @@ export const Main = () => {
   
   return (
     <section className="main">
-        <Searchbar address={address} />
-        <div className="main-content">
-          <Routes>
-            <Route path="/">
-              <Route index element={<Dashboard />} />
+      <Searchbar address={address} />
+      <div className="main-content">
+        <Routes>
+          <Route path="/">
+            <Route index element={<Dashboard />} />
 
+            <Route
+              path="mypage"
+              element={
+                loginState ? (
+                  <Mypage address={address} />
+                ) : (
+                  <Listener address={address} />
+                )
+              }
+            >
+              <Route path="favorite" element={<Favorite address={address} />} />
+              <Route path="playlist" element={<Playlist address={address} />} />
               <Route
-                path="mypage"
-                element={
-                  loginState ? (
-                    <Mypage address={address} />
-                  ) : (
-                    <Listener address={address} />
-                  )
-                }
-              >
-                <Route
-                  path="favorite"
-                  element={<Favorite address={address} />}
-                />
-                <Route
-                  path="playlist"
-                  element={<Playlist address={address} />}
-                />
-                <Route
-                  path="collection"
-                  element={<Collection address={address} />}
-                />
-                <Route path="history" element={<History address={address} />} />
-                <Route
-                  path="subscription"
-                  element={<Subscription address={address} />}
-                />
-              </Route>
-
-              <Route
-                path="music"
-                element={
-                  <Music
-                    songList={songList}
-                    likeList={likeList}
-                    userList={userList}
-                    address={address}
-                  />
-                }
+                path="collection"
+                element={<Collection address={address} />}
               />
-              <Route path="store" element={<Store />} />
-              <Route path="auction" element={<Auction />} />
+              <Route path="history" element={<History address={address} />} />
               <Route
-                path="artist"
-                element={
-                  artistState ? <Artist /> : <Artists address={address} />
-                }
+                path="subscription"
+                element={<Subscription address={address} />}
               />
-              <Route path="cteate" element={<Create address={address} />} />
             </Route>
-          </Routes>
-        </div>
-        <Playbar likeList={likeList} address={address} userList={userList} />
+
+            <Route
+              path="music"
+              element={
+                <Music
+                  songList={songList}
+                  likeList={likeList}
+                  userList={userList}
+                  address={address}
+                />
+              }
+            />
+            <Route path="store" element={<Store />} />
+            <Route path="auction" element={<Auction />} />
+            <Route
+              path="artist"
+              element={artistState ? <Artist /> : <Artists address={address} />}
+            />
+            <Route
+              path="search"
+              element={
+                <Search
+                  address={address}
+                />
+              }
+            />
+            <Route path="cteate" element={<Create address={address} />} />
+          </Route>
+        </Routes>
+      </div>
+      <Playbar likeList={likeList} address={address} userList={userList} />
     </section>
   );
 };
