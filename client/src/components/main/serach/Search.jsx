@@ -45,6 +45,7 @@ function Search(props) {
   }, []);
 
   useEffect(() => {
+    if(songList&&artistList){
       const searchMusicNameData = songList.filter((song)=>{
         return song.title.indexOf(searching)>-1;
        }) 
@@ -53,11 +54,29 @@ function Search(props) {
        }) 
        setFindMusic(searchMusicNameData);
        setFindArtist(searchAtistData);
-   
+    }
   },[searching]);
+
+  const searchWord = (e)=>{
+    const searchMusicNameData = songList.filter((song)=>{
+     return song.title.indexOf(e.target.value)>-1;
+    }) 
+    const searchAtistData = artistList.filter((a)=>{
+     return a.artist_name.indexOf(e.target.value)>-1;
+    }) 
+    setFindMusic(searchMusicNameData);
+    setFindArtist(searchAtistData);
+  }
   
   return (
     <>
+      <TextField
+        variant="outlined"
+        placeholder="Music Title"
+        value={searchWord}
+        onChange={searchWord}
+        sx={{ width: "100%" }}
+      />
       <Typography variant="h4" gutterBottom>
         Music
       </Typography>

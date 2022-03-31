@@ -12,7 +12,7 @@ function reducer(currentState, action) {
   if(currentState === undefined){
     return{
       mySonglist:[],
-      searchWord:"22222222",
+      searchWord:"",
     };
   }
 
