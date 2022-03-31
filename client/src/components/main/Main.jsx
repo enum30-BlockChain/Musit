@@ -20,34 +20,6 @@ import Artists from "./register/user/artists/Artists";
 import { Create } from "./create/Create";
 import axios from "axios";
 
-import {createStore} from 'redux'
-import {Provider, useSelector, useDispatch} from 'react-redux';
-
-const getSongList = async () => {
-  await axios
-    .get("http://localhost:5000/files")
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
-};
-console.log(getSongList())
-function reducer(currentState, action) {
-
-  if(currentState === undefined){
-    
-    return{
-      songList:getSongList(),
-      number:1,
-    }
-  }
-
-  const newState = {...currentState}
-  return newState;
-}
-const store = createStore(reducer);
-
-
 export const Main = () => {
   const [address, setAddress] = useState("");
   const [loginState, setLoginState] = useState({ address: "" });
@@ -71,11 +43,13 @@ export const Main = () => {
   useEffect(() => {
     init();
   }, []);
+
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";
     const response = await axios.post(url, { address });
     return setArtistState(response.data);
   };
+
   const loginCheck = async (address) => {
     const url = "http://localhost:5000/users/signin";
     const response = await axios.post(url, { address });
@@ -123,7 +97,6 @@ export const Main = () => {
     await axios
       .post("http://localhost:5000/music/likes/like",{address})
       .then((res) => {
-        console.log(res.data)
         setLikeList(res.data)
       })
       .catch((err) => alert("errrrrrrr.", err));
@@ -131,7 +104,6 @@ export const Main = () => {
 
   return (
     <section className="main">
-      <Provider store={store}>
         <Searchbar address={address} />
         <div className="main-content">
           <Routes>
@@ -191,7 +163,6 @@ export const Main = () => {
           </Routes>
         </div>
         <Playbar songList={likeList} address={address} userList={userList} />
-      </Provider>
     </section>
   );
 };

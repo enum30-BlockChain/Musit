@@ -5,19 +5,8 @@ import Metamask from "../../../web3/Metamask";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import {Provider, useSelector, useDispatch} from 'react-redux';
-
-
 export const Searchbar = ({ address }) => {
   const [guest, setGuest] = useState("");
-
-  const number = useSelector((state)=>{return state.number})    //redux 사용할때
-  const songList = useSelector((state)=>{return state.songList})    //redux 사용할때
-  console.log(number)
-  console.log(songList)
-
-
-
 
   useEffect(() => {
     user();
@@ -36,13 +25,11 @@ export const Searchbar = ({ address }) => {
   };
 
   const changehandler= (e)=>{
-    window.location.href = "/musicsearch";
   }
 
   return (
     <div className="searchbar">
-      <i className="uil uil-bars sidebar-toggle"></i>
-
+      <i className="uil uil-bars sidebar-toggle"  ></i>
       <div className="search-box">
         <i className="uil uil-search"></i>
         <input type="text" placeholder="Search here..." onChange={changehandler}/>

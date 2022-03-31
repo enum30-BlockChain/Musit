@@ -96,7 +96,7 @@ router.post("/buy", async (req, res, next) => {
 router.post("/recent", async (req, res, next) => {
   try {
     const data = req.body;
-    const lump = [data.hash, data.title, data.time].join("-");
+    const lump = [data.hash, data.time, data.title,].join("-");
     await User.update(
       {
         recent_played: lump,

@@ -2,6 +2,8 @@ import React, { component,useEffect,useState } from "react";
 import "./Playbar.scss";
 import axios from "axios";
 import {Box,Stack,Slider  } from '@mui/material';
+import {Provider, useSelector, useDispatch} from 'react-redux';
+
 {/* <props likeList address userList/> */}
 export const Playbar = (props) => {
   const [state, setstate] = useState("pause");
@@ -13,30 +15,38 @@ export const Playbar = (props) => {
   const [currentTime, setcurrentTime] = useState(0);
   const [value, setValue] = useState(100);
 
+
+  const [qweqwe, setqweqwe] = useState("");
+
   const musicContainer = document.querySelector(".music-container");
   const playBtn = document.querySelector("#play");
   const audio = document.querySelector("#audio");
   const progressContainer = document.getElementById("progress-container");
   const title = document.getElementById("title");
   const cover = document.getElementById("cover");
-  
+
+  const mySonglist = useSelector((state)=>{return state.mySonglist})    //redux 사용하기전에 불러옴 props같은느낌
+  const dispatch = useDispatch();                               //redux 초기값 넣어주자
+
   useEffect(() => {
     let song = props.songList[count]
-    if (song && props.userList) {
+    if (song && props.userList) {     //페이지로딩해서 find로 내 좋아요 목록불러오고
       const getcurrentTime = props.userList.find(
         (adr) => adr.address === props.address
       );
-      if (getcurrentTime.recent_played == null) {
+      if (getcurrentTime.recent_played == null) { //recent_played 없으면 바로 배열 0번째 ㄱ하고
         setpalyeCount(song.play_count);
         sethash(song.ipfs_hash);
         setTilte(song.title);
-        console.log(song.ipfs_hash);
         title.innerText = song.title;
         audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
         cover.src = song.img_file;
-      } else {
+      } else {                             //recent_played 있으면 
         const arry = getcurrentTime.recent_played.split("-"); //receent찾아와서
         const songs = props.songList;
+        dispatch({type:'SONG_LIST_UPDATE', payload: songs})    //리덕스로 목록쏴주고 
+        setqweqwe(mySonglist)
+
         const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
         if (index === -1) {
           setpalyeCount(song.play_count);
@@ -52,7 +62,7 @@ export const Playbar = (props) => {
           title.innerText = songs[index].title;
           audio.src = `https://ipfs.infura.io/ipfs/${songs[index].ipfs_hash}`;
           cover.src = songs[index].img_file;
-          setcurrentTime(arry[2]);
+          setcurrentTime(arry[1]);
         }
       }
     }
@@ -290,6 +300,7 @@ const postTime = async(saveTime)=>{
             </Stack>
           </Box>
         </div>
+       
       </div>
     </>
   );
