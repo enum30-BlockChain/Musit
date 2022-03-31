@@ -14,7 +14,7 @@ export const Auctionupload = () => {
   return (
     <>
       <div className="auction-layout">
-        <h1> Put your work up for MuEnun auction </h1>
+        <h1> Put your work up for Musit X Enun30 auction </h1>
         <div className="auction-box">
           <h1>Album Cover</h1>
           <div className="auction-imgbox">

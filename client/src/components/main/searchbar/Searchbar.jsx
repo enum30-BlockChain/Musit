@@ -20,9 +20,8 @@ export const Searchbar = ({ address }) => {
     return response.data;
   }
 
-  // const addressslice = address;
-  // const result = str.slice(7, 13);
-  // console.log(result);
+  const sliceAddress =
+    address.substr(0, 5) + "..." + address.substr(address.length - 4, 4);
 
   const connectOnclick = () => {
     Metamask.connectWallet();
@@ -46,8 +45,8 @@ export const Searchbar = ({ address }) => {
           </p>
           <p>{guest.nickname}</p>
         </div>
-        {address ? (
-          address
+        {sliceAddress ? (
+          sliceAddress
         ) : (
           <Button
             variant="contained"
