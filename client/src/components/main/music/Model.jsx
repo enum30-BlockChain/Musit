@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function Modal({ props, onClose }) {
-  console.log(props)
-  const [albumCoverImgFile, setAlbumCoverImgFile] = useState(props.img_file);
+  const [albumCoverImgFile, setAlbumCoverImgFile] = useState(props.img);
   const [img, setImg] = useState("");
   const [musicTitle, setMusicTitle] = useState(props.title);
   const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
-  const [checkedInputs, setCheckedInputs] = useState(props.Genre.split(","));
+  const [checkedInputs, setCheckedInputs] = useState(props.genre.split(","));
   const [contents, setContents] = useState({
-    cover_img_link: props.img_file,
-    music_link: props.ipfs_hash,
+    cover_img_link: props.img,
+    music_link: props.audio,
     title: props.title,
-    artist_name: props.artist_name,
-    count: props.play_count,
+    duration: props.duration,
+    artist_name: props.artistName,
+    count: props.count,
     genre: "",
   });
 
@@ -21,10 +21,10 @@ function Modal({ props, onClose }) {
 
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
-    if (props.img_file === albumCoverImgFile) {
+    if (props.img === albumCoverImgFile) {
       console.log("바뀐게없네");
       return albumCoverImgFile;
-    } else if (props.img_file !== albumCoverImgFile) {
+    } else if (props.img !== albumCoverImgFile) {
       formData.append("img", img);
       await axios
         .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.

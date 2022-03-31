@@ -18,14 +18,15 @@ function reducer(currentState, action) {
   const newState = {...currentState};
   if(action.type === 'SONG_LIST_UPDATE'){
     newState.mySonglist= action.payload;
-  }else if(action.type === 'SONG_LIST_ADD'){
-    newState.mySonglist.push(action.payload);
-  }else if(action.type === 'SONG_LIST_POP'){
-    newState.mySonglist = action.payload;
-   
+    console.log(action.payload)
+  }
+  if(action.type === 'SONG_LIST_ADD'){
+    newState.mySonglist.push(action.payload)
+    console.log(newState)
   }
   return newState;
 }
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

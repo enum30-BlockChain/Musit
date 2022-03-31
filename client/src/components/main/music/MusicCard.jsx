@@ -11,11 +11,10 @@ function MusicCard(props) {
   const [likeCount, setlikeCount] = useState("");
   const [palyeCount, setpalyeCount] = useState("");
   const dispatch = useDispatch();  
-  const mySonglist = useSelector((state)=>{return state.mySonglist}); 
 
   useEffect(() => {
-    setlikeCount(props.MusicLikes)
-    setpalyeCount(props.play_count)
+    setlikeCount(props.like)
+    setpalyeCount(props.count)
   }, [props])
   
   const onPopup = () => {
@@ -28,7 +27,7 @@ function MusicCard(props) {
 
   const palyCountAdd = async () => {
     setpalyeCount(palyeCount + 1);
-    const content = { palyeCount: palyeCount, ipfs_hash: props.ipfs_hash };
+    const content = { palyeCount: palyeCount, audio: props.audio };
     await axios
       .post("http://localhost:5000/music/add", content)
       .then((res) => {
@@ -48,14 +47,26 @@ function MusicCard(props) {
       setCheckedInputs(true);
       setlikeCount(likeCount + 1);
     } else {
-     const newMySonglist = mySonglist.filter((song)=>{
-        return song.ipfs_hash.indexOf(props.ipfs_hash)<0;
-       }) 
-      dispatch({type:'SONG_LIST_POP', payload: newMySonglist})
       setCheckedInputs(false);
       setlikeCount(likeCount - 1);
     }
   };
+
+  // let savePoint = 0;
+  // const postTime = async(saveTime)=>{
+  //   let sendInt = savePoint % 20;   //20으로 나누면 5초정도됨
+  //   const content = { time: saveTime, address: props.address, hash:props.audio, title:props.title };
+  //   if (!sendInt) {
+  //     savePoint++;
+  //     await axios
+  //     .post("http://localhost:5000/users/recent", content)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+  //   }
+  //   savePoint++;
+  // }
 
    useEffect(() => {
      setCheckedInputs(props.checkBox);
@@ -67,22 +78,25 @@ function MusicCard(props) {
           <tr>
             <td>{props.id}</td>
             <td>{props.title}</td>
-            <td>{props.artist_name}</td>
+            <td>{props.artistName}</td>
             <td>
-              <img src={props.img_file} style={{ width: "100px" }} />
+              <img src={props.img} style={{ width: "100px" }} />
             </td>
             <td>
               <audio
                 ref={audioPlayer}
-                src={`https://ipfs.infura.io/ipfs/${props.ipfs_hash}`}
+                src={`https://ipfs.infura.io/ipfs/${props.audio}`}
                 onLoadedData={() => {   //불러올때
                  const getcurrentTime = props.userList.find((adr)=>adr.address===props.address)
                  const arry = getcurrentTime.recent_played.split("-")
-                 if (arry[0]===props.ipfs_hash){
+                 if (arry[0]===props.audio){
                    audioPlayer.current.currentTime = arry[2];
                  }
                 }}
-               
+                // onTimeUpdate={(e) => {
+                //   const saveTime = Math.floor(e.currentTarget.currentTime);
+                //   postTime(saveTime);
+                // }}
                 onEnded={() => {
                   palyCountAdd();
                 }}
@@ -100,7 +114,7 @@ function MusicCard(props) {
               />
               {likeCount}
             </td>
-            <td>{props.Genre}</td>
+            <td>{props.genre}</td>
             <td>
               {props.address === props.artistAddress 
               ? <button onClick={onPopup}> 수정 </button>
