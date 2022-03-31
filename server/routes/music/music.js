@@ -6,11 +6,10 @@ const { MusicLike, Music } = require("../../models/index");
 /* GET home page. */
 router.post("/like", async (req, res, next) => {
   try {
-    console.log(req.body);
     const data = req.body;
     const overlap = await Music.findOne({
       //지금노래에서
-      where: { ipfs_hash: data.audio }, //주소목록 불러서
+      where: { ipfs_hash: data.ipfs_hash }, //주소목록 불러서
       include: { model: MusicLike },
     });
     const findMyAddress = overlap.MusicLikes.find(
@@ -20,7 +19,7 @@ router.post("/like", async (req, res, next) => {
     if (!findMyAddress) {
       //찾은게 없으면 생성
       await MusicLike.create({
-        ipfs_hash: data.audio,
+        ipfs_hash: data.ipfs_hash,
         user_address: data.address,
       });
       return res.send("생성완료");
@@ -45,7 +44,7 @@ router.post("/add", async (req, res, next) => {
       {
         play_count: data.palyeCount + 1,
       },
-      { where: { ipfs_hash: data.audio } }
+      { where: { ipfs_hash: data.ipfs_hash, } }
     );
   } catch (err) {
     next(err);

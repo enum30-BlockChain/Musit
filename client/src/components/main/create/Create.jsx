@@ -3,13 +3,30 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 const { create } = require("ipfs-http-client");
 
-export const Create = ({address}) => {
-  const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
+export const Create = ({ address }) => {
+  const [genre, setgenre] = useState([
+    "Pop",
+    "K-pop",
+    "Classical Music",
+    "Jazz",
+    "Trot",
+    "Hip-pop",
+    "CCM",
+    "Ballad",
+    "Contry Music",
+    "Folk Music",
+    "Reggae",
+    "Disco",
+    "Rock",
+    "Electronic",
+    "Dance",
+  ]);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [audiofile, setaudiofile] = useState("");
   const [duration, setDuration] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
+  // const [musicDescription, setMusicDescription] = useState("");
   // const [currentTime, setCurrentTime] = useState(""); //TODO : 나중에 스트리밍할때쓸려고나둠
   const [artistList, setartistList] = useState("");
   const [DBdata, setDBdata] = useState({
@@ -42,6 +59,10 @@ export const Create = ({address}) => {
   const getTitle = (e) => {
     setMusicTitle(e.target.value);
   };
+
+  // const getDescription = (e) => {
+  //   setMusicDescription;
+  // };
 
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
@@ -144,7 +165,8 @@ export const Create = ({address}) => {
 
   return (
     <>
-      <p>albumCoverImg</p>
+      <h1>Create your music file</h1>
+      <h2>Album Cover Image</h2>
       <input name="imgUpload" type="file" accept="image/*" onChange={getImg} />
       {albumCoverImgFile && (
         <img
@@ -152,7 +174,7 @@ export const Create = ({address}) => {
           style={{ width: "200px" }}
         ></img>
       )}
-      <p>music</p>
+      <h2>Music</h2>
       <input type="file" accept="audio/*" onChange={getAudio} />
       {audiofile && (
         <audio
@@ -171,14 +193,16 @@ export const Create = ({address}) => {
           오디오 지원되지 않는 브라우저
         </audio>
       )}
-      <p>title</p>
+      <h2>Music Title</h2>
       <input onChange={getTitle} value={musicTitle} />
-      <p>genre</p>
+      <h2>Music Discription</h2>
+      {/* <input onchange={getDescription} value={musicDescription} /> */}
+      <h2>Genre</h2>
       <form>
         {genre.map((MusicType, index) => {
           return (
             <>
-              <label>
+              <label id={index}>
                 {MusicType}
                 <input
                   type={"checkbox"}

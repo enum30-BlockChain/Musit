@@ -1,14 +1,14 @@
+import "./Main.css";
+import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard/Dashboard";
-import "./Main.css";
 import { Mypage } from "./mypage/Mypage";
 import { Music } from "./music/Music";
 import { Store } from "./store/Store";
-import { Auction } from "./auction/Auction";
+import { Auctionupload } from "./auction/Auctionupload";
 import { Artist } from "./artist/Artist";
-import Metamask from "../../web3/Metamask";
 import { Playbar } from "./playbar/Playbar";
 import { Favorite } from "./mypage/favorite/Favorite";
 import { Subscription } from "./mypage/subscription/Subscription";
@@ -19,6 +19,7 @@ import Listener from "./register/user/listener/Listener";
 import Artists from "./register/user/artists/Artists";
 
 import axios from "axios";
+import Search from "./serach/Search";
 import { Create } from "./create/Create";
 import Mynfts from "./store/mynfts/Mynfts";
 
@@ -37,7 +38,7 @@ export const Main = () => {
     loginCheck(reponse.data[0]);
     getSongList();
     getUser();
-    getLikeList();
+    getLikeList(reponse.data[0]);
     artistsCheck(reponse.data[0]);
     sidebarToggle();
   }
@@ -45,7 +46,6 @@ export const Main = () => {
   useEffect(() => {
     init();
   }, []);
-
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";
     const response = await axios.post(url, { address });
@@ -74,9 +74,9 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-  }
+  };
 
-  const getSongList = async () => {
+  const getSongList = async () => {   //노래 전체목록
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
@@ -85,7 +85,7 @@ export const Main = () => {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
-  const getUser = async ()=>{
+  const getUser = async ()=>{       //유저 전체목록
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
@@ -94,7 +94,7 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
-  const getLikeList = async ()=>{
+  const getLikeList = async (address)=>{  //내가 좋아요누른 노래
     await axios
       .post("http://localhost:5000/music/likes/like",{address})
       .then((res) => {
@@ -102,7 +102,7 @@ export const Main = () => {
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
-
+  
   return (
     <section className="main">
       <Searchbar address={address} />
@@ -134,20 +134,39 @@ export const Main = () => {
               />
             </Route>
 
-            <Route path="music" element={<Music songList={songList} likeList={likeList} userList={userList}/>} />
+            <Route
+              path="music"
+              element={
+                <Music
+                  songList={songList}
+                  likeList={likeList}
+                  userList={userList}
+                  address={address}
+                />
+              }
+            />
             <Route path="store" element={<Store address={address}/>} >
               <Route path="mynfts" element={<Mynfts />}/>
             </Route>
-            <Route path="auction" element={<Auction />} />
+            {/* <Route path="auction" element={<Auction />} /> */}
+            <Route path="auctionupload" element={<Auctionupload />} />
             <Route
               path="artist"
               element={artistState ? <Artist /> : <Artists address={address} />}
+            />
+            <Route
+              path="search"
+              element={
+                <Search
+                  address={address}
+                />
+              }
             />
             <Route path="cteate" element={<Create address={address} />} />
           </Route>
         </Routes>
       </div>
-      <Playbar songList={likeList} address={address} userList={userList}/>
+      <Playbar likeList={likeList} address={address} userList={userList} />
     </section>
   );
 };
