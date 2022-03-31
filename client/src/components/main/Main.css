@@ -10,7 +10,7 @@
   transition: var(--tran-05);
 }
 
-nav.close~.main {
+nav.close ~ .main {
   left: 73px;
   width: calc(100% - 73px);
 }
