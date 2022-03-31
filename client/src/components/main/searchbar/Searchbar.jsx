@@ -20,6 +20,10 @@ export const Searchbar = ({ address }) => {
     return response.data;
   }
 
+  // const addressslice = address;
+  // const result = str.slice(7, 13);
+  // console.log(result);
+
   const connectOnclick = () => {
     Metamask.connectWallet();
   };

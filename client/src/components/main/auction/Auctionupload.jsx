@@ -1,8 +1,15 @@
 import "./Auctionupload.css";
-import React from "react";
+import React, { useState } from "react";
+// import LocalizationProvider from "@mui/lab/LocalizationProvider";
+// import AdapterDateFns from "@mui/lab/AdapterDateFns";
+// import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+// import { TextField } from "@mui/material";
 
 export const Auctionupload = () => {
   //앨범커버 이미지 가져오기
+
+  //달력 일정
+  const [auctionStartDate, setAuctionStsrtDate] = useState();
 
   return (
     <>
@@ -17,7 +24,23 @@ export const Auctionupload = () => {
               id="auction-albumcover"
             />
           </div>
-          <div className="auction-inputbox"></div>
+          <div className="auction-inputbox">
+            <h2>Price</h2>
+            <input type="text" placeholder="Amount"></input>
+            <h2>Duration</h2>
+            {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DesktopDatePicker
+                label={"Acution Duration"}
+                value={auctionStartDate}
+                onChange={(newValue) => {
+                  setAuctionStsrtDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider> */}
+
+            <></>
+          </div>
         </div>
       </div>
     </>
