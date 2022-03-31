@@ -5,7 +5,10 @@ import MusicPlayerSlider from "./MusicPlayerSlider";
 import SongCard from "./SongCard";
 import ArtistCard from "./ArtistCard";
 import ArtistModal from "./ArtistModal";
+import { useNavigate,useLocation  } from "react-router-dom";
 import {Provider, useSelector, useDispatch} from 'react-redux';
+
+
 function Search(props) {
   const [musicmodal,setmusicmodal] = useState("");
   const [artistModal,setArtistModal] = useState("");
@@ -14,15 +17,19 @@ function Search(props) {
   const [artistList, setArtistList] = useState("");
   const [findMusic,setFindMusic] = useState("");
   const [findArtist,setFindArtist] = useState("");
-  const searching = useSelector((state)=>{return state.searchWord}); 
 
+  const searching = useSelector((state)=>{return state.searchWord}); 
+  const location = useLocation();
+  const content = location.state !== null || undefined ? location.state : null;
 
   const getSongList = async () => {
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
         setSongList(res.data);
-        setFindMusic(res.data);
+        setFindMusic( //초기에 넘겨받은 값으로 검색
+          res.data.filter((song) => song.title.indexOf(searching) > -1)
+        );
       })
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
@@ -30,53 +37,41 @@ function Search(props) {
       await axios
         .get("http://localhost:5000/artists/list")
         .then((res) => {
-          setFindArtist(res.data); 
           setArtistList(res.data);
+          setFindArtist(
+            res.data.filter((a) => a.artist_name.indexOf(searching) > -1)
+          );
         })
         .catch((err) => alert("errrrrrrr.", err));
     }
 
   useEffect(() => {
     const init = async () => {
-      await getUser();
-      await getSongList();
+      await getUser(content);
+      await getSongList(content);
     };
     init();
   }, []);
 
   useEffect(() => {
-    if(songList&&artistList){
-      const searchMusicNameData = songList.filter((song)=>{
-        return song.title.indexOf(searching)>-1;
-       }) 
-       const searchAtistData = artistList.filter((a)=>{
-        return a.artist_name.indexOf(searching)>-1;
-       }) 
-       setFindMusic(searchMusicNameData);
-       setFindArtist(searchAtistData);
-    }
+    changeSearchPage()
   },[searching]);
 
-  const searchWord = (e)=>{
-    const searchMusicNameData = songList.filter((song)=>{
-     return song.title.indexOf(e.target.value)>-1;
-    }) 
-    const searchAtistData = artistList.filter((a)=>{
-     return a.artist_name.indexOf(e.target.value)>-1;
-    }) 
-    setFindMusic(searchMusicNameData);
-    setFindArtist(searchAtistData);
+
+  const changeSearchPage= ()=>{
+    if (songList && artistList) {
+      const searchMusicNameData = songList.filter((song) => {
+        return song.title.indexOf(searching) > -1;
+      });
+      const searchAtistData = artistList.filter((a) => {
+        return a.artist_name.indexOf(searching) > -1;
+      });
+      setFindMusic(searchMusicNameData);
+      setFindArtist(searchAtistData);
+    }
   }
-  
   return (
     <>
-      <TextField
-        variant="outlined"
-        placeholder="Music Title"
-        value={searchWord}
-        onChange={searchWord}
-        sx={{ width: "100%" }}
-      />
       <Typography variant="h4" gutterBottom>
         Music
       </Typography>

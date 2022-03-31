@@ -8,7 +8,8 @@ import {Provider, useSelector, useDispatch} from 'react-redux';
 
 export const Searchbar = ({ address }) => {
   const [guest, setGuest] = useState("");
-  const navigate = useNavigate(); //페이지이동하면서 정보담아서 옮길수있따
+  const [searching, setseraching] = useState("");
+  const navigate = useNavigate();           //페이지이동하면서 정보담아서 옮길수있따
   const dispatch = useDispatch();                               //redux 초기값 넣어주자
   
   useEffect(() => {
@@ -31,11 +32,14 @@ export const Searchbar = ({ address }) => {
     if(e.key == 'Enter') {
       navigate(
         '/search',
+        {state :searching}
       )
     }
   }
   const getsSearchWord = (e)=>{
-    dispatch({type:'SEARCHING', payload:e.target.value})
+    dispatch({type:'SEARCHING', payload:e.target.value});
+    setseraching(e.target.value)
+
   }
 
   return (
