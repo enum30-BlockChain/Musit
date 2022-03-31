@@ -1,10 +1,20 @@
-.auction-layout {
+.auction-title {
   text-align: center;
 }
-.auction-layout .auction-box .auction-imgbox img {
-  position: fixed;
-  border-radius: 50%;
+.auction-layout {
+  display: flex;
+}
+
+.auction-layout > .auction-imgbox {
   margin-top: 40px;
+  width: 500px;
+  height: 500px;
+}
+
+.auction-layout .auction-imgbox img {
+  /* position: fixed; */
+  border-radius: 50%;
+  margin-top: 30px;
   margin-left: 50px;
   object-fit: cover;
   height: 400px;
@@ -12,4 +22,9 @@
   left: 0;
   position: absolute;
   animation: rotate 8s linear infinite;
+}
+
+.auction-layout .auction-box {
+  margin-top: 40px;
+  text-align: left;
 }
