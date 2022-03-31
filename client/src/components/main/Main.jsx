@@ -74,8 +74,8 @@ export const Main = () => {
       }
     });
   }
-
-  const getSongList = async () => {
+ 
+  const getSongList = async () => {   //노래 전체목록
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
@@ -84,7 +84,7 @@ export const Main = () => {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
-  const getUser = async ()=>{
+  const getUser = async ()=>{       //유저 전체목록
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
@@ -93,7 +93,7 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
-  const getLikeList = async (address)=>{
+  const getLikeList = async (address)=>{  //내가 좋아요누른 노래
     await axios
       .post("http://localhost:5000/music/likes/like",{address})
       .then((res) => {
@@ -101,7 +101,7 @@ export const Main = () => {
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
-
+  
   return (
     <section className="main">
         <Searchbar address={address} />
@@ -162,7 +162,7 @@ export const Main = () => {
             </Route>
           </Routes>
         </div>
-        <Playbar songList={likeList} address={address} userList={userList} />
+        <Playbar likeList={likeList} address={address} userList={userList} />
     </section>
   );
 };

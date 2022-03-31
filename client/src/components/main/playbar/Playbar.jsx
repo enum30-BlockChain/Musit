@@ -3,6 +3,7 @@ import "./Playbar.scss";
 import axios from "axios";
 import {Box,Stack,Slider  } from '@mui/material';
 import {Provider, useSelector, useDispatch} from 'react-redux';
+import PlayList from "./PlayList";
 
 {/* <props likeList address userList/> */}
 export const Playbar = (props) => {
@@ -14,9 +15,7 @@ export const Playbar = (props) => {
   const [tilte, setTilte] = useState("");
   const [currentTime, setcurrentTime] = useState(0);
   const [value, setValue] = useState(100);
-
-
-  const [qweqwe, setqweqwe] = useState("");
+  const [likeList,setLikelist] = useState('');
 
   const musicContainer = document.querySelector(".music-container");
   const playBtn = document.querySelector("#play");
@@ -24,17 +23,18 @@ export const Playbar = (props) => {
   const progressContainer = document.getElementById("progress-container");
   const title = document.getElementById("title");
   const cover = document.getElementById("cover");
-
-  const mySonglist = useSelector((state)=>{return state.mySonglist})    //redux 사용하기전에 불러옴 props같은느낌
+  const mySonglist = useSelector((state)=>{return state.mySonglist}); 
   const dispatch = useDispatch();                               //redux 초기값 넣어주자
-
-  useEffect(() => {
-    let song = props.songList[count]
+  
+  useEffect(() => {     //첫로딩시 리센트 가져와서 세팅
+    let song = props.likeList[count]
     if (song && props.userList) {     //페이지로딩해서 find로 내 좋아요 목록불러오고
       const getcurrentTime = props.userList.find(
         (adr) => adr.address === props.address
-      );
-      if (getcurrentTime.recent_played == null) { //recent_played 없으면 바로 배열 0번째 ㄱ하고
+      ).recent_played;
+      setLikelist(props.likeList)
+
+      if (getcurrentTime == null) { //recent_played 없으면 바로 배열 0번째 ㄱ하고
         setpalyeCount(song.play_count);
         sethash(song.ipfs_hash);
         setTilte(song.title);
@@ -42,12 +42,12 @@ export const Playbar = (props) => {
         audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
         cover.src = song.img_file;
       } else {                             //recent_played 있으면 
-        const arry = getcurrentTime.recent_played.split("-"); //receent찾아와서
-        const songs = props.songList;
-        dispatch({type:'SONG_LIST_UPDATE', payload: songs})    //리덕스로 목록쏴주고 
-        setqweqwe(mySonglist)
-
+        const arry = getcurrentTime.split("-"); //receent찾아와서
+        const songs = props.likeList;
         const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
+        setCount(index);                                              //목록맞춰주기 다음으로 넘길때 오류 발생 안함
+        dispatch({type:'SONG_LIST_UPDATE', payload:  props.likeList})    //리덕스로 목록쏴주고 
+
         if (index === -1) {
           setpalyeCount(song.play_count);
           sethash(song.ipfs_hash);
@@ -77,28 +77,38 @@ export const Playbar = (props) => {
     audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
     cover.src = song.img_file;
   }
+  function playloadSong(song,index) {  //노래불러올때
+    setpalyeCount(song.play_count)
+    sethash(song.ipfs_hash)
+    setTilte(song.title)
+    setcurrentTime(0)
+    title.innerText = song.title;
+    audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
+    cover.src = song.img_file;
+    playSong();
+    setCount(index);
+  }
 
   function prevSong() {
     let num = count
     num --;
     if (num < 0) {
-      num = props.songList.length - 1;
+      num = likeList.length - 1;
     }
     setCount(num)
-    loadSong(props.songList[num]);
+    loadSong(likeList[num]);
     playSong();
   }
   function nextSong() {
     let num = count
     num ++;
-    if (num > props.songList.length - 1) {
+    if (num > likeList.length - 1) {
       num = 0;
     }
     setCount(num)
-    loadSong(props.songList[num]);
+    loadSong(likeList[num]);
     playSong();
   }
-
 
   function playSong() {
     setstate("palying");
@@ -224,12 +234,9 @@ const postTime = async(saveTime)=>{
     audio.volume = newValue*0.01;
     setValue(newValue);
   };
+
   return (
     <>
-      {/* <Helmet>
-        <title>My Title</title>
-        <meta name="description" content="Helmet application" />
-      </Helmet> */}
       <h1>Music Player</h1>
 
       <div className="music-container">
@@ -297,6 +304,7 @@ const postTime = async(saveTime)=>{
                 value={value}
                 onChange={handleChange}
               />
+              <PlayList setLikelist={setLikelist} playloadSong={playloadSong}/>
             </Stack>
           </Box>
         </div>
