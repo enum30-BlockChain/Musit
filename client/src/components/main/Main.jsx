@@ -72,9 +72,15 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
+<<<<<<< HEAD
   };
 
   const getSongList = async () => {
+=======
+  }
+ 
+  const getSongList = async () => {   //노래 전체목록
+>>>>>>> 4d76550bf90697a1ca38db442d252f29c37fb765
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
@@ -83,7 +89,11 @@ export const Main = () => {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
+<<<<<<< HEAD
   const getUser = async () => {
+=======
+  const getUser = async ()=>{       //유저 전체목록
+>>>>>>> 4d76550bf90697a1ca38db442d252f29c37fb765
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
@@ -92,7 +102,11 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
+<<<<<<< HEAD
   const getLikeList = async () => {
+=======
+  const getLikeList = async (address)=>{  //내가 좋아요누른 노래
+>>>>>>> 4d76550bf90697a1ca38db442d252f29c37fb765
     await axios
       .post("http://localhost:5000/music/likes/like", { address })
       .then((res) => {
@@ -100,7 +114,7 @@ export const Main = () => {
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
-
+  
   return (
     <section className="main">
       <Searchbar address={address} />

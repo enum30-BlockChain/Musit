@@ -118,8 +118,6 @@ export const Create = ({ address }) => {
       DBdata.music_duration = duration;
       DBdata.music_title = musicTitle;
       DBdata.music_genre = checkedInputs;
-      //TODO : 아티스트 이름은 useEffect로 처음에 불러와서 보낼꺼니깐있는거어서 상관 x
-      //TODO : 지금은 안불러와서 있는 아티스트 이름넣어줘야 db저장가능
       await axios
         .post("http://localhost:5000/files/create", DBdata)
         .then((res) => {
