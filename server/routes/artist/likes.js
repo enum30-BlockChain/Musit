@@ -25,8 +25,6 @@ router.post("/list", async (req, res, next) => {
 router.post("/like", async (req, res, next) => {
   try {
     console.log("like을 server에 요청하였습니다.");
-    console.log(req.body);
-    console.log(req.body.likeSelect);
 
     const artist = await ArtistLike.findOne({
       where: {
