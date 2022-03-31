@@ -38,6 +38,7 @@ function MusicCard(props) {
   };
 
   const changeHandler = async (checked) => {
+    console.log(props)
     await axios
       .post("http://localhost:5000/music/like", props)
       .then((res) => {})
