@@ -1,14 +1,14 @@
+import "./Main.css";
+import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard/Dashboard";
-import "./Main.css";
 import { Mypage } from "./mypage/Mypage";
 import { Music } from "./music/Music";
 import { Store } from "./store/Store";
-import { Auction } from "./auction/Auction";
+import { Auctionupload } from "./auction/Auctionupload";
 import { Artist } from "./artist/Artist";
-import Metamask from "../../web3/Metamask";
 import { Playbar } from "./playbar/Playbar";
 import { Favorite } from "./mypage/favorite/Favorite";
 import { Subscription } from "./mypage/subscription/Subscription";
@@ -144,7 +144,7 @@ export const Main = () => {
               }
             />
             <Route path="store" element={<Store />} />
-            <Route path="auction" element={<Auction />} />
+            <Route path="auctionupload" element={<Auctionupload />} />
             <Route
               path="artist"
               element={

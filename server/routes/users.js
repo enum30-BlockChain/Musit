@@ -18,7 +18,6 @@ router.get("/:address", async (req, res, next) => {
     const userone = await User.findOne({
       where: { address: req.params.address },
     });
-    console.log(userone);
     if (userone == null) {
       res.send("회원가입 내용이 확인되지 않습니다.");
     }
@@ -31,7 +30,6 @@ router.get("/:address", async (req, res, next) => {
 
 /* Nickname client mainLayout response data send. */
 router.post("/signin", async (req, res, next) => {
-  console.log(req.body);
   try {
     const findname = await User.findOne({
       where: {
@@ -46,8 +44,7 @@ router.post("/signin", async (req, res, next) => {
 
 router.post("/signup", async (req, res, next) => {
   try {
-    console.log("signup을 server에 요청하였습니다.");
-    console.log(req.body);
+    
     const user = await User.findOne({
       where: {
         address: req.body.address,
@@ -74,9 +71,7 @@ router.post("/signup", async (req, res, next) => {
 
 router.post("/buy", async (req, res, next) => {
   try {
-    console.log("Buy server에 요청하였습니다.");
-    console.log(User);
-    console.log(req.body);
+   
     const user = await User.findOne({
       where: {
         address: req.body.address,
@@ -101,7 +96,7 @@ router.post("/buy", async (req, res, next) => {
 router.post("/recent", async (req, res, next) => {
   try {
     const data = req.body;
-    const lump = [data.hash, data.title, data.time].join("-");
+    const lump = [data.hash, data.time, data.title,].join("-");
     await User.update(
       {
         recent_played: lump,

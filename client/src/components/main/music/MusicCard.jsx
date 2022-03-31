@@ -1,6 +1,7 @@
 import React, { useState, useEffect,useRef  } from "react";
 import Modal from "./Model.jsx";
 import axios from "axios";
+import {Provider, useSelector, useDispatch} from 'react-redux';
 
 // props
 function MusicCard(props) {
@@ -9,7 +10,8 @@ function MusicCard(props) {
   const [checkedInputs, setCheckedInputs] = useState("");
   const [likeCount, setlikeCount] = useState("");
   const [palyeCount, setpalyeCount] = useState("");
-  
+  const dispatch = useDispatch();  
+
   useEffect(() => {
     setlikeCount(props.like)
     setpalyeCount(props.count)
@@ -41,6 +43,7 @@ function MusicCard(props) {
       .catch((err) => alert("회원가입부터하세용.", err));
 
     if (checked) {
+      dispatch({type:'SONG_LIST_ADD', payload: props})
       setCheckedInputs(true);
       setlikeCount(likeCount + 1);
     } else {

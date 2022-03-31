@@ -9,7 +9,6 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/list", async (req, res, next) => {
-  console.log(req.body);
   try {
     const artistlike = await ArtistLike.findAll({
       where: {
@@ -24,8 +23,6 @@ router.post("/list", async (req, res, next) => {
 
 router.post("/like", async (req, res, next) => {
   try {
-    console.log("like을 server에 요청하였습니다.");
-
     const artist = await ArtistLike.findOne({
       where: {
         artist_artist_name: req.body.likeSelect,

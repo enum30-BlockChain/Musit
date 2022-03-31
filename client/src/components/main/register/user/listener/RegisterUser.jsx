@@ -105,7 +105,7 @@ const RegisterUser = ({ address }) => {
             </li>
           </div>
           <div>
-            <p>Nations</p>
+            <h2>Nations</h2>
             {nation.map((nation, index) => (
               <CountryType
                 id={index + 1}
@@ -116,7 +116,7 @@ const RegisterUser = ({ address }) => {
             ))}
           </div>
           <div className="genre">
-            <p>Genre</p>
+            <h2>Genre</h2>
             {genre.map((MusicType, index) => (
               <ListenerType
                 id={index + 1}
