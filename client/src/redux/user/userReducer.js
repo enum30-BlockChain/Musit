@@ -4,8 +4,8 @@ const initialState = {
   nickname: null,
   nation: null,
   genre: null,
-  recentPlayed: null,
-  image: null,
+  recent_played: null,
+  img: null,
   subscription: null,
   error: false,
   errorMsg: "",
@@ -26,8 +26,8 @@ const userReducer = (state = initialState, action) => {
         nickname: action.payload.nickname,
         nation: action.payload.nation,
         genre: action.payload.genre,
-        recentPlayed: action.payload.recentPlayed,
-        image: action.payload.image,
+        recent_played: action.payload.recent_played,
+        img: action.payload.img,
         subscription: action.payload.subscription,
       };
       case "DATA_FAILED":

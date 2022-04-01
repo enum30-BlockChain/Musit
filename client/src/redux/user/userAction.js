@@ -1,4 +1,5 @@
 // log
+import axios from "axios";
 import store from "../store";
 
 const fetchUserDataRequest = () => {
@@ -33,7 +34,7 @@ export const fetchUserData = (userInfo) => {
           nickname: userInfo.nickname,
           nation: userInfo.nation,
           genre: userInfo.genre,
-          recentPlayed: userInfo.recentPlayed,
+          recent_played: userInfo.recent_played,
           image: userInfo.image,
           subscription: userInfo.subscription,
         })
@@ -45,3 +46,26 @@ export const fetchUserData = (userInfo) => {
   };
 };
 
+export const testFunc = (address) => {
+  return async (dispatch) => {
+    dispatch(fetchUserDataRequest());
+    try {
+      const userData = store.getState().user;
+      const url = "http://localhost:5000/users/signin";
+      const userInfo = (await axios.post(url, { address })).data;
+      console.log(userInfo)
+      dispatch(fetchUserDataSuccess({
+        ...userData,
+        address: address,
+        nickname: userInfo.nickname,
+        nation: userInfo.nation,
+        genre: userInfo.genre,
+        recent_played: userInfo.recent_played,
+        img: userInfo.img,
+        subscription: userInfo.subscription,
+      }))
+    } catch (error) {
+      dispatch(fetchUserDataFailed("error!!!"))
+    }
+  }
+}
