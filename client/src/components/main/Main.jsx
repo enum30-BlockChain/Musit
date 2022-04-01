@@ -119,7 +119,7 @@ export const Main = () => {
     <section className="main">
       <Searchbar address={address} />
       <div className="main-content">
-      <button onClick={() => dispatch(testFunc(address))}>test</button>
+      <button onClick={() => dispatch(fetchUserData(address))}>test</button>
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
