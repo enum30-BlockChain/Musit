@@ -13,6 +13,7 @@
 }
 
 .auction-layout .auction-imgbox img {
+  /* grid-template-columns: 1fr 1fr; */
   /* position: fixed; */
   text-align: center;
   border-radius: 50%;

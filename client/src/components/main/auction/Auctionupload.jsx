@@ -14,7 +14,7 @@ export const Auctionupload = () => {
   return (
     <>
       <h1 className="auction-title">
-        Put your work up for Musit X Enun30 Auction
+        Put your work up for Musit X Enum30 Auction
       </h1>
       <div className="auction-layout">
         <div className="auction-imgbox">
@@ -26,7 +26,7 @@ export const Auctionupload = () => {
           />
         </div>
         <div className="auction-box">
-          <h2>Price (Ethereum only)</h2>
+          <h2>Price Start</h2>
           <Input type="text" placeholder="Amount" sx={{ width: 400 }}></Input>
           <h2>Duration</h2>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -41,9 +41,8 @@ export const Auctionupload = () => {
               )}
             />
           </LocalizationProvider>
-
-          <></>
         </div>
+        <Button>Put up d</Button>
       </div>
     </>
   );
