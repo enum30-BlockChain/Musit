@@ -19,7 +19,9 @@ import Listener from "./register/user/listener/Listener";
 import Artists from "./register/user/artists/Artists";
 
 import axios from "axios";
+import Search from "./serach/Search";
 import { Create } from "./create/Create";
+import Mynfts from "./store/mynfts/Mynfts";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -36,7 +38,7 @@ export const Main = () => {
     loginCheck(reponse.data[0]);
     getSongList();
     getUser();
-    getLikeList();
+    getLikeList(reponse.data[0]);
     artistsCheck(reponse.data[0]);
     sidebarToggle();
   }
@@ -74,7 +76,7 @@ export const Main = () => {
     });
   };
 
-  const getSongList = async () => {
+  const getSongList = async () => {   //노래 전체목록
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
@@ -83,7 +85,7 @@ export const Main = () => {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
-  const getUser = async () => {
+  const getUser = async ()=>{       //유저 전체목록
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
@@ -92,15 +94,15 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
-  const getLikeList = async () => {
+  const getLikeList = async (address)=>{  //내가 좋아요누른 노래
     await axios
-      .post("http://localhost:5000/music/likes/like", { address })
+      .post("http://localhost:5000/music/likes/like",{address})
       .then((res) => {
-        setLikeList(res.data);
+        setLikeList(res.data)
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
-
+  
   return (
     <section className="main">
       <Searchbar address={address} />
@@ -143,17 +145,28 @@ export const Main = () => {
                 />
               }
             />
-            <Route path="store" element={<Store />} />
+            <Route path="store" element={<Store address={address}/>} >
+              <Route path="mynfts" element={<Mynfts />}/>
+            </Route>
+            {/* <Route path="auction" element={<Auction />} /> */}
             <Route path="auctionupload" element={<Auctionupload />} />
             <Route
               path="artist"
               element={artistState ? <Artist /> : <Artists address={address} />}
             />
+            <Route
+              path="search"
+              element={
+                <Search
+                  address={address}
+                />
+              }
+            />
             <Route path="cteate" element={<Create address={address} />} />
           </Route>
         </Routes>
       </div>
-      <Playbar songList={likeList} address={address} userList={userList} />
+      <Playbar likeList={likeList} address={address} userList={userList} />
     </section>
   );
 };
