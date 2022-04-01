@@ -5,6 +5,7 @@ const { User } = require("../models/index");
 /* GET User listing. */
 router.get("/", async (req, res, next) => {
   try {
+    console.log("나때문에 애러나는건데")
     const userList = await User.findAll({});
     res.send(userList);
   } catch (err) {
@@ -15,6 +16,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:address", async (req, res, next) => {
   try {
+    console.log("나때문에 애러나는건데")
     const userone = await User.findOne({
       where: { address: req.params.address },
     });
