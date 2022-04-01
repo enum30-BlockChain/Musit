@@ -22,6 +22,7 @@ import axios from "axios";
 import Search from "./serach/Search";
 import { Create } from "./create/Create";
 import Mynfts from "./store/mynfts/Mynfts";
+import { fetchUserData } from "../../redux/user/userAction";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -32,15 +33,26 @@ export const Main = () => {
   const [artistState, setArtistState] = useState({ address: "" });
 
   async function init() {
-    const reponse = await Metamask.getAccounts(setAddress);
+    const response = await Metamask.getAccounts(setAddress);
+    const address = response.data[0]
     await Metamask.walletListener(setAddress);
+    fetchUserData(address)
     //나의 지금 로그인상태 확인
-    loginCheck(reponse.data[0]);
+    loginCheck(address);
     getSongList();
     getUser();
-    getLikeList(reponse.data[0]);
-    artistsCheck(reponse.data[0]);
+    getLikeList(address);
+    artistsCheck(address);
     sidebarToggle();
+    const userInfo = {
+      address: address,
+      nickname: nickname,
+      nation: nation,
+      genre: genre,
+      recentPlayed: recentPlayed,
+      image: image,
+      subscription: subscription,
+    }
   }
 
   useEffect(() => {

@@ -21,19 +21,21 @@ const fetchUserDataFailed = (payload) => {
   };
 };
 
-export const fetchUserData = (account) => {
+export const fetchUserData = (userInfo) => {
   return async (dispatch) => {
     dispatch(fetchUserDataRequest());
     try {
+      
+
       dispatch(
         fetchUserDataSuccess({
-          address: address,
-          nickname: nickname,
-          nation: nation,
-          genre: genre,
-          recentPlayed: recentPlayed,
-          image: image,
-          subscription: subscription,
+          address: userInfo.address,
+          nickname: userInfo.nickname,
+          nation: userInfo.nation,
+          genre: userInfo.genre,
+          recentPlayed: userInfo.recentPlayed,
+          image: userInfo.image,
+          subscription: userInfo.subscription,
         })
       );
     } catch (err) {
