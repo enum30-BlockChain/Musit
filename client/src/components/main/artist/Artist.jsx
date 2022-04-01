@@ -74,7 +74,6 @@ export const Artist = ({ address, artistState, loginState }) => {
       .catch((err) => alert(err));
   };
 
-  console.log(artistState);
   return (
     <>
       <div className="artistpage">

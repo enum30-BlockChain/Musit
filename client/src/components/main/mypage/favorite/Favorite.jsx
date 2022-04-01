@@ -6,15 +6,9 @@ import StickyHeadTableArtist from "../../../mui/StickyHeadTableArtist";
 import axios from "axios";
 
 export const Favorite = ({ address }) => {
-  const [userdata, setUserdata] = useState("");
   const [findMusic, setFindMusic] = useState("");
   const [findartist, setFindartist] = useState("");
-
-  async function userdetail() {
-    const url = "http://localhost:5000/users/signin";
-    const response = await axios.post(url, { address });
-    setUserdata(response.data);
-  }
+  const [artistdetail, setArtistDetail] = useState("");
 
   async function musicfavorite() {
     const url = "http://localhost:5000/music/likes/like";
@@ -28,10 +22,16 @@ export const Favorite = ({ address }) => {
     setFindartist(response.data);
   }
 
+  async function favoritedetail() {
+    const url = "http://localhost:5000/artists/likes/list/detail";
+    const response = await axios.post(url, { address });
+    setArtistDetail(response.data);
+  }
+
   useEffect(() => {
-    userdetail();
     musicfavorite();
     favoriteartist();
+    favoritedetail();
   }, []);
 
   return (
@@ -49,7 +49,7 @@ export const Favorite = ({ address }) => {
           <h2>Artist Favorite</h2>
           <StickyHeadTableArtist
             sx={{ width: "50%" }}
-            findartist={findartist}
+            artistdetail={artistdetail}
           />
         </div>
       </div>

@@ -8,16 +8,16 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
-export default function StickyHeadTable({ findartist }) {
+export default function StickyHeadTable({ artistdetail }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [artists, setArtists] = React.useState([""]);
 
   React.useEffect(() => {
-    if (findartist) {
-      setArtists(findartist);
+    if (artistdetail) {
+      setArtists(artistdetail);
     }
-  }, [findartist]);
+  }, [artistdetail]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -60,7 +60,21 @@ export default function StickyHeadTable({ findartist }) {
       artists.map((Artists, index) => {
         return (
           <>
-            <div>{Artists.artist_artist_name}</div>
+            <div>{Artists.artist_name}</div>
+          </>
+        );
+      }),
+      artists.map((Artists, index) => {
+        return (
+          <>
+            <div>{<img src={Artists.img} style={{ width: "100px" }} />}</div>
+          </>
+        );
+      }),
+      artists.map((Artists, index) => {
+        return (
+          <>
+            <div>{Artists.likes}</div>
           </>
         );
       })
@@ -68,6 +82,7 @@ export default function StickyHeadTable({ findartist }) {
   ];
 
   console.log(artists);
+
   ///////////////////////////////////////////////////////////////
 
   return (

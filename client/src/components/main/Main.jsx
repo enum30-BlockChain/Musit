@@ -1,7 +1,7 @@
 import "./Main.css";
 import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
-import { Searchbar } from "./searchbar/Searchbar";
+// import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard/Dashboard";
 import { Mypage } from "./mypage/Mypage";
@@ -108,7 +108,7 @@ export const Main = () => {
 
   return (
     <section className="main">
-      <Searchbar address={address} />
+      {/* <Searchbar address={address} /> */}
       <div className="main-content">
         <Routes>
           <Route path="/">
