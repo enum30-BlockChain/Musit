@@ -21,6 +21,11 @@ import Artists from "./register/user/artists/Artists";
 import axios from "axios";
 import Search from "./serach/Search";
 import { Create } from "./create/Create";
+import Mynfts from "./store/mynfts/Mynfts";
+import { fetchUserData, testFunc } from "../../redux/user/userAction";
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -30,20 +35,28 @@ export const Main = () => {
   const [userList, setUserList] = useState("");
   const [artistState, setArtistState] = useState({ address: "" });
 
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch();                               //redux 초기값 넣어주자
+  
+
+
   async function init() {
-    const reponse = await Metamask.getAccounts(setAddress);
+    const response = await Metamask.getAccounts(setAddress);
+    const address = response.data[0]
     await Metamask.walletListener(setAddress);
+    fetchUserData(address)
     //나의 지금 로그인상태 확인
-    loginCheck(reponse.data[0]);
+    loginCheck(address);
     getSongList();
     getUser();
-    getLikeList(reponse.data[0]);
-    artistsCheck(reponse.data[0]);
+    getLikeList(address);
+    artistsCheck(address);
     sidebarToggle();
   }
 
   useEffect(() => {
     init();
+    console.log(user)
   }, []);
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";
@@ -106,6 +119,7 @@ export const Main = () => {
     <section className="main">
       <Searchbar address={address} />
       <div className="main-content">
+      <button onClick={() => dispatch(fetchUserData(address))}>test</button>
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
@@ -144,7 +158,9 @@ export const Main = () => {
                 />
               }
             />
-            <Route path="store" element={<Store />} />
+            <Route path="store" element={<Store address={address}/>} >
+              <Route path="mynfts" element={<Mynfts />}/>
+            </Route>
             {/* <Route path="auction" element={<Auction />} /> */}
             <Route path="auctionupload" element={<Auctionupload />} />
             <Route
