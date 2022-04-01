@@ -1,143 +1,91 @@
-import { ethers, Signer } from "ethers";
-import MusitNFT from "./MusitNFT.json";
-
+import { BigNumber, Contract, ethers, Transaction } from "ethers";
+import { MusitNFT, Marketplace } from "./typechain/index";
+import MusitNftJson from "./MusitNFT.json";
+import MarketplaceJson from "./Marketplace.json";
 
 interface Window {
-  ethereum: any;
+	ethereum: any;
 }
 declare let window: Window;
 
 const metamask = new ethers.providers.Web3Provider(window.ethereum);
 const signer = metamask.getSigner();
-const contract = new ethers.Contract(
-	MusitNFT.contractAddress,
-	MusitNFT.abi,
+
+const musitNFT: ethers.Contract | MusitNFT = new ethers.Contract(
+	MusitNftJson.contractAddress,
+	MusitNftJson.abi,
+	signer
+);
+const marketplace: ethers.Contract | Marketplace = new ethers.Contract(
+	MarketplaceJson.contractAddress,
+	MarketplaceJson.abi,
 	signer
 );
 
+interface Contracts {
+	musitNFT: Contract | MusitNFT;
+	marketplace: Contract | Marketplace;
+}
+
 export default class Ethers {
-  static async test() {
-    try {
-			const result = await contract.mintsPerWallet()
-			console.log(result);
-			
-			
-    } catch (error) {
-      console.log(error);
-			return "🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬";
-    }
-  }
-	
-	static async signToVerify (message: string): Promise<boolean | string >{
+	static loadContracts(): Contracts | null {
 		try {
-			let messageHash = ethers.utils.solidityKeccak256(['string'], [message]);
-			let arrayMessage = ethers.utils.arrayify(messageHash);
-			const singedMessage = await signer.signMessage(messageHash);
-			const result = ethers.utils.verifyMessage(arrayMessage, singedMessage) === await signer.getAddress();
+			const contracts = {
+				musitNFT,
+				marketplace,
+			};
+			return contracts;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	static async minting(tokenURI: string): Promise<Transaction | null> {
+		try {
+			const options = {
+				value: ethers.utils.parseEther("0.001"),
+			};
+
+			return await (await musitNFT.minting(tokenURI, options)).wait();
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	static ethToWei(eth: string): BigNumber {
+		return ethers.utils.parseEther(eth);
+	}
+
+	static weiToEth(wei: string): BigNumber {
+		return ethers.utils.parseUnits(wei);
+	}
+
+	// 현재 Signer의 private key를 verify하는 함수
+	static async signToVerify(message?: string): Promise<boolean | string> {
+		try {
+			let result;
+			if (message) {
+				let messageHash = ethers.utils.solidityKeccak256(["string"], [message]);
+				let arrayMessage = ethers.utils.arrayify(messageHash);
+				const singedMessage = await signer.signMessage(messageHash);
+				result =
+					ethers.utils.verifyMessage(arrayMessage, singedMessage) ===
+					(await signer.getAddress());
+			} else {
+				const message =
+					"Verifying signer. This process doesn't cost you any gas or fee.";
+				const singedMessage = await signer.signMessage(message);
+				result =
+					ethers.utils.verifyMessage(message, singedMessage) ===
+					(await signer.getAddress());
+			}
 			console.log(result);
 			return result;
 		} catch (error) {
 			console.log(error);
-			return ""
-		}
-	}
-
-  static async minting(tokenURI: string) {
-    try {
-			const mintingEstGas = await contract.estimateGas.minting(tokenURI, {value: contract.mintPrice()}) // 함수의 예상 가스 비
-			const gasPrice = await signer.getGasPrice() 
-			
-			// console.log(ethers.utils.formatUnits(mintingEstGas));
-			// console.log(ethers.utils.formatUnits(gasPrice));
-			
-      const options = {
-        value: ethers.utils.parseEther("0.01"),
-        gasPrice: gasPrice,
-      }
-      return await contract.minting("tokenURI", options);
-    } catch (error) {
-      console.log(error);
-			return "";
-    }
-  }
-
-  static async setIsMintEnabled(enable: boolean) {
-    try {
-      return await contract.setIsMintEnabled(enable)
-    } catch (error) {
-      console.log(error);
-			return "";
-    }
-  }
-
-	static async sendTx(recieverAddress: string, amountEth: number) {
-		try {
-      const gas_price = await signer.getGasPrice()
-      const gas_limit = ethers.utils.hexlify(21000)
-      const nonce = await signer.getTransactionCount()
-      const value = ethers.utils.parseEther(String(amountEth))
-      const tx = {
-        from: signer.getAddress(),
-        to: recieverAddress,
-        value: value,
-        nonce: nonce,
-        gasLimit: gas_limit,
-        gasPrice: gas_price,
-      }
-			return await signer.sendTransaction(tx)
-		} catch (error) {
-			console.log(error);
 			return "";
 		}
-	}
-
-	static async getContractAddress() {
-		try {
-			return contract.address;
-		} catch (error) {
-			console.log(error);
-			return "";
-		}
-	}
-  
-	static async getTotalSupplied() {
-		try {
-			return await contract.totalSupplied();
-		} catch (error) {
-			console.log(error);
-			return "";
-		}
-	}
-
-	static async getMaxMintsPerWallet() {
-		try {
-			return parseInt(await contract.maxMintsPerWallet(), 16);
-		} catch (error) {
-			console.log(error);
-			return "";
-		}
-	}
-
-	static async getMaxSupply() {
-		try {
-			return parseInt(await contract.maxSupply(), 16);
-		} catch (error) {
-			console.log(error);
-			return "";
-		}
-	}
-
-	static async getMintPrice() {
-		try {
-			const mintPrice = await contract.mintPrice();
-			return ethers.utils.formatEther(mintPrice);
-		} catch (error) {
-			console.log(error);
-			return "";
-		}
-	}
-
-	static async getIsMintEnabled() {
-    return await contract.isMintEnabled();
 	}
 }

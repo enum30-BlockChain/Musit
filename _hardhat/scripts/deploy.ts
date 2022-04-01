@@ -1,3 +1,4 @@
+import { Contract } from "ethers";
 import fs from "fs";
 import hre, { artifacts, ethers } from "hardhat";
 
@@ -11,17 +12,17 @@ async function main() {
   
   // We get the contract to deploy
   const MusitNFT = await ethers.getContractFactory("MusitNFT");
-  const musitNFT = await MusitNFT.deploy();
+  const musitNFT = await (await MusitNFT.deploy()).deployed();
 
-  await musitNFT.deployed();
+  const Marketplace = await ethers.getContractFactory("Marketplace");
+  const marketplace = await (await Marketplace.deploy(1)).deployed();
+
   console.log("MusitNFT address:", musitNFT.address);
   
   saveJsonFilesToClientFolder(musitNFT, "MusitNFT")
+  saveJsonFilesToClientFolder(marketplace, "Marketplace")
 }
 
-interface Contract {
-  address: string;
-}
 
 function saveJsonFilesToClientFolder(contract: Contract, name: string) {
   const contractsDir = __dirname + "/../../client/src/web3/";

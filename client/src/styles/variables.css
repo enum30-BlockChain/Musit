@@ -9,6 +9,8 @@
   --box1-color: #4DA3FF;
   --box2-color: #FFE6AC;
   --box3-color: #E7D1FC;
+  --box4-color: #e0cec3;
+  --box5-color: #ddd;
   --title-icon-color: #fff;
 
   /* ====== Transition ====== */
@@ -28,5 +30,7 @@ body.dark {
   --box1-color: #3A3B3C;
   --box2-color: #3A3B3C;
   --box3-color: #3A3B3C;
+  --box4-color: #3A3B3C;
+  --box5-color: #4d4d4d;
   --title-icon-color: #252626;
 }

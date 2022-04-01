@@ -22,6 +22,7 @@ import axios from "axios";
 import Search from "./serach/Search";
 import { Create } from "./create/Create";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
+import Mynfts from "./store/mynfts/Mynfts";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -147,7 +148,9 @@ export const Main = () => {
                 />
               }
             />
-            <Route path="store" element={<Store />} />
+            <Route path="store" element={<Store address={address} />}>
+              <Route path="mynfts" element={<Mynfts />} />
+            </Route>
             {/* <Route path="auction" element={<Auction />} /> */}
             <Route path="auctionupload" element={<Auctionupload />} />
             <Route
