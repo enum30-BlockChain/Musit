@@ -1,5 +1,5 @@
-// SPDX-License-Identifier : MIT
-pragma solidity ^0.8.4;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
@@ -41,9 +41,10 @@ contract EnglishAuction {
   function start() external {
     require(msg.sender == seller, "Only onwer can access");
     require(!started, "This item is already enrolled");
-  
+    
     started = true;
     endAt = uint32(block.timestamp +  duration);
+    
     nft.transferFrom(seller, address(this), nftId);
 
     emit Start(nftId, msg.sender, endAt);
