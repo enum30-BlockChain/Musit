@@ -25,5 +25,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# typechain
-/src/web3/typechain
+# # typechain
+# /src/web3/typechain

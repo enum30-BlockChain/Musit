@@ -5,7 +5,7 @@ import MusicPlayerSlider from "./MusicPlayerSlider";
 import SongCard from "./SongCard";
 import ArtistCard from "./ArtistCard";
 import ArtistModal from "./ArtistModal";
-import { useNavigate,useLocation  } from "react-router-dom";
+import { useNavigate, useLocation  } from "react-router-dom";
 import {Provider, useSelector, useDispatch} from 'react-redux';
 
 
@@ -28,7 +28,7 @@ function Search(props) {
       .then((res) => {
         setSongList(res.data);
         setFindMusic( //초기에 넘겨받은 값으로 검색
-          res.data.filter((song) => song.title.indexOf(searching) > -1)
+          res.data.filter((song) => song.title.indexOf(content) > -1)
         );
       })
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
@@ -39,7 +39,7 @@ function Search(props) {
         .then((res) => {
           setArtistList(res.data);
           setFindArtist(
-            res.data.filter((a) => a.artist_name.indexOf(searching) > -1)
+            res.data.filter((a) => a.artist_name.indexOf(content) > -1)
           );
         })
         .catch((err) => alert("errrrrrrr.", err));

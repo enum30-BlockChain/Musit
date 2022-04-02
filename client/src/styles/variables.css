@@ -1,6 +1,7 @@
 :root {
   /* ===== Colors ===== */
   --primary-color: #D8BDAD;
+  --secondary-color: #6768AB;
   --panel-color: #FFF;
   --text-color: #000;
   --black-light-color: #707070;
@@ -22,6 +23,7 @@
 body.dark {
   /* ===== Dark Colors ===== */
   --primary-color: #D8BDAD;
+  --secondary-color: #6768AB;
   --panel-color: #252626;
   --text-color: #CCC;
   --black-light-color: #CCC;

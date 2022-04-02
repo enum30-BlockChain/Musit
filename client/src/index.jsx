@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import {createStore} from 'redux'
 import {Provider, useSelector, useDispatch} from 'react-redux';
-const store = createStore(reducer);
+import store from "./redux/store.js"
 
 function reducer(currentState, action) {
   if(currentState === undefined){
