@@ -14,7 +14,7 @@ contract EnglishAuction {
   uint public immutable nftId;
   
   // 경매 올릴 때 필요한 정보
-  address public immutable seller;
+  address payable public immutable seller;
   uint public endAt;
   uint public duration;
   bool public started;
