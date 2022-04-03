@@ -17,24 +17,21 @@ contract Auction is ReentrancyGuard {
   mapping (uint => Item) public items; // 경매에 올린 아이템 리스트
   mapping (uint => mapping (address => uint )) public pendingBids; // itemId => ( bidder => bid )
 
-  enum ItemStatus {
-    ENROLLED, 
-    AUCTION, 
-    END 
-  }
+  enum StatusType { ENROLLED, STARTED, ENDED }
 
   struct Item {
     uint startPrice;
     uint startAt;
     uint endAt;
-    IERC721 nft;
     uint tokenId;
-    uint topBid;
+    address payable seller;
     address topBidder;
-    ItemStatus status;
-    address payable seller; 
+    uint topBid;
+    StatusType status;
+    IERC721 nft;
   }
 
+  /* Event declaration */
   event Enrolled(
     uint indexed itemId,
     uint _startPrice,
@@ -55,6 +52,10 @@ contract Auction is ReentrancyGuard {
     address indexed seller
   );
 
+  event Bid (uint itemId, address indexed topBidder, uint topBid);
+
+  event Withdraw (uint itemId, address indexed bidder, uint amount);
+
   constructor(uint _feePercent) {
     feePercent = _feePercent;
     feeAccount = payable(msg.sender);
@@ -62,62 +63,70 @@ contract Auction is ReentrancyGuard {
 
   // 옥션 등록 함수
   function enroll (uint _startPrice, uint _startAt, uint _endAt, IERC721 _nft, uint _tokenId ) external nonReentrant {
-    require(msg.sender == _nft.ownerOf(_tokenId));
+    require(msg.sender == _nft.ownerOf(_tokenId), "Only owner can enroll nft");
+    require(_startAt < _endAt, "End time should be later than start time");
+    require(block.timestamp < _startAt, "Cannot set start time as past time");
+    require(block.timestamp < _endAt, "Cannot set end time as past time");
     ItemCounter.increment();
     uint _itemId = ItemCounter.current();
     items[_itemId] = Item(
       _startPrice, 
-      _startAt, 
-      _endAt, 
-      _nft, 
+      _startAt / 1000, 
+      _endAt / 1000, 
       _tokenId, 
-      _startPrice,  // 처음 topBid == startPrice 
+      payable(msg.sender),
       address(0),
-      ItemStatus.ENROLLED, 
-      payable(msg.sender)
+      _startPrice, // 처음엔 top bid를 strat price로 설정
+      StatusType.ENROLLED,
+      _nft
     );
+
     _nft.transferFrom(msg.sender, address(this), _tokenId);
 
     emit Enrolled(_itemId, _startPrice, _startAt, _endAt, address(_nft), _tokenId, msg.sender);
   }
   
-  // 옥션 시작 함수
-  function start(uint _itemId) external nonReentrant {
-    Item storage _item = items[_itemId];
-    require(_item.status == ItemStatus.ENROLLED, "Item is not enrolled or already started.");
-    require(block.timestamp >= _item.startAt, "It is not time to start");
-    
-    _item.status = ItemStatus.AUCTION;
 
-    emit Started(_itemId, _item.startPrice, _item.startAt, _item.endAt, address(_item.nft), _item.tokenId, _item.seller);
-  }
-
-  //TODO: 옥션 경매 참여 함수
+  // 옥션 경매 참여 함수
   function bid(uint _itemId) external payable nonReentrant {
     Item storage _item = items[_itemId];
-    require(_item.status == ItemStatus.AUCTION, "It is not in auction market");
     require(msg.value > _item.topBid, "Smaller than top bid price");
+    statusCheck(_item);
+    require(_item.status != StatusType.ENDED, "This auction is ended");
 
     if(_item.topBidder != address(0)) {
       pendingBids[_itemId][msg.sender] += msg.value;
     }
 
-    _item.topBid = msg.value;
     _item.topBidder = msg.sender;
+    _item.topBid = msg.value;
 
-    // TODO: Bid 이벤트 만들기
+    emit Bid(_itemId, msg.sender, msg.value);
   }
 
+  // pending bids 출금 함수
+  function withdraw(uint _itemId) external {
+    uint balance = pendingBids[_itemId][msg.sender];
+    require(balance != 0, "Nothing to withdraw");
+    pendingBids[_itemId][msg.sender] = 0;
 
-  // 옥션 끝내기 함수
-  function end(uint _itemId) external nonReentrant {
-    Item storage _item = items[_itemId];
-    require(block.timestamp >= _item.endAt, "It is not time to end");
-    require(_item.status == ItemStatus.AUCTION, "Can not find items in auction market");
-
-    _item.status = ItemStatus.END;
-
-    // TODO: End 이벤트 만들기
+    emit Withdraw(_itemId, msg.sender, balance);
   }
 
+  function statusCheck(Item storage _item) internal {
+    if(block.timestamp >= _item.startAt) {
+      _item.status = StatusType.STARTED;
+    } else {
+      revert("Auction isn't started yet");
+    }
+
+    if (block.timestamp >= _item.endAt) {
+      _item.status = StatusType.ENDED;
+      revert("Auction is ended");
+    }
+  }
+
+  function getBlockTimestamp() public view returns (uint) {
+    return block.timestamp;
+  }
 }

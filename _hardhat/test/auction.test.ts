@@ -35,7 +35,7 @@ describe("Auction contract", () => {
     })
   })
 
-  describe("Main function test", async () => {
+  describe("Function tests", async () => {
     let startPrice: number,
       startAt: number,
       endAt: number,
@@ -57,21 +57,45 @@ describe("Auction contract", () => {
       it("New enrolled item attributes test", async () => {
         expect(await musitNFT.ownerOf(1)).to.equal(addr1.address)
   
-        await expect(auction.connect(addr1).enroll(startPrice, startAt, endAt, nft, 1))
+        await expect(await auction.connect(addr1).enroll(startPrice, startAt, endAt, nft, 1))
           .emit(auction, "Enrolled")
           .withArgs(1, startPrice, startAt, endAt, musitNFT.address, 1, addr1.address);
         
         const item = await auction.items(1)
         expect(item.startPrice).to.equal(startPrice);
-        expect(item.startAt).to.equal(startAt);
-        expect(item.endAt).to.equal(endAt);
+        expect(item.startAt).to.equal(Math.floor(startAt / 1000));
+        expect(item.endAt).to.equal(Math.floor(endAt / 1000));
         expect(item.nft).to.equal(musitNFT.address);
         expect(item.tokenId).to.equal(1);
         expect(item.seller).to.equal(addr1.address);
+        expect(item.status).to.equal(0);
       })
     })
 
-    describe
+    describe("bid", async() => {
+
+      beforeEach(async () => {
+        await auction.connect(addr1).enroll(startPrice, startAt, endAt, nft, 1)
+        startAt = Date.now();
+        endAt = startAt + 10000 // 시작후 1분 뒤 종료
+      })
+
+      it("status change", async () => {
+        // expect(await auction.getBlockTimestamp()).to.equal(Math.floor(startAt / 1000))
+        expect((await auction.items(1)).status).to.equal(0)
+        expect((await auction.items(1)).topBid).to.equal(startPrice);
+        await auction.connect(addr2).bid(1, { value : 110})
+        expect((await auction.items(1)).topBid).to.equal(110);
+        expect((await auction.items(1)).topBidder).to.equal(addr2.address);
+        expect((await auction.items(1)).status).to.equal(1)
+        setTimeout(()=>{
+        }, 10000)
+        await auction.connect(deployer).bid(1, { value : 200})
+        expect((await auction.items(1)).topBid).to.equal(200);
+        expect((await auction.items(1)).topBidder).to.equal(deployer.address);
+        // expect((await auction.items(1)).status).to.equal(2)
+      })
+    })
     
   })
 })
