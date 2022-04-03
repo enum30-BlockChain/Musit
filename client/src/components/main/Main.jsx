@@ -26,8 +26,6 @@ import Mynfts from "./store/mynfts/Mynfts";
 import { fetchUserData, testFunc } from "../../redux/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 
-
-
 export const Main = () => {
   const [address, setAddress] = useState("");
   const [loginState, setLoginState] = useState();
@@ -36,16 +34,14 @@ export const Main = () => {
   const [userList, setUserList] = useState("");
   const [artistState, setArtistState] = useState();
 
-  const user = useSelector((state) => state.user)
-  const dispatch = useDispatch();                               //redux 초기값 넣어주자
-  
-
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch(); //redux 초기값 넣어주자
 
   async function init() {
     const response = await Metamask.getAccounts(setAddress);
-    const address = response.data[0]
+    const address = response.data[0];
     await Metamask.walletListener(setAddress);
-    fetchUserData(address)
+    fetchUserData(address);
     //나의 지금 로그인상태 확인
     loginCheck(address);
     getSongList();
@@ -57,7 +53,7 @@ export const Main = () => {
 
   useEffect(() => {
     init();
-    console.log(user)
+    console.log(user);
   }, []);
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";
@@ -123,7 +119,6 @@ export const Main = () => {
     <section className="main">
       {/* <Searchbar address={address} /> */}
       <div className="main-content">
-      <button onClick={() => dispatch(fetchUserData(address))}>test</button>
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
