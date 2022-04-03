@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -11,6 +11,8 @@ contract Marketplace is ReentrancyGuard {
   address payable public immutable feeAccount; // 수수료를 받을 주소
   uint256 public immutable feePercent; // 팔때 받을 수수료
   Counters.Counter public itemCount;
+
+  mapping(uint256 => Item) public items; // itemId => Item
   
   struct Item {
     uint256 itemId; // 판매 등록한 아이템 id
@@ -38,14 +40,12 @@ contract Marketplace is ReentrancyGuard {
     address indexed nft
   );
 
-  mapping(uint256 => Item) public items; // itemId => Item
-
   constructor (uint256 _feePercent) {
     feeAccount = payable(msg.sender);
     feePercent = _feePercent;
   }
 
-  function enrollItem(IERC721 _nft, uint256 _tokenId, uint256 _price) external nonReentrant {
+  function enroll(IERC721 _nft, uint256 _tokenId, uint256 _price) external nonReentrant {
     require(_price > 0, "Price must be greater than zero");
     require(msg.sender == _nft.ownerOf(_tokenId), "Only owner can enroll");
 
@@ -72,7 +72,7 @@ contract Marketplace is ReentrancyGuard {
     );
   }
 
-  function purchaseItem(uint256 _itemId) external payable nonReentrant {
+  function purchase(uint256 _itemId) external payable nonReentrant {
     uint256 _totalPrice = getTotalPrice(_itemId);
     Item storage item = items[_itemId];
     require(_itemId > 0 && _itemId <= itemCount.current(), "Item doesn't exist");
