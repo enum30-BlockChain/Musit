@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-import { TextField, Input } from "@mui/material";
+import { TextField, Input, Button } from "@mui/material";
 
 export const Auctionupload = () => {
   //앨범커버 이미지 가져오기
@@ -42,7 +42,9 @@ export const Auctionupload = () => {
             />
           </LocalizationProvider>
         </div>
-        <Button>Put up d</Button>
+      </div>
+      <div className="auction-btn">
+        <Button>Put up for Acution</Button>
       </div>
     </>
   );
