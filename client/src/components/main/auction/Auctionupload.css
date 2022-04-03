@@ -10,7 +10,12 @@
   margin-top: 40px;
 }
 
+.auction-layout .auction-box .auction-title {
+  margin-top: 40px;
+}
+
 .auction-layout > .auction-imgbox {
+  border-right: 1px solid var(--border-color);
   text-align: center;
   margin-top: 40px;
   width: 100%;
@@ -18,6 +23,8 @@
 }
 
 .auction-layout .auction-imgbox img {
+  margin-top: 30px;
+
   /* grid-template-columns: 1fr 1fr; */
   /* position: fixed; */
   text-align: center;
