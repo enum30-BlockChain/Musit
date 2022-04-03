@@ -15,7 +15,7 @@ contract Auction is ReentrancyGuard {
   Counters.Counter public ItemCounter;
 
   mapping (uint => Item) public items; // 경매에 올린 아이템 리스트
-  mapping (uint => mapping (address => uint )) public bids; // itemId => ( bidder => bid )
+  mapping (uint => mapping (address => uint )) public pendingBids; // itemId => ( bidder => bid )
 
   enum ItemStatus {
     ENROLLED, 
@@ -76,7 +76,7 @@ contract Auction is ReentrancyGuard {
       ItemStatus.ENROLLED, 
       payable(msg.sender)
     );
-    _nft.safeTransferFrom(msg.sender, address(this), _tokenId);
+    _nft.transferFrom(msg.sender, address(this), _tokenId);
 
     emit Enrolled(_itemId, _startPrice, _startAt, _endAt, address(_nft), _tokenId, msg.sender);
   }
@@ -93,13 +93,13 @@ contract Auction is ReentrancyGuard {
   }
 
   //TODO: 옥션 경매 참여 함수
-  function bid(uint _itemId) external nonReentrant {
+  function bid(uint _itemId) external payable nonReentrant {
     Item storage _item = items[_itemId];
-    require(_item.status == ItemStatus.AUCTION, "You can bid on item in auction market");
+    require(_item.status == ItemStatus.AUCTION, "It is not in auction market");
     require(msg.value > _item.topBid, "Smaller than top bid price");
 
     if(_item.topBidder != address(0)) {
-      bids[_itemId][msg.sender] += msg.value;
+      pendingBids[_itemId][msg.sender] += msg.value;
     }
 
     _item.topBid = msg.value;
@@ -118,7 +118,6 @@ contract Auction is ReentrancyGuard {
     _item.status = ItemStatus.END;
 
     // TODO: End 이벤트 만들기
-    emit End();
   }
 
 }

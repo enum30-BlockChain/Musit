@@ -46,7 +46,7 @@ describe("MusitNFT", function () {
       await expect(
         await musitNFT.connect(addr1).minting(URI, { value: ethToWei(0.001) })
       )
-        .emit(musitNFT, "MintMusitNFT")
+        .emit(musitNFT, "Minted")
         .withArgs(1, URI, addr1.address);
 
       expect(await musitNFT.balanceOf(addr1.address)).to.equal(1)
@@ -67,7 +67,7 @@ describe("MusitNFT", function () {
       await expect(
         marketplace
           .connect(addr1)
-          .enrollItem(musitNFT.address, 1, ethToWei(price))
+          .enroll(musitNFT.address, 1, ethToWei(price))
       )
         .to.emit(marketplace, "Enrolled")
         .withArgs(1, 1, ethToWei(price), addr1.address, musitNFT.address);
@@ -86,7 +86,7 @@ describe("MusitNFT", function () {
     it("Should fail if price is set to 0", async () => {
       price = 0;
       await expect(
-        marketplace.connect(addr1).enrollItem(musitNFT.address, 1, 0)
+        marketplace.connect(addr1).enroll(musitNFT.address, 1, 0)
       ).to.be.revertedWith("Price must be greater than zero");
     });
   });
@@ -100,7 +100,7 @@ describe("MusitNFT", function () {
       await musitNFT.connect(addr1).approve(marketplace.address, 1);
       await marketplace
         .connect(addr1)
-        .enrollItem(musitNFT.address, 1, ethToWei(price));
+        .enroll(musitNFT.address, 1, ethToWei(price));
     });
 
     it("Should update item as sold, pay seller, transfer NFT to buyer, charge fees and emit Bought event", async () => {
@@ -110,7 +110,7 @@ describe("MusitNFT", function () {
       let totalPriceInWei = await marketplace.getTotalPrice(1);
 
       await expect(
-        marketplace.connect(addr2).purchaseItem(1, { value: totalPriceInWei })
+        marketplace.connect(addr2).purchase(1, { value: totalPriceInWei })
       )
         .to.emit(marketplace, "Bought")
         .withArgs(
@@ -144,23 +144,23 @@ describe("MusitNFT", function () {
       let totalPriceInWei = await marketplace.getTotalPrice(1);
 
       await expect(
-        marketplace.connect(addr2).purchaseItem(2, { value: totalPriceInWei })
+        marketplace.connect(addr2).purchase(2, { value: totalPriceInWei })
       ).to.be.revertedWith("Item doesn't exist");
       await expect(
-        marketplace.connect(addr2).purchaseItem(0, { value: totalPriceInWei })
+        marketplace.connect(addr2).purchase(0, { value: totalPriceInWei })
       ).to.be.revertedWith("Item doesn't exist");
 
       await expect(
-        marketplace.connect(addr2).purchaseItem(1, { value: ethToWei(price) })
+        marketplace.connect(addr2).purchase(1, { value: ethToWei(price) })
       ).to.be.revertedWith("Not enough ether to cover item price and market fee");
 
       await marketplace
         .connect(addr2)
-        .purchaseItem(1, { value: totalPriceInWei });
+        .purchase(1, { value: totalPriceInWei });
       await expect(
         marketplace
           .connect(deployer)
-          .purchaseItem(1, { value: totalPriceInWei })
+          .purchase(1, { value: totalPriceInWei })
       ).to.be.revertedWith("Sold out!")
     });
   });
