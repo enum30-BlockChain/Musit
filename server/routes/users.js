@@ -153,7 +153,7 @@ router.post("/change", async (req, res, next) => {
         address: req.body.address,
       },
     });
-    if (users.nickname == "") {
+    if (req.body.select !== "") {
       const users_change = await User.update(
         {
           nickname: req.body.select,

@@ -4,8 +4,9 @@ import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../../redux/artist/artistAction";
+import { fetchUserData } from "../../../redux/user/userAction";
 
-export const Artist = ({ address, artistState, loginState }) => {
+export const Artist = ({ address, loginState }) => {
   const [select, setSelect] = useState("");
   const [visible, setVisible] = useState(false);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
@@ -57,8 +58,6 @@ export const Artist = ({ address, artistState, loginState }) => {
       .then((res) => {})
       .catch((err) => alert(err));
   };
-
-  console.log(artist);
 
   return (
     <>

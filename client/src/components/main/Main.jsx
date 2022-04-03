@@ -41,7 +41,6 @@ export const Main = () => {
     const response = await Metamask.getAccounts(setAddress);
     const address = response.data[0];
     await Metamask.walletListener(setAddress);
-    fetchUserData(address);
     //나의 지금 로그인상태 확인
     loginCheck(address);
     getSongList();
@@ -51,9 +50,12 @@ export const Main = () => {
     sidebarToggle();
   }
 
+  const userdata = async () => {
+    await dispatch(fetchUserData(address)).then(() => {});
+  };
   useEffect(() => {
     init();
-    console.log(user);
+    userdata(address);
   }, []);
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";

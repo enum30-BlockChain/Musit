@@ -40,8 +40,6 @@ router.post("/like", async (req, res, next) => {
 
 router.post("/signin", async (req, res, next) => {
   try {
-    console.log("signin을 server에 요청하였습니다.");
-    console.log(req.body);
     const artist = await Artist.findOne({
       where: {
         user_address: req.body.address,
@@ -105,21 +103,6 @@ router.post("/signin", async (req, res, next) => {
     console.error(err);
   }
 });
-
-// 아티스트 이미지 테이블이 따로 생기면서 없어질 예정
-// //아티스트 signin 과 list 합치는거 여부 체크
-// router.post("/image", async (req, res, next) => {
-//   console.log(req.body.address);
-//   console.log("signin을 server에 요청하였습니다.");
-//   try {
-//     const artist = await Artist.findOne({
-//       include: { model: User, where: { address: req.body.address } },
-//     });
-//     res.send(artist.User.img);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// });
 
 router.post("/music", async (req, res, next) => {
   console.log(req.body);
