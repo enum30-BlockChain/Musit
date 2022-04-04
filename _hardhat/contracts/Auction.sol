@@ -15,7 +15,7 @@ contract Auction is ReentrancyGuard {
   mapping (uint => Item) public items; // 경매에 올린 아이템 리스트
   mapping (uint => mapping (address => uint )) public pendingBids; // itemId => ( bidder => bid )
 
-  enum StatusType { ENROLLED, STARTED, ENDED }
+  enum StatusType { ENROLLED, STARTED, ENDED, CANCELLED }
 
   struct Item {
     uint startPrice;
@@ -24,7 +24,7 @@ contract Auction is ReentrancyGuard {
     uint tokenId;
     address payable seller;
     address topBidder;
-    uint topBid;
+    uint topBidWithFee;
     StatusType status;
     IERC721 nft;
   }
@@ -54,6 +54,7 @@ contract Auction is ReentrancyGuard {
   event Bid (uint indexed itemId, address indexed topBidder, uint topBid);
   event Start(uint indexed itemId, address seller, uint startAt, uint endAt);
   event End(uint indexed itemId, address indexed buyer, uint buyingPrice);
+  event Cancel(uint indexed itemId, address indexed seller);
   event Withdraw (uint indexed itemId, address indexed bidder, uint balance);
 
   constructor(uint _feePercent) {
@@ -75,7 +76,7 @@ contract Auction is ReentrancyGuard {
       _tokenId, 
       payable(msg.sender),
       address(0),
-      _startPrice, // 처음엔 top bid를 strat price로 설정
+      calPriceWithFee(_startPrice), // start price + fee
       StatusType.ENROLLED,
       _nft
     );
@@ -88,7 +89,7 @@ contract Auction is ReentrancyGuard {
   // 옥션 경매 참여 함수
   function bid(uint _itemId) external payable nonReentrant {
     Item storage _item = items[_itemId];
-    require(msg.value > _item.topBid, "Smaller than top bid price");
+    require(msg.value > _item.topBidWithFee, "Smaller than top bid price");
     require(block.timestamp >= _item.startAt, "Auction isn't started yet");
     require(block.timestamp > _item.endAt, "Auction is ended");
     require(_item.status != StatusType.ENDED, "This auction is ended");
@@ -98,9 +99,9 @@ contract Auction is ReentrancyGuard {
     }
 
     _item.topBidder = msg.sender;
-    _item.topBid = msg.value;
+    _item.topBidWithFee = msg.value;
 
-    emit Bid(_itemId, msg.sender, msg.value);
+    emit Bid(_itemId, msg.sender, (msg.value * 101) / 100);
   }
 
   function start(uint _itemId) external {
@@ -112,7 +113,7 @@ contract Auction is ReentrancyGuard {
     emit Start(_itemId, _item.seller, _item.startAt, _item.endAt);
   }
 
-  function end(uint _itemId) public {
+  function end(uint _itemId) external {
     Item storage _item = items[_itemId];
     require(_item.status == StatusType.STARTED, "The auction is not started yet");
     require(block.timestamp > _item.endAt, "It is not the time to close auction");
@@ -120,12 +121,23 @@ contract Auction is ReentrancyGuard {
 
     if (_item.topBidder != address(0)) {
       _item.nft.transferFrom(address(this), _item.topBidder, _item.tokenId);
-      _item.seller.transfer(_item.topBid);
+      _item.seller.transfer((_item.topBidWithFee * 100) / 101); // 수수료 제외한 나머지 판매자에게 전송
+      feeAccount.transfer(_item.topBidWithFee / 101); // 수수료는 배포자에게 전송
     } else {
       _item.nft.transferFrom(address(this), _item.seller, _item.tokenId);
     }
     
-    emit End(_itemId, _item.topBidder, _item.topBid);
+    emit End(_itemId, _item.topBidder, (_item.topBidWithFee * 100) / 101);
+  }
+
+  function cancel(uint _itemId) external {
+    Item storage _item = items[_itemId];
+    require(_item.status == StatusType.ENROLLED || _item.topBidder == address(0), "It is already started or ended");
+    _item.status = StatusType.CANCELLED;
+
+    _item.nft.transferFrom(address(this), _item.seller, _item.tokenId);
+
+    emit Cancel(_itemId, msg.sender);
   }
 
   // pending bids 출금 함수
@@ -137,8 +149,11 @@ contract Auction is ReentrancyGuard {
 
     emit Withdraw(_itemId, msg.sender, balance);
   }
-
   
+  function calPriceWithFee(uint _price) public view returns(uint) {
+    return (_price* (100 + feePercent)) / 100;
+  }
+
   function getBlockTimestamp() public view returns (uint) {
     return block.timestamp;
   }

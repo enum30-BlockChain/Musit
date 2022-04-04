@@ -6,6 +6,9 @@ import { Auction, MusitNFT } from "../typechain";
 
 const ethToWei = (eth: number | string): BigNumber => ethers.utils.parseEther(eth.toString())
 const weiToEth = (wei: BigNumberish): string => ethers.utils.formatEther(wei)
+function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 describe("Auction contract", () => {
   let deployer: SignerWithAddress;
@@ -49,7 +52,7 @@ describe("Auction contract", () => {
       await musitNFT.connect(addr1).approve(auction.address, 1);
       startPrice = 100
       startAt = Date.now();
-      endAt = startAt + 60000 // 시작후 1분 뒤 종료
+      endAt = startAt + 15000 // 시작후 15초 뒤 종료
       nft = musitNFT.address;
     })
 
@@ -65,10 +68,12 @@ describe("Auction contract", () => {
         expect(item.startPrice).to.equal(startPrice);
         expect(item.startAt).to.equal(Math.floor(startAt / 1000));
         expect(item.endAt).to.equal(Math.floor(endAt / 1000));
-        expect(item.nft).to.equal(musitNFT.address);
         expect(item.tokenId).to.equal(1);
         expect(item.seller).to.equal(addr1.address);
+        expect(item.topBidder).to.equal(ethers.constants.AddressZero);
+        expect(item.topBidWithFee).to.equal((100 + feePercent) * startPrice / 100);
         expect(item.status).to.equal(0);
+        expect(item.nft).to.equal(musitNFT.address);
       })
     })
 
@@ -76,33 +81,30 @@ describe("Auction contract", () => {
 
       beforeEach(async () => {
         await auction.connect(addr1).enroll(startPrice, startAt, endAt, nft, 1)
-        startAt = Date.now();
-        endAt = startAt + 10000 // 시작후 10초 뒤 종료
-      })
-
-      it("status change", async () => {
-        // expect(await auction.getBlockTimestamp()).to.equal(Math.floor(startAt / 1000))
-        expect((await auction.items(1)).status).to.equal(0)
-        expect((await auction.items(1)).topBid).to.equal(startPrice);
-
-        await auction.connect(addr1).start(1);
-        expect(((await auction.items(1)).status)).to.equal(1);
-
-        expect(await auction.connect(addr1).end(1)).to.be.revertedWith("It is not the time to close auction");
-        // expect(((await auction.items(1)).status)).to.equal(1);
-
-        // await auction.connect(addr2).bid(1, { value : 110})
-        // expect((await auction.items(1)).topBid).to.equal(110);
-        // expect((await auction.items(1)).topBidder).to.equal(addr2.address);
-        // expect((await auction.items(1)).status).to.equal(1)
         
-        // setTimeout(()=>{
-        // }, 15000)
-        // await auction.connect(deployer).bid(1, { value : 200})
-        // expect((await auction.items(1)).status).to.equal(2)
-        // expect((await auction.items(1)).topBid).to.equal(200);
-        // expect((await auction.items(1)).topBidder).to.equal(deployer.address);
       })
+
+      // it("status change", async () => {
+      //   // expect(await auction.getBlockTimestamp()).to.equal(Math.floor(startAt / 1000))
+      //   expect((await auction.items(1)).status).to.equal(0)
+      //   expect((await auction.items(1)).topBidWithFee).to.equal(startPrice * (100 + feePercent) / 100);
+
+      //   await auction.connect(addr1).start(1);
+      //   expect(((await auction.items(1)).status)).to.equal(1);
+
+      //   await expect(auction.connect(addr1).end(1)).to.be.revertedWith('It is not the time to close auction');
+      //   expect(((await auction.items(1)).status)).to.equal(1);
+        
+      //   await delay(7000);
+
+      //   await auction.connect(addr1).end(1);
+      //   expect((await auction.items(1)).status).to.equal(2);
+      // })
+
+      it("",async () => {
+        
+      })
+      
     })
     
   })
