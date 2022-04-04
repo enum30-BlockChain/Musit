@@ -1,4 +1,5 @@
 import "./Create.css";
+import { Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 const { create } = require("ipfs-http-client");
@@ -165,62 +166,84 @@ export const Create = ({ address }) => {
 
   return (
     <>
-      <h1>Create your music file</h1>
-      <h2>Album Cover Image</h2>
-      <input name="imgUpload" type="file" accept="image/*" onChange={getImg} />
-      {albumCoverImgFile && (
-        <img
-          src={URL.createObjectURL(albumCoverImgFile)}
-          style={{ width: "200px" }}
-        ></img>
-      )}
-      <h2>Music</h2>
-      <input type="file" accept="audio/*" onChange={getAudio} />
-      {audiofile && (
-        <audio
-          src={URL.createObjectURL(audiofile)}
-          onLoadedData={(e) => {
-            setDuration(e.currentTarget.duration);
-            // console.log(e.currentTarget.duration);
-          }}
-          // onTimeUpdate= {(e) =>{
-          //   console.log(e.currentTarget.currentTime)
-          // }}
-          autoplay
-          loop
-          controls
-        >
-          오디오 지원되지 않는 브라우저
-        </audio>
-      )}
-      <h2>Music Title</h2>
-      <input onChange={getTitle} value={musicTitle} />
-      <h2>Music Discription</h2>
-      {/* <input onchange={getDescription} value={musicDescription} /> */}
-      <h2>Genre</h2>
-      <form>
-        {genre.map((MusicType, index) => {
-          return (
-            <>
-              <label id={index}>
-                {MusicType}
-                <input
-                  type={"checkbox"}
-                  name={"MusicType"}
-                  value={MusicType}
-                  onChange={(e) => {
-                    changeHandler(e.currentTarget.checked, MusicType);
-                  }}
-                  checked={checkedInputs.includes(MusicType) ? true : false}
-                />
-              </label>
-            </>
-          );
-        })}
-      </form>
+      <h1 className="create-title">Create your music file</h1>
+      <div className="create-layout">
+        <div className="create-imgbox">
+          <h2>Album Cover Image</h2>
+          {albumCoverImgFile && (
+            <img
+              src={URL.createObjectURL(albumCoverImgFile)}
+              style={{ width: "200px" }}
+            ></img>
+          )}
+          <input
+            name="imgUpload"
+            type="file"
+            accept="image/*"
+            onChange={getImg}
+          />
+        </div>
+        <div className="create-inputbox">
+          <h2>Music</h2>
+          <Input
+            type="file"
+            accept="audio/*"
+            onChange={getAudio}
+            sx={{ width: 400 }}
+          />
+          {audiofile && (
+            <audio
+              src={URL.createObjectURL(audiofile)}
+              onLoadedData={(e) => {
+                setDuration(e.currentTarget.duration);
+                // console.log(e.currentTarget.duration);
+              }}
+              // onTimeUpdate= {(e) =>{
+              //   console.log(e.currentTarget.currentTime)
+              // }}
+              autoplay
+              loop
+              controls
+            >
+              오디오 지원되지 않는 브라우저
+            </audio>
+          )}
+          <h2>Music Title</h2>
+          <Input
+            onChange={getTitle}
+            value={musicTitle}
+            sx={{ width: 400 }}
+            placeholder="Music Title"
+          />
+          <h2>Music Discription</h2>
+          {/* <input onchange={getDescription} value={musicDescription} /> */}
+          <h2>Genre</h2>
+          <form>
+            {genre.map((MusicType, index) => {
+              return (
+                <>
+                  <label id={index}>
+                    {MusicType}
+                    <input
+                      type={"checkbox"}
+                      name={"MusicType"}
+                      value={MusicType}
+                      onChange={(e) => {
+                        changeHandler(e.currentTarget.checked, MusicType);
+                      }}
+                      checked={checkedInputs.includes(MusicType) ? true : false}
+                    />
+                  </label>
+                </>
+              );
+            })}
+          </form>
+        </div>
+      </div>
       {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
-      <p />
-      <button onClick={submit}> submit </button>
+      <div className="create-btn">
+        <Button onClick={submit}> submit </Button>
+      </div>
     </>
   );
 };

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import CountryType from "./CountryType.jsx";
 import ListenerType from "./ListenerType.jsx";
 import axios from "axios";
-import "./Listener.css";
+import "./RegisterUser.css";
 import { Outlet } from "react-router-dom";
 import { Input, Button } from "@mui/material";
 
-const Listener = ({ address }) => {
+const RegisterUser = ({ address }) => {
   useEffect(() => {
     alert("회원가입하세요");
   }, []);
@@ -136,4 +136,4 @@ const Listener = ({ address }) => {
   );
 };
 
-export default Listener;
+export default RegisterUser;

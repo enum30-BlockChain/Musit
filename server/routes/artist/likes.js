@@ -21,6 +21,17 @@ router.post("/list", async (req, res, next) => {
   }
 });
 
+router.post("/list/detail", async (req, res, next) => {
+  try {
+    const artistdetail = await Artist.findAll({
+      include: { model: ArtistLike, where: { user_address: req.body.address } },
+    });
+    res.send(artistdetail);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 router.post("/like", async (req, res, next) => {
   try {
     const artist = await ArtistLike.findOne({

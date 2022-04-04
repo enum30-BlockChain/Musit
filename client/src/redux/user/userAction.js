@@ -29,19 +29,20 @@ export const fetchUserData = (address) => {
       const userData = store.getState().user;
       const url = "http://localhost:5000/users/signin";
       const userInfo = (await axios.post(url, { address })).data;
-      
-      dispatch(fetchUserDataSuccess({
-        ...userData,
-        address: address,
-        nickname: userInfo.nickname,
-        nation: userInfo.nation,
-        genre: userInfo.genre,
-        recent_played: userInfo.recent_played,
-        img: userInfo.img,
-        subscription: userInfo.subscription,
-      }))
+      dispatch(
+        fetchUserDataSuccess({
+          ...userData,
+          address: address,
+          nickname: userInfo.nickname,
+          nation: userInfo.nation,
+          genre: userInfo.genre,
+          recent_played: userInfo.recent_played,
+          img: userInfo.img,
+          subscription: userInfo.subscription,
+        })
+      );
     } catch (error) {
-      dispatch(fetchUserDataFailed("error!!!"))
+      dispatch(fetchUserDataFailed("error!!!"));
     }
-  }
-}
+  };
+};

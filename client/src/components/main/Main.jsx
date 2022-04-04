@@ -15,11 +15,12 @@ import { Subscription } from "./mypage/subscription/Subscription";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
-import Listener from "./register/user/listener/Listener";
-import Artists from "./register/user/artists/Artists";
+import RegisterUser from "./register/user/listener/RegisterUser";
+import RegisterArtist from "./register/user/artists/RegisterArtist";
+import { ArtistsList } from "./artist/favorite/Artists";
+import Search from "./serach/Search";
 
 import axios from "axios";
-import Search from "./serach/Search";
 import { Create } from "./create/Create";
 import Mynfts from "./store/mynfts/Mynfts";
 
@@ -29,25 +30,19 @@ import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction"
 import { useDispatch, useSelector } from "react-redux";
 
-
-
 export const Main = () => {
   const [address, setAddress] = useState("");
   const [loginState, setLoginState] = useState({ address: "" });
   // const [likeList, setLikeList] = useState("");
   const [artistState, setArtistState] = useState({ address: "" });
 
-  const user = useSelector((state) => state.user)
-  const userList = useSelector((state) => state.userList.userList)
-  const musicList = useSelector((state) => state.musicList.musicList)
-  const likeList = useSelector((state) => state.likeList.likeList)
   const dispatch = useDispatch();                               //redux 초기값 넣어주자
   
   
 
   async function init() {
     const response = await Metamask.getAccounts(setAddress);
-    const address = response.data[0]
+    const address = response.data[0];
     await Metamask.walletListener(setAddress);
     getLikeList(address);
     fetchUserData(address)
@@ -61,6 +56,9 @@ export const Main = () => {
     dispatch(fetchUserData(address))
   }
 
+  const userdata = async () => {
+    await dispatch(fetchUserData(address)).then(() => {});
+  };
   useEffect(() => {
     init();
   }, []);
@@ -104,7 +102,8 @@ export const Main = () => {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
-  const getUser = async ()=>{       //유저 전체목록
+  const getUser = async () => {
+    //유저 전체목록
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
@@ -113,9 +112,10 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
-  const getLikeList = async (address)=>{  //내가 좋아요누른 노래
+  const getLikeList = async (address) => {
+    //내가 좋아요누른 노래
     await axios
-      .post("http://localhost:5000/music/likes/like",{address})
+      .post("http://localhost:5000/music/likes/like", { address })
       .then((res) => {
         dispatch(fetchLikeListData(
            res.data
@@ -128,18 +128,16 @@ export const Main = () => {
     <section className="main">
       <Searchbar address={address} />
       <div className="main-content">
-      <button onClick={() => dispatch(fetchMusicListData())}>test</button>
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
-
             <Route
               path="mypage"
               element={
                 loginState ? (
                   <Mypage address={address} />
                 ) : (
-                  <Listener address={address} />
+                  <RegisterUser address={address} />
                 )
               }
             >
@@ -164,25 +162,32 @@ export const Main = () => {
                 />
               }
             />
-            <Route path="store" element={<Store address={address}/>} >
-              <Route path="mynfts" element={<Mynfts />}/>
+            <Route path="store" element={<Store address={address} />}>
+              <Route path="mynfts" element={<Mynfts />} />
             </Route>
             {/* <Route path="auction" element={<Auction />} /> */}
             <Route path="auctionupload" element={<Auctionupload />} />
             <Route
               path="artist"
-              element={artistState ? <Artist /> : <Artists address={address} />}
-            />
-            <Route
-              path="search"
               element={
-                <Search
-                  address={address}
-                />
+                artistState ? (
+                  <Artist
+                    address={address}
+                    artistState={artistState}
+                    loginState={loginState}
+                  />
+                ) : (
+                  <RegisterArtist address={address} />
+                )
               }
-            />
+            >
+              <Route path="list" element={<ArtistsList address={address} />} />
+            </Route>
+
+            <Route path="search" element={<Search address={address} />} />
             <Route path="cteate" element={<Create address={address} />} />
           </Route>
+          <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
       <Playbar  address={address} />

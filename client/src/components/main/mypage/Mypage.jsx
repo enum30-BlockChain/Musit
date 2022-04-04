@@ -2,6 +2,8 @@ import "./Mypage.css";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
+import { fetchUserData } from "../../../redux/user/userAction";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Mypage = ({ address }) => {
   const [userdata, setUserdata] = useState("");
@@ -12,12 +14,11 @@ export const Mypage = ({ address }) => {
   //내사진 변경을 위한 클릭 hidden 버튼 생성
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [img, setImg] = useState("");
+  const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
+  const [checkedInputs, setCheckedInputs] = useState("");
 
-  async function init() {
-    const url = "http://localhost:5000/users/signin";
-    const response = await axios.post(url, { address });
-    setUserdata(response.data);
-  }
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   //TODO: user info(address, nickname, myfavorite, ...),
   useEffect(() => {
@@ -32,8 +33,8 @@ export const Mypage = ({ address }) => {
         link.classList.add("active");
       });
     });
-    init();
-  }, [address]);
+    dispatch(fetchUserData(address)).then(() => {});
+  }, []);
 
   function navlinkOnClick(e) {
     console.log(e.target);
@@ -48,7 +49,7 @@ export const Mypage = ({ address }) => {
   //내가 닉네임의 내용을 변환할 때 부르는 함수
   const NickNameOnClick = async () => {
     const url = "http://localhost:5000/users/change";
-    const response = await axios.post(url, { address, select });
+    const response = await axios.post(url, { address, select, checkedInputs });
     return console.log(response.data);
   };
 
@@ -81,13 +82,22 @@ export const Mypage = ({ address }) => {
       .catch((err) => alert(err));
   };
 
+  const changeHandler = (checked, value) => {
+    if (checked) {
+      setCheckedInputs([...checkedInputs, value]);
+    } else {
+      // 체크 해제
+      setCheckedInputs(checkedInputs.filter((el) => el !== value));
+    }
+  };
+
   return (
     <div className="mypage">
       <div className="user-card">
         {/* 내이미지공간 */}
         <div className="user-image">
           {/* 현재 이미지 불러오기 */}
-          <img src={userdata.img} alt="user profile" />
+          <img src={user.img} alt="user profile" />
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>
@@ -106,7 +116,7 @@ export const Mypage = ({ address }) => {
         </div>
         <div className="user-info">
           <h2 className="nickname">Nickname</h2>
-          {userdata.nickname}
+          {user.nickname}
           {visible && (
             <div>
               <input type="text" onChange={idonchange}></input>
@@ -115,7 +125,33 @@ export const Mypage = ({ address }) => {
           <h2 className="address">Address</h2>
           <span>{address}</span>
           <h2 className="subscription">Subscription</h2>
-          <span>{userdata.subscription}월이용권 </span>
+          <span>{user.subscription}월이용권 </span>
+          <h2 className="Genre">Genre</h2>
+          <span>{user.genre}</span>
+          {visible && (
+            <div>
+              {genre.map((MusicType, index) => {
+                return (
+                  <>
+                    <label>
+                      {MusicType}
+                      <input
+                        type={"checkbox"}
+                        name={"MusicType"}
+                        value={MusicType}
+                        onChange={(e) => {
+                          changeHandler(e.currentTarget.checked, MusicType);
+                        }}
+                        checked={
+                          checkedInputs.includes(MusicType) ? true : false
+                        }
+                      />
+                    </label>
+                  </>
+                );
+              })}
+            </div>
+          )}
         </div>
         {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
         <div>
@@ -157,7 +193,7 @@ export const Mypage = ({ address }) => {
           </li>
           <li>
             <Link to="/mypage/subscription">
-              <i class="uil uil-dollar-sign-alt"></i>
+              <i className="uil uil-dollar-sign-alt"></i>
               <span className="link-name"> Subscription</span>
             </Link>
           </li>

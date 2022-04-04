@@ -1,0 +1,69 @@
+.artistpage {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.artistpage .artist-card {
+  display: flex;
+
+  width: 100%;
+  height: 300px;
+  /* margin-left: 0px; */
+}
+
+.artistpage .artist-card .artist-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  padding-left: 30px;
+}
+
+.artistpage .artist-card .artist-image {
+  width: 200px;
+  height: 200px;
+  margin-left: 10px;
+  border-radius: 50%;
+}
+
+.artistpage .artist-card .artist-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.artistpage .artist-nav {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--black-light-color);
+  border-bottom: 1px solid var(--black-light-color);
+  padding: 10px 0;
+
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.artistpage .artist-nav .nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 700px;
+}
+
+.artistpage .artist-nav .nav-links li {
+  position: relative;
+}
+
+.artistpage .artist-nav .nav-links li :is(i, .link-name) {
+  color: var(--black-light-color);
+  transition: var(--tran-03);
+}
+
+.artist-nav .nav-links a:hover :is(i, .link-name) {
+  color: var(--primary-color);
+}
+
+.artist-nav .nav-links li.active :is(i, .link-name) {
+  color: var(--primary-color);
+}
