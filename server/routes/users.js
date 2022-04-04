@@ -14,6 +14,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/:address", async (req, res, next) => {
+  // console.log(req.params.address);
   try {
     const userone = await User.findOne({
       where: { address: req.params.address },
