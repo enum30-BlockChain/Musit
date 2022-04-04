@@ -27,7 +27,7 @@ import { fetchUserData, testFunc } from "../../redux/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 
 export const Main = () => {
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState();
   const [loginState, setLoginState] = useState();
   const [songList, setSongList] = useState("");
   const [likeList, setLikeList] = useState("");

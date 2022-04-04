@@ -5,6 +5,7 @@ const { MusicLike, Music } = require("../../models/index");
 
 /* GET home page. */
 router.post("/like", async (req, res, next) => {
+  console.log(req.body);
   try {
     const data = req.body;
     const overlap = await Music.findOne({
@@ -44,7 +45,7 @@ router.post("/add", async (req, res, next) => {
       {
         play_count: data.palyeCount + 1,
       },
-      { where: { ipfs_hash: data.ipfs_hash, } }
+      { where: { ipfs_hash: data.ipfs_hash } }
     );
   } catch (err) {
     next(err);

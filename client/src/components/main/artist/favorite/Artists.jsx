@@ -32,7 +32,11 @@ export const ArtistsList = ({ address }) => {
       <div className="favorite">
         <div className="artistfavorite">
           <h2>Artist List</h2>
-          <ArtistList sx={{ width: "50%" }} artistList={artistList} />
+          <ArtistList
+            sx={{ width: "50%" }}
+            artistList={artistList}
+            address={address}
+          />
         </div>
         <div className="artistfavorite">
           <h2>Artist Favorite</h2>
