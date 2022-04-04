@@ -18,7 +18,6 @@ function MusicCard(props) {
   const likeList = useSelector((state) => state.likeList.likeList);
   
   useEffect(() => {
-    setCheckedInputs(likeList.find((music)=>music.ipfs_hash === props.ipfs_hash))
     setlikeCount(props.music.MusicLikes.length)
     setpalyeCount(props.music.play_count)
   }, [props])
@@ -33,7 +32,7 @@ function MusicCard(props) {
 
   const palyCountAdd = async () => {
     setpalyeCount(palyeCount + 1);
-    const content = { play_count: palyeCount, ipfs_hash: props.music.ipfs_hash };
+    const content = { palyeCount: palyeCount, ipfs_hash: props.music.ipfs_hash };
     await axios
       .post("http://localhost:5000/music/add", content)
       .then((res) => {
@@ -64,6 +63,9 @@ function MusicCard(props) {
     }
   };
 
+  useEffect(() => {
+     setCheckedInputs(props.checkBox);
+   }, []); 
  
  
     return (
