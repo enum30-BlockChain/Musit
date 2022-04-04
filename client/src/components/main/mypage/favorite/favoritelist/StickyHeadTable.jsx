@@ -7,17 +7,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { useSelector } from "react-redux";
 
 export default function StickyHeadTable({ findMusic }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [favorit, setFavorit] = React.useState([""]);
 
-  React.useEffect(() => {
-    if (findMusic) {
-      setFavorit(findMusic);
-    }
-  }, [findMusic]);
+  const likeList = useSelector((state) => state.likeList.likeList);
+
+  React.useEffect(() => {}, [findMusic]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -72,7 +70,7 @@ export default function StickyHeadTable({ findMusic }) {
 
   //row 안의 value값
   const rows = [];
-  favorit.forEach((favor, index) => {
+  likeList.forEach((favor, index) => {
     rows.push(
       createRow(
         index,

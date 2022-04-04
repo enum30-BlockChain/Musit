@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Artist.belongsTo(models.User, {
-        foreignKey: { name: "user_address", allowNull: true },
-        onDelete: "set null",
+        foreignKey: { name: "user_address", allowNull: false },
         sourceKey: "address",
       });
       Artist.hasMany(models.ArtistLike, {

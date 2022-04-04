@@ -4,6 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import { fetchUserData } from "../../../redux/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchArtistListData } from "../../../redux/artistlike/artistListAction";
 
 export const Mypage = ({ address }) => {
   const [userdata, setUserdata] = useState("");
@@ -19,6 +20,7 @@ export const Mypage = ({ address }) => {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const artistlike = useSelector((state) => state.artistlike);
 
   //TODO: user info(address, nickname, myfavorite, ...),
   useEffect(() => {
@@ -34,6 +36,7 @@ export const Mypage = ({ address }) => {
       });
     });
     dispatch(fetchUserData(address)).then(() => {});
+    dispatch(fetchArtistListData(address)).then(() => {});
   }, []);
 
   function navlinkOnClick(e) {
@@ -90,6 +93,8 @@ export const Mypage = ({ address }) => {
       setCheckedInputs(checkedInputs.filter((el) => el !== value));
     }
   };
+
+  console.log(artistlike);
 
   return (
     <div className="mypage">
