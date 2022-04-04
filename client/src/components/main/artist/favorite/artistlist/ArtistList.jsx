@@ -38,25 +38,25 @@ export default function ArtistList({ artistList, address }) {
     setPage(0);
   };
 
-  const changeHandler = async (checked) => {
-    await axios
-      .post("http://localhost:5000/music/like", address)
-      .then((res) => {})
-      .catch((err) => alert("회원가입부터하세용.", err));
+  // const changeHandler = async (checked) => {
+  //   await axios
+  //     .post("http://localhost:5000/music/like", address)
+  //     .then((res) => {})
+  //     .catch((err) => alert("회원가입부터하세용.", err));
 
-    if (checked) {
-      dispatch({ type: "SONG_LIST_ADD", payload: address });
-      setCheckedInputs(true);
-      setlikeCount(likeCount + 1);
-    } else {
-      const newMySonglist = mySonglist.filter((song) => {
-        return song.ipfs_hash.indexOf(artistList.ipfs_hash) < 0;
-      });
-      dispatch({ type: "SONG_LIST_POP", payload: newMySonglist });
-      setCheckedInputs(false);
-      setlikeCount(likeCount - 1);
-    }
-  };
+  //   if (checked) {
+  //     dispatch({ type: "SONG_LIST_ADD", payload: address });
+  //     setCheckedInputs(true);
+  //     setlikeCount(likeCount + 1);
+  //   } else {
+  //     const newMySonglist = mySonglist.filter((song) => {
+  //       return song.ipfs_hash.indexOf(artistList.ipfs_hash) < 0;
+  //     });
+  //     dispatch({ type: "SONG_LIST_POP", payload: newMySonglist });
+  //     setCheckedInputs(false);
+  //     setlikeCount(likeCount - 1);
+  //   }
+  // };
 
   React.useEffect(() => {
     setCheckedInputs();
@@ -90,16 +90,16 @@ export default function ArtistList({ artistList, address }) {
         index,
         Artists.artist_name,
         <img src={Artists.img} style={{ width: "100px" }} />,
-        Artists.likes,
-        <td>
-          <input
-            type="checkbox"
-            onChange={(e) => {
-              changeHandler(e.currentTarget.checked);
-            }}
-            checked={checkedInputs}
-          />
-        </td>
+        Artists.likes
+        // <td>
+        //   <input
+        //     type="checkbox"
+        //     onChange={(e) => {
+        //       changeHandler(e.currentTarget.checked);
+        //     }}
+        //     checked={checkedInputs}
+        //   />
+        // </td>
       )
     );
   });
