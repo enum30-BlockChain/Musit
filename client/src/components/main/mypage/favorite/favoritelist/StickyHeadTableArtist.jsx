@@ -63,6 +63,8 @@ export default function StickyHeadTable({ address }) {
     );
   });
 
+  console.log(artistlike);
+
   return (
     <Paper
       className="table-container"

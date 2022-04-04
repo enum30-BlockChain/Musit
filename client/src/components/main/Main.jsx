@@ -182,7 +182,7 @@ export const Main = () => {
           <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
-      {/* <Playbar address={address} /> */}
+      <Playbar address={address} />
     </section>
   );
 };
