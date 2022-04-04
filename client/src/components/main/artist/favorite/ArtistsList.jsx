@@ -1,6 +1,5 @@
-import "./ArtistsList.css";
+import "./css/ArtistsList.css";
 import React, { useEffect, useState } from "react";
-import StickyHeadTableArtist from "../../mypage/favorite/favoritelist/StickyHeadTableArtist";
 
 import axios from "axios";
 import ArtistLikeListCard from "./artistlist/ArtistLikeListCard";
