@@ -171,10 +171,7 @@ export const Create = ({ address }) => {
         <div className="create-imgbox">
           <h2>Album Cover Image</h2>
           {albumCoverImgFile && (
-            <img
-              src={URL.createObjectURL(albumCoverImgFile)}
-              style={{ width: "200px" }}
-            ></img>
+            <img src={URL.createObjectURL(albumCoverImgFile)}></img>
           )}
           <input
             name="imgUpload"

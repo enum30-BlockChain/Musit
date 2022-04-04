@@ -19,7 +19,6 @@
 .side-nav .logo-name-container {
   display: flex;
   align-items: center;
-  margin-left: 5px;
 }
 
 .side-nav .logo-image {
@@ -39,7 +38,7 @@
   font-size: 22px;
   font-weight: 600;
   color: var(--text-color);
-  margin-left: 14px;
+  margin-left: 20px;
   transition: var(--tran-05);
   text-decoration: underline var(--text-color);
 }
