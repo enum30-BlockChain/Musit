@@ -27,34 +27,23 @@ import Mynfts from "./store/mynfts/Mynfts";
 import { fetchUserData, testFunc } from "../../redux/user/userAction";
 import { fetchUserListData } from "../../redux/userList/userListAction";
 import { fetchMusicListData } from "../../redux/musicList/musicListAction";
-import { fetchLikeListData } from "../../redux/likeList/likeListAction"
+import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
 
 export const Main = () => {
-<<<<<<< HEAD
-  const [address, setAddress] = useState();
-  const [loginState, setLoginState] = useState();
-  const [songList, setSongList] = useState("");
-  const [likeList, setLikeList] = useState("");
-  const [userList, setUserList] = useState("");
-  const [artistState, setArtistState] = useState();
-=======
   const [address, setAddress] = useState("");
   const [loginState, setLoginState] = useState({ address: "" });
   // const [likeList, setLikeList] = useState("");
   const [artistState, setArtistState] = useState({ address: "" });
->>>>>>> main
 
-  const dispatch = useDispatch();                               //redux 초기값 넣어주자
-  
-  
+  const dispatch = useDispatch(); //redux 초기값 넣어주자
 
   async function init() {
     const response = await Metamask.getAccounts(setAddress);
     const address = response.data[0];
     await Metamask.walletListener(setAddress);
     getLikeList(address);
-    fetchUserData(address)
+    fetchUserData(address);
     //나의 지금 로그인상태 확인
     loginCheck(address);
     artistsCheck(address);
@@ -62,7 +51,7 @@ export const Main = () => {
     getUser();
     sidebarToggle();
 
-    dispatch(fetchUserData(address))
+    dispatch(fetchUserData(address));
   }
 
   const userdata = async () => {
@@ -71,7 +60,7 @@ export const Main = () => {
   useEffect(() => {
     init();
   }, []);
-  
+
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";
     const response = await axios.post(url, { address });
@@ -102,7 +91,8 @@ export const Main = () => {
     });
   };
 
-  const getMusicList = async () => {   //노래 전체목록
+  const getMusicList = async () => {
+    //노래 전체목록
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
@@ -116,7 +106,7 @@ export const Main = () => {
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
-        dispatch(fetchUserListData(res.data))
+        dispatch(fetchUserListData(res.data));
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
@@ -126,9 +116,7 @@ export const Main = () => {
     await axios
       .post("http://localhost:5000/music/likes/like", { address })
       .then((res) => {
-        dispatch(fetchLikeListData(
-           res.data
-        ))
+        dispatch(fetchLikeListData(res.data));
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
@@ -163,14 +151,7 @@ export const Main = () => {
               />
             </Route>
 
-            <Route
-              path="music"
-              element={
-                <Music
-                  address={address}
-                />
-              }
-            />
+            <Route path="music" element={<Music address={address} />} />
             <Route path="store" element={<Store address={address} />}>
               <Route path="mynfts" element={<Mynfts />} />
             </Route>
@@ -199,7 +180,7 @@ export const Main = () => {
           <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
-      <Playbar  address={address} />
+      <Playbar address={address} />
     </section>
   );
 };
