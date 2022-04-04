@@ -9,7 +9,6 @@ export const Auctionupload = () => {
   //앨범커버 이미지 가져오기
 
   //달력 일정
-  const [auctionStartDate, setAuctionStsrtDate] = useState();
 
   return (
     <>
@@ -28,21 +27,23 @@ export const Auctionupload = () => {
         <div className="auction-box">
           <h2>Auction Start Price</h2>
           <Input
-            type="text"
+            type="number"
+            inputProps={{ min: 0 }}
             placeholder="Amount(ETH)"
             sx={{ width: 400 }}
           ></Input>
-          <h2>Auction Closing Time</h2>
+          <h2 className="acution-subtitile  ">Auction Closing Time</h2>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DesktopDatePicker
-              label={"Acution Duration"}
-              value={auctionStartDate}
-              onChange={(newValue) => {
-                setAuctionStsrtDate(newValue);
+            <TextField
+              id="datetime-local"
+              label="Closing Time"
+              type="datetime-local"
+              defaultValue="2022-02-11T10:30"
+              sx={{ width: 400 }}
+              InputLabelProps={{
+                shrink: true,
               }}
-              renderInput={(params) => (
-                <TextField sx={{ width: 400 }} {...params} />
-              )}
+              onChange={(e) => console.log(e.target.value)}
             />
           </LocalizationProvider>
         </div>

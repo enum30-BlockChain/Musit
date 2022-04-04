@@ -1,5 +1,5 @@
 import "./Create.css";
-import { Button } from "@mui/material";
+import { Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 const { create } = require("ipfs-http-client");
@@ -183,9 +183,14 @@ export const Create = ({ address }) => {
             onChange={getImg}
           />
         </div>
-        <div className="create-box">
+        <div className="create-inputbox">
           <h2>Music</h2>
-          <input type="file" accept="audio/*" onChange={getAudio} />
+          <Input
+            type="file"
+            accept="audio/*"
+            onChange={getAudio}
+            sx={{ width: 400 }}
+          />
           {audiofile && (
             <audio
               src={URL.createObjectURL(audiofile)}
@@ -204,7 +209,12 @@ export const Create = ({ address }) => {
             </audio>
           )}
           <h2>Music Title</h2>
-          <input onChange={getTitle} value={musicTitle} />
+          <Input
+            onChange={getTitle}
+            value={musicTitle}
+            sx={{ width: 400 }}
+            placeholder="Music Title"
+          />
           <h2>Music Discription</h2>
           {/* <input onchange={getDescription} value={musicDescription} /> */}
           <h2>Genre</h2>
@@ -231,7 +241,6 @@ export const Create = ({ address }) => {
         </div>
       </div>
       {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
-      <p />
       <div className="create-btn">
         <Button onClick={submit}> submit </Button>
       </div>
