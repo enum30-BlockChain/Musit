@@ -67,7 +67,7 @@ export default function ArtistList({ artistList }) {
       artists.map((Artists, index) => {
         return (
           <>
-            <div>{<img src={Artists.img} style={{ width: "100px" }} />}</div>
+            <div>{<img src={Artists.img} style={{ width: "30px" }} />}</div>
           </>
         );
       }),

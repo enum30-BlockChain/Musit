@@ -48,40 +48,20 @@ export default function StickyHeadTable({ artistdetail }) {
   }
 
   //row 안의 value값
-  const rows = [
-    createRow(
-      artists.map((Artists, index) => {
-        return (
-          <>
-            <div className="Artistsfavoritlist">{index + 1}</div>
-          </>
-        );
-      }),
-      artists.map((Artists, index) => {
-        return (
-          <>
-            <div>{Artists.artist_name}</div>
-          </>
-        );
-      }),
-      artists.map((Artists, index) => {
-        return (
-          <>
-            <div>{<img src={Artists.img} style={{ width: "100px" }} />}</div>
-          </>
-        );
-      }),
-      artists.map((Artists, index) => {
-        return (
-          <>
-            <div>{Artists.likes}</div>
-          </>
-        );
-      })
-    ),
-  ];
+  const rows = [];
 
-  ///////////////////////////////////////////////////////////////
+  artists.forEach((Artists, index) => {
+    rows.push(
+      createRow(
+        index,
+        Artists.artist_name,
+        <img src={Artists.img} style={{ width: "100px" }} />,
+        Artists.likes
+      )
+    );
+  });
+
+  console.log(artists);
 
   return (
     <Paper
