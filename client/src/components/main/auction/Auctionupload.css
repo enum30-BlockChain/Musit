@@ -20,6 +20,10 @@
   margin-top: 40px;
 }
 
+.acution-subtitile h2 {
+  margin-top: 40px;
+}
+
 .auction-layout > .auction-imgbox {
   border-right: 1px solid var(--border-color);
   text-align: center;
