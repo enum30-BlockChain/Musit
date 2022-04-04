@@ -1,14 +1,13 @@
 @import "../../../../styles/variables.css";
 
 .sub {
-  margin-top: 40px;
+  margin-top: 20px;
   color: var(--text-color);
   text-align: center;
 }
 .sub-box {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
   color: var(--text-color);

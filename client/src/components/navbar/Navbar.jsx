@@ -39,10 +39,9 @@ export const Navbar = () => {
       <Link to={"/"}>
         <div className="logo-name-container">
           <div className="logo-image">
-            <img src="/images/Musit_logo.png" alt="logo" />
+            <img src="/images/ENUM30.png" alt="logo" />
           </div>
-
-          <span className="logo-name nav-links">MUSIT</span>
+          <span className="logo-name nav-links">ENUM30 X MUSIT</span>
         </div>
       </Link>
 
