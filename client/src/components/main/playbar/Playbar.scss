@@ -12,21 +12,9 @@
 }
 
 .img-container {
-  position: fixed;
-  width: 110px;
-  bottom: 1%;
-}
-
-.img-container::after {
-  content: "";
-  background-color: rgb(71, 71, 71);
-  border-radius: 50%;
   position: absolute;
-  bottom: 100%;
-  left: 50%;
-  width: 25px;
-  height: px;
-  transform: translate(-50%, 50%);
+  width: 110px;
+  bottom: 25px;
 }
 
 .img-container img {

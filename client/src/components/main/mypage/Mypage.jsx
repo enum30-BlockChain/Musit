@@ -101,7 +101,6 @@ export const Mypage = ({ address }) => {
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>
-              <button onClick={Submit}>올리기</button>
               <input
                 type="file"
                 name="imgUpload"
@@ -111,6 +110,7 @@ export const Mypage = ({ address }) => {
               {albumCoverImgFile && (
                 <img style={{ width: "100px" }} src={albumCoverImgFile}></img>
               )}
+              <button onClick={Submit}>올리기</button>
             </div>
           )}
         </div>
@@ -119,7 +119,11 @@ export const Mypage = ({ address }) => {
           {user.nickname}
           {visible && (
             <div>
-              <input type="text" onChange={idonchange}></input>
+              <input
+                type="text"
+                value={user.nickname}
+                onChange={idonchange}
+              ></input>
             </div>
           )}
           <h2 className="address">Address</h2>
@@ -154,7 +158,7 @@ export const Mypage = ({ address }) => {
           )}
         </div>
         {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
-        <div>
+        <div className="setting-btn">
           <button
             className="uil uil-setting"
             onClick={async () => {
