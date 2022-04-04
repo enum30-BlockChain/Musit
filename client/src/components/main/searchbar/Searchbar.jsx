@@ -25,7 +25,8 @@ export const Searchbar = ({ address }) => {
   }
 
   const sliceAddress =
-    address.substr(0, 5) + "∙∙∙" + address.substr(address.length - 4, 4);
+    address &&
+    address.substr(0, 5) + "..." + address.substr(address.length - 4, 4);
 
   const connectOnclick = () => {
     Metamask.connectWallet();
@@ -49,7 +50,8 @@ export const Searchbar = ({ address }) => {
         <input
           type="text"
           placeholder="Search here..."
-          onChange={changehandler}
+          onKeyPress={changehandler}
+          onChange={getsSearchWord}
         />
       </div>
 

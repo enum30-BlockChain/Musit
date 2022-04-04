@@ -2,6 +2,7 @@ import { BigNumber, Contract, ethers, Transaction } from "ethers";
 import { MusitNFT, Marketplace } from "./typechain/index";
 import MusitNftJson from "./MusitNFT.json";
 import MarketplaceJson from "./Marketplace.json";
+import AuctionJson from "./Auction.json";
 
 interface Window {
   ethereum: any;
@@ -16,9 +17,16 @@ const musitNFT: ethers.Contract | MusitNFT = new ethers.Contract(
   MusitNftJson.abi,
   signer
 );
+
 const marketplace: ethers.Contract | Marketplace = new ethers.Contract(
   MarketplaceJson.contractAddress,
   MarketplaceJson.abi,
+  signer
+);
+
+const auction: ethers.Contract | Marketplace = new ethers.Contract(
+  AuctionJson.contractAddress,
+  AuctionJson.abi,
   signer
 );
 
@@ -33,6 +41,7 @@ export default class Ethers {
       const contracts = {
         musitNFT,
         marketplace,
+        auction,
       };
       return contracts;
     } catch (error) {

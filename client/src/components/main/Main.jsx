@@ -1,7 +1,7 @@
 import "./Main.css";
 import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
-import { Searchbar } from "./searchbar/Searchbar";
+// import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard/Dashboard";
 import { Mypage } from "./mypage/Mypage";
@@ -15,11 +15,12 @@ import { Subscription } from "./mypage/subscription/Subscription";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
-import Listener from "./register/user/listener/Listener";
-import Artists from "./register/user/artists/Artists";
+import RegisterUser from "./register/user/listener/RegisterUser";
+import RegisterArtist from "./register/user/artists/RegisterArtist";
+import { ArtistsList } from "./artist/favorite/Artists";
+import Search from "./serach/Search";
 
 import axios from "axios";
-import Search from "./serach/Search";
 import { Create } from "./create/Create";
 import Mynfts from "./store/mynfts/Mynfts";
 import { fetchUserData, testFunc } from "../../redux/user/userAction";
@@ -27,11 +28,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
-  const [loginState, setLoginState] = useState({ address: "" });
+  const [loginState, setLoginState] = useState();
   const [songList, setSongList] = useState("");
   const [likeList, setLikeList] = useState("");
   const [userList, setUserList] = useState("");
-  const [artistState, setArtistState] = useState({ address: "" });
+  const [artistState, setArtistState] = useState();
 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch(); //redux 초기값 넣어주자
@@ -40,7 +41,6 @@ export const Main = () => {
     const response = await Metamask.getAccounts(setAddress);
     const address = response.data[0];
     await Metamask.walletListener(setAddress);
-    fetchUserData(address);
     //나의 지금 로그인상태 확인
     loginCheck(address);
     getSongList();
@@ -50,9 +50,12 @@ export const Main = () => {
     sidebarToggle();
   }
 
+  const userdata = async () => {
+    await dispatch(fetchUserData(address)).then(() => {});
+  };
   useEffect(() => {
     init();
-    console.log(user);
+    userdata(address);
   }, []);
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";
@@ -118,18 +121,16 @@ export const Main = () => {
     <section className="main">
       {/* <Searchbar address={address} /> */}
       <div className="main-content">
-        <button onClick={() => dispatch(fetchUserData(address))}>test</button>
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
-
             <Route
               path="mypage"
               element={
                 loginState ? (
                   <Mypage address={address} />
                 ) : (
-                  <Listener address={address} />
+                  <RegisterUser address={address} />
                 )
               }
             >
@@ -164,11 +165,25 @@ export const Main = () => {
             <Route path="auctionupload" element={<Auctionupload />} />
             <Route
               path="artist"
-              element={artistState ? <Artist /> : <Artists address={address} />}
-            />
+              element={
+                artistState ? (
+                  <Artist
+                    address={address}
+                    artistState={artistState}
+                    loginState={loginState}
+                  />
+                ) : (
+                  <RegisterArtist address={address} />
+                )
+              }
+            >
+              <Route path="list" element={<ArtistsList address={address} />} />
+            </Route>
+
             <Route path="search" element={<Search address={address} />} />
             <Route path="cteate" element={<Create address={address} />} />
           </Route>
+          <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
       <Playbar likeList={likeList} address={address} userList={userList} />
