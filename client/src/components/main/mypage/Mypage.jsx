@@ -36,7 +36,6 @@ export const Mypage = ({ address }) => {
       });
     });
     dispatch(fetchUserData(address)).then(() => {});
-    dispatch(fetchArtistListData(address)).then(() => {});
   }, []);
 
   function navlinkOnClick(e) {

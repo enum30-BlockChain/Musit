@@ -35,8 +35,7 @@ export const fetchArtistListData = (address) => {
       dispatch(
         fetchArtistListDataSuccess({
           ...artistlike,
-          artist_artist_name: likeInfo.artist_name,
-          user_address: likeInfo.user_address,
+          artistLikeList: likeInfo,
         })
       );
     } catch (error) {

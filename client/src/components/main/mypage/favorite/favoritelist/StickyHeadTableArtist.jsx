@@ -8,20 +8,18 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchArtistListData } from "../../../../../redux/artistlike/artistListAction";
 
 export default function StickyHeadTable({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [artists, setArtists] = React.useState([""]);
 
   const dispatch = useDispatch();
   const artistlike = useSelector((state) => state.artistlike);
 
   React.useEffect(() => {
-    if (artistlike) {
-      setArtists(artistlike);
-    }
-  }, [artistlike]);
+    dispatch(fetchArtistListData(address)).then(() => {});
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -54,7 +52,7 @@ export default function StickyHeadTable({ address }) {
   //row 안의 value값
   const rows = [];
 
-  artists.forEach((Artists, index) => {
+  artistlike.artistLikeList.forEach((Artists, index) => {
     rows.push(
       createRow(
         index,
