@@ -18,6 +18,7 @@ import { History } from "./mypage/history/History";
 import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
 import { ArtistsList } from "./artist/favorite/Artists";
+import { ArtistsTest } from "./artist/ArtistsTest";
 import Search from "./serach/Search";
 
 import axios from "axios";
@@ -172,6 +173,7 @@ export const Main = () => {
               }
             >
               <Route path="list" element={<ArtistsList address={address} />} />
+              <Route path="test" element={<ArtistsTest address={address} />} />
             </Route>
 
             <Route path="search" element={<Search address={address} />} />
@@ -180,7 +182,7 @@ export const Main = () => {
           <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
-      <Playbar address={address} />
+      {/* <Playbar address={address} /> */}
     </section>
   );
 };
