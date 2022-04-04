@@ -210,36 +210,8 @@ function DurTime(e) {
     // console.log(min_d + ":" + sec_d)
   }
 
-  get_sec(currentTime, sec);
-
-  // change currentTime DOM
-  // currTime.innerHTML = min + ":" + sec;
-
-  // define minutes duration
-  let min_d = isNaN(duration) === true ? "0" : Math.floor(duration / 60);
-  min_d = min_d < 10 ? "0" + min_d : min_d;
-
-  function get_sec_d(x) {
-    if (Math.floor(x) >= 60) {
-      for (var i = 1; i <= 60; i++) {
-        if (Math.floor(x) >= 60 * i && Math.floor(x) < 60 * (i + 1)) {
-          sec_d = Math.floor(x) - 60 * i;
-          sec_d = sec_d < 10 ? "0" + sec_d : sec_d;
-        }
-      }
-    } else {
-      sec_d = isNaN(duration) === true ? "0" : Math.floor(x);
-      sec_d = sec_d < 10 ? "0" + sec_d : sec_d;
-    }
-  }
-  // define seconds duration
-  get_sec_d(duration);
-  // change duration DOM
-  // durTime.innerHTML = min_d + ":" + sec_d;
-  // console.log(min_d + ":" + sec_d)
-}
-
-const palyCountAdd = async () => {
+  const palyCountAdd = async () => {
+  setpalyeCount(palyeCount + 1);
   const content = { play_count: palyeCount, ipfs_hash: hash };
   await axios
     .post("http://localhost:5000/music/add", content)
@@ -249,19 +221,6 @@ const palyCountAdd = async () => {
     .catch((err) => console.log("노래목록을 불러오지못했습니다.", err));
 };
 
-const [savePoint,setSavePoint] =useState(0);
-const postTime = async(saveTime)=>{
-  let sendInt = savePoint % 20;   //20으로 나누면 5초정도됨
-  const content = { time: saveTime, address: props.address, hash:hash, title:tilte };
-  if (!sendInt) {
-    setSavePoint(savePoint+1);
-    await axios
-      .post("http://localhost:5000/music/add", content)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log("노래목록을 불러오지못했습니다.", err));
-  };
 
   const [savePoint, setSavePoint] = useState(0);
   const postTime = async (saveTime) => {
