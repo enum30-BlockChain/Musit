@@ -115,8 +115,8 @@ const RegisterUser = ({ address }) => {
               />
             ))}
           </div>
+          <h2>Genre</h2>
           <div className="genre">
-            <h2>Genre</h2>
             {genre.map((MusicType, index) => (
               <ListenerType
                 id={index + 1}

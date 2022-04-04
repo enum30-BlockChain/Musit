@@ -1,37 +1,35 @@
 const initialState = {
   loading: false,
 
-  userList: null,
+  artistLikeList: [],
 
   error: false,
   errorMsg: "",
 };
 
-const userListReducer = (state = initialState, action) => {
+const aritstListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "USER_LIST_DATA_REQUEST":
+    case "ARTIST_LIKE_DATA_REQUEST":
       return {
         ...initialState,
         loading: true,
       };
-    case "USER_LIST_DATA_SUCCESS":
+    case "ARTIST_LIKE_DATA_SUCCESS":
       return {
         ...initialState,
         loading: false,
-
-        userList: action.payload.userList,
+        artistLikeList: action.payload.artistLikeList,
       };
-    case "USER_LIST_DATA_FAILED":
+    case "ARTIST_LIKE_DATA_FAILED":
       return {
         ...initialState,
         loading: false,
         error: true,
         errorMsg: action.payload,
       };
-
     default:
       return state;
   }
 };
 
-export default userListReducer;
+export default aritstListReducer;

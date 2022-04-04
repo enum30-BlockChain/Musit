@@ -8,7 +8,6 @@ import axios from "axios";
 export const Favorite = ({ address }) => {
   const [findMusic, setFindMusic] = useState("");
   const [findartist, setFindartist] = useState("");
-  const [artistdetail, setArtistDetail] = useState("");
 
   async function musicfavorite() {
     const url = "http://localhost:5000/music/likes/like";
@@ -16,22 +15,8 @@ export const Favorite = ({ address }) => {
     setFindMusic(response.data);
   }
 
-  async function favoriteartist() {
-    const url = "http://localhost:5000/artists/likes/list";
-    const response = await axios.post(url, { address });
-    setFindartist(response.data);
-  }
-
-  async function favoritedetail() {
-    const url = "http://localhost:5000/artists/likes/list/detail";
-    const response = await axios.post(url, { address });
-    setArtistDetail(response.data);
-  }
-
   useEffect(() => {
     musicfavorite();
-    favoriteartist();
-    favoritedetail();
   }, []);
 
   return (
@@ -47,10 +32,7 @@ export const Favorite = ({ address }) => {
         </div>
         <div className="artistfavorite">
           <h2>Artist Favorite</h2>
-          <StickyHeadTableArtist
-            sx={{ width: "50%" }}
-            artistdetail={artistdetail}
-          />
+          <StickyHeadTableArtist sx={{ width: "50%" }} />
         </div>
       </div>
     </>
