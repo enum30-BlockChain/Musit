@@ -1,9 +1,10 @@
 .create-title {
+  margin-top: 30px;
   text-align: center;
 }
 .create-layout {
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
 }
 

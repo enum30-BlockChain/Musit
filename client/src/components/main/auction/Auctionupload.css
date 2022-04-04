@@ -1,8 +1,10 @@
 .auction-title {
+  margin-top: 30px;
   text-align: center;
 }
 .auction-layout {
   display: flex;
+  margin-top: 30px;
 }
 
 .auction-btn {
