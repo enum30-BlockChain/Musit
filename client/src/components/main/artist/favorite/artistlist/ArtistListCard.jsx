@@ -9,10 +9,12 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistListData } from "../../../../../redux/artistlist/artistListAction";
+import axios from "axios";
 
 export default function ArtistListCard({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [checkedInputs, setCheckedInputs] = React.useState([]);
 
   const dispatch = useDispatch();
   const artistlist = useSelector((state) => state.artistlist);
@@ -28,6 +30,18 @@ export default function ArtistListCard({ address }) {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const changeHandler = async (checked) => {
+    const url = "http://localhost:5000/artists/likes/like";
+    await axios
+      .post(url, address)
+      .then((res) => {})
+      .catch((err) => alert("회원가입부터하세용.", err));
+
+    if (checked) {
+    } else {
+    }
   };
 
   //mui 내용
@@ -52,7 +66,7 @@ export default function ArtistListCard({ address }) {
   //row 안의 value값
   const rows = [];
 
-  console.log(artistlist);
+  console.log(checkedInputs);
 
   artistlist.artistList.forEach((Artists, index) => {
     rows.push(
@@ -60,16 +74,15 @@ export default function ArtistListCard({ address }) {
         index,
         Artists.artist_name,
         <img src={Artists.img} style={{ width: "100px" }} />,
-        Artists.likes
-        // <td>
-        //   <input
-        //     type="checkbox"
-        //     onChange={(e) => {
-        //       changeHandler(e.currentTarget.checked);
-        //     }}
-        //     checked={checkedInputs}
-        //   />
-        // </td>
+        Artists.likes,
+        <td>
+          <input
+            type="checkbox"
+            onChange={(e) => {
+              changeHandler(e.currentTarget.checked);
+            }}
+          />
+        </td>
       )
     );
   });
