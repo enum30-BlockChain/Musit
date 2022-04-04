@@ -5,7 +5,6 @@ const { User } = require("../models/index");
 /* GET User listing. */
 router.get("/", async (req, res, next) => {
   try {
-    console.log("나때문에 애러나는건데")
     const userList = await User.findAll({});
     res.send(userList);
   } catch (err) {
@@ -16,7 +15,6 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:address", async (req, res, next) => {
   try {
-    console.log("나때문에 애러나는건데")
     const userone = await User.findOne({
       where: { address: req.params.address },
     });
@@ -46,7 +44,6 @@ router.post("/signin", async (req, res, next) => {
 
 router.post("/signup", async (req, res, next) => {
   try {
-    
     const user = await User.findOne({
       where: {
         address: req.body.address,
@@ -73,7 +70,6 @@ router.post("/signup", async (req, res, next) => {
 
 router.post("/buy", async (req, res, next) => {
   try {
-   
     const user = await User.findOne({
       where: {
         address: req.body.address,
@@ -98,7 +94,7 @@ router.post("/buy", async (req, res, next) => {
 router.post("/recent", async (req, res, next) => {
   try {
     const data = req.body;
-    const lump = [data.hash, data.time, data.title,].join("-");
+    const lump = [data.hash, data.time, data.title].join("-");
     await User.update(
       {
         recent_played: lump,
@@ -147,15 +143,9 @@ router.post("/played", async (req, res, next) => {
 });
 
 router.post("/change", async (req, res, next) => {
-  console.log(22222222222);
-  console.log(req.body);
-  console.log(22222222222);
   console.log("http://localhost:5000/users/change");
   try {
     if (req.body.select == "") {
-      console.log(333333333333);
-      console.log(req.body);
-      console.log(333333333333);
       res.send("바꿀내용을 불러주세요");
     }
     const users = await User.findOne({
@@ -163,17 +153,19 @@ router.post("/change", async (req, res, next) => {
         address: req.body.address,
       },
     });
-    const users_change = await User.update(
-      {
-        nickname: req.body.select,
-      },
-      {
-        where: {
-          address: req.body.address,
+    if (req.body.select !== "") {
+      const users_change = await User.update(
+        {
+          nickname: req.body.select,
         },
-      }
-    );
-    res.send(users_change);
+        {
+          where: {
+            address: req.body.address,
+          },
+        }
+      );
+      res.send(users_change);
+    }
   } catch (err) {
     console.error(err);
   }

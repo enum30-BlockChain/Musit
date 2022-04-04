@@ -20,7 +20,7 @@ router.post("/likedetail", async (req, res, next) => {
     const songind_ipfs = await Music.findAll({
       include: { model: MusicLike, where: { ipfs_hash: req.body.select } },
     });
-    
+
     res.send(songind_ipfs);
   } catch (err) {
     console.error(err);
