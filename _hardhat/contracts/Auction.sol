@@ -34,8 +34,6 @@ contract Auction is ReentrancyGuard {
   event Enrolled(
     uint indexed itemId,
     uint _startPrice,
-    uint _startAt, 
-    uint _endAt, 
     address _nft, 
     uint _tokenId, 
     address indexed seller
@@ -75,7 +73,7 @@ contract Auction is ReentrancyGuard {
 
     _nft.transferFrom(msg.sender, address(this), _tokenId);
 
-    emit Enrolled(_itemId, _startPrice, block.timestamp, _endAt, address(_nft), _tokenId, msg.sender);
+    emit Enrolled(_itemId, _startPrice, address(_nft), _tokenId, msg.sender);
   }  
 
   // 경매 참여 함수
@@ -99,8 +97,9 @@ contract Auction is ReentrancyGuard {
 
   function end(uint _itemId) external {
     Item storage auctionItem = items[_itemId];
-    require(auctionItem.status == StatusType.ENROLLED, "The auction is not started yet");
+    require(auctionItem.status == StatusType.ENROLLED, "This item hasn't been enrolled");
     require(block.timestamp > auctionItem.endAt, "It is not the time to close auction");
+    require(msg.sender == auctionItem.seller, "Only seller can end it.");
     auctionItem.status = StatusType.CLOSED;
 
     if (auctionItem.topBidder != address(0)) {
@@ -116,6 +115,7 @@ contract Auction is ReentrancyGuard {
 
   function cancel(uint _itemId) external {
     Item storage auctionItem = items[_itemId];
+    require(msg.sender == auctionItem.seller, "Only seller can cancel it");
     require(auctionItem.status == StatusType.ENROLLED , "It is already started or ended");
     require(auctionItem.topBidder == address(0), "Cannot cancel the item that is bidden");
     auctionItem.status = StatusType.CANCELLED;

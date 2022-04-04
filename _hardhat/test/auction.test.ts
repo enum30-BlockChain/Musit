@@ -52,8 +52,8 @@ describe("Auction contract", () => {
       await musitNFT.connect(addr1).minting(tokenURI, {value : ethToWei(mintPrice)})
       await musitNFT.connect(addr1).approve(auction.address, 1);
       startPrice = 1000
-      startAt = Math.floor(Date.now() / 1000) + 60;
-      endAt = startAt + 15 // 시작후 15초 뒤 종료
+      startAt = Math.floor(Date.now() / 1000)
+      endAt =  startAt + 120 // 시작후 1분 뒤 종료
       nft = musitNFT.address;
     })
 
@@ -61,13 +61,13 @@ describe("Auction contract", () => {
       it("New enrolled item attributes test", async () => {
         expect(await musitNFT.ownerOf(1)).to.equal(addr1.address)
   
-        await expect(await auction.connect(addr1).enroll(startPrice, endAt, nft, 1))
+        await expect(await await auction.connect(addr1).enroll(startPrice, endAt, nft, 1))
           .emit(auction, "Enrolled")
-          .withArgs(1, startPrice, startAt, endAt, musitNFT.address, 1, addr1.address);
+          .withArgs(1, startPrice, musitNFT.address, 1, addr1.address);
         
         const item = await auction.items(1)
         expect(item.startPrice).to.equal(startPrice);
-        expect(item.startAt).to.equal(startAt);
+        // expect(item.startAt).to.equal(startAt); // 블록 타임스탬프와 현재 시간과 차이가 있음 : hardhat에서는 보통 10초 내외
         expect(item.endAt).to.equal(endAt);
         expect(item.tokenId).to.equal(1);
         expect(item.seller).to.equal(addr1.address);
@@ -82,36 +82,57 @@ describe("Auction contract", () => {
 
       beforeEach(async () => {
         startPrice = 1000
-        startAt = Math.floor(Date.now() / 1000) + 60;
-        endAt = startAt +  15 // 시작후 15초 뒤 종료
+        endAt = Math.floor(Date.now() / 1000) +  60 // 시작후 60초 뒤 종료
         await auction.connect(addr1).enroll(startPrice, endAt, nft, 1)
       })
+      
+      describe("status test", async () => {
+        it("cancel status", async () => {
+          expect((await auction.items(1)).status).to.equal(0); // enrolled
+          await expect(auction.connect(addr2).cancel(1)).revertedWith("Only seller can cancel it")
 
-      // it("status change", async () => {
-      //   expect((await auction.items(1)).status).to.equal(0)
-      //   expect((await auction.items(1)).topBid).to.equal(startPrice * (100 + feePercent) / 100);
+          await expect(await auction.connect(addr1).cancel(1))
+            .emit(auction, "Cancel")
+            .withArgs(1, addr1.address);
+            
+          await expect(
+            auction
+              .connect(addr2)
+              .bid(1, { value: auction.calPriceWithFee(startPrice) })
+          ).revertedWith("This auction is ended or cancelled");
+          
+          expect((await auction.items(1)).status).to.equal(2); // cancelled
+        });
 
-      //   await auction.connect(addr1).start(1);
-      //   expect(((await auction.items(1)).status)).to.equal(1);
+        // it("end status", async () => {
+        //   expect((await auction.items(1)).status).to.equal(0);
+        //   expect((await auction.items(1)).topBid).to.equal(startPrice);
 
-      //   await expect(auction.connect(addr1).end(1)).to.be.revertedWith('It is not the time to close auction');
-      //   expect(((await auction.items(1)).status)).to.equal(1);
-        
-      //   await delay(7000);
+        //   await expect(auction.connect(addr1).end(1)).to.be.revertedWith(
+        //     "It is not the time to close auction"
+        //   );
+        //   expect((await auction.items(1)).status).to.equal(0);
 
-      //   await auction.connect(addr1).end(1);
-      //   expect((await auction.items(1)).status).to.equal(2);
-      // })
+        //   await delay(15000);
 
-      it("top bid and to bidder",async () => {
-        // expect(await (await auction.items(1)).endAt).to.equal(await auction.connect(addr1).getBlockTimestamp())
-        await auction.connect(addr2).bid(1, {value: 1010});
-        expect((await auction.items(1)).topBid).to.equal(1010)
-        expect((await auction.items(1)).topBidder).to.equal(addr2.address)
-        await auction.connect(addr3).bid(1, {value: 2020});
-        expect((await auction.items(1)).topBid).to.equal(2020)
-        expect((await auction.items(1)).topBidder).to.equal(addr3.address)
-
+        //   await auction.connect(addr1).end(1);
+        //   expect((await auction.items(1)).status).to.equal(1);
+        // });
+      })
+      
+      describe("Bidding test", async() => {
+        it("top bid and to bidder",async () => {
+          // expect(await (await auction.items(1)).endAt).to.equal(await auction.connect(addr1).getBlockTimestamp())
+          await auction.connect(addr2).bid(1, {value: auction.calPriceWithFee(3000)});
+          expect((await auction.items(1)).topBid).to.equal(3000)
+          expect((await auction.items(1)).topBidder).to.equal(addr2.address)
+          await auction.connect(addr3).bid(1, {value: auction.calPriceWithFee(4000)});
+          expect((await auction.items(1)).topBid).to.equal(4000)
+          expect((await auction.items(1)).topBidder).to.equal(addr3.address)
+        })
+        it("revert test", async() => {
+          
+        })
       })
       
     })
