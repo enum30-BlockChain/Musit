@@ -4,20 +4,20 @@ import store from "../store";
 
 const fetchArtistListDataRequest = () => {
   return {
-    type: "ARTIST_LIKE_DATA_REQUEST",
+    type: "ARTIST_LIST_DATA_REQUEST",
   };
 };
 
 const fetchArtistListDataSuccess = (payload) => {
   return {
-    type: "ARTIST_LIKE_DATA_SUCCESS",
+    type: "ARTIST_LIST_DATA_SUCCESS",
     payload: payload,
   };
 };
 
 const fetchArtistListDataFailed = (payload) => {
   return {
-    type: "ARTIST_LIKE_DATA_FAILED",
+    type: "ARTIST_LIST_DATA_FAILED",
     payload: payload,
   };
 };
@@ -26,13 +26,16 @@ export const fetchArtistListData = (address) => {
   return async (dispatch) => {
     dispatch(fetchArtistListDataRequest());
     try {
-      const artistlike = store.getState().artistlike;
-      const url = "http://localhost:5000/artists/likes/list/detail";
-      const likeInfo = (await axios.post(url, { address })).data;
+      const artistlist = store.getState().artistlist;
+      const url = "http://localhost:5000/artists/list";
+      const listInfo = (await axios.get(url)).data;
+      console.log(1111111111);
+      console.log(listInfo);
+      console.log(1111111111);
       dispatch(
         fetchArtistListDataSuccess({
-          ...artistlike,
-          artistLikeList: likeInfo,
+          ...artistlist,
+          artistList: listInfo,
         })
       );
     } catch (error) {

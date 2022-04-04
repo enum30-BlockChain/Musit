@@ -22,7 +22,6 @@ export const fetchLikeListData = (payload) => {
   return async (dispatch) => {
     dispatch(fetchLikeListDataRequest());
     try {
-      console.log(payload);
       dispatch(
         fetchLikeListDataSuccess({
           likeList: payload,

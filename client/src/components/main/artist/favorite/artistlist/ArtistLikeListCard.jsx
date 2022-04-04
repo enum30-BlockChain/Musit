@@ -8,18 +8,26 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistLikeData } from "../../../../../redux/artistlike/artistLikeAction";
 
-export default function StickyHeadTable({ address }) {
+import axios from "axios";
+
+export default function ArtistLikeListCard({ artistList, address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [artists, setArtists] = React.useState([""]);
+  const [checkedInputs, setCheckedInputs] = React.useState("");
+  const [likeCount, setlikeCount] = React.useState("");
 
   const dispatch = useDispatch();
-  const artistlike = useSelector((state) => state.artistlike);
+  const mySonglist = useSelector((state) => {
+    return state.mySonglist;
+  });
 
   React.useEffect(() => {
-    dispatch(fetchArtistLikeData(address)).then(() => {});
-  }, [address]);
+    if (artistList) {
+      setArtists(artistList);
+    }
+  }, [artistList]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -30,7 +38,30 @@ export default function StickyHeadTable({ address }) {
     setPage(0);
   };
 
-  ///////////////////////////////////////////////////////////////
+  // const changeHandler = async (checked) => {
+  //   await axios
+  //     .post("http://localhost:5000/music/like", address)
+  //     .then((res) => {})
+  //     .catch((err) => alert("회원가입부터하세용.", err));
+
+  //   if (checked) {
+  //     dispatch({ type: "SONG_LIST_ADD", payload: address });
+  //     setCheckedInputs(true);
+  //     setlikeCount(likeCount + 1);
+  //   } else {
+  //     const newMySonglist = mySonglist.filter((song) => {
+  //       return song.ipfs_hash.indexOf(artistList.ipfs_hash) < 0;
+  //     });
+  //     dispatch({ type: "SONG_LIST_POP", payload: newMySonglist });
+  //     setCheckedInputs(false);
+  //     setlikeCount(likeCount - 1);
+  //   }
+  // };
+
+  React.useEffect(() => {
+    setCheckedInputs();
+  }, []);
+
   //mui 내용
   function createColumn(id, label, minWidth, align, format) {
     return { id, label, minWidth, align, format };
@@ -42,23 +73,33 @@ export default function StickyHeadTable({ address }) {
     { id: "artistname", label: "Artist Name", minWidth: 30 },
     { id: "artistsimg", label: "Artist Image", minWidth: 120 },
     { id: "like", label: "Artist Like Count", minWidth: 120 },
+    { id: "likecheck", label: "Artist Like Check", minWidth: 120 },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, artistname, artistsimg, like) {
-    return { number, artistname, artistsimg, like };
+  function createRow(number, artistname, artistsimg, like, likecheck) {
+    return { number, artistname, artistsimg, like, likecheck };
   }
 
   //row 안의 value값
   const rows = [];
 
-  artistlike.artistLikeList.forEach((Artists, index) => {
+  artists.forEach((Artists, index) => {
     rows.push(
       createRow(
         index,
         Artists.artist_name,
         <img src={Artists.img} style={{ width: "100px" }} />,
         Artists.likes
+        // <td>
+        //   <input
+        //     type="checkbox"
+        //     onChange={(e) => {
+        //       changeHandler(e.currentTarget.checked);
+        //     }}
+        //     checked={checkedInputs}
+        //   />
+        // </td>
       )
     );
   });
@@ -117,3 +158,13 @@ export default function StickyHeadTable({ address }) {
     </Paper>
   );
 }
+
+{
+  /* <img src={favorit.img_file} style={{ width: "100px" }} />,
+favorit.title,
+favorit.artist_name,
+favorit.play_time,
+favorit.likes */
+}
+
+// //row 안의 value값
