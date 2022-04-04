@@ -14,19 +14,7 @@
 .img-container {
   position: absolute;
   width: 110px;
-  bottom: 10%;
-}
-
-.img-container::after {
-  content: "";
-  background-color: rgb(71, 71, 71);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  width: 25px;
-  height: px;
-  transform: translate(-50%, 50%);
+  bottom: 25px;
 }
 
 .img-container img {
@@ -59,9 +47,12 @@
   align-items: center;
   justify-content: center;
   z-index: 1;
-  margin-left: 110px;
+  margin-left: 115px;
   left: 30px;
 }
+
+// .left-right {
+// }
 
 .action-btn {
   background-color: rgb(243, 243, 243);
@@ -93,7 +84,7 @@
   opacity: 0;
   transform: translateY(0%);
   transition: transform 0.3s ease-in, opacity 0.3s ease-in;
-  z-index: 0;
+  z-index: -100;
 }
 
 .music-container.play .music-info {
