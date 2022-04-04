@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.10;
+pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -8,14 +8,15 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract Auction is ReentrancyGuard {
   using Counters for Counters.Counter;
 
+  Counters.Counter public ItemCounter;
   address payable public immutable feeAccount;
   uint public immutable feePercent;
-  Counters.Counter public ItemCounter;
+  uint public minBidAmount;
 
-  mapping (uint => Item) public items; // 경매에 올린 아이템 리스트
-  mapping (uint => mapping (address => uint )) public pendingBids; // itemId => ( bidder => bid )
+  mapping (uint => Item) public items; // itemId => 경매아이템 : 경매에 올린 아이템 리스트
+  mapping (uint => mapping (address => uint )) public pendingBids; // itemId => ( bidder => bid ) : 입찰하려고 올린 금액들
 
-  enum StatusType { ENROLLED, STARTED, ENDED, CANCELLED }
+  enum StatusType { ENROLLED, CLOSED, CANCELLED }
 
   struct Item {
     uint startPrice;
@@ -24,7 +25,7 @@ contract Auction is ReentrancyGuard {
     uint tokenId;
     address payable seller;
     address topBidder;
-    uint topBidWithFee;
+    uint topBid;
     StatusType status;
     IERC721 nft;
   }
@@ -40,102 +41,86 @@ contract Auction is ReentrancyGuard {
     address indexed seller
   );
 
-  event Started(
-    uint indexed itemId,
-    uint _startPrice,
-    uint _startAt, 
-    uint _endAt, 
-    address _nft, 
-    uint _tokenId, 
-    address indexed seller
-  );
-
-
   event Bid (uint indexed itemId, address indexed topBidder, uint topBid);
-  event Start(uint indexed itemId, address seller, uint startAt, uint endAt);
   event End(uint indexed itemId, address indexed buyer, uint buyingPrice);
   event Cancel(uint indexed itemId, address indexed seller);
   event Withdraw (uint indexed itemId, address indexed bidder, uint balance);
 
+/* Constructor */
   constructor(uint _feePercent) {
-    feePercent = _feePercent;
-    feeAccount = payable(msg.sender);
+    feePercent = _feePercent; // 수수료 
+    feeAccount = payable(msg.sender); // 수수료를 받을 지갑 주소
+    minBidAmount = 1000 wei;
   }
 
-  // 옥션 등록 함수
-  function enroll (uint _startPrice, uint _startAt, uint _endAt, IERC721 _nft, uint _tokenId ) external nonReentrant {
+  /* Function declaration */
+  // 경매 아이템 등록 및 경매 시작 함수
+  function enroll(uint _startPrice, uint _endAt, IERC721 _nft, uint _tokenId ) external nonReentrant {
+    require(_startPrice >= minBidAmount, "Should start price is bigger than mininum bid amount");
     require(msg.sender == _nft.ownerOf(_tokenId), "Only owner can enroll nft");
-    require(_startAt < _endAt, "End time should be later than start time");
     require(block.timestamp < _endAt, "Cannot set end time as past time");
     ItemCounter.increment();
     uint _itemId = ItemCounter.current();
     items[_itemId] = Item(
       _startPrice, 
-      _startAt / 1000, 
-      _endAt / 1000, 
+      block.timestamp,
+      _endAt, 
       _tokenId, 
       payable(msg.sender),
       address(0),
-      calPriceWithFee(_startPrice), // start price + fee
+      _startPrice,
       StatusType.ENROLLED,
       _nft
     );
 
     _nft.transferFrom(msg.sender, address(this), _tokenId);
 
-    emit Enrolled(_itemId, _startPrice, _startAt, _endAt, address(_nft), _tokenId, msg.sender);
+    emit Enrolled(_itemId, _startPrice, block.timestamp, _endAt, address(_nft), _tokenId, msg.sender);
   }  
 
-  // 옥션 경매 참여 함수
+  // 경매 참여 함수
   function bid(uint _itemId) external payable nonReentrant {
-    Item storage _item = items[_itemId];
-    require(msg.value > _item.topBidWithFee, "Smaller than top bid price");
-    require(block.timestamp >= _item.startAt, "Auction isn't started yet");
-    require(block.timestamp > _item.endAt, "Auction is ended");
-    require(_item.status != StatusType.ENDED, "This auction is ended");
+    Item storage auctionItem = items[_itemId];
+    require(block.timestamp >= auctionItem.startAt, "Auction isn't started yet");
+    require(block.timestamp < auctionItem.endAt, "Auction is ended");
+    require(auctionItem.status == StatusType.ENROLLED, "This auction is ended or cancelled");
+    require(msg.value > calPriceWithFee(auctionItem.topBid) + minBidAmount,
+      "Bid amount should be bigger than prev top bid as much as minumum bid amount");
 
-    if(_item.topBidder != address(0)) {
+    if(auctionItem.topBidder != address(0)) {
       pendingBids[_itemId][msg.sender] += msg.value;
     }
 
-    _item.topBidder = msg.sender;
-    _item.topBidWithFee = msg.value;
+    auctionItem.topBidder = msg.sender;
+    auctionItem.topBid = removeFee(msg.value);
 
-    emit Bid(_itemId, msg.sender, (msg.value * 101) / 100);
-  }
-
-  function start(uint _itemId) external {
-    Item storage _item = items[_itemId];
-    require(block.timestamp >= _item.startAt );
-    require(_item.status == StatusType.ENROLLED, "item status should be 'ENROLLED'");
-    _item.status = StatusType.STARTED;
-
-    emit Start(_itemId, _item.seller, _item.startAt, _item.endAt);
+    emit Bid(_itemId, msg.sender, auctionItem.topBid);
   }
 
   function end(uint _itemId) external {
-    Item storage _item = items[_itemId];
-    require(_item.status == StatusType.STARTED, "The auction is not started yet");
-    require(block.timestamp > _item.endAt, "It is not the time to close auction");
-    _item.status = StatusType.ENDED;
+    Item storage auctionItem = items[_itemId];
+    require(auctionItem.status == StatusType.ENROLLED, "The auction is not started yet");
+    require(block.timestamp > auctionItem.endAt, "It is not the time to close auction");
+    auctionItem.status = StatusType.CLOSED;
 
-    if (_item.topBidder != address(0)) {
-      _item.nft.transferFrom(address(this), _item.topBidder, _item.tokenId);
-      _item.seller.transfer((_item.topBidWithFee * 100) / 101); // 수수료 제외한 나머지 판매자에게 전송
-      feeAccount.transfer(_item.topBidWithFee / 101); // 수수료는 배포자에게 전송
+    if (auctionItem.topBidder != address(0)) {
+      auctionItem.nft.transferFrom(address(this), auctionItem.topBidder, auctionItem.tokenId);
+      auctionItem.seller.transfer(auctionItem.topBid); // 수수료 제외한 나머지 판매자에게 전송
+      feeAccount.transfer((auctionItem.topBid * feePercent) / 100); // 수수료는 배포자에게 전송
     } else {
-      _item.nft.transferFrom(address(this), _item.seller, _item.tokenId);
+      auctionItem.nft.transferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
     }
     
-    emit End(_itemId, _item.topBidder, (_item.topBidWithFee * 100) / 101);
+    emit End(_itemId, auctionItem.topBidder, auctionItem.topBid);
   }
 
   function cancel(uint _itemId) external {
-    Item storage _item = items[_itemId];
-    require(_item.status == StatusType.ENROLLED || _item.topBidder == address(0), "It is already started or ended");
-    _item.status = StatusType.CANCELLED;
+    Item storage auctionItem = items[_itemId];
+    require(auctionItem.status == StatusType.ENROLLED , "It is already started or ended");
+    require(auctionItem.topBidder == address(0), "Cannot cancel the item that is bidden");
+    auctionItem.status = StatusType.CANCELLED;
 
-    _item.nft.transferFrom(address(this), _item.seller, _item.tokenId);
+    auctionItem.nft.transferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
 
     emit Cancel(_itemId, msg.sender);
   }
@@ -151,7 +136,15 @@ contract Auction is ReentrancyGuard {
   }
   
   function calPriceWithFee(uint _price) public view returns(uint) {
-    return (_price* (100 + feePercent)) / 100;
+    return _price + getFee(_price);
+  }
+
+  function removeFee(uint _priceWithFee) public view returns (uint) {
+    return _priceWithFee - getFee(_priceWithFee);
+  }
+
+  function getFee(uint _price) public view returns (uint) {
+    return (_price * feePercent) / 100;
   }
 
   function getBlockTimestamp() public view returns (uint) {
