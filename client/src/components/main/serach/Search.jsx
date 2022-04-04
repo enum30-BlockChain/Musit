@@ -13,7 +13,7 @@ function Search(props) {
   const [musicmodal,setmusicmodal] = useState("");
   const [artistModal,setArtistModal] = useState("");
   
-  const [songList, setSongList] = useState("");
+  const [musicList, setmusicList] = useState("");
   const [artistList, setArtistList] = useState("");
   const [findMusic,setFindMusic] = useState("");
   const [findArtist,setFindArtist] = useState("");
@@ -21,22 +21,21 @@ function Search(props) {
   // const searching = useSelector((state)=>{return state.searchWord}); 
   const searching = useSelector((state) => state.searching.searching)
 
-
   const location = useLocation();
   const content = location.state !== null || undefined ? location.state : null;
 
-  const getSongList = async () => {
+  const getmusicList = async () => {   //뮤직검색
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
-        setSongList(res.data);
+        setmusicList(res.data);
         setFindMusic( //초기에 넘겨받은 값으로 검색
           res.data.filter((song) => song.title.indexOf(content) > -1)
         );
       })
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
-  const getUser = async ()=>{
+  const getUser = async ()=>{   //유저검색
       await axios
         .get("http://localhost:5000/artists/list")
         .then((res) => {
@@ -51,7 +50,7 @@ function Search(props) {
   useEffect(() => {
     const init = async () => {
       await getUser(content);
-      await getSongList(content);
+      await getmusicList(content);
     };
     init();
   }, []);
@@ -62,9 +61,8 @@ function Search(props) {
 
 
   const changeSearchPage= ()=>{
-    if (songList && artistList) {
-      console.log(searching)
-      const searchMusicNameData = songList.filter((song) => {
+    if (musicList && artistList) {
+      const searchMusicNameData = musicList.filter((song) => {
         return song.title.indexOf(searching) > -1;
       });
       const searchAtistData = artistList.filter((a) => {

@@ -22,6 +22,9 @@ function MusicCard(props) {
     setpalyeCount(props.music.play_count)
   }, [props])
   
+  useEffect(() => {
+    setCheckedInputs(likeList.find((music)=>music.ipfs_hash===props.music.ipfs_hash));
+  }, []); 
   const onPopup = () => {
     setModal(true);
   };
@@ -63,9 +66,7 @@ function MusicCard(props) {
     }
   };
 
-  useEffect(() => {
-     setCheckedInputs(likeList.find((music)=>music.ipfs_hash===props.music.ipfs_hash));
-   }, []); 
+ 
  
  
     return (

@@ -1,4 +1,4 @@
-import  React,{useRef,useState} from 'react';
+import  React,{useRef,useState,useEffect} from 'react';
 import axios from "axios";
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -16,7 +16,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { pink } from '@mui/material/colors';
-
+import {Provider, useSelector, useDispatch} from 'react-redux';
 const WallPaper = styled('div')({
   position: 'absolute',
   width: '100%',
@@ -90,7 +90,15 @@ export default function MusicPlayerSlider(props) {
   const [duration,setDuration] = useState(0); // seconds
   const [position, setPosition] = useState(0);
   const [paused, setPaused] = useState(true);
-  
+  const likeList = useSelector((state) => state.likeList.likeList);
+
+  useEffect(() => {
+    // console.log( likeList.filter((song) => song.ipfs_hash.indexOf(props.music.ipfs_hash) > -1))
+    // setFindlike(
+    //   likeList.filter((song) => song.ipfs_hash.indexOf(props.music.ipfs_hash) > -1)
+    // );
+  }, []);
+
   const palyCountAdd = async () => {
     const content = { play_count: props.musicmodal.play_count, ipfs_hash: props.musicmodal.ipfs_hash };
     await axios

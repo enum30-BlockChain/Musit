@@ -1,4 +1,4 @@
-import  React ,{useState}from 'react';
+import  React ,{useState,useEffect}from 'react';
 import axios from "axios";
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -10,7 +10,8 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import HeadsetIcon from '@mui/icons-material/Headset';
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ThumbUpOffAltRoundedIcon from '@mui/icons-material/ThumbUpOffAltRounded';
-
+import {Provider, useSelector, useDispatch} from 'react-redux';
+import { fetchLikeListData } from "../../../redux/likeList/likeListAction"
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
@@ -20,20 +21,37 @@ const Img = styled('img')({
 
 export default function SongCard(props) {
   const [TotalLike, setTotalLike] = useState(props.music.MusicLikes.length);
-  const [findlike,setFindlike] = useState(
-    props.music.MusicLikes
-      .filter((song)=>{
-        return (song.user_address.indexOf(props.address)>-1);
-        }));
+  const likeList = useSelector((state) => state.likeList.likeList);
+  const [findlike,setFindlike] = useState("");
+  const dispatch = useDispatch();   
+
+  useEffect(() => {
+    setFindlike(likeList
+    .filter((song)=>{
+      return (song.ipfs_hash.indexOf(props.music.ipfs_hash)>-1);
+      }))
+  }, [])
+
   const postInfo= ()=>{
     props.setmusicmodal(props.music)
   }
 
   const likecountpost = async ()=>{
     await axios
-    .post("http://localhost:5000/music/like", {address:props.address,audio:props.music.ipfs_hash})
+    .post("http://localhost:5000/music/like", {address:props.address,ipfs_hash:props.music.ipfs_hash})
     .then((res) => {})
     .catch((err) => alert("회원가입부터하세용.", err));
+    if(findlike.length === 0 ){
+      console.log("따봉박는중")
+      likeList.push(props.music)
+      dispatch(fetchLikeListData(likeList))
+    }else{
+      console.log("따봉빼는중")
+      const newMySonglist = likeList.filter((song)=>{
+        return song.ipfs_hash.indexOf(props.music.ipfs_hash)<0;
+       }) 
+      dispatch(fetchLikeListData(newMySonglist))
+    }
   }
   return (
     <Paper
