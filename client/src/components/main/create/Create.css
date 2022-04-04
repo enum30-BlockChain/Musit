@@ -4,7 +4,7 @@
 }
 .create-layout {
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
 }
 
@@ -23,6 +23,7 @@
 .create-layout .create-imgbox {
   border-right: 1px solid var(--border-color);
   text-align: center;
+  margin-top: 40px;
   width: 100%;
   height: 500px;
 }
@@ -38,8 +39,9 @@
   animation: rotate 8s linear infinite;
 }
 
-.create-layout .crete-inputbox {
+.create-layout .create-inputbox {
   text-align: center;
+  margin-top: 40px;
   width: 100%;
   height: 100%;
 }
