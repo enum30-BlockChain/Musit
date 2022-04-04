@@ -18,6 +18,7 @@ function MusicCard(props) {
   const likeList = useSelector((state) => state.likeList.likeList);
   
   useEffect(() => {
+    setCheckedInputs(likeList.find((music)=>music.ipfs_hash === props.ipfs_hash))
     setlikeCount(props.music.MusicLikes.length)
     setpalyeCount(props.music.play_count)
   }, [props])
@@ -63,9 +64,6 @@ function MusicCard(props) {
     }
   };
 
-  useEffect(() => {
-     setCheckedInputs(props.checkBox);
-   }, []); 
  
  
     return (

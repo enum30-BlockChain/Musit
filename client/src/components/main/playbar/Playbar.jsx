@@ -77,7 +77,8 @@ export const Playbar = (props) => {
     audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
     cover.src = song.img_file;
   }
-  function playloadSong(song,index) {  //노래불러올때
+
+  function playloadSong(song,index) {  //play list 노래불러올때
     setpalyeCount(song.play_count)
     sethash(song.ipfs_hash)
     setTilte(song.title)
@@ -145,7 +146,7 @@ export const Playbar = (props) => {
     const width = progressContainer.clientWidth;  //300
     const clickX = e.clientX-170; //왜170부터시작하는지모르겠넹
     const duration = audio.duration;
-  
+    
     audio.currentTime = (clickX / width) * duration;
   }
 
@@ -154,7 +155,6 @@ function DurTime(e) {
   const { duration, currentTime } = e.currentTarget;
   var sec;
   var sec_d;
-
   // define minutes currentTime
   let min = currentTime == null ? 0 : Math.floor(currentTime / 60);
   min = min < 10 ? "0" + min : min;
@@ -263,7 +263,6 @@ const postTime = async(saveTime)=>{
               updateProgress(e);
             }
             setSavePoint(savePoint+1);
-
           }}
           onEnded={() => {
             nextSong();
