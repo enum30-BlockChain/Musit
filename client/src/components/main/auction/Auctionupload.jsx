@@ -26,9 +26,13 @@ export const Auctionupload = () => {
           />
         </div>
         <div className="auction-box">
-          <h2>Price Start</h2>
-          <Input type="text" placeholder="Amount" sx={{ width: 400 }}></Input>
-          <h2>Duration</h2>
+          <h2>Auction Start Price</h2>
+          <Input
+            type="text"
+            placeholder="Amount(ETH)"
+            sx={{ width: 400 }}
+          ></Input>
+          <h2>Auction Closing Time</h2>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
               label={"Acution Duration"}

@@ -157,7 +157,7 @@ export const Mypage = ({ address }) => {
           </li>
           <li>
             <Link to="/mypage/subscription">
-              <i class="uil uil-dollar-sign-alt"></i>
+              <i className="uil uil-dollar-sign-alt"></i>
               <span className="link-name"> Subscription</span>
             </Link>
           </li>

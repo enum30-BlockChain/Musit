@@ -1,4 +1,51 @@
-.contentbox .boxes {
+.create-title {
+  text-align: center;
+}
+.create-layout {
+  display: flex;
+  height: 500px;
+}
+
+.create-btn {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.create-layout .create-box .create-title {
+  margin-top: 40px;
+}
+
+.create-layout > .create-imgbox {
+  border-right: 1px solid var(--border-color);
+  text-align: center;
+  margin-top: 40px;
+  width: 100%;
+  height: 100%;
+}
+
+.create-layout .create-imgbox img {
+  margin-top: 30px;
+
+  grid-template-columns: 1fr 1fr;
+  position: fixed;
+  text-align: center;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 400px;
+  width: 400px;
+  left: 0;
+  animation: rotate 8s linear infinite;
+}
+
+.create-layout .crete-box {
+  height: 400px;
+
+  margin-top: 40px;
+  text-align: center;
+  width: 100%;
+}
+
+/* .contentbox .boxes {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,4 +104,4 @@
   .contentbox .boxes .box {
     width: 100%;
   }
-}
+} */
