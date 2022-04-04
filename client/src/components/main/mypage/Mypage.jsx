@@ -14,6 +14,8 @@ export const Mypage = ({ address }) => {
   //내사진 변경을 위한 클릭 hidden 버튼 생성
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [img, setImg] = useState("");
+  const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
+  const [checkedInputs, setCheckedInputs] = useState("");
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -47,7 +49,7 @@ export const Mypage = ({ address }) => {
   //내가 닉네임의 내용을 변환할 때 부르는 함수
   const NickNameOnClick = async () => {
     const url = "http://localhost:5000/users/change";
-    const response = await axios.post(url, { address, select });
+    const response = await axios.post(url, { address, select, checkedInputs });
     return console.log(response.data);
   };
 
@@ -78,6 +80,15 @@ export const Mypage = ({ address }) => {
       })
       .then((res) => {})
       .catch((err) => alert(err));
+  };
+
+  const changeHandler = (checked, value) => {
+    if (checked) {
+      setCheckedInputs([...checkedInputs, value]);
+    } else {
+      // 체크 해제
+      setCheckedInputs(checkedInputs.filter((el) => el !== value));
+    }
   };
 
   return (
@@ -115,6 +126,32 @@ export const Mypage = ({ address }) => {
           <span>{address}</span>
           <h2 className="subscription">Subscription</h2>
           <span>{user.subscription}월이용권 </span>
+          <h2 className="Genre">Genre</h2>
+          <span>{user.genre}</span>
+          {visible && (
+            <div>
+              {genre.map((MusicType, index) => {
+                return (
+                  <>
+                    <label>
+                      {MusicType}
+                      <input
+                        type={"checkbox"}
+                        name={"MusicType"}
+                        value={MusicType}
+                        onChange={(e) => {
+                          changeHandler(e.currentTarget.checked, MusicType);
+                        }}
+                        checked={
+                          checkedInputs.includes(MusicType) ? true : false
+                        }
+                      />
+                    </label>
+                  </>
+                );
+              })}
+            </div>
+          )}
         </div>
         {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
         <div>

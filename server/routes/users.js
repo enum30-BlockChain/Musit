@@ -157,6 +157,7 @@ router.post("/change", async (req, res, next) => {
       const users_change = await User.update(
         {
           nickname: req.body.select,
+          genre: req.body.checkedInputs.join(),
         },
         {
           where: {
