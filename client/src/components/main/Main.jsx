@@ -17,11 +17,11 @@ import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
 import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
+import { ArtistsList } from "./artist/favorite/Artists";
+import Search from "./serach/Search";
 
 import axios from "axios";
-import Search from "./serach/Search";
 import { Create } from "./create/Create";
-import { ArtistsList } from "./artist/favorite/ArtistsList";
 import Mynfts from "./store/mynfts/Mynfts";
 import { fetchUserData, testFunc } from "../../redux/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -177,12 +177,7 @@ export const Main = () => {
                 )
               }
             >
-              <Route
-                path="list"
-                element={
-                  <ArtistsList artistState={artistState} address={address} />
-                }
-              />
+              <Route path="list" element={<ArtistsList address={address} />} />
             </Route>
 
             <Route path="search" element={<Search address={address} />} />

@@ -114,7 +114,7 @@ export const Artist = ({ address, loginState }) => {
             <li>
               <Link to="/artist/list">
                 <i className="uil uil-favorite"></i>
-                <span className="link-name"> Artists</span>
+                <span className="link-name">Artists</span>
               </Link>
             </li>
           </ul>

@@ -8,16 +8,16 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
-export default function StickyHeadTable({ artistdetail }) {
+export default function ArtistList({ artistList }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [artists, setArtists] = React.useState([""]);
 
   React.useEffect(() => {
-    if (artistdetail) {
-      setArtists(artistdetail);
+    if (artistList) {
+      setArtists(artistList);
     }
-  }, [artistdetail]);
+  }, [artistList]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

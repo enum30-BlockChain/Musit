@@ -16,7 +16,6 @@ router.post("/like", async (req, res, next) => {
     const artist = await ArtistLike.findAll({
       include: { model: Artist, where: { user_address: req.body.address } },
     });
-    // console.log(artist);
     res.send(artist);
     const likes = await Artist.findAll({
       where: {
@@ -83,22 +82,6 @@ router.get("/list", async (req, res, next) => {
       include: [{ model: User }, { model: Music }],
     });
     res.send(findname);
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-//아티스트 signin 과 list 합치는거 여부 체크
-router.post("/signin", async (req, res, next) => {
-  console.log(req.body.address);
-  try {
-    console.log("signin을 server에 요청하였습니다.");
-    const artist = await Artist.findOne({
-      where: {
-        user_address: req.body.address,
-      },
-    });
-    res.send(artist);
   } catch (err) {
     console.error(err);
   }

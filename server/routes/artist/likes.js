@@ -22,14 +22,10 @@ router.post("/list", async (req, res, next) => {
 });
 
 router.post("/list/detail", async (req, res, next) => {
-  console.log(1111111111);
-  console.log(req.body);
-  console.log(1111111111);
   try {
     const artistdetail = await Artist.findAll({
       include: { model: ArtistLike, where: { user_address: req.body.address } },
     });
-    console.log(artistdetail);
     res.send(artistdetail);
   } catch (err) {
     console.error(err);
