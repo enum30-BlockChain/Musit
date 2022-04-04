@@ -29,9 +29,6 @@ export const fetchArtistListData = (address) => {
       const artistlike = store.getState().artistlike;
       const url = "http://localhost:5000/artists/likes/list/detail";
       const likeInfo = (await axios.post(url, { address })).data;
-      console.log(1111111111111);
-      console.log(likeInfo);
-      console.log(1111111111111);
       dispatch(
         fetchArtistListDataSuccess({
           ...artistlike,

@@ -19,7 +19,7 @@ export default function StickyHeadTable({ address }) {
 
   React.useEffect(() => {
     dispatch(fetchArtistListData(address)).then(() => {});
-  }, []);
+  }, [address]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -62,8 +62,6 @@ export default function StickyHeadTable({ address }) {
       )
     );
   });
-
-  console.log(artistlike);
 
   return (
     <Paper
@@ -119,13 +117,3 @@ export default function StickyHeadTable({ address }) {
     </Paper>
   );
 }
-
-{
-  /* <img src={favorit.img_file} style={{ width: "100px" }} />,
-favorit.title,
-favorit.artist_name,
-favorit.play_time,
-favorit.likes */
-}
-
-// //row 안의 value값

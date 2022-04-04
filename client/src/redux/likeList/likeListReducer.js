@@ -1,8 +1,8 @@
 const initialState = {
   loading: false,
 
-  likeList: null,
-  
+  likeList: [],
+
   error: false,
   errorMsg: "",
 };
@@ -21,14 +21,14 @@ const likeListReducer = (state = initialState, action) => {
 
         likeList: action.payload.likeList,
       };
-      case "LIKE_LIST_DATA_FAILED":
-        return {
-          ...initialState,
-          loading: false,
-          error: true,
-          errorMsg: action.payload,
-        };
-      
+    case "LIKE_LIST_DATA_FAILED":
+      return {
+        ...initialState,
+        loading: false,
+        error: true,
+        errorMsg: action.payload,
+      };
+
     default:
       return state;
   }

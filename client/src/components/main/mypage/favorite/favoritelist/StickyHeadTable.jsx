@@ -7,15 +7,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function StickyHeadTable({ findMusic }) {
+import axios from "axios";
+import { fetchLikeListData } from "../../../../../redux/likeList/likeListAction";
+
+export default function StickyHeadTable({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const likeList = useSelector((state) => state.likeList.likeList);
+  const dispatch = useDispatch(); //redux 초기값 넣어주자
 
-  React.useEffect(() => {}, [findMusic]);
+  React.useEffect(() => {
+    getLikeList();
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -24,6 +30,17 @@ export default function StickyHeadTable({ findMusic }) {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const getLikeList = async () => {
+    //내가 좋아요누른 노래
+    const url = "http://localhost:5000/music/likes/like";
+    await axios
+      .post(url, { address })
+      .then((res) => {
+        dispatch(fetchLikeListData(res.data));
+      })
+      .catch((err) => alert("errrrrrrr.", err));
   };
 
   ///////////////////////////////////////////////////////////////

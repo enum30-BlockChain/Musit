@@ -1,7 +1,3 @@
-// log
-import axios from "axios";
-import store from "../store";
-
 const fetchLikeListDataRequest = () => {
   return {
     type: "LIKE_LIST_DATA_REQUEST",
@@ -26,12 +22,14 @@ export const fetchLikeListData = (payload) => {
   return async (dispatch) => {
     dispatch(fetchLikeListDataRequest());
     try {
-      console.log(payload)
-      dispatch(fetchLikeListDataSuccess({
-        likeList: payload
-      }))
+      console.log(payload);
+      dispatch(
+        fetchLikeListDataSuccess({
+          likeList: payload,
+        })
+      );
     } catch (error) {
-      dispatch(fetchLikeListDataFailed("error!!!"))
+      dispatch(fetchLikeListDataFailed("error!!!"));
     }
-  }
-}
+  };
+};
