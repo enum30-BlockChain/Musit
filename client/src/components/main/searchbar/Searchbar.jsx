@@ -25,6 +25,7 @@ export const Searchbar = ({ address }) => {
   }
 
   const sliceAddress =
+    address &&
     address.substr(0, 5) + "..." + address.substr(address.length - 4, 4);
 
   const connectOnclick = () => {

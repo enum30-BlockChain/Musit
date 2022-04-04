@@ -1,10 +1,10 @@
 .music-container {
-  background-color: #fff;
+  background-color: rgb(243, 243, 243);
   display: flex;
   padding: 20px 30px;
   position: absolute;
   // margin: 100px 0;
-  z-index: 10;
+  z-index: 100;
   width: 100%;
   height: 100px;
   left: 0;
@@ -19,7 +19,7 @@
 
 .img-container::after {
   content: "";
-  background-color: #fff;
+  background-color: rgb(71, 71, 71);
   border-radius: 50%;
   position: absolute;
   bottom: 100%;
@@ -31,7 +31,6 @@
 
 .img-container img {
   border-radius: 50%;
-  object-fit: cover;
   height: 110px;
   width: inherit;
   position: absolute;
@@ -65,7 +64,7 @@
 }
 
 .action-btn {
-  background-color: #fff;
+  background-color: rgb(243, 243, 243);
   border: 0;
   color: #dfdbdf;
   font-size: 20px;
@@ -84,7 +83,7 @@
 }
 
 .music-info {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(202, 201, 201, 0.5);
   border-radius: 15px 15px 0 0;
   position: absolute;
   top: 0;
@@ -116,7 +115,6 @@
 }
 
 .progress {
-  background-color: #fe8daa;
   border-radius: 5px;
   height: 100%;
   width: 100%;

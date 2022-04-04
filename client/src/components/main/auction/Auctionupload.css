@@ -1,30 +1,50 @@
 .auction-title {
+  margin-top: 30px;
   text-align: center;
 }
 .auction-layout {
   display: flex;
+  margin-top: 30px;
+}
+
+.auction-btn {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.auction-layout .auction-box .auction-title {
+  margin-top: 40px;
+}
+
+.auction-layout .auction-box .acution-subtitile h2 {
+  margin-top: 40px;
 }
 
 .auction-layout > .auction-imgbox {
+  border-right: 1px solid var(--border-color);
+  text-align: center;
   margin-top: 40px;
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
 }
 
 .auction-layout .auction-imgbox img {
-  /* position: fixed; */
-  border-radius: 50%;
   margin-top: 30px;
-  margin-left: 50px;
+
+  /* grid-template-columns: 1fr 1fr; */
+  /* position: fixed; */
+  text-align: center;
+  border-radius: 50%;
   object-fit: cover;
   height: 400px;
   width: 400px;
   left: 0;
-  position: absolute;
   animation: rotate 8s linear infinite;
 }
 
 .auction-layout .auction-box {
   margin-top: 40px;
-  text-align: left;
+  text-align: center;
+  height: 100%;
+  width: 100%;
 }

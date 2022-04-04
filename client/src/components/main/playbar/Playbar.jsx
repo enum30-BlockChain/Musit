@@ -15,7 +15,7 @@ export const Playbar = (props) => {
   const [tilte, setTilte] = useState("");
   const [currentTime, setcurrentTime] = useState(0);
   const [value, setValue] = useState(100);
-  const [likeList,setLikelist] = useState('');
+  // const [likeList,setLikelist] = useState('');
 
   const musicContainer = document.querySelector(".music-container");
   const playBtn = document.querySelector("#play");
@@ -24,16 +24,17 @@ export const Playbar = (props) => {
   const title = document.getElementById("title");
   const cover = document.getElementById("cover");
 
-  const mySonglist = useSelector((state)=>{return state.mySonglist}); 
+  const userList = useSelector((state) => state.userList.userList)
+  const likeList = useSelector((state) => state.likeList.likeList)
+  const musicList = useSelector((state) => state.musicList.musicList)
   const dispatch = useDispatch();                               //redux 초기값 넣어주자
   
   useEffect(() => {     //첫로딩시 리센트 가져와서 세팅
-    let song = props.likeList[count]
-    if (song && props.userList) {     //페이지로딩해서 find로 내 좋아요 목록불러오고
-      const getcurrentTime = props.userList.find(
+    if (musicList && userList) {     //페이지로딩해서 find로 내 좋아요 목록불러오고
+      let song = musicList[count]
+      const getcurrentTime = userList.find(
         (adr) => adr.address === props.address
       ).recent_played;
-      setLikelist(props.likeList)
 
       if (getcurrentTime == null) { //recent_played 없으면 바로 배열 0번째 ㄱ하고
         setpalyeCount(song.play_count);
@@ -42,13 +43,11 @@ export const Playbar = (props) => {
         title.innerText = song.title;
         audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
         cover.src = song.img_file;
-      } else {                             //recent_played 있으면 
+      } else if(likeList) {                             //recent_played 있으면 
         const arry = getcurrentTime.split("-"); //receent찾아와서
-        const songs = props.likeList;
+        const songs = likeList;
         const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
         setCount(index);                                              //목록맞춰주기 다음으로 넘길때 오류 발생 안함
-        dispatch({type:'SONG_LIST_UPDATE', payload:  props.likeList});   //리덕스로 목록쏴주고 
-
         if (index === -1) {
           setpalyeCount(song.play_count);
           sethash(song.ipfs_hash);
@@ -67,7 +66,7 @@ export const Playbar = (props) => {
         }
       }
     }
-  }, [props])
+  }, [userList,musicList])
 
   function loadSong(song) {  //노래불러올때
     setpalyeCount(song.play_count)
@@ -304,7 +303,7 @@ const postTime = async(saveTime)=>{
                 value={value}
                 onChange={handleChange}
               />
-              <PlayList setLikelist={setLikelist} playloadSong={playloadSong}/>
+              <PlayList playloadSong={playloadSong}/>
             </Stack>
           </Box>
         </div>

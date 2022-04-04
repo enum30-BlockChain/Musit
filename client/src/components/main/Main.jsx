@@ -1,7 +1,7 @@
 import "./Main.css";
 import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
-// import { Searchbar } from "./searchbar/Searchbar";
+import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard/Dashboard";
 import { Mypage } from "./mypage/Mypage";
@@ -23,31 +23,46 @@ import Search from "./serach/Search";
 import axios from "axios";
 import { Create } from "./create/Create";
 import Mynfts from "./store/mynfts/Mynfts";
+
 import { fetchUserData, testFunc } from "../../redux/user/userAction";
+import { fetchUserListData } from "../../redux/userList/userListAction";
+import { fetchMusicListData } from "../../redux/musicList/musicListAction";
+import { fetchLikeListData } from "../../redux/likeList/likeListAction"
 import { useDispatch, useSelector } from "react-redux";
 
 export const Main = () => {
+<<<<<<< HEAD
   const [address, setAddress] = useState();
   const [loginState, setLoginState] = useState();
   const [songList, setSongList] = useState("");
   const [likeList, setLikeList] = useState("");
   const [userList, setUserList] = useState("");
   const [artistState, setArtistState] = useState();
+=======
+  const [address, setAddress] = useState("");
+  const [loginState, setLoginState] = useState({ address: "" });
+  // const [likeList, setLikeList] = useState("");
+  const [artistState, setArtistState] = useState({ address: "" });
+>>>>>>> main
 
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch(); //redux 초기값 넣어주자
+  const dispatch = useDispatch();                               //redux 초기값 넣어주자
+  
+  
 
   async function init() {
     const response = await Metamask.getAccounts(setAddress);
     const address = response.data[0];
     await Metamask.walletListener(setAddress);
+    getLikeList(address);
+    fetchUserData(address)
     //나의 지금 로그인상태 확인
     loginCheck(address);
-    getSongList();
-    getUser();
-    getLikeList(address);
     artistsCheck(address);
+    getMusicList();
+    getUser();
     sidebarToggle();
+
+    dispatch(fetchUserData(address))
   }
 
   const userdata = async () => {
@@ -55,8 +70,8 @@ export const Main = () => {
   };
   useEffect(() => {
     init();
-    userdata(address);
   }, []);
+  
   const artistsCheck = async (address) => {
     const url = "http://localhost:5000/artists/signin";
     const response = await axios.post(url, { address });
@@ -87,12 +102,11 @@ export const Main = () => {
     });
   };
 
-  const getSongList = async () => {
-    //노래 전체목록
+  const getMusicList = async () => {   //노래 전체목록
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
-        setSongList(res.data);
+        dispatch(fetchMusicListData(res.data));
       })
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
@@ -102,7 +116,7 @@ export const Main = () => {
     await axios
       .get("http://localhost:5000/users")
       .then((res) => {
-        setUserList(res.data);
+        dispatch(fetchUserListData(res.data))
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
@@ -112,14 +126,16 @@ export const Main = () => {
     await axios
       .post("http://localhost:5000/music/likes/like", { address })
       .then((res) => {
-        setLikeList(res.data);
+        dispatch(fetchLikeListData(
+           res.data
+        ))
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
 
   return (
     <section className="main">
-      {/* <Searchbar address={address} /> */}
+      <Searchbar address={address} />
       <div className="main-content">
         <Routes>
           <Route path="/">
@@ -151,9 +167,6 @@ export const Main = () => {
               path="music"
               element={
                 <Music
-                  songList={songList}
-                  likeList={likeList}
-                  userList={userList}
                   address={address}
                 />
               }
@@ -186,7 +199,7 @@ export const Main = () => {
           <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
-      <Playbar likeList={likeList} address={address} userList={userList} />
+      <Playbar  address={address} />
     </section>
   );
 };
