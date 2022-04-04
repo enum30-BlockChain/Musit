@@ -15,7 +15,7 @@ router.post("/list", async (req, res, next) => {
         user_address: req.body.address,
       },
     });
-    res.send(artistlike.Artist);
+    res.send(artistlike);
   } catch (err) {
     console.error(err);
   }

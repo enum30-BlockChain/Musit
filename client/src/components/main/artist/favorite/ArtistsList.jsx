@@ -4,7 +4,7 @@ import axios from "axios";
 import ArtistCard from "./card/ArtistCard";
 import LikeCard from "./card/LikeCard";
 
-export const ArtistsList = ({ address, artistState }) => {
+export const ArtistsList = ({ address }) => {
   const [likelist, setLikelist] = useState([""]);
   const [artistList, setAtistList] = useState([]);
   const [select, setSelect] = useState("");
@@ -25,8 +25,8 @@ export const ArtistsList = ({ address, artistState }) => {
     LoginOnClick();
   }, []);
 
-  //내가 좋아하는 아티스트를 불러오는 핸들러
   console.log(likelist);
+  //내가 좋아하는 아티스트를 불러오는 핸들러
   return (
     <>
       <div>
