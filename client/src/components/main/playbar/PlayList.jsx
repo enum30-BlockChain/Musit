@@ -14,7 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import {Provider, useSelector, useDispatch} from 'react-redux';
 
 export default function PlayList(props) {
-const mySonglist = useSelector((state)=>{return state.mySonglist}); 
+const likeList = useSelector((state) => state.likeList.likeList)
 const [state, setState] =useState({
     top: false,
     left: false,
@@ -30,8 +30,6 @@ const [state, setState] =useState({
     setState({ ...state, [anchor]: open });
   };
  const playsong = (song,index)=>{console.log(index); props.playloadSong(song,index)};
- props.setLikelist(mySonglist) //플레이바 노래 최신화
-//  console.log(mySonglist)
 
   const list = (anchor) => (
     <Box
@@ -42,7 +40,7 @@ const [state, setState] =useState({
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {mySonglist && mySonglist.map((song, index) => (
+        {likeList && likeList.map((song, index) => (
           <ListItem button key={song} onClick={()=>{playsong(song,index)}}>
             <Avatar  alt="Remy Sharp"  src={song.img_file} sx={{ width: 50, height: 50 }}/>
             <Typography variant="h6" sx={{color:'black', ml:3}}>

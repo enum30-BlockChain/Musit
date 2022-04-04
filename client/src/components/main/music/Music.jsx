@@ -2,25 +2,22 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import MusicCard from "./MusicCard.jsx";
 // recent played/ my favorit / ranking  list
+import {  useSelector } from "react-redux";
 
 export const Music = (props) => {
-  const [songList, setSongList] = useState("");
-  const [likeList, setLikeList] = useState("");
-  const [userList, setUserList] = useState("");
   const [address, setAddress] = useState("");
+  
+  const musicList = useSelector((state) => state.musicList.musicList)
 
   useEffect(() => {
-    setSongList(props.songList);
-    setLikeList(props.likeList);
-    setUserList(props.userList);
     setAddress(props.address);
   }, [props]);
   return (
     <>
       
-        {songList &&
-          songList.map((song, i) => {
-            const findLike = song.MusicLikes.find(
+        {musicList &&
+          musicList.map((music, i) => {
+            const findLike = music.MusicLikes.find(
               (like) => like.user_address === address
             );
             return (
@@ -28,17 +25,17 @@ export const Music = (props) => {
                 <MusicCard
                   id={i}
                   key={i}
-                  title={song.title}
-                  artist_name={song.artist_name}
-                  img_file={song.img_file}
-                  MusicLikes={song.MusicLikes.length}
-                  play_count={song.play_count}
-                  ipfs_hash={song.ipfs_hash}
-                  Genre={song.Genre}
+                  music={music}
+                  title={music.title}
+                  artist_name={music.artist_name}
+                  img_file={music.img_file}
+                  MusicLikes={music.MusicLikes.length}
+                  play_count={music.play_count}
+                  ipfs_hash={music.ipfs_hash}
+                  Genre={music.Genre}
                   address={address}
-                  artistAddress={song.Artist.user_address}
+                  artistAddress={music.Artist.user_address}
                   checkBox={findLike}
-                  userList={userList}
                 />
               </>
             );
