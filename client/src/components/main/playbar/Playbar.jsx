@@ -204,8 +204,7 @@ function DurTime(e) {
 }
 
 const palyCountAdd = async () => {
-  setpalyeCount(palyeCount + 1);
-  const content = { palyeCount: palyeCount, audio: hash };
+  const content = { play_count: palyeCount, ipfs_hash: hash };
   await axios
     .post("http://localhost:5000/music/add", content)
     .then((res) => {

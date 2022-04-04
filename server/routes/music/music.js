@@ -43,10 +43,11 @@ router.post("/add", async (req, res, next) => {
     const data = req.body;
     await Music.update(
       {
-        play_count: data.palyeCount + 1,
+        play_count: data.play_count + 1,
       },
       { where: { ipfs_hash: data.ipfs_hash } }
     );
+    res.send("노래 카운트 +1")
   } catch (err) {
     next(err);
     console.log(err);

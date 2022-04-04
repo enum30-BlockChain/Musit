@@ -67,7 +67,6 @@ const CoverImage = styled('div')({
 
 
 export default function ArtistModal(props) {
-  console.log(props.address)
   const TotalCount = props.artistModal.Music  //play총합
                       .map(e =>e.play_count)
                       .reduce((prev, curr) => prev + curr, 0);
@@ -81,7 +80,7 @@ export default function ArtistModal(props) {
           <Avatar
               sx={{ml:5,mt:3, width:250,height:250}}
               alt="Remy Sharp"
-              src={props.artistModal.User.img}
+              src={props.artistModal.img}
             />
           <Box sx={{ width: "100%", ml:10, display: "flex",justifyContent:'space-between'}} >
             <Box sx={{mt:3}}>

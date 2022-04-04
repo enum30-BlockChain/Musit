@@ -18,7 +18,10 @@ function Search(props) {
   const [findMusic,setFindMusic] = useState("");
   const [findArtist,setFindArtist] = useState("");
 
-  const searching = useSelector((state)=>{return state.searchWord}); 
+  // const searching = useSelector((state)=>{return state.searchWord}); 
+  const searching = useSelector((state) => state.searching.searching)
+
+
   const location = useLocation();
   const content = location.state !== null || undefined ? location.state : null;
 
@@ -60,6 +63,7 @@ function Search(props) {
 
   const changeSearchPage= ()=>{
     if (songList && artistList) {
+      console.log(searching)
       const searchMusicNameData = songList.filter((song) => {
         return song.title.indexOf(searching) > -1;
       });

@@ -33,7 +33,7 @@ function MusicCard(props) {
 
   const palyCountAdd = async () => {
     setpalyeCount(palyeCount + 1);
-    const content = { palyeCount: palyeCount, ipfs_hash: props.music.ipfs_hash };
+    const content = { play_count: palyeCount, ipfs_hash: props.music.ipfs_hash };
     await axios
       .post("http://localhost:5000/music/add", content)
       .then((res) => {

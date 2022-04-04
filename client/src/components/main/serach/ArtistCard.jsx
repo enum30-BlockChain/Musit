@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -17,9 +17,12 @@ const Img = styled('img')({
 });
 
 export default function ArtistCard(props) {
+  const [artist, setArtist] = useState(props.artist) 
+
   const postInfo = ()=>{
   props.setArtistModal(props.artist)
   }
+
   return (
     <Paper
       sx={{
@@ -42,7 +45,7 @@ export default function ArtistCard(props) {
             <Avatar
               onClick={postInfo}
               alt="Remy Sharp"
-              src={props.artist.User.img}
+              src={props.artist.img}
               sx={{ width: 128, height: 128 }}
             />
           </ButtonBase>

@@ -8,6 +8,7 @@ import userReducer from "./user/userReducer";
 import userListReducer from "./userList/userListReducer";
 import musicListReducer from "./musicList/musicListReducer";
 import likeListReducer from "./likeList/likeListReducer";
+import searchingReducer from "./searching/searchingReducer";
 
 
 // combineReducers Reducer들 합치는 곳 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   musicList: musicListReducer,
   likeList: likeListReducer,
   artist: artistReducer,
+  searching: searchingReducer,
 });
 
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
