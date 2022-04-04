@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.10;
+pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -100,7 +100,7 @@ contract Marketplace is ReentrancyGuard {
     );
   }
 
-  function getTotalPrice(uint256 _itemId) view public returns (uint256) {
+  function getTotalPrice(uint256 _itemId) public view returns (uint256) {
     return (items[_itemId].price * (100 + feePercent)) /100;
   }
 }
