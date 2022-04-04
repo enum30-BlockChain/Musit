@@ -50,62 +50,44 @@ export default function StickyHeadTable({ findMusic }) {
       label: "Like",
       minWidth: 50,
     },
+    {
+      id: "audio",
+      label: "Audio",
+      minWidth: 50,
+    },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, albumcover, music, artist, playtime, likecount) {
-    return { number, albumcover, music, artist, playtime, likecount };
+  function createRow(
+    number,
+    albumcover,
+    music,
+    artist,
+    playtime,
+    likecount,
+    audio
+  ) {
+    return { number, albumcover, music, artist, playtime, likecount, audio };
   }
 
   //row 안의 value값
-  const rows = [
-    createRow(
-      favorit.map((MusicList, index) => {
-        return (
-          <>
-            <div className="Musicfavoritlist">{index + 1}</div>
-          </>
-        );
-      }),
-      favorit.map((MusicList, index) => {
-        return (
-          <>
-            <div>
-              {<img src={MusicList.img_file} style={{ width: "100px" }} />}
-            </div>
-          </>
-        );
-      }),
-      favorit.map((MusicList, index) => {
-        return (
-          <>
-            <div>{MusicList.title}</div>
-          </>
-        );
-      }),
-      favorit.map((MusicList, index) => {
-        return (
-          <>
-            <div>{MusicList.artist_name}</div>
-          </>
-        );
-      }),
-      favorit.map((MusicList, index) => {
-        return (
-          <>
-            <div>{MusicList.play_time}</div>
-          </>
-        );
-      }),
-      favorit.map((MusicList, index) => {
-        return (
-          <>
-            <div>{MusicList.likes}</div>
-          </>
-        );
-      })
-    ),
-  ];
+  const rows = [];
+  favorit.forEach((favor, index) => {
+    rows.push(
+      createRow(
+        index,
+        <img src={favor.img_file} style={{ width: "100px" }} />,
+        favor.title,
+        favor.artist_name,
+        favor.play_time,
+        favor.likes,
+        <audio
+          src={`https://ipfs.infura.io/ipfs/${favor.ipfs_hash}`}
+          controls
+        ></audio>
+      )
+    );
+  });
 
   ///////////////////////////////////////////////////////////////
 
@@ -163,13 +145,3 @@ export default function StickyHeadTable({ findMusic }) {
     </Paper>
   );
 }
-
-{
-  /* <img src={favorit.img_file} style={{ width: "100px" }} />,
-favorit.title,
-favorit.artist_name,
-favorit.play_time,
-favorit.likes */
-}
-
-// //row 안의 value값

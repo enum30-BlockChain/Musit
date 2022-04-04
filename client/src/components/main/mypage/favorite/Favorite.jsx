@@ -1,7 +1,7 @@
 import "./Favorite.css";
 import React, { useEffect, useState } from "react";
-import StickyHeadTable from "../../../mui/StickyHeadTable";
-import StickyHeadTableArtist from "../../../mui/StickyHeadTableArtist";
+import StickyHeadTable from "../favorite/favoritelist/StickyHeadTable";
+import StickyHeadTableArtist from "../favorite/favoritelist/StickyHeadTableArtist";
 
 import axios from "axios";
 
