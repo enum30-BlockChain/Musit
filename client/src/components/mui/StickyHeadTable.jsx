@@ -86,6 +86,13 @@ export default function StickyHeadTable({ findMusic }) {
       favorit.map((MusicList, index) => {
         return (
           <>
+            <div>{MusicList.artist_name}</div>
+          </>
+        );
+      }),
+      favorit.map((MusicList, index) => {
+        return (
+          <>
             <div>{MusicList.play_time}</div>
           </>
         );

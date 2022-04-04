@@ -4,7 +4,6 @@ const router = express.Router();
 const { MusicLike, Music } = require("../../models/index");
 
 router.post("/like", async (req, res, next) => {
-  console.log(req.body.address);
   try {
     const songind_ipfs = await Music.findAll({
       include: { model: MusicLike, where: { user_address: req.body.address } },
