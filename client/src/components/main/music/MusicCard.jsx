@@ -64,7 +64,7 @@ function MusicCard(props) {
   };
 
   useEffect(() => {
-     setCheckedInputs(props.checkBox);
+     setCheckedInputs(likeList.find((music)=>music.ipfs_hash===props.music.ipfs_hash));
    }, []); 
  
  
