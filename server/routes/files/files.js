@@ -37,9 +37,9 @@ files.post("/create", async (req, res, next) => {
         title: data.music_title,
         play_time: data.music_duration,
         play_count: 0,
-        likes: 0,
         artist_name: data.artist_name,
         img_file: data.cover_img_link,
+        description: data.description,
         Genre: data.music_genre.join(),
       });
       res.send({ result: 0, message: "정상등록이완료되었습니다." });
@@ -64,6 +64,7 @@ files.post("/modify", async (req, res, next) => {
         play_count: data.count,
         img_file: data.cover_img_link,
         Genre: data.genre.join(),
+        description: data.description,
         artist_name: data.artist_name,
       },
       { where: { ipfs_hash: data.music_link } }
@@ -79,7 +80,7 @@ files.get("/", async (req, res, next) => {
   try {
     const songList = await Music.findAll({
       include: [
-        { model: Artist, include:{model:User}},
+        { model: Artist, include: { model: User } },
         {
           model: MusicLike,
         },
@@ -103,7 +104,7 @@ files.post("/likesong", async (req, res, next) => {
         },
       },
     });
-    console.log(songList)
+    console.log(songList);
     res.send(songList);
   } catch (err) {
     next(err);

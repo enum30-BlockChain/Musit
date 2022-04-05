@@ -36,7 +36,7 @@ export const Navbar = () => {
 
   return (
     <nav className="side-nav">
-      <Link to={"/"}>
+      <Link to={"/landingpage"}>
         <div className="logo-name-container">
           <div className="logo-image">
             <img src="/images/ENUM30.png" alt="logo" />

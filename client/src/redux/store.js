@@ -1,15 +1,19 @@
 import { applyMiddleware, compose, createStore, combineReducers } from "redux";
-import artistReducer from "./artist/artistReducer";
 import thunk from "redux-thunk";
 
 import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import userReducer from "./user/userReducer";
 import userListReducer from "./userList/userListReducer";
+
 import musicListReducer from "./musicList/musicListReducer";
 import likeListReducer from "./likeList/likeListReducer";
 import searchingReducer from "./searching/searchingReducer";
-import artistListReducer from "./artistlike/artistListReducer";
+
+import artistLikeReducer from "./artistlike/artistLikeReducer";
+import aritstListReducer from "./artistlist/artistListReducer";
+import artistReducer from "./artist/artistReducer";
+import artistLikeCountReducer from "./artistlikecount/artistLikeCountReducer";
 
 // combineReducers Reducer들 합치는 곳
 const rootReducer = combineReducers({
@@ -19,7 +23,9 @@ const rootReducer = combineReducers({
   likeList: likeListReducer,
   artist: artistReducer,
   searching: searchingReducer,
-  artistlike: artistListReducer,
+  artistlike: artistLikeReducer,
+  artistlikecount: artistLikeCountReducer,
+  artistlist: aritstListReducer,
 });
 
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.

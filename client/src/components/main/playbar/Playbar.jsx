@@ -4,7 +4,7 @@ import axios from "axios";
 import { Box, Stack, Slider } from "@mui/material";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
-
+import myImage from './cd.png'; 
 {
   /* <props likeList address userList/> */
 }
@@ -36,11 +36,15 @@ export const Playbar = (props) => {
     if (musicList && userList) {
       //페이지로딩해서 find로 내 좋아요 목록불러오고
       let song = musicList[count];
-      const getcurrentTime = userList.find(
+      const findUser = userList.find(
         (adr) => adr.address === props.address
-      ).recent_played;
-
-      if (getcurrentTime == null) {
+        );
+      if(!findUser){
+        console.log("유저가아닌사람")
+      }else{
+        console.log("유저가 맞는 사람")
+      if (findUser.recent_played === null) {
+        console.log("회원인데 리센트없는사람 ")
         //recent_played 없으면 바로 배열 0번째 ㄱ하고
         setpalyeCount(song.play_count);
         sethash(song.ipfs_hash);
@@ -49,12 +53,14 @@ export const Playbar = (props) => {
         audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
         cover.src = song.img_file;
       } else if (likeList) {
+        console.log("회원인데 리센트있는사람 ")
         //recent_played 있으면
-        const arry = getcurrentTime.split("-"); //receent찾아와서
+        const arry = findUser.recent_played.split("-"); //receent찾아와서
         const songs = likeList;
         const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
         setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
         if (index === -1) {
+          console.log("회원인데 리센트있는데 못찾는사람 ")
           setpalyeCount(song.play_count);
           sethash(song.ipfs_hash);
           setTilte(song.title);
@@ -62,6 +68,7 @@ export const Playbar = (props) => {
           audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
           cover.src = song.img_file;
         } else {
+          console.log("회원인데 리센트있는데 찾은사람 ")
           setpalyeCount(songs[index].play_count);
           sethash(songs[index].ipfs_hash);
           setTilte(songs[index].title);
@@ -72,6 +79,7 @@ export const Playbar = (props) => {
         }
       }
     }
+  }
   }, [userList, musicList]);
 
   function loadSong(song) {
@@ -282,7 +290,7 @@ function DurTime(e) {
         />
         <div className="img-container">
           <img
-            src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=1260/uploads/users/114/posts/34296/final_image/Final-image.jpg"
+            src={myImage}
             alt="music-cover"
             id="cover"
           />

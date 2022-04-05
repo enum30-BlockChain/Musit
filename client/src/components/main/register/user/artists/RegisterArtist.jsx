@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "./ArtistType.css";
-import ArtisType from "./ArtisType";
+// import ArtisType from "./ArtisType";
 import axios from "axios";
 
 const RegisterArtist = ({ address }) => {
@@ -52,7 +52,16 @@ const RegisterArtist = ({ address }) => {
       <div className="mypage">
         <div className="grid">
           <div className="box">
-            <ArtisType onChange={onChange} />
+            <div className="artist-name">
+              닉네임
+              <input
+                required
+                label="Email"
+                variant="standard"
+                name="nickname"
+                onChange={onChange}
+              />
+            </div>
             <h2>Profile Image</h2>
             <input
               name="imgUpload"

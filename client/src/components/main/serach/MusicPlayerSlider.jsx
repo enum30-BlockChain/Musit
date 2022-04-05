@@ -1,4 +1,4 @@
-import  React,{useRef,useState} from 'react';
+import  React,{useRef,useState,useEffect} from 'react';
 import axios from "axios";
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -16,6 +16,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { pink } from '@mui/material/colors';
+import {Provider, useSelector, useDispatch} from 'react-redux';
+import { fetchLikeListData } from "../../../redux/likeList/likeListAction"
 
 const WallPaper = styled('div')({
   position: 'absolute',
@@ -90,7 +92,14 @@ export default function MusicPlayerSlider(props) {
   const [duration,setDuration] = useState(0); // seconds
   const [position, setPosition] = useState(0);
   const [paused, setPaused] = useState(true);
-  
+  const [findlike,setFindlike] = useState("");
+  const likeList = useSelector((state) => state.likeList.likeList);
+  const dispatch = useDispatch(); 
+
+  useEffect(() => {
+    setFindlike( likeList.filter((song) => song.ipfs_hash.indexOf(props.musicmodal.ipfs_hash) > -1))
+  }, []);
+
   const palyCountAdd = async () => {
     const content = { play_count: props.musicmodal.play_count, ipfs_hash: props.musicmodal.ipfs_hash };
     await axios
@@ -109,6 +118,25 @@ export default function MusicPlayerSlider(props) {
   const mainIconColor = theme.palette.mode === 'dark' ? '#fff' : '#000';
   const lightIconColor =
     theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
+
+
+
+  const likecountpost = async ()=>{
+    await axios
+    .post("http://localhost:5000/music/like", {address:props.address,ipfs_hash:props.musicmodal.ipfs_hash})
+    .then((res) => {})
+    .catch((err) => alert("회원가입부터하세용.", err));
+    
+    if(findlike.length === 0 ){
+      likeList.push(props.musicmodal)
+      dispatch(fetchLikeListData(likeList))
+    }else{
+      const newMySonglist = likeList.filter((song)=>{
+        return song.ipfs_hash.indexOf(props.musicmodal.ipfs_hash)<0;
+      }) 
+      dispatch(fetchLikeListData(newMySonglist))
+    }
+  }
   return (
     <Box sx={{ width: "100%", overflow: "hidden" }}>
       <Widget>
@@ -153,16 +181,24 @@ export default function MusicPlayerSlider(props) {
             </Box>
             <Box sx={{display:"flex", flexDirection: 'column', justifyContent: 'space-between'}}>
              <CloseIcon cursor="pointer" fontSize="large" onClick={()=>{props.setmusicmodal("");}} /> 
-              <FavoriteBorderIcon
-                sx={{ color: pink[300] }}
-                cursor="pointer"
-                fontSize="large"
-              />
-              <FavoriteIcon
-                sx={{ color: pink[300] }}
-                cursor="pointer"
-                fontSize="large"
-              />
+             {findlike.length === 0 
+             ?(<FavoriteBorderIcon
+             cursor="pointer"
+             fontSize="large"
+             onClick={()=>{
+              setFindlike(1);
+              likecountpost();
+             }}
+           />)
+            :(<FavoriteIcon
+            cursor="pointer"
+            fontSize="large"
+            onClick={()=>{
+              setFindlike("");
+              likecountpost();
+             }}
+          />)
+            }
             </Box>
           </Stack>
         </Box>

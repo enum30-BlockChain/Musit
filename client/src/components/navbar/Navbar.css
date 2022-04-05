@@ -49,7 +49,6 @@
 }
 
 .side-nav .menu-items {
-  margin-top: 20px;
   height: calc(100% - 90px);
   display: flex;
   flex-direction: column;
@@ -113,7 +112,7 @@ body.dark .side-nav .nav-links li a:hover :is(i, .link-name) {
 }
 
 .menu-items .logout-mode {
-  padding-top: 5px;
+  padding-top: 8px;
   border-top: 1px solid var(--border-color);
 }
 

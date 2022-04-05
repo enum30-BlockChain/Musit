@@ -1,29 +1,28 @@
 const initialState = {
-  artist_name: null,
-  img: null,
-  likes: null,
+  loading: false,
+
+  artist_artist_name: null,
   user_address: null,
+
   error: false,
   errorMsg: "",
 };
 
-const artistReducer = (state = initialState, action) => {
+const artistLikeCountReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ARTIST_DATA_REQUEST":
+    case "ARTIST_LIKECOUNT_DATA_REQUEST":
       return {
         ...initialState,
         loading: true,
       };
-    case "ARTIST_DATA_SUCCESS":
+    case "ARTIST_LIKECOUNT_DATA_SUCCESS":
       return {
         ...initialState,
         loading: false,
+        artist_artist_name: action.payload.artist_artist_name,
         user_address: action.payload.user_address,
-        artist_name: action.payload.artist_name,
-        likes: action.payload.likes,
-        img: action.payload.img,
       };
-    case "ARTIST_DATA_FAILED":
+    case "ARTIST_LIKECOUNT_DATA_FAILED":
       return {
         ...initialState,
         loading: false,
@@ -35,4 +34,4 @@ const artistReducer = (state = initialState, action) => {
   }
 };
 
-export default artistReducer;
+export default artistLikeCountReducer;
