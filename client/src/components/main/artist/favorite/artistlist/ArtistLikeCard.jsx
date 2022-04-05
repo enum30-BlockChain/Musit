@@ -10,6 +10,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchArtistLikeData } from "../../../../../redux/artist/artistAction";
 
 const Img = styled("img")({
   margin: "auto",
@@ -18,56 +19,19 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function ArtistCard({ Artists, address }) {
-  // useEffect(() => {
-  //   setFindlike(
-  //     artistlikecount.filter((artistlike) => {
-  //       return artistlike.user_address.indexOf(Artists.user_address) > -1;
-  //     })
-  //   );
-  // }, []);
-
-  //추후에 할것
-  // const postInfo = () => {
-  //   Artists.setArtistModal(Artists);
-  // };
-
-  //내가 좋아요 누른 카운스 숫자
-  const [TotalLike, setTotalLike] = useState();
-
+export default function ArtistLikeCard({ Artists, address }) {
   //내가좋아하는 아티스트의 카운트상태를 불러올것이다.
-  const artistLikeList = useSelector((state) => state.artistLikeList);
+  const artistlist = useSelector((state) => state.artistlist);
 
   //위에 선언해줬고
   const dispatch = useDispatch();
 
   //findlike 하트버튼의 상태 ={좋아하는상태인지 싫어하는상태인지}
   const [findlike, setFindlike] = useState("");
-  const [selected, setSelected] = useState("");
 
   const likecountpost = () => {
-    return setSelected(Artists.artist_name);
+    dispatch(fetchArtistLikeData(address, Artists.artist_name));
   };
-  // const likeartistaxios = async (selected) => {
-  //   const url = "http://localhost:5000/artists/likes/like";
-  //   const response = await axios
-  //     .post(url, { address, selected })
-  //     .catch((err) => alert("회원가입부터하세용.", err));
-  // };
-
-  const likeartistcount = async () => {
-    // dispatch(artistLikeUpdate(address, selected));
-    // if(findlike.length === 0 ){
-    //   likeList.push(props.music)
-    //   dispatch(fetchLikeListData(likeList))
-    // }else{
-    //   const newMySonglist = likeList.filter((song)=>{
-    //     return song.ipfs_hash.indexOf(props.music.ipfs_hash)<0;
-    //    })
-    //   dispatch(fetchLikeListData(newMySonglist))
-    // }
-  };
-
   return (
     <Paper
       sx={{
@@ -112,7 +76,7 @@ export default function ArtistCard({ Artists, address }) {
                   variant="title"
                   component="div"
                 >
-                  {Artists.artist_name}
+                  {/* {Artists.artist_name} */}
                 </Typography>
               </div>
             </Grid>
@@ -133,7 +97,6 @@ export default function ArtistCard({ Artists, address }) {
                 value={Artists.artist_name}
                 onClick={() => {
                   likecountpost();
-                  likeartistcount();
                 }}
               />
             ) : (
