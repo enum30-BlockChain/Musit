@@ -24,7 +24,6 @@ const fetchMetamaskDataFailed = (payload) => {
 };
 
 export const fetchMetamaskData = () => {
-
   return async (dispatch) => {
     dispatch(fetchMetamaskDataRequest());
     try {
@@ -32,6 +31,8 @@ export const fetchMetamaskData = () => {
 
       const accounts = await Metamask.getAccounts();
       const network = await Metamask.getNetwork();
+
+      const changeListener = Metamask.walletListener();
 
       dispatch(
         fetchMetamaskDataSuccess({

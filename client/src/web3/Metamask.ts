@@ -66,7 +66,7 @@ export default class Metamask {
   };
 
 	// 연결된 지갑 주소 배열 불러오기
-	static getAccounts = async (setAddress?: Function): Promise<ResponseType<string[]>> => {
+	static getAccounts = async (): Promise<ResponseType<string[]>> => {
 		const metamask = window.ethereum;
 		let accounts: string[];
 		if (metamask) {
@@ -74,7 +74,6 @@ export default class Metamask {
 				accounts = await metamask.request({
 					method: "eth_accounts",
 				});
-				if(setAddress) setAddress(accounts[0])
 				if (accounts.length > 0) {
 					const message: string
             = `🦊Metamask is connected.\n(Address: ${shortAddress(accounts[0])})`;
@@ -119,14 +118,14 @@ export default class Metamask {
     }
   };
 
-	static walletListener = async (setAddress?: Function): Promise<ResponseType<string>> => {
+	static walletListener = (): ResponseType<string> => {
 		const metamask = window.ethereum;
 		if (metamask) {
 			metamask.on("accountsChanged", (accounts: string[]) => {
-				if(setAddress) setAddress(accounts[0])
 				if(accounts.length > 0) {
 					const message: string 
-						= `📗Selected account is changed.\n(Address: ${shortAddress(accounts[0])})`;;
+						= `📗Selected account is changed.\n(Address: ${shortAddress(accounts[0])})`;	
+					// window.location.reload();
 					return new Response(accounts[0], message);
 				} else {
 					const message: string 
