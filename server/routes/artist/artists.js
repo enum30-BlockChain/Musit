@@ -38,9 +38,6 @@ router.post("/like", async (req, res, next) => {
 });
 
 router.post("/signin", async (req, res, next) => {
-  console.log(11111111111111);
-  console.log(req.body);
-  console.log(11111111111111);
   try {
     const artist = await Artist.findOne({
       where: {
@@ -105,7 +102,6 @@ router.post("/music", async (req, res, next) => {
 });
 
 router.post("/change", async (req, res, next) => {
-  console.log(req.body);
   try {
     console.log("http://localhost:5000/artists/change");
     const artist = await Artist.findOne({
@@ -133,7 +129,6 @@ router.post("/change", async (req, res, next) => {
 
 router.post("/changeimg", async (req, res, next) => {
   console.log("http://localhost:5000/artists/changeimg");
-  console.log(req.body);
   try {
     const artist = await Artist.findOne({
       where: {
@@ -157,8 +152,6 @@ router.post("/changeimg", async (req, res, next) => {
 });
 
 router.post("/played", async (req, res, next) => {
-  console.log("최근재생목록 불러오려함");
-  console.log(req.body);
   console.log("최근재생목록 불러오려함");
   try {
     const playname = await Artist.findOne({

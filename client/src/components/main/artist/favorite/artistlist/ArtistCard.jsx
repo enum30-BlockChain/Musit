@@ -10,7 +10,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistLikeCountData } from "../../../../../redux/artistlikecount/artistLikeCountAction";
 
 const Img = styled("img")({
   margin: "auto",
@@ -20,53 +19,53 @@ const Img = styled("img")({
 });
 
 export default function ArtistCard({ Artists, address }) {
-  const postInfo = () => {
-    Artists.setArtistModal(Artists);
-  };
+  // useEffect(() => {
+  //   setFindlike(
+  //     artistlikecount.filter((artistlike) => {
+  //       return artistlike.user_address.indexOf(Artists.user_address) > -1;
+  //     })
+  //   );
+  // }, []);
 
-  useEffect(() => {
-    dispatch(fetchArtistLikeCountData(address));
-  }, []);
+  //추후에 할것
+  // const postInfo = () => {
+  //   Artists.setArtistModal(Artists);
+  // };
 
   //내가 좋아요 누른 카운스 숫자
-  // const [TotalLike, setTotalLike] = useState(props.music.MusicLikes.length);
   const [TotalLike, setTotalLike] = useState();
 
   //내가좋아하는 아티스트의 카운트상태를 불러올것이다.
-  const artistlikecount = useSelector((state) => state.artistlikecount);
-
-  //내가 선택한 아티스트
-  const [checkedInputs, setCheckedInputs] = React.useState("");
+  const artistLikeList = useSelector((state) => state.artistLikeList);
 
   //위에 선언해줬고
   const dispatch = useDispatch();
 
   //findlike 하트버튼의 상태 ={좋아하는상태인지 싫어하는상태인지}
   const [findlike, setFindlike] = useState("");
+  const [selected, setSelected] = useState("");
 
-  const changeHandler = async (checked) => {
-    console.log(checked);
-    if (checked) {
-    }
+  const likecountpost = () => {
+    return setSelected(Artists.artist_name);
+  };
+  // const likeartistaxios = async (selected) => {
+  //   const url = "http://localhost:5000/artists/likes/like";
+  //   const response = await axios
+  //     .post(url, { address, selected })
+  //     .catch((err) => alert("회원가입부터하세용.", err));
+  // };
 
-    // if (checked) {
+  const likeartistcount = async () => {
+    // dispatch(artistLikeUpdate(address, selected));
+    // if(findlike.length === 0 ){
     //   likeList.push(props.music)
-    //   console.log(likeList)
     //   dispatch(fetchLikeListData(likeList))
-    //   setCheckedInputs(true);
-    //   setlikeCount(likeCount + 1);
-    // } else {
-    //  const newMySonglist = likeList.filter((song)=>{
+    // }else{
+    //   const newMySonglist = likeList.filter((song)=>{
     //     return song.ipfs_hash.indexOf(props.music.ipfs_hash)<0;
     //    })
     //   dispatch(fetchLikeListData(newMySonglist))
-    //   setCheckedInputs(false);
-    //   setlikeCount(likeCount - 1);
     // }
-  };
-
-  const checkvalueOnclick = (e) => {
-    console.log(e.target.value);
   };
 
   return (
@@ -89,7 +88,7 @@ export default function ArtistCard({ Artists, address }) {
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
             <Avatar
-              onClick={postInfo}
+              // onClick={postInfo}
               alt="Remy Sharp"
               src={Artists.img}
               sx={{ width: 128, height: 128 }}
@@ -132,7 +131,10 @@ export default function ArtistCard({ Artists, address }) {
                 cursor="pointer"
                 fontSize="large"
                 value={Artists.artist_name}
-                onClick={checkvalueOnclick}
+                onClick={() => {
+                  likecountpost();
+                  likeartistcount();
+                }}
               />
             ) : (
               <FavoriteIcon
