@@ -4,7 +4,7 @@ import axios from "axios";
 import { Box, Stack, Slider } from "@mui/material";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
-
+import myImage from './cd.png'; 
 {
   /* <props likeList address userList/> */
 }
@@ -290,7 +290,7 @@ function DurTime(e) {
         />
         <div className="img-container">
           <img
-            src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=1260/uploads/users/114/posts/34296/final_image/Final-image.jpg"
+            src={myImage}
             alt="music-cover"
             id="cover"
           />
