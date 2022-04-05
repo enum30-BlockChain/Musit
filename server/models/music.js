@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       title: { type: DataTypes.STRING, allowNull: false },
       play_time: { type: DataTypes.INTEGER, allowNull: false },
       play_count: { type: DataTypes.INTEGER, allowNull: false },
-      description: { type: DataTypes.STRING, allowNull: false },
+      description: { type: DataTypes.STRING, allowNull: true },
       img_file: { type: DataTypes.STRING, allowNull: false },
       Genre: { type: DataTypes.STRING, allowNull: false },
     },

@@ -9,7 +9,7 @@ import { Music } from "./music/Music";
 import { Store } from "./store/Store";
 import { Auctionupload } from "./auction/Auctionupload";
 import { Artist } from "./artist/Artist";
-// import { Playbar } from "./playbar/Playbar";
+import { Playbar } from "./playbar/Playbar";
 import { Favorite } from "./mypage/favorite/Favorite";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { Playlist } from "./mypage/playlist/Playlist";
@@ -187,7 +187,7 @@ export const Main = () => {
           <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
-      {/* <Playbar address={address} /> */}
+      <Playbar address={address} />
     </section>
   );
 };
