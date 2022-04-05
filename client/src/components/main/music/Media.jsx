@@ -27,17 +27,19 @@ const Media = (props) => {
     accu[curr] = (accu[curr] || 0)+1; 
     return accu;
   }, {});
-  if(result){ 
-  const a =()=>{
+
+  const GenreRecommendHandler =()=>{
     const topGenre = Object.entries(result)
         .sort(([,a],[,b]) => b-a)
         .reduce((r, [k ]) => ([...r, k]), []);
-          // .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-   return musicList.filter((song) => song.Genre.indexOf(topGenre[0]) > -1);
+        if(topGenre.length > 0){
+          return musicList.filter((song) => song.Genre.indexOf(topGenre[0]) > -1);
+        }else{
+          return musicList ;
+        }
   }
-  setGenreRecommend(a())
+  setGenreRecommend(GenreRecommendHandler())
   
-  }
   // console.log(result.sort((a,b)=>a-b))
 
  }, [props])

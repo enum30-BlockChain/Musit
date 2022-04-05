@@ -18,7 +18,6 @@ export const Music = (props) => {
       <Media setmusicmodal={setmusicmodal}/>
       {musicmodal && <MusicPlayerSlider  sx={{ display: 'block' }}address={props.address} musicmodal={musicmodal} setmusicmodal={setmusicmodal} />}
        
-       
         {/* {musicList &&
           musicList.map((music, i) => {
             const findLike = music.MusicLikes.find(
