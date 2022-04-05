@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import MusicCard from "./MusicCard.jsx";
-// recent played/ my favorit / ranking  list
+import Media from "./Media.jsx";
 import {  useSelector } from "react-redux";
+import MusicPlayerSlider from "../serach/MusicPlayerSlider";
 
 export const Music = (props) => {
   const [address, setAddress] = useState("");
-  
+  const [musicmodal,setmusicmodal] = useState("");
   const musicList = useSelector((state) => state.musicList.musicList)
 
   useEffect(() => {
@@ -14,7 +15,8 @@ export const Music = (props) => {
   }, [props]);
   return (
     <>
-      
+      <Media setmusicmodal={setmusicmodal}/>
+      {musicmodal && <MusicPlayerSlider  sx={{ display: 'block' }}address={props.address} musicmodal={musicmodal} setmusicmodal={setmusicmodal} />}
         {musicList &&
           musicList.map((music, i) => {
             const findLike = music.MusicLikes.find(
@@ -26,15 +28,7 @@ export const Music = (props) => {
                   id={i}
                   key={i}
                   music={music}
-                  title={music.title}
-                  artist_name={music.artist_name}
-                  img_file={music.img_file}
-                  MusicLikes={music.MusicLikes.length}
-                  play_count={music.play_count}
-                  ipfs_hash={music.ipfs_hash}
-                  Genre={music.Genre}
                   address={address}
-                  artistAddress={music.Artist.user_address}
                   checkBox={findLike}
                 />
               </>
