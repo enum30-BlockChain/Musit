@@ -128,13 +128,13 @@ export const Create = ({ address }) => {
         .then((res) => {
           if ((res.data.result = 0)) {
             alert(res.data.message);
-            window.location.href = "/musicsearch";
+            window.location.href = "/music";
           } else if ((res.data.result = 1)) {
             alert(res.data.message);
-            window.location.href = "/musicsearch";
+            window.location.href = "/music";
           } else if ((res.data.result = 2)) {
             alert(res.data.message);
-            window.location.href = "/fileupload";
+            window.location.href = "/create";
           }
         })
         .catch((err) => alert(err));
@@ -186,7 +186,7 @@ export const Create = ({ address }) => {
           <h2>Music File</h2>
           <Input
             type="file"
-            accept="audio/*"
+            inputProps= {{accept:"audio/*"}}
             onChange={getAudio}
             sx={{ width: 400 }}
           />

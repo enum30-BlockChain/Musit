@@ -151,7 +151,11 @@ export const Playbar = (props) => {
   // Set progress bar
   function setProgress(e) {
     const width = progressContainer.clientWidth; //300
-    const clickX = e.clientX - 170; //왜170부터시작하는지모르겠넹
+    const clickX = e.clientX -420; //왜170부터시작하는지모르겠넹
+    console.log(e.clientX)
+    console.log(e.pageX)
+    console.log(e.screenX)
+    console.log(e.clientX/width)
     const duration = audio.duration;
     
     audio.currentTime = (clickX / width) * duration;

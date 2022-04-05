@@ -30,7 +30,7 @@ export default function SongCard(props) {
     .filter((song)=>{
       return (song.ipfs_hash.indexOf(props.music.ipfs_hash)>-1);
       }))
-  }, [])
+  }, [likeList])
 
   const postInfo= ()=>{
     props.setmusicmodal(props.music)
@@ -41,12 +41,11 @@ export default function SongCard(props) {
     .post("http://localhost:5000/music/like", {address:props.address,ipfs_hash:props.music.ipfs_hash})
     .then((res) => {})
     .catch((err) => alert("회원가입부터하세용.", err));
+    
     if(findlike.length === 0 ){
-      console.log("따봉박는중")
       likeList.push(props.music)
       dispatch(fetchLikeListData(likeList))
     }else{
-      console.log("따봉빼는중")
       const newMySonglist = likeList.filter((song)=>{
         return song.ipfs_hash.indexOf(props.music.ipfs_hash)<0;
        }) 
