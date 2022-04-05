@@ -39,6 +39,7 @@ export const Create = ({ address }) => {
     music_duration: "",
     artist_name: "",
     music_genre: "",
+    description: "",
   });
 
   const formData = new FormData(); //server로 img파일 보내기위해 사용
@@ -61,6 +62,11 @@ export const Create = ({ address }) => {
   };
   const getTitle = (e) => {
     setMusicTitle(e.target.value);
+  };
+
+  const getDescription = (e) => {
+    DBdata.description = e.target.value;
+    console.log(DBdata);
   };
 
   // const getDescription = (e) => {
@@ -186,7 +192,7 @@ export const Create = ({ address }) => {
           <h2>Music File</h2>
           <Input
             type="file"
-            inputProps= {{accept:"audio/*"}}
+            inputProps={{ accept: "audio/*" }}
             onChange={getAudio}
             sx={{ width: 400 }}
           />
@@ -214,12 +220,13 @@ export const Create = ({ address }) => {
             sx={{ width: 400 }}
             placeholder="Music Title"
           />
-          <h2>Music Discription</h2>
+          <h2>Music Description</h2>
           <TextareaAutosize
             maxRows={4}
             aria-label="maximum height"
             placeholder="Fill your music description"
             style={{ width: 400 }}
+            onChange={getDescription}
           />
           {/* <input onchange={getDescription} value={musicDescription} /> */}
           <h2>Genre</h2>
