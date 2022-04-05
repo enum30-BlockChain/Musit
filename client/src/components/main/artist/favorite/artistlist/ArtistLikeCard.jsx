@@ -20,18 +20,18 @@ const Img = styled("img")({
 });
 
 export default function ArtistLikeCard({ Artists, address }) {
-  //내가좋아하는 아티스트의 카운트상태를 불러올것이다.
   const artistlist = useSelector((state) => state.artistlist);
-
-  //위에 선언해줬고
+  const [findlike, setFindlike] = useState("");
   const dispatch = useDispatch();
 
-  //findlike 하트버튼의 상태 ={좋아하는상태인지 싫어하는상태인지}
-  const [findlike, setFindlike] = useState("");
+  useEffect(() => {
+    setFindlike(Artists.likes);
+  }, []);
 
   const likecountpost = () => {
     dispatch(fetchArtistLikeData(address, Artists.artist_name));
   };
+
   return (
     <Paper
       sx={{
@@ -89,7 +89,7 @@ export default function ArtistLikeCard({ Artists, address }) {
           </Grid>
           {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
           <Grid item>
-            {findlike.length === 0 ? (
+            {findlike === 0 ? (
               <FavoriteBorderIcon
                 sx={{ color: pink[300] }}
                 cursor="pointer"
@@ -104,6 +104,10 @@ export default function ArtistLikeCard({ Artists, address }) {
                 sx={{ color: pink[300] }}
                 cursor="pointer"
                 fontSize="large"
+                value={Artists.artist_name}
+                onClick={() => {
+                  likecountpost();
+                }}
               />
             )}
           </Grid>
