@@ -51,7 +51,6 @@ export const Main = () => {
     getLikeList(address);
     fetchUserData(address);
     dispatch(fetchArtistData(address));
-    loginCheck(address);
     getMusicList();
     getUser();
     sidebarToggle();
@@ -63,12 +62,6 @@ export const Main = () => {
   useEffect(() => {
     init();
   }, []);
-
-  const loginCheck = async (address) => {
-    const url = "http://localhost:5000/users/signin";
-    const response = await axios.post(url, { address });
-    return setLoginState(response.data);
-  };
 
   const sidebarToggle = () => {
     const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -129,7 +122,7 @@ export const Main = () => {
             <Route
               path="mypage"
               element={
-                loginState ? (
+                user.nickname !== undefined ? (
                   <Mypage address={address} />
                 ) : (
                   <RegisterUser address={address} />
@@ -177,7 +170,7 @@ export const Main = () => {
           <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
-      {/* <Playbar address={address} /> */}
+      <Playbar address={address} />
     </section>
   );
 };
