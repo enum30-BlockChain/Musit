@@ -44,6 +44,7 @@ router.post("/signin", async (req, res, next) => {
 });
 
 router.post("/signup", async (req, res, next) => {
+  console.log(req.body);
   try {
     const user = await User.findOne({
       where: {
@@ -58,7 +59,7 @@ router.post("/signup", async (req, res, next) => {
       await User.create({
         nickname: req.body.nickname,
         address: req.body.address,
-        genre: req.body.genre,
+        genre: req.body.genre.join(),
         nation: req.body.nation,
         img: req.body.img,
       });
