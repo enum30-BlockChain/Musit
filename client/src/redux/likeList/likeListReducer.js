@@ -1,7 +1,7 @@
 const initialState = {
   loading: false,
 
-  likeList: null,
+  likeList: [],
   
   error: false,
   errorMsg: "",
