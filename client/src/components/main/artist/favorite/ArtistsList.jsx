@@ -1,22 +1,9 @@
 import "./css/ArtistsList.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import axios from "axios";
 import ArtistListCard from "./artistlist/ArtistListCard";
-import ArtistCard from "./artistlist/ArtistCard";
-import { fetchArtistListData } from "../../../../redux/artistlist/artistListAction";
-import { useDispatch, useSelector } from "react-redux";
 
 export const ArtistsList = ({ address }) => {
-  const [artistdetail, setArtistDetail] = useState("");
-
-  const dispatch = useDispatch();
-  const artistlist = useSelector((state) => state.artistlist);
-
-  useEffect(() => {
-    dispatch(fetchArtistListData());
-  }, []);
-
   //내가 좋아하는 아티스트를 불러오는 핸들러
 
   return (

@@ -10,9 +10,6 @@ router.get("/", function (req, res, next) {
 
 router.post("/list", async (req, res, next) => {
   console.log("artists/likes/like");
-  console.log(111111111111111);
-  console.log(req.body);
-  console.log(111111111111111);
   try {
     const artistlike = await ArtistLike.findAll({
       where: {
@@ -37,7 +34,9 @@ router.post("/list/detail", async (req, res, next) => {
 });
 
 router.post("/like", async (req, res, next) => {
+  console.log(11111111111111);
   console.log(req.body);
+  console.log(11111111111111);
   try {
     const artist = await ArtistLike.findOne({
       where: {
@@ -50,7 +49,6 @@ router.post("/like", async (req, res, next) => {
         Id: req.body.likeSelect,
         artist_artist_name: req.body.likeSelect,
         user_address: req.body.address,
-        likes: req.body.likes,
       });
       const artistlike = await ArtistLike.findAll({
         include: {
@@ -68,7 +66,6 @@ router.post("/like", async (req, res, next) => {
           },
         }
       );
-      console.log(likesup);
     } else {
       var artistdelete = await ArtistLike.destroy({
         where: {
@@ -82,7 +79,7 @@ router.post("/like", async (req, res, next) => {
           where: { artist_name: req.body.likeSelect },
         },
       });
-      var artistupdate = await Artist.update(
+      var artistdowndate = await Artist.update(
         {
           likes: artistlike.length,
         },

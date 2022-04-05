@@ -38,6 +38,9 @@ router.post("/like", async (req, res, next) => {
 });
 
 router.post("/signin", async (req, res, next) => {
+  console.log(11111111111111);
+  console.log(req.body);
+  console.log(11111111111111);
   try {
     const artist = await Artist.findOne({
       where: {
