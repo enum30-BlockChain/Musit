@@ -4,7 +4,6 @@ import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../../redux/artist/artistAction";
-import { fetchUserData } from "../../../redux/user/userAction";
 
 export const Artist = ({ address, loginState }) => {
   const [select, setSelect] = useState("");
@@ -115,12 +114,6 @@ export const Artist = ({ address, loginState }) => {
               <Link to="/artist/list">
                 <i className="uil uil-favorite"></i>
                 <span className="link-name">Artists</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/artist/test">
-                <i className="uil uil-favorite"></i>
-                <span className="link-name">test</span>
               </Link>
             </li>
           </ul>

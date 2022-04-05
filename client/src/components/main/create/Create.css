@@ -23,25 +23,25 @@
 .create-layout .create-imgbox {
   border-right: 1px solid var(--border-color);
   text-align: center;
+  margin-top: 40px;
   width: 100%;
-  height: 100%;
+  height: 500px;
 }
 
 .create-layout .create-imgbox img {
   text-align: center;
   border-radius: 50%;
   object-fit: cover;
+  margin-top: 40px;
   height: 400px;
   width: 400px;
   left: 0;
   animation: rotate 8s linear infinite;
 }
 
-.create-layout .crete-inputbox {
+.create-layout .create-inputbox {
   text-align: center;
   margin-top: 40px;
-  margin-left: 10px;
-  margin-right: 10px;
   width: 100%;
   height: 100%;
 }

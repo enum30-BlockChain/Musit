@@ -2,6 +2,8 @@ import "./Create.css";
 import { Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+
 const { create } = require("ipfs-http-client");
 
 export const Create = ({ address }) => {
@@ -171,10 +173,7 @@ export const Create = ({ address }) => {
         <div className="create-imgbox">
           <h2>Album Cover Image</h2>
           {albumCoverImgFile && (
-            <img
-              src={URL.createObjectURL(albumCoverImgFile)}
-              style={{ width: "200px" }}
-            ></img>
+            <img src={URL.createObjectURL(albumCoverImgFile)}></img>
           )}
           <input
             name="imgUpload"
@@ -184,7 +183,7 @@ export const Create = ({ address }) => {
           />
         </div>
         <div className="create-inputbox">
-          <h2>Music</h2>
+          <h2>Music File</h2>
           <Input
             type="file"
             accept="audio/*"
@@ -216,6 +215,12 @@ export const Create = ({ address }) => {
             placeholder="Music Title"
           />
           <h2>Music Discription</h2>
+          <TextareaAutosize
+            maxRows={4}
+            aria-label="maximum height"
+            placeholder="Fill your music description"
+            style={{ width: 400 }}
+          />
           {/* <input onchange={getDescription} value={musicDescription} /> */}
           <h2>Genre</h2>
           <form>

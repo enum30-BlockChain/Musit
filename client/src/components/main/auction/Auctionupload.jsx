@@ -32,7 +32,7 @@ export const Auctionupload = () => {
             placeholder="Amount(ETH)"
             sx={{ width: 400 }}
           ></Input>
-          <h2 className="acution-subtitile  ">Auction Closing Time</h2>
+          <h2 className="acution-subtitile">Auction Closing Time</h2>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <TextField
               id="datetime-local"

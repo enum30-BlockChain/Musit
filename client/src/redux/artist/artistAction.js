@@ -26,7 +26,7 @@ export const fetchArtistData = (address) => {
   return async (dispatch) => {
     dispatch(fetchArtistDataRequest());
     try {
-      const artistData = store.getState().artist;
+      const artistData = store.getState().artistlike;
       const url = "http://localhost:5000/artists/signin";
       const artistInfo = (await axios.post(url, { address })).data;
       dispatch(
