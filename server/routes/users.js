@@ -29,7 +29,7 @@ router.get("/:address", async (req, res, next) => {
   }
 });
 
-/* Nickname client mainLayout response data send. */
+/* genre client mainLayout response data send. */
 router.post("/signin", async (req, res, next) => {
   try {
     const findname = await User.findOne({
@@ -154,7 +154,7 @@ router.post("/change", async (req, res, next) => {
         address: req.body.address,
       },
     });
-    if (req.body.select !== "") {
+    if (req.body.select !== "" && req.body.checkedInputs !== "") {
       const users_change = await User.update(
         {
           nickname: req.body.select,
@@ -166,7 +166,30 @@ router.post("/change", async (req, res, next) => {
           },
         }
       );
+    } else if (req.body.select !== "") {
+      const users_change = await User.update(
+        {
+          nickname: req.body.select,
+        },
+        {
+          where: {
+            address: req.body.address,
+          },
+        }
+      );
       res.send(users_change);
+    } else if (req.body.checkedInputs !== "" && req.body.select == "") {
+      const genre_change = await User.update(
+        {
+          genre: req.body.checkedInputs.join(),
+        },
+        {
+          where: {
+            address: req.body.address,
+          },
+        }
+      );
+      res.send(genre_change);
     }
   } catch (err) {
     console.error(err);
