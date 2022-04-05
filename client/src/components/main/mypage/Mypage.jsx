@@ -116,11 +116,7 @@ export const Mypage = ({ address }) => {
           {user.nickname}
           {visible && (
             <div>
-              <input
-                type="text"
-                value={user.nickname}
-                onChange={idonchange}
-              ></input>
+              <input type="text" onChange={idonchange}></input>
             </div>
           )}
           <h2 className="address">Address</h2>
