@@ -5,19 +5,19 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../../redux/artist/artistAction";
 
-export const Artist = ({ address, loginState }) => {
+export const Artist = ({ address }) => {
   const [select, setSelect] = useState("");
   const [visible, setVisible] = useState(false);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [img, setImg] = useState("");
 
-  useEffect(() => {
-    dispatch(fetchArtistData(address)).then(() => {});
-  }, []);
-
   const formData = new FormData();
   const artist = useSelector((state) => state.artist);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchArtistData(address));
+  }, []);
 
   function navlinkOnClick(e) {
     console.log(e.target);
@@ -95,7 +95,7 @@ export const Artist = ({ address, loginState }) => {
             <h2 className="likes">Like</h2>
             <span>좋아요 : {artist.likes} </span>
             <h2 className="subscription">Subscription</h2>
-            <span>{loginState.subscription}월이용권 </span>
+            {/* <span>{loginState.subscription}월이용권 </span> */}
           </div>
           {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
           <div>

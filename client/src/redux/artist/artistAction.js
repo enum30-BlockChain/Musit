@@ -4,20 +4,20 @@ import store from "../store";
 
 const fetchArtistDataRequest = () => {
   return {
-    type: "DATA_REQUEST",
+    type: "ARTIST_DATA_REQUEST",
   };
 };
 
 const fetchArtistDataSuccess = (payload) => {
   return {
-    type: "DATA_SUCCESS",
+    type: "ARTIST_DATA_SUCCESS",
     payload: payload,
   };
 };
 
 const fetchArtistDataFailed = (payload) => {
   return {
-    type: "DATA_FAILED",
+    type: "ARTIST_DATA_FAILED",
     payload: payload,
   };
 };

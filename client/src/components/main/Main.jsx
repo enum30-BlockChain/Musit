@@ -30,15 +30,15 @@ import { fetchUserListData } from "../../redux/userList/userListAction";
 import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
-import ArtistCard from "./artist/favorite/artistlist/ArtistCard";
+import { fetchArtistData } from "../../redux/artist/artistAction";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
   const [loginState, setLoginState] = useState({ address: "" });
   // const [likeList, setLikeList] = useState("");
-  const [artistState, setArtistState] = useState({ address: "" });
 
   const user = useSelector((state) => state.user);
+  const artist = useSelector((state) => state.artist);
   const userList = useSelector((state) => state.userList.userList);
   const musicList = useSelector((state) => state.musicList.musicList);
   const likeList = useSelector((state) => state.likeList.likeList);
@@ -50,32 +50,18 @@ export const Main = () => {
     await Metamask.walletListener(setAddress);
     getLikeList(address);
     fetchUserData(address);
-    //나의 지금 로그인상태 확인
-    loginCheck(address);
-    artistsCheck(address);
+    dispatch(fetchArtistData(address));
     getMusicList();
     getUser();
     sidebarToggle();
     dispatch(fetchUserData(address));
   }
 
-  const userdata = async () => {
-    await dispatch(fetchUserData(address)).then(() => {});
-  };
+  console.log(artist);
+
   useEffect(() => {
     init();
   }, []);
-
-  const artistsCheck = async (address) => {
-    const url = "http://localhost:5000/artists/signin";
-    const response = await axios.post(url, { address });
-    return setArtistState(response.data);
-  };
-  const loginCheck = async (address) => {
-    const url = "http://localhost:5000/users/signin";
-    const response = await axios.post(url, { address });
-    return setLoginState(response.data);
-  };
 
   const sidebarToggle = () => {
     const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -136,7 +122,7 @@ export const Main = () => {
             <Route
               path="mypage"
               element={
-                loginState ? (
+                user.nickname !== undefined ? (
                   <Mypage address={address} />
                 ) : (
                   <RegisterUser address={address} />
@@ -168,12 +154,8 @@ export const Main = () => {
             <Route
               path="artist"
               element={
-                artistState ? (
-                  <Artist
-                    address={address}
-                    artistState={artistState}
-                    loginState={loginState}
-                  />
+                artist.artist_name !== undefined ? (
+                  <Artist address={address} artist={artist} />
                 ) : (
                   <RegisterArtist address={address} />
                 )

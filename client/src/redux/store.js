@@ -13,6 +13,7 @@ import searchingReducer from "./searching/searchingReducer";
 import artistLikeReducer from "./artistlike/artistLikeReducer";
 import aritstListReducer from "./artistlist/artistListReducer";
 import artistReducer from "./artist/artistReducer";
+import artistLikeCountReducer from "./artistlikecount/artistLikeCountReducer";
 
 // combineReducers Reducer들 합치는 곳
 const rootReducer = combineReducers({
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   artist: artistReducer,
   searching: searchingReducer,
   artistlike: artistLikeReducer,
+  artistlikecount: artistLikeCountReducer,
   artistlist: aritstListReducer,
 });
 
