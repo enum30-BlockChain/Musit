@@ -40,7 +40,7 @@ router.post("/like", async (req, res, next) => {
   try {
     const artist = await ArtistLike.findOne({
       where: {
-        artist_artist_name: req.body.likeSelect,
+        artist_artist_name: req.body.selected,
         user_address: req.body.address,
       },
     });

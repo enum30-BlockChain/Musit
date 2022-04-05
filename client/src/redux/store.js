@@ -10,10 +10,9 @@ import musicListReducer from "./musicList/musicListReducer";
 import likeListReducer from "./likeList/likeListReducer";
 import searchingReducer from "./searching/searchingReducer";
 
-import artistLikeReducer from "./artistlike/artistLikeReducer";
+import artistLikeDetailReducer from "./artistlikedetail/artistLikeDetailReducer";
 import aritstListReducer from "./artistlist/artistListReducer";
 import artistReducer from "./artist/artistReducer";
-import artistLikeCountReducer from "./artistlikecount/artistLikeCountReducer";
 import metamaskReducer from "./metamask/metamaskReducer";
 
 // combineReducers Reducer들 합치는 곳
@@ -24,10 +23,9 @@ const rootReducer = combineReducers({
   likeList: likeListReducer,
   artist: artistReducer,
   searching: searchingReducer,
-  artistlike: artistLikeReducer,
-  artistlikecount: artistLikeCountReducer,
   artistlist: aritstListReducer,
   metamask: metamaskReducer,
+  artistlikeDetail: artistLikeDetailReducer,
 });
 
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
