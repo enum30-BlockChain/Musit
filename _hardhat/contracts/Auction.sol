@@ -127,7 +127,7 @@ contract Auction is ReentrancyGuard, Ownable {
   }
 
   // 경매 강제 종료 함수
-  function forceEnd(uint _itemId)  external nonReentrant onlyOwner  {
+  function forceEnd(uint _itemId)  external nonReentrant onlyOwner {
     Item storage auctionItem = items[_itemId];
     require(auctionItem.status == StatusType.ENROLLED, "This item hasn't been enrolled");
     auctionItem.status = StatusType.CLOSED;
@@ -171,12 +171,12 @@ contract Auction is ReentrancyGuard, Ownable {
 
   // pending bids 출금 함수
   function withdraw(uint _itemId) external nonReentrant {
-    require(msg.sender != items[_itemId].topBidder);
     uint balance = pendingBids[_itemId][msg.sender];
     require(balance != 0, "Nothing to withdraw");
+    require(msg.sender != items[_itemId].topBidder, "Top bidder cannot withdraw");
     pendingBids[_itemId][msg.sender] = 0;
 
-    payable(msg.sender).transfer(balance);
+    payable(msg.sender).transfer(calPriceWithFee(balance));
 
     emit Withdraw(_itemId, msg.sender, balance);
   }
