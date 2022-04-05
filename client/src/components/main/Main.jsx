@@ -18,6 +18,7 @@ import { History } from "./mypage/history/History";
 import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
+import LandingMainPage from "../landingpage/LandingMainPage";
 import Search from "./serach/Search";
 
 import axios from "axios";
@@ -153,7 +154,10 @@ export const Main = () => {
                 element={<Subscription address={address} />}
               />
             </Route>
-
+            <Route
+              path="landingpage"
+              element={<LandingMainPage address={address} />}
+            />
             <Route path="music" element={<Music address={address} />} />
             <Route path="store" element={<Store address={address} />}>
               <Route path="mynfts" element={<Mynfts />} />
