@@ -153,7 +153,7 @@ export const Main = () => {
               path="artist"
               element={
                 artist.artist_name !== undefined ? (
-                  <Artist address={address} artist={artist} />
+                  <Artist address={address} />
                 ) : (
                   <RegisterArtist address={address} />
                 )
