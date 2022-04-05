@@ -1,7 +1,7 @@
 const initialState = {
   loading: false,
 
-  musicList: null,
+  musicList: [],
   
   error: false,
   errorMsg: "",
