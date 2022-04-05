@@ -17,9 +17,6 @@ export default function LandingMainPage() {
             <span>BlockChain Revolution</span>
           </li>
           <li>
-            <span>BlockChain Revolution</span>
-          </li>
-          <li>
             <span>ENUM30 X MUSIT</span>
           </li>
         </div>
