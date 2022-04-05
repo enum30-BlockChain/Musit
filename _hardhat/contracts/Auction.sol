@@ -96,16 +96,12 @@ contract Auction is ReentrancyGuard, Ownable {
     require(removeFee(msg.value) + pendingBids[_itemId][msg.sender] >= auctionItem.topBid + minBidAmount,
       "Bid amount should be bigger than prev top bid as much as minumum bid amount");
 
-    if(auctionItem.topBidder != address(0)) {
-      pendingBids[_itemId][auctionItem.topBidder] += auctionItem.topBid;
-    }
+    // if(auctionItem.topBidder != address(0)) {
+    //   pendingBids[_itemId][auctionItem.topBidder] += auctionItem.topBid;
+    // }
 
-    if(pendingBids[_itemId][msg.sender] > 0) {
-      // 입찰을 이미 했던 사람은 총 입찰가격에 더해줌
-      auctionItem.topBid = pendingBids[_itemId][msg.sender] + removeFee(msg.value);
-    } else {
-      auctionItem.topBid = removeFee(msg.value);
-    }
+    pendingBids[_itemId][msg.sender] += removeFee(msg.value);
+    auctionItem.topBid = pendingBids[_itemId][msg.sender];
     auctionItem.topBidder = msg.sender;
 
     emit Bid(_itemId, msg.sender, auctionItem.topBid);

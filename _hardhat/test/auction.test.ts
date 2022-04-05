@@ -138,14 +138,16 @@ describe("Auction contract", () => {
           expect((await auction.items(1)).topBid).to.equal(3000);
           expect((await auction.items(1)).topBidder).to.equal(addr3.address);
           expect(await auction.pendingBids(1, addr2.address)).to.equal(2000);
-          expect(await auction.pendingBids(1, addr3.address)).to.equal(0);
-          await auction.connect(addr2).bid(1, {value: auction.calPriceWithFee(1500)})
+          expect(await auction.pendingBids(1, addr3.address)).to.equal(3000);
+          await auction.connect(addr2).bid(1, {value: auction.calPriceWithFee(2000)})
+          expect(await auction.pendingBids(1, addr2.address)).to.equal(4000);
+          expect(await auction.pendingBids(1, addr3.address)).to.equal(3000);
           
 
           // 경매 강제 종료
           await auction.connect(deployer).forceEnd(1);
-
-          expect(auction.pendingBids(1, addr3.address)).to.equal(3000);
+          expect(await auction.pendingBids(1, addr2.address)).to.equal(0);
+          expect(await auction.pendingBids(1, addr3.address)).to.equal(3000);
 
           // 경매 종료 후 판매자 잔고 증가 확인
           finalAddr1Balance = initAddr1Balance.add((await auction.items(1)).topBid);
@@ -159,9 +161,9 @@ describe("Auction contract", () => {
           // 가스비 때문에 계속 fail..
 
           // 출금 후 팬딩 금액 변화 확인
-          expect(await auction.pendingBids(1, addr2.address)).to.equal(2000)
-          await auction.connect(addr2).withdraw(1)
-          expect(await auction.pendingBids(1, addr2.address)).to.equal(0)
+          expect(await auction.pendingBids(1, addr3.address)).to.equal(3000)
+          await auction.connect(addr3).withdraw(1)
+          expect(await auction.pendingBids(1, addr3.address)).to.equal(0)
 
           // 
         })
