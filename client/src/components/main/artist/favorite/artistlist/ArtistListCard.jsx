@@ -9,22 +9,18 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistListData } from "../../../../../redux/artistlist/artistListAction";
-import axios from "axios";
-import { Link } from "react-router-dom";
 import ArtistCard from "./ArtistCard";
-import { fetchArtistData } from "../../../../../redux/artist/artistAction";
 
 export default function ArtistListCard({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const dispatch = useDispatch();
+
   const artistlist = useSelector((state) => state.artistlist);
-  const artist = useSelector((state) => state.artist);
 
   React.useEffect(() => {
     dispatch(fetchArtistListData(address)).then(() => {});
-    dispatch(fetchArtistData(address)).then(() => {});
   }, []);
 
   const handleChangePage = (event, newPage) => {
