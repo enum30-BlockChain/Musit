@@ -10,17 +10,21 @@ import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistListData } from "../../../../../redux/artistlist/artistListAction";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import ArtistCard from "./ArtistCard";
+import { fetchArtistData } from "../../../../../redux/artist/artistAction";
 
 export default function ArtistListCard({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [checkedInputs, setCheckedInputs] = React.useState([]);
 
   const dispatch = useDispatch();
   const artistlist = useSelector((state) => state.artistlist);
+  const artist = useSelector((state) => state.artist);
 
   React.useEffect(() => {
     dispatch(fetchArtistListData(address)).then(() => {});
+    dispatch(fetchArtistData(address)).then(() => {});
   }, []);
 
   const handleChangePage = (event, newPage) => {
@@ -30,18 +34,6 @@ export default function ArtistListCard({ address }) {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-  };
-
-  const changeHandler = async (checked) => {
-    const url = "http://localhost:5000/artists/likes/like";
-    await axios
-      .post(url, address)
-      .then((res) => {})
-      .catch((err) => alert("회원가입부터하세용.", err));
-
-    if (checked) {
-    } else {
-    }
   };
 
   //mui 내용
@@ -55,34 +47,32 @@ export default function ArtistListCard({ address }) {
     { id: "artistname", label: "Artist Name", minWidth: 30 },
     { id: "artistsimg", label: "Artist Image", minWidth: 120 },
     { id: "like", label: "Artist Like Count", minWidth: 120 },
-    { id: "likecheck", label: "Artist Like Check", minWidth: 120 },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, artistname, artistsimg, like, likecheck) {
-    return { number, artistname, artistsimg, like, likecheck };
+  function createRow(number, artistname, artistsimg, like) {
+    return { number, artistname, artistsimg, like };
   }
 
   //row 안의 value값
   const rows = [];
-
-  console.log(checkedInputs);
 
   artistlist.artistList.forEach((Artists, index) => {
     rows.push(
       createRow(
         index,
         Artists.artist_name,
-        <img src={Artists.img} style={{ width: "100px" }} />,
-        Artists.likes,
-        <td>
-          <input
-            type="checkbox"
-            onChange={(e) => {
-              changeHandler(e.currentTarget.checked);
-            }}
+        // <img src={Artists.img} style={{ width: "100px" }} />,
+        <div className="artistfavorite">
+          <ArtistCard
+            sx={{ width: "50%" }}
+            index={index}
+            Artists={Artists}
+            address={address}
           />
-        </td>
+          ,
+        </div>,
+        Artists.likes
       )
     );
   });

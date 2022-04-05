@@ -18,6 +18,7 @@ import { History } from "./mypage/history/History";
 import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
+
 import Search from "./serach/Search";
 
 import axios from "axios";
@@ -29,6 +30,7 @@ import { fetchUserListData } from "../../redux/userList/userListAction";
 import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
+import ArtistCard from "./artist/favorite/artistlist/ArtistCard";
 
 export const Main = () => {
   const [address, setAddress] = useState("");

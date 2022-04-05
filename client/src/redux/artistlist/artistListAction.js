@@ -29,6 +29,7 @@ export const fetchArtistListData = (address) => {
       const artistlist = store.getState().artistlist;
       const url = "http://localhost:5000/artists/list";
       const listInfo = (await axios.get(url)).data;
+
       dispatch(
         fetchArtistListDataSuccess({
           ...artistlist,

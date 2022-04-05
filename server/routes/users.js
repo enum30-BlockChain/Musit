@@ -154,7 +154,19 @@ router.post("/change", async (req, res, next) => {
         address: req.body.address,
       },
     });
-    if (req.body.select !== "") {
+    if (req.body.select !== "" && req.body.checkedInputs !== "") {
+      const users_change = await User.update(
+        {
+          nickname: req.body.select,
+          genre: req.body.checkedInputs.join(),
+        },
+        {
+          where: {
+            address: req.body.address,
+          },
+        }
+      );
+    } else if (req.body.select !== "") {
       const users_change = await User.update(
         {
           nickname: req.body.select,
