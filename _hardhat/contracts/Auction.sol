@@ -74,7 +74,7 @@ contract Auction is ReentrancyGuard, Ownable {
       _startPrice, 
       block.timestamp,
       _endAt/1000, 
-      _tokenId, 
+      _tokenId,
       payable(msg.sender),
       address(0),
       _startPrice,

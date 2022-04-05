@@ -54,16 +54,13 @@ export default class Metamask {
         const message: string = `🦊Metamask is enabled.\n(Address: ${shortAddress(
           accounts[0]
         )})`;
-        console.log(message);
         return new Response(accounts, message);
       } catch (error: any) {
         const message: string = "🤬 " + error.message;
-        console.log(message);
         return new Response([], message);
       }
     } else {
       const message: string = "🤬You must install Metamask.";
-      console.log(message);
       return new Response([], message);
     }
   };
@@ -81,21 +78,17 @@ export default class Metamask {
 				if (accounts.length > 0) {
 					const message: string
             = `🦊Metamask is connected.\n(Address: ${shortAddress(accounts[0])})`;
-					console.log(message);
 					return new Response(accounts, message);
 				} else {
 					const message: string = "🤬Metamask is not connected.";
-					console.log(message);
 					return new Response([], message);
 				}
 			} catch (error: any) {
 				const message: string = "🤬 " + error.message;
-				console.log(message);
 				return new Response([], message);
 			}
 		} else {
 			const message: string = "🤬You must install Metamask.";
-			console.log(message);
 			return new Response([], message);
 		}
 	};
@@ -115,16 +108,13 @@ export default class Metamask {
         const connectedMsg = `${network} is connected`;
         let message: string =
           network === "unknown" || "" ? cannotFindMsg : connectedMsg;
-        console.log(message);
         return new Response(network, message);
       } catch (error: any) {
         const message: string = "🤬 " + error.message;
-        console.log(message);
         return new Response("", message);
       }
     } else {
       const message: string = "🤬You must install Metamask.";
-      console.log(message);
       return new Response("", message);
     }
   };
@@ -137,12 +127,10 @@ export default class Metamask {
 				if(accounts.length > 0) {
 					const message: string 
 						= `📗Selected account is changed.\n(Address: ${shortAddress(accounts[0])})`;;
-					console.log(message);
 					return new Response(accounts[0], message);
 				} else {
 					const message: string 
 						= "😖Wallet is disconnected.";;
-					console.log(message);
 					return new Response("", message);
 				}
 			});
@@ -151,14 +139,12 @@ export default class Metamask {
         if (chainId) {
           const network = chainIdToNetworkName(chainId);
           const message: string = `🌏Network is changed.\n(New network: ${network})`;
-          console.log(message);
           window.location.reload();
           return new Response(network, message);
         }
       });
 
       const message: string = "🌈Listening on wallet status.";
-      console.log(message);
       return new Response("", message);
     } else {
       const message: string = "🤬You must install Metamask.";

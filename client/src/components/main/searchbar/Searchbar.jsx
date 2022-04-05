@@ -24,8 +24,8 @@ export const Searchbar = ({ address }) => {
     setGuest(response.data);
     return response.data;
   }
-
-  const sliceAddress =
+  
+  const sliceAddress = address &&
     address.substr(0, 5) + "..." + address.substr(address.length - 4, 4);
 
   const connectOnclick = () => {
