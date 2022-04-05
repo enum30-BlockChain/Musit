@@ -1,9 +1,9 @@
-import "./ArtistsList.css";
+import "./css/ArtistsList.css";
 import React, { useEffect, useState } from "react";
-import StickyHeadTableArtist from "../../mypage/favorite/favoritelist/StickyHeadTableArtist";
 
 import axios from "axios";
-import ArtistList from "./artistlist/ArtistList";
+import ArtistLikeListCard from "./artistlist/ArtistLikeListCard";
+import ArtistListCard from "./artistlist/ArtistListCard";
 
 export const ArtistsList = ({ address }) => {
   const [artistdetail, setArtistDetail] = useState("");
@@ -32,7 +32,7 @@ export const ArtistsList = ({ address }) => {
       <div className="favorite">
         <div className="artistfavorite">
           <h2>Artist List</h2>
-          <ArtistList
+          <ArtistListCard
             sx={{ width: "50%" }}
             artistList={artistList}
             address={address}
@@ -40,7 +40,7 @@ export const ArtistsList = ({ address }) => {
         </div>
         <div className="artistfavorite">
           <h2>Artist Favorite</h2>
-          <StickyHeadTableArtist
+          <ArtistLikeListCard
             sx={{ width: "50%" }}
             artistdetail={artistdetail}
           />

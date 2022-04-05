@@ -2,12 +2,9 @@ import "./Mypage.css";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-import { fetchUserData } from "../../../redux/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistListData } from "../../../redux/artistlike/artistListAction";
 
 export const Mypage = ({ address }) => {
-  const [userdata, setUserdata] = useState("");
   //내가 바꾸고 싶은 닉네임 선택
   const [select, setSelect] = useState("");
   //and 연산자를 사용하기위한 useState input을 숨기기위한 조건문
@@ -20,7 +17,6 @@ export const Mypage = ({ address }) => {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const artistlike = useSelector((state) => state.artistlike);
 
   //TODO: user info(address, nickname, myfavorite, ...),
   useEffect(() => {
@@ -35,7 +31,6 @@ export const Mypage = ({ address }) => {
         link.classList.add("active");
       });
     });
-    dispatch(fetchUserData(address)).then(() => {});
   }, []);
 
   function navlinkOnClick(e) {
@@ -93,8 +88,6 @@ export const Mypage = ({ address }) => {
     }
   };
 
-  console.log(artistlike);
-
   return (
     <div className="mypage">
       <div className="user-card">
@@ -105,6 +98,7 @@ export const Mypage = ({ address }) => {
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>
+              <button onClick={Submit}>올리기</button>
               <input
                 type="file"
                 name="imgUpload"
@@ -114,7 +108,6 @@ export const Mypage = ({ address }) => {
               {albumCoverImgFile && (
                 <img style={{ width: "100px" }} src={albumCoverImgFile}></img>
               )}
-              <button onClick={Submit}>올리기</button>
             </div>
           )}
         </div>

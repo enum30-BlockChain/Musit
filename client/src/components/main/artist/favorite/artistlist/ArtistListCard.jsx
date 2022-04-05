@@ -8,26 +8,20 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-
+import { fetchArtistListData } from "../../../../../redux/artistlist/artistListAction";
 import axios from "axios";
 
-export default function ArtistList({ artistList, address }) {
+export default function ArtistListCard({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [artists, setArtists] = React.useState([""]);
-  const [checkedInputs, setCheckedInputs] = React.useState("");
-  const [likeCount, setlikeCount] = React.useState("");
+  const [checkedInputs, setCheckedInputs] = React.useState([]);
 
   const dispatch = useDispatch();
-  const mySonglist = useSelector((state) => {
-    return state.mySonglist;
-  });
+  const artistlist = useSelector((state) => state.artistlist);
 
   React.useEffect(() => {
-    if (artistList) {
-      setArtists(artistList);
-    }
-  }, [artistList]);
+    dispatch(fetchArtistListData(address)).then(() => {});
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -38,29 +32,17 @@ export default function ArtistList({ artistList, address }) {
     setPage(0);
   };
 
-  // const changeHandler = async (checked) => {
-  //   await axios
-  //     .post("http://localhost:5000/music/like", address)
-  //     .then((res) => {})
-  //     .catch((err) => alert("회원가입부터하세용.", err));
+  const changeHandler = async (checked) => {
+    const url = "http://localhost:5000/artists/likes/like";
+    await axios
+      .post(url, address)
+      .then((res) => {})
+      .catch((err) => alert("회원가입부터하세용.", err));
 
-  //   if (checked) {
-  //     dispatch({ type: "SONG_LIST_ADD", payload: address });
-  //     setCheckedInputs(true);
-  //     setlikeCount(likeCount + 1);
-  //   } else {
-  //     const newMySonglist = mySonglist.filter((song) => {
-  //       return song.ipfs_hash.indexOf(artistList.ipfs_hash) < 0;
-  //     });
-  //     dispatch({ type: "SONG_LIST_POP", payload: newMySonglist });
-  //     setCheckedInputs(false);
-  //     setlikeCount(likeCount - 1);
-  //   }
-  // };
-
-  React.useEffect(() => {
-    setCheckedInputs();
-  }, []);
+    if (checked) {
+    } else {
+    }
+  };
 
   //mui 내용
   function createColumn(id, label, minWidth, align, format) {
@@ -84,22 +66,23 @@ export default function ArtistList({ artistList, address }) {
   //row 안의 value값
   const rows = [];
 
-  artists.forEach((Artists, index) => {
+  console.log(checkedInputs);
+
+  artistlist.artistList.forEach((Artists, index) => {
     rows.push(
       createRow(
         index,
         Artists.artist_name,
         <img src={Artists.img} style={{ width: "100px" }} />,
-        Artists.likes
-        // <td>
-        //   <input
-        //     type="checkbox"
-        //     onChange={(e) => {
-        //       changeHandler(e.currentTarget.checked);
-        //     }}
-        //     checked={checkedInputs}
-        //   />
-        // </td>
+        Artists.likes,
+        <td>
+          <input
+            type="checkbox"
+            onChange={(e) => {
+              changeHandler(e.currentTarget.checked);
+            }}
+          />
+        </td>
       )
     );
   });
@@ -157,14 +140,6 @@ export default function ArtistList({ artistList, address }) {
       />
     </Paper>
   );
-}
-
-{
-  /* <img src={favorit.img_file} style={{ width: "100px" }} />,
-favorit.title,
-favorit.artist_name,
-favorit.play_time,
-favorit.likes */
 }
 
 // //row 안의 value값
