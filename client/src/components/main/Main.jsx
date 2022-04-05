@@ -57,8 +57,6 @@ export const Main = () => {
     dispatch(fetchUserData(address));
   }
 
-  console.log(artist);
-
   useEffect(() => {
     init();
   }, []);

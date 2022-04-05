@@ -26,6 +26,7 @@ export const Create = ({ address }) => {
   ]);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+
   const [audiofile, setaudiofile] = useState("");
   const [duration, setDuration] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
@@ -39,8 +40,8 @@ export const Create = ({ address }) => {
     music_duration: "",
     artist_name: "",
     music_genre: "",
-    description: "",
-  });
+    description: "", 
+   });
 
   const formData = new FormData(); //server로 img파일 보내기위해 사용
 
@@ -63,12 +64,10 @@ export const Create = ({ address }) => {
   const getTitle = (e) => {
     setMusicTitle(e.target.value);
   };
-
   const getDescription = (e) => {
     DBdata.description = e.target.value;
     console.log(DBdata);
   };
-
   // const getDescription = (e) => {
   //   setMusicDescription;
   // };
@@ -192,7 +191,7 @@ export const Create = ({ address }) => {
           <h2>Music File</h2>
           <Input
             type="file"
-            inputProps={{ accept: "audio/*" }}
+            inputProps= {{accept:"audio/*"}}
             onChange={getAudio}
             sx={{ width: 400 }}
           />

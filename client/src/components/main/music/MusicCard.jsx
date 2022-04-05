@@ -13,8 +13,6 @@ function MusicCard(props) {
   const [palyeCount, setpalyeCount] = useState("");
   
   const dispatch = useDispatch();  
-
-  const userList = useSelector((state) => state.userList.userList);
   const likeList = useSelector((state) => state.likeList.likeList);
   
   useEffect(() => {
@@ -46,7 +44,7 @@ function MusicCard(props) {
 
   const changeHandler = async (checked) => {
     await axios
-      .post("http://localhost:5000/music/like", props)
+      .post("http://localhost:5000/music/like", {address:props.address,ipfs_hash:props.music.ipfs_hash})
       .then((res) => {})
       .catch((err) => alert("회원가입부터하세용.", err));
 
@@ -82,14 +80,6 @@ function MusicCard(props) {
               <audio
                 ref={audioPlayer}
                 src={`https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`}
-                onLoadedData={() => {   //불러올때
-                 const getcurrentTime = userList.find((adr)=>adr.address===props.music.address)
-                 const arry = getcurrentTime.recent_played.split("-")
-                 if (arry[0]===props.music.ipfs_hash){
-                   audioPlayer.current.currentTime = arry[2];
-                 }
-                }}
-               
                 onEnded={() => {
                   palyCountAdd();
                 }}

@@ -12,7 +12,6 @@ import {Provider, useSelector, useDispatch} from 'react-redux';
 function Search(props) {
   const [musicmodal,setmusicmodal] = useState("");
   const [artistModal,setArtistModal] = useState("");
-  
   const [musicList, setmusicList] = useState("");
   const [artistList, setArtistList] = useState("");
   const [findMusic,setFindMusic] = useState("");

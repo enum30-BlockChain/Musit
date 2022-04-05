@@ -40,11 +40,11 @@ export const Playbar = (props) => {
         (adr) => adr.address === props.address
         );
       if(!findUser){
-        console.log("유저가아닌사람")
+        // console.log("유저가아닌사람")
       }else{
-        console.log("유저가 맞는 사람")
+        // console.log("유저가 맞는 사람")
       if (findUser.recent_played === null) {
-        console.log("회원인데 리센트없는사람 ")
+        // console.log("회원인데 리센트없는사람 ")
         //recent_played 없으면 바로 배열 0번째 ㄱ하고
         setpalyeCount(song.play_count);
         sethash(song.ipfs_hash);
@@ -53,14 +53,14 @@ export const Playbar = (props) => {
         audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
         cover.src = song.img_file;
       } else if (likeList) {
-        console.log("회원인데 리센트있는사람 ")
+        // console.log("회원인데 리센트있는사람 ")
         //recent_played 있으면
         const arry = findUser.recent_played.split("-"); //receent찾아와서
         const songs = likeList;
         const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
         setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
         if (index === -1) {
-          console.log("회원인데 리센트있는데 못찾는사람 ")
+          // console.log("회원인데 리센트있는데 못찾는사람 ")
           setpalyeCount(song.play_count);
           sethash(song.ipfs_hash);
           setTilte(song.title);
@@ -68,7 +68,7 @@ export const Playbar = (props) => {
           audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
           cover.src = song.img_file;
         } else {
-          console.log("회원인데 리센트있는데 찾은사람 ")
+          // console.log("회원인데 리센트있는데 찾은사람 ")
           setpalyeCount(songs[index].play_count);
           sethash(songs[index].ipfs_hash);
           setTilte(songs[index].title);
@@ -159,7 +159,7 @@ export const Playbar = (props) => {
   // Set progress bar
   function setProgress(e) {
     const width = progressContainer.clientWidth; //300
-    const clickX = e.clientX - 170; //왜170부터시작하는지모르겠넹
+    const clickX = e.clientX - 420; //왜170부터시작하는지모르겠넹
     const duration = audio.duration;
     
     audio.currentTime = (clickX / width) * duration;
