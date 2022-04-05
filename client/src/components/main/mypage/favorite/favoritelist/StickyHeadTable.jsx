@@ -104,7 +104,7 @@ export default function StickyHeadTable({ address }) {
     );
   });
 
-  ///////////////////////////////////////////////////////////////
+  console.log(likeList);
 
   return (
     <Paper

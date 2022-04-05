@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistLikeData } from "../../../../../redux/artistlike/artistLikeAction";
+import { fetchArtistLikeData } from "../../../../../redux/artistlikedetail/artistLikeDetailAction";
 
 export default function StickyHeadTable({ address }) {
   const [page, setPage] = React.useState(0);
@@ -52,16 +52,16 @@ export default function StickyHeadTable({ address }) {
   //row 안의 value값
   const rows = [];
 
-  artistlike.artistLikeList.forEach((Artists, index) => {
-    rows.push(
-      createRow(
-        index,
-        Artists.artist_name,
-        <img src={Artists.img} style={{ width: "100px" }} />,
-        Artists.likes
-      )
-    );
-  });
+  // artistlike.artistLikeList.forEach((Artists, index) => {
+  //   rows.push(
+  //     createRow(
+  //       index,
+  //       Artists.artist_name,
+  //       <img src={Artists.img} style={{ width: "100px" }} />,
+  //       Artists.likes
+  //     )
+  //   );
+  // });
 
   return (
     <Paper
