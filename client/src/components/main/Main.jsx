@@ -18,11 +18,7 @@ import { History } from "./mypage/history/History";
 import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
-<<<<<<< HEAD
 import LandingMainPage from "../landingpage/LandingMainPage";
-=======
-
->>>>>>> jeonjin
 import Search from "./serach/Search";
 
 import axios from "axios";
