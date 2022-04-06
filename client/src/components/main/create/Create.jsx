@@ -40,8 +40,8 @@ export const Create = ({ address }) => {
     music_duration: "",
     artist_name: "",
     music_genre: "",
-    description: "", 
-   });
+    description: "",
+  });
 
   const formData = new FormData(); //server로 img파일 보내기위해 사용
 
@@ -156,7 +156,7 @@ export const Create = ({ address }) => {
   };
 
   const findArtist = async () => {
-    artistList.map((a) => {
+    artistList.map((a, index) => {
       if (a.user_address === address) {
         DBdata.artist_name = a.artist_name;
         return DBdata;
@@ -191,7 +191,7 @@ export const Create = ({ address }) => {
           <h2>Music File</h2>
           <Input
             type="file"
-            inputProps= {{accept:"audio/*"}}
+            inputProps={{ accept: "audio/*" }}
             onChange={getAudio}
             sx={{ width: 400 }}
           />
@@ -233,9 +233,10 @@ export const Create = ({ address }) => {
             {genre.map((MusicType, index) => {
               return (
                 <>
-                  <label id={index}>
+                  <label id={index} key={index}>
                     {MusicType}
                     <input
+                      key={index}
                       type={"checkbox"}
                       name={"MusicType"}
                       value={MusicType}
