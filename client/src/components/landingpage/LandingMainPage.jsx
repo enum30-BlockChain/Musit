@@ -31,7 +31,8 @@ export default function LandingMainPage({ address }) {
             <span>ENUM30 X MUSIT</span>
           </li>
         </div>
-
+      </div>
+      <div className="login-btn">
         {sliceAddress ? (
           sliceAddress
         ) : (

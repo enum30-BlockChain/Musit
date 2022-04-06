@@ -13,6 +13,10 @@ export const Searchbar = ({ address }) => {
   const navigate = useNavigate(); //페이지이동하면서 정보담아서 옮길수있따
   const dispatch = useDispatch();
 
+  const connectOnclick = () => {
+    Metamask.connectWallet();
+  };
+
   useEffect(() => {
     user();
   }, [address]);
@@ -24,6 +28,10 @@ export const Searchbar = ({ address }) => {
     setGuest(response.data);
     return response.data;
   }
+
+  const sliceAddress =
+    address &&
+    address.substr(0, 5) + "..." + address.substr(address.length - 4, 4);
 
   const changehandler = (e) => {
     if (e.key == "Enter") {
@@ -49,13 +57,31 @@ export const Searchbar = ({ address }) => {
       </div>
 
       <div className="user-info">
-        <div className="profile">
-          <p>
-            <Link to="">
-              <img src={guest.img} style={{ width: "100" }} />
-            </Link>
-          </p>
-          <p>{guest.nickname}</p>
+        <div className="searchbar-address">
+          {sliceAddress ? (
+            <>
+              <div className="profile">
+                <Link to="">
+                  <img src={guest.img} />
+                </Link>
+              </div>
+              <div className="searchbar-nick">
+                <p>{guest.nickname}</p>
+              </div>
+              <p>{sliceAddress}</p>
+            </>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{
+                color: "var(--black-light-color)",
+                backgroundColor: "var(--box1-color)",
+              }}
+              onClick={connectOnclick}
+            >
+              Connect
+            </Button>
+          )}
         </div>
       </div>
     </div>
