@@ -16,7 +16,7 @@ export const Artist = ({ address }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchArtistData(address));
+    dispatch(fetchArtistData(address)).then(() => {});
   }, []);
 
   function navlinkOnClick(e) {

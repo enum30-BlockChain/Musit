@@ -31,13 +31,11 @@ export default function ArtistLikeCard({ Artists, address }) {
   useEffect(() => {
     setFindlike(artistlikelist.artistList.artist_artist_name);
     dispatch(fetchArtistLikeListData(address)).then(() => {});
-  }, [address]);
+  }, [findlike]);
 
-  const likecountpost = () => {
-    dispatch(fetchArtistLikeData(address, Artists.artist_name));
+  const likecountpost = async () => {
+    await new dispatch(fetchArtistLikeData(address, Artists.artist_name));
   };
-
-  console.log(address);
 
   return (
     <Paper
