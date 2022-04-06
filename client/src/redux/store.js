@@ -10,7 +10,7 @@ import musicListReducer from "./musicList/musicListReducer";
 import likeListReducer from "./likeList/likeListReducer";
 import searchingReducer from "./searching/searchingReducer";
 
-import artistLikeDetailReducer from "./artistlikedetail/artistLikeDetailReducer";
+import artistLikeDetailReducer from "./artistlike/artistLikeDetailReducer";
 import { aritstLikeListReducer, artistReducer } from "./artist/artistReducer";
 import { aritstListReducer } from "./artist/artistReducer";
 
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   artist: artistReducer,
   artistList: aritstListReducer,
   searching: searchingReducer,
-  artistlikeDetail: artistLikeDetailReducer,
+  artistlike: artistLikeDetailReducer,
   artistlikelist: aritstLikeListReducer,
 });
 
