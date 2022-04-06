@@ -25,28 +25,31 @@ export const Auctionupload = () => {
           />
         </div>
         <div className="auction-box">
-          <h2>Auction Start Price</h2>
-          <label className="auction-price-btn"></label>
-          <Input
-            type="number"
-            inputProps={{ min: 0 }}
-            placeholder="Amount(ETH)"
-            sx={{ width: 400 }}
-          ></Input>
-          <h2 className="acution-subtitile">Auction Closing Time</h2>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <TextField
-              id="datetime-local"
-              label="Closing Time"
-              type="datetime-local"
-              defaultValue="2022-02-11T10:30"
+          <div className="auction-price">
+            <h2>Auction Start Price</h2>
+            <Input
+              type="number"
+              inputProps={{ min: 0 }}
+              placeholder="Amount(ETH)"
               sx={{ width: 400 }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(e) => console.log(e.target.value)}
-            />
-          </LocalizationProvider>
+            ></Input>
+          </div>
+          <div className="auction-time">
+            <h2>Auction Closing Time</h2>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <TextField
+                id="datetime-local"
+                label="Closing Time"
+                type="datetime-local"
+                defaultValue="2022-02-11T10:30"
+                sx={{ width: 400 }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => console.log(e.target.value)}
+              />
+            </LocalizationProvider>
+          </div>
         </div>
       </div>
       <div className="auction-btn">

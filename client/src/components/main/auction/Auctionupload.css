@@ -12,11 +12,7 @@
   margin-top: 40px;
 }
 
-.auction-layout .auction-box .auction-title {
-  margin-top: 40px;
-}
-
-.acution-subtitile h2 {
+.auction-layout .auction-box .auction-title h2 {
   margin-top: 40px;
 }
 
@@ -47,4 +43,8 @@
   text-align: center;
   height: 100%;
   width: 100%;
+}
+
+.auction-layout .auction-box .auction-time {
+  margin-top: 33px;
 }
