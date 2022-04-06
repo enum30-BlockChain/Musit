@@ -17,15 +17,16 @@ describe("Auction contract", () => {
   let addr3: SignerWithAddress;
   let addr4: SignerWithAddress;
   let musitNFT: MusitNFT;
+  let mintPrice: BigNumber;
   let auction: Auction;
   let feePercent = 1;
 
   beforeEach(async () => {
     [deployer, addr1, addr2, addr3, addr4] = await ethers.getSigners();
-
+    mintPrice = ethToWei(0.0001)
     const MusitNFT = await ethers.getContractFactory("MusitNFT");
     const Auction = await ethers.getContractFactory("Auction");
-    musitNFT = await MusitNFT.deploy();
+    musitNFT = await MusitNFT.deploy(mintPrice);
     auction = await Auction.deploy(feePercent);
   })
 
@@ -41,16 +42,14 @@ describe("Auction contract", () => {
   })
 
   describe("Function tests", async () => {
-    let startPrice: number,
-      startAt: number,
-      endAt: number,
-      nft: string;
-
+    let startPrice: number;
+    let startAt: number;
+    let endAt: number;
+    let nft: string;
     let tokenURI: string = "tokenURI";
-    let mintPrice: number = 0.001;
 
     beforeEach(async ()=> {
-      await musitNFT.connect(addr1).minting(tokenURI, {value : ethToWei(mintPrice)})
+      await musitNFT.connect(addr1).minting(tokenURI, {value : mintPrice})
       await musitNFT.connect(addr1).approve(auction.address, 1);
       startPrice = 1000
       startAt = Date.now()
