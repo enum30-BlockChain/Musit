@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Input, Button } from "@mui/material";
 
 import "./ArtistType.css";
 // import ArtisType from "./ArtisType";
@@ -53,16 +54,18 @@ const RegisterArtist = ({ address }) => {
         <div className="grid">
           <div className="box">
             <div className="artist-name">
-              닉네임
-              <input
+              <h1>Artist Nickname</h1>
+              <Input
                 required
+                placeholder="Artist"
                 label="Email"
+                sx={{ width: 400 }}
                 variant="standard"
                 name="nickname"
                 onChange={onChange}
               />
             </div>
-            <h2>Profile Image</h2>
+            <h1>Profile Image</h1>
             <input
               name="imgUpload"
               type="file"
@@ -75,7 +78,7 @@ const RegisterArtist = ({ address }) => {
                 style={{ width: "200px" }}
               ></img>
             )}
-            <button onClick={submitOnClick}>회원가입</button>
+            <Button onClick={submitOnClick}>회원가입</Button>
           </div>
         </div>
       </div>
