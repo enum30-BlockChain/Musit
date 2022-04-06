@@ -91,8 +91,8 @@ export const Create = ({ address }) => {
 
   const changeHandler = (checked, value) => {
     if (checked) {
-      if([...checkedInputs, value].length >= 4){
-       return alert("3개까지만 check 해주세요")
+      if ([...checkedInputs, value].length >= 4) {
+        return alert("3개까지만 check 해주세요");
       }
       setCheckedInputs([...checkedInputs, value]);
     } else {
@@ -159,7 +159,7 @@ export const Create = ({ address }) => {
   };
 
   const findArtist = async () => {
-    artistList.map((a) => {
+    artistList.map((a, index) => {
       if (a.user_address === address) {
         DBdata.artist_name = a.artist_name;
         return DBdata;
@@ -248,9 +248,10 @@ export const Create = ({ address }) => {
             {genre.map((MusicType, index) => {
               return (
                 <>
-                  <label id={index}>
+                  <label id={index} key={index}>
                     {MusicType}
                     <input
+                      key={index}
                       type={"checkbox"}
                       name={"MusicType"}
                       value={MusicType}

@@ -1,27 +1,46 @@
-import React,{useState} from 'react';
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import ButtonBase from '@mui/material/ButtonBase';
-import Avatar from '@mui/material/Avatar';
-import { borderRadius } from '@mui/system';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { pink } from '@mui/material/colors';
-const Img = styled('img')({
-  margin: 'auto',
-  display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%',
+import React, { useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import ButtonBase from "@mui/material/ButtonBase";
+import Avatar from "@mui/material/Avatar";
+import { borderRadius } from "@mui/system";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { pink } from "@mui/material/colors";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchArtistLikeData } from "../../../redux/artist/artistAction";
+
+const Img = styled("img")({
+  margin: "auto",
+  display: "block",
+  maxWidth: "100%",
+  maxHeight: "100%",
 });
 
 export default function ArtistCard(props) {
-  const [artist, setArtist] = useState(props.artist) 
+  const [artist, setArtist] = useState(props.artist);
+  //파업창 띄워주는 것
+  const postInfo = () => {
+    props.setArtistModal(props.artist);
+  };
+  ////////////////////////////////////////////
 
-  const postInfo = ()=>{
-  props.setArtistModal(props.artist)
-  }
+  useEffect(() => {
+    setArtistlike();
+  }, []);
+
+  const [artistlike, setArtistlike] = useState("");
+
+  const artistList = useSelector((state) => state.artistList);
+  const dispatch = useDispatch();
+
+  const likeOnclick = () => {
+    dispatch(fetchArtistLikeData(props.address, props.artist.artist_name));
+  };
+
+  console.log(artistList);
 
   return (
     <Paper
@@ -42,6 +61,7 @@ export default function ArtistCard(props) {
       >
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
+            {/* 프롭스를 통한 아티스트 이미지 */}
             <Avatar
               onClick={postInfo}
               alt="Remy Sharp"
@@ -67,6 +87,7 @@ export default function ArtistCard(props) {
                   variant="title"
                   component="div"
                 >
+                  {/* 프롭스를 통한 아티스트 이름 */}
                   {props.artist.artist_name}
                 </Typography>
               </div>
@@ -83,6 +104,10 @@ export default function ArtistCard(props) {
               sx={{ color: pink[300] }}
               cursor="pointer"
               fontSize="large"
+              value={props.artist.artist_name}
+              onClick={() => {
+                likeOnclick();
+              }}
             />
             {/* <FavoriteIcon
               sx={{ color: pink[300] }}
