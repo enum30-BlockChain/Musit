@@ -19,11 +19,16 @@ describe("Auction contract", () => {
   let musitNFT: MusitNFT;
   let mintPrice: BigNumber;
   let auction: Auction;
-  let feePercent = 1;
+  let minBidAmount: BigNumber;
+  let feePercent: number;
+  let startPrice: BigNumber;
 
   beforeEach(async () => {
     [deployer, addr1, addr2, addr3, addr4] = await ethers.getSigners();
+    feePercent = 1;
     mintPrice = ethToWei(0.0001)
+    minBidAmount = ethToWei(0.0001)
+    startPrice = ethToWei(0.0001)
     const MusitNFT = await ethers.getContractFactory("MusitNFT");
     const Auction = await ethers.getContractFactory("Auction");
     musitNFT = await MusitNFT.deploy(mintPrice);
@@ -42,7 +47,6 @@ describe("Auction contract", () => {
   })
 
   describe("Function tests", async () => {
-    let startPrice: number;
     let startAt: number;
     let endAt: number;
     let nft: string;
@@ -51,7 +55,6 @@ describe("Auction contract", () => {
     beforeEach(async ()=> {
       await musitNFT.connect(addr1).minting(tokenURI, {value : mintPrice})
       await musitNFT.connect(addr1).approve(auction.address, 1);
-      startPrice = 1000
       startAt = Date.now()
       endAt =  startAt + 60000 // 시작후 1분 뒤 종료
       nft = musitNFT.address;
@@ -122,28 +125,37 @@ describe("Auction contract", () => {
         let finalDeployerBalance: BigNumber;
         let finalAddr1Balance: BigNumber;
 
+        let addr2Bid: BigNumberish;
+        let addr3Bid: BigNumberish;
+        let addr4Bid: BigNumberish;
+
         
         beforeEach(async () => {
+          addr2Bid = ethToWei(0.0002)
+          addr3Bid = ethToWei(0.0003)
+          addr4Bid = ethToWei(0.0004)
+
           initDeployerBalance = await deployer.getBalance()
           initAddr1Balance = await addr1.getBalance()
-          await (await auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(2000)})).wait();
-          await (await auction.connect(addr3).bid(1, {value: await auction.calPriceWithFee(3000)})).wait();
-          await (await auction.connect(addr4).bid(1, {value: await auction.calPriceWithFee(4000)})).wait();
+          await (await auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(addr2Bid)})).wait();
+          await (await auction.connect(addr3).bid(1, {value: await auction.calPriceWithFee(addr3Bid)})).wait();
+          await (await auction.connect(addr4).bid(1, {value: await auction.calPriceWithFee(addr4Bid)})).wait();
         })
 
         it("top bid and to bidder",async () => {
+          expect(await auction.pendingBids(1, addr2.address)).to.equal(addr2Bid);
           // 입찰 테스트
-          // addr2: 2000 / addr3: 3000 / addr4: 4000
-          // => topBidder: addr4 / topBid: 4000
-          expect(await auction.pendingBids(1, addr2.address)).to.equal(2000);
-          expect(await auction.pendingBids(1, addr3.address)).to.equal(3000);
-          expect(await auction.pendingBids(1, addr4.address)).to.equal(4000);
-          expect((await auction.items(1)).topBid).to.equal(4000);
+          // addr2: 0.0002 / addr3: 0.0003 / addr4: 0.0004
+          // => topBidder: addr4 / topBid: 0.0004
+          expect(await auction.pendingBids(1, addr2.address)).to.equal(addr2Bid);
+          expect(await auction.pendingBids(1, addr3.address)).to.equal(addr3Bid);
+          expect(await auction.pendingBids(1, addr4.address)).to.equal(addr4Bid);
+          expect((await auction.items(1)).topBid).to.equal(addr4Bid);
           expect((await auction.items(1)).topBidder).to.equal(addr4.address);
           
-          // addr2가 추가로 3000 더 입찰
-          // addr2: 2000 + 3000 / addr3: 3000 / addr4: 4000
-          // => topBidder: addr2 / topBid: 5000
+          // addr2 0.0005로 다시 입찰
+          // addr2: 0.0005 / addr3: 0.0003 / addr4: 0.0004
+          // => topBidder: addr2 / topBid: 0.0005
           await auction.connect(addr2).bid(1, {value: auction.calPriceWithFee(3000)})
           expect(await auction.pendingBids(1, addr2.address)).to.equal(5000);
           expect(await auction.pendingBids(1, addr3.address)).to.equal(3000);
@@ -174,12 +186,6 @@ describe("Auction contract", () => {
           expect(await auction.pendingBids(1, addr3.address)).to.equal(3000)
           await auction.connect(addr3).withdraw(1)
           expect(await auction.pendingBids(1, addr3.address)).to.equal(0)
-
-          // 수수료 체크 
-          // : deployer가 forceEnd 해서 에러 남 => 다른 주소로 forceEnd 해줘야함
-          // finalDeployerBalance = await deployer.getBalance();
-          // let sumFee = await auction.getFee(2000 + 3000)
-          // expect(finalDeployerBalance.sub(initDeployerBalance)).to.equal(sumFee)
         })
         
         it("Bid revert test", async() => {

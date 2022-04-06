@@ -49,7 +49,7 @@ contract Auction is ReentrancyGuard, Ownable {
   constructor(uint _feePercent) {
     feePercent = _feePercent; // 수수료 
     feeAccount = payable(msg.sender); // 수수료를 받을 지갑 주소
-    minBidAmount = 1000 wei;
+    minBidAmount = 0.00001 ether;
   }
 
   /* Modifier declaration */
@@ -182,15 +182,11 @@ contract Auction is ReentrancyGuard, Ownable {
   }
   
   function calPriceWithFee(uint _price) public view returns(uint) {
-    return _price + getFee(_price);
+    return (_price * (100 + feePercent))/ 100;
   }
 
   function removeFee(uint _priceWithFee) public view returns (uint) {
-    return _priceWithFee - getFee(_priceWithFee);
-  }
-
-  function getFee(uint _price) public view returns (uint) {
-    return (_price * feePercent) / 100;
+    return (_priceWithFee * 100) / (100 + feePercent);
   }
 
   function getBlockTimestamp() public view returns (uint) {
