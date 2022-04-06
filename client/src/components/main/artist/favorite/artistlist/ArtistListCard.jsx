@@ -68,7 +68,6 @@ export default function ArtistListCard({ address }) {
             Artists={Artists}
             address={address}
           />
-          ,
         </div>,
         Artists.likes
       )
