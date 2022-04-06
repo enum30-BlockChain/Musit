@@ -31,7 +31,7 @@ import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../redux/artist/artistAction";
-import { fetchMetamaskData } from "../../redux/metamask/metamaskAction";
+import { fetchMetamaskAddress } from "../../redux/metamask/metamaskAction";
 
 export const Main = () => {
   const [loginState, setLoginState] = useState({ address: "" });
@@ -42,21 +42,21 @@ export const Main = () => {
   const metamask = useSelector((state) => state.metamask);
   const dispatch = useDispatch(); //redux 초기값 넣어주자
 
-  async function init() {
-    dispatch(await fetchMetamaskData())
-    getLikeList(metamask.address);
-    console.log(metamask.address)
-    fetchUserData(metamask.address);
-    dispatch(fetchArtistData(metamask.address));
-    getMusicList();
-    getUser();
-    sidebarToggle();
-    dispatch(fetchUserData(metamask.address));
-  }
-
+  
   useEffect(() => {
+    async function init() {
+      dispatch(fetchMetamaskAddress())
+      getLikeList(metamask.address);
+      console.log(metamask.address)
+      fetchUserData(metamask.address);
+      dispatch(fetchArtistData(metamask.address));
+      getMusicList();
+      getUser();
+      sidebarToggle();
+      dispatch(fetchUserData(metamask.address));
+    }
     init();
-  }, []);
+  }, [dispatch]);
 
   const sidebarToggle = () => {
     const sidebarToggle = document.querySelector(".sidebar-toggle");
