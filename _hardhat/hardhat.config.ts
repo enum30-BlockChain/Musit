@@ -22,9 +22,10 @@ task("accounts", "Prints the list of accounts", async (_, hre) => {
 
 task("deployNFT", "Deploy NFT contract", async (_, hre) => {
   const accounts = await hre.ethers.getSigners();
+  const mintPrice = hre.ethers.utils.parseEther("0.0001")
   return hre.ethers
     .getContractFactory("MusitNFT", accounts[0])
-    .then((contractFactory) => contractFactory.deploy())
+    .then((contractFactory) => contractFactory.deploy(mintPrice))
     .then((result) => {
       console.log(result.address);
     });

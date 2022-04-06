@@ -17,8 +17,8 @@ contract MusitNFT is ERC721URIStorage, Ownable {
   uint256 public totalSupplied; // 현재까지 발행된 총 수량
   Counters.Counter public tokenCount; // 발행할 NFT 토큰 Id
 
-  constructor () ERC721("Musit NFT","MUSIT") {
-    mintPrice = 0.001 ether;
+  constructor (uint _mintPrice) ERC721("Musit NFT","MUSIT") {
+    mintPrice = _mintPrice;
   }
 
   function setMintPrice (uint256 _mintPrice) external onlyOwner {

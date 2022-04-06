@@ -9,11 +9,12 @@ const ethToWei = (eth: number | string) =>
 const weiToEth = (wei: BigNumber) => ethers.utils.formatEther(wei);
 
 describe("Marketplace Contract", function () {
-  let deployer: SignerWithAddress,
-    addr1: SignerWithAddress,
-    addr2: SignerWithAddress,
-    musitNFT: MusitNFT,
-    marketplace: Marketplace;
+  let deployer: SignerWithAddress;
+  let addr1: SignerWithAddress;
+  let addr2: SignerWithAddress;
+  let musitNFT: MusitNFT;
+  let marketplace: Marketplace;
+  let mintPrice: BigNumber;
 
   let feePercent: number = 1;
   let price: number = 2;
@@ -22,11 +23,12 @@ describe("Marketplace Contract", function () {
   this.beforeEach(async () => {
     // Signer 정보들 받아오기
     [deployer, addr1, addr2] = await ethers.getSigners();
+    mintPrice = ethToWei(0.0001)
 
     // 컨트랙트 배포
     const MusitNFT = await ethers.getContractFactory("MusitNFT");
     const Marketplace = await ethers.getContractFactory("Marketplace");
-    musitNFT = await MusitNFT.deploy();
+    musitNFT = await MusitNFT.deploy(mintPrice);
     marketplace = await Marketplace.deploy(feePercent);
   });
 
@@ -43,7 +45,7 @@ describe("Marketplace Contract", function () {
 
   describe("Enroll items into marketplace", async () => {
     beforeEach(async () => {
-      await musitNFT.connect(addr1).minting(URI, { value: ethToWei(0.001) });
+      await musitNFT.connect(addr1).minting(URI, { value: mintPrice });
       await musitNFT.connect(addr1).approve(marketplace.address, 1);
     });
 
@@ -82,7 +84,7 @@ describe("Marketplace Contract", function () {
     let totalPriceInWei;
 
     beforeEach(async () => {
-      await musitNFT.connect(addr1).minting(URI, { value: ethToWei(0.001) });
+      await musitNFT.connect(addr1).minting(URI, { value: mintPrice });
       await musitNFT.connect(addr1).approve(marketplace.address, 1);
       await marketplace
         .connect(addr1)

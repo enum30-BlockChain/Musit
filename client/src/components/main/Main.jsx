@@ -39,15 +39,15 @@ export const Main = () => {
 
   const user = useSelector((state) => state.user);
   const artist = useSelector((state) => state.artist);
-  const userList = useSelector((state) => state.userList.userList);
-  const musicList = useSelector((state) => state.musicList.musicList);
-  const likeList = useSelector((state) => state.likeList.likeList);
+  const metamask = useSelector((state) => state.likeList.likeList);
   const dispatch = useDispatch(); //redux 초기값 넣어주자
 
   async function init() {
     const response = await Metamask.getAccounts(setAddress);
     const address = response.data[0];
     await Metamask.walletListener(setAddress);
+
+    
     getLikeList(address);
     fetchUserData(address);
     dispatch(fetchArtistData(address));

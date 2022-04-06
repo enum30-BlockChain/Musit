@@ -22,7 +22,7 @@ const fetchArtistListDataFailed = (payload) => {
   };
 };
 
-export const fetchArtistLikeData = (address) => {
+export const fetchArtistLikeDetailData = (address) => {
   return async (dispatch) => {
     dispatch(fetchArtistListDataRequest());
     try {
