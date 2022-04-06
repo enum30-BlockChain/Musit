@@ -104,8 +104,6 @@ export default function StickyHeadTable({ address }) {
     );
   });
 
-  console.log(likeList);
-
   return (
     <Paper
       className="table-container"

@@ -11,8 +11,8 @@ import likeListReducer from "./likeList/likeListReducer";
 import searchingReducer from "./searching/searchingReducer";
 
 import artistLikeDetailReducer from "./artistlikedetail/artistLikeDetailReducer";
-import aritstListReducer from "./artistlist/artistListReducer";
-import artistReducer from "./artist/artistReducer";
+import { artistReducer } from "./artist/artistReducer";
+import { aritstListReducer } from "./artist/artistReducer";
 import metamaskReducer from "./metamask/metamaskReducer";
 
 // combineReducers Reducer들 합치는 곳
@@ -22,9 +22,13 @@ const rootReducer = combineReducers({
   musicList: musicListReducer,
   likeList: likeListReducer,
   artist: artistReducer,
+  artistList: aritstListReducer,
   searching: searchingReducer,
+<<<<<<< HEAD
   artistlist: aritstListReducer,
   metamask: metamaskReducer,
+=======
+>>>>>>> main
   artistlikeDetail: artistLikeDetailReducer,
 });
 

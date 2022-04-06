@@ -29,7 +29,6 @@ const RegisterUser = ({ address }) => {
     "Dance",
   ]);
   const [nation, setNation] = useState([""]);
-  const [selected, setSelected] = useState("");
   const [option, setOption] = useState("");
   const [nickname, setNickname] = useState("");
   const [img, setImg] = useState("");
@@ -48,15 +47,13 @@ const RegisterUser = ({ address }) => {
     await postImg();
     const userdata = {
       address: address,
-      genre: genre[selected],
+      genre: checkedInputs,
       nation: option,
       nickname: nickname,
       img: DBdata.cover_img_link,
     };
-    console.log(userdata);
     const url = "http://localhost:5000/users/signup";
     const response = await axios.post(url, userdata);
-    console.log(response.data);
   };
 
   const getImg = (e) => {
@@ -64,13 +61,23 @@ const RegisterUser = ({ address }) => {
   };
 
   const postImg = async () => {
-    //multer하고 s3저장후 링크가져오기
     formData.append("img", albumCoverImgFile);
     await axios
-      .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
+      .post("http://localhost:5000/files/imgupload", formData)
       .then((res) => (DBdata.cover_img_link = res.data.downLoadLink))
       .catch((err) => alert(err));
     return DBdata;
+  };
+
+  const [checkedInputs, setCheckedInputs] = useState([]);
+
+  const changeHandler = (checked, name) => {
+    if (checked) {
+      setCheckedInputs([...checkedInputs, name]);
+    } else {
+      // 체크 해제
+      setCheckedInputs(checkedInputs.filter((el) => el !== name));
+    }
   };
 
   return (
@@ -122,7 +129,8 @@ const RegisterUser = ({ address }) => {
                 id={index + 1}
                 key={index}
                 name={MusicType}
-                setSelected={setSelected}
+                changeHandler={changeHandler}
+                checkedInputs={checkedInputs}
               />
             ))}
           </div>
