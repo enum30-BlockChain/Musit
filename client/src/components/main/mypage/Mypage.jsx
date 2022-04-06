@@ -110,7 +110,7 @@ export const Mypage = ({ address }) => {
         {/* 내이미지공간 */}
         <div className="user-image">
           {/* 현재 이미지 불러오기 */}
-          <img src={user.img} alt="user profile" />
+          <img style={{objectFit:"cover" }} src={user.img} alt="user profile" />
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>

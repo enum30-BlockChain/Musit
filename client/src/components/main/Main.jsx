@@ -134,16 +134,17 @@ export const Main = () => {
                 element={<Collection address={address} />}
               />
               <Route path="history" element={<History address={address} />} />
-              <Route
-                path="subscription"
-                element={<Subscription address={address} />}
-              />
+                <Route
+                  path="subscription"
+                  element={<Subscription address={address} />}
+                />
             </Route>
             <Route
               path="landingpage"
               element={<LandingMainPage address={address} />}
             />
-            <Route path="music" element={<Music address={address} />} />
+            <Route path="music/*" element={<Music address={address} />} />
+            
             <Route path="store" element={<Store address={address} />}>
               <Route path="mynfts" element={<Mynfts />} />
             </Route>
@@ -165,7 +166,6 @@ export const Main = () => {
             <Route path="search" element={<Search address={address} />} />
             <Route path="cteate" element={<Create address={address} />} />
           </Route>
-          <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
       <Playbar address={address} />

@@ -65,7 +65,7 @@ export const Artist = ({ address }) => {
           {/* 내이미지공간 */}
           <div className="artist-image">
             {/* 현재 이미지 불러오기 */}
-            <img src={artist.img} alt="artist profile" />
+            <img style={{objectFit:"cover" }}  src={artist.img} alt="artist profile" />
             {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
             {visible && (
               <div>

@@ -65,13 +65,13 @@ export default function SongCard(props) {
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
     >
-      <Grid sx={{ display: 'flex', width: "100%", }}>
+      <Grid sx={{height: 150, display: 'flex', width: "100%", }}>
         <Grid item>
           <ButtonBase sx={{ width: 130, height: 130 }}>
             <Img alt="complex" src= {props.music.img_file} onClick={postInfo} />
           </ButtonBase>
         </Grid>
-        <Grid item xs={12} sx={{ ml:1 }}  sm container>
+        <Grid item xs={12} sx={{ ml:1.5}}  sm container>
             <Grid item xs container
                 direction="column"
                 justifyContent="center"
