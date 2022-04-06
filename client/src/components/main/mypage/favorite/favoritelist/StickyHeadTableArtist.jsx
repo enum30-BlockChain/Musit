@@ -9,6 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistLikeDetailData } from "../../../../../redux/artistlike/artistLikeDetailAction";
+import ArtistCard from "../../../artist/favorite/artistlist/ArtistLikeCard";
 
 export default function StickyHeadTable({ address }) {
   const [page, setPage] = React.useState(0);
@@ -57,7 +58,12 @@ export default function StickyHeadTable({ address }) {
       createRow(
         index,
         Artists.artist_name,
-        <img src={Artists.img} style={{ width: "100px" }} />,
+        <ArtistCard
+          sx={{ width: "50%" }}
+          key={index}
+          Artists={Artists}
+          address={address}
+        />,
         Artists.likes
       )
     );
