@@ -31,30 +31,27 @@ import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../redux/artist/artistAction";
+import { fetchMetamaskData } from "../../redux/metamask/metamaskAction";
 
 export const Main = () => {
-  const [address, setAddress] = useState("");
   const [loginState, setLoginState] = useState({ address: "" });
   // const [likeList, setLikeList] = useState("");
 
   const user = useSelector((state) => state.user);
   const artist = useSelector((state) => state.artist);
-  const metamask = useSelector((state) => state.likeList.likeList);
+  const metamask = useSelector((state) => state.metamask);
   const dispatch = useDispatch(); //redux 초기값 넣어주자
 
   async function init() {
-    const response = await Metamask.getAccounts(setAddress);
-    const address = response.data[0];
-    await Metamask.walletListener(setAddress);
-
-    
-    getLikeList(address);
-    fetchUserData(address);
-    dispatch(fetchArtistData(address));
+    dispatch(await fetchMetamaskData())
+    getLikeList(metamask.address);
+    console.log(metamask.address)
+    fetchUserData(metamask.address);
+    dispatch(fetchArtistData(metamask.address));
     getMusicList();
     getUser();
     sidebarToggle();
-    dispatch(fetchUserData(address));
+    dispatch(fetchUserData(metamask.address));
   }
 
   useEffect(() => {
@@ -112,7 +109,7 @@ export const Main = () => {
 
   return (
     <section className="main">
-      <Searchbar address={address} />
+      <Searchbar address={metamask.address} />
       <div className="main-content">
         <Routes>
           <Route path="/">
@@ -120,31 +117,31 @@ export const Main = () => {
             <Route
               path="mypage"
               element={
-                user.nickname !== undefined ? (
-                  <Mypage address={address} />
+                user.nickname !== undefined && metamask.address !== null? (
+                  <Mypage address={metamask.address} />
                 ) : (
-                  <RegisterUser address={address} />
+                  <RegisterUser address={metamask.address} />
                 )
               }
             >
-              <Route path="favorite" element={<Favorite address={address} />} />
-              <Route path="playlist" element={<Playlist address={address} />} />
+              <Route path="favorite" element={<Favorite address={metamask.address} />} />
+              <Route path="playlist" element={<Playlist address={metamask.address} />} />
               <Route
                 path="collection"
-                element={<Collection address={address} />}
+                element={<Collection address={metamask.address} />}
               />
-              <Route path="history" element={<History address={address} />} />
+              <Route path="history" element={<History address={metamask.address} />} />
               <Route
                 path="subscription"
-                element={<Subscription address={address} />}
+                element={<Subscription address={metamask.address} />}
               />
             </Route>
             <Route
               path="landingpage"
-              element={<LandingMainPage address={address} />}
+              element={<LandingMainPage address={metamask.address} />}
             />
-            <Route path="music" element={<Music address={address} />} />
-            <Route path="store" element={<Store address={address} />}>
+            <Route path="music" element={<Music address={metamask.address} />} />
+            <Route path="store" element={<Store address={metamask.address} />}>
               <Route path="mynfts" element={<Mynfts />} />
             </Route>
             {/* <Route path="auction" element={<Auction />} /> */}
@@ -153,22 +150,22 @@ export const Main = () => {
               path="artist"
               element={
                 artist.artist_name !== undefined ? (
-                  <Artist address={address} />
+                  <Artist address={metamask.address} />
                 ) : (
-                  <RegisterArtist address={address} />
+                  <RegisterArtist address={metamask.address} />
                 )
               }
             >
-              <Route path="list" element={<ArtistsList address={address} />} />
+              <Route path="list" element={<ArtistsList address={metamask.address} />} />
             </Route>
 
-            <Route path="search" element={<Search address={address} />} />
-            <Route path="cteate" element={<Create address={address} />} />
+            <Route path="search" element={<Search address={metamask.address} />} />
+            <Route path="cteate" element={<Create address={metamask.address} />} />
           </Route>
-          <Route path="cteate" element={<Create address={address} />} />
+          <Route path="cteate" element={<Create address={metamask.address} />} />
         </Routes>
       </div>
-      <Playbar address={address} />
+      <Playbar address={metamask.address} />
     </section>
   );
 };
