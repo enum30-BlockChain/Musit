@@ -21,6 +21,7 @@ const fetchArtistDataFailed = (payload) => {
     payload: payload,
   };
 };
+
 //ArtistList 액션 타입 지정
 const fetchArtistListDataRequest = () => {
   return {
@@ -38,6 +39,27 @@ const fetchArtistListDataSuccess = (payload) => {
 const fetchArtistListDataFailed = (payload) => {
   return {
     type: "ARTIST_LIST_DATA_FAILED",
+    payload: payload,
+  };
+};
+
+//ArtistList 액션 타입 지정
+const fetchArtistLikeDataRequest = () => {
+  return {
+    type: "ARTIST_LiKELIST_DATA_REQUEST",
+  };
+};
+
+const fetchArtisLikeDataSuccess = (payload) => {
+  return {
+    type: "ARTIST_LiKELIST_DATA_SUCCESS",
+    payload: payload,
+  };
+};
+
+const fetchArtistLikeDataFailed = (payload) => {
+  return {
+    type: "ARTIST_LiKELIST_DATA_FAILED",
     payload: payload,
   };
 };
@@ -102,6 +124,25 @@ export const fetchArtistLikeData = (address, selected) => {
       );
     } catch (error) {
       dispatch(fetchArtistDataFailed("error!!!"));
+    }
+  };
+};
+
+export const fetchArtistLikeListData = (address) => {
+  return async (dispatch) => {
+    dispatch(fetchArtistLikeDataRequest());
+    try {
+      const artistlikelist = store.getState().artistlikelist;
+      const url = "http://localhost:5000/artists/likes/list";
+      const likeInfo = (await axios.post(url, { address })).data;
+      dispatch(
+        fetchArtisLikeDataSuccess({
+          ...artistlikelist,
+          artistList: likeInfo,
+        })
+      );
+    } catch (error) {
+      dispatch(fetchArtistLikeDataFailed("error!!!"));
     }
   };
 };

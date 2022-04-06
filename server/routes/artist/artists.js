@@ -104,12 +104,16 @@ router.post("/music", async (req, res, next) => {
 router.post("/change", async (req, res, next) => {
   try {
     console.log("http://localhost:5000/artists/change");
+    console.log(1111111111111);
+    console.log(req.body);
+    console.log(1111111111111);
     const artist = await Artist.findOne({
       where: {
         user_address: req.body.address,
       },
     });
-    if (artist.artist_name == "") {
+    console.log(artist);
+    if (req.body.select !== "") {
       const artist_change = await Artist.update(
         {
           artist_name: req.body.select,

@@ -9,7 +9,8 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/list", async (req, res, next) => {
-  console.log("artists/likes/like");
+  console.log("artists/likes/list");
+  console.log(req.body);
   try {
     const artistlike = await ArtistLike.findAll({
       where: {

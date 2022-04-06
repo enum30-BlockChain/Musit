@@ -11,7 +11,7 @@ import likeListReducer from "./likeList/likeListReducer";
 import searchingReducer from "./searching/searchingReducer";
 
 import artistLikeDetailReducer from "./artistlikedetail/artistLikeDetailReducer";
-import { artistReducer } from "./artist/artistReducer";
+import { aritstLikeListReducer, artistReducer } from "./artist/artistReducer";
 import { aritstListReducer } from "./artist/artistReducer";
 
 // combineReducers Reducer들 합치는 곳
@@ -24,6 +24,7 @@ const rootReducer = combineReducers({
   artistList: aritstListReducer,
   searching: searchingReducer,
   artistlikeDetail: artistLikeDetailReducer,
+  artistlikelist: aritstLikeListReducer,
 });
 
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
