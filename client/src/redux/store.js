@@ -19,12 +19,17 @@ import metamaskReducer from "./metamask/metamaskReducer";
 const rootReducer = combineReducers({
   user: userReducer,
   userList: userListReducer,
+
   musicList: musicListReducer,
+
   likeList: likeListReducer,
+
+  searching: searchingReducer,
+
+  metamask: metamaskReducer,
+
   artist: artistReducer,
   artistList: aritstListReducer,
-  searching: searchingReducer,
-  metamask: metamaskReducer,
   artistlikeDetail: artistLikeDetailReducer,
   artistlike: artistLikeDetailReducer,
   artistlikelist: aritstLikeListReducer,
