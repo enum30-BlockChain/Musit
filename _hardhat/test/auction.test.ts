@@ -125,9 +125,9 @@ describe("Auction contract", () => {
         let finalDeployerBalance: BigNumber;
         let finalAddr1Balance: BigNumber;
 
-        let addr2Bid: BigNumberish;
-        let addr3Bid: BigNumberish;
-        let addr4Bid: BigNumberish;
+        let addr2Bid: BigNumber;
+        let addr3Bid: BigNumber;
+        let addr4Bid: BigNumber;
 
         
         beforeEach(async () => {
@@ -153,14 +153,14 @@ describe("Auction contract", () => {
           expect((await auction.items(1)).topBid).to.equal(addr4Bid);
           expect((await auction.items(1)).topBidder).to.equal(addr4.address);
           
-          // addr2 0.0005로 다시 입찰
-          // addr2: 0.0005 / addr3: 0.0003 / addr4: 0.0004
+          // addr2가 추가로 0.0003 더 입찰
+          // addr2: 0.0002 + 0.0003 / addr3: 0.0003 / addr4: 0.0004
           // => topBidder: addr2 / topBid: 0.0005
-          await auction.connect(addr2).bid(1, {value: auction.calPriceWithFee(3000)})
-          expect(await auction.pendingBids(1, addr2.address)).to.equal(5000);
-          expect(await auction.pendingBids(1, addr3.address)).to.equal(3000);
-          expect(await auction.pendingBids(1, addr4.address)).to.equal(4000);
-          expect((await auction.items(1)).topBid).to.equal(5000);
+          await auction.connect(addr2).bid(1, {value: auction.calPriceWithFee(ethToWei(0.0003))})
+          expect(await auction.pendingBids(1, addr2.address)).to.equal(addr2Bid.add(ethToWei(0.0003)));
+          expect(await auction.pendingBids(1, addr3.address)).to.equal(addr3Bid);
+          expect(await auction.pendingBids(1, addr4.address)).to.equal(addr4Bid);
+          expect((await auction.items(1)).topBid).to.equal(ethToWei(0.0005));
           expect((await auction.items(1)).topBidder).to.equal(addr2.address);
           
           // 도중 출금 가능
@@ -171,9 +171,16 @@ describe("Auction contract", () => {
           await expect(auction.connect(addr2).withdraw(1)).revertedWith("Top bidder cannot withdraw")
 
           // 경매 강제 종료: topBid => 0
-          await auction.connect(deployer).forceEnd(1);
+          await expect(await auction.connect(deployer).forceEnd(1))
+            .emit(auction, "End")
+            .withArgs(
+              1,
+              addr2.address,
+              ethToWei(0.0005),
+              ethToWei(0.000005)
+            );
           expect(await auction.pendingBids(1, addr2.address)).to.equal(0);
-          expect(await auction.pendingBids(1, addr3.address)).to.equal(3000);
+          expect(await auction.pendingBids(1, addr3.address)).to.equal(addr3Bid);
 
           // 경매 종료 시 top bidder 팬딩 금액 => 0 : 출금 불가능
           await expect(auction.connect(addr2).withdraw(1)).revertedWith("Nothing to withdraw")
@@ -183,18 +190,18 @@ describe("Auction contract", () => {
           expect(await addr1.getBalance()).to.equal(finalAddr1Balance);
 
           // 출금 후 팬딩 금액 변화 확인
-          expect(await auction.pendingBids(1, addr3.address)).to.equal(3000)
-          await auction.connect(addr3).withdraw(1)
+          expect(await auction.pendingBids(1, addr3.address)).to.equal(addr3Bid)
+          await expect(await auction.connect(addr3).withdraw(1)).emit(auction, "Withdraw").withArgs(1, addr3.address, addr3Bid)
           expect(await auction.pendingBids(1, addr3.address)).to.equal(0)
         })
         
         it("Bid revert test", async() => {
-          await expect(auction.connect(addr2).bid(2, {value: await auction.calPriceWithFee(2000)})).revertedWith("This item is not enrolled")
-          await expect(auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(1100)})).revertedWith("Bid amount should be bigger than prev top bid as much as minumum bid amount")
-          await expect(auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(900)})).revertedWith("Bid amount should be bigger than prev top bid as much as minumum bid amount")
-          await expect(auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(900)})).revertedWith("Bid amount should be bigger than prev top bid as much as minumum bid amount")
+          await expect(auction.connect(addr2).bid(2, {value: await auction.calPriceWithFee(ethToWei(0.0002))})).revertedWith("This item is not enrolled")
+          await expect(auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(ethToWei(0.00009))})).revertedWith("Bid amount should be bigger than prev top bid as much as minumum bid amount")
+          await expect(auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(ethToWei(0.00019))})).revertedWith("Bid amount should be bigger than prev top bid as much as minumum bid amount")
+          await expect(auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(ethToWei(0.000201))})).revertedWith("Check the minimum unit of bid")
           await auction.connect(deployer).forceCancel(1);
-          await expect(auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(2000)})).revertedWith("This auction is ended or cancelled")
+          await expect(auction.connect(addr2).bid(1, {value: await auction.calPriceWithFee(ethToWei(0.0002))})).revertedWith("This auction is ended or cancelled")
         })
       })
       
