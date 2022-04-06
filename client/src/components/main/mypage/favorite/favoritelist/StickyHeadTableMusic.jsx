@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchLikeListData } from "../../../../../redux/likeList/likeListAction";
 
-export default function StickyHeadTable({ address }) {
+export default function StickyHeadTableMusic({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -61,11 +61,6 @@ export default function StickyHeadTable({ address }) {
       minWidth: 120,
     },
     {
-      id: "likecount",
-      label: "Like",
-      minWidth: 50,
-    },
-    {
       id: "audio",
       label: "Audio",
       minWidth: 50,
@@ -73,16 +68,8 @@ export default function StickyHeadTable({ address }) {
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(
-    number,
-    albumcover,
-    music,
-    artist,
-    playtime,
-    likecount,
-    audio
-  ) {
-    return { number, albumcover, music, artist, playtime, likecount, audio };
+  function createRow(number, albumcover, music, artist, playtime, audio) {
+    return { number, albumcover, music, artist, playtime, audio };
   }
 
   //row 안의 value값
@@ -95,7 +82,6 @@ export default function StickyHeadTable({ address }) {
         favor.title,
         favor.artist_name,
         favor.play_time,
-        favor.likes,
         <audio
           src={`https://ipfs.infura.io/ipfs/${favor.ipfs_hash}`}
           controls

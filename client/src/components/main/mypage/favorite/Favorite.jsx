@@ -1,6 +1,6 @@
 import "./Favorite.css";
 import React, { useEffect, useState } from "react";
-import StickyHeadTable from "../favorite/favoritelist/StickyHeadTable";
+import StickyHeadTableMusic from "./favoritelist/StickyHeadTableMusic";
 import StickyHeadTableArtist from "../favorite/favoritelist/StickyHeadTableArtist";
 
 // import axios from "axios";
@@ -11,7 +11,7 @@ export const Favorite = ({ address }) => {
       <div className="favorite">
         <div className="musicfavorite">
           <h2>Music Favorite</h2>
-          <StickyHeadTable sx={{ width: "50%" }} address={address} />
+          <StickyHeadTableMusic sx={{ width: "50%" }} address={address} />
         </div>
         <div className="artistfavorite">
           <h2>Artist Favorite</h2>
