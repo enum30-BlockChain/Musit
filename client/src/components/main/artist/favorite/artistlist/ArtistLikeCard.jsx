@@ -9,8 +9,8 @@ import { borderRadius } from "@mui/system";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
-import { fetchArtistListData } from "../../../../../redux/artistlist/artistListAction";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchArtistLikeData } from "../../../../../redux/artist/artistAction";
 
 const Img = styled("img")({
   margin: "auto",
@@ -19,9 +19,17 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function ArtistCard({ Artists }) {
-  const postInfo = () => {
-    Artists.setArtistModal(Artists);
+export default function ArtistLikeCard({ Artists, address }) {
+  const artistlist = useSelector((state) => state.artistlist);
+  const [findlike, setFindlike] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setFindlike(Artists.likes);
+  }, []);
+
+  const likecountpost = () => {
+    dispatch(fetchArtistLikeData(address, Artists.artist_name));
   };
 
   return (
@@ -44,7 +52,7 @@ export default function ArtistCard({ Artists }) {
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
             <Avatar
-              onClick={postInfo}
+              // onClick={postInfo}
               alt="Remy Sharp"
               src={Artists.img}
               sx={{ width: 128, height: 128 }}
@@ -81,16 +89,27 @@ export default function ArtistCard({ Artists }) {
           </Grid>
           {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
           <Grid item>
-            <FavoriteBorderIcon
-              sx={{ color: pink[300] }}
-              cursor="pointer"
-              fontSize="large"
-            />
-            {/* <FavoriteIcon
-              sx={{ color: pink[300] }}
-              cursor="pointer"
-              fontSize="large"
-            /> */}
+            {findlike === 0 ? (
+              <FavoriteBorderIcon
+                sx={{ color: pink[300] }}
+                cursor="pointer"
+                fontSize="large"
+                value={Artists.artist_name}
+                onClick={() => {
+                  likecountpost();
+                }}
+              />
+            ) : (
+              <FavoriteIcon
+                sx={{ color: pink[300] }}
+                cursor="pointer"
+                fontSize="large"
+                value={Artists.artist_name}
+                onClick={() => {
+                  likecountpost();
+                }}
+              />
+            )}
           </Grid>
         </Grid>
       </Grid>

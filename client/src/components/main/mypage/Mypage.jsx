@@ -12,7 +12,23 @@ export const Mypage = ({ address }) => {
   //내사진 변경을 위한 클릭 hidden 버튼 생성
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [img, setImg] = useState("");
-  const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
+  const [genre, setgenre] = useState([
+    "Pop",
+    "K-pop",
+    "Classical Music",
+    "Jazz",
+    "Trot",
+    "Hip-pop",
+    "CCM",
+    "Ballad",
+    "Contry Music",
+    "Folk Music",
+    "Reggae",
+    "Disco",
+    "Rock",
+    "Electronic",
+    "Dance",
+  ]);
   const [checkedInputs, setCheckedInputs] = useState("");
 
   const dispatch = useDispatch();
@@ -191,7 +207,7 @@ export const Mypage = ({ address }) => {
           <li>
             <Link to="/mypage/subscription">
               <i className="uil uil-dollar-sign-alt"></i>
-              <span className="link-name"> Subscription</span>
+              <span className="link-name"> Subscription</span>1{" "}
             </Link>
           </li>
         </ul>

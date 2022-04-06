@@ -7,3 +7,6 @@ console.log(new Date(date1))
 console.log(date1)
 console.log(new Date(date2))
 console.log(date2)
+const a = 2
+
+a + 1;

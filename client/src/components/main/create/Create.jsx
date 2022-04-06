@@ -26,6 +26,7 @@ export const Create = ({ address }) => {
   ]);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+
   const [audiofile, setaudiofile] = useState("");
   const [duration, setDuration] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
@@ -63,12 +64,10 @@ export const Create = ({ address }) => {
   const getTitle = (e) => {
     setMusicTitle(e.target.value);
   };
-
   const getDescription = (e) => {
     DBdata.description = e.target.value;
     console.log(DBdata);
   };
-
   // const getDescription = (e) => {
   //   setMusicDescription;
   // };

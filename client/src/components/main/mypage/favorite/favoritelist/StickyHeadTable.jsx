@@ -104,8 +104,6 @@ export default function StickyHeadTable({ address }) {
     );
   });
 
-  ///////////////////////////////////////////////////////////////
-
   return (
     <Paper
       className="table-container"

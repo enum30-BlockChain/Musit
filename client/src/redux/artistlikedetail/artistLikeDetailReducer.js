@@ -1,26 +1,26 @@
 const initialState = {
   loading: false,
 
-  artistList: [],
+  artistLikeList: [],
 
   error: false,
   errorMsg: "",
 };
 
-const aritstListReducer = (state = initialState, action) => {
+const artistLikeDetailReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ARTIST_LIST_DATA_REQUEST":
+    case "ARTIST_LIKE_DATA_REQUEST":
       return {
         ...initialState,
         loading: true,
       };
-    case "ARTIST_LIST_DATA_SUCCESS":
+    case "ARTIST_LIKE_DATA_SUCCESS":
       return {
         ...initialState,
         loading: false,
-        artistList: action.payload.artistList,
+        artistLikeList: action.payload.artistLikeList,
       };
-    case "ARTIST_LIST_DATA_FAILED":
+    case "ARTIST_LIKE_DATA_FAILED":
       return {
         ...initialState,
         loading: false,
@@ -32,4 +32,4 @@ const aritstListReducer = (state = initialState, action) => {
   }
 };
 
-export default aritstListReducer;
+export default artistLikeDetailReducer;

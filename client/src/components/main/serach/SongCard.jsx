@@ -44,11 +44,13 @@ export default function SongCard(props) {
     
     if(findlike.length === 0 ){
       likeList.push(props.music)
+      console.log(likeList)
       dispatch(fetchLikeListData(likeList))
     }else{
       const newMySonglist = likeList.filter((song)=>{
         return song.ipfs_hash.indexOf(props.music.ipfs_hash)<0;
        }) 
+       console.log(newMySonglist)
       dispatch(fetchLikeListData(newMySonglist))
     }
   }
