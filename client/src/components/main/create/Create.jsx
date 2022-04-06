@@ -91,8 +91,8 @@ export const Create = ({ address }) => {
 
   const changeHandler = (checked, value) => {
     if (checked) {
-      if([...checkedInputs, value].length >= 4){
-       return alert("3개까지만 check 해주세요")
+      if ([...checkedInputs, value].length >= 4) {
+        return alert("3개까지만 check 해주세요");
       }
       setCheckedInputs([...checkedInputs, value]);
     } else {
@@ -183,7 +183,6 @@ export const Create = ({ address }) => {
           {albumCoverImgFile && (
             <img src={URL.createObjectURL(albumCoverImgFile)}></img>
           )}
-
           <label className="create-coverupload-btn" for="coverupload">
             Choose your cover image
           </label>
@@ -196,6 +195,7 @@ export const Create = ({ address }) => {
             onChange={getImg}
           />
         </div>
+
         <div className="creae-inputbox">
           <h2>Music File</h2>
 
@@ -208,6 +208,7 @@ export const Create = ({ address }) => {
             inputProps={{ accept: "audio/*" }}
             style={{ display: "none" }}
             onChange={getAudio}
+            Address
             sx={{ width: 400 }}
           />
           {audiofile && (
@@ -227,6 +228,7 @@ export const Create = ({ address }) => {
               오디오 지원되지 않는 브라우저
             </audio>
           )}
+
           <h2>Music Title</h2>
           <Input
             onChange={getTitle}
@@ -239,7 +241,7 @@ export const Create = ({ address }) => {
             maxRows={4}
             aria-label="maximum height"
             placeholder="Fill your music description"
-            style={{ width: 400 }}
+            style={{ width: 400, height: 80 }}
             onChange={getDescription}
           />
           {/* <input onchange={getDescription} value={musicDescription} /> */}

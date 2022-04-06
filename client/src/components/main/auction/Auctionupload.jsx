@@ -2,7 +2,6 @@ import "./Auctionupload.css";
 import React, { useState } from "react";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import { TextField, Input, Button } from "@mui/material";
 
 export const Auctionupload = () => {
@@ -34,6 +33,7 @@ export const Auctionupload = () => {
               sx={{ width: 400 }}
             ></Input>
           </div>
+
           <div className="auction-time">
             <h2>Auction Closing Time</h2>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
