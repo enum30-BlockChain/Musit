@@ -58,12 +58,14 @@ export default function StickyHeadTable({ address }) {
       createRow(
         index,
         Artists.artist_name,
-        <ArtistCard
-          sx={{ width: "50%" }}
-          key={index}
-          Artists={Artists}
-          address={address}
-        />,
+        <div key={index}>
+          <ArtistCard
+            sx={{ width: "50%" }}
+            key={index}
+            Artists={Artists}
+            address={address}
+          />
+        </div>,
         Artists.likes
       )
     );

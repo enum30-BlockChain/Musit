@@ -60,15 +60,12 @@ export default function ArtistListCard({ address }) {
       createRow(
         index,
         Artists.artist_name,
-        // <img src={Artists.img} style={{ width: "100px" }} />,
-        <div className="artistfavorite">
-          <ArtistLikeCard
-            sx={{ width: "50%" }}
-            key={index}
-            Artists={Artists}
-            address={address}
-          />
-        </div>,
+        <ArtistLikeCard
+          key={index}
+          sx={{ width: "50%" }}
+          Artists={Artists}
+          address={address}
+        />,
         Artists.likes
       )
     );
