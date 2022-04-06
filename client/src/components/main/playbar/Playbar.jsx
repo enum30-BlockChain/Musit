@@ -10,9 +10,9 @@ import myImage from './cd.png';
 }
 export const Playbar = (props) => {
   const [state, setstate] = useState("pause");
-  const [percent, setPercent] = useState("0");
+  const [percent, setPercent] = useState(0);
   const [count, setCount] = useState(0);
-  const [palyeCount, setpalyeCount] = useState("");
+  const [palyeCount, setpalyeCount] = useState(0);
   const [hash, sethash] = useState("");
   const [tilte, setTilte] = useState("");
   const [currentTime, setcurrentTime] = useState(0);

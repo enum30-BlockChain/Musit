@@ -98,7 +98,7 @@ export default function MusicPlayerSlider(props) {
 
   useEffect(() => {
     setFindlike( likeList.filter((song) => song.ipfs_hash.indexOf(props.musicmodal.ipfs_hash) > -1))
-  }, []);
+  }, [props]);
 
   const palyCountAdd = async () => {
     const content = { play_count: props.musicmodal.play_count, ipfs_hash: props.musicmodal.ipfs_hash };

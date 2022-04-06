@@ -6,7 +6,22 @@ function Modal({ props, onClose }) {
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState(props.img_file);
   const [img, setImg] = useState("");
   const [musicTitle, setMusicTitle] = useState(props.title);
-  const [genre, setgenre] = useState(["Pop", "k-pop", "Trot"]);
+  const [genre, setgenre] = useState([ 
+  "Pop",
+  "K-pop",
+  "Classical Music",
+  "Jazz",
+  "Trot",
+  "Hip-pop",
+  "CCM",
+  "Ballad",
+  "Contry Music",
+  "Folk Music",
+  "Reggae",
+  "Disco",
+  "Rock",
+  "Electronic",
+  "Dance",]);
   const [checkedInputs, setCheckedInputs] = useState(props.Genre.split(","));
   const [contents, setContents] = useState({
     cover_img_link: props.img_file,
