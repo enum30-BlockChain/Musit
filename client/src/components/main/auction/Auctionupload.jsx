@@ -26,6 +26,7 @@ export const Auctionupload = () => {
         </div>
         <div className="auction-box">
           <h2>Auction Start Price</h2>
+          <label className="auction-price-btn"></label>
           <Input
             type="number"
             inputProps={{ min: 0 }}

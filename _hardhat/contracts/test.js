@@ -1,12 +1,19 @@
-const now = Date.now()
-console.log(now);
+const maxSpeed = {
+  car: 300, 
+  bike: 60, 
+  motorbike: 200, 
+  airplane: 1000,
+  helicopter: 400, 
+  rocket: 8 * 60 * 60
+};
 
-const date1 = now + 60000
-const date2 = date1 + 60000 * 2
-console.log(new Date(date1))
-console.log(date1)
-console.log(new Date(date2))
-console.log(date2)
-const a = 2
+const sortable = Object.entries(maxSpeed)
+  .sort(([,a],[,b]) => b-a)
+  .reduce((r, [k, v]) => ([...r, k]), []);
 
-a + 1;
+  
+console.log(sortable);
+
+const rank = Object.values(maxSpeed).sort((a,b) => a-b)
+
+rank

@@ -1,6 +1,6 @@
 import "./Playlist.css";
 import React, { useEffect, useState } from "react";
-import StickyHeadTable from "../favorite/favoritelist/StickyHeadTable";
+import StickyHeadTable from "../favorite/favoritelist/StickyHeadTableMusic";
 
 import axios from "axios";
 

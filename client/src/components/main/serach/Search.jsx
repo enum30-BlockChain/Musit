@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField,Typography,Box,Stack} from '@mui/material'
+import { TextField, Typography, Box, Stack } from "@mui/material";
 import axios from "axios";
 import MusicPlayerSlider from "./MusicPlayerSlider";
 import SongCard from "./SongCard";
@@ -11,8 +11,8 @@ import Grid from '@mui/material/Grid';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 function Search(props) {
-  const [musicmodal,setmusicmodal] = useState("");
-  const [artistModal,setArtistModal] = useState("");
+  const [musicmodal, setmusicmodal] = useState("");
+  const [artistModal, setArtistModal] = useState("");
   const [musicList, setmusicList] = useState("");
   const [artistList, setArtistList] = useState("");
   const [findMusic,setFindMusic] = useState("");
@@ -20,13 +20,14 @@ function Search(props) {
   const [value, setValue] = useState(0);
   const [viewMusicCard,setViewMusicCard] = useState(0);
 
-  // const searching = useSelector((state)=>{return state.searchWord}); 
-  const searching = useSelector((state) => state.searching.searching)
+  // const searching = useSelector((state)=>{return state.searchWord});
+  const searching = useSelector((state) => state.searching.searching);
 
   const location = useLocation();
   const content = location.state !== null || undefined ? location.state : null;
 
-  const getmusicList = async () => {   //뮤직검색
+  const getmusicList = async () => {
+    //뮤직검색
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
@@ -57,11 +58,10 @@ function Search(props) {
   }, []);
 
   useEffect(() => {
-    changeSearchPage()
-  },[searching]);
+    changeSearchPage();
+  }, [searching]);
 
-
-  const changeSearchPage= ()=>{
+  const changeSearchPage = () => {
     if (musicList && artistList) {
       const searchMusicNameData = musicList.filter((song) => {
         return song.title.indexOf(searching) > -1;
@@ -149,7 +149,11 @@ function Search(props) {
         {findArtist &&
           findArtist.map((artist) => {
             return (
-              <ArtistCard artist={artist} setArtistModal={setArtistModal} />
+              <ArtistCard
+                artist={artist}
+                setArtistModal={setArtistModal}
+                address={props.address}
+              />
             );
           })}
       </Stack>

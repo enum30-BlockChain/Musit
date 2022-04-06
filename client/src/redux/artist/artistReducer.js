@@ -1,13 +1,18 @@
 const initialState = {
+  //artist초기값
   artist_name: null,
   img: null,
   likes: null,
   user_address: null,
+  //artistList초기값
+  artistList: [],
+
   error: false,
   errorMsg: "",
 };
 
-const artistReducer = (state = initialState, action) => {
+//artist 리듀서
+export const artistReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ARTIST_DATA_REQUEST":
       return {
@@ -35,4 +40,53 @@ const artistReducer = (state = initialState, action) => {
   }
 };
 
-export default artistReducer;
+//artistList리듀서
+export const aritstListReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "ARTIST_LIST_DATA_REQUEST":
+      return {
+        ...initialState,
+        loading: true,
+      };
+    case "ARTIST_LIST_DATA_SUCCESS":
+      return {
+        ...initialState,
+        loading: false,
+        artistList: action.payload.artistList,
+      };
+    case "ARTIST_LIST_DATA_FAILED":
+      return {
+        ...initialState,
+        loading: false,
+        error: true,
+        errorMsg: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+//artistLikeList리듀서
+export const aritstLikeListReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "ARTIST_LiKELIST_DATA_REQUEST":
+      return {
+        ...initialState,
+        loading: true,
+      };
+    case "ARTIST_LiKELIST_DATA_SUCCESS":
+      return {
+        ...initialState,
+        loading: false,
+        artistList: action.payload.artistList,
+      };
+    case "ARTIST_LiKELIST_DATA_FAILED":
+      return {
+        ...initialState,
+        loading: false,
+        error: true,
+        errorMsg: action.payload,
+      };
+    default:
+      return state;
+  }
+};

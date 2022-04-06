@@ -8,16 +8,18 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistListData } from "../../../../../redux/artistlist/artistListAction";
-import ArtistCard from "./ArtistCard";
+import {
+  fetchArtistData,
+  fetchArtistListData,
+} from "../../../../../redux/artist/artistAction";
+import ArtistLikeCard from "./ArtistLikeCard";
 
 export default function ArtistListCard({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const dispatch = useDispatch();
-
-  const artistlist = useSelector((state) => state.artistlist);
+  const artistList = useSelector((state) => state.artistList);
 
   React.useEffect(() => {
     dispatch(fetchArtistListData(address)).then(() => {});
@@ -53,20 +55,19 @@ export default function ArtistListCard({ address }) {
   //row 안의 value값
   const rows = [];
 
-  artistlist.artistList.forEach((Artists, index) => {
+  artistList.artistList.forEach((Artists, index) => {
     rows.push(
       createRow(
         index,
         Artists.artist_name,
         // <img src={Artists.img} style={{ width: "100px" }} />,
         <div className="artistfavorite">
-          <ArtistCard
+          <ArtistLikeCard
             sx={{ width: "50%" }}
-            index={index}
+            key={index}
             Artists={Artists}
             address={address}
           />
-          ,
         </div>,
         Artists.likes
       )

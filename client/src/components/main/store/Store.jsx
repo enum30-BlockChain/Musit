@@ -39,10 +39,13 @@ export const Store = ({ address }) => {
     }
     const musitNFT = Ethers.loadContracts().musitNFT;
     const filter = musitNFT.filters.Minted(null, null, address);
+    console.log("@@@@@@@@@@")
+    console.log(filter);
     const myMintedList = await Promise.all(
       (
         await musitNFT.queryFilter(filter)
       ).map(async (event) => {
+        console.log(event);
         const item = event.args;
         const tokenURI = await musitNFT.tokenURI(item.tokenId);
         const metadata = await (await fetch(tokenURI)).json();

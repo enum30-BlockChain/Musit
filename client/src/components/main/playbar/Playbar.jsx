@@ -158,8 +158,15 @@ export const Playbar = (props) => {
 
   // Set progress bar
   function setProgress(e) {
+    const close = document.querySelector(".close");
+    let clickX;
+    if (close) {
+      clickX = e.clientX - 242; //왜170부터시작하는지모르겠넹
+    } else {
+      clickX = e.clientX - 420; //왜170부터시작하는지모르겠넹
+    }
+    console.log(e.clientX);
     const width = progressContainer.clientWidth; //300
-    const clickX = e.clientX - 420; //왜170부터시작하는지모르겠넹
     const duration = audio.duration;
     
     audio.currentTime = (clickX / width) * duration;
