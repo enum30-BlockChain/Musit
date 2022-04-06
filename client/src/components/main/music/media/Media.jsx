@@ -15,30 +15,39 @@ const Media = (props) => {
   const likeTopList = [...musicList].sort((a,b)=>b.MusicLikes.length-a.MusicLikes.length);  //랭킹만들기
   
   const [listenRankingvalue, setListenRankingValue] = useState(0);
-  const [likeRanking, setLikeRankingValue] = useState(0);
+  const [likeRankingValue, setLikeRankingValue] = useState(0);
+  const [veiwCard, setVeiwCard] = useState(0);
   
+  useEffect(() => {
+    if(musicList.length > 6){
+     setVeiwCard(6);
+    }else{
+    setVeiwCard(musicList.length);
+   }
 
+  }, [props])
+  
   //ToDO: musicList.length = 6 6개이하면 오류남
 
   const listenRankingMoveLeft = () => {
     listenRankingvalue === 0
-      ? setListenRankingValue(-100 * (musicList.length - 6))
+      ? setListenRankingValue(-100 * (musicList.length - veiwCard))
       : setListenRankingValue(listenRankingvalue + 100);
   };
   const listenRankingMoveRigth = () => {
-    listenRankingvalue === -100 * (musicList.length- 6)
+    listenRankingvalue === -100 * (musicList.length- veiwCard)
       ? setListenRankingValue(0)
       : setListenRankingValue(listenRankingvalue - 100);
   };
   const likeRankingMoveLeft = () => {
-    likeRanking === 0
-      ? setLikeRankingValue(-100 * (musicList.length - 6))
-      : setLikeRankingValue(likeRanking + 100);
+    likeRankingValue === 0
+      ? setLikeRankingValue(-100 * (musicList.length - veiwCard))
+      : setLikeRankingValue(likeRankingValue + 100);
   };
   const rigthRankingMoveLeft = () => {
-    likeRanking === -100 * (musicList.length- 6)
+    likeRankingValue === -100 * (musicList.length- veiwCard)
       ? setLikeRankingValue(0)
-      : setLikeRankingValue(likeRanking - 100);
+      : setLikeRankingValue(likeRankingValue - 100);
   };
 
   const postInfo= (music)=>{
@@ -74,7 +83,7 @@ const Media = (props) => {
                 className="glide"
                 style={{ transform: `translateX(${listenRankingvalue}%)` }}>
                   <img
-                    style={{ width: 210, height: 130, objectFit:"cover" }}
+                    style={{ width: 210, height: 150, objectFit:"cover" }}
                     alt={music.title}
                     src={music.img_file}
                   />
@@ -141,9 +150,9 @@ const Media = (props) => {
               <div
                 key={index}
                 className="glide"
-                style={{ transform: `translateX(${likeRanking}%)` }}>
+                style={{ transform: `translateX(${likeRankingValue}%)` }}>
                   <img
-                    style={{ width: 210, height: 130, objectFit:"cover"  }}
+                    style={{ width: 210, height: 150, objectFit:"cover"  }}
                     alt={music.title}
                     src={music.img_file}
                   />
