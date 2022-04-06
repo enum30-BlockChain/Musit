@@ -8,7 +8,9 @@ import ButtonBase from "@mui/material/ButtonBase";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import HeadsetIcon from "@mui/icons-material/Headset";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLikeListData } from "../../../../../../redux/likeList/likeListAction";
+import axios from "axios";
 
 const Img = styled("img")({
   margin: "auto",
@@ -17,8 +19,18 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function LikeSongCard({ favor }) {
-  const likecountpost = () => {};
+// const dispatch = useDispatch();
+
+export default function LikeSongCard({ address, favor }) {
+  const likecountpost = async (e) => {
+    await axios
+      .post("http://localhost:5000/music/like", {
+        address,
+        ipfs_hash: favor.ipfs_hash,
+      })
+      .then((res) => {})
+      .catch((err) => alert("회원가입부터하세용.", err));
+  };
 
   return (
     <Paper
@@ -66,13 +78,13 @@ export default function LikeSongCard({ favor }) {
 
             <Box sx={{ display: "flex" }}>
               <ThumbUpOffAltOutlinedIcon
-                onClick={() => {
-                  likecountpost();
-                }}
                 sx={{ mr: 0.5 }}
                 cursor="pointer"
                 fontSize="small"
-                value={favor.title}
+                value={favor.ipfs_hash}
+                onClick={() => {
+                  likecountpost();
+                }}
               />
             </Box>
             {/* <Box sx={{ display: "flex" }}>
