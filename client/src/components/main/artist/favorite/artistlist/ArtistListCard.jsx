@@ -8,15 +8,17 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistListData } from "../../../../../redux/artist/artistAction";
-import ArtistCard from "./ArtistLikeCard";
+import {
+  fetchArtistData,
+  fetchArtistListData,
+} from "../../../../../redux/artist/artistAction";
+import ArtistLikeCard from "./ArtistLikeCard";
 
 export default function ArtistListCard({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const dispatch = useDispatch();
-
   const artistList = useSelector((state) => state.artistList);
 
   React.useEffect(() => {
@@ -60,7 +62,7 @@ export default function ArtistListCard({ address }) {
         Artists.artist_name,
         // <img src={Artists.img} style={{ width: "100px" }} />,
         <div className="artistfavorite">
-          <ArtistCard
+          <ArtistLikeCard
             sx={{ width: "50%" }}
             key={index}
             Artists={Artists}
