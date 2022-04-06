@@ -32,11 +32,15 @@
   text-align: center;
   border-radius: 50%;
   object-fit: cover;
-  margin-top: 40px;
+  margin-top: 20px;
   height: 400px;
   width: 400px;
   left: 0;
   animation: rotate 8s linear infinite;
+}
+
+.create-layout .create-imgbox .create-img-upload-btn {
+  margin: 18px;
 }
 
 .create-layout .creae-inputbox {

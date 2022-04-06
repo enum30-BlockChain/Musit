@@ -183,17 +183,20 @@ export const Create = ({ address }) => {
           {albumCoverImgFile && (
             <img src={URL.createObjectURL(albumCoverImgFile)}></img>
           )}
-          <label className="create-coverupload-btn" for="coverupload">
-            Choose your cover image
-          </label>
-          <input
-            id="coverupload"
-            name="imgUpload"
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={getImg}
-          />
+
+          <div className="create-img-upload-btn">
+            <label className="create-coverupload-btn" for="coverupload">
+              Choose your cover image
+            </label>
+            <input
+              id="coverupload"
+              name="imgUpload"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={getImg}
+            />
+          </div>
         </div>
 
         <div className="creae-inputbox">
