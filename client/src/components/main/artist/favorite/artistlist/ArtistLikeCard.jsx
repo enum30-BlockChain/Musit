@@ -10,7 +10,10 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistLikeData } from "../../../../../redux/artist/artistAction";
+import {
+  fetchArtistLikeData,
+  fetchArtistLikeListData,
+} from "../../../../../redux/artist/artistAction";
 
 const Img = styled("img")({
   margin: "auto",
@@ -20,17 +23,21 @@ const Img = styled("img")({
 });
 
 export default function ArtistLikeCard({ Artists, address }) {
-  const artistlist = useSelector((state) => state.artistlist);
   const [findlike, setFindlike] = useState("");
   const dispatch = useDispatch();
 
+  const artistlikelist = useSelector((state) => state.artistlikelist);
+
   useEffect(() => {
-    setFindlike(Artists.likes);
-  }, []);
+    setFindlike(artistlikelist.artistList.artist_artist_name);
+    dispatch(fetchArtistLikeListData(address)).then(() => {});
+  }, [address]);
 
   const likecountpost = () => {
     dispatch(fetchArtistLikeData(address, Artists.artist_name));
   };
+
+  console.log(address);
 
   return (
     <Paper
@@ -89,7 +96,7 @@ export default function ArtistLikeCard({ Artists, address }) {
           </Grid>
           {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
           <Grid item>
-            {findlike === 0 ? (
+            {findlike !== undefined ? (
               <FavoriteBorderIcon
                 sx={{ color: pink[300] }}
                 cursor="pointer"

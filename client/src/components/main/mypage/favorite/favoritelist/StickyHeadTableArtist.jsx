@@ -8,7 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistLikeData } from "../../../../../redux/artistlikedetail/artistLikeDetailAction";
+import { fetchArtistLikeDetailData } from "../../../../../redux/artistlike/artistLikeDetailAction";
+import ArtistCard from "../../../artist/favorite/artistlist/ArtistLikeCard";
 
 export default function StickyHeadTable({ address }) {
   const [page, setPage] = React.useState(0);
@@ -18,7 +19,7 @@ export default function StickyHeadTable({ address }) {
   const artistlike = useSelector((state) => state.artistlike);
 
   React.useEffect(() => {
-    dispatch(fetchArtistLikeData(address)).then(() => {});
+    dispatch(fetchArtistLikeDetailData(address)).then(() => {});
   }, [address]);
 
   const handleChangePage = (event, newPage) => {
@@ -52,16 +53,23 @@ export default function StickyHeadTable({ address }) {
   //row 안의 value값
   const rows = [];
 
-  // artistlike.artistLikeList.forEach((Artists, index) => {
-  //   rows.push(
-  //     createRow(
-  //       index,
-  //       Artists.artist_name,
-  //       <img src={Artists.img} style={{ width: "100px" }} />,
-  //       Artists.likes
-  //     )
-  //   );
-  // });
+  artistlike.artistLikeList.forEach((Artists, index) => {
+    rows.push(
+      createRow(
+        index,
+        Artists.artist_name,
+        <ArtistCard
+          sx={{ width: "50%" }}
+          key={index}
+          Artists={Artists}
+          address={address}
+        />,
+        Artists.likes
+      )
+    );
+  });
+
+  console.log(artistlike.artistLikeList);
 
   return (
     <Paper

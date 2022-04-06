@@ -9,7 +9,8 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/list", async (req, res, next) => {
-  console.log("artists/likes/like");
+  console.log("artists/likes/list");
+  console.log(req.body);
   try {
     const artistlike = await ArtistLike.findAll({
       where: {
@@ -23,6 +24,9 @@ router.post("/list", async (req, res, next) => {
 });
 
 router.post("/list/detail", async (req, res, next) => {
+  console.log(2222222222222);
+  console.log(req.body);
+  console.log(2222222222222);
   try {
     const artistdetail = await Artist.findAll({
       include: { model: ArtistLike, where: { user_address: req.body.address } },
@@ -34,9 +38,6 @@ router.post("/list/detail", async (req, res, next) => {
 });
 
 router.post("/like", async (req, res, next) => {
-  console.log(11111111111111);
-  console.log(req.body);
-  console.log(11111111111111);
   try {
     const artist = await ArtistLike.findOne({
       where: {
