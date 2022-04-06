@@ -24,11 +24,7 @@ const rootReducer = combineReducers({
   artist: artistReducer,
   artistList: aritstListReducer,
   searching: searchingReducer,
-<<<<<<< HEAD
-  artistlist: aritstListReducer,
   metamask: metamaskReducer,
-=======
->>>>>>> main
   artistlikeDetail: artistLikeDetailReducer,
 });
 
