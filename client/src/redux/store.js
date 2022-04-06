@@ -38,8 +38,8 @@ const rootReducer = combineReducers({
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
 const middlewares = [thunk, logger];
 const enhancer =
-  process.env.NODE_ENV === "production"
-    ? compose(applyMiddleware())
+  process.env.REACT_APP_NODE_ENV === "production"
+    ? compose(applyMiddleware(thunk))
     : composeWithDevTools(applyMiddleware(...middlewares)); //composeWithDevTools미들웨어 사용할수있게 해주고 복사로 thunk, logger 합쳐주고
 
 const store = createStore(rootReducer, enhancer);

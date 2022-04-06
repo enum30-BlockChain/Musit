@@ -28,11 +28,10 @@ export const fetchMetamaskData = () => {
     dispatch(fetchMetamaskDataRequest());
     try {
       const metamaskData = store.getState().metamaskData;
-
       const accounts = await Metamask.getAccounts();
       const network = await Metamask.getNetwork();
 
-      const changeListener = Metamask.walletListener();
+      Metamask.walletListener();
 
       dispatch(
         fetchMetamaskDataSuccess({
