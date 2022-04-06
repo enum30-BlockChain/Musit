@@ -57,20 +57,21 @@ export default function SongCard(props) {
   return (
     <Paper
       sx={{
+        alignItems:"center",
         p: 2,
-        ml: 5,
+        mx: 1.5,
         maxWidth: 350,
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
     >
-      <Grid container spacing={2}>
+      <Grid sx={{ display: 'flex', width: "100%", }}>
         <Grid item>
           <ButtonBase sx={{ width: 130, height: 130 }}>
             <Img alt="complex" src= {props.music.img_file} onClick={postInfo} />
           </ButtonBase>
         </Grid>
-        <Grid item xs={12}  sm container>
+        <Grid item xs={12} sx={{ ml:1 }}  sm container>
             <Grid item xs container
                 direction="column"
                 justifyContent="center"

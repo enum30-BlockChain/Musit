@@ -91,6 +91,9 @@ export const Create = ({ address }) => {
 
   const changeHandler = (checked, value) => {
     if (checked) {
+      if([...checkedInputs, value].length >= 4){
+       return alert("3개까지만 check 해주세요")
+      }
       setCheckedInputs([...checkedInputs, value]);
     } else {
       // 체크 해제
