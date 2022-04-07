@@ -66,10 +66,12 @@ const CoverImage = styled("div")({
 });
 
 export default function ArtistModal(props) {
-  const TotalCount = props.artistModal.Music.map((e) => e.play_count) //play총합
-    .reduce((prev, curr) => prev + curr, 0);
-
-  const musics = props.artistModal.Music;
+  console.log(props)
+  const TotalCount = props.artistModal.Music  //play총합
+                      .map(e =>e.play_count)
+                      .reduce((prev, curr) => prev + curr, 0);
+  
+  const musics = props.artistModal.Music   
   return (
     <Box sx={{ width: "100%", overflow: "hidden" }}>
       <Widget>
