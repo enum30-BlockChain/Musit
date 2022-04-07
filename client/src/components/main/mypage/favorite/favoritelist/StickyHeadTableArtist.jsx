@@ -71,8 +71,6 @@ export default function StickyHeadTable({ address }) {
     );
   });
 
-  console.log(artistlike.artistLikeList);
-
   return (
     <Paper
       className="table-container"

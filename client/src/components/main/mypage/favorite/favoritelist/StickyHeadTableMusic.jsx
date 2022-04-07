@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
 import { fetchLikeListData } from "../../../../../redux/likeList/likeListAction";
+import LikeSongCard from "./card/LikeSongCard";
 
 export default function StickyHeadTableMusic({ address }) {
   const [page, setPage] = React.useState(0);
@@ -78,7 +79,8 @@ export default function StickyHeadTableMusic({ address }) {
     rows.push(
       createRow(
         index,
-        <img src={favor.img_file} style={{ width: "100px" }} />,
+        // <img src={favor.img_file} style={{ width: "100px" }} />,
+        <LikeSongCard address={address} favor={favor} />,
         favor.title,
         favor.artist_name,
         favor.play_time,
