@@ -36,10 +36,11 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 				get() {
-					return this.getDataValue("genre").split(";");
+					const rawValue = this.getDataValue("genre");
+					return rawValue ? rawValue.split(",") : null;
 				},
 				set(val) {
-					this.setDataValue("genre", val.join(";"));
+					this.setDataValue("genre", val.join(","));
 				},
 			},
 			recent_played: { type: DataTypes.STRING, allowNull: true },

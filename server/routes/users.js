@@ -6,7 +6,7 @@ const { User, ArtistLike, MusicLike } = require("../models/index");
 /* GET User listing. */
 router.get("/", async (req, res, next) => {
 	try {
-		const userList = await User.findAll({});
+		const userList = await User.findAll({include: [{ model: ArtistLike }, { model: MusicLike }],});
 		res.send(userList);
 	} catch (err) {
 		res.send(500, err);
@@ -29,26 +29,30 @@ router.get("/:address", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
 	try {
     const result = await User.create(req.body);
-    console.log(result);
 		res.send(result);
 	} catch (err) {
 		console.error(err);
-		res.send(400, err);
+		res.send(500, err);
 	}
 });
 
 /* Update */
 router.patch("/:address", async (req, res, next) => {
 	try {
-		const findname = await User.update({
+		const result = await User.update(req.body, {
 			where: {
 				address: req.params.address,
 			},
 		});
-		res.send(findname);
+    
+    // Update에 잘못된 내용이 들어가면 0을 반환 => Bad request(400) 
+    if (result[0] === 0) {
+      res.send(400)
+    } 
+    res.send("Update successfully");
 	} catch (err) {
 		console.error(err);
-		res.send(400, err);
+		res.send(500, err);
 	}
 });
 
@@ -63,11 +67,11 @@ router.delete("/:address", async (req, res, next) => {
 		res.send(200, result);
 	} catch (err) {
 		console.error(err);
-		res.send(505, err);
+		res.send(500, err);
 	}
 });
 
-/* More APIs */
+/* Detail APIs */
 router.patch("/buy", async (req, res, next) => {
 	try {
 		const user = await User.findOne({
