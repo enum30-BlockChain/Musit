@@ -68,20 +68,27 @@ const RegisterArtist = ({ address }) => {
               />
             </div>
             <h1>Profile Image</h1>
+            <div className="artist-register-profile-img">
+              {albumCoverImgFile && (
+                <img
+                  src={URL.createObjectURL(albumCoverImgFile)}
+                  style={{ width: "200px" }}
+                ></img>
+              )}
+            </div>
+            <label for="artist-register-profile">
+              Choose your profile image
+            </label>
             <input
+              id="artist-register-profile"
+              style={{ display: "none" }}
               name="imgUpload"
               type="file"
               accept="image/*"
               onChange={getImg}
             />
-            {albumCoverImgFile && (
-              <img
-                src={URL.createObjectURL(albumCoverImgFile)}
-                style={{ width: "200px" }}
-              ></img>
-            )}
-            <Button onClick={submitOnClick}>Artist Registration</Button>
           </div>
+          <Button onClick={submitOnClick}>Artist Registration</Button>
         </div>
       </div>
     </>
