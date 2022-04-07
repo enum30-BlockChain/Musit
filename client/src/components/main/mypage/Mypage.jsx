@@ -2,6 +2,7 @@ import "./Mypage.css";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
+import { Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 export const Mypage = ({ address }) => {
@@ -114,7 +115,7 @@ export const Mypage = ({ address }) => {
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>
-              <button onClick={Submit}>올리기</button>
+              <button onClick={Submit}>User info edit Complete</button>
               <input
                 type="file"
                 name="imgUpload"
@@ -132,7 +133,12 @@ export const Mypage = ({ address }) => {
           {user.nickname}
           {visible && (
             <div>
-              <input type="text" onChange={idonchange}></input>
+              <Input
+                type="text"
+                sx={{ width: 400 }}
+                onChange={idonchange}
+                value={user.nickname}
+              ></Input>
             </div>
           )}
           <h2 className="address">Address</h2>

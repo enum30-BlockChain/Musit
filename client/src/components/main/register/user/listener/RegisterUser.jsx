@@ -5,11 +5,17 @@ import axios from "axios";
 import "./RegisterUser.css";
 import { Outlet } from "react-router-dom";
 import { Input, Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+
+import Metamask from "./../../../../../web3/Metamask";
 
 const RegisterUser = ({ address }) => {
   useEffect(() => {
     alert("회원가입하세요");
   }, []);
+
+  // const user = useSelector((state) => state.user);
+  // const dispatch = useDispatch(); //redux 초기값 넣어주자
 
   const [genre, setGenre] = useState([
     "Pop",
@@ -36,7 +42,9 @@ const RegisterUser = ({ address }) => {
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
   });
-
+  const connectOnclick = () => {
+    Metamask.connectWallet();
+  };
   const formData = new FormData();
 
   const onChangeNick = (e) => {
@@ -80,13 +88,23 @@ const RegisterUser = ({ address }) => {
     }
   };
 
+  console.log(11111);
+  console.log(address);
   return (
     <div className="mypage">
       <div className="grid">
         <div className="box">
           <h1>Your Wallet Address</h1>
           <div>
-            <p>{address}</p>
+            <p>
+              {address === undefined ? (
+                <Button onClick={connectOnclick}>
+                  Bring your Wallet Address
+                </Button>
+              ) : (
+                address
+              )}
+            </p>
           </div>
           <h1>Profile Image</h1>
 

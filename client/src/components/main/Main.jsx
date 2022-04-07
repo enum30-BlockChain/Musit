@@ -47,7 +47,6 @@ export const Main = () => {
     const address = response.data[0];
     await Metamask.walletListener(setAddress);
 
-    
     getLikeList(address);
     fetchUserData(address);
     dispatch(fetchArtistData(address));
@@ -59,7 +58,7 @@ export const Main = () => {
 
   useEffect(() => {
     init();
-  }, []);
+  }, [address]);
 
   const sidebarToggle = () => {
     const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -109,7 +108,9 @@ export const Main = () => {
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
-
+  // console.log(11111111111);
+  // console.log(user.address == null);
+  // console.log(user.address);
   return (
     <section className="main">
       <Searchbar address={address} />
@@ -120,7 +121,7 @@ export const Main = () => {
             <Route
               path="mypage"
               element={
-                user.nickname !== undefined ? (
+                user.nickname && user.address !== undefined ? (
                   <Mypage address={address} />
                 ) : (
                   <RegisterUser address={address} />
@@ -168,7 +169,8 @@ export const Main = () => {
           <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
-      <Playbar address={address} />
+      {/* <Playbar address={address} /> */}
+      {user.address === null ? <></> : <Playbar address={address} />}
     </section>
   );
 };

@@ -57,13 +57,12 @@ const RegisterArtist = ({ address }) => {
               <h1>Artist Nickname</h1>
               <Input
                 required
-                placeholder="Please enter your Nickname.
-                "
+                placeholder="Please enter your Nickname."
+                inputProps={{ style: { fontSize: 30 } }}
                 label="Email"
                 sx={{ width: 400 }}
                 variant="standard"
                 name="nickname"
-                inputProps={{ style: { fontSize: 30 } }}
                 onChange={onChange}
               />
             </div>
