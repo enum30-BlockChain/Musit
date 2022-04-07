@@ -68,7 +68,7 @@ const Media = (props) => {
           <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}}onClick={listenRankingMoveLeft}/>
           <Grid
             sx={{
-              width: "1280px",
+              width: "1260px",
               m:"auto",
               padding: 0,
               overflow: "hidden",
@@ -135,7 +135,7 @@ const Media = (props) => {
               <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}}onClick={likeRankingMoveLeft}/>
               <Grid
                 sx={{
-                  width: "1280px",
+                  width: "1260px",
                   m:"auto",
                   padding: 0,
                   overflow: "hidden",

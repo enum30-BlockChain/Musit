@@ -67,6 +67,7 @@ const CoverImage = styled('div')({
 
 
 export default function ArtistModal(props) {
+  console.log(props)
   const TotalCount = props.artistModal.Music  //play총합
                       .map(e =>e.play_count)
                       .reduce((prev, curr) => prev + curr, 0);
