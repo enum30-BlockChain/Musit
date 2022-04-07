@@ -136,7 +136,7 @@ body.dark .side-nav .nav-links li a:hover :is(i, .link-name) {
 .mode-toggle .switch {
   position: relative;
   display: inline-block;
-  height: 22px;
+  height: 25px;
   width: 40px;
   border-radius: 25px;
   background-color: var(--toggle-color);

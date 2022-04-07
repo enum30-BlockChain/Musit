@@ -4,15 +4,19 @@ import Button from "@mui/material/Button";
 import Metamask from "../../../web3/Metamask";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import {Provider, useSelector, useDispatch} from 'react-redux';
+import { Provider, useSelector, useDispatch } from "react-redux";
 import { fetchSearchingData } from "../../../redux/searching/searchingAction";
 
 export const Searchbar = ({ address }) => {
   const [guest, setGuest] = useState("");
   const [searching, setseraching] = useState("");
-  const navigate = useNavigate();           //페이지이동하면서 정보담아서 옮길수있따
-  const dispatch = useDispatch();                     
-  
+  const navigate = useNavigate(); //페이지이동하면서 정보담아서 옮길수있따
+  const dispatch = useDispatch();
+
+  const connectOnclick = () => {
+    Metamask.connectWallet();
+  };
+
   useEffect(() => {
     user();
   }, [address]);
@@ -24,58 +28,61 @@ export const Searchbar = ({ address }) => {
     setGuest(response.data);
     return response.data;
   }
-  
-  const sliceAddress = address &&
+
+  const sliceAddress =
+    address &&
     address.substr(0, 5) + "..." + address.substr(address.length - 4, 4);
 
-  const connectOnclick = () => {
-    Metamask.connectWallet();
-  };
-
-  const changehandler= (e)=>{
-    if(e.key == 'Enter') {
-      navigate(
-        '/search',
-        {state :searching}
-      )
+  const changehandler = (e) => {
+    if (e.key == "Enter") {
+      navigate("/search", { state: searching });
     }
-  }
-  const getsSearchWord = (e)=>{
+  };
+  const getsSearchWord = (e) => {
     dispatch(fetchSearchingData(e.target.value));
-    setseraching(e.target.value)
-  }
+    setseraching(e.target.value);
+  };
 
   return (
     <div className="searchbar">
-      <i className="uil uil-bars sidebar-toggle"  ></i>
+      <i className="uil uil-bars sidebar-toggle"></i>
       <div className="search-box">
         <i className="uil uil-search"></i>
-        <input type="text" placeholder="Search here..." onKeyPress={changehandler} onChange={getsSearchWord}/>
+        <input
+          type="text"
+          placeholder="Search here..."
+          onKeyPress={changehandler}
+          onChange={getsSearchWord}
+        />
       </div>
 
       <div className="user-info">
-        <div className="profile">
-          <p>
-            <Link to="">
-              <img src={guest.img} style={{ width: "100" }} />
-            </Link>
-          </p>
-          <p>{guest.nickname}</p>
+        <div className="searchbar-address">
+          {sliceAddress ? (
+            <>
+              <div className="profile">
+                <Link to="">
+                  <img src={guest.img} />
+                </Link>
+              </div>
+              <div className="searchbar-nick">
+                <p>{guest.nickname}</p>
+              </div>
+              <p>{sliceAddress}</p>
+            </>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{
+                color: "var(--black-light-color)",
+                backgroundColor: "var(--box1-color)",
+              }}
+              onClick={connectOnclick}
+            >
+              Connect
+            </Button>
+          )}
         </div>
-        {sliceAddress ? (
-          sliceAddress
-        ) : (
-          <Button
-            variant="contained"
-            sx={{
-              color: "var(--black-light-color)",
-              backgroundColor: "var(--box1-color)",
-            }}
-            onClick={connectOnclick}
-          >
-            CONNECT
-          </Button>
-        )}
       </div>
     </div>
   );

@@ -184,18 +184,21 @@ export const Create = ({ address }) => {
             <img src={URL.createObjectURL(albumCoverImgFile)}></img>
           )}
 
-          <label className="create-coverupload-btn" for="coverupload">
-            Choose your cover image
-          </label>
-          <input
-            id="coverupload"
-            name="imgUpload"
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={getImg}
-          />
+          <div className="create-img-upload-btn">
+            <label className="create-coverupload-btn" for="coverupload">
+              Choose your cover image
+            </label>
+            <input
+              id="coverupload"
+              name="imgUpload"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={getImg}
+            />
+          </div>
         </div>
+
         <div className="creae-inputbox">
           <h2>Music File</h2>
 
@@ -208,6 +211,7 @@ export const Create = ({ address }) => {
             inputProps={{ accept: "audio/*" }}
             style={{ display: "none" }}
             onChange={getAudio}
+            Address
             sx={{ width: 400 }}
           />
           {audiofile && (
@@ -227,6 +231,7 @@ export const Create = ({ address }) => {
               오디오 지원되지 않는 브라우저
             </audio>
           )}
+
           <h2>Music Title</h2>
           <Input
             onChange={getTitle}
@@ -239,7 +244,7 @@ export const Create = ({ address }) => {
             maxRows={4}
             aria-label="maximum height"
             placeholder="Fill your music description"
-            style={{ width: 400 }}
+            style={{ width: 400, height: 80 }}
             onChange={getDescription}
           />
           {/* <input onchange={getDescription} value={musicDescription} /> */}

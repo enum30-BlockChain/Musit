@@ -6,18 +6,7 @@
   /* background-color: rgb(230, 69, 69); */
   /* border: 1px solid black; */
 }
-.grid {
-  /* position: absolute; */
-  box-shadow: 0 0.5rem 6rem 0 rgba(2, 2, 2, 0.2);
 
-  /* box-shadow: 0 0 10px rgba; */
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 12px;
-  padding: 10px;
-  text-align: left;
-  border: 1px solid white;
-  display: inline-block;
-}
 .genre {
   margin: 30px 30px;
   height: 200px;
