@@ -141,6 +141,9 @@ export const fetchArtistLikeData = (address, selected) => {
       const artistlikeCount = store.getState().artistlikeCount;
       const url = "http://localhost:5000/artists/likes/like";
       const likeInfo = (await axios.post(url, { address, selected })).data;
+      console.log(222222222222222);
+      console.log(likeInfo);
+      console.log(222222222222222);
       dispatch(
         fetchArtistCountDataSuccess({
           ...artistlikeCount,

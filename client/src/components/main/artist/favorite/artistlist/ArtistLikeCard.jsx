@@ -24,17 +24,27 @@ const Img = styled("img")({
 
 export default function ArtistLikeCard({ Artists, address }) {
   const [findlike, setFindlike] = useState("");
+  const [count, setCount] = useState([""]);
   const dispatch = useDispatch();
 
   const artistlikelist = useSelector((state) => state.artistlikelist);
+  const artistlikeCount = useSelector((state) => state.artistlikeCount);
 
   useEffect(() => {
-    setFindlike(artistlikelist.artistList.artist_artist_name);
+    setFindlike(
+      artistlikelist.artistLikeList.filter((artist) => {
+        return artist.artist_artist_name.indexOf(Artists.artist_name) > -1;
+      })
+    );
+  }, []);
+
+  useEffect(() => {
     dispatch(fetchArtistLikeListData(address)).then(() => {});
-  }, [findlike]);
+  }, [count]);
 
   const likecountpost = async () => {
-    await new dispatch(fetchArtistLikeData(address, Artists.artist_name));
+    dispatch(fetchArtistLikeData(address, Artists.artist_name));
+    setCount(artistlikeCount.artistCount);
   };
 
   return (
@@ -94,7 +104,7 @@ export default function ArtistLikeCard({ Artists, address }) {
           </Grid>
           {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
           <Grid item>
-            {findlike !== undefined ? (
+            {findlike.length === 0 ? (
               <FavoriteBorderIcon
                 sx={{ color: pink[300] }}
                 cursor="pointer"

@@ -6,7 +6,7 @@ const initialState = {
   user_address: null,
   //artistList초기값
   artistList: [],
-  artistCount: [],
+  artistCount: "",
   artistLikeList: [],
   error: false,
   errorMsg: "",
