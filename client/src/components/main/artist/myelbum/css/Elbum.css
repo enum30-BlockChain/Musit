@@ -1,0 +1,9 @@
+.Elbum {
+  display: flex;
+  text-align: center;
+}
+
+.Elbum .list {
+  margin: 5px;
+  width: 100%;
+}

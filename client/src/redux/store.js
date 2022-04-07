@@ -6,7 +6,10 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import userReducer from "./user/userReducer";
 import userListReducer from "./userList/userListReducer";
 
-import musicListReducer from "./musicList/musicListReducer";
+import {
+  musicListReducer,
+  myMusicListReducer,
+} from "./musicList/musicListReducer";
 import likeListReducer from "./likeList/likeListReducer";
 import searchingReducer from "./searching/searchingReducer";
 
@@ -25,6 +28,7 @@ const rootReducer = combineReducers({
   userList: userListReducer,
 
   musicList: musicListReducer,
+  myelbum: myMusicListReducer,
 
   likeList: likeListReducer,
 
