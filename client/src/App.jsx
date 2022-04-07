@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
+import { fetchArtistList, fetchMyArtistData } from './redux/actions/artistActions'
 import { fetchMetamaskData } from './redux/actions/metamaskAction'
 import { fetchUserData, updateUserData } from './redux/actions/userActions'
 
@@ -10,8 +11,10 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      // await dispatch(fetchMetamaskData())
-      await dispatch(fetchUserData())
+      await dispatch(fetchMetamaskData());
+      await dispatch(fetchUserData());
+      await dispatch(fetchArtistList());
+      await dispatch(fetchMyArtistData());
     }
     init()
   }, []);

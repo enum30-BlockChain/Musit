@@ -50,7 +50,7 @@ export const updateUserData = (inputs) => {
         const userInfo = (await axios.post(url, { ...inputs, address: accounts[0] })).data;
         dispatch({
           type: ActionTypes.USER_DATA_SUCCESS,
-          payload: {...userInfo, address: accounts[0]}
+          payload: userInfo
         });
       } 
       // 주소가 없으면 fail

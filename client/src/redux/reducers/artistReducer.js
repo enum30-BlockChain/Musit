@@ -48,21 +48,21 @@ export const myArtistReducer = (state = initialState, {type, payload}) => {
 /* Artist List Reducer */
 const initialListState = {
 	loading: false,
-  artstList: [],
+  artistList: [],
   error: false,
   errorMsg: "",
 };
 
 export const artistListReducer = (state = initialListState, {type, payload}) => {
   switch (type) {
-    case ActionTypes.ARTIST_DATA_REQUEST:
+    case ActionTypes.ARTIST_LIST_REQUEST:
       return {
         ...state,
         loading: true,
         error: false,
         errorMsg: "",
       };
-    case ActionTypes.ARTIST_DATA_SUCCESS:
+    case ActionTypes.ARTIST_LIST_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -70,7 +70,7 @@ export const artistListReducer = (state = initialListState, {type, payload}) => 
         error: false,
         errorMsg: "",
       };
-      case ActionTypes.ARTIST_DATA_FAIL:
+      case ActionTypes.ARTIST_LIST_FAIL:
         return {
           ...state,
           loading: false,
