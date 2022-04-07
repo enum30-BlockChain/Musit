@@ -17,7 +17,7 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function ElbumCard({ address, song }) {
+export default function AlbumCard({ address, song }) {
   return (
     <Paper
       sx={{

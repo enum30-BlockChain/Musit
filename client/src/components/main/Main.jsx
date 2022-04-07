@@ -31,7 +31,7 @@ import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../redux/artist/artistAction";
-import Elbum from "./artist/myelbum/Elbum";
+import Album from "./artist/myalbum/Album";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -161,8 +161,8 @@ export const Main = () => {
             >
               <Route path="list" element={<ArtistsList address={address} />} />
               <Route
-                path="elbum"
-                element={<Elbum address={address} artist={artist} />}
+                path="album"
+                element={<Album address={address} artist={artist} />}
               />
             </Route>
 

@@ -62,13 +62,13 @@ export const fetchMyMusicListData = (address) => {
   return async (dispatch) => {
     dispatch(fetchMyMusicListDataRequest());
     try {
-      const myelbum = store.getState().myelbum;
+      const myalbum = store.getState().myalbum;
       const url = "http://localhost:5000/artists/music";
-      const elbumInfo = (await axios.post(url, { address })).data;
+      const albumInfo = (await axios.post(url, { address })).data;
       dispatch(
         fetchMyMusicListDataSuccess({
-          ...myelbum,
-          myMusic: elbumInfo,
+          ...myalbum,
+          myMusic: albumInfo,
         })
       );
     } catch (error) {

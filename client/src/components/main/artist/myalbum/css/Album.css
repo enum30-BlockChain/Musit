@@ -1,9 +1,9 @@
-.Elbum {
+.Album {
   display: flex;
   text-align: center;
 }
 
-.Elbum .list {
+.Album .list {
   margin: 5px;
   width: 100%;
 }

@@ -9,9 +9,9 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyMusicListData } from "../../../../../redux/musicList/musicListAction";
-import ElbumCard from "./ElbumCard";
+import AlbumCard from "./AlbumCard";
 
-export default function ElbumList({ address, nickname }) {
+export default function AlbumList({ address, nickname }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -34,18 +34,18 @@ export default function ElbumList({ address, nickname }) {
     { id: "number", label: "Number", minWidth: 30 },
     { id: "title", label: "Title", minWidth: 30 },
     { id: "artist", label: "Artist Name", minWidth: 30 },
-    { id: "elbumimg", label: "Elbum Cover", minWidth: 120 },
+    { id: "albumimg", label: "Album Cover", minWidth: 120 },
     { id: "like", label: "Music Like Count", minWidth: 120 },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, title, artist, elbumimg, like) {
-    return { number, title, artist, elbumimg, like };
+  function createRow(number, title, artist, albumimg, like) {
+    return { number, title, artist, albumimg, like };
   }
 
   ///////////////////////////////////////////////////////////
   const dispatch = useDispatch();
-  const myelbum = useSelector((state) => state.myelbum);
+  const myalbum = useSelector((state) => state.myalbum);
 
   React.useLayoutEffect(() => {
     dispatch(fetchMyMusicListData(address)).then(() => {});
@@ -54,14 +54,14 @@ export default function ElbumList({ address, nickname }) {
   //row 안의 value값
   const rows = [];
 
-  myelbum.myMusic.Music &&
-    myelbum.myMusic.Music.forEach((song, index) => {
+  myalbum.myMusic.Music &&
+    myalbum.myMusic.Music.forEach((song, index) => {
       rows.push(
         createRow(
           index,
           song.title,
           song.artist_name,
-          <ElbumCard
+          <AlbumCard
             key={index}
             sx={{ width: "50%" }}
             address={address}

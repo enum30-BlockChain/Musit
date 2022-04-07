@@ -1,9 +1,9 @@
-import "./css/Elbum.css";
+import "./css/Album.css";
 import React, { useEffect, useState } from "react";
-import ElbumList from "./elbumlist/ElbumList";
+import AlbumList from "./albumlist/AlbumList";
 import { useSelector } from "react-redux";
 
-const Elbum = ({ address }) => {
+const Album = ({ address }) => {
   const [nickname, setNickname] = useState("");
   const artist = useSelector((state) => state.artist);
 
@@ -13,10 +13,10 @@ const Elbum = ({ address }) => {
 
   return (
     <>
-      <div className="Elbum">
+      <div className="Album">
         <div className="list">
-          <h2>Elbum List</h2>
-          <ElbumList
+          <h2>Album List</h2>
+          <AlbumList
             sx={{ width: "50%" }}
             address={address}
             nickname={nickname}
@@ -27,4 +27,4 @@ const Elbum = ({ address }) => {
   );
 };
 
-export default Elbum;
+export default Album;

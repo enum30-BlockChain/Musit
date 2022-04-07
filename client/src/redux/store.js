@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
   userList: userListReducer,
 
   musicList: musicListReducer,
-  myelbum: myMusicListReducer,
+  myalbum: myMusicListReducer,
 
   likeList: likeListReducer,
 
