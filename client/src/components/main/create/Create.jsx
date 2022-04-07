@@ -237,6 +237,7 @@ export const Create = ({ address }) => {
             onChange={getTitle}
             value={musicTitle}
             sx={{ width: 400 }}
+            inputProps={{ style: { fontSize: 30 } }}
             placeholder="Music Title"
           />
           <h2>Music Description</h2>
