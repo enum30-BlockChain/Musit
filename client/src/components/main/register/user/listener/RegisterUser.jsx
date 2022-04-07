@@ -84,14 +84,18 @@ const RegisterUser = ({ address }) => {
     <div className="mypage">
       <div className="grid">
         <div className="box">
-          <h2>Address</h2>
+          <h1>Your Wallet Address</h1>
           <div>
             <p>{address}</p>
           </div>
-          <h2>Profile Image</h2>
-          <input
-            name="imgUpload"
+          <h1>Profile Image</h1>
+
+          <label for="register-fileupload">Choose your profile image</label>
+          <Input
+            id="register-fileupload"
             type="file"
+            name="imgUpload"
+            style={{ display: "none" }}
             accept="image/*"
             onChange={getImg}
           />
@@ -102,11 +106,12 @@ const RegisterUser = ({ address }) => {
             ></img>
           )}
           <div>
-            <h2>Nickname</h2>
+            <h1>Nickname</h1>
             <li>
               <Input
                 type="text"
                 placeholder="Nickname"
+                sx={{ width: 400 }}
                 onChange={onChangeNick}
               ></Input>
             </li>
@@ -117,12 +122,13 @@ const RegisterUser = ({ address }) => {
               <CountryType
                 id={index + 1}
                 key={index}
+                sx={{ width: 400 }}
                 name={nation}
                 setOption={setOption}
               />
             ))}
           </div>
-          <h2>Genre</h2>
+          <h1>Genre</h1>
           <div className="genre">
             {genre.map((MusicType, index) => (
               <ListenerType

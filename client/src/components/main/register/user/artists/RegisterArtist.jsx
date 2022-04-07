@@ -50,14 +50,14 @@ const RegisterArtist = ({ address }) => {
 
   return (
     <>
-      <div className="mypage">
+      <div className="artist-nickname">
         <div className="grid">
           <div className="box">
             <div className="artist-name">
               <h1>Artist Nickname</h1>
               <Input
                 required
-                placeholder="Artist"
+                placeholder="Artist Nickname"
                 label="Email"
                 sx={{ width: 400 }}
                 variant="standard"
@@ -78,7 +78,7 @@ const RegisterArtist = ({ address }) => {
                 style={{ width: "200px" }}
               ></img>
             )}
-            <Button onClick={submitOnClick}>회원가입</Button>
+            <Button onClick={submitOnClick}>Artist Registration</Button>
           </div>
         </div>
       </div>
