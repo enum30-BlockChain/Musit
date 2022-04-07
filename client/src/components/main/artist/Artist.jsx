@@ -115,6 +115,12 @@ export const Artist = ({ address }) => {
                 <span className="link-name">Artists</span>
               </Link>
             </li>
+            <li>
+              <Link to="/artist/elbum">
+                <i className="uil uil-favorite"></i>
+                <span className="link-name">elbum</span>
+              </Link>
+            </li>
           </ul>
         </nav>
         <div className="detail">

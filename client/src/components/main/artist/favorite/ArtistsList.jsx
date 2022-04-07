@@ -1,5 +1,5 @@
 import "./css/ArtistsList.css";
-import React, { useEffect } from "react";
+import React from "react";
 
 import ArtistListCard from "./artistlist/ArtistListCard";
 

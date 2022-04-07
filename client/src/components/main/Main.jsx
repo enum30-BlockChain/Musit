@@ -31,10 +31,10 @@ import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../redux/artist/artistAction";
+import Elbum from "./artist/myelbum/Elbum";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
-  const [loginState, setLoginState] = useState({ address: "" });
   // const [likeList, setLikeList] = useState("");
 
   const user = useSelector((state) => state.user);
@@ -47,7 +47,6 @@ export const Main = () => {
     const address = response.data[0];
     await Metamask.walletListener(setAddress);
 
-    
     getLikeList(address);
     fetchUserData(address);
     dispatch(fetchArtistData(address));
@@ -134,17 +133,17 @@ export const Main = () => {
                 element={<Collection address={address} />}
               />
               <Route path="history" element={<History address={address} />} />
-                <Route
-                  path="subscription"
-                  element={<Subscription address={address} />}
-                />
+              <Route
+                path="subscription"
+                element={<Subscription address={address} />}
+              />
             </Route>
             <Route
               path="landingpage"
               element={<LandingMainPage address={address} />}
             />
             <Route path="music/*" element={<Music address={address} />} />
-            
+
             <Route path="store" element={<Store address={address} />}>
               <Route path="mynfts" element={<Mynfts />} />
             </Route>
@@ -161,6 +160,10 @@ export const Main = () => {
               }
             >
               <Route path="list" element={<ArtistsList address={address} />} />
+              <Route
+                path="elbum"
+                element={<Elbum address={address} artist={artist} />}
+              />
             </Route>
 
             <Route path="search" element={<Search address={address} />} />

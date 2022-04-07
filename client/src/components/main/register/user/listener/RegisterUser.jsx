@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CountryType from "./CountryType.jsx";
 import ListenerType from "./ListenerType.jsx";
 import axios from "axios";
@@ -7,10 +7,6 @@ import { Outlet } from "react-router-dom";
 import { Input, Button } from "@mui/material";
 
 const RegisterUser = ({ address }) => {
-  useEffect(() => {
-    alert("회원가입하세요");
-  }, []);
-
   const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
@@ -31,7 +27,6 @@ const RegisterUser = ({ address }) => {
   const [nation, setNation] = useState([""]);
   const [option, setOption] = useState("");
   const [nickname, setNickname] = useState("");
-  const [img, setImg] = useState("");
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
@@ -57,7 +52,9 @@ const RegisterUser = ({ address }) => {
   };
 
   const getImg = (e) => {
-    setAlbumCoverImgFile(e.target.files[0]);
+    if (e.target.files[0]) {
+      setAlbumCoverImgFile(e.target.files[0]);
+    }
   };
 
   const postImg = async () => {
@@ -80,6 +77,20 @@ const RegisterUser = ({ address }) => {
     }
   };
 
+  /////////////////////////////////////////////
+
+  // const [image, setImage] = useState("")
+  // const [preview, setPreview] = useState("")
+  // const [previewURL, setPreviewURL] = useState("")
+  // const fileRef= useRef();
+
+  // useEffect(() => {
+  //   alert("회원가입하세요");
+  //   if(image !== ""){
+  //     setPreview(<img className="img_preview">{previewURL}</img>)
+  //   }
+  // }, []);
+
   return (
     <div className="mypage">
       <div className="grid">
@@ -89,12 +100,6 @@ const RegisterUser = ({ address }) => {
             <p>{address}</p>
           </div>
           <h2>Profile Image</h2>
-          <input
-            name="imgUpload"
-            type="file"
-            accept="image/*"
-            onChange={getImg}
-          />
           {albumCoverImgFile && (
             <img
               src={URL.createObjectURL(albumCoverImgFile)}
@@ -102,6 +107,12 @@ const RegisterUser = ({ address }) => {
             ></img>
           )}
           <div>
+            <input
+              name="imgUpload"
+              type="file"
+              accept="image/*"
+              onChange={getImg}
+            />
             <h2>Nickname</h2>
             <li>
               <Input
