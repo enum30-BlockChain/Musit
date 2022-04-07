@@ -76,7 +76,7 @@ const Media = (props) => {
             }}
           >
             {  listeningTopList.map((music, index) => (
-              <Box key={index} sx={{cursor:"pointer",width: 210, marginRight: 0.5, my: 5 }}
+              <Box key={index} sx={{cursor:"pointer",width: 210, my: 5 }}
               onClick={()=>{postInfo(music)}}>
                 <div
                 key={index}
@@ -105,7 +105,7 @@ const Media = (props) => {
               </Box>
             ))}
             </Grid>
-          <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }}onClick={listenRankingMoveRigth} />
+            <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }}onClick={listenRankingMoveRigth} />
           </Box>
         </Box>
         <nav className="user-nav">
@@ -144,7 +144,7 @@ const Media = (props) => {
 
             
             {  likeTopList.map((music, index) => (
-              <Box key={index} sx={{cursor:"pointer",width: 210, marginRight: 0.5, my: 5 }}
+              <Box key={index} sx={{cursor:"pointer",width: 210, my: 5 }}
               onClick={()=>{postInfo(music)}}
               > 
               <div

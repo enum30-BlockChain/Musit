@@ -85,7 +85,7 @@ export default function Genre(props) {
               genreRecommend.map((music, index) => (
                 <Box
                   key={index}
-                  sx={{ cursor: "pointer", width: 210, marginRight: 0.5, my: 5 }}
+                  sx={{ cursor: "pointer", width: 210,  my: 5 }}
                   onClick={() => { postInfo(music); }} > 
                 <div
                 key={index}
@@ -161,7 +161,7 @@ export default function Genre(props) {
 
             
             {/* {  likeTopList.map((music, index) => (
-              <Box key={index} sx={{cursor:"pointer",width: 210, marginRight: 0.5, my: 5 }}
+              <Box key={index} sx={{cursor:"pointer",width: 210,  my: 5 }}
               onClick={()=>{postInfo(music)}}
               > 
               <div
