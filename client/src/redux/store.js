@@ -1,42 +1,16 @@
 import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 import thunk from "redux-thunk";
-
 import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
-import userReducer from "./user/userReducer";
-import userListReducer from "./userList/userListReducer";
 
-import musicListReducer from "./musicList/musicListReducer";
-import likeListReducer from "./likeList/likeListReducer";
-import searchingReducer from "./searching/searchingReducer";
 
-import artistLikeDetailReducer from "./artistlike/artistLikeDetailReducer";
-import {
-  aritstCountReducer,
-  aritstLikeListReducer,
-  artistReducer,
-} from "./artist/artistReducer";
-import { aritstListReducer } from "./artist/artistReducer";
-import metamaskReducer from "./metamask/metamaskReducer";
 
 // combineReducers Reducer들 합치는 곳
 const rootReducer = combineReducers({
   user: userReducer,
-  userList: userListReducer,
-
-  musicList: musicListReducer,
-
-  likeList: likeListReducer,
-
-  searching: searchingReducer,
-
-  metamask: metamaskReducer,
-
   artist: artistReducer,
-  artistList: aritstListReducer,
-  artistlikeCount: aritstCountReducer,
-  artistlikelist: aritstLikeListReducer,
-  artistlike: artistLikeDetailReducer,
+  music: musicReducer,
+
 });
 
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
