@@ -21,8 +21,7 @@ export const metaMaskReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         loading: false,
-        accounts: payload.accounts,
-        network: payload.network,
+        ...payload,
         error: false,
         errorMsg: "",
       };

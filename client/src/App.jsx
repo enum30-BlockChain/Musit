@@ -22,10 +22,11 @@ function App() {
   }, []);
   const handleOnClick = async () => {
     await dispatch(createUserData({
-      nickname: "test",
-      genre: "test",
-      nation: "test",
-      img: "test",
+      address: "0x2Eb8c98E360d146165b8F1f819F8863d41C4Eb6D",
+      genre: ["test1", "test2", "test3"],
+      nation: "option",
+      nickname: "nickname",
+      img: "DBdata.cover_img_link",
     }))
   }
 

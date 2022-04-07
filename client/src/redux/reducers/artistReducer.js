@@ -66,7 +66,7 @@ export const artistListReducer = (state = initialListState, {type, payload}) => 
       return {
         ...state,
         loading: false,
-        data: payload,
+        ...payload,
         error: false,
         errorMsg: "",
       };
