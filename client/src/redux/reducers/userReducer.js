@@ -13,12 +13,14 @@ const initialState = {
   errorMsg: "",
 };
 
-export const getUserReducer = (state = initialState, {type, payload}) => {
+export const userReducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case ActionTypes.USER_DATA_REQUEST:
       return {
         ...state,
         loading: true,
+        error: false,
+        errorMsg: "",
       };
     case ActionTypes.USER_DATA_SUCCESS:
       return {
@@ -31,6 +33,8 @@ export const getUserReducer = (state = initialState, {type, payload}) => {
         recent_played: payload.recent_played,
         img: payload.img,
         subscription: payload.subscription,
+        error: false,
+        errorMsg: "",
       };
       case ActionTypes.USER_DATA_FAIL:
         return {
@@ -43,65 +47,3 @@ export const getUserReducer = (state = initialState, {type, payload}) => {
       return state;
   }
 };
-
-export const createUserReducer = (state=initialState, {type, payload}) => {
-  switch (type) {
-    case ActionTypes.USER_DATA_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case ActionTypes.USER_DATA_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        address: payload.address,
-        nickname: payload.nickname,
-        nation: payload.nation,
-        genre: payload.genre,
-        recent_played: payload.recent_played,
-        img: payload.img,
-        subscription: payload.subscription,
-      };
-      case ActionTypes.USER_DATA_FAIL:
-        return {
-          ...state,
-          loading: false,
-          error: true,
-          errorMsg: payload,
-        };
-    default:
-      return state;
-  }
-}
-
-export const updateUserReducer = (state=initialState, {type, payload}) => {
-  switch (type) {
-    case ActionTypes.USER_DATA_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case ActionTypes.USER_DATA_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        address: payload.address,
-        nickname: payload.nickname,
-        nation: payload.nation,
-        genre: payload.genre,
-        recent_played: payload.recent_played,
-        img: payload.img,
-        subscription: payload.subscription,
-      };
-      case ActionTypes.USER_DATA_FAIL:
-        return {
-          ...state,
-          loading: false,
-          error: true,
-          errorMsg: payload,
-        };
-    default:
-      return state;
-  }
-}

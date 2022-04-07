@@ -194,6 +194,7 @@ router.post("/change", async (req, res, next) => {
     }
   } catch (err) {
     console.error(err);
+    res.send(500)
   }
 });
 
