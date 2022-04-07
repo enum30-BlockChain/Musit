@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
-import { fetchArtistList, fetchMyArtistData } from './redux/actions/artistActions'
-import { fetchMetamaskData } from './redux/actions/metamaskAction'
-import { fetchMusicList } from './redux/actions/musicActions'
-import { createUserData, fetchUserData, updateUserData } from './redux/actions/userActions'
+import { readArtistList, readMyArtistData } from './redux/actions/artistActions'
+import { readMetamaskData } from './redux/actions/metamaskAction'
+import { readMusicList } from './redux/actions/musicActions'
+import { createUserData, readUserData, updateUserData } from './redux/actions/userActions'
 
 function App() {
   const user = useSelector(state => state.user)
@@ -12,11 +12,11 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      await dispatch(fetchMetamaskData());
-      await dispatch(fetchUserData());
-      await dispatch(fetchArtistList());
-      await dispatch(fetchMyArtistData())
-      await dispatch(fetchMusicList())
+      await dispatch(readMetamaskData());
+      await dispatch(readUserData());
+      await dispatch(readArtistList());
+      await dispatch(readMyArtistData())
+      await dispatch(readMusicList())
     }
     init()
   }, []);

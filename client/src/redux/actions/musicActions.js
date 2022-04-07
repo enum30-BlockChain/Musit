@@ -1,7 +1,7 @@
 import { ActionTypes } from "../constants/actionTypes";
 import axios from "axios";
 
-export const fetchMusicList = () => {
+export const readMusicList = () => {
   return async (dispatch, getState) => {
     dispatch({type: ActionTypes.MUSIC_LIST_REQUEST});
     try {

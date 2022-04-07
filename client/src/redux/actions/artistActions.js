@@ -1,7 +1,7 @@
 import { ActionTypes } from "../constants/actionTypes";
 import axios from "axios";
 
-export const fetchMyArtistData = () => {
+export const readMyArtistData = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.ARTIST_DATA_REQUEST });
 
@@ -23,7 +23,54 @@ export const fetchMyArtistData = () => {
 	};
 };
 
-export const fetchArtistList = () => {
+export const updateMyArtistData = (inputs) => {
+  return async (dispatch, getState) => {
+    dispatch({type: ActionTypes.ARTIST_DATA_REQUEST});
+    try {
+      // 메타마스크 reducer에서 주소 가져옴
+      let accounts = getState().metamask.accounts;
+
+      const url = "http://localhost:5000/users/change";
+      const userInfo = (await axios.post(url, { ...inputs, address: accounts[0] })).data;
+      dispatch({
+        type: ActionTypes.ARTIST_DATA_SUCCESS,
+        payload: userInfo
+      });
+    } 
+    catch (error) {
+      dispatch({
+        type: ActionTypes.ARTIST_DATA_FAIL,
+        payload: "Get user request fail",
+      });
+    }
+  };
+};
+
+export const createArtistData = (inputs) => {
+  return async (dispatch, getState) => {
+    dispatch({type: ActionTypes.ARTIST_DATA_REQUEST});
+    try {
+      // 메타마스크 reducer에서 주소 가져옴
+      let accounts = getState().metamask.accounts;
+
+      const url = "http://localhost:5000/users/change";
+      const userInfo = (await axios.post(url, { ...inputs, address: accounts[0] })).data;
+      dispatch({
+        type: ActionTypes.ARTIST_DATA_SUCCESS,
+        payload: userInfo
+      });
+    } 
+    catch (error) {
+      dispatch({
+        type: ActionTypes.ARTIST_DATA_FAIL,
+        payload: "Get user request fail",
+      });
+    }
+  };
+};
+
+
+export const readArtistList = () => {
   return async (dispatch, getState) => {
     dispatch({type: ActionTypes.ARTIST_LIST_REQUEST});
     try {
@@ -42,7 +89,6 @@ export const fetchArtistList = () => {
     }
   };
 };
-
 
 export const selectedArtist = (artist) => {
 	return {

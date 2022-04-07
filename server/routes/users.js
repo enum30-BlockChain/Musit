@@ -13,8 +13,25 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-/* genre client mainLayout response data send. */
-router.post("/signin", async (req, res, next) => {
+/* Create */
+router.post("/create", async (req, res, next) => {
+  try {
+    const result = await User.create({
+      nickname: req.body.nickname,
+      address: req.body.address,
+      genre: req.body.genre.join(),
+      nation: req.body.nation,
+      img: req.body.img,
+    });
+    res.send(result);
+  } catch (err) {
+    console.error(err);
+    res.send(400, err);
+  }
+});
+
+/* Read  */
+router.post("/read", async (req, res, next) => {
   try {
     const findname = await User.findOne({
       where: {
@@ -22,35 +39,6 @@ router.post("/signin", async (req, res, next) => {
       },
     });
     res.send(findname);
-  } catch (err) {
-    console.error(err);
-    res.send(400, err);
-  }
-});
-
-router.post("/signup", async (req, res, next) => {
-  console.log(req.body);
-  try {
-    const user = await User.findOne({
-      where: {
-        address: req.body.address,
-      },
-    });
-    if (req.body.address == "") {
-      res.send("User address null");
-    } else if (user) {
-      res.send("Already Existed");
-    } else {
-      const result = await User.create({
-        nickname: req.body.nickname,
-        address: req.body.address,
-        genre: req.body.genre.join(),
-        nation: req.body.nation,
-        img: req.body.img,
-      });
-      console.log(result);
-      res.send(result);
-    }
   } catch (err) {
     console.error(err);
     res.send(400, err);

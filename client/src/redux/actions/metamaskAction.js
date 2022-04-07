@@ -1,6 +1,6 @@
 import { ActionTypes } from "../constants/actionTypes";
 
-export const fetchMetamaskData = () => {
+export const readMetamaskData = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.METAMASK_DATA_REQUEST });
 		try {
