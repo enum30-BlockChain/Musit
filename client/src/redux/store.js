@@ -4,21 +4,31 @@ import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userReducer } from "./reducers/userReducer";
 import { metaMaskReducer } from "./reducers/metamaskReducer";
-import { artistListReducer, myArtistReducer } from "./reducers/artistReducer";
+import { artistListReducer, myArtistReducer, selectedArtistReducer } from "./reducers/artistReducer";
+import { musicListReducer, selectedMusicReducer } from "./reducers/musicReducer";
 
 
 
 
 // combineReducers Reducer들 합치는 곳
 const rootReducer = combineReducers({
+  // User Reducer
   user: userReducer,
+  // Artist Reducer
   myArtist: myArtistReducer,
   artistList: artistListReducer,
+  selectedArtist: selectedArtistReducer,
+  
+  // Music Reducer
+  musicList: musicListReducer,
+  selectedMusic: selectedMusicReducer,
+
+  // Metamask Reducer
   metamask: metaMaskReducer,
 });
 
 // 개발 모드에서만 logger 생성
-const middlewares = [thunk, logger];
+const middlewares = [thunk];
 const enhancer =
   process.env.NODE_ENV === "production"
     ? compose(applyMiddleware(thunk))

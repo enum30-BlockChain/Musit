@@ -48,7 +48,7 @@ export const myArtistReducer = (state = initialState, {type, payload}) => {
 /* Artist List Reducer */
 const initialListState = {
 	loading: false,
-  artistList: [],
+  data: [],
   error: false,
   errorMsg: "",
 };
@@ -66,7 +66,7 @@ export const artistListReducer = (state = initialListState, {type, payload}) => 
       return {
         ...state,
         loading: false,
-        artistList: payload,
+        data: payload,
         error: false,
         errorMsg: "",
       };
@@ -82,4 +82,13 @@ export const artistListReducer = (state = initialListState, {type, payload}) => 
   }
 };
 
-
+export const selectedArtistReducer = (state = {}, {type, payload}) => {
+  switch (type) {
+    case ActionTypes.SELECTED_ARTIST:
+      return payload
+    case ActionTypes.REMOVE_SELECTED_ARTIST:
+      return {}
+    default:
+      return state;
+  }
+}

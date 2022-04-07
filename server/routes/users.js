@@ -8,24 +8,8 @@ router.get("/", async (req, res, next) => {
     const userList = await User.findAll({});
     res.send(userList);
   } catch (err) {
-    next(err);
     console.log(err);
-  }
-});
-
-router.get("/:address", async (req, res, next) => {
-  // console.log(req.params.address);
-  try {
-    const userone = await User.findOne({
-      where: { address: req.params.address },
-    });
-    if (userone == null) {
-      res.send("회원가입 내용이 확인되지 않습니다.");
-    }
-    res.send(userone);
-  } catch (err) {
-    next(err);
-    console.log(err);
+    res.send(500, err);
   }
 });
 
@@ -40,6 +24,7 @@ router.post("/signin", async (req, res, next) => {
     res.send(findname);
   } catch (err) {
     console.error(err);
+    res.send(400, err);
   }
 });
 
@@ -56,17 +41,19 @@ router.post("/signup", async (req, res, next) => {
     } else if (user) {
       res.send("Already Existed");
     } else {
-      await User.create({
+      const result = await User.create({
         nickname: req.body.nickname,
         address: req.body.address,
         genre: req.body.genre.join(),
         nation: req.body.nation,
         img: req.body.img,
       });
-      res.send("Created successfully");
+      console.log(result);
+      res.send(result);
     }
   } catch (err) {
     console.error(err);
+    res.send(400, err);
   }
 });
 
@@ -194,7 +181,6 @@ router.post("/change", async (req, res, next) => {
     }
   } catch (err) {
     console.error(err);
-    res.send(500)
   }
 });
 

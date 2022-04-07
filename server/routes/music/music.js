@@ -4,6 +4,18 @@ const likesRouter = require("./likes");
 const { MusicLike, Music } = require("../../models/index");
 
 /* GET home page. */
+router.get("/list", async (req, res, next) => {
+  try {
+    const musicList = await Music.findAll({
+      include: { model: MusicLike },
+    });
+    res.send(musicList);
+  } catch (err) {
+    console.log(err);
+    res.send(500, err)
+  }
+});
+
 router.post("/like", async (req, res, next) => {
   console.log(req.body);
   try {
