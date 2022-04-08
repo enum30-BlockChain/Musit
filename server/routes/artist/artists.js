@@ -5,170 +5,89 @@ const { Artist, ArtistLike, Music, User } = require("../../models/index");
 
 router.use("/likes", likesRouter);
 
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+/* Create */
+router.post("/", async (req, res, next) => {
+	try {
+		// 필수 요소에 대한 입력 값에 대한 유효성 검사
+		if (req.body.user_address.trim() === "") {
+			res.send(400, "Incorrect address");
+		} else if (req.body.user_address.trim() === "") {
+			res.send(400, "Empty nickname");
+		} else {
+			const result = await Artist.create(req.body);
+			res.send(result);
+		}
+	} catch (err) {
+		console.error(err);
+		res.send(400, "Create new artist failed");
+	}
 });
 
-//아티스트가 본인 좋아요 수 확인하기 위한 api
-router.post("/like", async (req, res, next) => {
-  try {
-    console.log("http://localhost:5000/artists/like 요청함");
-    const artist = await ArtistLike.findAll({
-      include: { model: Artist, where: { user_address: req.body.address } },
-    });
-    res.send(artist);
-    const likes = await Artist.findAll({
-      where: {
-        user_address: req.body.address,
-      },
-    });
-    const likesup = await Artist.update(
-      {
-        likes: artist.length,
-      },
-      {
-        where: {
-          user_address: req.body.address,
-        },
-      }
-    );
-  } catch (err) {
-    console.error(err);
-  }
+/* Read */
+router.get("/", async (req, res, next) => {
+	try {
+		const userList = await Artist.findAll({
+			include: [{ model: ArtistLike }, { model: Music }],
+		});
+		res.send(userList);
+	} catch (err) {
+		res.send(500, "Fetch artsit list falied");
+	}
 });
 
-router.post("/signin", async (req, res, next) => {
-  try {
-    const artist = await Artist.findOne({
-      where: {
-        user_address: req.body.address,
-      },
-    });
-    res.send(artist);
-  } catch (err) {
-    console.error(err);
-  }
+router.get("/:user_address", async (req, res, next) => {
+	try {
+    console.log(req.params.user_address);
+		const userInfo = await Artist.findOne({
+			where: { user_address : req.params.user_address },
+			include: [{ model: User }, { model: ArtistLike }, { model: Music }],
+		});
+		console.log(userInfo);
+		res.send(userInfo);
+	} catch (err) {
+		res.send(500, "Fetch artist info faild");
+	}
 });
 
-//아티스트 회원 가입
-router.post("/signup", async (req, res, next) => {
-  try {
-    const artist = await Artist.findOne({
-      where: {
-        user_address: req.body.address,
-      },
-    });
-    if (req.body.address == "") {
-      res.send("Artist address null");
-    } else if (artist) {
-      res.send("Already Existed");
-    } else {
-      await Artist.create({
-        artist_name: req.body.nickname,
-        user_address: req.body.address,
-        img: req.body.img,
+/* Update */
+router.patch("/:user_address", async (req, res, next) => {
+	try {
+    // 입력값에 대한 유효성 검사
+		if (req.body.address) {
+			res.send(400, "Address is immutable");
+		} else if (req.body.nickname && req.body.nickname.trim() === "") {
+			res.send(400, "Empty nickname");
+		} else if (req.body.nation && req.body.nation.trim() === "") {
+			res.send(400, "Empty nation");
+		} else {
+      const result = await Artist.update(req.body, {
+        where: { user_address : req.params.user_address },
       });
-      res.send("Created successfully");
-    }
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-//아티스트 회원가입내용 조회
-router.get("/list", async (req, res, next) => {
-  try {
-    const findname = await Artist.findAll({
-      include: [{ model: User }, { model: Music }],
-    });
-    res.send(findname);
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-router.post("/music", async (req, res, next) => {
-  console.log(req.body);
-  try {
-    const music = await Music.findOne({
-      where: {
-        artist_name: req.body.nickname,
-      },
-    });
-    res.send(music);
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-router.post("/change", async (req, res, next) => {
-  try {
-    console.log("http://localhost:5000/artists/change");
-    const artist = await Artist.findOne({
-      where: {
-        user_address: req.body.address,
-      },
-    });
-    console.log(artist);
-    if (req.body.select !== "") {
-      const artist_change = await Artist.update(
-        {
-          artist_name: req.body.select,
-        },
-        {
-          where: {
-            user_address: req.body.address,
-          },
-        }
-      );
-      res.send(artist_change);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-router.post("/changeimg", async (req, res, next) => {
-  console.log("http://localhost:5000/artists/changeimg");
-  try {
-    const artist = await Artist.findOne({
-      where: {
-        user_address: req.body.address,
-      },
-    });
-    const artist_change = await Artist.update(
-      {
-        img: req.body.downloadLink,
-      },
-      {
-        where: {
-          user_address: req.body.address,
-        },
+      // Update에 잘못된 내용이 들어가면 0을 반환 => Bad request(400)
+      if (result[0] === 0) {
+        res.send(400, "Update failed");
+      } else {
+        res.send("Update success");
       }
-    );
-    res.send(artist_change);
-  } catch (err) {
-    console.error(err);
-  }
+    }
+	} catch (err) {
+		console.error(err);
+		res.send(500, "Error occurred");
+	}
 });
 
-router.post("/played", async (req, res, next) => {
-  console.log("최근재생목록 불러오려함");
-  try {
-    const playname = await Artist.findOne({
-      where: {
-        user_address: req.body.address,
-      },
-    });
-    console.log(playname);
-    const recent = playname.dataValues.recent_played.split("-");
-    res.send(recent);
-  } catch (err) {
-    console.log(err);
-    res.send(err);
-  }
-});
+/* Delete */
+router.delete("/:user_address", async (req, res, next) => {
+	try {
+		const result = await Artist.destroy({
+			where: { user_address : req.params.user_address },
+		});
 
-/* GET Artist listing. */
+		res.send(200, result);
+	} catch (err) {
+		console.error(err);
+		res.send(500, err);
+	}
+});
 
 module.exports = router;

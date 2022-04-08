@@ -11,11 +11,12 @@ export const createUserData = (inputs) => {
 
 			const url = "http://localhost:5000/users/";
 			const createData = (
-				await axios.post(url, inputs)
+				await axios.post(url, { ...inputs, address: accounts[0] })
 			).data;
-
+			
 			dispatch({
 				type: ActionTypes.USER_CREATE_SUCCESS,
+				payload: createData,
 			});
 		} catch (error) {
 			dispatch({
@@ -39,7 +40,7 @@ export const readUserData = () => {
 
 			dispatch({
 				type: ActionTypes.USER_READ_SUCCESS,
-				payload: { ...userInfo, address: accounts[0] },
+				payload: userInfo,
 			});
 		} catch (error) {
 			dispatch({
@@ -59,13 +60,12 @@ export const updateUserData = (inputs) => {
 			let accounts = getState().metamask.accounts;
 
 			const url = `http://localhost:5000/users/${accounts[0]}`;
-			const userInfo = (
-				await axios.patch(url, inputs)
-			).data;
+
+			await axios.patch(url, inputs);
 
 			dispatch({
 				type: ActionTypes.USER_UPDATE_SUCCESS,
-				payload: userInfo,
+				payload: inputs,
 			});
 		} catch (error) {
 			dispatch({
@@ -77,7 +77,7 @@ export const updateUserData = (inputs) => {
 };
 
 /* 유저 삭제 */
-export const deleteUserData = (inputs) => {
+export const deleteUserData = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.USER_DATA_REQUEST });
 		try {

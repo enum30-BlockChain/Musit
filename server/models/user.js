@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.hasMany(models.Artist, {
+      User.hasOne(models.Artist, {
         foreignKey: { name: "user_address", allowNull: false },
         targetKey: "address",
       });
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 			nation: { type: DataTypes.STRING, allowNull: false },
 			genre: {
 				type: DataTypes.STRING,
-				allowNull: false,
+				allowNull: true,
 				get() {
 					const rawValue = this.getDataValue("genre");
 					return rawValue ? rawValue.split(",") : null;

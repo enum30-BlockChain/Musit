@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: "address",
       });
       Artist.hasMany(models.ArtistLike, {
-        foreignKey: { name: "artist_artist_name", allowNull: false },
+        foreignKey: { name: "artist_name", allowNull: false },
         targetKey: "artist_name",
       });
       Artist.hasMany(models.Music, {
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   Artist.init(
     {
       artist_name: { type: DataTypes.STRING, primaryKey: true },
-      img: { type: DataTypes.STRING, allowNull: false, unique: true },
+      img: { type: DataTypes.STRING, allowNull: true },
       likes: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     },
     {

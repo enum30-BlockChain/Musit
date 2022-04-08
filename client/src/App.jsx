@@ -5,6 +5,7 @@ import { readArtistList, readMyArtistData } from './redux/actions/artistActions'
 import { readMetamaskData } from './redux/actions/metamaskAction'
 import { readMusicList } from './redux/actions/musicActions'
 import { createUserData, deleteUserData, readUserData, updateUserData } from './redux/actions/userActions'
+import Ysh from './Ysh'
 
 function App() {
   const user = useSelector(state => state.user)
@@ -14,19 +15,19 @@ function App() {
     const init = async () => {
       await dispatch(readMetamaskData());
       await dispatch(readUserData());
-      // await dispatch(readArtistList());
-      // await dispatch(readMyArtistData())
-      // await dispatch(readMusicList())
+      await dispatch(readArtistList());
+      await dispatch(readMyArtistData())
+      await dispatch(readMusicList())
     }
     init()
   }, []);
   const createOnClick = async () => {
     await dispatch(createUserData({
-      address: "0x2Eb8c98E360d146165b8F1f819F8863d41C4Eb6D",
+      address: "test1",
       genre: ["test1", "test2", "test3"],
-      nation: "option",
-      nickname: "nickname",
-      img: "DBdata.cover_img_link",
+      nation: "option1",
+      nickname: "nickname1",
+      img: "img1",
     }))
   }
 
@@ -36,7 +37,7 @@ function App() {
   
   const updateOnClick = async () => {
     await dispatch(updateUserData({
-      nickname: "피카추",
+      nickname: "라이츄",
       genre:["1", "2"]
     }))
   }
@@ -65,6 +66,7 @@ function App() {
 				<div>
 					<div>{user.address}</div>
 					<div>{user.nickname}</div>
+          <Ysh/>
 				</div>
 			)}
 		</div>
