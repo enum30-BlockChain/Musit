@@ -19,26 +19,18 @@ router.get("/", async (req, res, next) => {
     const userList = await User.findAll({
       include: [{ model: ArtistLike }, { model: MusicLike }],
     });
-    res.send(userList);
+    res.send(userList, "회원가입 성공");
   } catch (err) {
     res.send(500, err);
   }
 });
 
 router.get("/:address", async (req, res, next) => {
-  console.log("나 가동중인데");
-  console.log(111111111);
-  console.log(req.params);
-  console.log(111111111);
-  console.log(ArtistLike);
   try {
     const userInfo = await User.findOne({
       where: { address: req.params.address },
       include: [{ model: ArtistLike }, { model: MusicLike }],
     });
-    console.log(222222222);
-    console.log(userInfo);
-    console.log(222222222);
     res.send(userInfo);
   } catch (err) {
     res.send(500, err);
