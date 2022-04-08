@@ -18,12 +18,13 @@ import { History } from "./mypage/history/History";
 import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
+import { Create } from "./create/Create";
 import LandingMainPage from "../landingpage/LandingMainPage";
 import Search from "./serach/Search";
+import Mynfts from "./store/mynfts/Mynfts";
+import Album from "./artist/myalbum/Album";
 
 import axios from "axios";
-import { Create } from "./create/Create";
-import Mynfts from "./store/mynfts/Mynfts";
 
 import { fetchUserData, testFunc } from "../../redux/user/userAction";
 import { fetchUserListData } from "../../redux/userList/userListAction";
@@ -31,7 +32,6 @@ import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../redux/artist/artistAction";
-import Album from "./artist/myalbum/Album";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -89,22 +89,24 @@ export const Main = () => {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
-  const getUser = async () => {
-    //유저 전체목록
-    await axios
-      .get("http://localhost:5000/users")
-      .then((res) => {
-        dispatch(fetchUserListData(res.data));
-      })
-      .catch((err) => alert("errrrrrrr.", err));
-  };
-
   const getLikeList = async (address) => {
     //내가 좋아요누른 노래
     await axios
       .post("http://localhost:5000/music/likes/like", { address })
       .then((res) => {
         dispatch(fetchLikeListData(res.data));
+      })
+      .catch((err) => alert("errrrrrrr.", err));
+  };
+
+  ////////////////////////////////////////////////////////////////////////////
+
+  const getUser = async () => {
+    //유저 전체목록
+    await axios
+      .get("http://localhost:5000/users")
+      .then((res) => {
+        dispatch(fetchUserListData(res.data));
       })
       .catch((err) => alert("errrrrrrr.", err));
   };
