@@ -4,7 +4,7 @@ import axios from "axios";
 import { Box, Stack, Slider } from "@mui/material";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
-import myImage from './cd.png'; 
+import myImage from "./cd.png";
 {
   /* <props likeList address userList/> */
 }
@@ -31,56 +31,54 @@ export const Playbar = (props) => {
   const musicList = useSelector((state) => state.musicList.musicList);
   const dispatch = useDispatch(); //redux 초기값 넣어주자
 
-  useEffect(() => {
-    //첫로딩시 리센트 가져와서 세팅
-    if (musicList && userList) {
-      //페이지로딩해서 find로 내 좋아요 목록불러오고
-      let song = musicList[count];
-      const findUser = userList.find(
-        (adr) => adr.address === props.address
-        );
-      if(!findUser){
-        // console.log("유저가아닌사람")
-      }else{
-        // console.log("유저가 맞는 사람")
-      if (findUser.recent_played === null) {
-        // console.log("회원인데 리센트없는사람 ")
-        //recent_played 없으면 바로 배열 0번째 ㄱ하고
-        setpalyeCount(song.play_count);
-        sethash(song.ipfs_hash);
-        setTilte(song.title);
-        title.innerText = song.title;
-        audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
-        cover.src = song.img_file;
-      } else if (likeList) {
-        // console.log("회원인데 리센트있는사람 ")
-        //recent_played 있으면
-        const arry = findUser.recent_played.split("-"); //receent찾아와서
-        const songs = likeList;
-        const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
-        setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
-        if (index === -1) {
-          // console.log("회원인데 리센트있는데 못찾는사람 ")
-          setpalyeCount(song.play_count);
-          sethash(song.ipfs_hash);
-          setTilte(song.title);
-          title.innerText = song.title;
-          audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
-          cover.src = song.img_file;
-        } else {
-          // console.log("회원인데 리센트있는데 찾은사람 ")
-          setpalyeCount(songs[index].play_count);
-          sethash(songs[index].ipfs_hash);
-          setTilte(songs[index].title);
-          title.innerText = songs[index].title;
-          audio.src = `https://ipfs.infura.io/ipfs/${songs[index].ipfs_hash}`;
-          cover.src = songs[index].img_file;
-          setcurrentTime(arry[1]);
-        }
-      }
-    }
-  }
-  }, [userList, musicList]);
+  // useEffect(() => {
+  //   //첫로딩시 리센트 가져와서 세팅
+  //   if (musicList && userList) {
+  //     //페이지로딩해서 find로 내 좋아요 목록불러오고
+  //     let song = musicList[count];
+  //     const findUser = userList.find((adr) => adr.address === props.address);
+  //     if (!findUser) {
+  //       // console.log("유저가아닌사람")
+  //     } else {
+  //       // console.log("유저가 맞는 사람")
+  //       if (findUser.recent_played === null) {
+  //         // console.log("회원인데 리센트없는사람 ")
+  //         //recent_played 없으면 바로 배열 0번째 ㄱ하고
+  //         setpalyeCount(song.play_count);
+  //         sethash(song.ipfs_hash);
+  //         setTilte(song.title);
+  //         title.innerText = song.title;
+  //         audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
+  //         cover.src = song.img_file;
+  //       } else if (likeList) {
+  //         // console.log("회원인데 리센트있는사람 ")
+  //         //recent_played 있으면
+  //         const arry = findUser.recent_played.split("-"); //receent찾아와서
+  //         const songs = likeList;
+  //         const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
+  //         setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
+  //         if (index === -1) {
+  //           // console.log("회원인데 리센트있는데 못찾는사람 ")
+  //           setpalyeCount(song.play_count);
+  //           sethash(song.ipfs_hash);
+  //           setTilte(song.title);
+  //           title.innerText = song.title;
+  //           audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
+  //           cover.src = song.img_file;
+  //         } else {
+  //           // console.log("회원인데 리센트있는데 찾은사람 ")
+  //           setpalyeCount(songs[index].play_count);
+  //           sethash(songs[index].ipfs_hash);
+  //           setTilte(songs[index].title);
+  //           title.innerText = songs[index].title;
+  //           audio.src = `https://ipfs.infura.io/ipfs/${songs[index].ipfs_hash}`;
+  //           cover.src = songs[index].img_file;
+  //           setcurrentTime(arry[1]);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }, [userList, musicList]);
 
   function loadSong(song) {
     //노래불러올때
@@ -93,11 +91,12 @@ export const Playbar = (props) => {
     cover.src = song.img_file;
   }
 
-  function playloadSong(song,index) {  //play list 노래불러올때
-    setpalyeCount(song.play_count)
-    sethash(song.ipfs_hash)
-    setTilte(song.title)
-    setcurrentTime(0)
+  function playloadSong(song, index) {
+    //play list 노래불러올때
+    setpalyeCount(song.play_count);
+    sethash(song.ipfs_hash);
+    setTilte(song.title);
+    setcurrentTime(0);
     title.innerText = song.title;
     audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
     cover.src = song.img_file;
@@ -167,18 +166,18 @@ export const Playbar = (props) => {
     }
     const width = progressContainer.clientWidth; //300
     const duration = audio.duration;
-    
+
     audio.currentTime = (clickX / width) * duration;
   }
 
   // 시간표시해주는건데 지금어디에 넣지는못함
-function DurTime(e) {
-  const { duration, currentTime } = e.currentTarget;
-  var sec;
-  var sec_d;
-  // define minutes currentTime
-  let min = currentTime == null ? 0 : Math.floor(currentTime / 60);
-  min = min < 10 ? "0" + min : min;
+  function DurTime(e) {
+    const { duration, currentTime } = e.currentTarget;
+    var sec;
+    var sec_d;
+    // define minutes currentTime
+    let min = currentTime == null ? 0 : Math.floor(currentTime / 60);
+    min = min < 10 ? "0" + min : min;
 
     // define seconds currentTime
     function get_sec(x) {
@@ -225,16 +224,15 @@ function DurTime(e) {
   }
 
   const palyCountAdd = async () => {
-  setpalyeCount(palyeCount + 1);
-  const content = { play_count: palyeCount, ipfs_hash: hash };
-  await axios
-    .post("http://localhost:5000/music/add", content)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => console.log("노래목록을 불러오지못했습니다.", err));
-};
-
+    setpalyeCount(palyeCount + 1);
+    const content = { play_count: palyeCount, ipfs_hash: hash };
+    await axios
+      .post("http://localhost:5000/music/add", content)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log("노래목록을 불러오지못했습니다.", err));
+  };
 
   const [savePoint, setSavePoint] = useState(0);
   const postTime = async (saveTime) => {
@@ -287,7 +285,7 @@ function DurTime(e) {
               DurTime(e);
               updateProgress(e);
             }
-            setSavePoint(savePoint+1);
+            setSavePoint(savePoint + 1);
           }}
           onEnded={() => {
             nextSong();
@@ -295,12 +293,7 @@ function DurTime(e) {
           }}
         />
         <div className="img-container">
-          <img
-            style={{objectFit:"cover" }} 
-            src={myImage}
-            alt="music-cover"
-            id="cover"
-          />
+          <img src={myImage} alt="music-cover" id="cover" />
         </div>
         <div className="navigation">
           <button id="prev" className="action-btn" onClick={prevSong}>
@@ -316,20 +309,26 @@ function DurTime(e) {
           <button id="next" className="action-btn" onClick={nextSong}>
             <i className="fas fa-forward"></i>
           </button>
-
-          <Stack
-            spacing={2}
-            direction="row"
-            sx={{ mb: 1 }}
-            alignItems="center"
-          ></Stack>
-
-          <div className="left-right">
-            <Slider aria-label="Volume" value={value} onChange={handleChange} />
-            <PlayList playloadSong={playloadSong} />
-          </div>
-          <h4 id="title"></h4>
         </div>
+
+        <Stack
+          spacing={2}
+          direction="row"
+          sx={{ mb: 1 }}
+          alignItems="center"
+        ></Stack>
+
+        <div className="left-right">
+          <Slider
+            aria-label="Volume"
+            placeholder="Volume"
+            value={value}
+            onChange={handleChange}
+            sx={{ width: 250 }}
+          />
+          <PlayList playloadSong={playloadSong} />
+        </div>
+        <h4 id="title"></h4>
       </div>
     </>
   );

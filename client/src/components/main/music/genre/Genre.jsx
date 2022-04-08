@@ -74,7 +74,7 @@ export default function Genre(props) {
           <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}} onClick={genreMoveLeft}/>
           <Grid
             sx={{
-              width: "1280px",
+              width: "1260px",
               m:"auto",
               padding: 0,
               overflow: "hidden",

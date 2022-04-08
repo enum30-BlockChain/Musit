@@ -1,15 +1,11 @@
-import "./ArtistType.css";
-import { useState } from "react";
-// import ArtisType from "./ArtisType";
+import "./Artistsubmit.css";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Input, Button } from "@mui/material";
 import axios from "axios";
 
-const RegisterArtist = ({ address }) => {
+export default function Artistsubmit({ address }) {
   const [inputs, setInputs] = useState("");
-  const [DBdata, setDBdata] = useState({
-    cover_img_link: "",
-  });
-  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
 
   const submitOnClick = async () => {
     await postImg();
@@ -30,6 +26,11 @@ const RegisterArtist = ({ address }) => {
 
   ///////////////////////////////////////////////////////////
 
+  const [DBdata, setDBdata] = useState({
+    cover_img_link: "",
+  });
+  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+
   const formData = new FormData();
 
   const postImg = async () => {
@@ -45,6 +46,8 @@ const RegisterArtist = ({ address }) => {
   const getImg = (e) => {
     setAlbumCoverImgFile(e.target.files[0]);
   };
+
+  const user = useSelector((state) => state.user);
 
   return (
     <>
@@ -90,6 +93,4 @@ const RegisterArtist = ({ address }) => {
       </div>
     </>
   );
-};
-
-export default RegisterArtist;
+}

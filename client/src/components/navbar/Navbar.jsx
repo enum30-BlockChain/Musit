@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import { useSelector } from "react-redux";
+// import { fetchUserListData } from "../../redux/userList/userListAction";
 
 export const Navbar = () => {
+  const [address, setAddress] = useState("");
+
   useEffect(() => {
     const body = document.querySelector("body");
     const modeToggle = document.querySelector(".mode-toggle");
@@ -33,7 +37,12 @@ export const Navbar = () => {
       });
     });
   }, []);
+  const user = useSelector((state) => state.user);
+  const artist = useSelector((state) => state.artist);
 
+  console.log(user);
+  console.log(artist);
+  console.log(1111111111111111111111);
   return (
     <nav className="side-nav">
       <Link to={"/landingpage"}>
@@ -46,45 +55,67 @@ export const Navbar = () => {
       </Link>
 
       <div className="menu-items">
-        <ul className="nav-links">
-          <li>
-            <Link to="/mypage">
-              <i className="uil uil-create-dashboard"></i>
-              <span className="link-name">MYPAGE</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/music/ranking">
-              <i className="uil uil-music"></i>
-              <span className="link-name">MUSIC</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/store">
-              <i className="uil uil-store"></i>
-              <span className="link-name">STORE</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/auctionupload">
-              <i className="uil uil-arrow-growth"></i>
-              <span className="link-name">AUCTION</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/artist">
-              <i className="uil uil-palette"></i>
-              <span className="link-name">ARTIST</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link to="/cteate">
-              <i className="uil uil-upload"></i>
-              <span className="link-name">CREATE</span>
-            </Link>
-          </li>
-        </ul>
+        {artist.artist_name !== null && artist.artist_name !== undefined ? (
+          <ul className="nav-links">
+            <li>
+              <Link to="/mypage">
+                <i className="uil uil-create-dashboard"></i>
+                <span className="link-name">MYPAGE</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/music">
+                <i className="uil uil-music"></i>
+                <span className="link-name">MUSIC</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/store">
+                <i className="uil uil-store"></i>
+                <span className="link-name">STORE</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/artist">
+                <i className="uil uil-palette"></i>
+                <span className="link-name">ARTIST</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/cteate">
+                <i className="uil uil-upload"></i>
+                <span className="link-name">CREATE</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/auctionupload">
+                <i className="uil uil-arrow-growth"></i>
+                <span className="link-name">AUCTION</span>
+              </Link>
+            </li>
+          </ul>
+        ) : (
+          <ul className="nav-links">
+            <li>
+              <Link to="/mypage">
+                <i className="uil uil-create-dashboard"></i>
+                <span className="link-name">MYPAGE</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/music">
+                <i className="uil uil-music"></i>
+                <span className="link-name">MUSIC</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/store">
+                <i className="uil uil-store"></i>
+                <span className="link-name">STORE</span>
+              </Link>
+            </li>
+          </ul>
+        )}
 
         <ul className="logout-mode">
           <li>

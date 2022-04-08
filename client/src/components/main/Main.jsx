@@ -1,4 +1,7 @@
+//CSS
 import "./Main.css";
+
+//REACT FUCNTION , REDUX , ETC
 import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
 import { Searchbar } from "./searchbar/Searchbar";
@@ -33,6 +36,9 @@ import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../redux/artist/artistAction";
 
+import Userinformation from "./mypage/userinformation/Userinformation";
+import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
+
 export const Main = () => {
   const [address, setAddress] = useState("");
   // const [likeList, setLikeList] = useState("");
@@ -58,7 +64,7 @@ export const Main = () => {
 
   useEffect(() => {
     init();
-  }, []);
+  }, [address]);
 
   const sidebarToggle = () => {
     const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -121,15 +127,21 @@ export const Main = () => {
             <Route
               path="mypage"
               element={
-                user.nickname !== undefined ? (
-                  <Mypage address={address} />
+                user.nickname && user.address !== undefined ? (
+                  <Mypage path="userinformation" address={address} />
                 ) : (
                   <RegisterUser address={address} />
                 )
               }
             >
+              <Route
+                path="userinformation"
+                element={<Userinformation address={address} />}
+              />
               <Route path="favorite" element={<Favorite address={address} />} />
+
               <Route path="playlist" element={<Playlist address={address} />} />
+
               <Route
                 path="collection"
                 element={<Collection address={address} />}
@@ -138,6 +150,10 @@ export const Main = () => {
               <Route
                 path="subscription"
                 element={<Subscription address={address} />}
+              />
+              <Route
+                path="artistsubmit"
+                element={<Artistsubmit address={address} />}
               />
             </Route>
             <Route
@@ -173,7 +189,8 @@ export const Main = () => {
           </Route>
         </Routes>
       </div>
-      <Playbar address={address} />
+      {/* <Playbar address={address} /> */}
+      {address === undefined ? <></> : <Playbar address={address} />}
     </section>
   );
 };

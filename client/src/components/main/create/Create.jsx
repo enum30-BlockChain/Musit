@@ -201,7 +201,25 @@ export const Create = ({ address }) => {
 
         <div className="creae-inputbox">
           <h2>Music File</h2>
-
+          <div className="upload-music">
+            {audiofile && (
+              <audio
+                src={URL.createObjectURL(audiofile)}
+                onLoadedData={(e) => {
+                  setDuration(e.currentTarget.duration);
+                  // console.log(e.currentTarget.duration);
+                }}
+                // onTimeUpdate= {(e) =>{
+                //   console.log(e.currentTarget.currentTime)
+                // }}
+                autoplay
+                loop
+                controls
+              >
+                오디오 지원되지 않는 브라우저
+              </audio>
+            )}
+          </div>
           <label className="create-file-btn" for="input-file">
             Music file Upload
           </label>
@@ -214,29 +232,13 @@ export const Create = ({ address }) => {
             Address
             sx={{ width: 400 }}
           />
-          {audiofile && (
-            <audio
-              src={URL.createObjectURL(audiofile)}
-              onLoadedData={(e) => {
-                setDuration(e.currentTarget.duration);
-                // console.log(e.currentTarget.duration);
-              }}
-              // onTimeUpdate= {(e) =>{
-              //   console.log(e.currentTarget.currentTime)
-              // }}
-              autoplay
-              loop
-              controls
-            >
-              오디오 지원되지 않는 브라우저
-            </audio>
-          )}
 
           <h2>Music Title</h2>
           <Input
             onChange={getTitle}
             value={musicTitle}
             sx={{ width: 400 }}
+            inputProps={{ style: { fontSize: 30 } }}
             placeholder="Music Title"
           />
           <h2>Music Description</h2>
