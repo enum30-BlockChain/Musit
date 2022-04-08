@@ -79,7 +79,6 @@ router.patch("/:address", async (req, res, next) => {
 /* Delete */
 router.delete("/:address", async (req, res, next) => {
 	try {
-    console.log(req.params.address);
 		const result = await User.destroy({
 			where: { address: req.params.address },
 		});

@@ -37,12 +37,10 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:user_address", async (req, res, next) => {
 	try {
-    console.log(req.params.user_address);
 		const userInfo = await Artist.findOne({
 			where: { user_address : req.params.user_address },
 			include: [{ model: User }, { model: ArtistLike }, { model: Music }],
 		});
-		console.log(userInfo);
 		res.send(userInfo);
 	} catch (err) {
 		res.send(500, "Fetch artist info faild");
