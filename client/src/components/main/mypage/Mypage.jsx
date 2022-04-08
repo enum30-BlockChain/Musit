@@ -10,16 +10,17 @@ export const Mypage = ({ address }) => {
 
   return (
     <div className="mypage">
+      <Userinformation />
       <nav className="user-nav">
         <ul className="nav-links">
           <li>
-            <Link to="/mypage/userinformation">
+            <Link to="/mypage/musicfavorit">
               <i className="uil uil-user"></i>
               <span className="link-name"> My favorite Music</span>
             </Link>
           </li>
           <li>
-            <Link to="/mypage/favorite">
+            <Link to="/mypage/artistfavorit">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> My Favorite Arstis</span>
             </Link>
@@ -62,10 +63,9 @@ export const Mypage = ({ address }) => {
         </ul>
       </nav>
       <div className="detail">
+        ddfd
         <Outlet />
       </div>
-
-      <Userinformation />
     </div>
   );
 };

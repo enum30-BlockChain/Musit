@@ -1,9 +1,8 @@
 import "./Favorite.css";
 import React, { useEffect, useState } from "react";
 import StickyHeadTableMusic from "./favoritelist/StickyHeadTableMusic";
-// import StickyHeadTableArtist from "../favorite/favoritelist/StickyHeadTableArtist";
 
-export const Favorite = ({ address }) => {
+export const Musicfavorite = ({ address }) => {
   return (
     <>
       <div className="favorite">

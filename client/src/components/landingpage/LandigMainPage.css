@@ -37,10 +37,10 @@
   top: 0;
   animation: slide 21s steps(4) infinite;
 }
-@keyframes slide {
+/* @keyframes slide {
   100% {
      {
       top: -360px;
     }
   }
-}
+} */

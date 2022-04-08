@@ -6,21 +6,22 @@ import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
-import { Dashboard } from "./dashboard/Dashboard";
-import { Mypage } from "./mypage/Mypage";
-import { Music } from "./music/Music";
-import { Store } from "./store/Store";
 import { Auctionupload } from "./auction/Auctionupload";
-import { Artist } from "./artist/Artist";
-import { Playbar } from "./playbar/Playbar";
-import { Favorite } from "./mypage/favorite/Favorite";
+// import { Favorite } from "./mypage/favorite/Favorite";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { Playlist } from "./mypage/playlist/Playlist";
-import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
 import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
+
+//Main Navbar
+import { Mypage } from "./mypage/Mypage";
+import { Music } from "./music/Music";
+import { Store } from "./store/Store";
+import { Artist } from "./artist/Artist";
+import { Playbar } from "./playbar/Playbar";
+import { Dashboard } from "./dashboard/Dashboard";
 import { Create } from "./create/Create";
 import LandingMainPage from "../landingpage/LandingMainPage";
 import Search from "./serach/Search";
@@ -39,12 +40,7 @@ import { fetchArtistData } from "../../redux/artist/artistAction";
 import Userinformation from "./mypage/userinformation/Userinformation";
 import Musicfavorite from "./mypage/favorite/Musicfavorit";
 import Artistfavorite from "./mypage/favorite/Artistfavorite";
-import { Favorite } from "./mypage/favorite/Favorite";
-import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
-import { History } from "./mypage/history/History";
-import { Subscription } from "./mypage/subscription/Subscription";
-import { ArtistsList } from "./artist/favorite/ArtistsList";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 
 export const Main = () => {
@@ -175,7 +171,7 @@ export const Main = () => {
               path="landingpage"
               element={<LandingMainPage address={address} />}
             />
-            <Route path="music/*" element={<Music address={address} />} />
+            <Route path="music" element={<Music address={address} />} />
 
             <Route path="store" element={<Store address={address} />}>
               <Route path="mynfts" element={<Mynfts />} />

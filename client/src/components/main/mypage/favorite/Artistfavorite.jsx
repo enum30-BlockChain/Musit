@@ -4,7 +4,7 @@ import StickyHeadTableArtist from "../favorite/favoritelist/StickyHeadTableArtis
 
 // import axios from "axios";
 
-export const Favorite = ({ address }) => {
+export const Artistfavorite = ({ address }) => {
   return (
     <>
       <div className="favorite">
