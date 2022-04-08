@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserListData } from "../../redux/userList/userListAction";
+// import { fetchUserListData } from "../../redux/userList/userListAction";
 
 export const Navbar = () => {
   useEffect(() => {
@@ -50,7 +50,7 @@ export const Navbar = () => {
       </Link>
 
       <div className="menu-items">
-        {user == user ? (
+        {user !== user ? (
           <ul className="nav-links">
             <li>
               <Link to="/mypage">

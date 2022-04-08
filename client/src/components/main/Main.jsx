@@ -139,7 +139,7 @@ export const Main = () => {
               path="mypage"
               element={
                 user.nickname && user.address !== undefined ? (
-                  <Mypage address={address} />
+                  <Mypage path="userinformation" address={address} />
                 ) : (
                   <RegisterUser address={address} />
                 )
@@ -197,7 +197,7 @@ export const Main = () => {
         </Routes>
       </div>
       {/* <Playbar address={address} /> */}
-      {user.address === null ? <></> : <Playbar address={address} />}
+      {address === undefined ? <></> : <Playbar address={address} />}
     </section>
   );
 };
