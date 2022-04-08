@@ -9,8 +9,6 @@ import { borderRadius } from "@mui/system";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchArtistLikeData } from "../../../redux/artist/artistAction";
 
 const Img = styled("img")({
   margin: "auto",
@@ -19,29 +17,7 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function ArtistCard(props) {
-  const [artist, setArtist] = useState(props.artist);
-  //파업창 띄워주는 것
-  const postInfo = () => {
-    props.setArtistModal(props.artist);
-  };
-  ////////////////////////////////////////////
-
-  useEffect(() => {
-    setArtistlike();
-  }, []);
-
-  const [artistlike, setArtistlike] = useState("");
-
-  const artistList = useSelector((state) => state.artistList);
-  const dispatch = useDispatch();
-
-  const likeOnclick = () => {
-    dispatch(fetchArtistLikeData(props.address, props.artist.artist_name));
-  };
-
-  console.log(artistList);
-
+export default function AlbumCard({ address, song }) {
   return (
     <Paper
       sx={{
@@ -61,12 +37,10 @@ export default function ArtistCard(props) {
       >
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
-            {/* 프롭스를 통한 아티스트 이미지 */}
             <Avatar
-              onClick={postInfo}
               alt="Remy Sharp"
-              src={props.artist.img}
               sx={{ width: 128, height: 128 }}
+              src={song.img_file}
             />
           </ButtonBase>
         </Grid>
@@ -86,10 +60,7 @@ export default function ArtistCard(props) {
                   gutterBottom
                   variant="title"
                   component="div"
-                >
-                  {/* 프롭스를 통한 아티스트 이름 */}
-                  {props.artist.artist_name}
-                </Typography>
+                ></Typography>
               </div>
             </Grid>
             <Grid item>
@@ -99,21 +70,25 @@ export default function ArtistCard(props) {
               ></Typography>
             </Grid>
           </Grid>
+          {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
           <Grid item>
-            <FavoriteBorderIcon
-              sx={{ color: pink[300] }}
-              cursor="pointer"
-              fontSize="large"
-              value={props.artist.artist_name}
-              onClick={() => {
-                likeOnclick();
-              }}
-            />
-            {/* <FavoriteIcon
-              sx={{ color: pink[300] }}
-              cursor="pointer"
-              fontSize="large"
-            /> */}
+            {song !== undefined ? (
+              <FavoriteBorderIcon
+                sx={{ color: pink[300] }}
+                cursor="pointer"
+                fontSize="large"
+                value={song.artist_name}
+                onClick={() => {}}
+              />
+            ) : (
+              <FavoriteIcon
+                sx={{ color: pink[300] }}
+                cursor="pointer"
+                fontSize="large"
+                value={song.artist_name}
+                onClick={() => {}}
+              />
+            )}
           </Grid>
         </Grid>
       </Grid>

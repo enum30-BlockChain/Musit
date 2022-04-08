@@ -127,8 +127,8 @@ export default function Userinformation({ address }) {
       </div>
       <div className="user-info">
         <h2 className="nickname">Nickname</h2>
-        {user.nickname}
-        {visible && (
+
+        {visible ? (
           <div>
             <Input
               type="text"
@@ -137,14 +137,15 @@ export default function Userinformation({ address }) {
               value={user.nickname}
             ></Input>
           </div>
+        ) : (
+          <p>{user.nickname}</p>
         )}
         <h2 className="address">Address</h2>
         <span>{address}</span>
         <h2 className="subscription">Subscription</h2>
         <span>{user.subscription}월이용권 </span>
         <h2 className="Genre">Genre</h2>
-        <span>{user.genre}</span>
-        {visible && (
+        {visible ? (
           <div>
             {genre.map((MusicType, index) => {
               return (
@@ -165,6 +166,8 @@ export default function Userinformation({ address }) {
               );
             })}
           </div>
+        ) : (
+          <span>{user.genre}</span>
         )}
       </div>
       {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}

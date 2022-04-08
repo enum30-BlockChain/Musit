@@ -6,7 +6,8 @@ const initialState = {
   user_address: null,
   //artistList초기값
   artistList: [],
-
+  artistCount: "",
+  artistLikeList: [],
   error: false,
   errorMsg: "",
 };
@@ -65,6 +66,32 @@ export const aritstListReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export const aritstCountReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "ARTIST_COUNTDATA_REQUEST":
+      return {
+        ...initialState,
+        loading: true,
+      };
+    case "ARTIST_COUNTDATA_SUCCESS":
+      return {
+        ...initialState,
+        loading: false,
+        artistCount: action.payload.artistCount,
+      };
+    case "ARTIST_COUNTDATA_FAILED":
+      return {
+        ...initialState,
+        loading: false,
+        error: true,
+        errorMsg: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
 //artistLikeList리듀서
 export const aritstLikeListReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -77,7 +104,7 @@ export const aritstLikeListReducer = (state = initialState, action) => {
       return {
         ...initialState,
         loading: false,
-        artistList: action.payload.artistList,
+        artistLikeList: action.payload.artistLikeList,
       };
     case "ARTIST_LiKELIST_DATA_FAILED":
       return {

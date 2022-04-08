@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CountryType from "./CountryType.jsx";
 import ListenerType from "./ListenerType.jsx";
 import axios from "axios";
@@ -37,7 +37,6 @@ const RegisterUser = ({ address }) => {
   const [nation, setNation] = useState([""]);
   const [option, setOption] = useState("");
   const [nickname, setNickname] = useState("");
-  const [img, setImg] = useState("");
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
@@ -65,7 +64,9 @@ const RegisterUser = ({ address }) => {
   };
 
   const getImg = (e) => {
-    setAlbumCoverImgFile(e.target.files[0]);
+    if (e.target.files[0]) {
+      setAlbumCoverImgFile(e.target.files[0]);
+    }
   };
 
   const postImg = async () => {
@@ -88,6 +89,20 @@ const RegisterUser = ({ address }) => {
     }
   };
 
+  /////////////////////////////////////////////
+
+  // const [image, setImage] = useState("")
+  // const [preview, setPreview] = useState("")
+  // const [previewURL, setPreviewURL] = useState("")
+  // const fileRef= useRef();
+
+  // useEffect(() => {
+  //   alert("회원가입하세요");
+  //   if(image !== ""){
+  //     setPreview(<img className="img_preview">{previewURL}</img>)
+  //   }
+  // }, []);
+
   return (
     <div className="mypage">
       <div className="grid">
@@ -106,7 +121,7 @@ const RegisterUser = ({ address }) => {
           </div>
           <h1>Profile Image</h1>
 
-          <label for="register-fileupload">Choose your profile image</label>
+          <label htmlFor="register-fileupload">Choose your profile image</label>
           <Input
             id="register-fileupload"
             type="file"

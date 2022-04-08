@@ -65,7 +65,11 @@ export const Artist = ({ address }) => {
           {/* 내이미지공간 */}
           <div className="artist-image">
             {/* 현재 이미지 불러오기 */}
-            <img src={artist.img} alt="artist profile" />
+            <img
+              style={{ objectFit: "cover" }}
+              src={artist.img}
+              alt="artist profile"
+            />
             {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
             {visible && (
               <div>
@@ -94,11 +98,6 @@ export const Artist = ({ address }) => {
             <span>{address}</span>
             <h2 className="likes">Like</h2>
             <span>좋아요 : {artist.likes} </span>
-            <h2 className="subscription">Subscription</h2>
-            {/* <span>{loginState.subscription}월이용권 </span> */}
-          </div>
-          {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
-          <div>
             <button
               className="uil uil-setting"
               onClick={async () => {
@@ -114,6 +113,12 @@ export const Artist = ({ address }) => {
               <Link to="/artist/list">
                 <i className="uil uil-favorite"></i>
                 <span className="link-name">Artists</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/artist/album">
+                <i className="uil uil-favorite"></i>
+                <span className="link-name">album</span>
               </Link>
             </li>
           </ul>

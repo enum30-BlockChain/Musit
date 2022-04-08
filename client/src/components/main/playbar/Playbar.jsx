@@ -164,7 +164,6 @@ export const Playbar = (props) => {
     } else {
       clickX = e.clientX - 420; //왜170부터시작하는지모르겠넹
     }
-    console.log(e.clientX);
     const width = progressContainer.clientWidth; //300
     const duration = audio.duration;
 

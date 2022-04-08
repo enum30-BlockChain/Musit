@@ -30,7 +30,6 @@ router.post("/like", async (req, res, next) => {
       });
       return res.send("삭제완료");
     }
-
     res.send(findMyAddress);
   } catch (err) {
     next(err);
@@ -47,7 +46,7 @@ router.post("/add", async (req, res, next) => {
       },
       { where: { ipfs_hash: data.ipfs_hash } }
     );
-    res.send("노래 카운트 +1")
+    res.send("노래 카운트 +1");
   } catch (err) {
     next(err);
     console.log(err);

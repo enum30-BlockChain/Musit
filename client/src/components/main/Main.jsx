@@ -4,36 +4,38 @@ import "./Main.css";
 //REACT FUCNTION , REDUX , ETC
 import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
+import { Searchbar } from "./searchbar/Searchbar";
+import { Route, Routes } from "react-router-dom";
+import { Dashboard } from "./dashboard/Dashboard";
+import { Mypage } from "./mypage/Mypage";
+import { Music } from "./music/Music";
+import { Store } from "./store/Store";
+import { Auctionupload } from "./auction/Auctionupload";
+import { Artist } from "./artist/Artist";
+import { Playbar } from "./playbar/Playbar";
+import { Favorite } from "./mypage/favorite/Favorite";
+import { Subscription } from "./mypage/subscription/Subscription";
+import { Playlist } from "./mypage/playlist/Playlist";
+import { Collection } from "./mypage/collection/Collection";
+import { History } from "./mypage/history/History";
+import RegisterUser from "./register/user/listener/RegisterUser";
+import RegisterArtist from "./register/user/artists/RegisterArtist";
+import { ArtistsList } from "./artist/favorite/ArtistsList";
+import { Create } from "./create/Create";
+import LandingMainPage from "../landingpage/LandingMainPage";
+import Search from "./serach/Search";
+import Mynfts from "./store/mynfts/Mynfts";
+import Album from "./artist/myalbum/Album";
+
 import axios from "axios";
+
 import { fetchUserData, testFunc } from "../../redux/user/userAction";
 import { fetchUserListData } from "../../redux/userList/userListAction";
 import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../redux/artist/artistAction";
-import { Route, Routes } from "react-router-dom";
 
-//Searchbar
-import { Searchbar } from "./searchbar/Searchbar";
-import Search from "./serach/Search";
-
-//Landing page
-import { Dashboard } from "./dashboard/Dashboard";
-import LandingMainPage from "../landingpage/LandingMainPage";
-
-//Main Navbar
-import { Mypage } from "./mypage/Mypage";
-import { Music } from "./music/Music";
-import { Store } from "./store/Store";
-import { Artist } from "./artist/Artist";
-import { Create } from "./create/Create";
-import { Auctionupload } from "./auction/Auctionupload";
-
-//Playbar
-import { Playbar } from "./playbar/Playbar";
-//////////////////////////////////////////////////////
-
-//Mypage Navbar
 import Userinformation from "./mypage/userinformation/Userinformation";
 import Musicfavorite from "./mypage/favorite/Musicfavorit";
 import Artistfavorite from "./mypage/favorite/Artistfavorite";
@@ -45,15 +47,8 @@ import { Subscription } from "./mypage/subscription/Subscription";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 
-import RegisterUser from "./register/user/listener/RegisterUser";
-import RegisterArtist from "./register/user/artists/RegisterArtist";
-//Artist navbar
-
-import Mynfts from "./store/mynfts/Mynfts";
-
 export const Main = () => {
   const [address, setAddress] = useState("");
-  const [loginState, setLoginState] = useState({ address: "" });
   // const [likeList, setLikeList] = useState("");
 
   const user = useSelector((state) => state.user);
@@ -108,6 +103,18 @@ export const Main = () => {
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
 
+  const getLikeList = async (address) => {
+    //내가 좋아요누른 노래
+    await axios
+      .post("http://localhost:5000/music/likes/like", { address })
+      .then((res) => {
+        dispatch(fetchLikeListData(res.data));
+      })
+      .catch((err) => alert("errrrrrrr.", err));
+  };
+
+  ////////////////////////////////////////////////////////////////////////////
+
   const getUser = async () => {
     //유저 전체목록
     await axios
@@ -118,18 +125,6 @@ export const Main = () => {
       .catch((err) => alert("errrrrrrr.", err));
   };
 
-  const getLikeList = async (address) => {
-    //내가 좋아요누른 노래
-    await axios
-      .post("http://localhost:5000/music/likes/like", { address })
-      .then((res) => {
-        dispatch(fetchLikeListData(res.data));
-      })
-      .catch((err) => alert("errrrrrrr.", err));
-  };
-  // console.log(11111111111);
-  // console.log(user.address == null);
-  // console.log(user.address);
   return (
     <section className="main">
       <Searchbar address={address} />
@@ -180,7 +175,8 @@ export const Main = () => {
               path="landingpage"
               element={<LandingMainPage address={address} />}
             />
-            <Route path="music" element={<Music address={address} />} />
+            <Route path="music/*" element={<Music address={address} />} />
+
             <Route path="store" element={<Store address={address} />}>
               <Route path="mynfts" element={<Mynfts />} />
             </Route>
@@ -197,12 +193,15 @@ export const Main = () => {
               }
             >
               <Route path="list" element={<ArtistsList address={address} />} />
+              <Route
+                path="album"
+                element={<Album address={address} artist={artist} />}
+              />
             </Route>
 
             <Route path="search" element={<Search address={address} />} />
             <Route path="cteate" element={<Create address={address} />} />
           </Route>
-          <Route path="cteate" element={<Create address={address} />} />
         </Routes>
       </div>
       {/* <Playbar address={address} /> */}

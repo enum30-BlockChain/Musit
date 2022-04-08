@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
 import { fetchLikeListData } from "../../../../../redux/likeList/likeListAction";
+import LikeSongCard from "./card/LikeSongCard";
 
 export default function StickyHeadTableMusic({ address }) {
   const [page, setPage] = React.useState(0);
@@ -78,7 +79,8 @@ export default function StickyHeadTableMusic({ address }) {
     rows.push(
       createRow(
         index,
-        <img src={favor.img_file} style={{ width: "100px" }} />,
+        // <img src={favor.img_file} style={{ width: "100px" }} />,
+        <LikeSongCard address={address} favor={favor} />,
         favor.title,
         favor.artist_name,
         favor.play_time,
@@ -99,9 +101,9 @@ export default function StickyHeadTableMusic({ address }) {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
+              {columns.map((column, index) => (
                 <TableCell
-                  key={column.id}
+                  key={index}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
@@ -113,13 +115,13 @@ export default function StickyHeadTableMusic({ address }) {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((row, index) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
+                  <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                    {columns.map((column, index) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell key={index} align={column.align}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}

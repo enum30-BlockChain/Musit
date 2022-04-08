@@ -21,6 +21,7 @@ const fetchArtistDataFailed = (payload) => {
     payload: payload,
   };
 };
+//////////////////////////////////////////////////
 
 //ArtistList 액션 타입 지정
 const fetchArtistListDataRequest = () => {
@@ -43,7 +44,31 @@ const fetchArtistListDataFailed = (payload) => {
   };
 };
 
-//ArtistList 액션 타입 지정
+//////////////////////////////////////////////////
+
+const fetchArtistCountDataRequest = () => {
+  return {
+    type: "ARTIST_COUNTDATA_REQUEST",
+  };
+};
+
+const fetchArtistCountDataSuccess = (payload) => {
+  return {
+    type: "ARTIST_COUNTDATA_SUCCESS",
+    payload: payload,
+  };
+};
+
+const fetchArtistCountDataFailed = (payload) => {
+  return {
+    type: "ARTIST_COUNTDATA_FAILED",
+    payload: payload,
+  };
+};
+
+//////////////////////////////////////////////////
+
+//ArtistLikeList 액션 타입 지정
 const fetchArtistLikeDataRequest = () => {
   return {
     type: "ARTIST_LiKELIST_DATA_REQUEST",
@@ -111,23 +136,27 @@ export const fetchArtistListData = (address) => {
 //Artist like count액션 함수 선언
 export const fetchArtistLikeData = (address, selected) => {
   return async (dispatch) => {
-    dispatch(fetchArtistDataRequest());
+    dispatch(fetchArtistCountDataRequest());
     try {
-      const artistlist = store.getState().artistlist;
+      const artistlikeCount = store.getState().artistlikeCount;
       const url = "http://localhost:5000/artists/likes/like";
       const likeInfo = (await axios.post(url, { address, selected })).data;
+      console.log(222222222222222);
+      console.log(likeInfo);
+      console.log(222222222222222);
       dispatch(
-        fetchArtistDataSuccess({
-          ...artistlist,
-          artistList: likeInfo,
+        fetchArtistCountDataSuccess({
+          ...artistlikeCount,
+          artistCount: likeInfo,
         })
       );
     } catch (error) {
-      dispatch(fetchArtistDataFailed("error!!!"));
+      dispatch(fetchArtistCountDataFailed("error!!!"));
     }
   };
 };
 
+//Artist like list액션 함수 선언
 export const fetchArtistLikeListData = (address) => {
   return async (dispatch) => {
     dispatch(fetchArtistLikeDataRequest());
@@ -138,7 +167,7 @@ export const fetchArtistLikeListData = (address) => {
       dispatch(
         fetchArtisLikeDataSuccess({
           ...artistlikelist,
-          artistList: likeInfo,
+          artistLikeList: likeInfo,
         })
       );
     } catch (error) {

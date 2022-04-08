@@ -159,7 +159,7 @@ export const Create = ({ address }) => {
   };
 
   const findArtist = async () => {
-    artistList.map((a) => {
+    artistList.map((a, index) => {
       if (a.user_address === address) {
         DBdata.artist_name = a.artist_name;
         return DBdata;
@@ -255,9 +255,10 @@ export const Create = ({ address }) => {
             {genre.map((MusicType, index) => {
               return (
                 <>
-                  <label id={index}>
+                  <label id={index} key={index}>
                     {MusicType}
                     <input
+                      key={index}
                       type={"checkbox"}
                       name={"MusicType"}
                       value={MusicType}

@@ -58,18 +58,18 @@ export default function StickyHeadTable({ address }) {
       createRow(
         index,
         Artists.artist_name,
-        <ArtistCard
-          sx={{ width: "50%" }}
-          key={index}
-          Artists={Artists}
-          address={address}
-        />,
+        <div key={index}>
+          <ArtistCard
+            sx={{ width: "50%" }}
+            key={index}
+            Artists={Artists}
+            address={address}
+          />
+        </div>,
         Artists.likes
       )
     );
   });
-
-  console.log(artistlike.artistLikeList);
 
   return (
     <Paper
@@ -80,9 +80,9 @@ export default function StickyHeadTable({ address }) {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
+              {columns.map((column, index) => (
                 <TableCell
-                  key={column.id}
+                  key={index}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
@@ -94,13 +94,13 @@ export default function StickyHeadTable({ address }) {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((row, index) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
+                  <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                    {columns.map((column, index) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell key={index} align={column.align}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}

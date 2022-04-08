@@ -8,22 +8,12 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchArtistData,
-  fetchArtistListData,
-} from "../../../../../redux/artist/artistAction";
-import ArtistLikeCard from "./ArtistLikeCard";
+import { fetchMyMusicListData } from "../../../../../redux/musicList/musicListAction";
+import AlbumCard from "./AlbumCard";
 
-export default function ArtistListCard({ address }) {
+export default function AlbumList({ address, nickname }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const dispatch = useDispatch();
-  const artistList = useSelector((state) => state.artistList);
-
-  React.useEffect(() => {
-    dispatch(fetchArtistListData(address)).then(() => {});
-  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -42,34 +32,44 @@ export default function ArtistListCard({ address }) {
   //제목리스트 내용
   const columns = [
     { id: "number", label: "Number", minWidth: 30 },
-    { id: "artistname", label: "Artist Name", minWidth: 30 },
-    { id: "artistsimg", label: "Artist Image", minWidth: 120 },
-    { id: "like", label: "Artist Like Count", minWidth: 120 },
+    { id: "title", label: "Title", minWidth: 30 },
+    { id: "artist", label: "Artist Name", minWidth: 30 },
+    { id: "albumimg", label: "Album Cover", minWidth: 120 },
+    { id: "like", label: "Music Like Count", minWidth: 120 },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, artistname, artistsimg, like) {
-    return { number, artistname, artistsimg, like };
+  function createRow(number, title, artist, albumimg, like) {
+    return { number, title, artist, albumimg, like };
   }
+
+  ///////////////////////////////////////////////////////////
+  const dispatch = useDispatch();
+  const myalbum = useSelector((state) => state.myalbum);
+
+  React.useLayoutEffect(() => {
+    dispatch(fetchMyMusicListData(address)).then(() => {});
+  }, []);
 
   //row 안의 value값
   const rows = [];
 
-  artistList.artistList.forEach((Artists, index) => {
-    rows.push(
-      createRow(
-        index,
-        Artists.artist_name,
-        <ArtistLikeCard
-          key={index}
-          sx={{ width: "50%" }}
-          Artists={Artists}
-          address={address}
-        />,
-        Artists.likes
-      )
-    );
-  });
+  myalbum.myMusic.Music &&
+    myalbum.myMusic.Music.forEach((song, index) => {
+      rows.push(
+        createRow(
+          index,
+          song.title,
+          song.artist_name,
+          <AlbumCard
+            key={index}
+            sx={{ width: "50%" }}
+            address={address}
+            song={song}
+          />
+        )
+      );
+    });
 
   return (
     <Paper
