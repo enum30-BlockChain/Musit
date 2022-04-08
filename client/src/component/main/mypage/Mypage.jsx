@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
 
-export const Mypage = ({ address }) => {
+export const Mypage = () => {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -108,7 +108,6 @@ export const Mypage = ({ address }) => {
       setCheckedInputs(checkedInputs.filter((el) => el !== value));
     }
   };
-
   return (
     <>
       <div className="mypage">

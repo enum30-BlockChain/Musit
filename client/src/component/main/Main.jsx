@@ -8,9 +8,11 @@ import { readMetamaskData } from "../../redux/actions/metamaskAction";
 
 import { Dashboard } from "./dashboard/Dashboard";
 import { Mypage } from "./mypage/Mypage";
+import RegisterUser from "./register/user/listener/RegisterUser";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
+  const metamask = useSelector((state) => state.metamask);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,22 +32,12 @@ export const Main = () => {
             <Route index element={<Dashboard />} />
             <Route
               path="mypage"
-              element={
-                user.nickname !== undefined ? <Mypage /> : <RegisterUser />
-              }
-            ></Route>
+              element={user.nickname !== null ? <Mypage /> : <RegisterUser />}
+            />
           </Routes>
           {/* <Routes>
           <Route path="/">
-            <Route
-              path="mypage"
-              element={
-                user.nickname !== undefined ? (
-                  <Mypage address={address} />
-                ) : (
-                  <RegisterUser address={address} />
-                )
-              }
+            
             >
               <Route path="favorite" element={<Favorite address={address} />} />
               <Route path="playlist" element={<Playlist address={address} />} />
