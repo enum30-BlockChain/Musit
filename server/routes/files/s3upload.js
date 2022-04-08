@@ -21,6 +21,5 @@ const storage = multerS3({
     cb(null, moment().format("YYYYMMDDHHmmss") + "_" + img.originalname); // key... 저장될 파일명과 같이 해봅니다.
   },
 });
-
 const upload = multer({ storage: storage }).single("img");
 module.exports = upload;

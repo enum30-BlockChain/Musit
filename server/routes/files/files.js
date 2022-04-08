@@ -17,9 +17,9 @@ files.post("/imgupload", (req, res, next) => {
     // console.log("저장파일명 : " + req.file.filename);
     // console.log("크기 : " + req.file.size);
     // console.log('경로 : ' + req.file.location) //s3 업로드시 업로드 url을 가져옴
-    return res.send({
-      downLoadLink: req.file.location,
-    });
+    return res.send(
+      req.file.location,
+    );
   });
 });
 

@@ -5,7 +5,8 @@ import { readArtistList, readMyArtistData } from './redux/actions/artistActions'
 import { readMetamaskData } from './redux/actions/metamaskAction'
 import { readMusicList } from './redux/actions/musicActions'
 import { createUserData, deleteUserData, readUserData, updateUserData } from './redux/actions/userActions'
-
+import { createMusicData } from './redux/actions/musicActions'
+import Test from './Test'
 function App() {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
@@ -67,6 +68,7 @@ function App() {
 					<div>{user.nickname}</div>
 				</div>
 			)}
+      <Test />
 		</div>
 	);
 }

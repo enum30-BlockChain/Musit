@@ -45,8 +45,8 @@ router.post("/like", async (req, res, next) => {
 
     res.send(findMyAddress);
   } catch (err) {
-    next(err);
-    console.log(err);
+    console.error(err);
+		res.send(500, err);
   }
 });
 

@@ -1,6 +1,33 @@
 import { ActionTypes } from "../constants/actionTypes";
 import axios from "axios";
 
+export const createMusicData = (formData, input) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: ActionTypes.MUSIC_LIST_REQUEST });
+		try {
+      const img_file = await axios
+      .post("http://localhost:5000/files/imgupload",formData).data;
+      console.log(img_file);
+      input.img_file =img_file;
+
+      console.log(input);
+			const createData = 
+				await axios.post("http://localhost:5000/files/create", inputs)
+			
+     
+			dispatch({
+				type: ActionTypes.MUSIC_CREATE_SUCCESS,
+        
+			});
+		} catch (error) {
+			dispatch({
+				type: ActionTypes.MUSIC_LIST_FAIL,
+				payload: "Create user request fail",
+			});
+		}
+	};
+};
+
 export const readMusicList = () => {
   return async (dispatch, getState) => {
     dispatch({type: ActionTypes.MUSIC_LIST_REQUEST});

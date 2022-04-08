@@ -4,6 +4,7 @@ import { ActionTypes } from "../constants/actionTypes";
 const initialListState = {
 	loading: false,
   data: [],
+  createMusic: [],
   error: false,
   errorMsg: "",
 };
@@ -14,6 +15,13 @@ export const musicListReducer = (state = initialListState, {type, payload}) => {
       return {
         ...state,
         loading: true,
+        error: false,
+        errorMsg: "",
+      };
+    case ActionTypes.MUSIC_CREATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
         error: false,
         errorMsg: "",
       };
