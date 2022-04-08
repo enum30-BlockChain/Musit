@@ -57,14 +57,10 @@ export const updateUserData = (inputs) => {
 		try {
 			// 메타마스크 reducer에서 주소 가져옴
 			let accounts = getState().metamask.accounts;
-      let {address, genre, img, nation, nickname, recent_played, subscription} = getState().user;
-      let userState = {
-        address, genre, img, nation, nickname, recent_played, subscription
-      }
 
 			const url = `http://localhost:5000/users/${accounts[0]}`;
 			const userInfo = (
-				await axios.patch(url, { ...userState, ...inputs })
+				await axios.patch(url, inputs)
 			).data;
 
 			dispatch({

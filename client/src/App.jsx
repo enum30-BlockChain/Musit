@@ -36,8 +36,8 @@ function App() {
   
   const updateOnClick = async () => {
     await dispatch(updateUserData({
-      nickname: "Pikach",
-      genre: ["피카츄", "라이츄", "파이리"],
+      nickname: "피카추",
+      genre:["1", "2"]
     }))
   }
 
