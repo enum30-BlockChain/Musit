@@ -6,11 +6,20 @@ const { User, ArtistLike, MusicLike } = require("../models/index");
 /* Create */
 router.post("/", async (req, res, next) => {
 	try {
-    const result = await User.create(req.body);
-		res.send(result);
+		// 필수 요소에 대한 입력 값에 대한 유효성 검사
+		if (req.body.address.trim() === "") {
+			res.send(400, "Incorrect address");
+		} else if (req.body.nickname.trim() === "") {
+			res.send(400, "Empty nickname");
+		} else if (req.body.nation.trim() === "") {
+			res.send(400, "Empty nation");
+		} else {
+			const result = await User.create(req.body);
+			res.send(result);
+		}
 	} catch (err) {
 		console.error(err);
-		res.send(500, err);
+		res.send(400, "Create new user failed");
 	}
 });
 
@@ -40,23 +49,30 @@ router.get("/:address", async (req, res, next) => {
 /* Update */
 router.patch("/:address", async (req, res, next) => {
 	try {
-		console.log(req.body)
-		const result = await User.update(req.body, {
-			where: {
-				address: req.params.address,
-			},
-		});
-		console.log(result)
-    
-    // Update에 잘못된 내용이 들어가면 0을 반환 => Bad request(400) 
-    if (result[0] === 0) {
-      res.send(400)
-    } else {
-			res.send("Update successfully");
+		// 입력값에 대한 유효성 검사
+		if (req.body.address) {
+			res.send(400, "Address is immutable");
+		} else if (req.body.nickname && req.body.nickname.trim() === "") {
+			res.send(400, "Empty nickname");
+		} else if (req.body.nation && req.body.nation.trim() === "") {
+			res.send(400, "Empty nation");
+		} else {
+			const result = await User.update(req.body, {
+				where: {
+					address: req.params.address,
+				},
+			});
+			
+			// Update에 잘못된 내용이 들어가면 0을 반환 => Bad request(400) 
+			if (result[0] === 0) {
+				res.send(400, "Update failed")
+			} else {
+				res.send("Update success");
+			}
 		}
 	} catch (err) {
 		console.error(err);
-		res.send(500, err);
+		res.send(500, "Error occurred");
 	}
 });
 

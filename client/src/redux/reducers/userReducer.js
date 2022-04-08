@@ -29,6 +29,7 @@ export const userReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				loading: false,
+				...payload,
 				error: false,
 				errorMsg: "",
 			};

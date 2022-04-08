@@ -22,14 +22,34 @@ export const myArtistReducer = (state = initialState, {type, payload}) => {
         error: false,
         errorMsg: "",
       };
-    case ActionTypes.ARTIST_DATA_SUCCESS:
+    case ActionTypes.ARTIST_CREATE_SUCCESS:
       return {
         ...state,
         loading: false,
-        artist_name: payload.artist_name,
-        user_address: payload.user_address,
-        img: payload.img,
-        likes: payload.likes,
+        ...payload,
+        error: false,
+        errorMsg: "",
+      };
+    case ActionTypes.ARTIST_READ_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        ...payload,
+        error: false,
+        errorMsg: "",
+      };
+    case ActionTypes.ARTIST_UPDATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        ...payload,
+        error: false,
+        errorMsg: "",
+      };
+    case ActionTypes.ARTIST_DELETE_SUCCESS:
+      return {
+        ...initialState,
+        loading: false,
         error: false,
         errorMsg: "",
       };
@@ -62,7 +82,7 @@ export const artistListReducer = (state = initialListState, {type, payload}) => 
         error: false,
         errorMsg: "",
       };
-    case ActionTypes.ARTIST_LIST_SUCCESS:
+    case ActionTypes.ARTIST_LIST_READ_SUCCESS:
       return {
         ...state,
         loading: false,

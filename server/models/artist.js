@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   Artist.init(
     {
       artist_name: { type: DataTypes.STRING, primaryKey: true },
-      img: { type: DataTypes.STRING, allowNull: false, unique: true },
+      img: { type: DataTypes.STRING, allowNull: true },
       likes: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     },
     {
