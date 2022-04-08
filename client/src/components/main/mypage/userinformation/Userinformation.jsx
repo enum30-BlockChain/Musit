@@ -1,7 +1,6 @@
-import "./Userinformation";
+import "./Userinformation.css";
 
 import React, { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import { Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";

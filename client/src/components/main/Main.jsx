@@ -35,6 +35,8 @@ import { Playbar } from "./playbar/Playbar";
 
 //Mypage Navbar
 import Userinformation from "./mypage/userinformation/Userinformation";
+import Musicfavorite from "./mypage/favorite/Musicfavorit";
+import Artistfavorite from "./mypage/favorite/Artistfavorite";
 import { Favorite } from "./mypage/favorite/Favorite";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
@@ -149,7 +151,14 @@ export const Main = () => {
                 path="userinformation"
                 element={<Userinformation address={address} />}
               />
-              <Route path="favorite" element={<Favorite address={address} />} />
+              <Route
+                path="musicfavorite"
+                element={<Musicfavorite address={address} />}
+              />
+              <Route
+                path="artistfavorite"
+                element={<Artistfavorite address={address} />}
+              />
 
               <Route path="playlist" element={<Playlist address={address} />} />
 

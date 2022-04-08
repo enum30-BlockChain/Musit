@@ -2,9 +2,9 @@ import "./Mypage.css";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
-// import Userinformation from "./../mypage/userinformation/Userinformation";
+import Userinformation from "./../mypage/userinformation/Userinformation";
 
-export const Mypage = () => {
+export const Mypage = ({ address }) => {
   const user = useSelector((state) => state.user);
   const artist = useSelector((state) => state.artist);
 
@@ -15,13 +15,13 @@ export const Mypage = () => {
           <li>
             <Link to="/mypage/userinformation">
               <i className="uil uil-user"></i>
-              <span className="link-name"> User Information</span>
+              <span className="link-name"> My favorite Music</span>
             </Link>
           </li>
           <li>
             <Link to="/mypage/favorite">
               <i className="uil uil-favorite"></i>
-              <span className="link-name"> Favorite</span>
+              <span className="link-name"> My Favorite Arstis</span>
             </Link>
           </li>
           <li>
@@ -64,6 +64,8 @@ export const Mypage = () => {
       <div className="detail">
         <Outlet />
       </div>
+
+      <Userinformation />
     </div>
   );
 };
