@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Input, Button } from "@mui/material";
-
 import "./ArtistType.css";
+import { useState } from "react";
 // import ArtisType from "./ArtisType";
+import { Input, Button } from "@mui/material";
 import axios from "axios";
 
 const RegisterArtist = ({ address }) => {
   const [inputs, setInputs] = useState("");
+  const [DBdata, setDBdata] = useState({
+    cover_img_link: "",
+  });
+  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
 
   const submitOnClick = async () => {
     await postImg();
@@ -26,11 +29,6 @@ const RegisterArtist = ({ address }) => {
   };
 
   ///////////////////////////////////////////////////////////
-
-  const [DBdata, setDBdata] = useState({
-    cover_img_link: "",
-  });
-  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
 
   const formData = new FormData();
 

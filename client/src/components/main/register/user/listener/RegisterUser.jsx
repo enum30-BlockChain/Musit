@@ -88,8 +88,6 @@ const RegisterUser = ({ address }) => {
     }
   };
 
-  console.log(11111);
-  console.log(address);
   return (
     <div className="mypage">
       <div className="grid">

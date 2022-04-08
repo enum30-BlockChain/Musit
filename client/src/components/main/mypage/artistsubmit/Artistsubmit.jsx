@@ -51,50 +51,46 @@ export default function Artistsubmit({ address }) {
 
   return (
     <>
-      {user !== user ? (
-        <p>너는 이미 아티스트임</p>
-      ) : (
-        <div className="artist-nickname">
-          <div className="grid">
-            <div className="box">
-              <div className="artist-name">
-                <h1>Artist Nickname</h1>
-                <Input
-                  required
-                  placeholder="Please enter your Nickname."
-                  inputProps={{ style: { fontSize: 30 } }}
-                  label="Email"
-                  sx={{ width: 400 }}
-                  variant="standard"
-                  name="nickname"
-                  onChange={onChange}
-                />
-              </div>
-              <h1>Profile Image</h1>
-              <div className="artist-register-profile-img">
-                {albumCoverImgFile && (
-                  <img
-                    src={URL.createObjectURL(albumCoverImgFile)}
-                    style={{ width: "200px" }}
-                  ></img>
-                )}
-              </div>
-              <label for="artist-register-profile">
-                Choose your profile image
-              </label>
-              <input
-                id="artist-register-profile"
-                style={{ display: "none" }}
-                name="imgUpload"
-                type="file"
-                accept="image/*"
-                onChange={getImg}
+      <div className="artist-nickname">
+        <div className="grid">
+          <div className="box">
+            <div className="artist-name">
+              <h1>Artist Nickname</h1>
+              <Input
+                required
+                placeholder="Please enter your Nickname."
+                inputProps={{ style: { fontSize: 30 } }}
+                label="Email"
+                sx={{ width: 400 }}
+                variant="standard"
+                name="nickname"
+                onChange={onChange}
               />
             </div>
-            <Button onClick={submitOnClick}>Artist Registration</Button>
+            <h1>Profile Image</h1>
+            <div className="artist-register-profile-img">
+              {albumCoverImgFile && (
+                <img
+                  src={URL.createObjectURL(albumCoverImgFile)}
+                  style={{ width: "200px" }}
+                ></img>
+              )}
+            </div>
+            <label for="artist-register-profile">
+              Choose your profile image
+            </label>
+            <input
+              id="artist-register-profile"
+              style={{ display: "none" }}
+              name="imgUpload"
+              type="file"
+              accept="image/*"
+              onChange={getImg}
+            />
           </div>
+          <Button onClick={submitOnClick}>Artist Registration</Button>
         </div>
-      )}
+      </div>
     </>
   );
 }

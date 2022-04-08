@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import { fetchUserListData } from "../../redux/userList/userListAction";
 
 export const Navbar = () => {
+  const [address, setAddress] = useState("");
+
   useEffect(() => {
     const body = document.querySelector("body");
     const modeToggle = document.querySelector(".mode-toggle");
@@ -36,8 +38,11 @@ export const Navbar = () => {
     });
   }, []);
   const user = useSelector((state) => state.user);
-  console.log(user);
+  const artist = useSelector((state) => state.artist);
 
+  console.log(user);
+  console.log(artist);
+  console.log(1111111111111111111111);
   return (
     <nav className="side-nav">
       <Link to={"/landingpage"}>
@@ -50,7 +55,7 @@ export const Navbar = () => {
       </Link>
 
       <div className="menu-items">
-        {user !== user ? (
+        {artist.artist_name !== null && artist.artist_name !== undefined ? (
           <ul className="nav-links">
             <li>
               <Link to="/mypage">
