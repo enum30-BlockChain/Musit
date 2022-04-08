@@ -50,7 +50,7 @@ export const Navbar = () => {
       </Link>
 
       <div className="menu-items">
-        {user !== user ? (
+        {user == user ? (
           <ul className="nav-links">
             <li>
               <Link to="/mypage">

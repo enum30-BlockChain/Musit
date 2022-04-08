@@ -1,36 +1,53 @@
+//CSS
 import "./Main.css";
+
+//REACT FUCNTION , REDUX , ETC
 import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
-import { Searchbar } from "./searchbar/Searchbar";
-import { Route, Routes } from "react-router-dom";
-import { Dashboard } from "./dashboard/Dashboard";
-import { Mypage } from "./mypage/Mypage";
-import { Music } from "./music/Music";
-import { Store } from "./store/Store";
-import { Auctionupload } from "./auction/Auctionupload";
-import { Artist } from "./artist/Artist";
-import { Playbar } from "./playbar/Playbar";
-import { Favorite } from "./mypage/favorite/Favorite";
-import { Subscription } from "./mypage/subscription/Subscription";
-import { Playlist } from "./mypage/playlist/Playlist";
-import { Collection } from "./mypage/collection/Collection";
-import { History } from "./mypage/history/History";
-import RegisterUser from "./register/user/listener/RegisterUser";
-import RegisterArtist from "./register/user/artists/RegisterArtist";
-import { ArtistsList } from "./artist/favorite/ArtistsList";
-import LandingMainPage from "../landingpage/LandingMainPage";
-import Search from "./serach/Search";
-
 import axios from "axios";
-import { Create } from "./create/Create";
-import Mynfts from "./store/mynfts/Mynfts";
-
 import { fetchUserData, testFunc } from "../../redux/user/userAction";
 import { fetchUserListData } from "../../redux/userList/userListAction";
 import { fetchMusicListData } from "../../redux/musicList/musicListAction";
 import { fetchLikeListData } from "../../redux/likeList/likeListAction";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../redux/artist/artistAction";
+import { Route, Routes } from "react-router-dom";
+
+//Searchbar
+import { Searchbar } from "./searchbar/Searchbar";
+import Search from "./serach/Search";
+
+//Landing page
+import { Dashboard } from "./dashboard/Dashboard";
+import LandingMainPage from "../landingpage/LandingMainPage";
+
+//Main Navbar
+import { Mypage } from "./mypage/Mypage";
+import { Music } from "./music/Music";
+import { Store } from "./store/Store";
+import { Artist } from "./artist/Artist";
+import { Create } from "./create/Create";
+import { Auctionupload } from "./auction/Auctionupload";
+
+//Playbar
+import { Playbar } from "./playbar/Playbar";
+//////////////////////////////////////////////////////
+
+//Mypage Navbar
+import Userinformation from "./mypage/userinformation/Userinformation";
+import { Favorite } from "./mypage/favorite/Favorite";
+import { Playlist } from "./mypage/playlist/Playlist";
+import { Collection } from "./mypage/collection/Collection";
+import { History } from "./mypage/history/History";
+import { Subscription } from "./mypage/subscription/Subscription";
+import { ArtistsList } from "./artist/favorite/ArtistsList";
+import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
+
+import RegisterUser from "./register/user/listener/RegisterUser";
+import RegisterArtist from "./register/user/artists/RegisterArtist";
+//Artist navbar
+
+import Mynfts from "./store/mynfts/Mynfts";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
@@ -128,8 +145,14 @@ export const Main = () => {
                 )
               }
             >
+              <Route
+                path="userinformation"
+                element={<Userinformation address={address} />}
+              />
               <Route path="favorite" element={<Favorite address={address} />} />
+
               <Route path="playlist" element={<Playlist address={address} />} />
+
               <Route
                 path="collection"
                 element={<Collection address={address} />}
@@ -138,6 +161,10 @@ export const Main = () => {
               <Route
                 path="subscription"
                 element={<Subscription address={address} />}
+              />
+              <Route
+                path="artistsubmit"
+                element={<Artistsubmit address={address} />}
               />
             </Route>
             <Route

@@ -187,6 +187,12 @@ export const Mypage = ({ address }) => {
       <nav className="user-nav">
         <ul className="nav-links" onClick={navlinkOnClick}>
           <li>
+            <Link to="/mypage/userinformation">
+              <i className="uil uil-user"></i>
+              <span className="link-name"> User Information</span>
+            </Link>
+          </li>
+          <li>
             <Link to="/mypage/favorite">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite</span>
@@ -212,8 +218,14 @@ export const Mypage = ({ address }) => {
           </li>
           <li>
             <Link to="/mypage/subscription">
-              <i className="uil uil-dollar-sign-alt"></i>
-              <span className="link-name"> Subscription</span>1{" "}
+              <i className="uil uil-bitcoin-sign"></i>
+              <span className="link-name"> Subscription</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/mypage/artistsubmit">
+              <i className="uil uil-music"></i>
+              <span className="link-name"> Arstis Submit</span>
             </Link>
           </li>
         </ul>
