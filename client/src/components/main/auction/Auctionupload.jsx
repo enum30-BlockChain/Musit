@@ -28,7 +28,7 @@ export const Auctionupload = () => {
             <h2>Auction Start Price</h2>
             <Input
               type="number"
-              inputProps={{ min: 0 }}
+              inputProps={{ min: 0, style: { fontSize: 30 } }}
               placeholder="Amount(ETH)"
               sx={{ width: 400 }}
             ></Input>
@@ -43,6 +43,7 @@ export const Auctionupload = () => {
                 type="datetime-local"
                 defaultValue="2022-02-11T10:30"
                 sx={{ width: 400 }}
+                inputProps={{ style: { fontSize: 20 } }}
                 InputLabelProps={{
                   shrink: true,
                 }}

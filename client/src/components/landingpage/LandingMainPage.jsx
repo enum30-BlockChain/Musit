@@ -1,16 +1,16 @@
 import "./LandigMainPage.css";
 import React from "react";
-import Button from "@mui/material/Button";
-import Metamask from "./../../web3/Metamask";
+// import Button from "@mui/material/Button";
+// import Metamask from "./../../web3/Metamask";
 
 export default function LandingMainPage({ address }) {
-  const connectOnclick = () => {
-    Metamask.connectWallet();
-  };
+  // const connectOnclick = () => {
+  //   Metamask.connectWallet();
+  // };
 
-  const sliceAddress =
-    address &&
-    address.substr(0, 5) + "..." + address.substr(address.length - 4, 4);
+  // const sliceAddress =
+  //   address &&
+  //   address.substr(0, 5) + "..." + address.substr(address.length - 4, 4);
 
   return (
     <>
@@ -31,22 +31,6 @@ export default function LandingMainPage({ address }) {
             <span>ENUM30 X MUSIT</span>
           </li>
         </div>
-      </div>
-      <div className="login-btn">
-        {sliceAddress ? (
-          sliceAddress
-        ) : (
-          <Button
-            variant="contained"
-            sx={{
-              color: "var(--black-light-color)",
-              backgroundColor: "var(--box1-color)",
-            }}
-            onClick={connectOnclick}
-          >
-            Connect your BlockChain Wellet
-          </Button>
-        )}
       </div>
     </>
   );
