@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: "address",
       });
       Artist.hasMany(models.ArtistLike, {
-        foreignKey: { name: "artist_artist_name", allowNull: false },
+        foreignKey: { name: "artist_name", allowNull: false },
         targetKey: "artist_name",
       });
       Artist.hasMany(models.Music, {
