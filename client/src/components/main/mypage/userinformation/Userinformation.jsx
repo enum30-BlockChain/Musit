@@ -128,8 +128,8 @@ export default function Userinformation({ address }) {
       </div>
       <div className="user-info">
         <h2 className="nickname">Nickname</h2>
-        {user.nickname}
-        {visible && (
+
+        {visible ? (
           <div>
             <Input
               type="text"
@@ -138,6 +138,8 @@ export default function Userinformation({ address }) {
               value={user.nickname}
             ></Input>
           </div>
+        ) : (
+          <p>{user.nickname}</p>
         )}
         <h2 className="address">Address</h2>
         <span>{address}</span>

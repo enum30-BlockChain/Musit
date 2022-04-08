@@ -121,7 +121,7 @@ const RegisterUser = ({ address }) => {
           </div>
           <h1>Profile Image</h1>
 
-          <label for="register-fileupload">Choose your profile image</label>
+          <label htmlFor="register-fileupload">Choose your profile image</label>
           <Input
             id="register-fileupload"
             type="file"
