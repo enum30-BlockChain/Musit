@@ -8,8 +8,8 @@ const App = () => {
   return (
     <>
       <Back />
-      <Navbar />
       <Main />
+      <Navbar />
     </>
   );
 };

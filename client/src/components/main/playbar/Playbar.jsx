@@ -260,8 +260,6 @@ export const Playbar = (props) => {
 
   return (
     <>
-      <h1>Music Player</h1>
-
       <div className="music-container">
         <div className="music-info">
           <div

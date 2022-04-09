@@ -1,13 +1,14 @@
 @import "../../styles/variables.css";
 
 .main {
-  position: relative;
+  position: fixed;
+  top: 0;
   left: 250px;
-  background-color: var(--panel-color);
   width: calc(100% - 250px);
   min-height: 100vh;
   padding: 10px 30px;
   transition: var(--tran-05);
+  width: calc(100% - 73px);
 }
 
 nav.close ~ .main {

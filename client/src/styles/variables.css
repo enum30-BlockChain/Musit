@@ -1,15 +1,19 @@
 :root {
   /* ===== Colors ===== */
-  --primary-color: #D8BDAD;
-  --secondary-color: #6768AB;
-  --panel-color: #FFF;
+  --primary-color: #6768ab;
+  --secondary-color: #6768ab;
+  --panel-color: linear-gradient(
+    60deg,
+    rgb(152, 133, 228) 0%,
+    rgb(55, 52, 102) 100%
+  );
   --text-color: #000;
-  --black-light-color: #707070;
+  --black-light-color: gray;
   --border-color: #e6e5e5;
-  --toggle-color: #DDD;
-  --box1-color: #4DA3FF;
-  --box2-color: #FFE6AC;
-  --box3-color: #E7D1FC;
+  --toggle-color: rgb(173, 173, 173);
+  --box1-color: #4da3ff;
+  --box2-color: #ffe6ac;
+  --box3-color: #e7d1fc;
   --box4-color: #e0cec3;
   --box5-color: #ddd;
   --title-icon-color: #fff;
@@ -22,17 +26,17 @@
 
 body.dark {
   /* ===== Dark Colors ===== */
-  --primary-color: #D8BDAD;
-  --secondary-color: #6768AB;
+  --primary-color: #6768ab;
+  --secondary-color: #6768ab;
   --panel-color: #252626;
-  --text-color: #CCC;
-  --black-light-color: #CCC;
-  --border-color: #4D4C4C;
-  --toggle-color: #FFF;
-  --box1-color: #3A3B3C;
-  --box2-color: #3A3B3C;
-  --box3-color: #3A3B3C;
-  --box4-color: #3A3B3C;
+  --text-color: #ccc;
+  --black-light-color: #ccc;
+  --border-color: #4d4c4c;
+  --toggle-color: rgb(173, 173, 173);
+  --box1-color: #3a3b3c;
+  --box2-color: #3a3b3c;
+  --box3-color: #3a3b3c;
+  --box4-color: #3a3b3c;
   --box5-color: #4d4d4d;
   --title-icon-color: #252626;
 }

@@ -1,15 +1,15 @@
+@import "../../../styles/variables.css";
+
 .main .searchbar {
   position: fixed;
   height: 65px;
   top: 0;
-  left: 250px;
+  left: var(250px);
   display: flex;
   width: calc(100% - 250px);
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
-  background-color: var(--panel-color);
-  transition: var(--tran-05);
   z-index: 10;
 }
 
@@ -70,25 +70,25 @@ nav.side-nav.close ~ .main .searchbar {
   display: flex;
 }
 
-/* @media (max-width: 1000px) {
-  nav.side-nav~section.main .searchbar {
+@media (max-width: 1000px) {
+  nav.side-nav ~ section.main .searchbar {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav.side-nav.close~section.main .searchbar {
+  nav.side-nav.close ~ section.main .searchbar {
     left: 250px;
     width: calc(100% - 250px);
   }
 }
 
 @media (max-width: 500px) {
-  nav.side-nav~section.main .searchbar {
+  nav.side-nav ~ section.main .searchbar {
     left: 73px;
     width: calc(100% - 73px);
   }
 
-  nav.side-nav.close~section.main .searchbar {
+  nav.side-nav.close ~ section.main .searchbar {
     left: 73px;
     width: calc(100% - 73px);
   }
@@ -96,4 +96,4 @@ nav.side-nav.close ~ .main .searchbar {
   .searchbar .sidebar-toggle {
     display: none;
   }
-} */
+}

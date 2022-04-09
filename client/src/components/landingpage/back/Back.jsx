@@ -6,7 +6,7 @@ function Back() {
     <>
       <div className="header">
         <div class="inner-header flex">
-          <h1>타이틀 예쁘게 넣자</h1>
+          <h1> 백그라운드</h1>
         </div>
 
         <div>
