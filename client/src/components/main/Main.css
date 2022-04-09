@@ -3,7 +3,7 @@
 .main {
   position: fixed;
   top: 0;
-  left: 250px;
+  left: 220px;
   width: calc(100% - 250px);
   min-height: 100vh;
   padding: 10px 30px;
