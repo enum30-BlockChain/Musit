@@ -6,13 +6,24 @@ import Metamask from "../../web3/Metamask";
 import React, { useEffect, useState } from "react";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Route, Routes } from "react-router-dom";
-import { Dashboard } from "./dashboard/Dashboard";
+import axios from "axios";
+import { fetchUserData, testFunc } from "../../redux/user/userAction";
+import { fetchUserListData } from "../../redux/userList/userListAction";
+import { fetchMusicListData } from "../../redux/musicList/musicListAction";
+import { fetchLikeListData } from "../../redux/likeList/likeListAction";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchArtistData } from "../../redux/artist/artistAction";
+
+//Navbar
 import { Mypage } from "./mypage/Mypage";
 import { Music } from "./music/Music";
 import { Store } from "./store/Store";
 import { Auctionupload } from "./auction/Auctionupload";
 import { Artist } from "./artist/Artist";
-import { Playbar } from "./playbar/Playbar";
+import { Dashboard } from "./dashboard/Dashboard";
+
+//Mypage
+import Userinformation from "./mypage/userinformation/Userinformation";
 import { Favorite } from "./mypage/favorite/Favorite";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { Playlist } from "./mypage/playlist/Playlist";
@@ -22,22 +33,15 @@ import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
 import { Create } from "./create/Create";
-import LandingMainPage from "../landingpage/LandingMainPage";
 import Search from "./serach/Search";
 import Mynfts from "./store/mynfts/Mynfts";
+import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 import Album from "./artist/myalbum/Album";
 
-import axios from "axios";
+//상단 하단 고정
+import { Playbar } from "./playbar/Playbar";
 
-import { fetchUserData, testFunc } from "../../redux/user/userAction";
-import { fetchUserListData } from "../../redux/userList/userListAction";
-import { fetchMusicListData } from "../../redux/musicList/musicListAction";
-import { fetchLikeListData } from "../../redux/likeList/likeListAction";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistData } from "../../redux/artist/artistAction";
-
-import Userinformation from "./mypage/userinformation/Userinformation";
-import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
+import LandingMainPage from "../landingpage/LandingMainPage";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
