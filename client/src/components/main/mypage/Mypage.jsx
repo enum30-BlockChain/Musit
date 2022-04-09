@@ -2,7 +2,7 @@ import "./Mypage.css";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
-// import Userinformation from "./../mypage/userinformation/Userinformation";
+import Userinformation from "./../mypage/userinformation/Userinformation";
 
 export const Mypage = () => {
   const user = useSelector((state) => state.user);
@@ -64,6 +64,8 @@ export const Mypage = () => {
       <div className="detail">
         <Outlet />
       </div>
+
+      <Userinformation />
     </div>
   );
 };

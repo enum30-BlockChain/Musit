@@ -135,8 +135,8 @@ export default function Userinformation({ address }) {
               type="text"
               sx={{ width: 400 }}
               onChange={idonchange}
-              value={user.nickname}
-            ></Input>
+              defaultValue={user.nickname}
+            />
           </div>
         ) : (
           <p>{user.nickname}</p>
