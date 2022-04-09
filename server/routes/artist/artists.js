@@ -1,14 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const likesRouter = require("./likes");
 const { Artist, ArtistLike, Music, User } = require("../../models/index");
-
-router.use("/likes", likesRouter);
 
 /* Create */
 router.post("/", async (req, res, next) => {
 	try {
-		// 필수 요소에 대한 입력 값에 대한 유효성 검사
+		// 필수 입력 값 확인
 		if (req.body.user_address.trim() === "") {
 			res.send(400, "Incorrect address");
 		} else if (req.body.user_address.trim() === "") {
@@ -19,7 +16,7 @@ router.post("/", async (req, res, next) => {
 		}
 	} catch (err) {
 		console.error(err);
-		res.send(400, "Create new artist failed");
+		res.send(500, "Create new artist failed");
 	}
 });
 
@@ -31,7 +28,7 @@ router.get("/", async (req, res, next) => {
 		});
 		res.send(userList);
 	} catch (err) {
-		res.send(500, "Fetch artsit list falied");
+		res.send(500, "Read artsit list falied");
 	}
 });
 
@@ -43,7 +40,7 @@ router.get("/:user_address", async (req, res, next) => {
 		});
 		res.send(userInfo);
 	} catch (err) {
-		res.send(500, "Fetch artist info faild");
+		res.send(500, "Read artist info faild");
 	}
 });
 
@@ -65,12 +62,12 @@ router.patch("/:user_address", async (req, res, next) => {
       if (result[0] === 0) {
         res.send(400, "Update failed");
       } else {
-        res.send("Update success");
+        res.send("Update aritst info success");
       }
     }
 	} catch (err) {
-		console.error(err);
-		res.send(500, "Error occurred");
+	console.error(err);
+		res.send(500, "Update artist info failed");
 	}
 });
 
@@ -81,10 +78,10 @@ router.delete("/:user_address", async (req, res, next) => {
 			where: { user_address : req.params.user_address },
 		});
 
-		res.send(200, result);
+		res.send(200, "Delete success");
 	} catch (err) {
 		console.error(err);
-		res.send(500, err);
+		res.send(500, "Delete artist failed");
 	}
 });
 

@@ -6,7 +6,7 @@ const { User, ArtistLike, MusicLike } = require("../models/index");
 /* Create */
 router.post("/", async (req, res, next) => {
 	try {
-		// 필수 요소에 대한 입력 값에 대한 유효성 검사
+		// 필수 입력 값 확인
 		if (req.body.address.trim() === "") {
 			res.send(400, "Incorrect address");
 		} else if (req.body.nickname.trim() === "") {
@@ -19,7 +19,7 @@ router.post("/", async (req, res, next) => {
 		}
 	} catch (err) {
 		console.error(err);
-		res.send(400, "Create new user failed");
+		res.send(500, "Create new user failed");
 	}
 });
 
@@ -30,7 +30,7 @@ router.get("/", async (req, res, next) => {
 		const userList = await User.findAll({include: [{ model: ArtistLike }, { model: MusicLike }],});
 		res.send(userList);
 	} catch (err) {
-		res.send(500, err);
+		res.send(500, "Read all user list failed");
 	}
 });
 
@@ -42,7 +42,7 @@ router.get("/:address", async (req, res, next) => {
 		});
 		res.send(userInfo);
 	} catch (err) {
-		res.send(500, err);
+		res.send(500, "Read user info failed");
 	}
 });
 
@@ -65,14 +65,14 @@ router.patch("/:address", async (req, res, next) => {
 			
 			// Update에 잘못된 내용이 들어가면 0을 반환 => Bad request(400) 
 			if (result[0] === 0) {
-				res.send(400, "Update failed")
+				res.send(400, "Update user info failed")
 			} else {
-				res.send("Update success");
+				res.send("Update user info success");
 			}
 		}
 	} catch (err) {
 		console.error(err);
-		res.send(500, "Error occurred");
+		res.send(500, "Update user info failed");
 	}
 });
 
@@ -82,11 +82,11 @@ router.delete("/:address", async (req, res, next) => {
 		const result = await User.destroy({
 			where: { address: req.params.address },
 		});
-    
+
 		res.send(200, result);
 	} catch (err) {
 		console.error(err);
-		res.send(500, err);
+		res.send(500, "Delete user failed");
 	}
 });
 

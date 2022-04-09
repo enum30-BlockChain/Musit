@@ -15,27 +15,41 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Music.init(
-    {
-      ipfs_hash: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        primaryKey: true,
-      },
-      title: { type: DataTypes.STRING, allowNull: false },
-      play_time: { type: DataTypes.INTEGER, allowNull: false },
-      play_count: { type: DataTypes.INTEGER, allowNull: false },
-      description: { type: DataTypes.STRING, allowNull: true },
-      img_file: { type: DataTypes.STRING, allowNull: false },
-      Genre: { type: DataTypes.STRING, allowNull: false },
-    },
-    {
-      sequelize,
-      timestamps: false,
-      modelName: "Music",
-      tableName: "music",
-      charset: "utf8mb4",
-      collate: "utf8mb4_general_ci",
-    }
-  );
+		{
+			ipfs_hash: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				primaryKey: true,
+			},
+			title: { type: DataTypes.STRING, allowNull: false },
+			img_file: { type: DataTypes.STRING, allowNull: false },
+			genre: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				get() {
+					const rawValue = this.getDataValue("genre");
+					return rawValue ? rawValue.split(",") : null;
+				},
+				set(val) {
+					this.setDataValue("genre", val.join(","));
+				},
+			},
+			description: { type: DataTypes.STRING, allowNull: true },
+			play_time: { type: DataTypes.INTEGER, allowNull: true, defaultValue: 0 },
+			play_count: {
+				type: DataTypes.INTEGER,
+				allowNull: true,
+				defaultValue: 0,
+			},
+		},
+		{
+			sequelize,
+			timestamps: false,
+			modelName: "Music",
+			tableName: "music",
+			charset: "utf8mb4",
+			collate: "utf8mb4_general_ci",
+		}
+	);
   return Music;
 };

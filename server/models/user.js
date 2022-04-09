@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasOne(models.Artist, {
-        foreignKey: { name: "user_address", allowNull: false },
+        foreignKey: { name: "user_address", allowNull: false, unique: true},
         targetKey: "address",
       });
       User.hasMany(models.ArtistLike, {
