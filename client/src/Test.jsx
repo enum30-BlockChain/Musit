@@ -14,7 +14,13 @@ export default function Test() {
 		setAlbumCoverImgFile(e.target.files[0]);
 	};
 	const getAudio = (e) => {
-		setAudiofile(e.target.files[0]);
+		if (e.target.files[0].size > 1048576 * 10) {
+			// Max size: 10MB (1MB = 1,048,576 bytes)
+			alert("You can upload less than 10MB.");
+			e.target.value = "";
+		} else {
+			setAudiofile(e.target.files[0]);
+		}
 	};
 	const submit = async () => {
 		imgFormData.append("img", albumCoverImgFile);

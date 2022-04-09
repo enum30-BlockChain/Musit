@@ -3,96 +3,60 @@ const router = express.Router();
 
 const { ArtistLike, Artist } = require("../../models/index");
 
-/* GET ArtistLike listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
-
-router.post("/list", async (req, res, next) => {
-  console.log("artists/likes/list");
-  console.log(req.body);
+/* Create */
+router.post("/", async (req, res, next) => {
   try {
-    const artistlike = await ArtistLike.findAll({
-      where: {
-        user_address: req.body.address,
-      },
-    });
+    // 필수 입력 값 확인
+		if (req.body.user_address.trim() === "") {
+			res.send(400, "Incorrect address");
+		} else if (req.body.user_address.trim() === "") {
+			res.send(400, "Empty nickname");
+		} else {
+      const result = await ArtistLike.create(req.body)
+      res.send(result)
+    }
+  } catch (err) {
+    res.send(500, "Create new aritst-like failed")
+  }
+})
+
+/* Read */
+router.get("/", async (req, res, next) => {
+  try {
+    const artistlike = await ArtistLike.findAll();
     res.send(artistlike);
   } catch (err) {
     console.error(err);
+    res.send(500, "Read artist-like list falied")
   }
 });
 
-router.post("/list/detail", async (req, res, next) => {
-  console.log(2222222222222);
-  console.log(req.body);
-  console.log(2222222222222);
+router.get("/:artist_name", async (req, res, next) => {
   try {
-    const artistdetail = await Artist.findAll({
-      include: { model: ArtistLike, where: { user_address: req.body.address } },
-    });
-    res.send(artistdetail);
+    const artistlike = await ArtistLike.findAll({
+			where: { artist_name: req.params.artist_name },
+		});
+    res.send(artistlike);
   } catch (err) {
     console.error(err);
+    res.send(500, "Read artist-like list falied")
   }
 });
 
-router.post("/like", async (req, res, next) => {
+/* Delete */
+router.delete("/:artist_name", async (req, res, next) => {
   try {
-    const artist = await ArtistLike.findOne({
-      where: {
-        artist_artist_name: req.body.selected,
-        user_address: req.body.address,
-      },
-    });
-    if (artist == null) {
-      const artist = await ArtistLike.create({
-        Id: req.body.selected,
-        artist_artist_name: req.body.selected,
-        user_address: req.body.address,
-      });
-      const artistlike = await ArtistLike.findAll({
-        include: {
-          model: Artist,
-          where: { artist_name: req.body.selected },
-        },
-      });
-      const likesup = await Artist.update(
-        {
-          likes: artistlike.length,
-        },
-        {
-          where: {
-            artist_name: req.body.selected,
-          },
-        }
-      );
+    const result = await ArtistLike.destroy({
+			where: { artist_name: req.params.artist_name },
+		});
+    if(result) {
+      res.send("Delete artist-like success");
     } else {
-      var artistdelete = await ArtistLike.destroy({
-        where: {
-          artist_artist_name: req.body.selected,
-          user_address: req.body.address,
-        },
-      });
-      const artistlike = await ArtistLike.findAll({
-        include: {
-          model: Artist,
-          where: { artist_name: req.body.selected },
-        },
-      });
-      var artistdowndate = await Artist.update(
-        {
-          likes: artistlike.length,
-        },
-        {
-          where: {
-            artist_name: req.body.selected,
-          },
-        }
-      );
+      res.send(400, "Delete artist-like failed")
     }
   } catch (err) {
     console.error(err);
+    res.send(500, "Delete artist-like list falied")
   }
 });
 

@@ -1,13 +1,15 @@
 import { ActionTypes } from "../constants/actionTypes";
 import axios from "axios";
 
+/**** Create ****/
 export const createMusicData = (imgFormData, audioFormData) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_LIST_REQUEST });
 		try {
       const artistInfo = getState().myArtist;
-      const img_file = (await axios
-      .post("http://localhost:5000/files/imgupload",imgFormData)).data;
+      const img_file = (
+				await axios.post("http://localhost:5000/files/imgupload", imgFormData)
+			).data;
       console.log(img_file);
       console.log(audioFormData);
 
@@ -20,10 +22,7 @@ export const createMusicData = (imgFormData, audioFormData) => {
 			// const createData = 
 			// 	await axios.post("http://localhost:5000/music/", musicData)
       // console.log(createData);
-			dispatch({
-				type: ActionTypes.MUSIC_CREATE_SUCCESS,
-        payload: createData,
-			});
+			dispatch({ type: ActionTypes.MUSIC_CREATE_SUCCESS });
 		} catch (error) {
 			dispatch({
 				type: ActionTypes.MUSIC_LIST_FAIL,
@@ -33,6 +32,7 @@ export const createMusicData = (imgFormData, audioFormData) => {
 	};
 };
 
+/**** Read ****/
 export const readMusicList = () => {
   return async (dispatch, getState) => {
     dispatch({type: ActionTypes.MUSIC_LIST_REQUEST});
@@ -53,6 +53,7 @@ export const readMusicList = () => {
   };
 };
 
+/**** Seleted Music ****/
 export const selectedMusic = (music) => {
   return {
     type: ActionTypes.SELECTED_MUSIC,

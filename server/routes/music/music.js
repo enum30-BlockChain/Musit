@@ -62,16 +62,26 @@ router.get("/:ipfs_hash", async (req, res, next) => {
 /* Update */
 router.patch("/", async (req, res, next) => {
   try {
-    const data = req.body;
-    console.log(data);
-    await Music.update(
-      req.body,
-      { where: { ipfs_hash: data.music_link } }
-    );
-    res.send({ result: 0, message: "수정이 완료되었습니다." });
+    if (req.body.ipfs_hash) {
+			res.send(400, "Cannot change music file");
+		} else if (req.body.title.trim() === "") {
+			res.send(400, "Empty title");
+		} else if (req.body.img_file.trim() === "") {
+			res.send(400, "Empty img file");
+		} else if (typeof req.body.genre !=="object" && req.body.genre.length === 0) {
+			res.send(400, "Empty genre");
+		} else if (req.body.artist_name.trim() === "") {
+			res.send(400, "Empty artist name");
+		} else {
+      await Music.update(
+        req.body,
+        { where: { ipfs_hash: req.body.ipfs_hash } }
+      );
+      res.send("Update music info success");
+    }
   } catch (err) {
     console.log(err);
-    res.send({ result: 2, message: "에러*_* 다시해주셈" });
+    res.send(500, "Update music info failed");
   }
 });
 

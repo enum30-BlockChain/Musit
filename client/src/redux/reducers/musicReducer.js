@@ -48,6 +48,7 @@ export const musicListReducer = (
 	}
 };
 
+/* Selected Music Reducer */
 export const selectedMusicReducer = (state = {}, { type, payload }) => {
 	switch (type) {
 		case ActionTypes.SELECTED_MUSIC:

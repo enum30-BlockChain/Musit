@@ -9,15 +9,10 @@ export const createArtistData = (inputs) => {
 		try {
 			// 메타마스크 reducer에서 주소 가져옴
 			let accounts = getState().metamask.accounts;
-
 			const url = "http://localhost:5000/artists/";
-			const createData = (
-				await axios.post(url, { ...inputs, user_address: accounts[0] })
-			).data;
-			dispatch({
-				type: ActionTypes.ARTIST_CREATE_SUCCESS,
-				payload: createData,
-			});
+			await axios.post(url, { ...inputs, user_address: accounts[0] });
+
+			dispatch({ type: ActionTypes.ARTIST_CREATE_SUCCESS });
 		} catch (error) {
 			dispatch({
 				type: ActionTypes.ARTIST_DATA_FAIL,
@@ -30,7 +25,7 @@ export const createArtistData = (inputs) => {
 /**** Read ****/
 /* 아티스트 전체 리스트 불러오기 */
 export const readArtistList = () => {
-	return async (dispatch, getState) => {
+	return async (dispatch) => {
 		dispatch({ type: ActionTypes.ARTIST_LIST_REQUEST });
 		try {
 			const url = "http://localhost:5000/artists/";
@@ -56,13 +51,20 @@ export const readMyArtistData = () => {
 		try {
 			// 메타마스크 reducer에서 주소 가져옴
 			let accounts = getState().metamask.accounts;
-
-			const url = `http://localhost:5000/artists/${accounts[0]}`;
-			const artistInfo = (await axios.get(url)).data;
-			dispatch({
-				type: ActionTypes.ARTIST_READ_SUCCESS,
-				payload: artistInfo,
-			});
+			if (accounts.length > 0) {
+				const url = `http://localhost:5000/artists/${accounts[0]}`;
+				const artistInfo = (await axios.get(url)).data;
+				console.log(artistInfo);
+				dispatch({
+					type: ActionTypes.ARTIST_READ_SUCCESS,
+					payload: artistInfo,
+				});
+			} else {
+				dispatch({
+					type: ActionTypes.ARTIST_DATA_FAIL,
+					payload: "Account is not found",
+				});
+			}
 		} catch (error) {
 			dispatch({
 				type: ActionTypes.ARTIST_DATA_FAIL,
@@ -81,13 +83,20 @@ export const updateMyArtistData = (inputs) => {
 			// 메타마스크 reducer에서 주소 가져옴
 			let accounts = getState().metamask.accounts;
 
-			const url = `http://localhost:5000/artists/${accounts[0]}`;
-			await axios.patch(url, inputs);
+			if (accounts.length > 0) {
+				const url = `http://localhost:5000/artists/${accounts[0]}`;
+				await axios.patch(url, inputs);
 
-			dispatch({
-				type: ActionTypes.ARTIST_UPDATE_SUCCESS,
-				payload: inputs,
-			});
+				dispatch({
+					type: ActionTypes.ARTIST_UPDATE_SUCCESS,
+					payload: inputs,
+				});
+			} else {
+				dispatch({
+					type: ActionTypes.ARTIST_DATA_FAIL,
+					payload: "Account is not found",
+				});
+			}
 		} catch (error) {
 			dispatch({
 				type: ActionTypes.ARTIST_DATA_FAIL,
@@ -105,12 +114,18 @@ export const deleteMyArtistData = () => {
 		try {
 			// 메타마스크 reducer에서 주소 가져옴
 			let accounts = getState().metamask.accounts;
-
-			const url = `http://localhost:5000/artists/${accounts[0]}`;
-			const userInfo = (await axios.delete(url)).data;
-			dispatch({
-				type: ActionTypes.ARTIST_DELETE_SUCCESS,
-			});
+			if (accounts.length > 0) {
+				const url = `http://localhost:5000/artists/${accounts[0]}`;
+				const userInfo = (await axios.delete(url)).data;
+				dispatch({
+					type: ActionTypes.ARTIST_DELETE_SUCCESS,
+				});
+			} else {
+				dispatch({
+					type: ActionTypes.ARTIST_DATA_FAIL,
+					payload: "Account is not found",
+				});
+			}
 		} catch (error) {
 			dispatch({
 				type: ActionTypes.ARTIST_DATA_FAIL,
@@ -120,6 +135,62 @@ export const deleteMyArtistData = () => {
 	};
 };
 
+/**** Like ****/
+/* 좋아요 눌렀을 때 동작 */
+export const toggleLikeArtist = () => {
+	return async (dispatch, getState) => {
+		dispatch({ type: ActionTypes.LIKE_ARTIST_REQUEST });
+		try {
+			const userInfo = getState().user;
+			const artistName = getState().selectedArtist.artist_name;
+
+			if (userInfo && artistName) {
+				// user 정보, 선택한 아티스트 이름이 있을 때만 실행
+				if (userInfo.ArtistLikes.indexOf(artistName) === -1) {
+					// 좋아요를 안눌렀으면 생성
+					const url = `http://localhost:5000/artists/likes`;
+					await axios.post(url, {
+						artist_name: artistName,
+						user_address: userInfo.address,
+					});
+
+					dispatch({
+						type: ActionTypes.LIKE_ARTIST_SUCCESS,
+						payload: {
+							artist_name: artistName,
+							user_address: userInfo.address,
+						},
+					});
+				} else {
+					// 좋아요를 눌렀으면 다시 삭제
+					const url = `http://localhost:5000/artists/likes/${artistName}`;
+					await axios.delete(url, { user_address: userInfo.address });
+
+					dispatch({
+						type: ActionTypes.LIKE_ARTIST_SUCCESS,
+						payload: {
+							artist_name: artistName,
+							user_address: userInfo.address,
+						},
+					});
+				}
+			} else {
+				// user 정보, 선택한 아티스트 이름 중 하나라도 없으면 실패
+				dispatch({
+					type: ActionTypes.LIKE_ARTIST_FAIL,
+					payload: "Cannot find user info or selected artist info",
+				});
+			}
+		} catch (err) {
+			dispatch({
+				type: ActionTypes.LIKE_ARTIST_FAIL,
+				payload: "Like artist request fail",
+			});
+		}
+	};
+};
+
+/**** Seleted Artist ****/
 export const selectedArtist = (artist) => {
 	return {
 		type: ActionTypes.SELECTED_ARTIST,

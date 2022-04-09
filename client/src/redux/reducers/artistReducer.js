@@ -1,19 +1,22 @@
 import { ActionTypes } from "../constants/actionTypes";
 
 /* My Artist Reducer */
-const initialState = {
+const myAritstInitialState = {
 	loading: false,
 	artist_name: null,
 	user_address: null,
 	img: null,
 	likes: null,
-	user: {},
-	music: [],
+	User: {},
+	Music: [],
 	error: false,
 	errorMsg: "",
 };
 
-export const myArtistReducer = (state = initialState, { type, payload }) => {
+export const myArtistReducer = (
+	state = myAritstInitialState,
+	{ type, payload }
+) => {
 	switch (type) {
 		case ActionTypes.ARTIST_DATA_REQUEST:
 			return {
@@ -26,7 +29,6 @@ export const myArtistReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				loading: false,
-				...payload,
 				error: false,
 				errorMsg: "",
 			};
@@ -66,7 +68,7 @@ export const myArtistReducer = (state = initialState, { type, payload }) => {
 };
 
 /* Artist List Reducer */
-const initialListState = {
+const artistListInitialState = {
 	loading: false,
 	data: [],
 	error: false,
@@ -74,7 +76,7 @@ const initialListState = {
 };
 
 export const artistListReducer = (
-	state = initialListState,
+	state = artistListInitialState,
 	{ type, payload }
 ) => {
 	switch (type) {
@@ -105,6 +107,49 @@ export const artistListReducer = (
 	}
 };
 
+/* Like Artist Reducer */
+const likeArtistInitialState = {
+	loading: false,
+	artist_name: null,
+	user_name: null,
+	error: false,
+	errorMsg: "",
+};
+
+export const likeArtistReducer = (
+	state = likeArtistInitialState,
+	{ type, payload }
+) => {
+	switch (type) {
+		case ActionTypes.LIKE_ARTIST_REQUEST:
+			return {
+				...state,
+				loading: true,
+				error: false,
+				errorMsg: "",
+			};
+		case ActionTypes.LIKE_ARTIST_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				...payload,
+				error: false,
+				errorMsg: "",
+			};
+		case ActionTypes.LIKE_ARTIST_FAIL:
+			return {
+				...state,
+				loading: false,
+				error: true,
+				errorMsg: payload,
+			};
+		default:
+			return state;
+	}
+};
+
+
+/* Selected Artist Reducer */
 export const selectedArtistReducer = (state = {}, { type, payload }) => {
 	switch (type) {
 		case ActionTypes.SELECTED_ARTIST:

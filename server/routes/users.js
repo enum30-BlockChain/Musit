@@ -82,8 +82,11 @@ router.delete("/:address", async (req, res, next) => {
 		const result = await User.destroy({
 			where: { address: req.params.address },
 		});
-
-		res.send(200, result);
+		if(result) {
+      res.send("Delete user success");
+    } else {
+      res.send(400, "Delete user failed")
+    }
 	} catch (err) {
 		console.error(err);
 		res.send(500, "Delete user failed");

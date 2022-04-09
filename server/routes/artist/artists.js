@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { Artist, ArtistLike, Music, User } = require("../../models/index");
+const likesRouter = require("./likes.js")
+
+/* Artist Likes Router */
+router.use("/likes", likesRouter);
 
 /* Create */
 router.post("/", async (req, res, next) => {
@@ -8,7 +12,7 @@ router.post("/", async (req, res, next) => {
 		// 필수 입력 값 확인
 		if (req.body.user_address.trim() === "") {
 			res.send(400, "Incorrect address");
-		} else if (req.body.user_address.trim() === "") {
+		} else if (req.body.artist_name.trim() === "") {
 			res.send(400, "Empty nickname");
 		} else {
 			const result = await Artist.create(req.body);
@@ -77,8 +81,11 @@ router.delete("/:user_address", async (req, res, next) => {
 		const result = await Artist.destroy({
 			where: { user_address : req.params.user_address },
 		});
-
-		res.send(200, "Delete success");
+		if(result) {
+      res.send("Delete artist-like success");
+    } else {
+      res.send(400, "Delete artist-like failed")
+    }
 	} catch (err) {
 		console.error(err);
 		res.send(500, "Delete artist failed");

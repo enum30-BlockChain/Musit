@@ -7,7 +7,8 @@ import { readMusicList } from './redux/actions/musicActions'
 import { createUserData, deleteUserData, readUserData, updateUserData } from './redux/actions/userActions'
 import { createMusicData } from './redux/actions/musicActions'
 import Test from './Test'
-import Ysh from './Ysh'
+import ArtistTest from './ArtistTest'
+import UserTest from './UserTest'
 
 function App() {
   const user = useSelector(state => state.user)
@@ -23,30 +24,6 @@ function App() {
     }
     init()
   }, []);
-  const createOnClick = async () => {
-    await dispatch(createUserData({
-      address: "test1",
-      genre: ["test1", "test2", "test3"],
-      nation: "option1",
-      nickname: "nickname1",
-      img: "img1",
-    }))
-  }
-
-  const readOnClick = async () => {
-    await dispatch(readUserData())
-  }
-  
-  const updateOnClick = async () => {
-    await dispatch(updateUserData({
-      nickname: "라이츄",
-      genre:["1", "2"]
-    }))
-  }
-
-  const deleteOnClick = async () => {
-    await dispatch(deleteUserData())
-  }
 
   if (user.loading) {
     return (
@@ -58,20 +35,18 @@ function App() {
   } else 
   return (
 		<div className="App">
-			<button onClick={createOnClick}>Create</button>
-			<button onClick={readOnClick}>Read</button>
-			<button onClick={updateOnClick}>Update</button>
-			<button onClick={deleteOnClick}>Delete</button>
+			
 			{user.error ? (
 				<>유저없음</>
 			) : (
 				<div>
 					<div>{user.address}</div>
 					<div>{user.nickname}</div>
-          <Ysh/>
+          <UserTest/>
+          <ArtistTest/>
+          <Test />
 				</div>
 			)}
-      <Test />
 		</div>
 	);
 }
