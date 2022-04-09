@@ -44,14 +44,14 @@ router.post("/like", async (req, res, next) => {
   try {
     const artist = await ArtistLike.findOne({
       where: {
-        artist_artist_name: req.body.selected,
+        artist_name: req.body.selected,
         user_address: req.body.address,
       },
     });
     if (artist == null) {
       const artist = await ArtistLike.create({
         Id: req.body.selected,
-        artist_artist_name: req.body.selected,
+        artist_name: req.body.selected,
         user_address: req.body.address,
       });
       const artistlike = await ArtistLike.findAll({
@@ -74,7 +74,7 @@ router.post("/like", async (req, res, next) => {
     } else {
       const artistdelete = await ArtistLike.destroy({
         where: {
-          artist_artist_name: req.body.selected,
+          artist_name: req.body.selected,
           user_address: req.body.address,
         },
       });
