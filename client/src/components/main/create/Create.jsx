@@ -179,7 +179,7 @@ export const Create = ({ address }) => {
       <h1 className="create-title">Create your music file</h1>
       <div className="create-layout">
         <div className="create-imgbox">
-          <h2>Album Cover Image</h2>
+          <h1>Album Cover Image</h1>
           {albumCoverImgFile && (
             <img src={URL.createObjectURL(albumCoverImgFile)}></img>
           )}

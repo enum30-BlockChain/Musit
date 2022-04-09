@@ -12,7 +12,7 @@ export const Mypage = () => {
     <div className="mypage">
       <nav className="user-nav">
         <ul className="nav-links">
-          <li>
+          {/* <li>
             <Link to="/mypage/userinformation">
               <i className="uil uil-user"></i>
               <span className="link-name"> User Information</span>
@@ -22,6 +22,18 @@ export const Mypage = () => {
             <Link to="/mypage/favorite">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite</span>
+            </Link>
+          </li> */}
+          <li>
+            <Link to="/">
+              <i className="uil uil-favorite"></i>
+              <span className="link-name"> Favorite Music</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <i className="uil uil-favorite"></i>
+              <span className="link-name"> Favorite Artist</span>
             </Link>
           </li>
           <li>

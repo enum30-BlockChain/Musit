@@ -14,15 +14,15 @@
 }
 
 nav.close ~ .main {
+  width: var(100% - 73px);
   left: 73px;
-  width: calc(100% - 73px);
 }
 
 .main .main-content {
   position: absolute;
   width: 100%;
-  height: calc(100% - 65px - 100px);
+  /* height: calc(100% - 65px - 100px); */
   top: 65px;
   left: 0px;
-  padding: 0px 15px 15px 15px;
+  padding: 15px 15px 15px 15px;
 }

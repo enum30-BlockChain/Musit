@@ -132,6 +132,7 @@ export default function Userinformation({ address }) {
         {visible ? (
           <div>
             <Input
+              inputProps={{ style: { fontSize: 30 } }}
               type="text"
               sx={{ width: 400 }}
               onChange={idonchange}

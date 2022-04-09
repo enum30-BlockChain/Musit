@@ -104,80 +104,97 @@ const RegisterUser = ({ address }) => {
   // }, []);
 
   return (
-    <div className="mypage">
-      <div className="grid">
-        <div className="box">
-          <h1>Your Wallet Address</h1>
-          <div>
-            <p>
+    <>
+      <div className="register-layout">
+        <h1 className="register-user-tilte">Sign up to Enum30 Music</h1>
+        <div className="register-user">
+          <div className="address-and-img">
+            <h1>Your Wallet Address</h1>
+
+            <>
               {address === undefined ? (
-                <Button onClick={connectOnclick}>
-                  Bring your Wallet Address
-                </Button>
+                <>
+                  <label htmlFor="register-usernickname">
+                    Bring your Wallet Address
+                  </label>
+                  <button
+                    id="register-usernickname"
+                    style={{ display: "none" }}
+                    onClick={connectOnclick}
+                  />
+                </>
               ) : (
                 address
               )}
-            </p>
-          </div>
-          <h1>Profile Image</h1>
+            </>
 
-          <label htmlFor="register-fileupload">Choose your profile image</label>
-          <Input
-            id="register-fileupload"
-            type="file"
-            name="imgUpload"
-            style={{ display: "none" }}
-            accept="image/*"
-            onChange={getImg}
-          />
-          {albumCoverImgFile && (
-            <img
-              src={URL.createObjectURL(albumCoverImgFile)}
-              style={{ width: "200px" }}
-            ></img>
-          )}
-          <div>
+            <h1>Profile Image</h1>
+            {albumCoverImgFile && (
+              <img
+                src={URL.createObjectURL(albumCoverImgFile)}
+                style={{ width: "200px" }}
+              ></img>
+            )}
+            <div>
+              <label htmlFor="register-fileupload">
+                Choose your profile image
+              </label>
+              <Input
+                id="register-fileupload"
+                type="file"
+                name="imgUpload"
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={getImg}
+              />
+            </div>
+          </div>
+
+          <div className="register-input">
             <h1>Nickname</h1>
             <li>
               <Input
                 type="text"
                 placeholder="Nickname"
                 sx={{ width: 400 }}
+                inputProps={{ fontSize: "30px" }}
                 onChange={onChangeNick}
               ></Input>
             </li>
+
+            <div>
+              <h2>Nations</h2>
+              {nation.map((nation, index) => (
+                <CountryType
+                  id={index + 1}
+                  key={index}
+                  inputProps={{ width: "400px" }}
+                  name={nation}
+                  setOption={setOption}
+                  // style={{ display: "none" }}
+                />
+              ))}
+            </div>
+            <h1>Genre</h1>
+            <div className="genre">
+              {genre.map((MusicType, index) => (
+                <ListenerType
+                  id={index + 1}
+                  key={index}
+                  name={MusicType}
+                  changeHandler={changeHandler}
+                  checkedInputs={checkedInputs}
+                />
+              ))}
+            </div>
           </div>
-          <div>
-            <h2>Nations</h2>
-            {nation.map((nation, index) => (
-              <CountryType
-                id={index + 1}
-                key={index}
-                sx={{ width: 400 }}
-                name={nation}
-                setOption={setOption}
-              />
-            ))}
-          </div>
-          <h1>Genre</h1>
-          <div className="genre">
-            {genre.map((MusicType, index) => (
-              <ListenerType
-                id={index + 1}
-                key={index}
-                name={MusicType}
-                changeHandler={changeHandler}
-                checkedInputs={checkedInputs}
-              />
-            ))}
-          </div>
-          <Button className="submit" onClick={UserHandleOnClick}>
-            Submit
-          </Button>
         </div>
-        <Outlet />
+        <Button className="submit" onClick={UserHandleOnClick}>
+          Submit
+        </Button>
       </div>
-    </div>
+      <Outlet />
+    </>
   );
 };
 
