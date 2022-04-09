@@ -64,7 +64,7 @@ export const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/music">
+              <Link to="/music/ranking">
                 <i className="uil uil-music"></i>
                 <span className="link-name">MUSIC</span>
               </Link>
