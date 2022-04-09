@@ -24,7 +24,6 @@ export const musicListReducer = (
 			return {
 				...state,
 				loading: false,
-        data: [...state.data, payload],
 				error: false,
 				errorMsg: "",
 			};
