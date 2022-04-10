@@ -16,7 +16,7 @@
 }
 
 .inner-header {
-  height: 73.5vh;
+  height: 73.8vh;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -36,7 +36,7 @@
   height: 40vh;
   margin-bottom: -7px; /*Fix for safari gap*/
   /* 파고 높이  */
-  min-height: 200px;
+  min-height: 100px;
   max-height: 250px;
 }
 

@@ -2,24 +2,22 @@
   margin: 20px 80px 30px 80px;
   padding: 20px;
   height: 620px;
-  background-color: #fff;
-  opacity: 0.6;
+  background-color: rgba(255, 255, 255, 0.6);
   text-align: center;
   border-radius: 10px;
 }
 
+.register-layout .register-user {
+  text-align: center;
+  display: flex;
+}
+
 .register-layout .address-and-img {
   border-right: 1px solid var(--border-color);
-  height: 480px;
-  /* width: 100%; */
+
   text-align: center;
 }
 
-.register-layout .register-user {
-  text-align: center;
-  width: 100%;
-  display: flex;
-}
 /* 
 .container {
   text-align: center;

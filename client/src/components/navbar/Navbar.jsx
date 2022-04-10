@@ -45,9 +45,10 @@ export const Navbar = () => {
       <Link to={"/landingpage"}>
         <div className="logo-name-container">
           <div className="logo-image">
-            <img src="/images/ENUM30.png" alt="logo" />
+            <h1 className="E">E</h1>
+            {/* <img src="/images/ENUM30.png" alt="logo" /> */}
           </div>
-          <span className="logo-name nav-links">ENUM30 X MUSIT</span>
+          <span className="logo-name nav-links">NUM30 X MUSIT</span>
         </div>
       </Link>
 

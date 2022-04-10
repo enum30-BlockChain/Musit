@@ -7,9 +7,7 @@
   height: 100vh;
   width: 220px;
   padding: 10px 14px;
-  background-color: #fff;
-  opacity: 0.6;
-  border-right: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.5);
   transition: var(--tran-05);
 }
 

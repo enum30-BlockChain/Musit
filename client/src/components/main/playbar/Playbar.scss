@@ -1,8 +1,7 @@
 @import "../../../styles/variables.css";
 
 .music-container {
-  background-color: #fff;
-  opacity: 0.6;
+  background-color: rgba(255, 255, 255, 0.6);
   display: flex;
   padding: 20px 30px;
   position: absolute;
@@ -58,9 +57,8 @@
 // }
 
 .action-btn {
-  background-color: rgb(243, 243, 243);
+  background-color: rgba(255, 255, 255, 0.001);
   border: 0;
-  color: #dfdbdf;
   font-size: 20px;
   cursor: pointer;
   padding: 10px;
@@ -68,7 +66,6 @@
 }
 
 .action-btn.action-btn-big {
-  color: #cdc2d0;
   font-size: 30px;
 }
 
