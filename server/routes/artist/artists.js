@@ -1,7 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const likesRouter = require("./likes");
-const { Artist, ArtistLike, Music, User } = require("../../models/index");
+const {
+  Artist,
+  ArtistLike,
+  Music,
+  User,
+  MusicLike,
+} = require("../../models/index");
 
 router.use("/likes", likesRouter);
 
@@ -97,6 +103,7 @@ router.post("/music", async (req, res, next) => {
         user_address: req.body.address,
       },
     });
+    console.log(music);
     res.send(music);
   } catch (err) {
     console.error(err);
