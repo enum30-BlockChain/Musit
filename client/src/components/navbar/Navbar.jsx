@@ -41,99 +41,134 @@ export const Navbar = () => {
   const artist = useSelector((state) => state.artist);
 
   return (
-    <nav className="side-nav">
-      <Link to={"/landingpage"}>
-        <div className="logo-name-container">
-          <div className="logo-image">
-            <h1 className="E">E</h1>
-            {/* <img src="/images/ENUM30.png" alt="logo" /> */}
-          </div>
-          <span className="logo-name nav-links">NUM30 X MUSIT</span>
-        </div>
-      </Link>
-
-      <div className="menu-items">
-        {artist.artist_name !== null && artist.artist_name !== undefined ? (
-          <ul className="nav-links">
-            <li>
-              <Link to="/mypage">
-                <i className="uil uil-create-dashboard"></i>
-                <span className="link-name">MYPAGE</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/music">
-                <i className="uil uil-music"></i>
-                <span className="link-name">MUSIC</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/store">
-                <i className="uil uil-store"></i>
-                <span className="link-name">STORE</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/artist">
-                <i className="uil uil-palette"></i>
-                <span className="link-name">ARTIST</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/cteate">
-                <i className="uil uil-upload"></i>
-                <span className="link-name">CREATE</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/auctionupload">
-                <i className="uil uil-arrow-growth"></i>
-                <span className="link-name">AUCTION</span>
-              </Link>
-            </li>
-          </ul>
-        ) : (
-          <ul className="nav-links">
-            <li>
-              <Link to="/mypage">
-                <i className="uil uil-create-dashboard"></i>
-                <span className="link-name">MYPAGE</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/music">
-                <i className="uil uil-music"></i>
-                <span className="link-name">MUSIC</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/store">
-                <i className="uil uil-store"></i>
-                <span className="link-name">STORE</span>
-              </Link>
-            </li>
-          </ul>
-        )}
-
-        <ul className="logout-mode">
-          <li>
-            <Link to="#">
-              <i className="uil uil-signout"></i>
-              <span className="link-name">Logout</span>
+    <>
+      {artist.artist_name !== null && artist.artist_name !== undefined ? (
+        <>
+          <nav className="side-nav">
+            <Link to={"/landingpage"}>
+              <div className="logo-name-container">
+                <div className="logo-image">
+                  <img src="/images/ENUM30.png" alt="logo" />
+                </div>
+                <span className="logo-name nav-links">ENUM30 X MUSIT</span>
+              </div>
             </Link>
-          </li>
 
-          <li className="mode">
-            <Link to="#">
-              <i className="uil uil-moon"></i>
-              <span className="link-name">Dark Mode</span>
-            </Link>
-            <div className="mode-toggle">
-              <span className="switch"></span>
+            <div className="menu-items">
+              <ul className="nav-links">
+                <li>
+                  <Link to="/mypage">
+                    <i className="uil uil-create-dashboard"></i>
+                    <span className="link-name">MYPAGE</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/music">
+                    <i className="uil uil-music"></i>
+                    <span className="link-name">MUSIC</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/store">
+                    <i className="uil uil-store"></i>
+                    <span className="link-name">STORE</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/artist">
+                    <i className="uil uil-palette"></i>
+                    <span className="link-name">ARTIST</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/cteate">
+                    <i className="uil uil-upload"></i>
+                    <span className="link-name">CREATE</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/auctionupload">
+                    <i className="uil uil-arrow-growth"></i>
+                    <span className="link-name">AUCTION</span>
+                  </Link>
+                </li>
+              </ul>
+              <ul className="logout-mode">
+                <li>
+                  <Link to="#">
+                    <i className="uil uil-signout"></i>
+                    <span className="link-name">Logout</span>
+                  </Link>
+                </li>
+
+                <li className="mode">
+                  <Link to="#">
+                    <i className="uil uil-moon"></i>
+                    <span className="link-name">Dark Mode</span>
+                  </Link>
+                  <div className="mode-toggle">
+                    <span className="switch"></span>
+                  </div>
+                </li>
+              </ul>
             </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          </nav>
+        </>
+      ) : (
+        <>
+          <nav className="side-nav">
+            <Link to={"/landingpage"}>
+              <div className="logo-name-container">
+                <div className="logo-image">
+                  <img src="/images/ENUM30.png" alt="logo" />
+                </div>
+                <span className="logo-name nav-links">ENUM30 X MUSIT</span>
+              </div>
+            </Link>
+
+            <div className="menu-items">
+              <ul className="nav-links">
+                <li>
+                  <Link to="/mypage">
+                    <i className="uil uil-create-dashboard"></i>
+                    <span className="link-name">MYPAGE</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/music">
+                    <i className="uil uil-music"></i>
+                    <span className="link-name">MUSIC</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/store">
+                    <i className="uil uil-store"></i>
+                    <span className="link-name">STORE</span>
+                  </Link>
+                </li>
+              </ul>
+              <ul className="logout-mode">
+                <li>
+                  <Link to="#">
+                    <i className="uil uil-signout"></i>
+                    <span className="link-name">Logout</span>
+                  </Link>
+                </li>
+
+                <li className="mode">
+                  <Link to="#">
+                    <i className="uil uil-moon"></i>
+                    <span className="link-name">Dark Mode</span>
+                  </Link>
+                  <div className="mode-toggle">
+                    <span className="switch"></span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </>
+      )}
+    </>
   );
 };

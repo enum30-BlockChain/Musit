@@ -155,6 +155,7 @@ body.dark .side-nav .nav-links li a:hover :is(i, .link-name) {
 }
 
 body.dark .switch::before {
+  background-color: var(--panel-color);
   left: 20px;
 }
 

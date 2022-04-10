@@ -5,10 +5,6 @@ function Back() {
   return (
     <>
       <div className="header">
-        <div class="inner-header flex">
-          <h1> 백그라운드</h1>
-        </div>
-
         <div>
           <svg
             className="waves"
