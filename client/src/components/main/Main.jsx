@@ -41,6 +41,7 @@ import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 
 export const Main = () => {
   const [address, setAddress] = useState("");
+  const [artistName, setArtistName] = useState("");
   // const [likeList, setLikeList] = useState("");
 
   const user = useSelector((state) => state.user);
@@ -60,6 +61,7 @@ export const Main = () => {
     getUser();
     sidebarToggle();
     dispatch(fetchUserData(address));
+    setArtistName(artist.artist_name);
   }
 
   useEffect(() => {
@@ -177,7 +179,12 @@ export const Main = () => {
                 )
               }
             >
-              <Route path="list" element={<ArtistsList address={address} />} />
+              <Route
+                path="list"
+                element={
+                  <ArtistsList address={address} artistName={artistName} />
+                }
+              />
               <Route
                 path="album"
                 element={<Album address={address} artist={artist} />}

@@ -8,6 +8,7 @@ import userListReducer from "./userList/userListReducer";
 
 import {
   musicListReducer,
+  myMusicCountReducer,
   myMusicListReducer,
 } from "./musicList/musicListReducer";
 import likeListReducer from "./likeList/likeListReducer";
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   userList: userListReducer,
 
+  musicLikeCount: myMusicCountReducer,
   musicList: musicListReducer,
   myalbum: myMusicListReducer,
 

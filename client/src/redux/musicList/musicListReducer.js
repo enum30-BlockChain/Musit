@@ -1,6 +1,6 @@
 const initialState = {
   loading: false,
-
+  musicLikeList: [],
   musicList: [],
   myMusic: [],
 
@@ -49,6 +49,32 @@ export const myMusicListReducer = (state = initialState, action) => {
         myMusic: action.payload.myMusic,
       };
     case "MY_MUSIC_LIST_DATA_FAILED":
+      return {
+        ...initialState,
+        loading: false,
+        error: true,
+        errorMsg: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const myMusicCountReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "MY_MUSIC_COUNT_DATA_REQUEST":
+      return {
+        ...initialState,
+        loading: true,
+      };
+    case "MY_MUSIC_COUNT_DATA_SUCCESS":
+      return {
+        ...initialState,
+        loading: false,
+
+        musicLikeList: action.payload.musicLikeList,
+      };
+    case "MY_MUSIC_COUNT_DATA_FAILED":
       return {
         ...initialState,
         loading: false,

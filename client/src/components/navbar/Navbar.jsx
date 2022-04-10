@@ -40,9 +40,6 @@ export const Navbar = () => {
   const user = useSelector((state) => state.user);
   const artist = useSelector((state) => state.artist);
 
-  console.log(user);
-  console.log(artist);
-  console.log(1111111111111111111111);
   return (
     <nav className="side-nav">
       <Link to={"/landingpage"}>

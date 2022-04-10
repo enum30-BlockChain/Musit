@@ -33,7 +33,7 @@ export default function ArtistLikeCard({ Artists, address }) {
   useEffect(() => {
     setFindlike(
       artistlikelist.artistLikeList.filter((artist) => {
-        return artist.artist_artist_name.indexOf(Artists.artist_name) > -1;
+        return artist.artist_name.indexOf(Artists.artist_name) > -1;
       })
     );
   }, []);

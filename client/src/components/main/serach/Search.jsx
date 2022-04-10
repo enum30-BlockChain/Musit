@@ -5,22 +5,22 @@ import MusicPlayerSlider from "./MusicPlayerSlider";
 import SongCard from "./SongCard";
 import ArtistCard from "./ArtistCard";
 import ArtistModal from "./ArtistModal";
-import { useNavigate, useLocation  } from "react-router-dom";
-import {Provider, useSelector, useDispatch} from 'react-redux';
-import Grid from '@mui/material/Grid';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Divider from '@mui/material/Divider';
+import { useNavigate, useLocation } from "react-router-dom";
+import { Provider, useSelector, useDispatch } from "react-redux";
+import Grid from "@mui/material/Grid";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Divider from "@mui/material/Divider";
 
 function Search(props) {
   const [musicmodal, setmusicmodal] = useState("");
   const [artistModal, setArtistModal] = useState("");
   const [musicList, setmusicList] = useState("");
   const [artistList, setArtistList] = useState("");
-  const [findMusic,setFindMusic] = useState("");
-  const [findArtist,setFindArtist] = useState("");
+  const [findMusic, setFindMusic] = useState("");
+  const [findArtist, setFindArtist] = useState("");
   const [value, setValue] = useState(0);
-  const [viewMusicCard,setViewMusicCard] = useState(0);
+  const [viewMusicCard, setViewMusicCard] = useState(0);
 
   // const searching = useSelector((state)=>{return state.searchWord});
   const searching = useSelector((state) => state.searching.searching);
@@ -33,23 +33,28 @@ function Search(props) {
     await axios
       .get("http://localhost:5000/files")
       .then((res) => {
-        let searchCount = res.data.filter((song) => song.title.indexOf(content) > -1)
+        let searchCount = res.data.filter(
+          (song) => song.title.indexOf(content) > -1
+        );
         setmusicList(res.data);
         setFindMusic(searchCount);
-        setViewMusicCard(searchCount.length)
+        setViewMusicCard(searchCount.length);
       })
       .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
   };
-  const getUser = async ()=>{   //유저검색
-      await axios
-        .get("http://localhost:5000/artists/list")
-        .then((res) => {
-          let searchCount = res.data.filter((a) => a.artist_name.indexOf(content) > -1)
-          setArtistList(res.data);
-          setFindArtist(searchCount);
-        })
-        .catch((err) => alert("errrrrrrr.", err));
-    }
+  const getUser = async () => {
+    //유저검색
+    await axios
+      .get("http://localhost:5000/artists/list")
+      .then((res) => {
+        let searchCount = res.data.filter(
+          (a) => a.artist_name.indexOf(content) > -1
+        );
+        setArtistList(res.data);
+        setFindArtist(searchCount);
+      })
+      .catch((err) => alert("errrrrrrr.", err));
+  };
 
   useEffect(() => {
     const init = async () => {
@@ -73,15 +78,15 @@ function Search(props) {
       });
       setFindMusic(searchMusicNameData);
       setFindArtist(searchAtistData);
-      if(searchMusicNameData.length > 4){
-        setViewMusicCard(4)
-        setValue(0)
-      }else{
-        setViewMusicCard(searchMusicNameData.length)
-        setValue(0)
+      if (searchMusicNameData.length > 4) {
+        setViewMusicCard(4);
+        setValue(0);
+      } else {
+        setViewMusicCard(searchMusicNameData.length);
+        setValue(0);
       }
     }
-  }
+  };
   //카드이동
   const moveAhead = () => {
     value === 0
@@ -94,31 +99,39 @@ function Search(props) {
       : setValue(value - 100);
   };
   return (
-    <Box sx={{height:"100%"}}>
-      <Box sx={{height:"40%" }}>
+    <Box sx={{ height: "100%" }}>
+      <Box sx={{ height: "40%" }}>
         <Typography variant="h4" gutterBottom>
           Music
         </Typography>
-        <Box sx={{
-          display: "flex",
-          alignItems: 'center',
-          height:"80%",
-          px: 2
-        }}>
-          <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}}onClick={moveAhead}/>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            height: "80%",
+            px: 2,
+          }}
+        >
+          <ArrowBackIosIcon
+            sx={{ fontSize: 65, cursor: "pointer" }}
+            onClick={moveAhead}
+          />
           <Grid
             sx={{
               width: "1480px",
-              m:"auto",
+              m: "auto",
               padding: 0,
               overflow: "hidden",
             }}
           >
-            <Grid container sx={{width: "100%", display: "flex", flexWrap: "nowrap" }}>
+            <Grid
+              container
+              sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
+            >
               {findMusic &&
                 findMusic.map((music, i) => {
                   return (
-                    <Grid xs={{width:"25%"}}>
+                    <Grid xs={{ width: "25%" }}>
                       <div
                         key={i}
                         className="glide"
@@ -135,26 +148,31 @@ function Search(props) {
                 })}
             </Grid>
           </Grid>
-          <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }}onClick={moveBehind} />
+          <ArrowForwardIosIcon
+            sx={{ fontSize: 65, cursor: "pointer" }}
+            onClick={moveBehind}
+          />
         </Box>
       </Box>
-      <Divider sx={{my:5}}/>
-      <Box sx={{height:"60%"}}>
+      <Divider sx={{ my: 5 }} />
+      <Box sx={{ height: "60%" }}>
         <Typography variant="h4" gutterBottom>
           Artist
         </Typography>
-        <Box sx={{
-          display: "flex",
-          alignItems: 'center',
-          height:"70%",
-          px: 2
-        }}>
-          <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}}/>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            height: "70%",
+            px: 2,
+          }}
+        >
+          <ArrowBackIosIcon sx={{ fontSize: 65, cursor: "pointer" }} />
           <Grid
             sx={{
-              alignItems:"center",
+              alignItems: "center",
               width: "1450px",
-              m:"auto",
+              m: "auto",
               padding: 0,
               overflow: "hidden",
             }}
@@ -177,7 +195,7 @@ function Search(props) {
                 })}
             </Stack>
           </Grid>
-          <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer" }} />
+          <ArrowForwardIosIcon sx={{ fontSize: 65, cursor: "pointer" }} />
         </Box>
       </Box>
       {artistModal && (

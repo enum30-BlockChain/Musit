@@ -57,6 +57,7 @@ export const fetchMusicListData = (payload) => {
     }
   };
 };
+
 //나의 앨범을 불러오는 함수
 export const fetchMyMusicListData = (address) => {
   return async (dispatch) => {
@@ -74,5 +75,47 @@ export const fetchMyMusicListData = (address) => {
     } catch (error) {
       dispatch(fetchMyMusicListDataFailed("error!!!"));
     }
+  };
+};
+
+//내가 좋아하는 함수의 길이를 불러오는 함수
+export const fetchMusicCountData = (address) => {
+  return async (dispatch) => {
+    dispatch(fetchMusicCountDataRequest());
+    try {
+      const musicLikeCount = store.getState().musicLikeCount;
+      const url = "http://localhost:5000/music/likes/like";
+      const albumInfo = (await axios.post(url, { address })).data;
+      console.log(albumInfo);
+      dispatch(
+        fetchMyMusicCountDataSuccess({
+          ...musicLikeCount,
+          musicLikeList: albumInfo,
+        })
+      );
+    } catch (error) {
+      dispatch(fetchMusicCountDataFailed("error!!!"));
+    }
+  };
+};
+
+//나의 앨범리스트
+const fetchMusicCountDataRequest = () => {
+  return {
+    type: "MY_MUSIC_COUNT_DATA_REQUEST",
+  };
+};
+
+const fetchMyMusicCountDataSuccess = (payload) => {
+  return {
+    type: "MY_MUSIC_COUNT_DATA_SUCCESS",
+    payload: payload,
+  };
+};
+
+const fetchMusicCountDataFailed = (payload) => {
+  return {
+    type: "MY_MUSIC_COUNT_DATA_FAILED",
+    payload: payload,
   };
 };

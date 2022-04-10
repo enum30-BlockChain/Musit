@@ -8,10 +8,13 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMyMusicListData } from "../../../../../redux/musicList/musicListAction";
+import {
+  fetchMusicCountData,
+  fetchMyMusicListData,
+} from "../../../../../redux/musicList/musicListAction";
 import AlbumCard from "./AlbumCard";
 
-export default function AlbumList({ address, nickname }) {
+export default function AlbumList({ address }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -44,11 +47,14 @@ export default function AlbumList({ address, nickname }) {
   }
 
   ///////////////////////////////////////////////////////////
+
   const dispatch = useDispatch();
   const myalbum = useSelector((state) => state.myalbum);
+  const musicLikeCount = useSelector((state) => state.musicLikeCount);
 
   React.useLayoutEffect(() => {
     dispatch(fetchMyMusicListData(address)).then(() => {});
+    dispatch(fetchMusicCountData(address)).then(() => {});
   }, []);
 
   //row 안의 value값
@@ -66,11 +72,12 @@ export default function AlbumList({ address, nickname }) {
             sx={{ width: "50%" }}
             address={address}
             song={song}
-          />
+          />,
+          musicLikeCount.musicLikeList.MusicLikes.length
         )
       );
     });
-
+  console.log(musicLikeCount.musicLikeList.MusicLikes.length);
   return (
     <Paper
       className="table-container"
