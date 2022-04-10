@@ -4,7 +4,7 @@ import axios from "axios";
 /**** Create ****/
 export const createMusicData = (imgFormData, audioFormData) => {
   return async (dispatch, getState) => {
-    dispatch({ type: ActionTypes.MUSIC_LIST_REQUEST });
+    dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
 		try {
       const artistInfo = getState().myArtist;
       const img_file = (
@@ -25,7 +25,7 @@ export const createMusicData = (imgFormData, audioFormData) => {
 			dispatch({ type: ActionTypes.MUSIC_CREATE_SUCCESS });
 		} catch (error) {
 			dispatch({
-				type: ActionTypes.MUSIC_LIST_FAIL,
+				type: ActionTypes.MUSIC_DATA_FAIL,
 				payload: "Create user request fail",
 			});
 		}
@@ -47,7 +47,27 @@ export const readMusicList = () => {
     catch (error) {
       dispatch({
         type: ActionTypes.MUSIC_LIST_FAIL,
-        payload: "Get music list request fail",
+        payload: "Read music list request fail",
+      });
+    }
+  };
+};
+
+export const readMusicData = (ipfs_hash) => {
+  return async (dispatch, getState) => {
+    dispatch({type: ActionTypes.MUSIC_DATA_REQUEST});
+    try {
+      const url = `http://localhost:5000/music/${ipfs_hash}`;
+      const musicList = (await axios.get(url)).data;
+      dispatch({
+        type: ActionTypes.MUSIC_READ_SUCCESS,
+        payload: musicList
+      });
+    } 
+    catch (error) {
+      dispatch({
+        type: ActionTypes.MUSIC_DATA_FAIL,
+        payload: "Read music request fail",
       });
     }
   };

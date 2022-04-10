@@ -1,6 +1,10 @@
 var express = require("express");
 const router = express.Router();
 const { MusicLike, Music, User, Artist } = require("../../models/index");
+const likesRouter = require("./likes.js")
+
+/* Music Likes Router */
+router.use("/likes", likesRouter);
 
 /* Create */
 router.post("/", async (req, res, next) => {

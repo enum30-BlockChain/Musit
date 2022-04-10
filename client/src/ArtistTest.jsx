@@ -1,6 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createArtistData, deleteMyArtistData, readArtistList, readMyArtistData, updateMyArtistData } from './redux/actions/artistActions'
+import {
+	createArtistData,
+	deleteArtistData,
+	readArtistData,
+	readArtistList,
+	updateArtistData,
+} from "./redux/actions/artistActions";
 
 const ArtistTest = () => {
   const userInfo = useSelector(state=>state.user)
@@ -19,17 +25,17 @@ const ArtistTest = () => {
   }
 
   const readOnClick = async () => {
-    await dispatch(readMyArtistData())
+    await dispatch(readArtistData())
   }
   
   const updateOnClick = async () => {
-    await dispatch(updateMyArtistData({
+    await dispatch(updateArtistData({
       img: "artist-profile",
     }))
   }
 
   const deleteOnClick = async () => {
-    await dispatch(deleteMyArtistData())
+    await dispatch(deleteArtistData())
   }
   return (
 		<div>

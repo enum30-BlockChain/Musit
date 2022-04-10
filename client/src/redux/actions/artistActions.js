@@ -43,8 +43,8 @@ export const readArtistList = () => {
 	};
 };
 
-/* 나의 아티스트 정보 불러오기 */
-export const readMyArtistData = () => {
+/* 아티스트 정보 불러오기 */
+export const readArtistData = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.ARTIST_DATA_REQUEST });
 
@@ -54,7 +54,6 @@ export const readMyArtistData = () => {
 			if (accounts.length > 0) {
 				const url = `http://localhost:5000/artists/${accounts[0]}`;
 				const artistInfo = (await axios.get(url)).data;
-				console.log(artistInfo);
 				dispatch({
 					type: ActionTypes.ARTIST_READ_SUCCESS,
 					payload: artistInfo,
@@ -76,7 +75,7 @@ export const readMyArtistData = () => {
 
 /**** Update ****/
 /* 아티스트 정보 업데이트 */
-export const updateMyArtistData = (inputs) => {
+export const updateArtistData = (inputs) => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.ARTIST_DATA_REQUEST });
 		try {
@@ -108,7 +107,7 @@ export const updateMyArtistData = (inputs) => {
 
 /**** Delete ****/
 /* 아티스트 삭제 */
-export const deleteMyArtistData = () => {
+export const deleteArtistData = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.ARTIST_DATA_REQUEST });
 		try {

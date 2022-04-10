@@ -4,8 +4,8 @@ import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userReducer } from "./reducers/userReducer";
 import { metaMaskReducer } from "./reducers/metamaskReducer";
-import { artistListReducer, likeArtistReducer, myArtistReducer, selectedArtistReducer } from "./reducers/artistReducer";
-import { musicListReducer, selectedMusicReducer } from "./reducers/musicReducer";
+import { artistListReducer, likeArtistReducer, artistReducer, selectedArtistReducer } from "./reducers/artistReducer";
+import { likeMusicReducer, musicListReducer, selectedMusicReducer } from "./reducers/musicReducer";
 
 
 
@@ -16,13 +16,14 @@ const rootReducer = combineReducers({
   user: userReducer,
   
   // Artist Reducer
-  myArtist: myArtistReducer,
+  artist: artistReducer,
   artistList: artistListReducer,
   selectedArtist: selectedArtistReducer,
-  likeAritst: likeArtistReducer,
+  likeArtist: likeArtistReducer,
   
   // Music Reducer
   musicList: musicListReducer,
+  likeMusic: likeMusicReducer,
   selectedMusic: selectedMusicReducer,
 
   // Metamask Reducer

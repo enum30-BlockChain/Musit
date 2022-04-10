@@ -1,7 +1,7 @@
 import { ActionTypes } from "../constants/actionTypes";
 
-/* My Artist Reducer */
-const myAritstInitialState = {
+/* Artist Reducer */
+const artistInitialState = {
 	loading: false,
 	artist_name: null,
 	user_address: null,
@@ -13,8 +13,8 @@ const myAritstInitialState = {
 	errorMsg: "",
 };
 
-export const myArtistReducer = (
-	state = myAritstInitialState,
+export const artistReducer = (
+	state = artistInitialState,
 	{ type, payload }
 ) => {
 	switch (type) {
@@ -111,7 +111,7 @@ export const artistListReducer = (
 const likeArtistInitialState = {
 	loading: false,
 	artist_name: null,
-	user_name: null,
+	user_address: null,
 	error: false,
 	errorMsg: "",
 };

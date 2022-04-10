@@ -32,7 +32,7 @@ router.get("/", async (req, res, next) => {
 		});
 		res.send(userList);
 	} catch (err) {
-		res.send(500, "Read artsit list falied");
+		res.send(500, "Read artist list falied");
 	}
 });
 
@@ -44,7 +44,7 @@ router.get("/:user_address", async (req, res, next) => {
 		});
 		res.send(userInfo);
 	} catch (err) {
-		res.send(500, "Read artist info faild");
+		res.send(500, "Read artist info failed");
 	}
 });
 
@@ -66,7 +66,7 @@ router.patch("/:user_address", async (req, res, next) => {
       if (result[0] === 0) {
         res.send(400, "Update failed");
       } else {
-        res.send("Update aritst info success");
+        res.send("Update artist info success");
       }
     }
 	} catch (err) {
