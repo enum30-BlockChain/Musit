@@ -85,7 +85,8 @@ export const readLikeMusicList = (ipfs_hash) => {
   return async (dispatch, getState) => {
     dispatch({type: ActionTypes.LIKE_MUSIC_REQUEST});
     try {
-      const url = `http://localhost:5000/music/${ipfs_hash}`;
+      let accounts = getState().metamask.accounts;
+      const url = `http://localhost:5000/music/likes/${accounts[0]}`;
       const musicList = (await axios.get(url)).data;
       dispatch({
         type: ActionTypes.LIKE_MUSIC_SUCCESS,

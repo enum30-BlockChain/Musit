@@ -112,6 +112,7 @@ const likeMusicInitialState = {
 	loading: false,
 	artist_name: null,
 	user_address: null,
+	data: [],
 	error: false,
 	errorMsg: "",
 };
@@ -132,7 +133,7 @@ export const likeMusicReducer = (
 			return {
 				...state,
 				loading: false,
-				...payload,
+				data: [...payload],
 				error: false,
 				errorMsg: "",
 			};

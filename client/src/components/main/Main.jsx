@@ -18,7 +18,6 @@ import { Playbar } from "./playbar/Playbar";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
-  console.log(user.loading)
   useEffect(() => {
     sidebarToggle();
   }, [])
@@ -58,8 +57,8 @@ export const Main = () => {
             </Route>
           </Route>
         </Routes>
-        {/* {user.loading === true ? <></> : <Playbar />} */}
       </div>
+        {user.loading === true ? <></> : <Playbar />}
     </section>
   );
 };

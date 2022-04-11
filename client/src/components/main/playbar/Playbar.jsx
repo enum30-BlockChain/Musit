@@ -6,7 +6,7 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import myImage from "./cd.png";
 {
-  /* <props likeList address userList/> */
+  /* <props likeMusic address userList/> */
 }
 export const Playbar = (props) => {
   const [state, setstate] = useState("pause");
@@ -17,7 +17,7 @@ export const Playbar = (props) => {
   const [tilte, setTilte] = useState("");
   const [currentTime, setcurrentTime] = useState(0);
   const [value, setValue] = useState(100);
-  // const [likeList,setLikelist] = useState('');
+  // const [likeMusic,setlikeMusic] = useState('');
 
   const musicContainer = document.querySelector(".music-container");
   const playBtn = document.querySelector("#play");
@@ -28,14 +28,10 @@ export const Playbar = (props) => {
 
   // const userList = useSelector((state) => state.userList);
   const user = useSelector((state) => state.user);
-  const likeList = useSelector((state) => state.likeMusic);
+  const likeMusic = useSelector((state) => state.likeMusic).data;
   const musicList = useSelector((state) => state.musicList).data;
   const dispatch = useDispatch(); //redux 초기값 넣어주자
-
   useEffect(() => {
-    console.log(likeList)
-    console.log(musicList)
-    console.log()
     //첫로딩시 리센트 가져와서 세팅
     if (musicList.length > 0 && user.address) {
       //페이지로딩해서 find로 내 좋아요 목록불러오고
@@ -53,13 +49,12 @@ export const Playbar = (props) => {
           title.innerText = song.title;
           audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
           cover.src = song.img_file;
-        } else if (likeList) {
+        } else if (likeMusic.length > 0) {
           // console.log("회원인데 리센트있는사람 ")
           //recent_played 있으면
-         console.log(likeList)
-
-          const arry = findUser.recent_played.split("-"); //receent찾아와서
-          const songs = likeList;
+          
+          const arry = user.recent_played.split("-"); //receent찾아와서
+          const songs = likeMusic;
           const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
           setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
           if (index === -1) {
@@ -83,7 +78,7 @@ export const Playbar = (props) => {
         }
       }
     }
-  }, [ musicList]);
+  }, [ musicList,likeMusic]);
 
   function loadSong(song) {
     //노래불러올때
@@ -113,20 +108,20 @@ export const Playbar = (props) => {
     let num = count;
     num--;
     if (num < 0) {
-      num = likeList.length - 1;
+      num = likeMusic.length - 1;
     }
     setCount(num);
-    loadSong(likeList[num]);
+    loadSong(likeMusic[num]);
     playSong();
   }
   function nextSong() {
     let num = count;
     num++;
-    if (num > likeList.length - 1) {
+    if (num > likeMusic.length - 1) {
       num = 0;
     }
     setCount(num);
-    loadSong(likeList[num]);
+    loadSong(likeMusic[num]);
     playSong();
   }
 
