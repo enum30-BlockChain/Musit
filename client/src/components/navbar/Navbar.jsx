@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 export const Navbar = () => {
   const artist = useSelector((state) => state.artist);
   const [address, setAddress] = useState("");
-  console.log(artist);
 
   useEffect(() => {
     const body = document.querySelector("body");

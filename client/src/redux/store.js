@@ -4,29 +4,23 @@ import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userReducer } from "./reducers/userReducer";
 import { metaMaskReducer } from "./reducers/metamaskReducer";
-import {
-  artistListReducer,
-  likeArtistReducer,
-  artistReducer,
-  selectedArtistReducer,
-} from "./reducers/artistReducer";
-import {
-  likeMusicReducer,
-  musicListReducer,
-  selectedMusicReducer,
-} from "./reducers/musicReducer";
+import { artistListReducer, likeArtistReducer, artistReducer, selectedArtistReducer } from "./reducers/artistReducer";
+import { likeMusicReducer, musicListReducer, selectedMusicReducer } from "./reducers/musicReducer";
+
+
+
 
 // combineReducers Reducer들 합치는 곳
 const rootReducer = combineReducers({
   // User Reducer
   user: userReducer,
-
+  
   // Artist Reducer
   artist: artistReducer,
   artistList: artistListReducer,
   selectedArtist: selectedArtistReducer,
   likeArtist: likeArtistReducer,
-
+  
   // Music Reducer
   musicList: musicListReducer,
   likeMusic: likeMusicReducer,
