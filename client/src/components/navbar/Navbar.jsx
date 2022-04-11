@@ -99,7 +99,7 @@ export const Navbar = () => {
             <li>
               <Link to="#">
                 <i className="uil uil-signout"></i>
-                <span className="link-name-1">Logout</span>
+                <span className="link-name">Logout</span>
               </Link>
             </li>
 

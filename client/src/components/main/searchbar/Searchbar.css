@@ -70,30 +70,3 @@ nav.side-nav.close ~ .main .searchbar {
   display: flex;
 }
 
-@media (max-width: 1000px) {
-  nav.side-nav ~ section.main .searchbar {
-    left: 73px;
-    width: calc(100% - 73px);
-  }
-
-  nav.side-nav.close ~ section.main .searchbar {
-    left: 250px;
-    width: calc(100% - 250px);
-  }
-}
-
-@media (max-width: 500px) {
-  nav.side-nav ~ section.main .searchbar {
-    left: 73px;
-    width: calc(100% - 73px);
-  }
-
-  nav.side-nav.close ~ section.main .searchbar {
-    left: 73px;
-    width: calc(100% - 73px);
-  }
-
-  .searchbar .sidebar-toggle {
-    display: none;
-  }
-}
