@@ -154,12 +154,12 @@ body.dark .side-nav .nav-links li a:hover :is(i, .link-name) {
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background-color: var(--panel-color);
+  background-color: var(--mode-switch-color);
   transition: var(--tran-03);
 }
 
 body.dark .switch::before {
-  background-color: var(--panel-color);
+  background-color: var(--mode-switch-color);
   left: 20px;
 }
 
