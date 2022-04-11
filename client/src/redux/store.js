@@ -11,7 +11,7 @@ import {
   myMusicCountReducer,
   myMusicListReducer,
 } from "./musicList/musicListReducer";
-import likeListReducer from "./likeList/likeListReducer";
+import { likeListReducer, likeAddReducer } from "./likeList/likeListReducer";
 import searchingReducer from "./searching/searchingReducer";
 
 import artistLikeDetailReducer from "./artistlike/artistLikeDetailReducer";
@@ -33,7 +33,7 @@ const rootReducer = combineReducers({
   myalbum: myMusicListReducer,
 
   likeList: likeListReducer,
-
+  musiclikeadd: likeAddReducer,
   searching: searchingReducer,
 
   metamask: metamaskReducer,

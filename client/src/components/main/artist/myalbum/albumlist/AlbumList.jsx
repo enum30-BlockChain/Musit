@@ -72,12 +72,11 @@ export default function AlbumList({ address }) {
             sx={{ width: "50%" }}
             address={address}
             song={song}
-          />,
-          musicLikeCount.musicLikeList.MusicLikes.length
+          />
         )
       );
     });
-  console.log(musicLikeCount.musicLikeList.MusicLikes.length);
+  // console.log(musicLikeCount.musicLikeList.MusicLikes.length);
   return (
     <Paper
       className="table-container"

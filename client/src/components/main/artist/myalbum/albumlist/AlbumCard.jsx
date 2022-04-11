@@ -9,6 +9,8 @@ import { borderRadius } from "@mui/system";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLikeAddData } from "../../../../../redux/likeList/likeListAction";
 
 const Img = styled("img")({
   margin: "auto",
@@ -18,6 +20,18 @@ const Img = styled("img")({
 });
 
 export default function AlbumCard({ address, song }) {
+  //redux 사용영역
+  const dispatch = useDispatch();
+  const musiclikeadd = useSelector((state) => state.musiclikeadd);
+
+  useEffect(() => {
+    dispatch(fetchLikeAddData(address)).then(() => {});
+  }, []);
+
+  console.log(musiclikeadd);
+
+  const likecountpost = async () => {};
+
   return (
     <Paper
       sx={{

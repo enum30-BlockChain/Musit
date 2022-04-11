@@ -2,12 +2,13 @@ const initialState = {
   loading: false,
 
   likeList: [],
+  likeAdd: [],
 
   error: false,
   errorMsg: "",
 };
 
-const likeListReducer = (state = initialState, action) => {
+export const likeListReducer = (state = initialState, action) => {
   switch (action.type) {
     case "LIKE_LIST_DATA_REQUEST":
       return {
@@ -34,4 +35,30 @@ const likeListReducer = (state = initialState, action) => {
   }
 };
 
-export default likeListReducer;
+//music count add reducer
+export const likeAddReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "LIKE_ADD_DATA_REQUEST":
+      return {
+        ...initialState,
+        loading: true,
+      };
+    case "LIKE_ADD_DATA_SUCCESS":
+      return {
+        ...initialState,
+        loading: false,
+
+        likeAdd: action.payload.likeAdd,
+      };
+    case "LIKE_ADD_DATA_FAILED":
+      return {
+        ...initialState,
+        loading: false,
+        error: true,
+        errorMsg: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
