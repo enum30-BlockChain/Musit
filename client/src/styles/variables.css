@@ -16,6 +16,7 @@
   --box3-color: rgba(255, 255, 255, 0.5);
   --box4-color: rgba(255, 255, 255, 0.5);
   --box5-color: rgba(255, 255, 255, 0.5);
+  --mode-switch-color: #fff;
   --title-icon-color: #fff;
 
   /* ====== Transition ====== */
@@ -38,5 +39,6 @@ body.dark {
   --box3-color: rgba(255, 255, 255, 0.5);
   --box4-color: rgba(255, 255, 255, 0.5);
   --box5-color: rgba(255, 255, 255, 0.5);
+  --mode-switch-color: #252626;
   --title-icon-color: #252626;
 }

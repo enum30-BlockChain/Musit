@@ -46,15 +46,3 @@
   background-color: var(--box3-color);
 }
 
-@media (max-width: 780px) {
-  .contentbox .boxes .box {
-    width: calc(100% / 2 - 15px);
-    margin-top: 15px;
-  }
-}
-
-@media (max-width: 560px) {
-  .contentbox .boxes .box {
-    width: 100%;
-  }
-}
