@@ -1,21 +1,10 @@
 import "./Mypage.css";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
-import { readUserData } from "../../../redux/actions/userActions";
 
 export const Mypage = () => {
-  const user = useSelector((state) => state.user);
   const artist = useSelector((state) => state.artist);
-  const dispatch = useDispatch();
-
-  const init = async () => {
-    await dispatch(readUserData());
-  };
-
-  useEffect(() => {
-    init();
-  }, []);
 
   return (
     <div className="mypage">
