@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 export const Navbar = () => {
   const artist = useSelector((state) => state.artist);
   const [address, setAddress] = useState("");
-  console.log(artist);
 
   useEffect(() => {
     const body = document.querySelector("body");
@@ -100,7 +99,7 @@ export const Navbar = () => {
             <li>
               <Link to="#">
                 <i className="uil uil-signout"></i>
-                <span className="link-name-1">Logout</span>
+                <span className="link-name">Logout</span>
               </Link>
             </li>
 

@@ -22,5 +22,8 @@ const storage = multerS3({
   },
 });
 
-const upload = multer({ storage: storage }).single("img");
-module.exports = upload;
+const imgUpload = multer({ storage: storage }).single("img");
+
+const audioUpload = multer().single("audio");
+
+module.exports = {imgUpload, audioUpload};

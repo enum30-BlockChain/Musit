@@ -6,7 +6,7 @@ import axios from "axios";
 import { Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Userinformation({ address }) {
+export default function Userinformation({}) {
   //내가 바꾸고 싶은 닉네임 선택
   const [select, setSelect] = useState("");
   //and 연산자를 사용하기위한 useState input을 숨기기위한 조건문
@@ -14,27 +14,11 @@ export default function Userinformation({ address }) {
   //내사진 변경을 위한 클릭 hidden 버튼 생성
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [img, setImg] = useState("");
-  const [genre, setgenre] = useState([
-    "Pop",
-    "K-pop",
-    "Classical Music",
-    "Jazz",
-    "Trot",
-    "Hip-pop",
-    "CCM",
-    "Ballad",
-    "Contry Music",
-    "Folk Music",
-    "Reggae",
-    "Disco",
-    "Rock",
-    "Electronic",
-    "Dance",
-  ]);
   const [checkedInputs, setCheckedInputs] = useState("");
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const MetamaskData = useSelector((state) => state.MetamaskData);
 
   //TODO: user info(address, nickname, myfavorite, ...),
   useEffect(() => {
@@ -87,7 +71,6 @@ export default function Userinformation({ address }) {
 
   const Submit = async () => {
     const newimg = await postImg();
-    console.log(newimg);
     await axios
       .post("http://localhost:5000/users/changeimg", {
         address,
@@ -106,82 +89,7 @@ export default function Userinformation({ address }) {
     }
   };
 
-  return (
-    <div className="user-card">
-      <div className="user-image">
-        <img src={user.img} alt="user profile" />
-        {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
-        {visible && (
-          <div>
-            <button onClick={Submit}>User info edit Complete</button>
-            <input
-              type="file"
-              name="imgUpload"
-              accept="image/*"
-              onChange={getImg}
-            ></input>
-            {albumCoverImgFile && (
-              <img style={{ width: "100px" }} src={albumCoverImgFile}></img>
-            )}
-          </div>
-        )}
-      </div>
-      <div className="user-info">
-        <h2 className="nickname">Nickname</h2>
+  console.log(MetamaskData);
 
-        {visible ? (
-          <div>
-            <Input
-              inputProps={{ style: { fontSize: 30 } }}
-              type="text"
-              sx={{ width: 400 }}
-              onChange={idonchange}
-              defaultValue={user.nickname}
-            />
-          </div>
-        ) : (
-          <p>{user.nickname}</p>
-        )}
-        <h2 className="address">Address</h2>
-        <span>{address}</span>
-        <h2 className="subscription">Subscription</h2>
-        <span>{user.subscription}월이용권 </span>
-        <h2 className="Genre">Genre</h2>
-        {visible ? (
-          <div>
-            {genre.map((MusicType, index) => {
-              return (
-                <>
-                  <label>
-                    {MusicType}
-                    <input
-                      type={"checkbox"}
-                      name={"MusicType"}
-                      value={MusicType}
-                      onChange={(e) => {
-                        changeHandler(e.currentTarget.checked, MusicType);
-                      }}
-                      checked={checkedInputs.includes(MusicType) ? true : false}
-                    />
-                  </label>
-                </>
-              );
-            })}
-          </div>
-        ) : (
-          <span>{user.genre}</span>
-        )}
-      </div>
-      {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
-      <div className="setting-btn">
-        <button
-          className="uil uil-setting"
-          onClick={async () => {
-            setVisible(!visible);
-            await NickNameOnClick();
-          }}
-        ></button>
-      </div>
-    </div>
-  );
+  return <div className="user-card"></div>;
 }
