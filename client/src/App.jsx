@@ -1,26 +1,17 @@
 import "./App.css";
-import { Navbar } from "./component/navbar/Navbar";
-import { Main } from "./component/main/Main";
-import "react";
-import { useEffect } from "react";
-import { readMetamaskData } from "./redux/actions/metamaskAction";
-import { readUserData } from "./redux/actions/userActions";
+import { Main } from "./components/main/Main.jsx";
+import { Navbar } from "./components/navbar/Navbar";
+import Back from "./components/landingpage/back/Back";
+import React from "react";
 
-function App() {
-  useEffect(() => {
-    const init = async () => {
-      await dispatch(readMetamaskData());
-      await dispatch(readUserData());
-    };
-    init();
-  }, []);
-
+const App = () => {
   return (
     <>
-      <Navbar />
+      <Back />
       <Main />
+      <Navbar />
     </>
   );
-}
+};
 
 export default App;
