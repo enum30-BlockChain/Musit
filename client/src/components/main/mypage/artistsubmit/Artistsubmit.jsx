@@ -4,18 +4,19 @@ import { useSelector } from "react-redux";
 import { Input, Button } from "@mui/material";
 import axios from "axios";
 
-export default function Artistsubmit({ address }) {
+export default function Artistsubmit() {
   const [inputs, setInputs] = useState("");
+
+  const metamask = useSelector((state) => state.metamask);
 
   const submitOnClick = async () => {
     await postImg();
     const artistsdata = {
-      address,
-      nickname: inputs,
+      user_address: metamask.accounts[0],
+      artist_name: inputs,
       img: DBdata.cover_img_link,
     };
-    console.log(artistsdata);
-    const url = "http://localhost:5000/artists/signup";
+    const url = "http://localhost:5000/artists";
     const response = await axios.post(url, artistsdata);
     console.log(response.data);
   };
@@ -38,7 +39,7 @@ export default function Artistsubmit({ address }) {
     formData.append("img", albumCoverImgFile);
     await axios
       .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
-      .then((res) => (DBdata.cover_img_link = res.data.downLoadLink))
+      .then((res) => (DBdata.cover_img_link = res.data))
       .catch((err) => alert(err));
     return DBdata;
   };

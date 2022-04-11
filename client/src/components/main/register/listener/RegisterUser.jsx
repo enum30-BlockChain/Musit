@@ -52,13 +52,13 @@ const RegisterUser = ({ address }) => {
   const UserHandleOnClick = async () => {
     await postImg();
     const userdata = {
-      address: address,
+      address: metamask.accounts[0],
       genre: checkedInputs,
       nation: option,
       nickname: nickname,
       img: DBdata.cover_img_link,
     };
-    const url = "http://localhost:5000/users/signup";
+    const url = "http://localhost:5000/users";
     const response = await axios.post(url, userdata);
   };
 
@@ -72,7 +72,7 @@ const RegisterUser = ({ address }) => {
     formData.append("img", albumCoverImgFile);
     await axios
       .post("http://localhost:5000/files/imgupload", formData)
-      .then((res) => (DBdata.cover_img_link = res.data.downLoadLink))
+      .then((res) => (DBdata.cover_img_link = res.data))
       .catch((err) => alert(err));
     return DBdata;
   };
@@ -87,20 +87,6 @@ const RegisterUser = ({ address }) => {
       setCheckedInputs(checkedInputs.filter((el) => el !== name));
     }
   };
-
-  /////////////////////////////////////////////
-
-  // const [image, setImage] = useState("")
-  // const [preview, setPreview] = useState("")
-  // const [previewURL, setPreviewURL] = useState("")
-  // const fileRef= useRef();
-
-  // useEffect(() => {
-  //   alert("회원가입하세요");
-  //   if(image !== ""){
-  //     setPreview(<img className="img_preview">{previewURL}</img>)
-  //   }
-  // }, []);
 
   return (
     <>
