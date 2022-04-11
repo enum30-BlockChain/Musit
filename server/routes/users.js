@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { User, Artist, Music, ArtistLike, MusicLike } = require("../models/index");
+const {
+  User,
+  Artist,
+  Music,
+  ArtistLike,
+  MusicLike,
+} = require("../models/index");
 
 /* Create */
 router.post("/", async (req, res, next) => {
@@ -35,15 +41,14 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/:address", async (req, res, next) => {
-  console.log("유저정보를 요청하였습니다.");
   try {
     const userInfo = await User.findOne({
-			where: { address: req.params.address },
-			include: [
-				{ model: ArtistLike, include: { model: Artist } },
-				{ model: MusicLike, include: { model: Music } },
-			],
-		});
+      where: { address: req.params.address },
+      include: [
+        { model: ArtistLike, include: { model: Artist } },
+        { model: MusicLike, include: { model: Music } },
+      ],
+    });
     res.send(userInfo);
   } catch (err) {
     res.send(500, "Read user info failed");
