@@ -38,6 +38,9 @@ router.post("/list/detail", async (req, res, next) => {
 });
 
 router.post("/like", async (req, res, next) => {
+  console.log(1111111111111111);
+  console.log(req.body);
+  console.log(1111111111111111);
   try {
     const artist = await ArtistLike.findOne({
       where: {
@@ -67,8 +70,9 @@ router.post("/like", async (req, res, next) => {
           },
         }
       );
+      res.send(likesup);
     } else {
-      var artistdelete = await ArtistLike.destroy({
+      const artistdelete = await ArtistLike.destroy({
         where: {
           artist_artist_name: req.body.selected,
           user_address: req.body.address,
@@ -80,7 +84,8 @@ router.post("/like", async (req, res, next) => {
           where: { artist_name: req.body.selected },
         },
       });
-      var artistdowndate = await Artist.update(
+      res.send(artistlike);
+      const artistdowndate = await Artist.update(
         {
           likes: artistlike.length,
         },

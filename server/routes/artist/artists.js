@@ -40,6 +40,7 @@ router.post("/like", async (req, res, next) => {
 router.post("/signin", async (req, res, next) => {
   try {
     const artist = await Artist.findOne({
+      include: [{ model: User }, { model: Music }],
       where: {
         user_address: req.body.address,
       },
@@ -90,9 +91,10 @@ router.get("/list", async (req, res, next) => {
 router.post("/music", async (req, res, next) => {
   console.log(req.body);
   try {
-    const music = await Music.findOne({
+    const music = await Artist.findOne({
+      include: [{ model: Music }],
       where: {
-        artist_name: req.body.nickname,
+        user_address: req.body.address,
       },
     });
     res.send(music);
