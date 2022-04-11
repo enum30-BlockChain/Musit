@@ -1,9 +1,9 @@
-import React from 'react'
-import "./Contentbox.css"
+import React from "react";
+import "./Contentbox.css";
 
 export const Contentbox = () => {
   return (
-    <div className='contentbox'>
+    <div className="contentbox">
       <div className="title">
         <i className="uil uil-create-dashboard"></i>
         <span className="text">Dashboard</span>
@@ -27,5 +27,5 @@ export const Contentbox = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

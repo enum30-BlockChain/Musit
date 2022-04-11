@@ -43,11 +43,9 @@
 .mypage .user-nav {
   display: flex;
   justify-content: center;
-  border-top: 1px solid var(--black-light-color);
   border-bottom: 1px solid var(--black-light-color);
   padding: 10px 0;
 
-  border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -55,7 +53,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 700px;
+  width: 1000px;
 }
 
 .mypage .user-nav .nav-links li {

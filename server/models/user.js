@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.hasMany(models.Artist, {
-        foreignKey: { name: "user_address", allowNull: false },
+      User.hasOne(models.Artist, {
+        foreignKey: { name: "user_address", allowNull: false, unique: true},
         targetKey: "address",
       });
       User.hasMany(models.ArtistLike, {
@@ -24,32 +24,42 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init(
-    {
-      address: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        primaryKey: true,
-      },
-      nickname: { type: DataTypes.STRING, allowNull: false, unique: true },
-      nation: { type: DataTypes.STRING, allowNull: false },
-      genre: { type: DataTypes.STRING, allowNull: false },
-      recent_played: { type: DataTypes.STRING, allowNull: true },
-      img: { type: DataTypes.STRING, allowNull: false, unique: true },
-      subscription: {
-        type: DataTypes.TINYINT,
-        allowNull: true,
-        defaultValue: false,
-      },
-    },
-    {
-      sequelize,
-      timestamps: false,
-      modelName: "User",
-      tableName: "user",
-      charset: "utf8mb4",
-      collate: "utf8mb4_general_ci",
-    }
-  );
+		{
+			address: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				primaryKey: true,
+			},
+			nickname: { type: DataTypes.STRING, allowNull: false, unique: true },
+			nation: { type: DataTypes.STRING, allowNull: false },
+			genre: {
+				type: DataTypes.STRING,
+				allowNull: true,
+				get() {
+					const rawValue = this.getDataValue("genre");
+					return rawValue ? rawValue.split(",") : null;
+				},
+				set(val) {
+					this.setDataValue("genre", val.join(","));
+				},
+			},
+			recent_played: { type: DataTypes.STRING, allowNull: true },
+			img: { type: DataTypes.STRING, allowNull: true },
+			subscription: {
+				type: DataTypes.TINYINT,
+				allowNull: true,
+				defaultValue: false,
+			},
+		},
+		{
+			sequelize,
+			timestamps: false,
+			modelName: "User",
+			tableName: "user",
+			charset: "utf8mb4",
+			collate: "utf8mb4_general_ci",
+		}
+	);
   return User;
 };
 /*

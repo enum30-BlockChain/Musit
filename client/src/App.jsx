@@ -1,14 +1,15 @@
 import "./App.css";
-import { Main } from "./components/main/Main.jsx";
 import { Navbar } from "./components/navbar/Navbar";
-
+import Back from "./components/landingpage/back/Back";
 import React from "react";
+import { Main } from "./components/main/Main";
 
 const App = () => {
   return (
     <>
-      <Navbar />
+      <Back />
       <Main />
+      <Navbar />
     </>
   );
 };
