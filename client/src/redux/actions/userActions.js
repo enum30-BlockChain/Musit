@@ -40,7 +40,6 @@ export const readUserData = () => {
 			if (accounts.length>0) {
 				const url = `http://localhost:5000/users/${accounts[0]}`;
 				const userInfo = (await axios.get(url)).data;
-	
 				dispatch({
 					type: ActionTypes.USER_READ_SUCCESS,
 					payload: userInfo,

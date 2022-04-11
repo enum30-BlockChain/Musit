@@ -6,7 +6,6 @@ import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
 import { Collection } from "./mypage/collection/Collection";
 import { Favorite } from "./mypage/favorite/Favorite";
-
 import { Dashboard } from "./dashboard/Dashboard";
 
 //REACT FUCNTION , REDUX , ETC
@@ -15,10 +14,11 @@ import { Route, Routes } from "react-router-dom";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Mypage } from "./mypage/Mypage";
 import {  useSelector } from "react-redux";
-// import { Playbar } from "./playbar/Playbar";
+import { Playbar } from "./playbar/Playbar";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
+  console.log(user.loading)
   useEffect(() => {
     sidebarToggle();
   }, [])
