@@ -1,11 +1,11 @@
 const express = require("express");
 const multer = require("multer");
-const upload = require("./s3upload");
+const { imgUpload, audioUpload } = require("./s3upload");
 const files = express.Router();
 
 files.post("/imgupload", (req, res, next) => {
 	try {
-		upload(req, res, function (err) {
+		imgUpload(req, res, function (err) {
 			if (err instanceof multer.MulterError) {
 				return res.send(400, "Upload img failed");
 			}
@@ -18,6 +18,20 @@ files.post("/imgupload", (req, res, next) => {
 		});
 	} catch (error) {
 		res.send(500, "Upload img failed");
+	}
+});
+
+files.post("/audioupload", (req, res, next) => {
+	try {
+		audioUpload(req, res, (err) => {
+			if (err instanceof multer.MulterError) {
+				return res.send(400, "Upload audio failed")
+			}
+			console.log(req.file)
+			return res.send(req.file)
+		})
+	} catch (error) {
+		res.send(500, "Upload audio failed");
 	}
 });
 

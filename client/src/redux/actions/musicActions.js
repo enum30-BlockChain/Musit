@@ -11,17 +11,26 @@ export const createMusicData = (imgFormData, audioFormData) => {
 				await axios.post("http://localhost:5000/files/imgupload", imgFormData)
 			).data;
       console.log(img_file);
-      console.log(audioFormData);
+      console.log(audioFormData.get("audio"));
 
-      
+      const audio_file = (
+				await axios.post(
+					"http://localhost:5000/files/audioupload",
+					audioFormData
+				)
+			).data;
+      //TODO: audio => ipfs => hash
+      //TODO: create metadata
+
+      console.log(audio_file)
       // const musicData = {
       //   artist_name : artistInfo.artist_name,
       //   img_file: img_file,
 
       // }
-			// const createData = 
-			// 	await axios.post("http://localhost:5000/music/", musicData)
-      // console.log(createData);
+			const createData = 
+				await axios.post("http://localhost:5000/music/", musicData)
+      console.log(createData);
 			dispatch({ type: ActionTypes.MUSIC_CREATE_SUCCESS });
 		} catch (error) {
 			dispatch({

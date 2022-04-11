@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { createMusicData } from "./redux/actions/musicActions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,9 +13,9 @@ export default function Test() {
 		setAlbumCoverImgFile(e.target.files[0]);
 	};
 	const getAudio = (e) => {
-		if (e.target.files[0].size > 1048576 * 10) {
+		if (e.target.files[0].size > 1048576 * 15) {
 			// Max size: 10MB (1MB = 1,048,576 bytes)
-			alert("You can upload less than 10MB.");
+			alert("You can upload less than 15MB.");
 			e.target.value = "";
 		} else {
 			setAudiofile(e.target.files[0]);
