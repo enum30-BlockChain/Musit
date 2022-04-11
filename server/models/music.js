@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
 				},
 			},
 			description: { type: DataTypes.STRING, allowNull: true },
-			play_time: { type: DataTypes.INTEGER, allowNull: true, defaultValue: 0 },
+			play_time: { type: DataTypes.INTEGER, allowNull: false },
 			play_count: {
 				type: DataTypes.INTEGER,
 				allowNull: true,

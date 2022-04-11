@@ -66,7 +66,7 @@ router.get("/:ipfs_hash", async (req, res, next) => {
 });
 
 /* Update */
-router.patch("/", async (req, res, next) => {
+router.patch("/:ipfs_hash", async (req, res, next) => {
 	try {
 		if (req.body.ipfs_hash) {
 			res.send(400, "Cannot change music file");
@@ -84,7 +84,7 @@ router.patch("/", async (req, res, next) => {
 			res.send(400, "Empty artist name");
 		} else {
 			await Music.update(req.body, {
-				where: { ipfs_hash: req.body.ipfs_hash },
+				where: { ipfs_hash: req.params.ipfs_hash },
 			});
 			res.send("Update music info success");
 		}

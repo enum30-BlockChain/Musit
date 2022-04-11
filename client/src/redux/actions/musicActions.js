@@ -2,37 +2,36 @@ import { ActionTypes } from "../constants/actionTypes";
 import axios from "axios";
 
 /**** Create ****/
-export const createMusicData = (imgFormData, audioFormData) => {
+export const createMusicData = (imgFormData, audioFormData, input) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
 		try {
       const artistInfo = getState().myArtist;
-      const img_file = (
+      
+      const imgUrl = (
 				await axios.post("http://localhost:5000/files/imgupload", imgFormData)
 			).data;
-      console.log(img_file);
+      console.log(imgUrl);
       console.log(audioFormData.get("audio"));
 
-      const audio_file = (
+      const audioIpfsHash = (
 				await axios.post(
 					"http://localhost:5000/files/audioupload",
 					audioFormData
 				)
 			).data;
-      //TODO: audio => ipfs => hash
-      //TODO: create metadata
 
-      console.log(audio_file)
-      // const musicData = {
-      //   artist_name : artistInfo.artist_name,
-      //   img_file: img_file,
-
-      // }
+      const musicData = {
+        ...input,
+        img_file: imgUrl,
+        ipfs_hash: audioIpfsHash,
+      }
+      console.log(musicData)
 			const createData = 
 				await axios.post("http://localhost:5000/music/", musicData)
       console.log(createData);
 			dispatch({ type: ActionTypes.MUSIC_CREATE_SUCCESS });
-		} catch (error) {
+		} catch (error) { 
 			dispatch({
 				type: ActionTypes.MUSIC_DATA_FAIL,
 				payload: "Create user request fail",
@@ -77,6 +76,48 @@ export const readMusicData = (ipfs_hash) => {
       dispatch({
         type: ActionTypes.MUSIC_DATA_FAIL,
         payload: "Read music request fail",
+      });
+    }
+  };
+};
+
+/**** Update ****/
+export const updateMusicList = (input) => {
+  return async (dispatch, getState) => {
+    dispatch({type: ActionTypes.MUSIC_DATA_REQUEST});
+    try {
+      const url = "http://localhost:5000/music/";
+      const musicList = (await axios.patch(url, input)).data;
+      dispatch({
+        type: ActionTypes.MUSIC_UPDATE_SUCCESS,
+        payload: musicList
+      });
+    } 
+    catch (error) {
+      dispatch({
+        type: ActionTypes.MUSIC_DATA_FAIL,
+        payload: "Read music list request fail",
+      });
+    }
+  };
+};
+
+/**** Delete ****/
+export const deleteMusicList = (input) => {
+  return async (dispatch, getState) => {
+    dispatch({type: ActionTypes.MUSIC_DATA_REQUEST});
+    try {
+      const url = "http://localhost:5000/music/";
+      const musicList = (await axios.delete(url, input)).data;
+      dispatch({
+        type: ActionTypes.MUSIC_DELETE_SUCCESS,
+        payload: musicList
+      });
+    } 
+    catch (error) {
+      dispatch({
+        type: ActionTypes.MUSIC_DATA_FAIL,
+        payload: "Read music list request fail",
       });
     }
   };
