@@ -17,7 +17,7 @@ import { Dashboard } from "./dashboard/Dashboard";
 //Mypage
 import Userinformation from "./mypage/userinformation/Userinformation";
 import { Favorite } from "./mypage/favorite/Favorite";
-import { Subscription } from "./mypage/subscription/Subscription";
+import { Subscription } from "./mypage/subscription/";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
