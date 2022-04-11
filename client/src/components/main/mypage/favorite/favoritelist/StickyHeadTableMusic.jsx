@@ -16,7 +16,6 @@ export default function StickyHeadTableMusic() {
   React.useEffect(() => {}, []);
 
   const likeMusic = useSelector((state) => state.likeMusic);
-  console.log(likeMusic);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

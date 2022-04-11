@@ -49,9 +49,6 @@ export const readMusicList = () => {
     try {
       const url = "http://localhost:5000/music/";
       const musicList = (await axios.get(url)).data;
-      console.log(111111111111);
-      console.log(musicList);
-      console.log(111111111111);
       dispatch({
         type: ActionTypes.MUSIC_LIST_SUCCESS,
         payload: musicList,
