@@ -1,6 +1,10 @@
 //CSS
 import "./Main.css";
 
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import Userinformation from "./mypage/userinformation/Userinformation";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
@@ -10,23 +14,15 @@ import { Favorite } from "./mypage/favorite/Favorite";
 
 import { Dashboard } from "./dashboard/Dashboard";
 import { Searchbar } from "./searchbar/Searchbar";
-
-//REACT FUCNTION , REDUX , ETC
-import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import { Dashboard } from "./dashboard/Dashboard";
-import { Searchbar } from "./searchbar/Searchbar";
-import { Mypage } from "./mypage/Mypage";
-import Userinformation from "./mypage/userinformation/Userinformation";
-import {  useSelector } from "react-redux";
-import { Playbar } from "./playbar/Playbar";
+import RegisterUser from "./register/listener/RegisterUser";
+// import { Playbar } from "./playbar/Playbar";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
     sidebarToggle();
-  }, [])
+  }, []);
 
   const sidebarToggle = () => {
     const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -45,7 +41,7 @@ export const Main = () => {
         localStorage.setItem("menu_status", "open");
       }
     });
-  }
+  };
 
   return (
     <section className="main">
@@ -54,7 +50,16 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             <Route index element={<Dashboard />} />
-            <Route path="mypage" element={<Mypage path="userinformation" />}>
+            <Route
+              path="mypage"
+              element={
+                user.nickname && user.address !== undefined ? (
+                  <Mypage path="userinformation" />
+                ) : (
+                  <RegisterUser />
+                )
+              }
+            >
               <Route path="userinformation" element={<Userinformation />} />
               <Route path="subscription" element={<Subscription />} />
               <Route path="history" element={<History />} />
@@ -63,7 +68,7 @@ export const Main = () => {
             </Route>
           </Route>
         </Routes>
-        {user.loading === true ? <></> : <Playbar />}
+        {/* {user.loading === true ? <></> : <Playbar />} */}
       </div>
     </section>
   );
