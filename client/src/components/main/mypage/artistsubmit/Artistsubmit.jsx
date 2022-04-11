@@ -1,13 +1,23 @@
 import "./Artistsubmit.css";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Input, Button } from "@mui/material";
 import axios from "axios";
+import { createArtistData } from "../../../../redux/actions/artistActions";
 
 export default function Artistsubmit() {
   const [inputs, setInputs] = useState("");
+  const [DBdata, setDBdata] = useState({
+    cover_img_link: "",
+  });
+  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+
+  const formData = new FormData();
 
   const metamask = useSelector((state) => state.metamask);
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch;
 
   const submitOnClick = async () => {
     await postImg();
@@ -16,23 +26,12 @@ export default function Artistsubmit() {
       artist_name: inputs,
       img: DBdata.cover_img_link,
     };
-    const url = "http://localhost:5000/artists";
-    const response = await axios.post(url, artistsdata);
-    console.log(response.data);
+    dispatch(createArtistData(artistsdata));
   };
 
   const onChange = (e) => {
     setInputs(e.target.value);
   };
-
-  ///////////////////////////////////////////////////////////
-
-  const [DBdata, setDBdata] = useState({
-    cover_img_link: "",
-  });
-  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
-
-  const formData = new FormData();
 
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
@@ -47,8 +46,6 @@ export default function Artistsubmit() {
   const getImg = (e) => {
     setAlbumCoverImgFile(e.target.files[0]);
   };
-
-  const user = useSelector((state) => state.user);
 
   return (
     <>

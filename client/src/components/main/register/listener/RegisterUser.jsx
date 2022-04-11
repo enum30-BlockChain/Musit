@@ -6,6 +6,7 @@ import "./RegisterUser.css";
 import { Outlet } from "react-router-dom";
 import { Input, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { createUserData } from "../../../../redux/actions/userActions.js";
 
 const RegisterUser = ({ address }) => {
   useEffect(() => {
@@ -58,8 +59,7 @@ const RegisterUser = ({ address }) => {
       nickname: nickname,
       img: DBdata.cover_img_link,
     };
-    const url = "http://localhost:5000/users";
-    const response = await axios.post(url, userdata);
+    dispatch(createUserData(userdata));
   };
 
   const getImg = (e) => {

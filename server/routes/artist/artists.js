@@ -8,9 +8,9 @@ router.use("/likes", likesRouter);
 
 /* Create */
 router.post("/", async (req, res, next) => {
-  console.log(111111111111111111);
+  console.log(666666666666);
   console.log(req.body);
-  console.log(111111111111111111);
+  console.log(666666666666);
   try {
     // 필수 입력 값 확인
     if (req.body.user_address.trim() === "") {
