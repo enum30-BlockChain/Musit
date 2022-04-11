@@ -6,6 +6,7 @@ export default function Test() {
 	const dispatch = useDispatch();
 	const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
 	const [audiofile, setAudiofile] = useState("");
+	const [duration, setDuration] = useState(0);
 	const imgFormData = new FormData();
 	const audioFormData = new FormData();
 	
@@ -24,6 +25,7 @@ export default function Test() {
 	const submit = async () => {
 		imgFormData.append("img", albumCoverImgFile);
 		audioFormData.append("audio", audiofile);
+		audioFormData.append("duration", duration);
 
 		dispatch(createMusicData(imgFormData, audioFormData));
 	};
@@ -40,9 +42,9 @@ export default function Test() {
 			{audiofile && (
 				<audio
 					src={URL.createObjectURL(audiofile)}
-					// onLoadedData={(e) => {
-					//   setDuration(e.currentTarget.duration);
-					// }}
+					onLoadedData={(e) => {
+						setDuration(e.currentTarget.duration);
+					}}
 					autoPlay
 					loop
 					controls

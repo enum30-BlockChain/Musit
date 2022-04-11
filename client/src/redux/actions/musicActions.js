@@ -7,27 +7,27 @@ export const createMusicData = (imgFormData, audioFormData) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
 		try {
       const artistInfo = getState().myArtist;
-      // const img_file = (
-			// 	await axios.post("http://localhost:5000/files/imgupload", imgFormData)
-			// ).data;
-      // console.log(img_file);
-      // console.log(audioFormData.get("audio"));
+      
+      const imgUrl = (
+				await axios.post("http://localhost:5000/files/imgupload", imgFormData)
+			).data;
+      console.log(imgUrl);
+      console.log(audioFormData.get("audio"));
 
-      const audio_file = (
+      const audioIpfsHash = (
 				await axios.post(
 					"http://localhost:5000/files/audioupload",
 					audioFormData
 				)
 			).data;
-      //TODO: audio => ipfs => hash
-      //TODO: create metadata
 
-      console.log(audio_file)
-      // const musicData = {
-      //   artist_name : artistInfo.artist_name,
-      //   img_file: img_file,
+      const musicData = {
+        artist_name : artistInfo.artist_name,
+        img_file: imgUrl,
+        audio_file: audioIpfsHash,
+        play_time: imgFormData
+      }
 
-      // }
 			const createData = 
 				await axios.post("http://localhost:5000/music/", musicData)
       console.log(createData);
