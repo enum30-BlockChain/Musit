@@ -1,14 +1,14 @@
 :root {
   /* ===== Colors ===== */
   --primary-color: rgb(241, 164, 63);
-  --secondary-color: #6768ab;
+  --secondary-color: rgb(241, 164, 63);
   --panel-color: linear-gradient(
     60deg,
     rgb(250, 180, 89) 0%,
     rgb(28, 26, 65) 100%
   );
   --text-color: #000;
-  --black-light-color: gray;
+  --black-light-color: rgb(0, 0, 0);
   --border-color: #e6e5e5;
   --toggle-color: rgb(117, 113, 113);
   --box1-color: #4da3ff;

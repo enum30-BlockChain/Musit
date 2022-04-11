@@ -2,6 +2,12 @@
   margin-top: 30px;
   text-align: center;
 }
+
+.auction-body {
+  width: 100%;
+  height: 900px;
+  background: rgba(255, 255, 255, 0.5);
+}
 .auction-layout {
   display: flex;
   margin-top: 30px;

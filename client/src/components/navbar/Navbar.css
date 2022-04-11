@@ -15,6 +15,10 @@
   width: 73px;
 }
 
+.E {
+  font-size: 70px;
+}
+
 .side-nav .logo-name-container {
   display: flex;
   align-items: center;
@@ -37,7 +41,7 @@
   font-size: 22px;
   font-weight: 600;
   color: var(--text-color);
-  margin-left: 20px;
+  margin-left: 9px;
   transition: var(--tran-05);
   text-decoration: underline var(--text-color);
 }
@@ -48,7 +52,7 @@
 }
 
 .side-nav .menu-items {
-  height: calc(100% - 90px);
+  height: calc(100% - 129px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
