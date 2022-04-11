@@ -7,11 +7,11 @@ export const createMusicData = (imgFormData, audioFormData) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
 		try {
       const artistInfo = getState().myArtist;
-      const img_file = (
-				await axios.post("http://localhost:5000/files/imgupload", imgFormData)
-			).data;
-      console.log(img_file);
-      console.log(audioFormData.get("audio"));
+      // const img_file = (
+			// 	await axios.post("http://localhost:5000/files/imgupload", imgFormData)
+			// ).data;
+      // console.log(img_file);
+      // console.log(audioFormData.get("audio"));
 
       const audio_file = (
 				await axios.post(

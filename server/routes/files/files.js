@@ -1,7 +1,25 @@
 const express = require("express");
 const multer = require("multer");
 const { imgUpload, audioUpload } = require("./s3upload");
+const { create } = require("ipfs-http-client");
 const files = express.Router();
+
+async function ipfsClient() {
+	//ipfs 서버연결
+	const ipfs = await create({
+		host: "ipfs.infura.io",
+		port: 5001,
+		protocol: "https",
+	});
+	return ipfs;
+}
+
+const postAudio = async (audioFile) => {
+	//multer하고 s3저장후 링크가져오기
+	let ipfs = await ipfsClient();
+	let result = await ipfs.add(audioFile);
+	return result
+};
 
 files.post("/imgupload", (req, res, next) => {
 	try {
@@ -23,12 +41,18 @@ files.post("/imgupload", (req, res, next) => {
 
 files.post("/audioupload", (req, res, next) => {
 	try {
-		audioUpload(req, res, (err) => {
+		audioUpload(req, res, async (err) => {
 			if (err instanceof multer.MulterError) {
 				return res.send(400, "Upload audio failed")
 			}
-			console.log(req.file)
-			return res.send(req.file)
+			const ipfs = await create({
+				host: "ipfs.infura.io",
+				port: 5001,
+				protocol: "https",
+			});
+			const result = await ipfs.add(req.file.buffer)
+			console.log(result)
+			return res.send(result.path)
 		})
 	} catch (error) {
 		res.send(500, "Upload audio failed");
