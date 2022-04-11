@@ -31,11 +31,6 @@ export const Searchbar = () => {
       navigate("/search", { state: searching });
     }
   };
-  const getsSearchWord = (e) => {
-    dispatch(fetchSearchingData(e.target.value));
-    setseraching(e.target.value);
-  };
-
   //////////////////////////////////////////////////////
 
   return (
@@ -47,7 +42,6 @@ export const Searchbar = () => {
           type="text"
           placeholder="Search here..."
           onKeyPress={changehandler}
-          onChange={getsSearchWord}
         />
       </div>
 
