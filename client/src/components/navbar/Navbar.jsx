@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 // import { fetchUserListData } from "../../redux/userList/userListAction";
 
 export const Navbar = () => {
+  const artist = useSelector((state) => state.artist);
   const [address, setAddress] = useState("");
+  console.log(artist);
 
   useEffect(() => {
     const body = document.querySelector("body");
@@ -24,7 +26,8 @@ export const Navbar = () => {
         localStorage.setItem("dark_mode", "off");
       }
     });
-
+  }, []);
+  useEffect(() => {
     const links = document.querySelectorAll(".side-nav .nav-links li");
     links.forEach((link) => {
       link.addEventListener("click", () => {
@@ -36,21 +39,22 @@ export const Navbar = () => {
         link.classList.add("active");
       });
     });
-  }, []);
-  const user = useSelector((state) => state.user);
-  const artist = useSelector((state) => state.artist);
+  }, [artist.isArtist]);
+
+  // const user = useSelector((state) => state.user);
 
   return (
     <>
-      {artist.artist_name !== null && artist.artist_name !== undefined ? (
+      {artist.isArtist ? (
         <>
           <nav className="side-nav">
             <Link to={"/landingpage"}>
               <div className="logo-name-container">
                 <div className="logo-image">
-                  <img src="/images/ENUM30.png" alt="logo" />
+                  <h1 className="E">E</h1>
+                  {/* <img src="/images/ENUM30.png" alt="logo" /> */}
                 </div>
-                <span className="logo-name nav-links">ENUM30 X MUSIT</span>
+                <span className="logo-name nav-links">NUM30 X MUSIT</span>
               </div>
             </Link>
 
@@ -97,7 +101,7 @@ export const Navbar = () => {
                 <li>
                   <Link to="#">
                     <i className="uil uil-signout"></i>
-                    <span className="link-name">Logout</span>
+                    <span className="link-name-1">Logout</span>
                   </Link>
                 </li>
 

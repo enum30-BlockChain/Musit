@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchArtistData } from "../../../redux/artist/artistAction";
 
 export const Artist = ({ address }) => {
+  console.log(address);
   const [select, setSelect] = useState("");
   const [visible, setVisible] = useState(false);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");

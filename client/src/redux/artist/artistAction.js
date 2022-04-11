@@ -111,6 +111,28 @@ export const fetchArtistData = (address) => {
     }
   };
 };
+//Artist 액션 함수 선언
+export const asdf = (address) => {
+  return async (dispatch) => {
+    dispatch(fetchArtistDataRequest());
+    try {
+      const artist = store.getState().artist;
+      const url = "http://localhost:5000/artists/signin";
+      const artistInfo = (await axios.post(url, { address })).data;
+      dispatch(
+        fetchArtistDataSuccess({
+          ...artist,
+          user_address: address,
+          // artist_name: artistInfo.artist_name,
+          img: artistInfo.img,
+          likes: artistInfo.likes,
+        })
+      );
+    } catch (error) {
+      dispatch(fetchArtistDataFailed("error!!!"));
+    }
+  };
+};
 
 //ArtistList 액션 함수 선언
 export const fetchArtistListData = (address) => {

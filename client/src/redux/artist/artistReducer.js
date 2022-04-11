@@ -4,6 +4,8 @@ const initialState = {
   img: null,
   likes: null,
   user_address: null,
+  // navbar에 아티스트일 때 조건 렌더 요구사항
+  isArtist: false,
   //artistList초기값
   artistList: [],
   artistCount: "",
