@@ -8,8 +8,12 @@ import { Dashboard } from "./dashboard/Dashboard";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Mypage } from "./mypage/Mypage";
 import Userinformation from "./mypage/userinformation/Userinformation";
+import {  useSelector } from "react-redux";
+import { Playbar } from "./playbar/Playbar";
 
 export const Main = () => {
+  const user = useSelector((state) => state.user);
+
   return (
     <section className="main">
       <Searchbar />
@@ -22,6 +26,7 @@ export const Main = () => {
             </Route>
           </Route>
         </Routes>
+        {user.loading === true ? <></> : <Playbar />}
       </div>
     </section>
   );
