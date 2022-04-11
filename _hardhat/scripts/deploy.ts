@@ -20,6 +20,8 @@ async function main() {
   const auction = await (await Auction.deploy(1)).deployed();
 
   console.log("MusitNFT address:", musitNFT.address);
+  console.log("Marketplace address:", marketplace.address);
+  console.log("Auction address:", auction.address);
 
   saveJsonFilesToClientFolder(musitNFT, "MusitNFT");
   saveJsonFilesToClientFolder(marketplace, "Marketplace");
