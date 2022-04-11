@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: true,
 				get() {
 					const rawValue = this.getDataValue("genre");
-					return rawValue ? rawValue.split(",") : null;
+					return rawValue ? rawValue.split(",") : "";
 				},
 				set(val) {
 					this.setDataValue("genre", val.join(","));
