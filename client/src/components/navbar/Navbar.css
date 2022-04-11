@@ -11,12 +11,12 @@
   transition: var(--tran-05);
 }
 
-.side-nav.close {
-  width: 73px;
-}
-
 .E {
   font-size: 70px;
+}
+
+.side-nav.close {
+  width: 73px;
 }
 
 .side-nav .logo-name-container {
@@ -41,7 +41,7 @@
   font-size: 22px;
   font-weight: 600;
   color: var(--text-color);
-  margin-left: 9px;
+  margin-left: 20px;
   transition: var(--tran-05);
   text-decoration: underline var(--text-color);
 }
@@ -52,7 +52,7 @@
 }
 
 .side-nav .menu-items {
-  height: calc(100% - 129px);
+  height: calc(100% - 128px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
