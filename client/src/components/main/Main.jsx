@@ -47,8 +47,6 @@ export const Main = () => {
     });
   };
 
-  console.log(artist);
-
   return (
     <section className="main">
       <Searchbar />

@@ -83,16 +83,18 @@ export const readMusicData = (ipfs_hash) => {
 
 export const readLikeMusicList = (ipfs_hash) => {
   return async (dispatch, getState) => {
-    dispatch({type: ActionTypes.LIKE_MUSIC_REQUEST});
+    dispatch({ type: ActionTypes.LIKE_MUSIC_REQUEST });
     try {
       const url = `http://localhost:5000/music/${ipfs_hash}`;
       const musicList = (await axios.get(url)).data;
+      console.log(11111111111111111);
+      console.log(musicList);
+      console.log(11111111111111111);
       dispatch({
         type: ActionTypes.LIKE_MUSIC_SUCCESS,
-        payload: musicList
+        payload: musicList,
       });
-    } 
-    catch (error) {
+    } catch (error) {
       dispatch({
         type: ActionTypes.LIKE_MUSIC_FAIL,
         payload: "Read music request fail",

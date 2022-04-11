@@ -7,15 +7,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { readLikeMusicList } from "../../../../../redux/actions/musicActions";
 
 export default function StickyHeadTableMusic() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   React.useEffect(() => {}, []);
-
-  const likeMusic = useSelector((state) => state.likeMusic);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -85,12 +85,12 @@ export default function StickyHeadTableMusic() {
   //   );
   // });
 
-  if (likeMusic.artist_name == null) {
-    <div>loding</div>;
-    if (likeMusic.artist_name == false) {
-      return <div>실패</div>;
-    }
-  }
+  // if (likeMusic.artist_name == null) {
+  //   <div>loding</div>;
+  //   if (likeMusic.artist_name == false) {
+  //     return <div>실패</div>;
+  //   }
+  // }
   return (
     <Paper
       className="table-container"

@@ -102,8 +102,6 @@ const RegisterUser = ({ address }) => {
   //   }
   // }, []);
 
-  console.log(metamask.accounts[0]);
-
   return (
     <>
       <div className="register-layout">
