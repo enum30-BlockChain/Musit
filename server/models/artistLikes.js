@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: "address",
       });
       ArtistLike.belongsTo(models.Artist, {
-        foreignKey: { name: "artist_name", allowNull: false },
+        foreignKey: { name: "artist_artist_name", allowNull: false },
         sourceKey: "artist_name",
       });
     }
