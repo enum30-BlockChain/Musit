@@ -17,6 +17,14 @@ export const metaMaskReducer = (state = initialState, {type, payload}) => {
         error: false,
         errorMsg: "",
       };
+    case ActionTypes.METAMASK_CONNECT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        ...payload,
+        error: false,
+        errorMsg: "",
+      };
     case ActionTypes.METAMASK_DATA_SUCCESS:
       return {
         ...state,

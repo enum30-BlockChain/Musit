@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-
 /**
  * Interface declaration
  */
@@ -19,7 +17,6 @@ declare let window: Window;
 /**
  * Enum declaration
  */
-
 enum ChainId {
 	MAIN = 1,
 	ROPSTEN = 3,
@@ -51,9 +48,9 @@ export default class Metamask {
 				accounts = await metamask.request({
 					method: "eth_requestAccounts",
 				});
-				const dispatch = useDispatch();
+
 				const message: string = `🦊Metamask is enabled.
-																\n(Address: ${shortAddress(accounts[0])})`;
+															\n(Address: ${shortAddress(accounts[0])})`;
 				return new Response(accounts, message);
 			} catch (error: any) {
 				const message: string = "🤬 " + error.message;
@@ -141,6 +138,12 @@ export default class Metamask {
 					return new Response(network, message);
 				}
 			});
+
+			metamask.on("message", (e) => {
+				console.log(e);
+				
+				window.location.reload();
+			})
 
 			const message: string = "🌈Listening on wallet status.";
 			return new Response("", message);
