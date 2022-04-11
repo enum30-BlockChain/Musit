@@ -1,17 +1,27 @@
 import "./Mypage.css";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
+import { readUserData } from "../../../redux/actions/userActions";
 
 export const Mypage = () => {
   const user = useSelector((state) => state.user);
   const artist = useSelector((state) => state.artist);
+  const dispatch = useDispatch();
+
+  const init = async () => {
+    await dispatch(readUserData());
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
 
   return (
     <div className="mypage">
       <nav className="user-nav">
         <ul className="nav-links">
-          {/* <li>
+          <li>
             <Link to="/mypage/userinformation">
               <i className="uil uil-user"></i>
               <span className="link-name"> User Information</span>
@@ -22,7 +32,7 @@ export const Mypage = () => {
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite</span>
             </Link>
-          </li> */}
+          </li>
           <li>
             <Link to="/">
               <i className="uil uil-favorite"></i>
@@ -75,8 +85,6 @@ export const Mypage = () => {
       <div className="detail">
         <Outlet />
       </div>
-
-      <Userinformation />
     </div>
   );
 };
