@@ -17,14 +17,14 @@ import { Dashboard } from "./dashboard/Dashboard";
 //Mypage
 import Userinformation from "./mypage/userinformation/Userinformation";
 import { Favorite } from "./mypage/favorite/Favorite";
-import { Subscription } from "./mypage/subscription/";
+import { Subscription } from "./mypage/subscription/Subsciption";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Collection } from "./mypage/collection/Collection";
 import { History } from "./mypage/history/History";
 import RegisterUser from "./register/user/listener/RegisterUser";
 import RegisterArtist from "./register/user/artists/RegisterArtist";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
-import { Create } from "./create/Create";
+// import { Create } from "./create/Create";
 import Search from "./serach/Search";
 import Mynfts from "./store/mynfts/Mynfts";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
@@ -107,7 +107,7 @@ export const Main = () => {
             </Route>
 
             <Route path="search" element={<Search />} />
-            <Route path="cteate" element={<Create />} />
+            {/* <Route path="cteate" element={<Create />} /> */}
           </Route>
         </Routes>
       </div>
