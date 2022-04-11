@@ -81,7 +81,7 @@ export const readMusicData = (ipfs_hash) => {
   };
 };
 
-export const readLikeMusicList = (ipfs_hash) => {
+export const readLikeMusicList = () => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.LIKE_MUSIC_REQUEST });
     try {
@@ -122,15 +122,14 @@ export const updateMusicList = (input) => {
 };
 
 /**** Delete ****/
-export const deleteMusicList = (input) => {
+export const deleteMusic = (input) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
     try {
       const url = "http://localhost:5000/music/";
-      const musicList = (await axios.delete(url, input)).data;
+      await axios.delete(url, input);
       dispatch({
         type: ActionTypes.MUSIC_DELETE_SUCCESS,
-        payload: musicList,
       });
     } catch (error) {
       dispatch({

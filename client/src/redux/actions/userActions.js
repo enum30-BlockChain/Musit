@@ -93,7 +93,7 @@ export const updateUserData = (inputs) => {
 
 /**** Delete ****/
 /* 유저 삭제 */
-export const deleteUserData = () => {
+export const deleteUser = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.USER_DATA_REQUEST });
 		try {
@@ -101,7 +101,7 @@ export const deleteUserData = () => {
 			let accounts = getState().metamask.accounts;
 			if (accounts.length>0) {
 				const url = `http://localhost:5000/users/${accounts[0]}`;
-				const result = (await axios.delete(url)).data;
+				await axios.delete(url);
 	
 				dispatch({
 					type: ActionTypes.USER_DELETE_SUCCESS,

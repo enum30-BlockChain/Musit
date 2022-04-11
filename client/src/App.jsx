@@ -26,8 +26,8 @@ const App = () => {
   return (
     <>
       <Back />
-      <Main />
       <Navbar />
+      <Main />
     </>
   );
 };
