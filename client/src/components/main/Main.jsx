@@ -15,10 +15,14 @@ import { Favorite } from "./mypage/favorite/Favorite";
 import { Dashboard } from "./dashboard/Dashboard";
 import { Searchbar } from "./searchbar/Searchbar";
 import RegisterUser from "./register/listener/RegisterUser";
+import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
+import { Artist } from "./artist/Artist";
+import RegisterArtist from "./register/artists/RegisterArtist";
 // import { Playbar } from "./playbar/Playbar";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
+  const artist = useSelector((state) => state.artist);
 
   useEffect(() => {
     sidebarToggle();
@@ -43,6 +47,8 @@ export const Main = () => {
     });
   };
 
+  console.log(artist);
+
   return (
     <section className="main">
       <Searchbar />
@@ -65,6 +71,23 @@ export const Main = () => {
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
               <Route path="favorite" element={<Favorite />} />
+              <Route path="artistsubmit" element={<Artistsubmit />} />
+            </Route>
+            <Route
+              path="artist"
+              element={
+                artist.artist_name !== undefined ? (
+                  <Artist />
+                ) : (
+                  <RegisterArtist />
+                )
+              }
+            >
+              {/* <Route path="list" element={<ArtistsList address={address} />} /> */}
+              {/* <Route
+                path="album"
+                element={<Album address={address} artist={artist} />}
+              /> */}
             </Route>
           </Route>
         </Routes>
