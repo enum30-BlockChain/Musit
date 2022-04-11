@@ -31,10 +31,10 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
-router.get("/:ipfs_hash", async (req, res, next) => {
+router.get("/:user_address", async (req, res, next) => {
 	try {
 		const musicLike = await MusicLike.findAll({
-			where: { ipfs_hash: req.params.ipfs_hash },
+			where: { user_address: req.params.user_address },
 		});
 		res.send(musicLike);
 	} catch (err) {

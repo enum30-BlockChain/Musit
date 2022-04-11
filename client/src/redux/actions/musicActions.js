@@ -81,6 +81,26 @@ export const readMusicData = (ipfs_hash) => {
   };
 };
 
+export const readLikeMusicList = (ipfs_hash) => {
+  return async (dispatch, getState) => {
+    dispatch({type: ActionTypes.LIKE_MUSIC_REQUEST});
+    try {
+      const url = `http://localhost:5000/music/${ipfs_hash}`;
+      const musicList = (await axios.get(url)).data;
+      dispatch({
+        type: ActionTypes.LIKE_MUSIC_SUCCESS,
+        payload: musicList
+      });
+    } 
+    catch (error) {
+      dispatch({
+        type: ActionTypes.LIKE_MUSIC_FAIL,
+        payload: "Read music request fail",
+      });
+    }
+  };
+};
+
 /**** Update ****/
 export const updateMusicList = (input) => {
   return async (dispatch, getState) => {
