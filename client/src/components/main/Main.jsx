@@ -2,7 +2,6 @@
 // import "./Main.css";
 
 // //REACT FUCNTION , REDUX , ETC
-// import Metamask from "../../web3/Metamask";
 // import React, { useEffect, useState } from "react";
 // import { Searchbar } from "./searchbar/Searchbar";
 // import { Route, Routes } from "react-router-dom";
@@ -37,16 +36,6 @@
 // import LandingMainPage from "../landingpage/LandingMainPage";
 
 // export const Main = () => {
-//   async function init() {
-//     const response = await Metamask.getAccounts(setAddress);
-//     const address = response.data[0];
-//     await Metamask.walletListener(setAddress);
-//   }
-
-//   useEffect(() => {
-//     init();
-//   }, [address]);
-
 //   const sidebarToggle = () => {
 //     const sidebarToggle = document.querySelector(".sidebar-toggle");
 //     const sidebar = document.querySelector("nav");
