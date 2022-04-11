@@ -4,26 +4,21 @@ import "./Main.css";
 import Userinformation from "./mypage/userinformation/Userinformation";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
-import { Mypage } from "./mypage/Mypage";
 import { Collection } from "./mypage/collection/Collection";
 import { Favorite } from "./mypage/favorite/Favorite";
 
 import { Dashboard } from "./dashboard/Dashboard";
-import { Searchbar } from "./searchbar/Searchbar";
 
 //REACT FUCNTION , REDUX , ETC
 import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Dashboard } from "./dashboard/Dashboard";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Mypage } from "./mypage/Mypage";
-import Userinformation from "./mypage/userinformation/Userinformation";
 import {  useSelector } from "react-redux";
-import { Playbar } from "./playbar/Playbar";
+// import { Playbar } from "./playbar/Playbar";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
-
   useEffect(() => {
     sidebarToggle();
   }, [])
@@ -63,7 +58,7 @@ export const Main = () => {
             </Route>
           </Route>
         </Routes>
-        {user.loading === true ? <></> : <Playbar />}
+        {/* {user.loading === true ? <></> : <Playbar />} */}
       </div>
     </section>
   );
