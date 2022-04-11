@@ -326,7 +326,7 @@ export const Playbar = (props) => {
             onChange={handleChange}
             sx={{ width: 250 }}
           />
-          {/* <PlayList playloadSong={playloadSong} /> */}
+          <PlayList playloadSong={playloadSong} />
         </div>
         <h4 id="title"></h4>
       </div>

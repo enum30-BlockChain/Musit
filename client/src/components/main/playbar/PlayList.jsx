@@ -14,7 +14,7 @@ import Avatar from "@mui/material/Avatar";
 import { Provider, useSelector, useDispatch } from "react-redux";
 
 export default function PlayList(props) {
-  const likeList = useSelector((state) => state.likeList.likeList);
+  const likeMusic = useSelector((state) => state.likeMusic).data;
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -29,7 +29,6 @@ export default function PlayList(props) {
     ) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
   const playsong = (song, index) => {
@@ -45,8 +44,8 @@ export default function PlayList(props) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {likeList &&
-          likeList.map((song, index) => (
+        {likeMusic &&
+          likeMusic.map((song, index) => (
             <ListItem
               button
               key={song}
