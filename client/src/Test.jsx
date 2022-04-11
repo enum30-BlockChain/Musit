@@ -25,9 +25,14 @@ export default function Test() {
 	const submit = async () => {
 		imgFormData.append("img", albumCoverImgFile);
 		audioFormData.append("audio", audiofile);
-		audioFormData.append("duration", duration);
-
-		dispatch(createMusicData(imgFormData, audioFormData));
+		const input = {
+			title: "test",
+			play_time: duration,
+			description:" ttttest",
+			genre:["pop"],
+			artist_name:'test',
+		}
+		dispatch(createMusicData(imgFormData, audioFormData, input));
 	};
 	return (
 		<div>
@@ -43,7 +48,7 @@ export default function Test() {
 				<audio
 					src={URL.createObjectURL(audiofile)}
 					onLoadedData={(e) => {
-						setDuration(e.currentTarget.duration);
+						setDuration(Math.floor(e.currentTarget.duration));
 					}}
 					autoPlay
 					loop
