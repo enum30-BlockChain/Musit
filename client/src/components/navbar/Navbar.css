@@ -41,7 +41,7 @@
   font-size: 22px;
   font-weight: 600;
   color: var(--text-color);
-  margin-left: 20px;
+  margin-left: 15px;
   transition: var(--tran-05);
   text-decoration: underline var(--text-color);
 }
