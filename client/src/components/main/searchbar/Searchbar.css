@@ -32,6 +32,12 @@ nav.side-nav.close ~ .main .searchbar {
   margin: 0 30px;
 }
 
+.address-appear {
+  font-size: 20px;
+  color: white;
+  margin-right: 15px;
+}
+
 .searchbar .search-box input {
   position: absolute;
   border: 1px solid var(--border-color);
@@ -69,4 +75,3 @@ nav.side-nav.close ~ .main .searchbar {
 .user-info .searchbar-address {
   display: flex;
 }
-

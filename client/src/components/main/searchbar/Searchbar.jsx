@@ -34,41 +34,43 @@ export const Searchbar = () => {
   //////////////////////////////////////////////////////
 
   return (
-    <div className="searchbar">
-      <i className="uil uil-bars sidebar-toggle"></i>
-      <div className="search-box">
-        <i className="uil uil-search"></i>
-        <input
-          type="text"
-          placeholder="Search here..."
-          onKeyPress={changehandler}
-        />
-      </div>
+    <>
+      <div className="searchbar">
+        <i className="uil uil-bars sidebar-toggle"></i>
+        <div className="search-box">
+          <i className="uil uil-search"></i>
+          <input
+            type="text"
+            placeholder="Search here..."
+            onKeyPress={changehandler}
+          />
+        </div>
 
-      <div className="user-info">
-        <div className="searchbar-address">
-          {sliceAddress ? (
-            <>
-              <div className="profile">
-                <Link to=""></Link>
-              </div>
-              <div className="searchbar-nick"></div>
-              <p>{sliceAddress}</p>
-            </>
-          ) : (
-            <Button
-              variant="contained"
-              sx={{
-                color: "var(--black-light-color)",
-                backgroundColor: "var(--box1-color)",
-              }}
-              onClick={connectOnclick}
-            >
-              Connect
-            </Button>
-          )}
+        <div className="user-info">
+          <div className="searchbar-address">
+            {sliceAddress ? (
+              <>
+                <div className="profile">
+                  <Link to=""></Link>
+                </div>
+                <div className="searchbar-nick"></div>
+                <p className="address-appear">{sliceAddress}</p>
+              </>
+            ) : (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                }}
+                onClick={connectOnclick}
+              >
+                Connect
+              </Button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
