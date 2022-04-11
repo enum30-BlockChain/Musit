@@ -14,7 +14,7 @@ export default function StickyHeadTableMusic() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const likeMusic = useSelector((state) => state.likeMusic);
   React.useEffect(() => {}, []);
 
   const handleChangePage = (event, newPage) => {
@@ -68,22 +68,22 @@ export default function StickyHeadTableMusic() {
 
   //row 안의 value값
   const rows = [];
-  // likeList.forEach((favor, index) => {
-  //   rows.push(
-  //     createRow(
-  //       index,
-  //       // <img src={favor.img_file} style={{ width: "100px" }} />,
-  //       <LikeSongCard address={address} favor={favor} />,
-  //       favor.title,
-  //       favor.artist_name,
-  //       favor.play_time,
-  //       <audio
-  //         src={`https://ipfs.infura.io/ipfs/${favor.ipfs_hash}`}
-  //         controls
-  //       ></audio>
-  //     )
-  //   );
-  // });
+  likeMusic.data.forEach((favor, index) => {
+    rows.push(
+      createRow(
+        index,
+        <img src={favor.img_file} style={{ width: "100px" }} />,
+        // <LikeSongCard address={address} favor={favor} />,
+        favor.title,
+        favor.artist_name,
+        favor.play_time,
+        <audio
+          src={`https://ipfs.infura.io/ipfs/${favor.ipfs_hash}`}
+          controls
+        ></audio>
+      )
+    );
+  });
 
   // if (likeMusic.artist_name == null) {
   //   <div>loding</div>;
@@ -91,6 +91,8 @@ export default function StickyHeadTableMusic() {
   //     return <div>실패</div>;
   //   }
   // }
+
+  console.log(likeMusic);
   return (
     <Paper
       className="table-container"
