@@ -1,7 +1,7 @@
 var express = require("express");
 const router = express.Router();
 
-const { MusicLike } = require("../../models/index");
+const { Music, MusicLike } = require("../../models/index");
 
 /* Create */
 router.post("/", async (req, res, next) => {
@@ -31,12 +31,15 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
-router.get("/:ipfs_hash", async (req, res, next) => {
+router.get("/:user_address", async (req, res, next) => {
 	try {
-		const musicLike = await MusicLike.findAll({
-			where: { ipfs_hash: req.params.ipfs_hash },
+		const music = await Music.findAll({
+			include: {
+				model: MusicLike,
+				where: { user_address: req.params.user_address },
+			},
 		});
-		res.send(musicLike);
+		res.send(music);
 	} catch (err) {
 		console.error(err);
 		res.send(500, "Read music-like list falied");

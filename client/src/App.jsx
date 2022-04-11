@@ -18,6 +18,7 @@ const App = () => {
       await dispatch(readArtistList());
       await dispatch(readArtistData());
       await dispatch(readMusicList());
+      await dispatch(readMusicList());
     };
     init();
   }, []);
