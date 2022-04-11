@@ -1,17 +1,15 @@
-import "./App.css";
-import { Main } from "./components/main/Main.jsx";
-import { Navbar } from "./components/navbar/Navbar";
-import Back from "./components/landingpage/back/Back";
-import React from "react";
+import { useEffect } from "react";
 
-const App = () => {
+import "./App.css";
+
+function App() {
+  useEffect(() => {}, []);
+
   return (
     <>
-      <Back />
-      <Main />
       <Navbar />
     </>
   );
-};
+}
 
 export default App;

@@ -4,6 +4,18 @@ const likesRouter = require("./likes");
 const { MusicLike, Music } = require("../../models/index");
 
 /* GET home page. */
+router.get("/list", async (req, res, next) => {
+  try {
+    const musicList = await Music.findAll({
+      include: { model: MusicLike },
+    });
+    res.send(musicList);
+  } catch (err) {
+    console.log(err);
+    res.send(500, err)
+  }
+});
+
 router.post("/like", async (req, res, next) => {
   console.log(req.body);
   try {
@@ -30,6 +42,7 @@ router.post("/like", async (req, res, next) => {
       });
       return res.send("삭제완료");
     }
+
     res.send(findMyAddress);
   } catch (err) {
     next(err);
@@ -46,7 +59,7 @@ router.post("/add", async (req, res, next) => {
       },
       { where: { ipfs_hash: data.ipfs_hash } }
     );
-    res.send("노래 카운트 +1");
+    res.send("노래 카운트 +1")
   } catch (err) {
     next(err);
     console.log(err);
