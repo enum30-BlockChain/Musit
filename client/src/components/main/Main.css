@@ -6,15 +6,17 @@
   left: 220px;
   padding: 10px 30px 10px 30px;
   min-height: 100vh;
-  width: calc(100% - 220px);
-
   transition: var(--tran-05);
 }
 
 nav.side-nav.close ~ .main {
   left: 73px;
   width: calc(100% - 73px);
-  transition: var(--tran-05);
+}
+
+nav.side-nav.open ~ .main {
+  left: 220px;
+  width: calc(100% - 220px);
 }
 
 .main .main-content {
@@ -24,5 +26,4 @@ nav.side-nav.close ~ .main {
   top: 65px;
   left: 0px;
   padding: 15px 15px 15px 15px;
-  transition: var(--tran-05);
 }

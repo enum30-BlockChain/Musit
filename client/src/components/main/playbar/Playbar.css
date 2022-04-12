@@ -1,5 +1,5 @@
 .music-container {
-  background-color: rgb(243, 243, 243);
+  background-color: rgba(243, 243, 243, 0.5);
   display: flex;
   padding: 20px 30px;
   position: absolute;
