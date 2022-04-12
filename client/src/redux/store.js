@@ -6,6 +6,7 @@ import { userReducer } from "./reducers/userReducer";
 import { metaMaskReducer } from "./reducers/metamaskReducer";
 import { artistListReducer, likeArtistReducer, artistReducer, selectedArtistReducer } from "./reducers/artistReducer";
 import { likeMusicReducer, musicListReducer, selectedMusicReducer } from "./reducers/musicReducer";
+import { musitNFTReducer } from "./reducers/musitNFTReducer";
 
 
 
@@ -28,6 +29,9 @@ const rootReducer = combineReducers({
 
   // Metamask Reducer
   metamask: metaMaskReducer,
+
+  // Contracts Reducer
+  musitNFT: musitNFTReducer,
 });
 
 // 개발 모드에서만 logger 생성

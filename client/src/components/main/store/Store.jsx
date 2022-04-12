@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import Ethers from "../../../web3/Ethers";
 import { Routes, Route, Link } from "react-router-dom";
 import MyNFTs from "./mynfts/MyNFTs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { readMyMintedNFTList } from "../../../redux/actions/musitNFTActions";
 
 
 
@@ -24,36 +25,25 @@ function createTestArray (num) {
 
 export const Store = () => {
 	const [nftItems, setNftItems] = useState([]);
-	const user = useSelector(state => state.user)
+	const user = useSelector((state) => state.user);
+	const musitNFT = useSelector((state) => state.musitNFT);
+	const dispatch = useDispatch()
 
 	useEffect(() => {
-		if (!user.loading && !user.error) loadMyNFTs()
+		loadMyNFTs()
 	}, [user.loading])
 
 	async function mintingOnClick() {
 		const result = await Ethers.minting("https://gateway.pinata.cloud/ipfs/QmZiFY6mvGyDvBqxHojHmiU1r8HCdh7QHZeEvYTpsWzqYT");
-
-		if(result) loadMyNFTs()
+		
+		if(result.confirmations) loadMyNFTs()
 	}
 
 	async function loadMyNFTs() {
-		if (user.address) {
+		if (!user.loading && !user.error) {
+			await dispatch(readMyMintedNFTList())
 		}
-		const musitNFT = Ethers.loadContracts().musitNFT;
-		const filter = musitNFT.filters.Minted(null, null, user.address)
-		const myMintedList =await Promise.all((await musitNFT.queryFilter(filter)).map(async (event) => {
-			const item = event.args
-			const tokenURI = await musitNFT.tokenURI(item.tokenId)
-			const metadata = await (await fetch(tokenURI)).json();
-			const tokenId = item.tokenId.toNumber()
-			
-			return {
-				tokenId,
-				...metadata
-			}
-		}))
-		console.log(myMintedList);
-		setNftItems(myMintedList)
+		setNftItems(musitNFT.myMintedNFTList)
 	}
 
 
@@ -79,7 +69,7 @@ export const Store = () => {
 				</ul>
 			</nav>
 			<Routes>
-				<Route path="mynfts" element={<MyNFTs nftItems={nftItems} />} />
+				<Route path="mynfts" element={<MyNFTs />} />
 			</Routes>
 			<div className="title">Musit NFT Store</div>
 			<button onClick={mintingOnClick}>Minting</button>

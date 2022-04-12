@@ -15,9 +15,6 @@ const modalStyle = {
 };
 
 const ItemModal = ({ open, handleClose, itemInfo }) => {
-	useEffect(() => {
-		console.log(itemInfo)
-	}, []);
 	
 	return (
 		<>
@@ -47,12 +44,7 @@ const ItemModal = ({ open, handleClose, itemInfo }) => {
 							</div>
 							<div className="detail-box description-box">
 								<div className="name">Description</div>
-								<span className="text">asdf\sadfsdafsafsdafsdafdaasdfasdfsadfsdafsdafsadfsadfsadf
-								fas
-								dfs
-								adf
-								asdf
-								asdfasdfsadfasdfasddfasfsadfsadsadfasfadsfasdfffffffffffffffffffffffffffffffffffafsddddddddddddddddddddddadsffffffffffffffffffffffffffasdf</span>
+								<span className="text"></span>
 							</div>
 							<div className="button-group">
 							</div>

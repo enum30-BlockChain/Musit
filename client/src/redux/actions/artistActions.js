@@ -202,7 +202,7 @@ export const toggleLikeArtist = () => {
 				} else {
 					// 좋아요를 눌렀으면 다시 삭제
 					const url = `http://localhost:5000/artists/likes/${artistName}`;
-					await axios.delete(url, { user_address: userInfo.address });
+					await axios.delete(url, { data: { user_address: userInfo.address } });
 
 					dispatch({
 						type: ActionTypes.LIKE_ARTIST_SUCCESS,

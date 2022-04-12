@@ -2,32 +2,58 @@ import { ActionTypes } from "../constants/actionTypes";
 
 const initialMusitNFTState = {
   loading: false,
-  allMusitNFTList:[],
+  myNFTList:[],
+  myMintedNFTList:[],
   error: false,
   errorMsg: "",
 }
 
 export const musitNFTReducer = (state = initialMusitNFTState, { type, payload }) => {
   switch (type) {
-    case ActionTypes.MUSIT_NFT_ALL_LIST_REQUEST:
+    case ActionTypes.MUSIT_NFT_LIST_REQUEST:
       return {
+        ...state,
         loading: true,
         error: false,
         errorMsg: "",
       };
-    case ActionTypes.MUSIT_NFT_ALL_LIST_SUCCESS:
+    case ActionTypes.MUSIT_NFT_LIST_SUCCESS:
       return {
+        ...state,
         loading: false,
+        myNFTList: payload,
         error: false,
         errorMsg: "",
       };
-    case ActionTypes.MUSIT_NFT_ALL_LIST_FAIL:
+    case ActionTypes.MUSIT_NFT_LIST_FAIL:
       return {
+        ...state,
         loading: false,
         error: true,
-        errorMsg: "Get all list of Musit NFT failed",
+        errorMsg: payload,
       };
-  
+    case ActionTypes.MUSIT_NFT_MINTED_LIST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+        errorMsg: "",
+      };
+    case ActionTypes.MUSIT_NFT_MINTED_LIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        myMintedNFTList: payload,
+        error: false,
+        errorMsg: "",
+      };
+    case ActionTypes.MUSIT_NFT_MINTED_LIST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: true,
+        errorMsg: payload,
+      };
     default:
       return state;
   }
