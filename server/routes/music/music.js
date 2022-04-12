@@ -83,6 +83,8 @@ router.patch("/:ipfs_hash", async (req, res, next) => {
     } else if (req.body.artist_name && req.body.artist_name.trim() === "") {
       res.send(400, "Empty artist name");
     } else {
+    console.log(req.params.ipfs_hash);
+    console.log(req.body);
       await Music.update(req.body, {
         where: { ipfs_hash: req.params.ipfs_hash },
       });
