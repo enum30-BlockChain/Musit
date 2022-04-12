@@ -98,7 +98,7 @@ const Media = (props) => {
                       {music.artist_name}
                     </Typography>
                     <Typography display="block" variant="overline" color="text.secondary">
-                      {music.Genre}
+                      {music.genre}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
@@ -167,7 +167,7 @@ const Media = (props) => {
                       {music.artist_name}
                     </Typography>
                     <Typography display="block" variant="overline" color="text.secondary">
-                      {music.Genre}
+                      {music.genre}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}

@@ -11,28 +11,29 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export default function Genre(props) {
     const [genreRecommend, setGenreRecommend] = useState([])
-    const musicList = useSelector((state) => state.musicList.musicList);
-    const likeList = useSelector((state) => state.likeList.likeList);
+    const musicList = useSelector((state) => state.musicList).data
+    const likeMusic = useSelector((state) => state.likeMusic).data;
     const [genre, setGenre] = useState(0);
     const [viewGenreCard, setViewGenreCard] = useState(0);
 
     useEffect(() => {
-        const likeGenre = [...likeList];
+        const likeGenre = [...likeMusic];
         const GenreBox =[]
         likeGenre.forEach((e) => {
-          GenreBox.push(...e.Genre.split(","));
+          GenreBox.push(...e.genre);
         });
-       const result = GenreBox.reduce((accu, curr) => { 
-         accu[curr] = (accu[curr] || 0)+1; 
+        const result = GenreBox.reduce((accu, curr) => { 
+          accu[curr] = (accu[curr] || 0)+1; 
          return accu;
-       }, {});
-     
+       }, []);
+       
        const GenreRecommendHandler =()=>{
          const topGenre = Object.entries(result)
              .sort(([,a],[,b]) => b-a)
              .reduce((r, [k ]) => ([...r, k]), []);
              if(topGenre.length > 0){
-               return musicList.filter((song) => song.Genre.indexOf(topGenre[0]) > -1);
+               console.log("best like genre : ",topGenre[0]);
+               return musicList.filter((song) => song.genre.indexOf(topGenre[0]) > -1);
              }else{
                return musicList ;
              }
@@ -112,7 +113,7 @@ export default function Genre(props) {
                       variant="overline"
                       color="text.secondary"
                     >
-                      {music.Genre}
+                      {music.genre}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
@@ -181,7 +182,7 @@ export default function Genre(props) {
                       {music.artist_name}
                     </Typography>
                     <Typography display="block" variant="overline" color="text.secondary">
-                      {music.Genre}
+                      {music.genre}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}

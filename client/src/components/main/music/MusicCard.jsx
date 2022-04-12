@@ -19,8 +19,6 @@ function MusicCard(props) {
     setCheckedInputs(props.checkBox);
   }, [props])
   
-  useEffect(() => {
-  }, []); 
   const onPopup = () => {
     setModal(true);
   };

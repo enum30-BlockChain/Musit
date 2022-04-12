@@ -5,7 +5,7 @@ import MusicCard from "./MusicCard";
 import { readMusicList } from "../../../redux/actions/musicActions";
 import Media from "./media/Media.jsx";
 import MusicPlayerSlider from "../serach/MusicPlayerSlider";
-// import Genre from "./genre/Genre.jsx";
+import Genre from "./genre/Genre.jsx";
 
 export const Music = () => {
   const [musicmodal, setmusicmodal] = useState("");
@@ -23,10 +23,10 @@ export const Music = () => {
   return (
     <>
       <Routes>
-        {/* <Route
+        <Route
           path="/genre"
           element={<Genre setmusicmodal={setmusicmodal} />}
-        /> */}
+        />
         <Route
           path="/ranking"
           element={<Media setmusicmodal={setmusicmodal} />}
