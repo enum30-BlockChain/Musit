@@ -7,10 +7,12 @@
   padding: 10px 30px 10px 30px;
   min-height: 100vh;
   width: calc(100% - 220px);
+
   transition: var(--tran-05);
 }
 
-nav.side-nav.close ~ section {
+nav.side-nav.close ~ .main {
+  left: 73px;
   width: calc(100% - 73px);
   transition: var(--tran-05);
 }
@@ -19,7 +21,6 @@ nav.side-nav.close ~ section {
   position: absolute;
   width: 100%;
   height: calc(100% - 65px - 100px);
-
   top: 65px;
   left: 0px;
   padding: 15px 15px 15px 15px;
