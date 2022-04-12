@@ -118,7 +118,11 @@ const RegisterUser = () => {
 
             <h1>Profile Image</h1>
             {albumCoverImgFile === "" ? (
-              <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
+              <Avatar
+                className="register-avatar"
+                alt="Remy Sharp"
+                // sx={{ width: 300vw, height: 300c }}
+              />
             ) : (
               <Avatar
                 alt="Remy Sharp"

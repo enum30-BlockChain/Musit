@@ -43,10 +43,9 @@
 .mypage .user-nav {
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid var(--black-light-color);
-  padding: 10px 0;
-
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 2px solid;
+  padding-bottom: 10px;
+  color: white;
 }
 
 .mypage .user-nav .nav-links {
@@ -61,6 +60,7 @@
 }
 
 .mypage .user-nav .nav-links li :is(i, .link-name) {
+  font-size: 18px;
   color: var(--black-light-color);
   transition: var(--tran-03);
 }

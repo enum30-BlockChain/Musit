@@ -19,12 +19,10 @@
 .store .store-nav {
   display: flex;
   justify-content: center;
-  border-top: 1px solid var(--black-light-color);
-  border-bottom: 1px solid var(--black-light-color);
-  padding: 10px 0;
 
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 2px solid var(--black-light-color);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
 }
 
 .store .store-nav .nav-links {
@@ -39,14 +37,17 @@
 }
 
 .store .store-nav .nav-links li :is(i, .link-name) {
+  font-size: 18px;
   color: var(--black-light-color);
   transition: var(--tran-03);
 }
 
 .store-nav .nav-links a:hover :is(i, .link-name) {
+  font-size: 18px;
   color: var(--primary-color);
 }
 
 .store-nav .nav-links li.active :is(i, .link-name) {
+  font-size: 18px;
   color: var(--primary-color);
 }
