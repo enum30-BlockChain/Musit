@@ -92,7 +92,6 @@ export default function StickyHeadTableMusic() {
   //   }
   // }
 
-  console.log(likeMusic);
   return (
     <Paper
       className="table-container"
