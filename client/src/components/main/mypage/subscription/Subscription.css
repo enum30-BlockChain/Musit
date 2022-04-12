@@ -1,36 +1,24 @@
 @import "../../../../styles/variables.css";
 
-.sub-container {
-  display: flex;
-  width: 100%;
-  position: fixed;
-}
-
-.sub-empty {
-  background-color: green;
-  min-width: 300px;
-}
-.sub-container .sub-layout {
-  width: 100%;
-  /* background-color: white; */
-}
-
-.sub-container .sub-layout .sub {
+.sub {
   margin-top: 20px;
   width: 100%;
   color: var(--text-color);
   text-align: center;
 }
 
-.sub-container .sub-box {
+.sub-layout {
+  width: 100%;
+}
+
+.sub-layout .sub-box {
   display: flex;
   justify-content: center;
   margin-left: 10px;
   margin-right: 10px;
   color: var(--text-color);
 }
-
-.sub-container .sub-box .sub-card {
+.sub-layout .sub-box .sub-card {
   height: 300px;
   width: 200px;
   background-color: var(--box1-color);
