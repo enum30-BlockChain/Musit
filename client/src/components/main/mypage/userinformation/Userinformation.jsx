@@ -13,6 +13,7 @@ export default function Userinformation({}) {
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [img, setImg] = useState("");
   const [checkedInputs, setCheckedInputs] = useState("");
+  const [selected, setSelected] = useState("KS");
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -98,8 +99,6 @@ export default function Userinformation({}) {
     "Electronic",
     "Dance",
   ]);
-
-  const [selected, setSelected] = useState("KS");
 
   return (
     <div className="user-card">

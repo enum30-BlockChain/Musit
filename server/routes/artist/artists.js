@@ -8,9 +8,6 @@ router.use("/likes", likesRouter);
 
 /* Create */
 router.post("/", async (req, res, next) => {
-  console.log(666666666666);
-  console.log(req.body);
-  console.log(666666666666);
   try {
     // 필수 입력 값 확인
     if (req.body.user_address.trim() === "") {
@@ -57,7 +54,10 @@ router.patch("/:user_address", async (req, res, next) => {
     // 입력값에 대한 유효성 검사
     if (req.body.address) {
       res.send(400, "Address is immutable");
-    } else if (req.body.artist_name !== undefined && req.body.artist_name.trim() === "") {
+    } else if (
+      req.body.artist_name !== undefined &&
+      req.body.artist_name.trim() === ""
+    ) {
       res.send(400, "Empty artist_name");
     } else if (req.body.img !== undefined && req.body.img.trim() === "") {
       res.send(400, "Empty img");

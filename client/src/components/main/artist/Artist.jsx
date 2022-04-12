@@ -2,8 +2,9 @@ import "./Artist.css";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
+import { updateArtistData } from "../../../redux/actions/artistActions";
 
 export const Artist = () => {
   const [select, setSelect] = useState("");
@@ -15,42 +16,36 @@ export const Artist = () => {
   const artist = useSelector((state) => state.artist);
   const metamask = useSelector((state) => state.metamask);
 
+  const dispatch = useDispatch();
+
   function navlinkOnClick(e) {
     console.log(e.target);
   }
 
   const idonchange = (e) => {
-    console.log(e.target.value);
     setSelect(e.target.value);
   };
 
   const NickNameOnClick = async () => {
-    const url = "http://localhost:5000/artists/change";
-    const response = await axios.post(url, { address, select });
-    return response.data;
+    if (select === "") {
+      setSelect(user.nickname);
+    }
+    const newimg = await postImg();
+    await dispatch(updateArtistData({ artist_name: select, img: newimg }));
   };
 
   const postImg = async () => {
-    formData.append("img", img);
-    const url = "http://localhost:5000/files/imgupload";
-    const result = await axios.post(url, formData);
-    return result.data;
+    if (img !== "") {
+      formData.append("img", img);
+      const url = "http://localhost:5000/files/imgupload";
+      const result = await axios.post(url, formData);
+      return result.data;
+    }
   };
 
   const getImg = (e) => {
     setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
     setImg(e.target.files[0]);
-  };
-
-  const Submit = async () => {
-    const newimg = await postImg();
-    await axios
-      .post("http://localhost:5000/artists/changeimg", {
-        address,
-        downloadLink: newimg.downLoadLink,
-      })
-      .then((res) => {})
-      .catch((err) => alert(err));
   };
 
   return (
@@ -69,7 +64,6 @@ export const Artist = () => {
             )}
             {visible && (
               <div>
-                <button onClick={Submit}>올리기</button>
                 <input
                   type="file"
                   name="imgUpload"
