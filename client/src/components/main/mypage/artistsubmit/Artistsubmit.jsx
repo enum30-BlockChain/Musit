@@ -1,31 +1,12 @@
 import "./Artistsubmit.css";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Input, Button } from "@mui/material";
 import axios from "axios";
+import { createArtistData } from "../../../../redux/actions/artistActions";
 
-export default function Artistsubmit({ address }) {
+export default function Artistsubmit() {
   const [inputs, setInputs] = useState("");
-
-  const submitOnClick = async () => {
-    await postImg();
-    const artistsdata = {
-      address,
-      nickname: inputs,
-      img: DBdata.cover_img_link,
-    };
-    console.log(artistsdata);
-    const url = "http://localhost:5000/artists/signup";
-    const response = await axios.post(url, artistsdata);
-    console.log(response.data);
-  };
-
-  const onChange = (e) => {
-    setInputs(e.target.value);
-  };
-
-  ///////////////////////////////////////////////////////////
-
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
   });
@@ -33,12 +14,31 @@ export default function Artistsubmit({ address }) {
 
   const formData = new FormData();
 
+  const metamask = useSelector((state) => state.metamask);
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch;
+
+  const submitOnClick = async () => {
+    await postImg();
+    const artistsdata = {
+      user_address: metamask.accounts[0],
+      artist_name: inputs,
+      img: DBdata.cover_img_link,
+    };
+    dispatch(createArtistData(artistsdata));
+  };
+
+  const onChange = (e) => {
+    setInputs(e.target.value);
+  };
+
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
     formData.append("img", albumCoverImgFile);
     await axios
       .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
-      .then((res) => (DBdata.cover_img_link = res.data.downLoadLink))
+      .then((res) => (DBdata.cover_img_link = res.data))
       .catch((err) => alert(err));
     return DBdata;
   };
@@ -46,8 +46,6 @@ export default function Artistsubmit({ address }) {
   const getImg = (e) => {
     setAlbumCoverImgFile(e.target.files[0]);
   };
-
-  const user = useSelector((state) => state.user);
 
   return (
     <>
