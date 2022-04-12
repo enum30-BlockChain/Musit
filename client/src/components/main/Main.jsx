@@ -24,6 +24,7 @@ import { Playbar } from "./playbar/Playbar";
 import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
 import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
+import { ArtistsList } from "./artist/favorite/ArtistsList";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -83,7 +84,9 @@ export const Main = () => {
               element={
                 artist.artist_name !== undefined ? <Artist /> : <Artistsubmit />
               }
-            ></Route>
+            >
+              <Route path="list" element={<ArtistsList />} />
+            </Route>
             <Route path="store/*" element={<Store />} />
           </Route>
         </Routes>

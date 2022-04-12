@@ -8,22 +8,14 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchArtistData,
-  fetchArtistListData,
-} from "../../../../../redux/artist/artistAction";
-import ArtistLikeCard from "./ArtistLikeCard";
+// import ArtistLikeCard from "./ArtistLikeCard";
 
-export default function ArtistListCard({ address }) {
+export default function ArtistListCard() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const dispatch = useDispatch();
   const artistList = useSelector((state) => state.artistList);
-
-  React.useEffect(() => {
-    dispatch(fetchArtistListData(address)).then(() => {});
-  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -55,21 +47,23 @@ export default function ArtistListCard({ address }) {
   //row 안의 value값
   const rows = [];
 
-  artistList.artistList.forEach((Artists, index) => {
-    rows.push(
-      createRow(
-        index,
-        Artists.artist_name,
-        <ArtistLikeCard
-          key={index}
-          sx={{ width: "50%" }}
-          Artists={Artists}
-          address={address}
-        />,
-        Artists.likes
-      )
-    );
-  });
+  // artistList.artistList.forEach((Artists, index) => {
+  //   rows.push(
+  //     createRow(
+  //       index,
+  //       Artists.artist_name,
+  //       <ArtistLikeCard
+  //         key={index}
+  //         sx={{ width: "50%" }}
+  //         Artists={Artists}
+  //         address={address}
+  //       />,
+  //       Artists.likes
+  //     )
+  //   );
+  // });
+
+  console.log(artistList);
 
   return (
     <Paper
