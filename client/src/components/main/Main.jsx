@@ -4,7 +4,6 @@ import "./Main.css";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-
 import { Mypage } from "./mypage/Mypage";
 import Userinformation from "./mypage/userinformation/Userinformation";
 import { Subscription } from "./mypage/subscription/Subscription";
@@ -12,17 +11,14 @@ import { History } from "./mypage/history/History";
 import { Collection } from "./mypage/collection/Collection";
 import { Favorite } from "./mypage/favorite/Favorite";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
-
 import { Dashboard } from "./dashboard/Dashboard";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Artist } from "./artist/Artist";
-
 import RegisterUser from "./register/RegisterUser";
-
 import { Store } from "./store/Store";
-
 import { Music } from "./music/Music";
 import { Playbar } from "./playbar/Playbar";
+import Search from "./serach/Search";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -61,7 +57,7 @@ export const Main = () => {
             <Route
               path="mypage"
               element={
-                user.nickname && user.address !== undefined ? (
+                user.nickname !== undefined ? (
                   <Mypage path="userinformation" />
                 ) : (
                   <RegisterUser />
@@ -81,6 +77,7 @@ export const Main = () => {
                 artist.artist_name !== undefined ? <Artist /> : <Artistsubmit />
               }
             ></Route>
+            <Route path="search" element={<Search/>} />
             <Route path="music/*" element={<Music/>} />
             <Route path="store/*" element={<Store/>} />
           </Route>

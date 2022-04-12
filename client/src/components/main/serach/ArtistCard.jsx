@@ -10,7 +10,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchArtistLikeData } from "../../../redux/artist/artistAction";
+// import { fetchArtistLikeData } from "../../../redux/artist/artistAction";
 
 const Img = styled("img")({
   margin: "auto",
@@ -36,11 +36,9 @@ export default function ArtistCard(props) {
   const artistList = useSelector((state) => state.artistList);
   const dispatch = useDispatch();
 
-  const likeOnclick = () => {
-    dispatch(fetchArtistLikeData(props.address, props.artist.artist_name));
-  };
-
-  console.log(artistList);
+  // const likeOnclick = () => {
+  //   dispatch(fetchArtistLikeData(props.address, props.artist.artist_name));
+  // };
 
   return (
     <Paper

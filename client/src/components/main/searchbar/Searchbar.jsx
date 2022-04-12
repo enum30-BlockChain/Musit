@@ -8,8 +8,9 @@ import {
   connectMetamask,
   readMetamaskData,
 } from "../../../redux/actions/metamaskActions";
-
+import { searchingReducer } from "../../../redux/actions/searchingAction";
 export const Searchbar = () => {
+  const [searching, setseraching] = useState("");
   const navigate = useNavigate(); //페이지이동하면서 정보담아서 옮길수있따
   const dispatch = useDispatch();
 
@@ -34,6 +35,10 @@ export const Searchbar = () => {
       navigate("/search", { state: searching });
     }
   };
+  const getsSearchWord = (e) => {
+    dispatch(searchingReducer(e.target.value));
+    setseraching(e.target.value);
+  };
   //////////////////////////////////////////////////////
 
   return (
@@ -46,6 +51,7 @@ export const Searchbar = () => {
             type="text"
             placeholder="Search here..."
             onKeyPress={changehandler}
+            onChange={getsSearchWord}
           />
         </div>
 

@@ -6,8 +6,6 @@ import { Link, Outlet } from "react-router-dom";
 export const Mypage = () => {
   const artist = useSelector((state) => state.artist);
 
-  console.log(artist);
-
   return (
     <div className="mypage">
       <nav className="user-nav">
