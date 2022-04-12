@@ -44,7 +44,7 @@
 .navigation {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   z-index: 1;
   margin-left: 115px;
   left: 30px;

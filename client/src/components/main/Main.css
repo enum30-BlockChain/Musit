@@ -14,11 +14,6 @@ nav.side-nav.close ~ .main {
   width: calc(100% - 73px);
 }
 
-nav.side-nav.open ~ .main {
-  left: 220px;
-  width: calc(100% - 220px);
-}
-
 .main .main-content {
   position: absolute;
   width: 100%;
