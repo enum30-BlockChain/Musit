@@ -93,12 +93,13 @@ export default function Userinformation({}) {
     <div className="user-card">
       <div className="user-image">
         {user.img === "" ? (
-          <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
+          <Avatar alt="Remy Sharp" sx={{ width: 200, height: 200 }} />
         ) : (
-          <Avatar
+          <img
+            className="user-image"
             alt="Remy Sharp"
             src={user.img}
-            sx={{ width: 128, height: 128 }}
+            sx={{ width: 250, height: 250 }}
           />
         )}
         {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
@@ -137,7 +138,7 @@ export default function Userinformation({}) {
         <span>{metamask.accounts[0]}</span>
         <h2 className="subscription">Subscription</h2>
         <span>{user.subscription}월이용권 </span>
-        <h2 className="Genre">Genre</h2>
+        <h2 className="Genre">Favorite Genre</h2>
         {visible ? (
           <div>
             {genre.map((MusicType, index) => {

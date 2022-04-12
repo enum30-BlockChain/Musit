@@ -23,6 +23,6 @@ nav.side-nav.close ~ section {
 
   top: 65px;
   left: 0px;
-  padding: 0px 15px 15px 15px;
+  padding: 0px 20px 20px 20px;
   transition: var(--tran-05);
 }

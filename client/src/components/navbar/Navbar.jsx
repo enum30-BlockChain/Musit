@@ -59,6 +59,19 @@ export const Navbar = () => {
         <div className="menu-items">
           <ul className="nav-links">
             <li>
+              <Link to="/mypage">
+                <i className="uil uil-create-dashboard"></i>
+                <span className="link-name">MYPAGE</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/artist">
+                <i className="uil uil-palette"></i>
+                <span className="link-name">ARTIST PAGE</span>
+              </Link>
+            </li>
+
+            <li>
               <Link to="/musiclist">
                 <i className="uil uil-music"></i>
                 <span className="link-name">MUSIC</span>
@@ -80,18 +93,6 @@ export const Navbar = () => {
               <Link to="/auctionmarket">
                 <i className="uil uil-arrow-growth"></i>
                 <span className="link-name">AUCTION MARKET</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/mypage">
-                <i className="uil uil-create-dashboard"></i>
-                <span className="link-name">MYPAGE</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/artist">
-                <i className="uil uil-palette"></i>
-                <span className="link-name">ARTIST PAGE</span>
               </Link>
             </li>
           </ul>

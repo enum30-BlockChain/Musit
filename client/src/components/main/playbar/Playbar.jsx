@@ -319,6 +319,9 @@ export const Playbar = (props) => {
           <PlayList playloadSong={playloadSong} />
         </div>
         <h4 id="title"></h4>
+        <div className="playbar-hidden">
+          <button>플레이바히든버튼입니다</button>
+        </div>
       </div>
     </>
   );

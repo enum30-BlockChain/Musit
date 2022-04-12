@@ -5,19 +5,35 @@
   justify-content: center;
 }
 
-.mypage .user-card {
+.mypage .mypage-fixed {
   display: flex;
+}
+
+.mypage .mypage-fixed .mypage-rendering {
+  background-color: coral;
   width: 100%;
-  height: 330px;
-  padding-left: 30px;
+}
+
+.mypage .user-card {
+  width: 300px;
+  height: 690px;
   align-items: center;
+  border-radius: 10px;
+  /* background-color: rgba(255, 255, 255, 0.5); */
+  background-color: red;
+  padding: 20px;
+}
+
+.user-card .user-image {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
 }
 
 .mypage .user-card .user-info {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
-  padding-left: 30px;
+
   justify-content: center;
 }
 
@@ -25,13 +41,6 @@
   bottom: 0;
   position: flex;
   width: 100px;
-}
-
-.mypage .user-card .user-image {
-  width: 200px;
-  height: 200px;
-  margin-left: 10px;
-  border-radius: 50%;
 }
 
 .mypage .user-card .user-image img {
@@ -43,9 +52,9 @@
 .mypage .user-nav {
   display: flex;
   justify-content: center;
-  border-bottom: 2px solid;
+  /* border-bottom: 2px solid; */
   padding-bottom: 10px;
-  color: white;
+  /* color: white; */
 }
 
 .mypage .user-nav .nav-links {
