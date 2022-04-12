@@ -64,9 +64,9 @@ router.patch("/:address", async (req, res, next) => {
     // 입력값에 대한 유효성 검사
     if (req.body.address) {
       res.send(400, "Address is immutable");
-    } else if (req.body.nickname && req.body.nickname.trim() === "") {
+    } else if (req.body.nickname !== undefined && req.body.nickname.trim() === "") {
       res.send(400, "Empty nickname");
-    } else if (req.body.nation && req.body.nation.trim() === "") {
+    } else if (req.body.nation !== undefined && req.body.nation.trim() === "") {
       res.send(400, "Empty nation");
     } else {
       const result = await User.update(req.body, {

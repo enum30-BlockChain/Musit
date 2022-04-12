@@ -41,6 +41,12 @@ const MyNFTs = () => {
 								image={data.image}
 								alt={data.title}
 							/>
+							<CardMedia
+								component="audio"
+								weight="200"
+								audio={`http://ipfs.infura.io/ipfs/${"Qmd1kXq4sVWK8Cw177fffa3LCQHZ1giJxcZVzRhcH5vWyb"}`}
+								alt={data.title}
+							/>
 						</Card>
 						<ItemModal open={open} handleClose={handleClose} itemInfo={data} />
 					</div>
