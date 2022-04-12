@@ -2,7 +2,7 @@ import { ActionTypes } from "../constants/actionTypes";
 
 /* My Music Reducer */
 const musicInitialState = {
-	loading: false,
+	loading: true,
 	artist_name: null,
 	user_address: null,
 	img: null,
@@ -69,7 +69,7 @@ export const musicReducer = (
 
 /* Music List Reducer */
 const musicListInitialState = {
-	loading: false,
+	loading: true,
 	data: [],
 	error: false,
 	errorMsg: "",

@@ -7,6 +7,7 @@ import { metaMaskReducer } from "./reducers/metamaskReducer";
 import { artistListReducer, likeArtistReducer, artistReducer, selectedArtistReducer } from "./reducers/artistReducer";
 import { likeMusicReducer, musicListReducer, selectedMusicReducer } from "./reducers/musicReducer";
 import { musitNFTReducer } from "./reducers/musitNFTReducer";
+import { searchingReducer } from "./reducers/searchingReducer";
 
 
 
@@ -20,12 +21,15 @@ const rootReducer = combineReducers({
   artist: artistReducer,
   artistList: artistListReducer,
   selectedArtist: selectedArtistReducer,
-  likeArtist: likeArtistReducer,
+  1: likeArtistReducer,
   
   // Music Reducer
   musicList: musicListReducer,
   likeMusic: likeMusicReducer,
   selectedMusic: selectedMusicReducer,
+
+  // Search Reducer
+  searching: searchingReducer,
 
   // Metamask Reducer
   metamask: metaMaskReducer,

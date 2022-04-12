@@ -22,7 +22,7 @@ export const Music = () => {
 
   return (
     <>
-      <Routes>
+     <Routes>
         <Route
           path="/genre"
           element={<Genre setmusicmodal={setmusicmodal} />}
@@ -31,7 +31,7 @@ export const Music = () => {
           path="/ranking"
           element={<Media setmusicmodal={setmusicmodal} />}
         />
-      </Routes>
+      </Routes> 
 
       {musicmodal && (
         <MusicPlayerSlider
