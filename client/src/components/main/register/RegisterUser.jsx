@@ -96,7 +96,6 @@ const RegisterUser = ({ address }) => {
         <div className="register-user">
           <div className="address-and-img">
             <h1>Your Wallet Address</h1>
-
             <>
               {metamask.accounts[0] === undefined ? (
                 <>

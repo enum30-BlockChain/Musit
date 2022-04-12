@@ -59,12 +59,6 @@ export const Navbar = () => {
         <div className="menu-items">
           <ul className="nav-links">
             <li>
-              <Link to="/mypage">
-                <i className="uil uil-create-dashboard"></i>
-                <span className="link-name">MYPAGE</span>
-              </Link>
-            </li>
-            <li>
               <Link to="/music">
                 <i className="uil uil-music"></i>
                 <span className="link-name">MUSIC</span>
@@ -74,6 +68,12 @@ export const Navbar = () => {
               <Link to="/store">
                 <i className="uil uil-store"></i>
                 <span className="link-name">STORE</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/mypage">
+                <i className="uil uil-create-dashboard"></i>
+                <span className="link-name">MYPAGE</span>
               </Link>
             </li>
             <li>

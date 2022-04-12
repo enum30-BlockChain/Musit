@@ -6,19 +6,23 @@
   left: 220px;
   padding: 10px 30px 10px 30px;
   min-height: 100vh;
+  width: calc(100% - 220px);
   transition: var(--tran-05);
 }
 
-nav.side-nav.close ~ .main {
-  left: 73px;
+nav.side-nav.close ~ section {
   width: calc(100% - 73px);
+  left: 73px;
+  transition: var(--tran-05);
 }
 
 .main .main-content {
   position: absolute;
   width: 100%;
   height: calc(100% - 65px - 100px);
+
   top: 65px;
   left: 0px;
   padding: 15px 15px 15px 15px;
+  transition: var(--tran-05);
 }
