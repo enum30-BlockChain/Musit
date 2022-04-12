@@ -12,6 +12,7 @@ export const createUserData = (inputs) => {
 			if (accounts.length>0) {
 				const url = "http://localhost:5000/users/";
 				await axios.post(url, { ...inputs, address: accounts[0] });
+				
 
 				dispatch({ type: ActionTypes.USER_CREATE_SUCCESS });
 			} else {

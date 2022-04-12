@@ -6,6 +6,7 @@ import "./RegisterUser.css";
 import { Outlet } from "react-router-dom";
 import { Input, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { createUserData } from "../../../../redux/actions/userActions.js";
 
 const RegisterUser = ({ address }) => {
   useEffect(() => {
@@ -34,15 +35,13 @@ const RegisterUser = ({ address }) => {
     "Dance",
   ]);
   const [nation, setNation] = useState([""]);
-  const [option, setOption] = useState("");
+  const [option, setOption] = useState("KS");
   const [nickname, setNickname] = useState("");
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
   });
-  // const connectOnclick = () => {
-  //   Metamask.connectWallet();
-  // };
+
   const formData = new FormData();
 
   const onChangeNick = (e) => {
@@ -52,14 +51,13 @@ const RegisterUser = ({ address }) => {
   const UserHandleOnClick = async () => {
     await postImg();
     const userdata = {
-      address: address,
+      address: metamask.accounts[0],
       genre: checkedInputs,
       nation: option,
       nickname: nickname,
       img: DBdata.cover_img_link,
     };
-    const url = "http://localhost:5000/users/signup";
-    const response = await axios.post(url, userdata);
+    dispatch(createUserData(userdata));
   };
 
   const getImg = (e) => {
@@ -72,7 +70,7 @@ const RegisterUser = ({ address }) => {
     formData.append("img", albumCoverImgFile);
     await axios
       .post("http://localhost:5000/files/imgupload", formData)
-      .then((res) => (DBdata.cover_img_link = res.data.downLoadLink))
+      .then((res) => (DBdata.cover_img_link = res.data))
       .catch((err) => alert(err));
     return DBdata;
   };
@@ -87,20 +85,6 @@ const RegisterUser = ({ address }) => {
       setCheckedInputs(checkedInputs.filter((el) => el !== name));
     }
   };
-
-  /////////////////////////////////////////////
-
-  // const [image, setImage] = useState("")
-  // const [preview, setPreview] = useState("")
-  // const [previewURL, setPreviewURL] = useState("")
-  // const fileRef= useRef();
-
-  // useEffect(() => {
-  //   alert("회원가입하세요");
-  //   if(image !== ""){
-  //     setPreview(<img className="img_preview">{previewURL}</img>)
-  //   }
-  // }, []);
 
   return (
     <>

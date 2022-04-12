@@ -8,11 +8,19 @@ export const createArtistData = (inputs) => {
 		dispatch({ type: ActionTypes.ARTIST_DATA_REQUEST });
 		try {
 			// 메타마스크 reducer에서 주소 가져옴
+      console.log(inputs);
 			let accounts = getState().metamask.accounts;
-			const url = "http://localhost:5000/artists/";
-			await axios.post(url, { ...inputs, user_address: accounts[0] });
+      if (accounts.length > 0 ) {
+        const url = "http://localhost:5000/artists/";
+        await axios.post(url, { ...inputs, user_address: accounts[0] });
 
-			dispatch({ type: ActionTypes.ARTIST_CREATE_SUCCESS });
+        dispatch({ type: ActionTypes.ARTIST_CREATE_SUCCESS });
+      } else {
+        dispatch({
+          type: ActionTypes.ARTIST_DATA_FAIL,
+          payload: "Account is not found",
+        });
+      }
 		} catch (error) {
 			dispatch({
 				type: ActionTypes.ARTIST_DATA_FAIL,
