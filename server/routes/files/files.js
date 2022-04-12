@@ -5,6 +5,7 @@ const { imgUpload, audioUpload } = require("./s3upload");
 const files = express.Router();
 
 files.post("/imgupload", (req, res, next) => {
+  console.log("요청은 받았는데");
   try {
     imgUpload(req, res, function (err) {
       if (err instanceof multer.MulterError) {
