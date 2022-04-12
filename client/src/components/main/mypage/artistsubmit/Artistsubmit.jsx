@@ -74,7 +74,7 @@ export default function Artistsubmit() {
                 ></img>
               )}
             </div>
-            <label for="artist-register-profile">
+            <label htmlFor="artist-register-profile">
               Choose your profile image
             </label>
             <input

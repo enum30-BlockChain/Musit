@@ -11,6 +11,7 @@ const CountryType = ({ setOption }) => {
         className="country"
         country="my-country"
         onChange={onChangeCountry}
+        defaultValue="Korea South"
       >
         <option value="">Country...</option>
         <option value="AF">Afghanistan</option>
@@ -127,7 +128,7 @@ const CountryType = ({ setOption }) => {
         <option value="KE">Kenya</option>
         <option value="KI">Kiribati</option>
         <option value="NK">Korea North</option>
-        <option value="KS" selected>Korea South</option>
+        <option value="KS">Korea South</option>
         <option value="KW">Kuwait</option>
         <option value="KG">Kyrgyzstan</option>
         <option value="LA">Laos</option>
