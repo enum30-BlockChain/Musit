@@ -60,7 +60,7 @@ export const Main = () => {
             <Route
               path="mypage"
               element={
-                user.nickname && user.address !== undefined ? (
+                user.nickname !== undefined ? (
                   <Mypage path="userinformation" />
                 ) : (
                   <RegisterUser />
@@ -80,7 +80,7 @@ export const Main = () => {
                 artist.artist_name !== undefined ? <Artist /> : <Artistsubmit />
               }
             ></Route>
-            <Route path="store/*" element={<Store/>} />
+            <Route path="store/*" element={<Store />} />
           </Route>
         </Routes>
       </div>

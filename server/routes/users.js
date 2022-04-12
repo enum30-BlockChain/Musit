@@ -10,9 +10,6 @@ const {
 
 /* Create */
 router.post("/", async (req, res, next) => {
-  console.log(11111111111);
-  console.log(req.body);
-  console.log(11111111111);
   try {
     // 필수 입력 값 확인
     if (req.body.address.trim() === "") {
