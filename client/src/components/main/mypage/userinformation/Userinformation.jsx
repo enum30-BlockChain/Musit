@@ -5,6 +5,7 @@ import axios from "axios";
 import { Avatar, Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../../../../redux/actions/userActions";
+import CountryType from "../../register/CountryType";
 
 export default function Userinformation({}) {
   const [select, setSelect] = useState("");
@@ -37,9 +38,20 @@ export default function Userinformation({}) {
     if (select === "") {
       setSelect(user.nickname);
     }
+    if (checkedInputs === "") {
+      setCheckedInputs(user.genre);
+    }
     const newimg = await postImg();
+    if (newimg === "") {
+      newimg === user.img;
+    }
     await dispatch(
-      updateUserData({ nickname: select, genre: checkedInputs, img: newimg })
+      updateUserData({
+        nickname: select,
+        genre: checkedInputs,
+        img: newimg,
+        nation: selected,
+      })
     );
   };
 
@@ -87,10 +99,12 @@ export default function Userinformation({}) {
     "Dance",
   ]);
 
+  const [selected, setSelected] = useState("KS");
+
   return (
     <div className="user-card">
       <div className="user-image">
-        {user.img === "" ? (
+        {user.img == "" ? (
           <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
         ) : (
           <Avatar
@@ -134,8 +148,19 @@ export default function Userinformation({}) {
         <span>{metamask.accounts[0]}</span>
         <h2 className="subscription">Subscription</h2>
         <span>{user.subscription}월이용권 </span>
-        <h2 className="nation">Nation</h2>
-        <span>나라:{user.nation} </span>
+        {visible ? (
+          <div>
+            <CountryType
+              inputProps={{ width: "400px" }}
+              setSelected={setSelected}
+            />
+          </div>
+        ) : (
+          <div>
+            <h2 className="Nation">Nation</h2>
+            <p>국가 : {user.nation}</p>
+          </div>
+        )}
         <h2 className="Genre">Genre</h2>
         {visible ? (
           <div>
