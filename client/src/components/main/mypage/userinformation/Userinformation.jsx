@@ -3,7 +3,7 @@ import "./Userinformation";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-import { Input } from "@mui/material";
+import { Avatar, Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Userinformation({}) {
@@ -92,7 +92,15 @@ export default function Userinformation({}) {
   return (
     <div className="user-card">
       <div className="user-image">
-        <img src={user.img} alt="user profile" />
+        {user.img === "" ? (
+          <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
+        ) : (
+          <Avatar
+            alt="Remy Sharp"
+            src={user.img}
+            sx={{ width: 128, height: 128 }}
+          />
+        )}
         {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
         {/* {visible && (
           <div>

@@ -1,18 +1,21 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import CountryType from "./CountryType.jsx";
-import axios from "axios";
 import "./RegisterUser.css";
-import { Outlet } from "react-router-dom";
-import { Input, Button } from "@mui/material";
+
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+
+import { Input, Button } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import CountryType from "./CountryType.jsx";
 import { createUserData } from "../../../redux/actions/userActions";
 
-const RegisterUser = ({ address }) => {
+const RegisterUser = () => {
   useEffect(() => {
     alert("회원가입하세요");
   }, []);
 
   const metamask = useSelector((state) => state.metamask);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch(); //redux 초기값 넣어주자
 
   //선택한 장르를 변경해주는 값
@@ -37,7 +40,6 @@ const RegisterUser = ({ address }) => {
   ]);
 
   //국가의 종류
-  const [nation, setNation] = useState([""]);
   const [selectd, setSelected] = useState("KS");
   const [nickname, setNickname] = useState("");
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
@@ -72,12 +74,18 @@ const RegisterUser = ({ address }) => {
   };
 
   const postImg = async () => {
-    formData.append("img", albumCoverImgFile);
-    await axios
-      .post("http://localhost:5000/files/imgupload", formData)
-      .then((res) => (DBdata.cover_img_link = res.data))
-      .catch((err) => alert(err));
-    return DBdata;
+    console.log(albumCoverImgFile);
+    if (albumCoverImgFile !== "") {
+      formData.append("img", albumCoverImgFile);
+      console.log(formData);
+      await axios
+        .post("http://localhost:5000/files/imgupload", formData)
+        .then((res) => (DBdata.cover_img_link = res.data))
+        .catch((err) => alert(err));
+      return DBdata;
+    } else {
+      return;
+    }
   };
 
   const changeHandler = (checked, name) => {
@@ -102,11 +110,6 @@ const RegisterUser = ({ address }) => {
                   <label htmlFor="register-usernickname">
                     Bring your Wallet Address
                   </label>
-                  {/* <button
-                    id="register-usernickname"
-                    style={{ display: "none" }}
-                    onClick={connectOnclick}
-                  /> */}
                 </>
               ) : (
                 metamask.accounts[0]
@@ -114,12 +117,16 @@ const RegisterUser = ({ address }) => {
             </>
 
             <h1>Profile Image</h1>
-            {albumCoverImgFile && (
-              <img
+            {albumCoverImgFile === "" ? (
+              <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
+            ) : (
+              <Avatar
+                alt="Remy Sharp"
                 src={URL.createObjectURL(albumCoverImgFile)}
-                style={{ width: "200px" }}
-              ></img>
+                sx={{ width: 128, height: 128 }}
+              />
             )}
+
             <div>
               <label htmlFor="register-fileupload">
                 Choose your profile image
@@ -149,16 +156,11 @@ const RegisterUser = ({ address }) => {
 
             <div>
               <h2>Nations</h2>
-              {nation.map((country, index) => (
-                <CountryType
-                  id={index + 1}
-                  key={index}
-                  inputProps={{ width: "400px" }}
-                  name={country}
-                  setSelected={setSelected}
-                  // style={{ display: "none" }}
-                />
-              ))}
+              <CountryType
+                inputProps={{ width: "400px" }}
+                setSelected={setSelected}
+                // style={{ display: "none" }}
+              />
             </div>
             <h1>Genre</h1>
             <div className="genre">
@@ -189,20 +191,8 @@ const RegisterUser = ({ address }) => {
           Submit
         </Button>
       </div>
-      <Outlet />
     </>
   );
 };
 
 export default RegisterUser;
-
-/*
- (
-                <ListenerType
-                  id={index + 1}
-                  key={index}
-                  name={MusicType}
-                  changeHandler={changeHandler}
-                  checkedInputs={checkedInputs}
-                />
-*/
