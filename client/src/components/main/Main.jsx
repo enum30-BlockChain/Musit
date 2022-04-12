@@ -17,8 +17,7 @@ import { Dashboard } from "./dashboard/Dashboard";
 import { Playbar } from "./playbar/Playbar";
 import { Searchbar } from "./searchbar/Searchbar";
 
-import RegisterUser from "./register/listener/RegisterUser";
-import RegisterArtist from "./register/artists/RegisterArtist";
+import RegisterUser from "./register/RegisterUser";
 
 import { Artist } from "./artist/Artist";
 
@@ -76,11 +75,7 @@ export const Main = () => {
             <Route
               path="artist"
               element={
-                artist.artist_name !== undefined ? (
-                  <Artist />
-                ) : (
-                  <RegisterArtist />
-                )
+                artist.artist_name !== undefined ? <Artist /> : <Artistsubmit />
               }
             ></Route>
           </Route>

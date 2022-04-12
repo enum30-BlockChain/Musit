@@ -1,22 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import CountryType from "./CountryType.jsx";
-import ListenerType from "./ListenerType.jsx";
 import axios from "axios";
 import "./RegisterUser.css";
 import { Outlet } from "react-router-dom";
 import { Input, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { createUserData } from "../../../../redux/actions/userActions.js";
+import { createUserData } from "../../../redux/actions/userActions";
 
 const RegisterUser = ({ address }) => {
   useEffect(() => {
     alert("회원가입하세요");
   }, []);
 
-  const user = useSelector((state) => state.user);
   const metamask = useSelector((state) => state.metamask);
   const dispatch = useDispatch(); //redux 초기값 넣어주자
 
+  //선택한 장르를 변경해주는 값
+  const [checkedInputs, setCheckedInputs] = useState([]);
+  //장르의 종류
   const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
@@ -34,14 +35,18 @@ const RegisterUser = ({ address }) => {
     "Electronic",
     "Dance",
   ]);
+
+  //국가의 종류
   const [nation, setNation] = useState([""]);
-  const [option, setOption] = useState("KS");
+  const [selectd, setSelected] = useState("KS");
   const [nickname, setNickname] = useState("");
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
   });
-
+  // const connectOnclick = () => {
+  //   Metamask.connectWallet();
+  // };
   const formData = new FormData();
 
   const onChangeNick = (e) => {
@@ -53,7 +58,7 @@ const RegisterUser = ({ address }) => {
     const userdata = {
       address: metamask.accounts[0],
       genre: checkedInputs,
-      nation: option,
+      nation: selectd,
       nickname: nickname,
       img: DBdata.cover_img_link,
     };
@@ -74,8 +79,6 @@ const RegisterUser = ({ address }) => {
       .catch((err) => alert(err));
     return DBdata;
   };
-
-  const [checkedInputs, setCheckedInputs] = useState([]);
 
   const changeHandler = (checked, name) => {
     if (checked) {
@@ -147,28 +150,39 @@ const RegisterUser = ({ address }) => {
 
             <div>
               <h2>Nations</h2>
-              {nation.map((nation, index) => (
+              {nation.map((country, index) => (
                 <CountryType
                   id={index + 1}
                   key={index}
                   inputProps={{ width: "400px" }}
-                  name={nation}
-                  setOption={setOption}
+                  name={country}
+                  setSelected={setSelected}
                   // style={{ display: "none" }}
                 />
               ))}
             </div>
             <h1>Genre</h1>
             <div className="genre">
-              {genre.map((MusicType, index) => (
-                <ListenerType
-                  id={index + 1}
-                  key={index}
-                  name={MusicType}
-                  changeHandler={changeHandler}
-                  checkedInputs={checkedInputs}
-                />
-              ))}
+              {genre.map((musictype, i) => {
+                return (
+                  <div className="music-type-container">
+                    <div className="music-type-name">{musictype}</div>
+                    <div>
+                      <input
+                        key={i}
+                        type="checkbox"
+                        musictype="musicType"
+                        onChange={(e) => {
+                          changeHandler(e.currentTarget.checked, musictype);
+                        }}
+                        checked={
+                          checkedInputs.includes(musictype) ? true : false
+                        }
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -182,3 +196,14 @@ const RegisterUser = ({ address }) => {
 };
 
 export default RegisterUser;
+
+/*
+ (
+                <ListenerType
+                  id={index + 1}
+                  key={index}
+                  name={MusicType}
+                  changeHandler={changeHandler}
+                  checkedInputs={checkedInputs}
+                />
+*/
