@@ -32,7 +32,11 @@ nav.side-nav.close ~ .main .searchbar {
   margin: 0 30px;
 }
 
-.searchbar .search-box i .uil {
+.searchbar .search-box .uil-search {
+  color: white;
+}
+.searchbar .search-box ::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
   color: white;
 }
 
@@ -44,7 +48,7 @@ nav.side-nav.close ~ .main .searchbar {
 
 .searchbar .search-box input {
   position: absolute;
-  border: 1px solid var(--border-color);
+  border: 2px solid;
   border-radius: 5px;
   background-color: var(--panel-color);
   padding: 0 25px 0 50px;
@@ -76,6 +80,7 @@ nav.side-nav.close ~ .main .searchbar {
   display: flex;
 }
 
-.user-info .searchbar-address {
+.user-info .searchbar-address p {
+  color: white;
   display: flex;
 }
