@@ -5,9 +5,8 @@ import { Box, Stack, Slider } from "@mui/material";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import myImage from "./cd.png";
-{
-  /* <props likeMusic address userList/> */
-}
+import {updateUserData} from "../../../redux/actions/userActions";
+
 export const Playbar = (props) => {
   const [state, setstate] = useState("pause");
   const [percent, setPercent] = useState(0);
@@ -31,6 +30,7 @@ export const Playbar = (props) => {
   const likeMusic = useSelector((state) => state.likeMusic).data;
   const musicList = useSelector((state) => state.musicList).data;
   const dispatch = useDispatch(); //redux 초기값 넣어주자
+
   useEffect(() => {
     //첫로딩시 리센트 가져와서 세팅
     if (musicList.length > 0 && user.address) {
@@ -52,19 +52,18 @@ export const Playbar = (props) => {
         } else if (likeMusic.length > 0) {
           // console.log("회원인데 리센트있는사람 ")
           //recent_played 있으면
-          
           const arry = user.recent_played.split("-"); //receent찾아와서
           const songs = likeMusic;
           const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
           setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
           if (index === -1) {
             // console.log("회원인데 리센트있는데 못찾는사람 ")
-            setpalyeCount(song.play_count);
-            sethash(song.ipfs_hash);
-            setTilte(song.title);
-            title.innerText = song.title;
-            audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
-            cover.src = song.img_file;
+            // setpalyeCount(song.play_count);
+            // sethash(song.ipfs_hash);
+            // setTilte(song.title);
+            // title.innerText = song.title;
+            // audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
+            // cover.src = song.img_file;
           } else {
             // console.log("회원인데 리센트있는데 찾은사람 ")
             setpalyeCount(songs[index].play_count);
@@ -235,20 +234,15 @@ export const Playbar = (props) => {
   };
 
   const [savePoint, setSavePoint] = useState(0);
+  
   const postTime = async (saveTime) => {
     let sendInt = savePoint % 20; //20으로 나누면 5초정도됨
-    const content = {
-      time: saveTime,
-      address: props.address,
-      hash: hash,
-      title: tilte,
-    };
+    const content =[hash,saveTime,tilte];
+
     if (!sendInt) {
       setSavePoint(savePoint + 1);
       await axios
-        .post("http://localhost:5000/users/recent", content)
-        .then((res) => {})
-        .catch((err) => console.log("노래목록을 불러오지못했습니다.", err));
+        .patch(`http://localhost:5000/users/${user.address}`, {recent_played:content.join("-")})
     }
     setSavePoint(savePoint + 1);
   };
