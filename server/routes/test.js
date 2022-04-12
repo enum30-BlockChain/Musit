@@ -13,3 +13,12 @@ console.log(x.length)
 console.log(formDataToJson)
 console.log(json)
 
+const y = {
+  one: "",
+}
+
+if(y.one == undefined) {
+  console.log(1)
+} else {
+  console.log(2)
+}
