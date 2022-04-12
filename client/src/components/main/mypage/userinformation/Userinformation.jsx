@@ -18,7 +18,7 @@ export default function Userinformation({}) {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const MetamaskData = useSelector((state) => state.MetamaskData);
+  const metamask = useSelector((state) => state.metamask);
 
   //TODO: user info(address, nickname, myfavorite, ...),
   useEffect(() => {
@@ -89,7 +89,82 @@ export default function Userinformation({}) {
     }
   };
 
-  console.log(MetamaskData);
+  return (
+    <div className="user-card">
+      <div className="user-image">
+        <img src={user.img} alt="user profile" />
+        {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
+        {/* {visible && (
+          <div>
+            <button onClick={Submit}>User info edit Complete</button>
+            <input
+              type="file"
+              name="imgUpload"
+              accept="image/*"
+              onChange={getImg}
+            ></input>
+            {albumCoverImgFile && (
+              <img style={{ width: "100px" }} src={albumCoverImgFile}></img>
+            )}
+          </div>
+        )} */}
+      </div>
+      <div className="user-info">
+        <h2 className="nickname">Nickname</h2>
 
-  return <div className="user-card"></div>;
+        {visible ? (
+          <div>
+            <Input
+              inputProps={{ style: { fontSize: 30 } }}
+              type="text"
+              sx={{ width: 400 }}
+              onChange={idonchange}
+              defaultValue={user.nickname}
+            />
+          </div>
+        ) : (
+          <p>{user.nickname}</p>
+        )}
+        <h2 className="address">Address</h2>
+        <span>{metamask.accounts[0]}</span>
+        <h2 className="subscription">Subscription</h2>
+        <span>{user.subscription}월이용권 </span>
+        <h2 className="Genre">Genre</h2>
+        {visible ? (
+          <div>
+            {genre.map((MusicType, index) => {
+              return (
+                <>
+                  <label>
+                    {MusicType}
+                    <input
+                      type={"checkbox"}
+                      name={"MusicType"}
+                      value={MusicType}
+                      onChange={(e) => {
+                        changeHandler(e.currentTarget.checked, MusicType);
+                      }}
+                      checked={checkedInputs.includes(MusicType) ? true : false}
+                    />
+                  </label>
+                </>
+              );
+            })}
+          </div>
+        ) : (
+          <span>{user.genre}</span>
+        )}
+      </div>
+      {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
+      <div className="setting-btn">
+        {/* <button
+          className="uil uil-setting"
+          onClick={async () => {
+            setVisible(!visible);
+            await NickNameOnClick();
+          }}
+        ></button> */}
+      </div>
+    </div>
+  );
 }

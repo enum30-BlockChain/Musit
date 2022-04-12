@@ -35,9 +35,10 @@ module.exports = (sequelize, DataTypes) => {
 			genre: {
 				type: DataTypes.STRING,
 				allowNull: true,
+				defaultValue: "",
 				get() {
 					const rawValue = this.getDataValue("genre");
-					return rawValue ? rawValue.split(",") : null;
+					return rawValue ? rawValue.split(",") : "";
 				},
 				set(val) {
 					this.setDataValue("genre", val.join(","));

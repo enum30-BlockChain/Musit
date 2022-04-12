@@ -40,7 +40,6 @@ export const Searchbar = () => {
         <div className="search-box">
           <i className="uil uil-search"></i>
           <input
-            className="searchinput"
             type="text"
             placeholder="Search here..."
             onKeyPress={changehandler}
@@ -55,7 +54,7 @@ export const Searchbar = () => {
                   <Link to=""></Link>
                 </div>
                 <div className="searchbar-nick"></div>
-                <p className="address-appear">{sliceAddress}</p>
+                <p>{sliceAddress}</p>
               </>
             ) : (
               <Button

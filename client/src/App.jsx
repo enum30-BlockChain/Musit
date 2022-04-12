@@ -6,8 +6,9 @@ import { Main } from "./components/main/Main";
 import { useDispatch, useSelector } from "react-redux";
 import { readArtistList, readArtistData } from "./redux/actions/artistActions";
 import { readMetamaskData } from "./redux/actions/metamaskAction";
-import { readMusicList } from "./redux/actions/musicActions";
+import { readMusicList,readLikeMusicList } from "./redux/actions/musicActions";
 import { readUserData } from "./redux/actions/userActions";
+import Metamask from "./web3/Metamask";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ const App = () => {
       await dispatch(readArtistList());
       await dispatch(readArtistData());
       await dispatch(readMusicList());
+      await dispatch(readLikeMusicList());
+      Metamask.walletListener();
     };
     init();
   }, []);

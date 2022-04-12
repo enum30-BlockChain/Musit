@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         sourceKey: "address",
       });
-      MusicLike.belongsTo(models.Artist, {
+      MusicLike.belongsTo(models.Music, {
         foreignKey: { name: "ipfs_hash", allowNull: false },
         allowNull: false,
         sourceKey: "ipfs_hash",

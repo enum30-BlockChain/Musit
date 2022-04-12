@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { ArtistLike } = require("../../models/index");
+const { Artist, ArtistLike } = require("../../models/index");
 
 /* Create */
 router.post("/", async (req, res, next) => {
@@ -31,12 +31,15 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
-router.get("/:artist_name", async (req, res, next) => {
+router.get("/:user_address", async (req, res, next) => {
 	try {
-		const artistLike = await ArtistLike.findAll({
-			where: { artist_name: req.params.artist_name },
+		const artist = await Artist.findAll({
+			include: {
+				model: ArtistLike,
+				where: { user_address: req.params.user_address },
+			},
 		});
-		res.send(artistLike);
+		res.send(artist);
 	} catch (err) {
 		console.error(err);
 		res.send(500, "Read artist-like list falied");
