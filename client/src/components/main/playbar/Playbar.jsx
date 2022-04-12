@@ -5,7 +5,6 @@ import { Box, Stack, Slider } from "@mui/material";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import myImage from "./cd.png";
-import {updateUserData} from "../../../redux/actions/userActions";
 
 export const Playbar = (props) => {
   const [state, setstate] = useState("pause");
@@ -158,10 +157,11 @@ export const Playbar = (props) => {
   function setProgress(e) {
     const close = document.querySelector(".close");
     let clickX;
+    console.log(e.clientX)
     if (close) {
       clickX = e.clientX - 242; //왜170부터시작하는지모르겠넹
     } else {
-      clickX = e.clientX - 420; //왜170부터시작하는지모르겠넹
+      clickX = e.clientX - 390; //왜170부터시작하는지모르겠넹
     }
     const width = progressContainer.clientWidth; //300
     const duration = audio.duration;
@@ -224,13 +224,10 @@ export const Playbar = (props) => {
 
   const palyCountAdd = async () => {
     setpalyeCount(palyeCount + 1);
-    const content = { play_count: palyeCount, ipfs_hash: hash };
+    const content = { play_count: palyeCount+1};
     await axios
-      .post("http://localhost:5000/music/add", content)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log("노래목록을 불러오지못했습니다.", err));
+      .patch(`http://localhost:5000/music/${hash}`, content)
+      // .then((res) => console.log(res))
   };
 
   const [savePoint, setSavePoint] = useState(0);
@@ -243,6 +240,7 @@ export const Playbar = (props) => {
       setSavePoint(savePoint + 1);
       await axios
         .patch(`http://localhost:5000/users/${user.address}`, {recent_played:content.join("-")})
+        // .then((res) => console.log(res))
     }
     setSavePoint(savePoint + 1);
   };
@@ -292,7 +290,7 @@ export const Playbar = (props) => {
             <i className="fas fa-backward"></i>
           </button>
           <button
-            id="play"
+            id="play" 
             className="action-btn action-btn-big"
             onClick={playOnClikc}
           >
