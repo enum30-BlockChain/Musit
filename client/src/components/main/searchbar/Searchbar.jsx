@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import { connectMetamask, readMetamaskData } from "../../../redux/actions/metamaskAction";
+import { connectMetamask, readMetamaskData } from "../../../redux/actions/metamaskActions";
 
 export const Searchbar = () => {
   const navigate = useNavigate(); //페이지이동하면서 정보담아서 옮길수있따

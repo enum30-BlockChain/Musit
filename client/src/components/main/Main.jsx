@@ -20,6 +20,8 @@ import { Searchbar } from "./searchbar/Searchbar";
 import RegisterUser from "./register/listener/RegisterUser";
 import RegisterArtist from "./register/artists/RegisterArtist";
 
+import { Store } from "./store/Store";
+
 import { Artist } from "./artist/Artist";
 
 export const Main = () => {
@@ -83,6 +85,7 @@ export const Main = () => {
                 )
               }
             ></Route>
+            <Route path="store/*" element={<Store/>} />
           </Route>
         </Routes>
       </div>
