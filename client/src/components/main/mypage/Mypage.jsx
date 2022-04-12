@@ -17,25 +17,19 @@ export const Mypage = () => {
             </Link>
           </li>
           <li>
-            <Link to="/mypage/favorite">
-              <i className="uil uil-favorite"></i>
-              <span className="link-name"> Favorite</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/">
+            <Link to="/mypage/favoritemusic">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Music</span>
             </Link>
           </li>
           <li>
-            <Link to="/">
+            <Link to="/mypage/favoritartist">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Artist</span>
             </Link>
           </li>
           <li>
-            <Link to="/mypage/playlist">
+            <Link to="/mypage/myplaylist">
               <i className="uil uil-play"></i>
               <span className="link-name"> Playlist</span>
             </Link>

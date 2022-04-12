@@ -10,7 +10,6 @@ import Userinformation from "./mypage/userinformation/Userinformation";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
 import { Collection } from "./mypage/collection/Collection";
-import { Favorite } from "./mypage/favorite/Favorite";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 
 import { Dashboard } from "./dashboard/Dashboard";
@@ -21,8 +20,10 @@ import RegisterUser from "./register/RegisterUser";
 
 import { Store } from "./store/Store";
 
-import { Music } from "./music/Music";
 import { Playbar } from "./playbar/Playbar";
+import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
+import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
+import MyPlayList from "./mypage/myplaylist/MyPlayList";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -72,8 +73,10 @@ export const Main = () => {
               <Route path="subscription" element={<Subscription />} />
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
-              <Route path="favorite" element={<Favorite />} />
               <Route path="artistsubmit" element={<Artistsubmit />} />
+              <Route path="favoritartist" element={<FavoriteArtist />} />
+              <Route path="favoritemusic" element={<FavoriteMusic />} />
+              <Route path="myplaylist" element={<MyPlayList />} />
             </Route>
             <Route
               path="artist"
