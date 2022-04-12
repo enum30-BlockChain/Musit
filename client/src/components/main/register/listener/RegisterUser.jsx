@@ -35,15 +35,13 @@ const RegisterUser = ({ address }) => {
     "Dance",
   ]);
   const [nation, setNation] = useState([""]);
-  const [option, setOption] = useState("");
+  const [option, setOption] = useState("KS");
   const [nickname, setNickname] = useState("");
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
   });
-  // const connectOnclick = () => {
-  //   Metamask.connectWallet();
-  // };
+
   const formData = new FormData();
 
   const onChangeNick = (e) => {

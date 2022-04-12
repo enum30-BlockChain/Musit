@@ -17,10 +17,10 @@ export default function Artistsubmit() {
   const metamask = useSelector((state) => state.metamask);
   const user = useSelector((state) => state.user);
 
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
 
   const submitOnClick = async () => {
-    await postImg();
+    // await postImg();
     const artistsdata = {
       user_address: metamask.accounts[0],
       artist_name: inputs,
