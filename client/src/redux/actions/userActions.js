@@ -65,13 +65,12 @@ export const updateUserData = (inputs) => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.USER_DATA_REQUEST });
 		try {
+			console.log(inputs);
 			// 메타마스크 reducer에서 주소 가져옴
 			let accounts = getState().metamask.accounts;
 			if (accounts.length>0) {
 				const url = `http://localhost:5000/users/${accounts[0]}`;
-	
 				await axios.patch(url, inputs);
-	
 				dispatch({
 					type: ActionTypes.USER_UPDATE_SUCCESS,
 					payload: inputs,
