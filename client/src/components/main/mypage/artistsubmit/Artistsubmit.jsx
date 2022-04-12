@@ -1,7 +1,7 @@
 import "./Artistsubmit.css";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Button } from "@mui/material";
+import { Input, Button, Avatar } from "@mui/material";
 import axios from "axios";
 import { createArtistData } from "../../../../redux/actions/artistActions";
 
@@ -20,7 +20,7 @@ export default function Artistsubmit() {
   const dispatch = useDispatch();
 
   const submitOnClick = async () => {
-    // await postImg();
+    await postImg();
     const artistsdata = {
       user_address: metamask.accounts[0],
       artist_name: inputs,
@@ -34,13 +34,16 @@ export default function Artistsubmit() {
   };
 
   const postImg = async () => {
-    //multer하고 s3저장후 링크가져오기
-    formData.append("img", albumCoverImgFile);
-    await axios
-      .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
-      .then((res) => (DBdata.cover_img_link = res.data))
-      .catch((err) => alert(err));
-    return DBdata;
+    if (albumCoverImgFile !== "") {
+      formData.append("img", albumCoverImgFile);
+      await axios
+        .post("http://localhost:5000/files/imgupload", formData)
+        .then((res) => (DBdata.cover_img_link = res.data))
+        .catch((err) => alert(err));
+      return DBdata;
+    } else {
+      return;
+    }
   };
 
   const getImg = (e) => {
@@ -67,11 +70,14 @@ export default function Artistsubmit() {
             </div>
             <h1>Profile Image</h1>
             <div className="artist-register-profile-img">
-              {albumCoverImgFile && (
-                <img
+              {albumCoverImgFile === "" ? (
+                <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
+              ) : (
+                <Avatar
+                  alt="Remy Sharp"
                   src={URL.createObjectURL(albumCoverImgFile)}
-                  style={{ width: "200px" }}
-                ></img>
+                  sx={{ width: 128, height: 128 }}
+                />
               )}
             </div>
             <label htmlFor="artist-register-profile">

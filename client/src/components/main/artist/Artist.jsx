@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { Avatar } from "@mui/material";
 
 export const Artist = () => {
   const [select, setSelect] = useState("");
@@ -57,11 +58,15 @@ export const Artist = () => {
       <div className="artistpage">
         <div className="artist-card">
           <div className="artist-image">
-            <img
-              style={{ objectFit: "cover" }}
-              src={artist.img}
-              alt="artist profile"
-            />
+            {artist.img === "" ? (
+              <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
+            ) : (
+              <Avatar
+                alt="Remy Sharp"
+                src={artist.img}
+                sx={{ width: 128, height: 128 }}
+              />
+            )}
             {visible && (
               <div>
                 <button onClick={Submit}>올리기</button>
