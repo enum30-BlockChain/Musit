@@ -40,6 +40,7 @@ export const Searchbar = () => {
         <div className="search-box">
           <i className="uil uil-search"></i>
           <input
+            className="searchinput"
             type="text"
             placeholder="Search here..."
             onKeyPress={changehandler}
