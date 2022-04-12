@@ -28,7 +28,7 @@ export const Artist = () => {
 
   const NickNameOnClick = async () => {
     if (select === "") {
-      setSelect(user.nickname);
+      setSelect(artist.artist_name);
     }
     const newimg = await postImg();
     await dispatch(updateArtistData({ artist_name: select, img: newimg }));
