@@ -13,47 +13,24 @@ export const Mypage = () => {
       <nav className="user-nav">
         <ul className="nav-links">
           <li>
-            <Link to="/mypage/userinformation">
-              <i className="uil uil-user"></i>
-              <span className="link-name"> User Information</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/mypage/favorite">
-              <i className="uil uil-favorite"></i>
-              <span className="link-name"> Favorite</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/">
+            <Link to="/mypage/musicfavorite">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Music</span>
             </Link>
           </li>
           <li>
-            <Link to="/">
+            <Link to="/mypage/artistfavorite">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Artist</span>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/mypage/playlist">
               <i className="uil uil-play"></i>
               <span className="link-name"> Playlist</span>
             </Link>
-          </li>
-          <li>
-            <Link to="/mypage/collection">
-              <i className="uil uil-layers"></i>
-              <span className="link-name"> Collection</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/mypage/history">
-              <i className="uil uil-history"></i>
-              <span className="link-name"> History</span>
-            </Link>
-          </li>
+          </li> */}
+
           <li>
             <Link to="/mypage/subscription">
               <i className="uil uil-bitcoin-sign"></i>
@@ -61,16 +38,16 @@ export const Mypage = () => {
             </Link>
           </li>
 
-          {artist.artist_name === null ? (
-            <li>
-              <Link to="/mypage/artistsubmit">
-                <i className="uil uil-music"></i>
-                <span className="link-name"> Arstis Submit</span>
-              </Link>
-            </li>
-          ) : (
-            <></>
-          )}
+          {/* {artist.artist_name === null ? ( */}
+          <li>
+            <Link to="/mypage/artistsubmit">
+              <i className="uil uil-music"></i>
+              <span className="link-name"> Arstis Submit</span>
+            </Link>
+          </li>
+          {/* ) : ( */}
+          {/* <></> */}
+          {/* )} */}
         </ul>
       </nav>
       <div className="detail">
