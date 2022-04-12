@@ -2,17 +2,6 @@ import "./ItemModal.css";
 import React, { useEffect } from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
 
-const modalStyle = {
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: 1000,
-	height: 600,
-	bgcolor: "background.paper",
-	boxShadow: 24,
-	p: 4,
-};
 
 const ItemModal = ({ open, handleClose, itemInfo }) => {
 	
@@ -25,7 +14,7 @@ const ItemModal = ({ open, handleClose, itemInfo }) => {
 				aria-describedby="modal-modal-description"
 				className="modal"
 			>
-				<Box className="modal-box" sx={modalStyle}>
+				<Box className="modal-box" >
 					<Typography id="modal-modal-title" variant="h4" component="h3">
 						{itemInfo.title} #{itemInfo.tokenId}
 					</Typography>

@@ -70,17 +70,17 @@ router.patch("/:ipfs_hash", async (req, res, next) => {
   try {
     if (req.body.ipfs_hash) {
       res.send(400, "Cannot change music file");
-    } else if (req.body.title && req.body.title.trim() === "") {
+    } else if (req.body.title !== undefined && req.body.title.trim() === "") {
       res.send(400, "Empty title");
-    } else if (req.body.img_file && req.body.img_file.trim() === "") {
+    } else if (req.body.img_file !== undefined && req.body.img_file.trim() === "") {
       res.send(400, "Empty img file");
     } else if (
-      req.body.genre &&
+      req.body.genre !== undefined &&
       typeof req.body.genre !== "object" &&
       req.body.genre.length === 0
     ) {
       res.send(400, "Empty genre");
-    } else if (req.body.artist_name && req.body.artist_name.trim() === "") {
+    } else if (req.body.artist_name !== undefined && req.body.artist_name.trim() === "") {
       res.send(400, "Empty artist name");
     } else {
     console.log(req.params.ipfs_hash);

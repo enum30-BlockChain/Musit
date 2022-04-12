@@ -1,8 +1,9 @@
-import { BigNumber, Contract, ethers, Transaction } from "ethers";
+import { BigNumber, Contract, ethers, EventFilter, Transaction } from "ethers";
 import { MusitNFT, Marketplace } from "./typechain/index";
 import MusitNftJson from "./MusitNFT.json";
 import MarketplaceJson from "./Marketplace.json";
 import AuctionJson from "./Auction.json";
+import { MintedEvent } from "./typechain/MusitNFT";
 
 interface Window {
   ethereum: any;
@@ -62,6 +63,44 @@ export default class Ethers {
       return null;
     }
   }
+
+  static async myNFTList(address: string): Promise<object[] | null> {
+    try {
+      
+      return []
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  static async myMintedNFTList(address: string): Promise<object[] | null> {
+    try {
+      const filter: EventFilter = musitNFT.filters.Minted(null, null, address);
+				const myMintedList: object[] = await Promise.all(
+					(
+						await musitNFT.queryFilter(filter)
+					).map(async (event: ethers.Event) => {
+						const item: any = event.args;
+            console.log(item);
+            
+						const tokenURI = await musitNFT.tokenURI(item.tokenId);
+						const metadata = await (await fetch(tokenURI)).json();
+						const tokenId = item.tokenId.toNumber();
+
+						return {
+							tokenId,
+							...metadata,
+						};
+					})
+				);
+      return myMintedList
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
 
   static ethToWei(eth: string): BigNumber {
     return ethers.utils.parseEther(eth);

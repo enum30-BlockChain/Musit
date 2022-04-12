@@ -25,7 +25,6 @@ export const readMyNFTList = () => {
 						};
 					})
 				);
-				console.log(myMintedList);
 				dispatch({
 					type: ActionTypes.MUSIT_NFT_LIST_SUCCESS,
 					payload: myMintedList,
@@ -51,27 +50,9 @@ export const readMyMintedNFTList = () => {
 		dispatch({ type: ActionTypes.MUSIT_NFT_MINTED_LIST_REQUEST });
 		try {
 			const user = getState().user;
-      console.log(user.address);
       
 			if (user.address) {
-        const musitNFT = Ethers.loadContracts().musitNFT;
-				const filter = musitNFT.filters.Minted(null, null, user.address);
-				const myMintedList = await Promise.all(
-					(
-						await musitNFT.queryFilter(filter)
-					).map(async (event) => {
-						const item = event.args;
-						const tokenURI = await musitNFT.tokenURI(item.tokenId);
-						const metadata = await (await fetch(tokenURI)).json();
-						const tokenId = item.tokenId.toNumber();
-
-						return {
-							tokenId,
-							...metadata,
-						};
-					})
-				);
-				console.log(myMintedList);
+        const myMintedList = Ethers.myMintedNFTList(user.address)
 				dispatch({
 					type: ActionTypes.MUSIT_NFT_MINTED_LIST_SUCCESS,
 					payload: myMintedList,
