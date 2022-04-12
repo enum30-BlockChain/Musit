@@ -14,13 +14,14 @@ import { Favorite } from "./mypage/favorite/Favorite";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 
 import { Dashboard } from "./dashboard/Dashboard";
-import { Playbar } from "./playbar/Playbar";
 import { Searchbar } from "./searchbar/Searchbar";
+import { Artist } from "./artist/Artist";
 
 import RegisterUser from "./register/listener/RegisterUser";
 import RegisterArtist from "./register/artists/RegisterArtist";
 
-import { Artist } from "./artist/Artist";
+import { Music } from "./music/Music";
+import { Playbar } from "./playbar/Playbar";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -83,6 +84,7 @@ export const Main = () => {
                 )
               }
             ></Route>
+            <Route path="music/*" element={<Music/>} />
           </Route>
         </Routes>
       </div>

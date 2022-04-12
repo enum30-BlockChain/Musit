@@ -1,8 +1,8 @@
-import React, { component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Playbar.css";
 import axios from "axios";
-import { Box, Stack, Slider } from "@mui/material";
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { Stack, Slider } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import myImage from "./cd.png";
 
@@ -28,7 +28,6 @@ export const Playbar = (props) => {
   const user = useSelector((state) => state.user);
   const likeMusic = useSelector((state) => state.likeMusic).data;
   const musicList = useSelector((state) => state.musicList).data;
-  const dispatch = useDispatch(); //redux 초기값 넣어주자
 
   useEffect(() => {
     //첫로딩시 리센트 가져와서 세팅
