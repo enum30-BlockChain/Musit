@@ -32,7 +32,6 @@ export default function PlayList(props) {
     setState({ ...state, [anchor]: open });
   };
   const playsong = (song, index) => {
-    console.log(index);
     props.playloadSong(song, index);
   };
 

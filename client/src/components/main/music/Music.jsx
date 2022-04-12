@@ -1,43 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import MusicCard from "./MusicCard";
-// import MusicCard from "./MusicCard.jsx";
-// import Media from "./media/Media.jsx";
-// import MusicPlayerSlider from "../serach/MusicPlayerSlider";
+import { readMusicList } from "../../../redux/actions/musicActions";
+import Media from "./media/Media.jsx";
+import MusicPlayerSlider from "../serach/MusicPlayerSlider";
 // import Genre from "./genre/Genre.jsx";
 
 export const Music = () => {
   const [musicmodal, setmusicmodal] = useState("");
   const musicList = useSelector((state) => state.musicList).data;
   const user = useSelector((state) => state.user);
-  useEffect(() => {
+  const dispatch = useDispatch();
+
+ useEffect(() => {
     const init = async () => {
       await dispatch(readMusicList());
     };
     init();
-  }, [])
+  }, []);
+
   return (
     <>
-      {/* <Routes>
-        <Route
+      <Routes>
+        {/* <Route
           path="/genre"
           element={<Genre setmusicmodal={setmusicmodal} />}
-        />
+        /> */}
         <Route
           path="/ranking"
           element={<Media setmusicmodal={setmusicmodal} />}
         />
-      </Routes> */}
+      </Routes>
 
-      {/* {musicmodal && (
+      {musicmodal && (
         <MusicPlayerSlider
           sx={{ display: "block" }}
-          address={props.address}
+          address={user.address}
           musicmodal={musicmodal}
           setmusicmodal={setmusicmodal}
         />
-      )} */}
+      )}
 
       {musicList.length > 0 &&
         musicList.map((music, i) => {

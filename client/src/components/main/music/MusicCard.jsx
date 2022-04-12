@@ -13,7 +13,6 @@ function MusicCard(props) {
   const [palyeCount, setpalyeCount] = useState("");
   
   const dispatch = useDispatch();  
-  const likeList = useSelector((state) => state.likeMusic).data;
   useEffect(() => {
     setlikeCount(props.music.MusicLikes.length)
     setpalyeCount(props.music.play_count)

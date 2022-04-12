@@ -156,7 +156,6 @@ export const Playbar = (props) => {
   function setProgress(e) {
     const close = document.querySelector(".close");
     let clickX;
-    console.log(e.clientX);
     if (close) {
       clickX = e.clientX - 242; //왜170부터시작하는지모르겠넹
     } else {

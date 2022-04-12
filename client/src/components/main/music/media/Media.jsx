@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import HeadsetIcon from '@mui/icons-material/Headset';
 import { Link } from 'react-router-dom';
 import "./Media.css";
@@ -10,7 +10,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Media = (props) => {
-  const musicList = useSelector((state) => state.musicList.musicList)
+  const musicList = useSelector((state) => state.musicList).data
   const listeningTopList = [...musicList].sort((a,b)=>b.play_count-a.play_count);  //랭킹만들기
   const likeTopList = [...musicList].sort((a,b)=>b.MusicLikes.length-a.MusicLikes.length);  //랭킹만들기
   
@@ -30,11 +30,14 @@ const Media = (props) => {
   //ToDO: musicList.length = 6 6개이하면 오류남
 
   const listenRankingMoveLeft = () => {
+    console.log(listenRankingvalue)
+    console.log(musicList.length)
     listenRankingvalue === 0
       ? setListenRankingValue(-100 * (musicList.length - veiwCard))
       : setListenRankingValue(listenRankingvalue + 100);
   };
   const listenRankingMoveRigth = () => {
+    console.log(listenRankingvalue)
     listenRankingvalue === -100 * (musicList.length- veiwCard)
       ? setListenRankingValue(0)
       : setListenRankingValue(listenRankingvalue - 100);
