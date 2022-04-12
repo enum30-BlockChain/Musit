@@ -59,15 +59,27 @@ export const Navbar = () => {
         <div className="menu-items">
           <ul className="nav-links">
             <li>
-              <Link to="/music">
+              <Link to="/musiclist">
                 <i className="uil uil-music"></i>
                 <span className="link-name">MUSIC</span>
               </Link>
             </li>
             <li>
+              <Link to="/artistlist">
+                <i className="uil uil-palette"></i>
+                <span className="link-name"> ARTIST</span>
+              </Link>
+            </li>
+            <li>
               <Link to="/store">
                 <i className="uil uil-store"></i>
-                <span className="link-name">STORE</span>
+                <span className="link-name"> NFT STORE</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/auctionmarket">
+                <i className="uil uil-arrow-growth"></i>
+                <span className="link-name">AUCTION MARKET</span>
               </Link>
             </li>
             <li>
@@ -79,19 +91,7 @@ export const Navbar = () => {
             <li>
               <Link to="/artist">
                 <i className="uil uil-palette"></i>
-                <span className="link-name">ARTIST</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/cteate">
-                <i className="uil uil-upload"></i>
-                <span className="link-name">CREATE</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/auctionupload">
-                <i className="uil uil-arrow-growth"></i>
-                <span className="link-name">AUCTION</span>
+                <span className="link-name">ARTIST PAGE</span>
               </Link>
             </li>
           </ul>

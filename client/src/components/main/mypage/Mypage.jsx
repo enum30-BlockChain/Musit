@@ -30,24 +30,28 @@ export const Mypage = () => {
               <span className="link-name"> Playlist</span>
             </Link>
           </li> */}
-
           <li>
             <Link to="/mypage/subscription">
               <i className="uil uil-bitcoin-sign"></i>
               <span className="link-name"> Subscription</span>
             </Link>
           </li>
-
-          {/* {artist.artist_name === null ? ( */}
           <li>
-            <Link to="/mypage/artistsubmit">
-              <i className="uil uil-music"></i>
-              <span className="link-name"> Arstis Submit</span>
+            <Link to="/mypage/mynftlist">
+              <i className="uil uil-bitcoin-sign"></i>
+              <span className="link-name"> My nft list</span>
             </Link>
           </li>
-          {/* ) : ( */}
-          {/* <></> */}
-          {/* )} */}
+          {artist.artist_name !== null ? (
+            <li>
+              <Link to="/mypage/artistsubmit">
+                <i className="uil uil-music"></i>
+                <span className="link-name"> Artist Submit</span>
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
         </ul>
       </nav>
       <div className="detail">
