@@ -17,8 +17,9 @@ import { Dashboard } from "./dashboard/Dashboard";
 import { Searchbar } from "./searchbar/Searchbar";
 import { Artist } from "./artist/Artist";
 
-import RegisterUser from "./register/listener/RegisterUser";
-import RegisterArtist from "./register/artists/RegisterArtist";
+import RegisterUser from "./register/RegisterUser";
+
+import { Store } from "./store/Store";
 
 import { Music } from "./music/Music";
 import { Playbar } from "./playbar/Playbar";
@@ -77,14 +78,11 @@ export const Main = () => {
             <Route
               path="artist"
               element={
-                artist.artist_name !== undefined ? (
-                  <Artist />
-                ) : (
-                  <RegisterArtist />
-                )
+                artist.artist_name !== undefined ? <Artist /> : <Artistsubmit />
               }
             ></Route>
             <Route path="music/*" element={<Music/>} />
+            <Route path="store/*" element={<Store/>} />
           </Route>
         </Routes>
       </div>

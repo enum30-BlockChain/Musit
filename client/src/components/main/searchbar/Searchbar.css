@@ -1,46 +1,55 @@
 @import "../../../styles/variables.css";
 
-.main .searchbar {
-  position: fixed;
-  height: 65px;
-  top: 0;
-  left: var(250px);
+.searchbar {
   display: flex;
-  width: calc(100% - 250px);
+  padding: 10px 25px;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 65px;
+  left: 0;
+  top: 0;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 14px;
-  z-index: 10;
-}
-
-nav.side-nav.close ~ .main .searchbar {
-  left: 73px;
-  width: calc(100% - 73px);
 }
 
 .searchbar .sidebar-toggle {
   font-size: 26px;
-  color: var(--text-color);
+  color: white;
   cursor: pointer;
 }
 
 .searchbar .search-box {
   position: relative;
   height: 45px;
-  max-width: 600px;
+  max-width: 38vw;
   width: 100%;
   margin: 0 30px;
 }
 
+.searchbar .search-box .uil-search {
+  color: white;
+}
+.searchbar .search-box ::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: white;
+}
+
+.address-appear {
+  font-size: 20px;
+  color: white;
+  margin-right: 15px;
+}
+
 .searchbar .search-box input {
   position: absolute;
-  border: 1px solid var(--border-color);
+  border: 2px solid;
   border-radius: 5px;
   background-color: var(--panel-color);
   padding: 0 25px 0 50px;
   height: 100%;
   width: 100%;
-  color: var(--text-color);
+  color: white;
   font-size: 15px;
   font-weight: 400;
   outline: none;
@@ -66,7 +75,6 @@ nav.side-nav.close ~ .main .searchbar {
   display: flex;
 }
 
-.user-info .searchbar-address {
-  display: flex;
+.user-info .searchbar-address p {
+  color: white;
 }
-

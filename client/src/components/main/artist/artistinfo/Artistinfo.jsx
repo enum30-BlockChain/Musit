@@ -1,11 +1,10 @@
-import "./Artist.css";
 import React, { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { Avatar } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchArtistData } from "../../../../redux/artist/artistAction";
 
-export const Artist = () => {
+export default function Artistinfo({ address }) {
+  console.log(address);
   const [select, setSelect] = useState("");
   const [visible, setVisible] = useState(false);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
@@ -13,11 +12,11 @@ export const Artist = () => {
 
   const formData = new FormData();
   const artist = useSelector((state) => state.artist);
-  const metamask = useSelector((state) => state.metamask);
+  const dispatch = useDispatch();
 
-  function navlinkOnClick(e) {
-    console.log(e.target);
-  }
+  useEffect(() => {
+    dispatch(fetchArtistData(address)).then(() => {});
+  }, []);
 
   const idonchange = (e) => {
     console.log(e.target.value);
@@ -31,15 +30,16 @@ export const Artist = () => {
   };
 
   const postImg = async () => {
+    //multer하고 s3저장후 링크가져오기
     formData.append("img", img);
     const url = "http://localhost:5000/files/imgupload";
-    const result = await axios.post(url, formData);
+    const result = await axios.post(url, formData); //formData multer가읽을수있다.
     return result.data;
   };
 
   const getImg = (e) => {
-    setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
-    setImg(e.target.files[0]);
+    setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0])); //화면에 띄우는 img
+    setImg(e.target.files[0]); //수정할 데이터 img 보낼꺼
   };
 
   const Submit = async () => {
@@ -57,16 +57,15 @@ export const Artist = () => {
     <>
       <div className="artistpage">
         <div className="artist-card">
+          {/* 내이미지공간 */}
           <div className="artist-image">
-            {artist.img === "" ? (
-              <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
-            ) : (
-              <Avatar
-                alt="Remy Sharp"
-                src={artist.img}
-                sx={{ width: 128, height: 128 }}
-              />
-            )}
+            {/* 현재 이미지 불러오기 */}
+            <img
+              style={{ objectFit: "cover" }}
+              src={artist.img}
+              alt="artist profile"
+            />
+            {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
             {visible && (
               <div>
                 <button onClick={Submit}>올리기</button>
@@ -91,7 +90,7 @@ export const Artist = () => {
               </div>
             )}
             <h2 className="address">Address</h2>
-            <span>{metamask.accounts[0]}</span>
+            <span>{address}</span>
             <h2 className="likes">Like</h2>
             <span>좋아요 : {artist.likes} </span>
             <button
@@ -103,26 +102,7 @@ export const Artist = () => {
             ></button>
           </div>
         </div>
-        <nav className="artist-nav">
-          <ul className="nav-links" onClick={navlinkOnClick}>
-            <li>
-              <Link to="/artist/list">
-                <i className="uil uil-favorite"></i>
-                <span className="link-name">Artists</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/artist/album">
-                <i className="uil uil-favorite"></i>
-                <span className="link-name">album</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
-        <div className="detail">
-          <Outlet />
-        </div>
       </div>
     </>
   );
-};
+}

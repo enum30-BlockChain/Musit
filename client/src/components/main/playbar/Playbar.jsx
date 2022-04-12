@@ -75,7 +75,7 @@ export const Playbar = (props) => {
         }
       }
     }
-  }, [ musicList,likeMusic]);
+  }, [musicList, likeMusic]);
 
   function loadSong(song) {
     //노래불러올때
@@ -156,7 +156,7 @@ export const Playbar = (props) => {
   function setProgress(e) {
     const close = document.querySelector(".close");
     let clickX;
-    console.log(e.clientX)
+    console.log(e.clientX);
     if (close) {
       clickX = e.clientX - 242; //왜170부터시작하는지모르겠넹
     } else {
@@ -223,23 +223,23 @@ export const Playbar = (props) => {
 
   const palyCountAdd = async () => {
     setpalyeCount(palyeCount + 1);
-    const content = { play_count: palyeCount+1};
-    await axios
-      .patch(`http://localhost:5000/music/${hash}`, content)
-      // .then((res) => console.log(res))
+    const content = { play_count: palyeCount + 1 };
+    await axios.patch(`http://localhost:5000/music/${hash}`, content);
+    // .then((res) => console.log(res))
   };
 
   const [savePoint, setSavePoint] = useState(0);
-  
+
   const postTime = async (saveTime) => {
     let sendInt = savePoint % 20; //20으로 나누면 5초정도됨
-    const content =[hash,saveTime,tilte];
+    const content = [hash, saveTime, tilte];
 
     if (!sendInt) {
       setSavePoint(savePoint + 1);
-      await axios
-        .patch(`http://localhost:5000/users/${user.address}`, {recent_played:content.join("-")})
-        // .then((res) => console.log(res))
+      await axios.patch(`http://localhost:5000/users/${user.address}`, {
+        recent_played: content.join("-"),
+      });
+      // .then((res) => console.log(res))
     }
     setSavePoint(savePoint + 1);
   };
@@ -289,7 +289,7 @@ export const Playbar = (props) => {
             <i className="fas fa-backward"></i>
           </button>
           <button
-            id="play" 
+            id="play"
             className="action-btn action-btn-big"
             onClick={playOnClikc}
           >

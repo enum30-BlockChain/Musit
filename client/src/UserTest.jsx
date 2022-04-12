@@ -23,7 +23,7 @@ const UserTest = () => {
   }
 
   const deleteOnClick = async () => {
-    await dispatch(deleteUserData())
+    await dispatch(deleteUser())
   }
 
   return (

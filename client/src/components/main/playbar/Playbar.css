@@ -1,5 +1,5 @@
 .music-container {
-  background-color: rgb(243, 243, 243);
+  background-color: rgba(243, 243, 243, 0.5);
   display: flex;
   padding: 20px 30px;
   position: absolute;
@@ -44,7 +44,7 @@
 .navigation {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   z-index: 1;
   margin-left: 115px;
   left: 30px;

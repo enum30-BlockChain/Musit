@@ -1,8 +1,8 @@
 import React from "react";
 import "./ListenerType.css";
-const CountryType = ({ setOption }) => {
+const CountryType = ({ setSelected }) => {
   const onChangeCountry = (e) => {
-    setOption(e.target.value);
+    setSelected(e.target.value);
   };
 
   return (
@@ -11,9 +11,8 @@ const CountryType = ({ setOption }) => {
         className="country"
         country="my-country"
         onChange={onChangeCountry}
-        defaultValue="Korea South"
+        defaultValue="KS"
       >
-        <option value="">Country...</option>
         <option value="AF">Afghanistan</option>
         <option value="AL">Albania</option>
         <option value="Algeria">Algeria</option>

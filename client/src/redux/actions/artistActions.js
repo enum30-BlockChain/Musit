@@ -184,7 +184,7 @@ export const toggleLikeArtist = () => {
 
 			if (userInfo && artistName) {
 				// user 정보, 선택한 아티스트 이름이 있을 때만 실행
-				if (userInfo.ArtistLikes.indexOf(artistName) === -1) {
+				if (userInfo.ArtistLikes.map((like) => like.artist_name).indexOf(artistName) === -1) {
 					// 좋아요를 안눌렀으면 생성
 					const url = `http://localhost:5000/artists/likes`;
 					await axios.post(url, {
@@ -202,7 +202,7 @@ export const toggleLikeArtist = () => {
 				} else {
 					// 좋아요를 눌렀으면 다시 삭제
 					const url = `http://localhost:5000/artists/likes/${artistName}`;
-					await axios.delete(url, { user_address: userInfo.address });
+					await axios.delete(url, { data: { user_address: userInfo.address } });
 
 					dispatch({
 						type: ActionTypes.LIKE_ARTIST_SUCCESS,

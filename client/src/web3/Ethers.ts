@@ -53,7 +53,7 @@ export default class Ethers {
   static async minting(tokenURI: string): Promise<Transaction | null> {
     try {
       const options = {
-        value: ethers.utils.parseEther("0.001"),
+        value: ethers.utils.parseEther("0.0001"),
       };
 
       return await (await musitNFT.minting(tokenURI, options)).wait();
