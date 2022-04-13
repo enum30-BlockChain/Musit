@@ -78,6 +78,8 @@ export const Main = () => {
     });
   };
 
+  console.log(user);
+
   return (
     <section className="main">
       <Searchbar />
@@ -94,7 +96,7 @@ export const Main = () => {
             <Route
               path="mypage"
               element={
-                user.nickname !== undefined ? (
+                user.nickname !== null ? (
                   <Mypage path="userinformation" />
                 ) : (
                   <RegisterUser />
@@ -134,7 +136,7 @@ export const Main = () => {
             <Route path="store/*" element={<Store />} />
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />
-            <Route path="minting/:ipfs_hash" element={<Minting/>} />
+            <Route path="minting/:ipfs_hash" element={<Minting />} />
           </Route>
         </Routes>
       </div>

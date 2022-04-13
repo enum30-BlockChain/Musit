@@ -179,19 +179,11 @@ export const toggleLikeArtist = (artist_name) => {
     dispatch({ type: ActionTypes.LIKE_ARTIST_REQUEST });
     try {
       const userInfo = getState().user;
-      console.log(2222222222222222222);
-      console.log(artist_name);
-      console.log(2222222222222222222);
-      console.log(3333333333333333);
-      console.log(userInfo);
-      console.log(33333333333333333);
-      const update = userInfo.ArtistLikes.filter(
+      const likeArtist = getState().likeArtist;
+      const update = likeArtist.data.filter(
         (like) => like.artist_name.indexOf(artist_name) > -1
       );
-      console.log(1111111111111111111);
-      console.log(update);
-      console.log(1111111111111111111);
-      if (userInfo && artist_name) {
+      if (likeArtist && artist_name) {
         if (0 >= update.length) {
           // 좋아요를 안눌렀으면 생성
           const url = `http://localhost:5000/artists/likes`;
@@ -199,25 +191,23 @@ export const toggleLikeArtist = (artist_name) => {
             artist_name: artist_name,
             user_address: userInfo.address,
           });
-
           dispatch({
             type: ActionTypes.LIKE_ARTIST_SUCCESS,
-            payload: {
-              artist_name: artist_name,
-              user_address: userInfo.address,
-            },
+            payload: [
+              ...likeArtist.data,
+              { artist_name: artist_name, user_address: userInfo.address },
+            ],
           });
         } else {
           // 좋아요를 눌렀으면 다시 삭제
           const url = `http://localhost:5000/artists/likes/${artist_name}`;
           await axios.delete(url, { data: { user_address: userInfo.address } });
-
+          const update = likeArtist.data.filter((like) => {
+            return like.artist_name.indexOf(artist_name) < 0;
+          });
           dispatch({
             type: ActionTypes.LIKE_ARTIST_SUCCESS,
-            payload: {
-              artist_name: artist_name,
-              user_address: userInfo.address,
-            },
+            payload: [...update],
           });
         }
       } else {

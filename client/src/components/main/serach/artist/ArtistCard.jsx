@@ -11,7 +11,6 @@ import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleLikeArtist } from "../../../../redux/actions/artistActions";
 import { Box } from "@mui/material";
-// import { fetchArtistLikeData } from "../../../redux/artist/artistAction";
 
 export default function ArtistCard(props) {
   const [TotalLike, setTotalLike] = useState(props.artist.ArtistLikes.length);
@@ -20,11 +19,13 @@ export default function ArtistCard(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setArtistlike(
-      likeArtist.filter((artist) => {
-        return artist.artist_name.indexOf(props.artist.artist_name) > -1;
-      })
-    );
+    if (!likeArtist.loading) {
+      setArtistlike(
+        likeArtist.filter((artist) => {
+          return artist.artist_name.indexOf(props.artist.artist_name) > -1;
+        })
+      );
+    }
   }, [likeArtist]);
 
   //파업창 띄워주는 것
@@ -33,17 +34,7 @@ export default function ArtistCard(props) {
   };
 
   const likeOnclick = async () => {
-    await dispatch(toggleLikeArtist(props.artist.artist_name));
-
-    if (artistlike.length === 0) {
-      likeArtist.push(props.artist);
-      await dispatch(toggleLikeArtist(props.artist.artist_name));
-    } else {
-      const newMyArtistlist = likeArtist.filter((artist) => {
-        return artist.artist_name.indexOf(props.artist.artist_name) < 0;
-      });
-      await dispatch(toggleLikeArtist(props.artist.artist_name));
-    }
+    dispatch(toggleLikeArtist(props.artist.artist_name));
   };
 
   return (
