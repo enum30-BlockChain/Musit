@@ -70,7 +70,12 @@ export const Navbar = () => {
                 <span className="link-name">ARTIST PAGE</span>
               </Link>
             </li>
-
+            <li>
+              <Link to="/artist">
+                <i className="uil uil-upload-alt"></i>
+                <span className="link-name">Create</span>
+              </Link>
+            </li>
             <li>
               <Link to="/musiclist">
                 <i className="uil uil-music"></i>
@@ -117,61 +122,5 @@ export const Navbar = () => {
         </div>
       </nav>
     </>
-    //   ) : (
-    //     <>
-    //       <nav className="side-nav">
-    //         <Link to={"/landingpage"}>
-    //           <div className="logo-name-container">
-    //             <div className="logo-image">
-    //               <h1 className="E">E</h1>
-    //             </div>
-    //             <span className="logo-name nav-links">NUM30 MUSIT</span>
-    //           </div>
-    //         </Link>
-
-    //         <div className="menu-items">
-    //           <ul className="nav-links">
-    //             <li>
-    //               <Link to="/mypage">
-    //                 <i className="uil uil-create-dashboard"></i>
-    //                 <span className="link-name">MYPAGE</span>
-    //               </Link>
-    //             </li>
-    //             <li>
-    //               <Link to="/music">
-    //                 <i className="uil uil-music"></i>
-    //                 <span className="link-name">MUSIC</span>
-    //               </Link>
-    //             </li>
-    //             <li>
-    //               <Link to="/store">
-    //                 <i className="uil uil-store"></i>
-    //                 <span className="link-name">STORE</span>
-    //               </Link>
-    //             </li>
-    //           </ul>
-    //           <ul className="logout-mode">
-    //             <li>
-    //               <Link to="#">
-    //                 <i className="uil uil-signout"></i>
-    //                 <span className="link-name">Logout</span>
-    //               </Link>
-    //             </li>
-
-    //             <li className="mode">
-    //               <Link to="#">
-    //                 <i className="uil uil-moon"></i>
-    //                 <span className="link-name">Dark Mode</span>
-    //               </Link>
-    //               <div className="mode-toggle">
-    //                 <span className="switch"></span>
-    //               </div>
-    //             </li>
-    //           </ul>
-    //         </div>
-    //       </nav>
-    //     </>
-    //   )}
-    // </>
   );
 };

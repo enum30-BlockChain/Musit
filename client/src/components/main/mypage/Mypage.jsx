@@ -39,7 +39,7 @@ export const Mypage = () => {
             <li>
               <Link to="/mypage/artistsubmit">
                 <i className="uil uil-music"></i>
-                <span className="link-name"> Artist Submit</span>
+                <span className="link-name"> Artist Register</span>
               </Link>
             </li>
           ) : (
