@@ -11,7 +11,7 @@ import HeadsetIcon from "@mui/icons-material/Headset";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
 import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import { fetchLikeListData } from "../../../redux/likeList/likeListAction";
+// import { fetchLikeListData } from "../../../redux/likeList/likeListAction";
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -21,7 +21,7 @@ const Img = styled("img")({
 
 export default function SongCard(props) {
   const [TotalLike, setTotalLike] = useState(props.music.MusicLikes.length);
-  const likeList = useSelector((state) => state.likeList.likeList);
+  const likeList = useSelector((state) => state.likeMusic).data;
   const [findlike, setFindlike] = useState("");
   const dispatch = useDispatch();
 

@@ -66,35 +66,50 @@ export default class Ethers {
 
   static async myNFTList(address: string): Promise<object[] | null> {
     try {
-      
-      return []
+      const filter: EventFilter = musitNFT.filters.Transfer(null, address)
+      const myNFTList: object[] = await Promise.all(
+        (
+          await musitNFT.queryFilter(filter)
+        ).map(async (event: ethers.Event) => {
+          const item: any = event.args;
+
+          const tokenURI = await musitNFT.tokenURI(item.tokenId);
+          const metadata = await (await fetch(tokenURI)).json();
+          const tokenId = item.tokenId.toNumber();
+
+          return {
+            tokenId,
+            ...metadata,
+          };
+        })
+      );
+      return myNFTList
     } catch (error) {
       console.log(error);
       return null;
     }
   }
 
-  static async myMintedNFTList(address: string): Promise<object[] | null> {
+  static async myMintingNFTList(address: string): Promise<object[] | null> {
     try {
       const filter: EventFilter = musitNFT.filters.Minted(null, null, address);
-				const myMintedList: object[] = await Promise.all(
-					(
-						await musitNFT.queryFilter(filter)
-					).map(async (event: ethers.Event) => {
-						const item: any = event.args;
-            console.log(item);
-            
-						const tokenURI = await musitNFT.tokenURI(item.tokenId);
-						const metadata = await (await fetch(tokenURI)).json();
-						const tokenId = item.tokenId.toNumber();
+      const myMintingList: object[] = await Promise.all(
+        (
+          await musitNFT.queryFilter(filter)
+        ).map(async (event: ethers.Event) => {
+          const item: any = event.args;
 
-						return {
-							tokenId,
-							...metadata,
-						};
-					})
-				);
-      return myMintedList
+          const tokenURI = await musitNFT.tokenURI(item.tokenId);
+          const metadata = await (await fetch(tokenURI)).json();
+          const tokenId = item.tokenId.toNumber();
+
+          return {
+            tokenId,
+            ...metadata,
+          };
+        })
+      );
+      return myMintingList
     } catch (error) {
       console.log(error);
       return null;

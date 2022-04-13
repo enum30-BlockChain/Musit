@@ -1,5 +1,6 @@
 @import "../../../../styles/variables.css";
 
+
 .store .itemcard-container .itemCard {
   background-color: var(--box4-color);
   width: 300px;
