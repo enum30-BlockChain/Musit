@@ -42,7 +42,7 @@ export const Music = () => {
         />
       )}
 
-      {/* {musicList.length > 0 &&
+      {musicList.length > 0 &&
         musicList.map((music, i) => {
           const findLike = music.MusicLikes.find(
             (like) => like.user_address === user.address
@@ -58,7 +58,7 @@ export const Music = () => {
               />
             </>
           );
-        })} */}
+        })}
     </>
   );
 };

@@ -3,10 +3,16 @@ import { Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { useSelector, useDispatch } from "react-redux";
+import { createMusicData } from "../../../redux/actions/musicActions";
+import { readArtistList} from "../../../redux/actions/artistActions";
+import { Link, useNavigate } from "react-router-dom";
 
-// const { create } = require("ipfs-http-client");
-
-export const Create = ({ address }) => {
+export const Create = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const artistList = useSelector((state) => state.artistList);
+  const user = useSelector((state) => state.user);
   const [genre, setgenre] = useState([
     "Pop",
     "K-pop",
@@ -29,14 +35,12 @@ export const Create = ({ address }) => {
   const [audiofile, setaudiofile] = useState("");
   const [duration, setDuration] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
-  const [artistList, setartistList] = useState("");
+  const [description, setDescription] = useState("");
   const [DBdata, setDBdata] = useState({
-    cover_img_link: "",
-    music_link: "",
-    music_title: "",
-    music_duration: "",
+    title: "",
+    play_time: "",
     artist_name: "",
-    music_genre: "",
+    genre: "",
     description: "",
   });
   const imgFormData = new FormData();
@@ -52,8 +56,7 @@ export const Create = ({ address }) => {
     setMusicTitle(e.target.value);
   };
   const getDescription = (e) => {
-    DBdata.description = e.target.value;
-    console.log(DBdata);
+    setDescription(e.target.value);
   };
 
 
@@ -82,7 +85,10 @@ export const Create = ({ address }) => {
     } else if (musicTitle === "") {
       alert("노래제목을 넣어주세요");
       return false;
-    } else if (checkedInputs.length == 0) {
+    } else if (description === "") {
+      alert("description 넣어주세여");
+      return false;
+    }else if (checkedInputs.length == 0) {
       alert("장르를 체크해주세요");
       return false;
     }
@@ -90,45 +96,23 @@ export const Create = ({ address }) => {
   };
 
   const submit = async () => {
+    imgFormData.append("img", albumCoverImgFile);
+		audioFormData.append("audio", audiofile);
+    DBdata.play_time = duration;
+    DBdata.title = musicTitle;
+    DBdata.genre = checkedInputs;
+    DBdata.description = description;
     await findArtist();
     if (isValidDBdata()) {
-      await postImg();
-      await postAudio();
-      DBdata.music_duration = duration;
-      DBdata.music_title = musicTitle;
-      DBdata.music_genre = checkedInputs;
-      //TODO : 아티스트 이름은 useEffect로 처음에 불러와서 보낼꺼니깐있는거어서 상관 x
-      //TODO : 지금은 안불러와서 있는 아티스트 이름넣어줘야 db저장가능
-      await axios
-        .post("http://localhost:5000/files/create", DBdata)
-        .then((res) => {
-          if ((res.data.result = 0)) {
-            alert(res.data.message);
-            window.location.href = "/music";
-          } else if ((res.data.result = 1)) {
-            alert(res.data.message);
-            window.location.href = "/music";
-          } else if ((res.data.result = 2)) {
-            alert(res.data.message);
-            window.location.href = "/create";
-          }
-        })
-        .catch((err) => alert(err));
+      await dispatch(createMusicData(imgFormData, audioFormData, DBdata))
+      navigate("/search", { state: musicTitle });
     }
-  };
 
-  const getArtist = async () => {
-    await axios
-      .get("http://localhost:5000/artists/list") //formData multer가읽을수있다.
-      .then((res) => {
-        setartistList(res.data);
-      })
-      .catch((err) => alert(err));
   };
 
   const findArtist = async () => {
-    artistList.map((a, index) => {
-      if (a.user_address === address) {
+    artistList.data.map((a, index) => {
+      if (a.user_address === user.address) {
         DBdata.artist_name = a.artist_name;
         return DBdata;
       }
@@ -137,7 +121,7 @@ export const Create = ({ address }) => {
 
   useEffect(() => {
     const init = async () => {
-      await getArtist();
+      await dispatch(readArtistList());
     };
     init();
   }, []);
@@ -174,7 +158,7 @@ export const Create = ({ address }) => {
               <audio
                 src={URL.createObjectURL(audiofile)}
                 onLoadedData={(e) => {
-                  setDuration(e.currentTarget.duration);
+                  setDuration(Math.floor(e.currentTarget.duration));
                   // console.log(e.currentTarget.duration);
                 }}
                 // onTimeUpdate= {(e) =>{
