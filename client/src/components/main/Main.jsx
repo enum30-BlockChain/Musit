@@ -19,6 +19,7 @@ import { Store } from "./store/Store";
 import { Music } from "./music/Music";
 import { Playbar } from "./playbar/Playbar";
 import Search from "./serach/Search";
+import { Create } from "./create/Create";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -77,6 +78,7 @@ export const Main = () => {
                 artist.artist_name !== undefined ? <Artist /> : <Artistsubmit />
               }
             ></Route>
+            <Route path="cteate" element={<Create/>} />
             <Route path="search" element={<Search/>} />
             <Route path="music/*" element={<Music/>} />
             <Route path="store/*" element={<Store/>} />
