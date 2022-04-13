@@ -136,7 +136,7 @@ export const Main = () => {
           </Route>
         </Routes>
       </div>
-      // {user.loading === true ? <></> : <Playbar />}
+     {user.loading === true ? <></> : <Playbar />}
     </section>
   
     );
