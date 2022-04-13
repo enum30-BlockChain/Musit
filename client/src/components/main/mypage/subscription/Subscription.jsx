@@ -15,7 +15,7 @@ export const Subscription = () => {
           </div>
           <div className="sub-card">
             <h3 className="sub-index">3 Months Supscription</h3>
-            0.3 ETH
+            <>0.3 ETH</>
             <Button>BUY</Button>
           </div>
           <div className="sub-card">
