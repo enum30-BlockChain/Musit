@@ -79,7 +79,6 @@ export default function ArtistModal(props) {
           sx={{
             display: "flex",
             alignItems: "center",
-            alignItems: "flex-start",
           }}
         >
           <Avatar

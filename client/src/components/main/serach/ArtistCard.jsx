@@ -13,13 +13,6 @@ import { toggleLikeArtist } from "../../../redux/actions/artistActions";
 import { Box } from "@mui/material";
 // import { fetchArtistLikeData } from "../../../redux/artist/artistAction";
 
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
-
 export default function ArtistCard(props) {
   const [TotalLike, setTotalLike] = useState(props.artist.ArtistLikes.length);
   const likeArtist = useSelector((state) => state.likeArtist).data;
@@ -59,10 +52,10 @@ export default function ArtistCard(props) {
   return (
     <Paper
       sx={{
+        alignItems: "center",
         p: 2,
-        ml: 5,
+        m: 1.5,
         maxWidth: 160,
-        flexGrow: 1,
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
@@ -72,10 +65,10 @@ export default function ArtistCard(props) {
         direction="column"
         justifyContent="flex-start"
         alignItems="center"
+        
       >
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
-            {/* 프롭스를 통한 아티스트 이미지 */}
             <Avatar
               onClick={postInfo}
               alt="Remy Sharp"

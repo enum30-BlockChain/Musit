@@ -121,20 +121,6 @@ export default function MusicPlayerSlider(props) {
 
   const likecountpost = async ()=>{
     dispatch(toggleLikeMusic(props.musicmodal));
-    // await axios
-    // .post("http://localhost:5000/music/like", {address:props.address,ipfs_hash:props.musicmodal.ipfs_hash})
-    // .then((res) => {})
-    // .catch((err) => alert("회원가입부터하세용.", err));
-
-    // if(findlike.length === 0 ){
-    //   likeList.push(props.musicmodal)
-    //   // dispatch(fetchLikeListData(likeList))
-    // }else{
-    //   const newMySonglist = likeList.filter((song)=>{
-    //     return song.ipfs_hash.indexOf(props.musicmodal.ipfs_hash)<0;
-    //   }) 
-    //   // dispatch(fetchLikeListData(newMySonglist))
-    // }
   }
   return (
     <Box sx={{ width: "100%", overflow: "hidden" }}>

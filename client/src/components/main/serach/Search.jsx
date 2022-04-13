@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Typography, Box, Stack } from "@mui/material";
-import axios from "axios";
 import MusicPlayerSlider from "./MusicPlayerSlider";
 import SongCard from "./SongCard";
 import ArtistCard from "./ArtistCard";
@@ -12,16 +11,21 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Divider from "@mui/material/Divider";
 
+import { readMusicList } from "../../../redux/actions/musicActions";
+import { readArtistList } from "../../../redux/actions/artistActions";
+
 function Search(props) {
+  const dispatch = useDispatch();
   const [musicmodal, setmusicmodal] = useState("");
   const [artistModal, setArtistModal] = useState("");
   const [findMusic, setFindMusic] = useState("");
   const [findArtist, setFindArtist] = useState("");
   const [value, setValue] = useState(0);
+  const [value2, setValue2] = useState(0);
   const [viewMusicCard, setViewMusicCard] = useState(0);
-  const dispatch = useDispatch();
+  const [viewArtistCard, setViewArtistCard] = useState(0);
   const location = useLocation();
-  const content = location.state !== null || undefined ? location.state : null;
+  const content = location.state !== null || undefined ? location.state : "";
 
   const musicList = useSelector((state) => state.musicList);
   const artistList = useSelector((state) => state.artistList);
@@ -34,19 +38,35 @@ function Search(props) {
     );
     setFindMusic(searchCount);
     setViewMusicCard(searchCount.length);
+    //카드 움직임 구해줌
+    if (searchCount.length > 4) {
+      setViewMusicCard(4);
+    } else {
+      setViewMusicCard(searchCount.length);
+    }
   };
+
   const getUser = async () => {
     //유저검색
     let searchCount = artistList.data.filter(
       (a) => a.artist_name.indexOf(content) > -1
     );
     setFindArtist(searchCount);
+    setViewArtistCard(searchCount.length);
+
+    if (searchCount.length > 8) {
+      setViewArtistCard(8);
+    } else {
+      setViewArtistCard(searchCount.length);
+    }
+    //TODO 아티스트 길이 조절해서 카드넘기는거 해봐야지
   };
+
   useEffect(() => {
     if (!musicList.loading) {
       const init = async () => {
-        await getUser(content);
-        await getmusicList(content);
+        await getUser();
+        await getmusicList();
       };
       init();
     }
@@ -55,6 +75,14 @@ function Search(props) {
   useEffect(() => {
     changeSearchPage();
   }, [searching]);
+
+  useEffect(() => {
+    const init = async () => {
+      await dispatch(readMusicList());
+      await dispatch(readArtistList());
+    };
+    init();
+  }, []);
 
   const changeSearchPage = () => {
     if (musicList.data && artistList.data) {
@@ -74,8 +102,15 @@ function Search(props) {
         setViewMusicCard(searchMusicNameData.length);
         setValue(0);
       }
+
+      if (searchAtistData.length > 8) {
+        setViewArtistCard(8);
+      } else {
+        setViewArtistCard(searchAtistData.length);
+      }
     }
   };
+
   //카드이동
   const moveAhead = () => {
     value === 0
@@ -86,6 +121,17 @@ function Search(props) {
     value === -100 * (findMusic.length - viewMusicCard)
       ? setValue(0)
       : setValue(value - 100);
+  };
+
+  const moveAhead2 = () => {
+    value2 === 0
+      ? setValue2(-100 * (findArtist.length - viewArtistCard))
+      : setValue2(value2 + 100);
+  };
+  const moveBehind2 = () => {
+    value2 === -100 * (findArtist.length - viewArtistCard)
+      ? setValue2(0)
+      : setValue2(value2 - 100);
   };
   return (
     <Box sx={{ height: "100%" }}>
@@ -143,7 +189,9 @@ function Search(props) {
           />
         </Box>
       </Box>
+
       <Divider sx={{ my: 5 }} />
+
       <Box sx={{ height: "60%" }}>
         <Typography variant="h4" gutterBottom>
           Artist
@@ -156,37 +204,48 @@ function Search(props) {
             px: 2,
           }}
         >
-          <ArrowBackIosIcon sx={{ fontSize: 65, cursor: "pointer" }} />
+          <ArrowBackIosIcon
+            sx={{ fontSize: 65, cursor: "pointer" }}
+            onClick={moveAhead2}
+          />
           <Grid
             sx={{
-              alignItems: "center",
-              width: "1450px",
-              m: "auto",
+              width: "1480px",
               padding: 0,
               overflow: "hidden",
             }}
           >
-            <Stack
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-              spacing={2}
+            <Grid
+              container
+              sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
             >
               {findArtist &&
-                findArtist.map((artist) => {
+                findArtist.map((artist, i) => {
                   return (
-                    <ArtistCard
-                      artist={artist}
-                      setArtistModal={setArtistModal}
-                      address={props.address}
-                    />
+                    <Grid xs={{ width: "25%" }}>
+                      <div
+                        key={i}
+                        className="glide"
+                        style={{ transform: `translateX(${value2}%)` }}
+                      >
+                        <ArtistCard
+                          artist={artist}
+                          setArtistModal={setArtistModal}
+                          address={props.address}
+                        />
+                      </div>
+                    </Grid>
                   );
                 })}
-            </Stack>
+            </Grid>
           </Grid>
-          <ArrowForwardIosIcon sx={{ fontSize: 65, cursor: "pointer" }} />
+          <ArrowForwardIosIcon
+            sx={{ fontSize: 65, cursor: "pointer" }}
+            onClick={moveBehind2}
+          />
         </Box>
       </Box>
+
       {artistModal && (
         <ArtistModal
           sx={{ display: "block" }}
