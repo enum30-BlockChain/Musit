@@ -46,10 +46,10 @@
   border: 2px solid;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.1);
+  color: var(--alltime-white);
   padding: 0 25px 0 50px;
   height: 100%;
   width: 100%;
-  color: var(--alltime-white);
   font-size: 15px;
   font-weight: 400;
   outline: none;
@@ -76,5 +76,5 @@
 }
 
 .user-info .searchbar-address p {
-  color: white;
+  color: var(--alltime-white);
 }

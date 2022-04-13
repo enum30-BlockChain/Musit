@@ -36,10 +36,8 @@
 .artistpage .artist-nav {
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid var(--black-light-color);
+  border-bottom: 2px solid var(--alltime-white);
   padding: 10px 0;
-
-  border-bottom: 1px solid var(--border-color);
 }
 
 .artistpage .artist-nav .nav-links {
@@ -54,7 +52,8 @@
 }
 
 .artistpage .artist-nav .nav-links li :is(i, .link-name) {
-  color: var(--black-light-color);
+  color: var(--alltime-white);
+  font-size: 18px;
   transition: var(--tran-03);
 }
 
