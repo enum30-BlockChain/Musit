@@ -26,9 +26,10 @@ function Search(props) {
   const content = location.state !== null || undefined ? location.state : null;
 
   const musicList = useSelector((state) => state.musicList);
-  const artistList = useSelector((state) => state.musicList);
+  const artistList = useSelector((state) => state.artistList);
   const searching = useSelector((state) => state.searching).searching;
 
+  console.log(artistList)
   const getmusicList = async () => {
     //처음에 뮤직검색
     let searchCount = musicList.data.filter(
