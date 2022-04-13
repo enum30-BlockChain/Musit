@@ -2,7 +2,7 @@ import "./Userinformation";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Avatar, Input } from "@mui/material";
+import { Avatar, Button, Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../../../../redux/actions/userActions";
 import CountryType from "../../register/CountryType";
@@ -35,27 +35,24 @@ export default function Userinformation({}) {
     setSelect(e.target.value);
   };
 
-  const NickNameOnClick = async () => {
-    if (select === "") {
-      setSelect(user.nickname);
-    }
-    if (checkedInputs === "") {
-      setCheckedInputs(user.genre);
-    }
-    const newimg = await postImg();
-    if (newimg === "") {
-      newimg === user.img;
-    }
+  const BaseOnClick = async () => {
+    setSelect(user.nickname);
+    setSelected(user.nation);
+    setCheckedInputs(user.genre);
+    setImg(user.img);
+  };
+
+  const ChangeUser = async () => {
+    let newImg = img !== user.img ? await postImg() : img;
     await dispatch(
       updateUserData({
         nickname: select,
         genre: checkedInputs,
-        img: newimg,
+        img: newImg,
         nation: selected,
       })
     );
   };
-
   const formData = new FormData();
 
   const postImg = async () => {
@@ -186,16 +183,35 @@ export default function Userinformation({}) {
         ) : (
           <span>{user.genre}</span>
         )}
-      </div>
-      {/* 셋팅 버튼을 눌렀을때 user에대한 새팅을 할수 있는 렌더 내용이 나와야된다. */}
-      <div className="setting-btn">
-        <button
-          className="uil uil-setting"
-          onClick={async () => {
-            setVisible(!visible);
-            await NickNameOnClick();
-          }}
-        ></button>
+
+        {visible ? (
+          <Button
+            variant="contained"
+            sx={{
+              color: "var(--black-light-color)",
+              backgroundColor: "var(--box1-color)",
+              ":hover": {
+                background: "var(--primary-color)",
+                color: "var(--text-color)",
+              },
+            }}
+            onClick={async () => {
+              setVisible(!visible);
+              await ChangeUser();
+            }}
+          >
+            Submit
+          </Button>
+        ) : (
+          <button
+            className="uil uil-setting"
+            onClick={async () => {
+              setVisible(!visible);
+              await BaseOnClick();
+            }}
+          />
+        )}
+        <div className="setting-btn"></div>
       </div>
     </div>
   );
