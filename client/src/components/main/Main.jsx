@@ -78,8 +78,6 @@ export const Main = () => {
     });
   };
 
-  console.log(user);
-
   return (
     <section className="main">
       <Searchbar />
