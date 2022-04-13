@@ -46,8 +46,6 @@ export default function ArtistCard(props) {
       await dispatch(toggleLikeArtist(newMyArtistlist));
     }
   };
-  // console.log(likeArtist);
-  console.log(artistlike);
 
   return (
     <Paper
