@@ -6,11 +6,12 @@ import { readMusicList } from "../../../redux/actions/musicActions";
 import Media from "./media/Media.jsx";
 import MusicPlayerSlider from "../serach/MusicPlayerSlider";
 import Genre from "./genre/Genre.jsx";
+import MediaSkeleton from "./media/MediaSkeleton";
 
 const Music = () => {
   const [musicmodal, setmusicmodal] = useState("");
-  const musicList = useSelector((state) => state.musicList).data;
-
+  const musicList = useSelector((state) => state.musicList);
+  const likeMusic = useSelector((state) => state.likeMusic);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +20,6 @@ const Music = () => {
     };
     init();
   }, []);
-
   return (
     <>
       <Routes>
@@ -29,11 +29,19 @@ const Music = () => {
         />
         <Route
           path="/genre"
-          element={<Genre setmusicmodal={setmusicmodal} />}
+          element={
+             likeMusic.loading
+            ? <MediaSkeleton />
+            : <Genre setmusicmodal={setmusicmodal} />
+        }
         />
         <Route
           path="/ranking"
-          element={<Media setmusicmodal={setmusicmodal} />}
+          element={
+            musicList.loading
+            ?<MediaSkeleton />
+            :<Media setmusicmodal={setmusicmodal} />
+        }
         />
       </Routes>
 
