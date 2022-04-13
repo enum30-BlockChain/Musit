@@ -33,21 +33,18 @@ export default function ArtistCard(props) {
   };
 
   const likeOnclick = async () => {
-    console.log("likeOnclick을 누르고있어");
     await dispatch(toggleLikeArtist(props.artist.artist_name));
 
     if (artistlike.length === 0) {
       likeArtist.push(props.artist);
-      await dispatch(toggleLikeArtist(likeArtist));
+      await dispatch(toggleLikeArtist(props.artist.artist_name));
     } else {
       const newMyArtistlist = likeArtist.filter((artist) => {
         return artist.artist_name.indexOf(props.artist.artist_name) < 0;
       });
-      await dispatch(toggleLikeArtist(newMyArtistlist));
+      await dispatch(toggleLikeArtist(props.artist.artist_name));
     }
   };
-  // console.log(likeArtist);
-  console.log(artistlike);
 
   return (
     <Paper
@@ -65,7 +62,6 @@ export default function ArtistCard(props) {
         direction="column"
         justifyContent="flex-start"
         alignItems="center"
-        
       >
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>

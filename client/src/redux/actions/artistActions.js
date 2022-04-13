@@ -179,13 +179,20 @@ export const toggleLikeArtist = (artist_name) => {
     dispatch({ type: ActionTypes.LIKE_ARTIST_REQUEST });
     try {
       const userInfo = getState().user;
+      console.log(2222222222222222222);
+      console.log(artist_name);
+      console.log(2222222222222222222);
+      console.log(3333333333333333);
+      console.log(userInfo);
+      console.log(33333333333333333);
+      const update = userInfo.ArtistLikes.filter(
+        (like) => like.artist_name.indexOf(artist_name) > -1
+      );
+      console.log(1111111111111111111);
+      console.log(update);
+      console.log(1111111111111111111);
       if (userInfo && artist_name) {
-        // user 정보, 선택한 아티스트 이름이 있을 때만 실행
-        if (
-          userInfo.ArtistLikes.map((like) => like.artist_name).indexOf(
-            artist_name
-          ) === -1
-        ) {
+        if (0 >= update.length) {
           // 좋아요를 안눌렀으면 생성
           const url = `http://localhost:5000/artists/likes`;
           await axios.post(url, {
