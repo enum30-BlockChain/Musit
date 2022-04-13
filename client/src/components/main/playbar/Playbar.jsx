@@ -4,7 +4,7 @@ import axios from "axios";
 import { Stack, Slider } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
-import myImage from "./cd.png";
+import myImage from "./retro.png";
 
 export const Playbar = () => {
   const [state, setstate] = useState("pause");
