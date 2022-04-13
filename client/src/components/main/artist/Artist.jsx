@@ -113,7 +113,7 @@ export const Artist = () => {
               </Link>
             </li>
             <li>
-              <Link to="/artist/myupload">
+              <Link to="/artist/myalbum">
                 <i className="uil uil-favorite"></i>
                 <span className="link-name">My Album</span>
               </Link>

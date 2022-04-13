@@ -36,10 +36,9 @@ import { Store } from "./store/Store";
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
 import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
-import Myupload from "./artist/myupload/Myupload";
+import Album from "./artist/myalbum/Album";
 import Createnft from "./artist/createnft/Createnft";
 import Auctionupload from "./artist/auctionupload/Auctionupload";
-// import { Dashboard } from "./dashboard/Dashboard";
 
 import RegisterUser from "./register/RegisterUser";
 
@@ -123,7 +122,7 @@ export const Main = () => {
               }
             >
               <Route path="artistdashbord" element={<Artistdashbord />} />
-              <Route path="myupload" element={<Myupload />} />
+              <Route path="myupload" element={<Album />} />
               <Route path="createnft" element={<Createnft />} />
               <Route path="auctionupload" element={<Auctionupload />} />
             </Route>

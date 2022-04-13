@@ -103,13 +103,8 @@ export default function Userinformation({}) {
   return (
     <div className="user-card">
       <div className="user-image">
-<<<<<<< HEAD
         {user.img === "" ? (
           <Avatar alt="Remy Sharp" sx={{ width: 200, height: 200 }} />
-=======
-        {user.img == "" ? (
-          <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
->>>>>>> jeon
         ) : (
           <img
             className="user-image"
@@ -153,9 +148,6 @@ export default function Userinformation({}) {
         <span>{metamask.accounts[0]}</span>
         <h2 className="subscription">Subscription</h2>
         <span>{user.subscription}월이용권 </span>
-<<<<<<< HEAD
-        <h2 className="Genre">Favorite Genre</h2>
-=======
         {visible ? (
           <div>
             <CountryType
@@ -170,7 +162,6 @@ export default function Userinformation({}) {
           </div>
         )}
         <h2 className="Genre">Genre</h2>
->>>>>>> jeon
         {visible ? (
           <div>
             {genre.map((MusicType, index) => {
