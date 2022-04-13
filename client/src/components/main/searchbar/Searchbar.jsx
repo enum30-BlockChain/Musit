@@ -71,6 +71,7 @@ export const Searchbar = () => {
                 sx={{
                   color: "var(--black-light-color)",
                   backgroundColor: "var(--box1-color)",
+                  ":hover": {background:"var(--primary-color)", color:"var(--text-color)"},
                 }}
                 onClick={connectOnclick}
               >
