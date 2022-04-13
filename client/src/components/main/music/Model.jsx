@@ -42,7 +42,7 @@ function Modal({ props, onClose }) {
     } else if (props.img_file !== albumCoverImgFile) {
       formData.append("img", img);
       await axios
-        .post("http://localhost:5000/files/imgupload", formData) //formData multer가읽을수있다.
+        .post("http://localhost:5000/files/upload/img", formData) //formData multer가읽을수있다.
         .then((res) => (contents.cover_img_link = res.data.downLoadLink))
         .catch((err) => alert(err));
       return contents;

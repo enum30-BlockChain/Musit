@@ -5,8 +5,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { userReducer } from "./reducers/userReducer";
 import { metaMaskReducer } from "./reducers/metamaskReducer";
 import { artistListReducer, likeArtistReducer, artistReducer, selectedArtistReducer } from "./reducers/artistReducer";
-import { likeMusicReducer, musicListReducer, selectedMusicReducer } from "./reducers/musicReducer";
-import { musitNFTReducer } from "./reducers/musitNFTReducer";
+import { likeMusicReducer, musicListReducer, musicReducer, selectedMusicReducer } from "./reducers/musicReducer";
+import { musitNFTMintingReducer, musitNFTReducer } from "./reducers/musitNFTReducer";
 import { searchingReducer } from "./reducers/searchingReducer";
 
 
@@ -24,6 +24,7 @@ const rootReducer = combineReducers({
   likeArtist: likeArtistReducer,
   
   // Music Reducer
+  music: musicReducer,
   musicList: musicListReducer,
   likeMusic: likeMusicReducer,
   selectedMusic: selectedMusicReducer,
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
 
   // Contracts Reducer
   musitNFT: musitNFTReducer,
+  musitNFTMinting: musitNFTMintingReducer,
 });
 
 // 개발 모드에서만 logger 생성

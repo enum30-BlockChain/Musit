@@ -37,7 +37,7 @@ export const Artist = () => {
   const postImg = async () => {
     if (img !== "") {
       formData.append("img", img);
-      const url = "http://localhost:5000/files/imgupload";
+      const url = "http://localhost:5000/files/upload/img";
       const result = await axios.post(url, formData);
       return result.data;
     }
