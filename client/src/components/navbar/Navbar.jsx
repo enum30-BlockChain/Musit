@@ -72,7 +72,7 @@ export const Navbar = () => {
             </li>
 
             <li>
-              <Link to="/musiclist">
+              <Link to="/music">
                 <i className="uil uil-music"></i>
                 <span className="link-name">MUSIC</span>
               </Link>

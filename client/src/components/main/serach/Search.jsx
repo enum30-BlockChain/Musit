@@ -4,8 +4,8 @@ import MusicPlayerSlider from "./MusicPlayerSlider";
 import SongCard from "./SongCard";
 import ArtistCard from "./ArtistCard";
 import ArtistModal from "./ArtistModal";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -28,6 +28,7 @@ function Search(props) {
   const content = location.state !== null || undefined ? location.state : "";
 
   const musicList = useSelector((state) => state.musicList);
+  const likeMusic = useSelector((state) => state.likeMusic);
   const artistList = useSelector((state) => state.artistList);
   const searching = useSelector((state) => state.searching).searching;
 
@@ -35,42 +36,42 @@ function Search(props) {
     //처음에 뮤직검색
     let searchCount = musicList.data.filter(
       (song) => song.title.indexOf(content) > -1
-      );
-      setFindMusic(searchCount);
+    );
+    setFindMusic(searchCount);
+    setViewMusicCard(searchCount.length);
+    //카드 움직임 구해줌
+    if (searchCount.length > 4) {
+      setViewMusicCard(4);
+    } else {
       setViewMusicCard(searchCount.length);
-      //카드 움직임 구해줌
-      if (searchCount.length > 4) {
-        setViewMusicCard(4);
-      } else {
-        setViewMusicCard(searchCount.length);
-      }
+    }
   };
 
   const getUser = async () => {
     //유저검색
     let searchCount = artistList.data.filter(
-            (a) => a.artist_name.indexOf(content) > -1
-          );
-      setFindArtist(searchCount);
-      setViewArtistCard(searchCount.length)
+      (a) => a.artist_name.indexOf(content) > -1
+    );
+    setFindArtist(searchCount);
+    setViewArtistCard(searchCount.length);
 
-      if (searchCount.length > 8) {
-        setViewArtistCard(8);
-      } else {
-        setViewArtistCard(searchCount.length);
-      }
-      //TODO 아티스트 길이 조절해서 카드넘기는거 해봐야지
+    if (searchCount.length > 8) {
+      setViewArtistCard(8);
+    } else {
+      setViewArtistCard(searchCount.length);
+    }
+    //TODO 아티스트 길이 조절해서 카드넘기는거 해봐야지
   };
-  
+
   useEffect(() => {
-    if(!musicList.loading){
-    const init = async () => {
+    if (!musicList.loading) {
+      const init = async () => {
         await getUser();
         await getmusicList();
       };
       init();
     }
-    }, [musicList])
+  }, [musicList]);
 
   useEffect(() => {
     changeSearchPage();
@@ -94,7 +95,7 @@ function Search(props) {
       });
       setFindMusic(searchMusicNameData);
       setFindArtist(searchAtistData);
-      
+
       if (searchMusicNameData.length > 4) {
         setViewMusicCard(4);
         setValue(0);
@@ -114,8 +115,8 @@ function Search(props) {
   //카드이동
   const moveAhead = () => {
     value === 0
-    ? setValue(-100 * (findMusic.length - viewMusicCard))
-    : setValue(value + 100);
+      ? setValue(-100 * (findMusic.length - viewMusicCard))
+      : setValue(value + 100);
   };
   const moveBehind = () => {
     value === -100 * (findMusic.length - viewMusicCard)
@@ -125,8 +126,8 @@ function Search(props) {
 
   const moveAhead2 = () => {
     value2 === 0
-    ? setValue2(-100 * (findArtist.length - viewArtistCard))
-    : setValue2(value2 + 100);
+      ? setValue2(-100 * (findArtist.length - viewArtistCard))
+      : setValue2(value2 + 100);
   };
   const moveBehind2 = () => {
     value2 === -100 * (findArtist.length - viewArtistCard)
@@ -204,7 +205,10 @@ function Search(props) {
             px: 2,
           }}
         >
-          <ArrowBackIosIcon sx={{ fontSize: 65, cursor: "pointer" }}  onClick={moveAhead2} />
+          <ArrowBackIosIcon
+            sx={{ fontSize: 65, cursor: "pointer" }}
+            onClick={moveAhead2}
+          />
           <Grid
             sx={{
               width: "1480px",
@@ -213,33 +217,35 @@ function Search(props) {
             }}
           >
             <Grid
-                container
-                sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
-              >
-                {findArtist &&
-                  findArtist.map((artist,i) => {
-                    return (
-                      <Grid xs={{ width: "25%"}}>
-                        <div
-                          key={i}
-                          className="glide"
-                          style={{ transform: `translateX(${value2}%)` }}
-                        >
-                          <ArtistCard
-                              artist={artist}
-                              setArtistModal={setArtistModal}
-                              address={props.address}
-                              />
-                        </div>
-                      </Grid>
-                    );
-                  })}
+              container
+              sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
+            >
+              {findArtist &&
+                findArtist.map((artist, i) => {
+                  return (
+                    <Grid xs={{ width: "25%" }}>
+                      <div
+                        key={i}
+                        className="glide"
+                        style={{ transform: `translateX(${value2}%)` }}
+                      >
+                        <ArtistCard
+                          artist={artist}
+                          setArtistModal={setArtistModal}
+                          address={props.address}
+                        />
+                      </div>
+                    </Grid>
+                  );
+                })}
             </Grid>
           </Grid>
-          <ArrowForwardIosIcon sx={{ fontSize: 65, cursor: "pointer" }}  onClick={moveBehind2}/>
+          <ArrowForwardIosIcon
+            sx={{ fontSize: 65, cursor: "pointer" }}
+            onClick={moveBehind2}
+          />
         </Box>
       </Box>
-
 
       {artistModal && (
         <ArtistModal

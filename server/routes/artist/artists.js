@@ -50,9 +50,6 @@ router.get("/:user_address", async (req, res, next) => {
 
 /* Update */
 router.patch("/:user_address", async (req, res, next) => {
-  console.log(111111111111111111);
-  console.log(req.body);
-  console.log(111111111111111111);
   try {
     // 입력값에 대한 유효성 검사
     if (req.body.address) {

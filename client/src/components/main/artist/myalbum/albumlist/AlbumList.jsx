@@ -8,8 +8,6 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMyMusicListData } from "../../../../../redux/actions/musicActions";
-import AlbumCard from "./AlbumCard";
 
 export default function AlbumList({ address, nickname }) {
   const [page, setPage] = React.useState(0);
@@ -44,29 +42,19 @@ export default function AlbumList({ address, nickname }) {
   }
 
   ///////////////////////////////////////////////////////////
-  const dispatch = useDispatch();
-  const myalbum = useSelector((state) => state.myalbum);
-
-  React.useLayoutEffect(() => {
-    dispatch(fetchMyMusicListData(address)).then(() => {});
-  }, []);
+  const artist = useSelector((state) => state.artist);
 
   //row 안의 value값
   const rows = [];
 
-  myalbum.myMusic.Music &&
-    myalbum.myMusic.Music.forEach((song, index) => {
+  artist.Music &&
+    artist.Music.forEach((song, index) => {
       rows.push(
         createRow(
           index,
           song.title,
           song.artist_name,
-          <AlbumCard
-            key={index}
-            sx={{ width: "50%" }}
-            address={address}
-            song={song}
-          />
+          <img src={song.img_file} style={{ width: "100px" }} />
         )
       );
     });

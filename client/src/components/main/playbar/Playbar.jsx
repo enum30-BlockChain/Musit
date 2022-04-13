@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import myImage from "./cd.png";
 
-export const Playbar = (props) => {
+export const Playbar = () => {
   const [state, setstate] = useState("pause");
   const [percent, setPercent] = useState(0);
   const [count, setCount] = useState(0);
@@ -15,18 +15,17 @@ export const Playbar = (props) => {
   const [tilte, setTilte] = useState("");
   const [currentTime, setcurrentTime] = useState(0);
   const [value, setValue] = useState(100);
-  // const [likeMusic,setlikeMusic] = useState('');
-
   const musicContainer = document.querySelector(".music-container");
   const playBtn = document.querySelector("#play");
   const audio = document.querySelector("#audio");
-  const progressContainer = document.getElementById("progress-container");
   const title = document.getElementById("title");
   const cover = document.getElementById("cover");
+  const progressContainer = document.getElementById("progress-container");
+
 
   // const userList = useSelector((state) => state.userList);
-  const user = useSelector((state) => state.user);
   const likeMusic = useSelector((state) => state.likeMusic).data;
+  const user = useSelector((state) => state.user);
   const musicList = useSelector((state) => state.musicList).data;
 
   useEffect(() => {
@@ -39,6 +38,7 @@ export const Playbar = (props) => {
       } else {
         // console.log("유저가 맞는 사람")
         if (user.recent_played === null) {
+          
           // console.log("회원인데 리센트없는사람 ")
           //recent_played 없으면 바로 배열 0번째 ㄱ하고
           setpalyeCount(song.play_count);
@@ -47,13 +47,18 @@ export const Playbar = (props) => {
           title.innerText = song.title;
           audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
           cover.src = song.img_file;
-        } else if (likeMusic.length > 0) {
+        } else {
+          const audio = document.querySelector("#audio");
+          const title = document.getElementById("title");
+          const cover = document.getElementById("cover");
           // console.log("회원인데 리센트있는사람 ")
-          //recent_played 있으면
+          // recent_played 있으면
           const arry = user.recent_played.split("-"); //receent찾아와서
-          const songs = likeMusic;
+          const songs =user.MusicLikes;
           const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
+          const firstSetting = songs[index].Music;
           setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
+          console.log(firstSetting)
           if (index === -1) {
             // console.log("회원인데 리센트있는데 못찾는사람 ")
             // setpalyeCount(song.play_count);
@@ -64,18 +69,20 @@ export const Playbar = (props) => {
             // cover.src = song.img_file;
           } else {
             // console.log("회원인데 리센트있는데 찾은사람 ")
-            setpalyeCount(songs[index].play_count);
-            sethash(songs[index].ipfs_hash);
-            setTilte(songs[index].title);
-            title.innerText = songs[index].title;
-            audio.src = `https://ipfs.infura.io/ipfs/${songs[index].ipfs_hash}`;
-            cover.src = songs[index].img_file;
+            console.log(firstSetting.title)
+            setpalyeCount(firstSetting.play_count);
+            sethash(firstSetting.ipfs_hash);
+            setTilte(firstSetting.title);
+            title.innerText = firstSetting.title ;
+            audio.src = `https://ipfs.infura.io/ipfs/${firstSetting.ipfs_hash}`;
+            cover.src = firstSetting.img_file;
             setcurrentTime(arry[1]);
+            console.log(title)
           }
         }
       }
     }
-  }, [musicList, likeMusic]);
+  }, [user.MusicLikes]);
 
   function loadSong(song) {
     //노래불러올때

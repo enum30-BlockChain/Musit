@@ -16,10 +16,7 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 export default function PlayList(props) {
   const likeMusic = useSelector((state) => state.likeMusic).data;
   const [state, setState] = useState({
-    top: false,
-    left: false,
     bottom: false,
-    right: false,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -74,7 +71,7 @@ export default function PlayList(props) {
 
   return (
     <div>
-      {["right", "bottom"].map((anchor) => (
+      {[ "bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <Drawer
