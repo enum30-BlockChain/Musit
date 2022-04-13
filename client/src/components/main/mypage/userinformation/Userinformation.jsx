@@ -103,7 +103,7 @@ export default function Userinformation({}) {
         {user.img === "" ? (
           <Avatar alt="Remy Sharp" sx={{ width: 200, height: 200 }} />
         ) : (
-          <img
+          <Avatar
             className="userinfo-image"
             alt="Remy Sharp"
             src={user.img}
@@ -155,7 +155,7 @@ export default function Userinformation({}) {
         ) : (
           <div>
             <h2 className="Nation">Nation</h2>
-            <p>국가 : {user.nation}</p>s
+            <p>국가 : {user.nation}</p>
           </div>
         )}
         <h2 className="userinfo-Genre">Genre</h2>

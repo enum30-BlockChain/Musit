@@ -26,9 +26,29 @@
   position: relative;
 }
 
-/* 
-.createmain-page .createmain-nav .createmain-links li :is(i, .createmain-link-name {
-    font-size: 18px;
-    color: var(--alltime-white);
-    transition: var(--tran-03);
-}     */
+.createmain-page
+  .createmain-nav
+  .createmain-links
+  li
+  :is(i, .createmain-link-name) {
+  font-size: 17px;
+  color: var(--alltime-white);
+  transition: var(--tran-03);
+}
+
+.createmain-page
+  .createmain-nav
+  .createmain-links
+  a:hover
+  li
+  :is(i, .createmain-link-name) {
+  color: var(--primary-color);
+}
+
+.createmain-page
+  .createmain-nav
+  .createmain-links
+  li.active
+  :is(i, .createmain-link-name) {
+  color: var(--primary-color);
+}

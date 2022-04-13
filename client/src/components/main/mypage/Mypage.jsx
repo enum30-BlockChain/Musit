@@ -34,7 +34,7 @@ export const Mypage = () => {
               <span className="link-name"> My nft list</span>
             </Link>
           </li>
-          {artist.artist_name !== null ? (
+          {artist.artist_name === null ? (
             <li>
               <Link to="/mypage/artistsubmit">
                 <i className="uil uil-music"></i>

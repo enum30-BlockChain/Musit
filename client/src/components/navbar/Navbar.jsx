@@ -40,12 +40,8 @@ export const Navbar = () => {
     });
   }, [artist.isArtist]);
 
-  // const user = useSelector((state) => state.user);
-
   return (
     <>
-      {/* {artist.isArtist ? (
-        <> */}
       <nav className="side-nav">
         <Link to={"/landingpage"}>
           <div className="logo-name-container">

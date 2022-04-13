@@ -10,12 +10,11 @@
 }
 
 .artistpage .artist-details .artist-detail1 {
-  background-color: rgb(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255, 0.1);
   border-radius: 10px;
 }
 .artistpage .artist-details .artist-detail2 {
   width: 100%;
-  background-color: blue;
 }
 
 .artistpage .artistpage .artist-card {
