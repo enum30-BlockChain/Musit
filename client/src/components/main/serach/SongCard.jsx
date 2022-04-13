@@ -11,7 +11,7 @@ import HeadsetIcon from "@mui/icons-material/Headset";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
 import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import { toggleLikeMusic } from "../../../redux/actions/musicActions"
+import { toggleLikeMusic } from "../../../redux/actions/musicActions";
 
 const Img = styled("img")({
   margin: "auto",
@@ -27,7 +27,7 @@ export default function SongCard(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      if(!likeList.loading){
+    if (!likeList.loading) {
       setFindlike(
         likeList.data.filter((song) => {
           return song.ipfs_hash.indexOf(props.music.ipfs_hash) > -1;
@@ -41,8 +41,9 @@ export default function SongCard(props) {
   };
 
   const likecountpost = async () => {
-    dispatch(toggleLikeMusic(props.music))
+    dispatch(toggleLikeMusic(props.music));
   };
+
   return (
     <Paper
       sx={{

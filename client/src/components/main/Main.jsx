@@ -124,21 +124,19 @@ export const Main = () => {
                 )
               }
             >
-            <Route path="store/*" element={<Store/>} />
-            <Route path="artistdashbord" element={<Artistdashbord />} />
-            <Route path="myupload" element={<Album />} />
-            <Route path="createnft" element={<Createnft />} />
-            <Route path="auctionupload" element={<Auctionupload />} />
+              <Route path="artistdashbord" element={<Artistdashbord />} />
+              <Route path="myalbum" element={<Album />} />
+              <Route path="createnft" element={<Createnft />} />
+              <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
-
-            <Route path="create" element={<Create/>} />
-            <Route path="search" element={<Search/>} />
-            <Route path="music/*" element={<Music/>} />
+            <Route path="cteate" element={<Create />} />
+            <Route path="store/*" element={<Store />} />
+            <Route path="search" element={<Search />} />
+            <Route path="music" element={<Music />} />
           </Route>
         </Routes>
       </div>
-     {user.loading === true ? <></> : <Playbar />}
+      {user.loading === true ? <></> : <Playbar />}
     </section>
-  
-    );
+  );
 };
