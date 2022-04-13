@@ -13,6 +13,8 @@ import Divider from "@mui/material/Divider";
 
 import { readMusicList } from "../../../redux/actions/musicActions";
 import { readArtistList } from "../../../redux/actions/artistActions";
+import SongCardSkeleton from "./music/SongCardSkeleton";
+import ArtistCardSkeleton from "./artist/ArtistCardSkeleton";
 
 function Search(props) {
   const dispatch = useDispatch();
@@ -63,6 +65,7 @@ function Search(props) {
   };
 
   useEffect(() => {
+
     if (!musicList.loading) {
       const init = async () => {
         await getUser();
@@ -133,6 +136,7 @@ function Search(props) {
       ? setValue2(0)
       : setValue2(value2 - 100);
   };
+
   return (
     <Box sx={{ height: "100%" }}>
       <Box sx={{ height: "40%" }}>
@@ -163,8 +167,17 @@ function Search(props) {
               container
               sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
             >
-              {findMusic &&
-                findMusic.map((music, i) => {
+              {musicList.loading
+              ? ([1,2,3,4].map((music, i) => {
+                return (
+                      <SongCardSkeleton
+                        music={music}
+                        setmusicmodal={setmusicmodal}
+                        address={props.address}
+                      />
+                );
+              }))
+              :(findMusic && findMusic.map((music, i) => {
                   return (
                     <Grid xs={{ width: "25%" }}>
                       <div
@@ -180,7 +193,10 @@ function Search(props) {
                       </div>
                     </Grid>
                   );
-                })}
+                }))
+              }
+              
+
             </Grid>
           </Grid>
           <ArrowForwardIosIcon
@@ -220,24 +236,35 @@ function Search(props) {
               container
               sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
             >
-              {findArtist &&
-                findArtist.map((artist, i) => {
-                  return (
-                    <Grid xs={{ width: "25%" }}>
-                      <div
-                        key={i}
-                        className="glide"
-                        style={{ transform: `translateX(${value2}%)` }}
-                      >
-                        <ArtistCard
-                          artist={artist}
-                          setArtistModal={setArtistModal}
-                          address={props.address}
-                        />
-                      </div>
-                    </Grid>
+              {artistList.loading
+              ? ([1,2,3,4,5,6,7,8].map((artist, i) => {
+                return (
+                      <ArtistCardSkeleton
+                        artist={artist}
+                        setArtistModal={setArtistModal}
+                        address={props.address}
+                      />
                   );
-                })}
+                }) 
+              )
+              : (findArtist && findArtist.map((artist, i) => {
+                    return (
+                      <Grid xs={{ width: "25%" }}>
+                        <div
+                          key={i}
+                          className="glide"
+                          style={{ transform: `translateX(${value2}%)` }}
+                        >
+                          <ArtistCard
+                            artist={artist}
+                            setArtistModal={setArtistModal}
+                            address={props.address}
+                          />
+                        </div>
+                      </Grid>
+                    );
+              }))
+              }
             </Grid>
           </Grid>
           <ArrowForwardIosIcon
