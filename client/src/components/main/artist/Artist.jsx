@@ -40,14 +40,14 @@ export const Artist = () => {
             </li>
           </ul>
         </nav>
-        <div className="artist-details">
+        <section className="artist-details">
           <div className="artist-detail1">
             <Artistinfo />
           </div>
-          <div className="detail">
+          <div className="artist-detail2">
             <Outlet />
           </div>
-        </div>
+        </section>
       </div>
     </>
   );

@@ -22,7 +22,6 @@ export const Mypage = () => {
               <span className="link-name"> Favorite Artist</span>
             </Link>
           </li>
-
           <li>
             <Link to="/mypage/subscription">
               <i className="uil uil-bitcoin-sign"></i>

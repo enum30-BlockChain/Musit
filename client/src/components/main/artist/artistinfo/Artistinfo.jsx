@@ -50,12 +50,12 @@ export default function Artistinfo() {
         <div className="artist-card">
           <div className="artist-image">
             {artist.img === "" ? (
-              <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
+              <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
             ) : (
               <Avatar
                 alt="Remy Sharp"
                 src={artist.img}
-                sx={{ width: 128, height: 128 }}
+                sx={{ width: 260, height: 260 }}
               />
             )}
             {visible && (
