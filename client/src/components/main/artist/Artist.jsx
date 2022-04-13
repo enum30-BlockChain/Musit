@@ -100,15 +100,28 @@ export const Artist = () => {
         <nav className="artist-nav">
           <ul className="nav-links" onClick={navlinkOnClick}>
             <li>
-              <Link to="/artist/list">
+              <Link to="/artist/artistdashbord">
                 <i className="uil uil-favorite"></i>
-                <span className="link-name">Artists</span>
+                <span className="link-name">Artist Dashboard</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/artist/createnft">
+                <i className="uil uil-favorite"></i>
+                <span className="link-name">Create NFT</span>
               </Link>
             </li>
             <li>
-              <Link to="/artist/album">
+              <Link to="/artist/myalbum">
                 <i className="uil uil-favorite"></i>
-                <span className="link-name">album</span>
+                <span className="link-name">My Album</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/artist/auctionupload">
+                <i className="uil uil-favorite"></i>
+                <span className="link-name">Auction Upload</span>
               </Link>
             </li>
           </ul>

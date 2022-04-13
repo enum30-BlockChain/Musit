@@ -4,7 +4,7 @@ import Ethers from "../../../web3/Ethers";
 import { Routes, Route, Link } from "react-router-dom";
 import MyNFTs from "./mynfts/MyNFTs";
 import { useDispatch, useSelector } from "react-redux";
-import { readMyMintedNFTList } from "../../../redux/actions/musitNFTActions";
+import { readMyMintedNFTList, readMyNFTList } from "../../../redux/actions/musitNFTActions";
 
 
 
@@ -24,9 +24,9 @@ function createTestArray (num) {
 
 
 export const Store = () => {
-	const [nftItems, setNftItems] = useState([]);
 	const user = useSelector((state) => state.user);
 	const musitNFT = useSelector((state) => state.musitNFT);
+	const selectedMusic = useSelector((state) => state.selectedMusic);
 	const dispatch = useDispatch()
 
 	useEffect(() => {
@@ -34,6 +34,7 @@ export const Store = () => {
 	}, [user.loading])
 
 	async function mintingOnClick() {
+		dispatch
 		const result = await Ethers.minting("https://gateway.pinata.cloud/ipfs/QmZiFY6mvGyDvBqxHojHmiU1r8HCdh7QHZeEvYTpsWzqYT");
 		
 		if(result.confirmations) loadMyNFTs()
@@ -41,9 +42,8 @@ export const Store = () => {
 
 	async function loadMyNFTs() {
 		if (!user.loading && !user.error) {
-			await dispatch(readMyMintedNFTList())
+			await dispatch(readMyNFTList())
 		}
-		setNftItems(musitNFT.myMintedNFTList)
 	}
 
 
@@ -68,11 +68,11 @@ export const Store = () => {
 					</li>
 				</ul>
 			</nav>
-			<Routes>
-				<Route path="mynfts" element={<MyNFTs />} />
-			</Routes>
 			<div className="title">Musit NFT Store</div>
 			<button onClick={mintingOnClick}>Minting</button>
+			<Routes>
+				<Route path="mynfts" element={!musitNFT.loading && !musitNFT.error ? <MyNFTs /> : <></>} />
+			</Routes>
 		</div>
 	);
 }

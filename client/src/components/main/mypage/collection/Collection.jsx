@@ -1,8 +1,6 @@
-import "./Collection.css"
-import React from 'react'
+import "./Collection.css";
+import React from "react";
 
 export const Collection = () => {
-  return (
-    <div>Collection</div>
-  )
-}
+  return <div>Collection</div>;
+};

@@ -6,28 +6,12 @@ export const readMyNFTList = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.MUSIT_NFT_LIST_REQUEST });
 		try {
-			const user = getState((state) => state.user);
+			const user = getState().user;
 			if (user.address) {
-				const musitNFT = Ethers.loadContracts().musitNFT;
-				const filter = musitNFT.filters.Minted(null, null, user.address);
-				const myMintedList = await Promise.all(
-					(
-						await musitNFT.queryFilter(filter)
-					).map(async (event) => {
-						const item = event.args;
-						const tokenURI = await musitNFT.tokenURI(item.tokenId);
-						const metadata = await (await fetch(tokenURI)).json();
-						const tokenId = item.tokenId.toNumber();
-
-						return {
-							tokenId,
-							...metadata,
-						};
-					})
-				);
+				const myNFTList = await Ethers.myNFTList(user.address)
 				dispatch({
 					type: ActionTypes.MUSIT_NFT_LIST_SUCCESS,
-					payload: myMintedList,
+					payload: myNFTList,
 				});
 			} else {
 				dispatch({
@@ -38,7 +22,7 @@ export const readMyNFTList = () => {
 		} catch (error) {
 			dispatch({
 				type: ActionTypes.MUSIT_NFT_LIST_FAIL,
-				payload: "Read minted list failed",
+				payload: "Read Minting list failed",
 			});
 		}
 	};
@@ -50,12 +34,13 @@ export const readMyMintedNFTList = () => {
 		dispatch({ type: ActionTypes.MUSIT_NFT_MINTED_LIST_REQUEST });
 		try {
 			const user = getState().user;
+      console.log(user.address);
       
 			if (user.address) {
-        const myMintedList = Ethers.myMintedNFTList(user.address)
+        const myMintedNFTList = await Ethers.myMintingNFTList(user.address)
 				dispatch({
 					type: ActionTypes.MUSIT_NFT_MINTED_LIST_SUCCESS,
-					payload: myMintedList,
+					payload: myMintedNFTList,
 				});
 			} else {
 				dispatch({

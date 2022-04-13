@@ -11,73 +11,66 @@ import Grid from "@mui/material/Grid";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Divider from "@mui/material/Divider";
+import { readMusicList } from "../../../redux/actions/musicActions";
+import { dnsEncode } from "ethers/lib/utils";
 
 function Search(props) {
   const [musicmodal, setmusicmodal] = useState("");
   const [artistModal, setArtistModal] = useState("");
-  const [musicList, setmusicList] = useState("");
-  const [artistList, setArtistList] = useState("");
   const [findMusic, setFindMusic] = useState("");
   const [findArtist, setFindArtist] = useState("");
   const [value, setValue] = useState(0);
   const [viewMusicCard, setViewMusicCard] = useState(0);
-
-  // const searching = useSelector((state)=>{return state.searchWord});
-  const searching = useSelector((state) => state.searching.searching);
-
+  const dispatch = useDispatch();
   const location = useLocation();
   const content = location.state !== null || undefined ? location.state : null;
 
+  const musicList = useSelector((state) => state.musicList);
+  const artistList = useSelector((state) => state.musicList);
+  const searching = useSelector((state) => state.searching).searching;
+
   const getmusicList = async () => {
-    //뮤직검색
-    await axios
-      .get("http://localhost:5000/files")
-      .then((res) => {
-        let searchCount = res.data.filter(
-          (song) => song.title.indexOf(content) > -1
-        );
-        setmusicList(res.data);
-        setFindMusic(searchCount);
-        setViewMusicCard(searchCount.length);
-      })
-      .catch((err) => alert("노래목록을 불러오지못했습니다.", err));
+    //처음에 뮤직검색
+    let searchCount = musicList.data.filter(
+      (song) => song.title.indexOf(content) > -1
+      );
+      setFindMusic(searchCount);
+      setViewMusicCard(searchCount.length);
   };
   const getUser = async () => {
     //유저검색
-    await axios
-      .get("http://localhost:5000/artists/list")
-      .then((res) => {
-        let searchCount = res.data.filter(
-          (a) => a.artist_name.indexOf(content) > -1
-        );
-        setArtistList(res.data);
-        setFindArtist(searchCount);
-      })
-      .catch((err) => alert("errrrrrrr.", err));
+    let searchCount = artistList.data.filter(
+            (a) => a.artist_name.indexOf(content) > -1
+          );
+      setFindArtist(searchCount);
   };
-
   useEffect(() => {
+    if(!musicList.loading){
     const init = async () => {
-      await getUser(content);
-      await getmusicList(content);
-    };
-    init();
-  }, []);
+        await getUser(content);
+        await getmusicList(content);
+      };
+      init();
+    }
+    }, [musicList])
+    
 
   useEffect(() => {
     changeSearchPage();
   }, [searching]);
 
   const changeSearchPage = () => {
-    if (musicList && artistList) {
-      const searchMusicNameData = musicList.filter((song) => {
+    if (musicList.data && artistList.data) {
+      console.log(artistList.data)
+      const searchMusicNameData = musicList.data.filter((song) => {
         return song.title.indexOf(searching) > -1;
       });
-      const searchAtistData = artistList.filter((a) => {
+      const searchAtistData = artistList.data.filter((a) => {
         return a.artist_name.indexOf(searching) > -1;
       });
       setFindMusic(searchMusicNameData);
       setFindArtist(searchAtistData);
+      
       if (searchMusicNameData.length > 4) {
         setViewMusicCard(4);
         setValue(0);

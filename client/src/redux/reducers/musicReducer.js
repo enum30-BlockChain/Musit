@@ -1,14 +1,14 @@
 import { ActionTypes } from "../constants/actionTypes";
 
-/* My Music Reducer */
+/* Music Reducer */
 const musicInitialState = {
   loading: false,
   artist_name: null,
   user_address: null,
   img: null,
   likes: null,
-  User: {},
-  Music: [],
+  Artist: {},
+  MusicLike: [],
   error: false,
   errorMsg: "",
 };

@@ -5,27 +5,47 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 
+//top
+import { Searchbar } from "./searchbar/Searchbar";
+//bottom
+import { Dashboard } from "./dashboard/Dashboard";
+import { Playbar } from "./playbar/Playbar";
+// import RegisterUser from "./register/RegisterUser";
+
+//Main-nav
+import Auctionmarket from "./auctionmarket/Auctionmarket";
+import Musiclist from "./musiclist/Musiclist";
+import Artistlist from "./artistlist/Artistlist";
+
+//Main-nav Mypage
 import { Mypage } from "./mypage/Mypage";
 import Userinformation from "./mypage/userinformation/Userinformation";
+import { Musicfavorite } from "./mypage/musicfavorite/Musicfavorite";
+import { Artistfavorite } from "./mypage/artistfavorite/Artistfavorite";
+import { Playlist } from "./mypage/playlist/Playlist";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
 import { Collection } from "./mypage/collection/Collection";
+// import { Favorite } from "./mypage/favorite/Favorite";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
+import Mynftlist from "./mypage/mynftlist/Mynftlist";
 
-import { Dashboard } from "./dashboard/Dashboard";
-import { Searchbar } from "./searchbar/Searchbar";
+//Main-nav Store
+import { Store } from "./store/Store";
+
+//Main-nav Artist page
 import { Artist } from "./artist/Artist";
+import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
+import Album from "./artist/myalbum/Album";
+import Createnft from "./artist/createnft/Createnft";
+import Auctionupload from "./artist/auctionupload/Auctionupload";
 
 import RegisterUser from "./register/RegisterUser";
 
-import { Store } from "./store/Store";
-
-import { Playbar } from "./playbar/Playbar";
 import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
 import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
-import { ArtistsList } from "./artist/favorite/ArtistsList";
-import Album from "./artist/myalbum/Album";
+// import { ArtistsList } from "./artist/favorite/ArtistsList";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -60,6 +80,12 @@ export const Main = () => {
       <div className="main-content">
         <Routes>
           <Route path="/">
+            {/* Main navbar */}
+            <Route path="musiclist" element={<Musiclist />} />
+            <Route path="artistlist" element={<Artistlist />} />
+            <Route path="store/*" element={<Store />} />
+            <Route path="auctionmarket" element={<Auctionmarket />} />
+
             <Route index element={<Dashboard />} />
             <Route
               path="mypage"
@@ -72,7 +98,11 @@ export const Main = () => {
               }
             >
               <Route path="userinformation" element={<Userinformation />} />
+              <Route path="musicfavorite" element={<Musicfavorite />} />
+              <Route path="artistfavorite" element={<Artistfavorite />} />
+              <Route path="playlist" element={<Playlist />} />
               <Route path="subscription" element={<Subscription />} />
+              <Route path="mynftlist" element={<Mynftlist />} />
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
               <Route path="artistsubmit" element={<Artistsubmit />} />
@@ -80,16 +110,22 @@ export const Main = () => {
               <Route path="favoritemusic" element={<FavoriteMusic />} />
               <Route path="myplaylist" element={<MyPlayList />} />
             </Route>
+
             <Route
               path="artist"
               element={
-                artist.artist_name !== undefined ? <Artist /> : <Artistsubmit />
+                artist.artist_name !== undefined ? (
+                  <Artist path="artist" />
+                ) : (
+                  <Artistsubmit />
+                )
               }
             >
-              <Route path="list" element={<ArtistsList />} />
-              <Route path="album" element={<Album />} />
+              <Route path="artistdashbord" element={<Artistdashbord />} />
+              <Route path="myupload" element={<Album />} />
+              <Route path="createnft" element={<Createnft />} />
+              <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
-            <Route path="store/*" element={<Store />} />
           </Route>
         </Routes>
       </div>

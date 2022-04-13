@@ -8,6 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchMyMusicListData } from "../../../../../redux/actions/musicActions";
+import AlbumCard from "./AlbumCard";
 
 export default function AlbumList({ address, nickname }) {
   const [page, setPage] = React.useState(0);
