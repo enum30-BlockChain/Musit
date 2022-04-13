@@ -42,11 +42,14 @@ export default function MyNFTList() {
 						<NFTCardSkeleton/>
 					</>
 				) : (
-					musitNFT.myNFTList.map((data, index) => (
-						<NFTCard data={data} key={index} />
-					))
+          <>
+            {musitNFT.myNFTList !== null && musitNFT.myNFTList.map((data, index) => (
+              <NFTCard data={data} key={index} />
+            ))}
+          </>
 				)}
 			</div>
 		</div>
 	);
 }
+
