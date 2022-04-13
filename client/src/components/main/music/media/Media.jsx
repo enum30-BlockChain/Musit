@@ -30,8 +30,8 @@ const Media = (props) => {
   //ToDO: musicList.length = 6 6개이하면 오류남
 
   const listenRankingMoveLeft = () => {
-    console.log(listenRankingvalue)
-    console.log(musicList.length)
+    // console.log(listenRankingvalue)
+    // console.log(musicList.length)
     listenRankingvalue === 0
       ? setListenRankingValue(-100 * (musicList.length - veiwCard))
       : setListenRankingValue(listenRankingvalue + 100);
