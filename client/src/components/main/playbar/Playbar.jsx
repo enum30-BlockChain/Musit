@@ -56,9 +56,7 @@ export const Playbar = () => {
           const arry = user.recent_played.split("-"); //receent찾아와서
           const songs =user.MusicLikes;
           const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
-          const firstSetting = songs[index].Music;
           setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
-          console.log(firstSetting)
           if (index === -1) {
             // console.log("회원인데 리센트있는데 못찾는사람 ")
             // setpalyeCount(song.play_count);
@@ -68,8 +66,8 @@ export const Playbar = () => {
             // audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
             // cover.src = song.img_file;
           } else {
+            const firstSetting = songs[index].Music;
             // console.log("회원인데 리센트있는데 찾은사람 ")
-            console.log(firstSetting.title)
             setpalyeCount(firstSetting.play_count);
             sethash(firstSetting.ipfs_hash);
             setTilte(firstSetting.title);
@@ -82,7 +80,7 @@ export const Playbar = () => {
         }
       }
     }
-  }, [user.MusicLikes]);
+  }, [user]);
 
   function loadSong(song) {
     //노래불러올때
