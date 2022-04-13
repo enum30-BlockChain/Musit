@@ -34,9 +34,9 @@ export default function Genre(props) {
              if(topGenre.length > 0){
                console.log("best like genre : ",topGenre[0]);
                return musicList.filter((song) => song.genre.indexOf(topGenre[0]) > -1);
-             }else{
-               return musicList ;
-             }
+              }else{
+                return musicList ;
+              }
        }
        setGenreRecommend(GenreRecommendHandler())
        if(GenreRecommendHandler().length > 6){
@@ -45,7 +45,7 @@ export default function Genre(props) {
         setViewGenreCard(GenreRecommendHandler().length)
        }
        // console.log(result.sort((a,b)=>a-b))
-      }, [props])
+      }, [likeMusic])
       
        const postInfo= (music)=>{
          props.setmusicmodal(music)
@@ -61,142 +61,291 @@ export default function Genre(props) {
           ? setGenre(0)
           : setGenre(genre - 100);
       };
+
   return (
-    <div>
-       <Box sx={{height:"100%"}}>
-        <Box sx={{height:"45%"}}>
-          <Typography variant="h4">
-          Genre  Recommend
-          </Typography>
-          <Box sx={{
-          display: "flex",
-          alignItems: 'center',
-          px: 2 }}>
-          <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}} onClick={genreMoveLeft}/>
-          <Grid
+    <>
+      <Box sx={{ height: "100%" }}>
+        <Box sx={{ height: "45%", mb: 2 }}>
+          <Typography variant="h4">Genre Recommend</Typography>
+          <Box
             sx={{
-              width: "1260px",
-              m:"auto",
-              padding: 0,
-              overflow: "hidden",
-              display: "flex", flexWrap: "nowrap" 
+              display: "flex",
+              alignItems: "center",
+              px: 2,
             }}
           >
-            {genreRecommend &&
-              genreRecommend.map((music, index) => (
-                <Box
-                  key={index}
-                  sx={{ cursor: "pointer", width: 210,  my: 5 }}
-                  onClick={() => { postInfo(music); }} > 
-                <div
-                key={index}
-                className="glide"
-                style={{ transform: `translateX(${genre}%)` }}>
-                  <img
-                    style={{ width: 210, height: 150, objectFit:"cover" }}
-                    alt={music.title}
-                    src={music.img_file}
-                  />
-                  <Box sx={{ pr: 2 }}>
-                    <Typography gutterBottom variant="body2">
-                      {music.title}
-                    </Typography>
-                    <Typography
-                      display="block"
-                      variant="caption"
-                      color="text.secondary"
+            <ArrowBackIosIcon
+              sx={{ fontSize: 65, cursor: "pointer" }}
+              onClick={genreMoveLeft}
+            />
+            <Grid
+              sx={{
+                width: "1460px",
+                m: "auto",
+                padding: 0,
+                overflow: "hidden",
+                display: "flex",
+                flexWrap: "nowrap",
+              }}
+            >
+              {genreRecommend &&
+                genreRecommend.map((music, index) => (
+                  <div
+                    key={index}
+                    className="glide"
+                    style={{ transform: `translateX(${genre}%)` }}
+                  >
+                    <Box
+                      key={index}
+                      sx={{ cursor: "pointer", width: 210, my: 5,m:2 }}
+                      onClick={() => {
+                        postInfo(music);
+                      }}
                     >
-                      {music.artist_name}
-                    </Typography>
-                    <Typography
-                      display="block"
-                      variant="overline"
-                      color="text.secondary"
-                    >
-                      {music.genre}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
-                    </Typography>
-                  </Box>
+                      <img
+                        style={{ width: 210, height: 150, objectFit: "cover" }}
+                        alt={music.title}
+                        src={music.img_file}
+                      />
+                      <Box sx={{ pr: 2 }}>
+                        <Typography gutterBottom variant="body2">
+                          {music.title}
+                        </Typography>
+                        <Typography
+                          display="block"
+                          variant="caption"
+                          color="text.secondary"
+                        >
+                          {music.artist_name}
+                        </Typography>
+                        <Typography
+                          display="block"
+                          variant="overline"
+                          color="text.secondary"
+                        >
+                          {music.genre}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {`${music.play_count} listening `} •{" "}
+                          {`${music.MusicLikes.length} like`}
+                        </Typography>
+                      </Box>
+                    </Box>
                   </div>
-                </Box>
-              ))}
+                ))}
             </Grid>
-          <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }} onClick={genreMoveRigth}/>
+            <ArrowForwardIosIcon
+              sx={{ fontSize: 65, cursor: "pointer" }}
+              onClick={genreMoveRigth}
+            />
           </Box>
         </Box>
         <nav className="user-nav">
-        <ul className="nav-links">
-          <li>
-            <Link to="/music/ranking">
-              <i className="uil uil-favorite"></i>
-              <span className="link-name"> Ranking</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/music/genre">
-              <i className="uil uil-play"></i>
-              <span className="link-name"> Recommend</span>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-        <Box  sx={{height:"45%"}}>
-          <Typography variant="h4">
-          like  Ranking
-          </Typography>
-            <Box sx={{
-            display: "flex",
-            alignItems: 'center',
-            px: 2 }}>
-              <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}} />
-              <Grid
-                sx={{
-                  width: "1280px",
-                  m:"auto",
-                  padding: 0,
-                  overflow: "hidden",
-                  display: "flex", flexWrap: "nowrap" 
-                }}>
-
-            
-            {/* {  likeTopList.map((music, index) => (
-              <Box key={index} sx={{cursor:"pointer",width: 210,  my: 5 }}
+          <ul className="nav-links">
+            <li>
+              <Link to="/music/ranking">
+                <i className="uil uil-favorite"></i>
+                <span className="link-name"> Ranking</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/music/genre">
+                <i className="uil uil-play"></i>
+                <span className="link-name"> Recommend</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <Box sx={{ height: "45%", mt: 1 }}>
+          <Typography variant="h4">like Ranking</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              px: 2,
+            }}
+          >
+            <ArrowBackIosIcon sx={{ fontSize: 65, cursor: "pointer" }} />
+            <Grid
+              sx={{
+                width: "1460px",
+                m: "auto",
+                padding: 0,
+                overflow: "hidden",
+                display: "flex",
+                flexWrap: "nowrap",
+              }}
+            >
+              {/* {  likeTopList.map((music, index) => (
+            <div
+              key={index}
+              className="glide"
+              style={{ transform: `translateX(${likeRankingValue}%)` }}>
+              <Box key={index} sx={{cursor:"pointer",width: 210, my: 5,m:2 }}
               onClick={()=>{postInfo(music)}}
               > 
-              <div
-                key={index}
-                className="glide"
-                style={{ transform: `translateX(${likeRanking}%)` }}>
-                  <img
-                    style={{ width: 210, height: 150, objectFit:"cover"  }}
-                    alt={music.title}
-                    src={music.img_file}
-                  />
-                  <Box sx={{ pr: 2 }}>
-                    <Typography gutterBottom variant="body2">
-                      {music.title}
-                    </Typography>
-                    <Typography display="block" variant="caption" color="text.secondary">
-                      {music.artist_name}
-                    </Typography>
-                    <Typography display="block" variant="overline" color="text.secondary">
-                      {music.genre}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
-                    </Typography>
-                  </Box>
-                </div>
-              </Box>
-            ))} */}
-              </Grid>
-              <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }}  />
+                <img
+                  style={{ width: 210, height: 150, objectFit:"cover"  }}
+                  alt={music.title}
+                  src={music.img_file}
+                />
+                <Box sx={{ pr: 2 }}>
+                  <Typography gutterBottom variant="body2">
+                    {music.title}
+                  </Typography>
+                  <Typography display="block" variant="caption" color="text.secondary">
+                    {music.artist_name}
+                  </Typography>
+                  <Typography display="block" variant="overline" color="text.secondary">
+                    {music.genre}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
+                  </Typography>
+                </Box>
             </Box>
+          </div>
+          ))} */}
+            </Grid>
+            <ArrowForwardIosIcon sx={{ fontSize: 65, cursor: "pointer" }} />
+          </Box>
         </Box>
       </Box>
-    </div>
- 
+    </>
+
+    // <div>
+    //    <Box sx={{height:"100%"}}>
+    //     <Box sx={{height:"45%"}}>
+    //       <Typography variant="h4">
+    //       Genre  Recommend
+    //       </Typography>
+    //       <Box sx={{
+    //       display: "flex",
+    //       alignItems: 'center',
+    //       px: 2 }}>
+    //       <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}} onClick={genreMoveLeft}/>
+    //       <Grid
+    //         sx={{
+    //           width: "1260px",
+    //           m:"auto",
+    //           padding: 0,
+    //           overflow: "hidden",
+    //           display: "flex", flexWrap: "nowrap"
+    //         }}
+    //       >
+    //         {genreRecommend &&
+    //           genreRecommend.map((music, index) => (
+    //             <Box
+    //               key={index}
+    //               sx={{ cursor: "pointer", width: 210,  my: 5 }}
+    //               onClick={() => { postInfo(music); }} >
+    //             <div
+    //             key={index}
+    //             className="glide"
+    //             style={{ transform: `translateX(${genre}%)` }}>
+    //               <img
+    //                 style={{ width: 210, height: 150, objectFit:"cover" }}
+    //                 alt={music.title}
+    //                 src={music.img_file}
+    //               />
+    //               <Box sx={{ pr: 2 }}>
+    //                 <Typography gutterBottom variant="body2">
+    //                   {music.title}
+    //                 </Typography>
+    //                 <Typography
+    //                   display="block"
+    //                   variant="caption"
+    //                   color="text.secondary"
+    //                 >
+    //                   {music.artist_name}
+    //                 </Typography>
+    //                 <Typography
+    //                   display="block"
+    //                   variant="overline"
+    //                   color="text.secondary"
+    //                 >
+    //                   {music.genre}
+    //                 </Typography>
+    //                 <Typography variant="caption" color="text.secondary">
+    //                   {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
+    //                 </Typography>
+    //               </Box>
+    //               </div>
+    //             </Box>
+    //           ))}
+    //         </Grid>
+    //       <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }} onClick={genreMoveRigth}/>
+    //       </Box>
+    //     </Box>
+    //     <nav className="user-nav">
+    //     <ul className="nav-links">
+    //       <li>
+    //         <Link to="/music/ranking">
+    //           <i className="uil uil-favorite"></i>
+    //           <span className="link-name"> Ranking</span>
+    //         </Link>
+    //       </li>
+    //       <li>
+    //         <Link to="/music/genre">
+    //           <i className="uil uil-play"></i>
+    //           <span className="link-name"> Recommend</span>
+    //         </Link>
+    //       </li>
+    //     </ul>
+    //   </nav>
+    //     <Box  sx={{height:"45%"}}>
+    //       <Typography variant="h4">
+    //       like  Ranking
+    //       </Typography>
+    //         <Box sx={{
+    //         display: "flex",
+    //         alignItems: 'center',
+    //         px: 2 }}>
+    //           <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}} />
+    //           <Grid
+    //             sx={{
+    //               width: "1280px",
+    //               m:"auto",
+    //               padding: 0,
+    //               overflow: "hidden",
+    //               display: "flex", flexWrap: "nowrap"
+    //             }}>
+
+    //         {/* {  likeTopList.map((music, index) => (
+    //           <Box key={index} sx={{cursor:"pointer",width: 210,  my: 5 }}
+    //           onClick={()=>{postInfo(music)}}
+    //           >
+    //           <div
+    //             key={index}
+    //             className="glide"
+    //             style={{ transform: `translateX(${likeRanking}%)` }}>
+    //               <img
+    //                 style={{ width: 210, height: 150, objectFit:"cover"  }}
+    //                 alt={music.title}
+    //                 src={music.img_file}
+    //               />
+    //               <Box sx={{ pr: 2 }}>
+    //                 <Typography gutterBottom variant="body2">
+    //                   {music.title}
+    //                 </Typography>
+    //                 <Typography display="block" variant="caption" color="text.secondary">
+    //                   {music.artist_name}
+    //                 </Typography>
+    //                 <Typography display="block" variant="overline" color="text.secondary">
+    //                   {music.genre}
+    //                 </Typography>
+    //                 <Typography variant="caption" color="text.secondary">
+    //                   {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
+    //                 </Typography>
+    //               </Box>
+    //             </div>
+    //           </Box>
+    //         ))} */}
+    //           </Grid>
+    //           <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }}  />
+    //         </Box>
+    //     </Box>
+    //   </Box>
+    // </div>
   );
 }
