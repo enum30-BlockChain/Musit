@@ -124,15 +124,16 @@ export const Main = () => {
                 )
               }
             >
-            <Route path="cteate" element={<Create/>} />
-            <Route path="search" element={<Search/>} />
-            <Route path="music/*" element={<Music/>} />
             <Route path="store/*" element={<Store/>} />
             <Route path="artistdashbord" element={<Artistdashbord />} />
             <Route path="myupload" element={<Album />} />
             <Route path="createnft" element={<Createnft />} />
             <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
+
+            <Route path="create" element={<Create/>} />
+            <Route path="search" element={<Search/>} />
+            <Route path="music/*" element={<Music/>} />
           </Route>
         </Routes>
       </div>
