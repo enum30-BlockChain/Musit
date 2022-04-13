@@ -32,6 +32,9 @@ import Mynftlist from "./mypage/mynftlist/Mynftlist";
 
 //Main-nav Store
 import { Store } from "./store/Store";
+import { Music } from "./music/Music";
+import Search from "./serach/Search";
+import { Create } from "./create/Create";
 
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
@@ -121,15 +124,20 @@ export const Main = () => {
                 )
               }
             >
-              <Route path="artistdashbord" element={<Artistdashbord />} />
-              <Route path="myupload" element={<Album />} />
-              <Route path="createnft" element={<Createnft />} />
-              <Route path="auctionupload" element={<Auctionupload />} />
+            <Route path="cteate" element={<Create/>} />
+            <Route path="search" element={<Search/>} />
+            <Route path="music/*" element={<Music/>} />
+            <Route path="store/*" element={<Store/>} />
+            <Route path="artistdashbord" element={<Artistdashbord />} />
+            <Route path="myupload" element={<Album />} />
+            <Route path="createnft" element={<Createnft />} />
+            <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
           </Route>
         </Routes>
       </div>
-      {user.loading === true ? <></> : <Playbar />}
+     {user.loading === true ? <></> : <Playbar />}
     </section>
-  );
+  
+    );
 };
