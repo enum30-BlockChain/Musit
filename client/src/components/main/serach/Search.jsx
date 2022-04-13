@@ -63,11 +63,10 @@ function Search(props) {
   };
   
   useEffect(() => {
-    
     if(!musicList.loading){
     const init = async () => {
-        await getUser(content);
-        await getmusicList(content);
+        await getUser();
+        await getmusicList();
       };
       init();
     }
