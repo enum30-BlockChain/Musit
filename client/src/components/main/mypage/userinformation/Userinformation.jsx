@@ -101,13 +101,13 @@ export default function Userinformation({}) {
     <div className="userinfo-card">
       <div className="userinfo-image">
         {user.img === "" ? (
-          <Avatar alt="Remy Sharp" sx={{ width: 200, height: 200 }} />
+          <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
         ) : (
           <Avatar
             className="userinfo-image"
             alt="Remy Sharp"
             src={user.img}
-            sx={{ width: 250, height: 250 }}
+            sx={{ width: 260, height: 260 }}
           />
         )}
         {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}

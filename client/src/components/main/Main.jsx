@@ -123,7 +123,7 @@ export const Main = () => {
             <Route
               path="artist"
               element={
-                artist.artist_name !== undefined ? (
+                artist.artist_name !== null ? (
                   <Artist path="artist" />
                 ) : (
                   <Artistsubmit />

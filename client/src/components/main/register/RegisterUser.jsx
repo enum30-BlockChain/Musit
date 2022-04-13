@@ -132,13 +132,13 @@ const RegisterUser = () => {
               <Avatar
                 className="register-avatar"
                 alt="Remy Sharp"
-                // sx={{ width: 300vw, height: 300c }}
+                sx={{ width: 300, height: 300 }}
               />
             ) : (
               <Avatar
                 alt="Remy Sharp"
                 src={URL.createObjectURL(albumCoverImgFile)}
-                sx={{ width: 128, height: 128 }}
+                sx={{ width: 300, height: 300 }}
               />
             )}
 
