@@ -10,9 +10,6 @@ const {
 
 /* Create */
 router.post("/", async (req, res, next) => {
-  console.log(11111111111);
-  console.log(req.body);
-  console.log(11111111111);
   try {
     // 필수 입력 값 확인
     if (req.body.address.trim() === "") {
@@ -60,13 +57,21 @@ router.get("/:address", async (req, res, next) => {
 
 /* Update */
 router.patch("/:address", async (req, res, next) => {
+  console.log(111111111111);
+  console.log(req.body);
+  console.log(111111111111);
   try {
     // 입력값에 대한 유효성 검사
     if (req.body.address) {
       res.send(400, "Address is immutable");
-    } else if (req.body.nickname && req.body.nickname.trim() === "") {
+    } else if (
+      req.body.nickname !== undefined &&
+      req.body.nickname.trim() === ""
+    ) {
       res.send(400, "Empty nickname");
-    } else if (req.body.nation && req.body.nation.trim() === "") {
+    } else if (req.body.nation !== undefined && req.body.nation.trim() === "") {
+      res.send(400, "Empty nation");
+    } else if (req.body.img !== undefined && req.body.img.trim() === "") {
       res.send(400, "Empty nation");
     } else {
       const result = await User.update(req.body, {
@@ -74,7 +79,7 @@ router.patch("/:address", async (req, res, next) => {
           address: req.params.address,
         },
       });
-
+      console.log(result);
       // Update에 잘못된 내용이 들어가면 0을 반환 => Bad request(400)
       if (result[0] === 0) {
         res.send(400, "Update user info failed");

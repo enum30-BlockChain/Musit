@@ -18,6 +18,7 @@ nav.side-nav.close ~ section {
 
 .main .main-content {
   position: absolute;
+  overflow-y: scroll;
   width: 100%;
   height: calc(100% - 65px - 100px);
 

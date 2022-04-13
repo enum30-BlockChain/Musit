@@ -6,26 +6,43 @@ import Userinformation from "./userinformation/Userinformation";
 export const Mypage = () => {
   const artist = useSelector((state) => state.artist);
 
-  console.log(artist);
-
   return (
     <div className="mypage">
       <nav className="user-nav">
         <ul className="nav-links">
           <li>
+<<<<<<< HEAD
             <Link to="/mypage/musicfavorite">
+=======
+            <Link to="/mypage/userinformation">
+              <i className="uil uil-user"></i>
+              <span className="link-name"> User Information</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/mypage/favoritemusic">
+>>>>>>> jeon
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Music</span>
             </Link>
           </li>
           <li>
+<<<<<<< HEAD
             <Link to="/mypage/artistfavorite">
+=======
+            <Link to="/mypage/favoritartist">
+>>>>>>> jeon
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Artist</span>
             </Link>
           </li>
+<<<<<<< HEAD
           {/* <li>
             <Link to="/mypage/playlist">
+=======
+          <li>
+            <Link to="/mypage/myplaylist">
+>>>>>>> jeon
               <i className="uil uil-play"></i>
               <span className="link-name"> Playlist</span>
             </Link>

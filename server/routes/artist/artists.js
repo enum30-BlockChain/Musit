@@ -8,15 +8,12 @@ router.use("/likes", likesRouter);
 
 /* Create */
 router.post("/", async (req, res, next) => {
-  console.log(666666666666);
-  console.log(req.body);
-  console.log(666666666666);
   try {
     // 필수 입력 값 확인
     if (req.body.user_address.trim() === "") {
       res.send(400, "Incorrect address");
     } else if (req.body.artist_name.trim() === "") {
-      res.send(400, "Empty nickname");
+      res.send(400, "Empty artist name");
     } else {
       const result = await Artist.create(req.body);
       res.send(result);
@@ -53,14 +50,20 @@ router.get("/:user_address", async (req, res, next) => {
 
 /* Update */
 router.patch("/:user_address", async (req, res, next) => {
+  console.log(111111111111111111);
+  console.log(req.body);
+  console.log(111111111111111111);
   try {
     // 입력값에 대한 유효성 검사
     if (req.body.address) {
       res.send(400, "Address is immutable");
-    } else if (req.body.nickname && req.body.nickname.trim() === "") {
-      res.send(400, "Empty nickname");
-    } else if (req.body.nation && req.body.nation.trim() === "") {
-      res.send(400, "Empty nation");
+    } else if (
+      req.body.artist_name !== undefined &&
+      req.body.artist_name.trim() === ""
+    ) {
+      res.send(400, "Empty artist_name");
+    } else if (req.body.img !== undefined && req.body.img.trim() === "") {
+      res.send(400, "Empty img");
     } else {
       const result = await Artist.update(req.body, {
         where: { user_address: req.params.user_address },
