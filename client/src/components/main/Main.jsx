@@ -122,7 +122,7 @@ export const Main = () => {
               }
             >
               <Route path="artistdashbord" element={<Artistdashbord />} />
-              <Route path="myupload" element={<Album />} />
+              <Route path="myalbum" element={<Album />} />
               <Route path="createnft" element={<Createnft />} />
               <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
