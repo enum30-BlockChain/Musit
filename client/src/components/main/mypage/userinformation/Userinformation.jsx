@@ -5,6 +5,7 @@ import axios from "axios";
 import { Avatar, Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../../../../redux/actions/userActions";
+import CountryType from "../../register/CountryType";
 
 export default function Userinformation({}) {
   const [select, setSelect] = useState("");
@@ -12,6 +13,7 @@ export default function Userinformation({}) {
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
   const [img, setImg] = useState("");
   const [checkedInputs, setCheckedInputs] = useState("");
+  const [selected, setSelected] = useState("KS");
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -29,42 +31,45 @@ export default function Userinformation({}) {
     });
   }, []);
 
-  function navlinkOnClick(e) {
-    console.log(e.target);
-  }
-
   const idonchange = (e) => {
     setSelect(e.target.value);
   };
 
   const NickNameOnClick = async () => {
-    console.log(select);
-    dispatch(updateUserData({ nickname: select }));
+    if (select === "") {
+      setSelect(user.nickname);
+    }
+    if (checkedInputs === "") {
+      setCheckedInputs(user.genre);
+    }
+    const newimg = await postImg();
+    if (newimg === "") {
+      newimg === user.img;
+    }
+    await dispatch(
+      updateUserData({
+        nickname: select,
+        genre: checkedInputs,
+        img: newimg,
+        nation: selected,
+      })
+    );
   };
 
   const formData = new FormData();
 
   const postImg = async () => {
-    formData.append("img", img);
-    const url = "http://localhost:5000/files/imgupload";
-    const result = await axios.post(url, formData);
-    return result.data;
+    if (img !== "") {
+      formData.append("img", img);
+      const url = "http://localhost:5000/files/imgupload";
+      const result = await axios.post(url, formData);
+      return result.data;
+    }
   };
 
   const getImg = (e) => {
     setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
     setImg(e.target.files[0]);
-  };
-
-  const Submit = async () => {
-    const newimg = await postImg();
-    await axios
-      .post("http://localhost:5000/users/changeimg", {
-        address,
-        downloadLink: newimg.downLoadLink,
-      })
-      .then((res) => {})
-      .catch((err) => alert(err));
   };
 
   const changeHandler = (checked, value) => {
@@ -75,7 +80,25 @@ export default function Userinformation({}) {
     }
   };
 
-  console.log(user);
+  ///////////////////////////////////////////////////////////////
+
+  const [genre, setgenre] = useState([
+    "Pop",
+    "K-pop",
+    "Classical Music",
+    "Jazz",
+    "Trot",
+    "Hip-pop",
+    "CCM",
+    "Ballad",
+    "Contry Music",
+    "Folk Music",
+    "Reggae",
+    "Disco",
+    "Rock",
+    "Electronic",
+    "Dance",
+  ]);
 
   return (
     <div className="user-card">
@@ -93,7 +116,6 @@ export default function Userinformation({}) {
         {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
         {visible && (
           <div>
-            <button onClick={Submit}>User info edit Complete</button>
             <input
               type="file"
               name="imgUpload"
@@ -115,8 +137,8 @@ export default function Userinformation({}) {
               inputProps={{ style: { fontSize: 30 } }}
               type="text"
               sx={{ width: 400 }}
-              onChange={idonchange}
               defaultValue={user.nickname}
+              onChange={idonchange}
             />
           </div>
         ) : (
@@ -126,10 +148,23 @@ export default function Userinformation({}) {
         <span>{metamask.accounts[0]}</span>
         <h2 className="subscription">Subscription</h2>
         <span>{user.subscription}월이용권 </span>
-        <h2 className="Genre">Favorite Genre</h2>
         {visible ? (
           <div>
-            {user.genre.map((MusicType, index) => {
+            <CountryType
+              inputProps={{ width: "400px" }}
+              setSelected={setSelected}
+            />
+          </div>
+        ) : (
+          <div>
+            <h2 className="Nation">Nation</h2>
+            <p>국가 : {user.nation}</p>
+          </div>
+        )}
+        <h2 className="Genre">Genre</h2>
+        {visible ? (
+          <div>
+            {genre.map((MusicType, index) => {
               return (
                 <>
                   <label>

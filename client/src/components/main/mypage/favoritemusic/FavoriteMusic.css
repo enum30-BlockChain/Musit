@@ -1,0 +1,9 @@
+.favorite {
+  display: flex;
+  text-align: center;
+}
+
+.favorite .musicfavorite {
+  margin: 5px;
+  width: 100%;
+}

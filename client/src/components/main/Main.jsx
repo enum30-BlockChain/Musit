@@ -36,9 +36,16 @@ import { Store } from "./store/Store";
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
 import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
-import Myupload from "./artist/myupload/Myupload";
+import Album from "./artist/myalbum/Album";
 import Createnft from "./artist/createnft/Createnft";
 import Auctionupload from "./artist/auctionupload/Auctionupload";
+
+import RegisterUser from "./register/RegisterUser";
+
+import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
+import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
+import MyPlayList from "./mypage/myplaylist/MyPlayList";
+// import { ArtistsList } from "./artist/favorite/ArtistsList";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -70,19 +77,24 @@ export const Main = () => {
   return (
     <section className="main">
       <Searchbar />
-      {/* <Artistfavorite /> */}
       <div className="main-content">
         <Routes>
           <Route path="/">
+            {/* Main navbar */}
+            <Route path="musiclist" element={<Musiclist />} />
+            <Route path="artistlist" element={<Artistlist />} />
+            <Route path="store/*" element={<Store />} />
+            <Route path="auctionmarket" element={<Auctionmarket />} />
+
             <Route index element={<Dashboard />} />
             <Route
               path="mypage"
               element={
-                // user.nickname && user.address !== undefined ? (
-                <Mypage path="userinformation" />
-                // ) : (
-                //   <RegisterUser />
-                // )
+                user.nickname !== undefined ? (
+                  <Mypage path="userinformation" />
+                ) : (
+                  <RegisterUser />
+                )
               }
             >
               <Route path="userinformation" element={<Userinformation />} />
@@ -93,30 +105,27 @@ export const Main = () => {
               <Route path="mynftlist" element={<Mynftlist />} />
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
-              {/* <Route path="favorite" element={<Favorite />} /> */}
               <Route path="artistsubmit" element={<Artistsubmit />} />
+              <Route path="favoritartist" element={<FavoriteArtist />} />
+              <Route path="favoritemusic" element={<FavoriteMusic />} />
+              <Route path="myplaylist" element={<MyPlayList />} />
             </Route>
+
             <Route
               path="artist"
               element={
-                // artist.artist_name !== undefined ? (
-                <Artist path="artist" />
+                artist.artist_name !== undefined ? (
+                  <Artist path="artist" />
+                ) : (
+                  <Artistsubmit />
+                )
               }
-              //   ) : (
-              //     // <Artistsubmit />
-              //   )
-              // }
             >
               <Route path="artistdashbord" element={<Artistdashbord />} />
-              <Route path="myupload" element={<Myupload />} />
+              <Route path="myupload" element={<Album />} />
               <Route path="createnft" element={<Createnft />} />
               <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
-            <Route path="musiclist" element={<Musiclist />} />
-            <Route path="artistlist" element={<Artistlist />} />
-
-            <Route path="store/*" element={<Store />} />
-            <Route path="auctionmarket" element={<Auctionmarket />} />
           </Route>
         </Routes>
       </div>

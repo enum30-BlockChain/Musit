@@ -11,23 +11,18 @@ export const Mypage = () => {
       <nav className="user-nav">
         <ul className="nav-links">
           <li>
-            <Link to="/mypage/musicfavorite">
+            <Link to="/mypage/favoritemusic">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Music</span>
             </Link>
           </li>
           <li>
-            <Link to="/mypage/artistfavorite">
+            <Link to="/mypage/favoritartist">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Artist</span>
             </Link>
           </li>
-          {/* <li>
-            <Link to="/mypage/playlist">
-              <i className="uil uil-play"></i>
-              <span className="link-name"> Playlist</span>
-            </Link>
-          </li> */}
+
           <li>
             <Link to="/mypage/subscription">
               <i className="uil uil-bitcoin-sign"></i>
@@ -40,7 +35,7 @@ export const Mypage = () => {
               <span className="link-name"> My nft list</span>
             </Link>
           </li>
-          {artist.artist_name !== null ? (
+          {artist.artist_name === null ? (
             <li>
               <Link to="/mypage/artistsubmit">
                 <i className="uil uil-music"></i>
