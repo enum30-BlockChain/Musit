@@ -51,7 +51,7 @@
 }
 
 .action-btn {
-  background-color: rgb(243, 243, 243);
+  background-color: rgba(0, 0, 0, 0);
   border: 0;
   color: #dfdbdf;
   font-size: 20px;

@@ -1,4 +1,3 @@
-
 .user-card {
   display: flex;
   width: 100%;
@@ -37,12 +36,8 @@
 .user-nav {
   display: flex;
   justify-content: center;
-  border-top: 1px solid var(--black-light-color);
-  border-bottom: 1px solid var(--black-light-color);
+  border-bottom: 2px solid var(--alltime-white);
   padding: 10px 0;
-
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
 }
 
 .user-nav .nav-links {

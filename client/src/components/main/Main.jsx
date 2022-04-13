@@ -37,6 +37,7 @@ import Search from "./serach/Search";
 import { Create } from "./create/Create";
 
 //Main-nav Artist page
+import Artistinfo from "./artist/artistinfo/Artistinfo";
 import { Artist } from "./artist/Artist";
 import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
 import Album from "./artist/myalbum/Album";
@@ -124,21 +125,21 @@ export const Main = () => {
                 )
               }
             >
-            <Route path="store/*" element={<Store/>} />
-            <Route path="artistdashbord" element={<Artistdashbord />} />
-            <Route path="myupload" element={<Album />} />
-            <Route path="createnft" element={<Createnft />} />
-            <Route path="auctionupload" element={<Auctionupload />} />
+              <Route path="artistinfo" element={<Artistinfo />} />
+              <Route path="store/*" element={<Store />} />
+              <Route path="artistdashbord" element={<Artistdashbord />} />
+              <Route path="myupload" element={<Album />} />
+              <Route path="createnft" element={<Createnft />} />
+              <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
 
-            <Route path="create" element={<Create/>} />
-            <Route path="search" element={<Search/>} />
-            <Route path="music/*" element={<Music/>} />
+            <Route path="create" element={<Create />} />
+            <Route path="search" element={<Search />} />
+            <Route path="music/*" element={<Music />} />
           </Route>
         </Routes>
       </div>
-     {user.loading === true ? <></> : <Playbar />}
+      {user.loading === true ? <></> : <Playbar />}
     </section>
-  
-    );
+  );
 };
