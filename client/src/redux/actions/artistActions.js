@@ -179,38 +179,35 @@ export const toggleLikeArtist = (artist_name) => {
     dispatch({ type: ActionTypes.LIKE_ARTIST_REQUEST });
     try {
       const userInfo = getState().user;
-      if (userInfo && artist_name) {
-        // user 정보, 선택한 아티스트 이름이 있을 때만 실행
-        if (
-          userInfo.ArtistLikes.map((like) => like.artist_name).indexOf(
-            artist_name
-          ) === -1
-        ) {
+      const likeArtist = getState().likeArtist;
+      const update = likeArtist.data.filter(
+        (like) => like.artist_name.indexOf(artist_name) > -1
+      );
+      if (likeArtist && artist_name) {
+        if (0 >= update.length) {
           // 좋아요를 안눌렀으면 생성
           const url = `http://localhost:5000/artists/likes`;
           await axios.post(url, {
             artist_name: artist_name,
             user_address: userInfo.address,
           });
-
           dispatch({
             type: ActionTypes.LIKE_ARTIST_SUCCESS,
-            payload: {
-              artist_name: artist_name,
-              user_address: userInfo.address,
-            },
+            payload: [
+              ...likeArtist.data,
+              { artist_name: artist_name, user_address: userInfo.address },
+            ],
           });
         } else {
           // 좋아요를 눌렀으면 다시 삭제
           const url = `http://localhost:5000/artists/likes/${artist_name}`;
           await axios.delete(url, { data: { user_address: userInfo.address } });
-
+          const update = likeArtist.data.filter((like) => {
+            return like.artist_name.indexOf(artist_name) < 0;
+          });
           dispatch({
             type: ActionTypes.LIKE_ARTIST_SUCCESS,
-            payload: {
-              artist_name: artist_name,
-              user_address: userInfo.address,
-            },
+            payload: [...update],
           });
         }
       } else {

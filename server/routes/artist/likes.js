@@ -5,9 +5,6 @@ const { Artist, ArtistLike } = require("../../models/index");
 
 /* Create */
 router.post("/", async (req, res, next) => {
-  console.log(1111111111111);
-  console.log(req.body);
-  console.log(1111111111111);
   try {
     // 필수 입력 값 확인
     if (req.body.user_address.trim() === "") {
@@ -16,7 +13,6 @@ router.post("/", async (req, res, next) => {
       res.send(400, "Incorrect nickname");
     } else {
       const result = await ArtistLike.create(req.body);
-      console.log(result);
       res.send(result);
     }
   } catch (err) {

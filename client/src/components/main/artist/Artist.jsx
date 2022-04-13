@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { updateArtistData } from "../../../redux/actions/artistActions";
 
 export const Artist = () => {
@@ -27,11 +27,13 @@ export const Artist = () => {
   };
 
   const NickNameOnClick = async () => {
-    if (select === "") {
-      setSelect(artist.artist_name);
-    }
-    const newimg = await postImg();
-    await dispatch(updateArtistData({ artist_name: select, img: newimg }));
+    let newImg = img !== artist.img ? await postImg() : img;
+    await dispatch(
+      updateArtistData({
+        artist_name: select,
+        img: newImg,
+      })
+    );
   };
 
   const postImg = async () => {
@@ -47,6 +49,14 @@ export const Artist = () => {
     setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
     setImg(e.target.files[0]);
   };
+
+  ////////////////////////////////////////////////////////////
+  const BaseOnClick = async () => {
+    setSelect(artist.artist_name);
+    setImg(artist.img);
+  };
+
+  console.log(artist);
 
   return (
     <>
@@ -88,15 +98,37 @@ export const Artist = () => {
             <span>{metamask.accounts[0]}</span>
             <h2 className="likes">Like</h2>
             <span>좋아요 : {artist.likes} </span>
-            <button
-              className="uil uil-setting"
-              onClick={async () => {
-                setVisible(!visible);
-                await NickNameOnClick();
-              }}
-            ></button>
+
+            {visible ? (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+                onClick={async () => {
+                  setVisible(!visible);
+                  await NickNameOnClick();
+                }}
+              >
+                Submit
+              </Button>
+            ) : (
+              <button
+                className="uil uil-setting"
+                onClick={async () => {
+                  setVisible(!visible);
+                  await BaseOnClick();
+                }}
+              />
+            )}
           </div>
         </div>
+
         <nav className="artist-nav">
           <ul className="nav-links" onClick={navlinkOnClick}>
             <li>
@@ -126,6 +158,7 @@ export const Artist = () => {
             </li>
           </ul>
         </nav>
+
         <div className="detail">
           <Outlet />
         </div>
