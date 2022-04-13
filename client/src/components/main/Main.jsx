@@ -107,8 +107,6 @@ export const Main = () => {
               }
             >
               <Route path="userinformation" element={<Userinformation />} />
-              <Route path="musicfavorite" element={<Musicfavorite />} />
-              <Route path="artistfavorite" element={<Artistfavorite />} />
               <Route path="playlist" element={<Playlist />} />
               <Route path="subscription" element={<Subscription />} />
               <Route path="mynftlist" element={<MyNFTList />} />
@@ -134,7 +132,7 @@ export const Main = () => {
               <Route path="artistinfo" element={<Artistinfo />} />
               <Route path="artistdashbord" element={<Artistdashbord />} />
               <Route path="myupload" element={<Album />} />
-              {/* <Route path="createnft" element={<Createnft />} /> */}
+              <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
 
             {/* Create */}
@@ -146,7 +144,6 @@ export const Main = () => {
             </Route>
 
             <Route path="store/*" element={<Store />} />
-            <Route path="auctionupload" element={<Auctionupload />} />
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />
           </Route>

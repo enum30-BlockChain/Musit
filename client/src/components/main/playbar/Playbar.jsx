@@ -22,7 +22,6 @@ export const Playbar = () => {
   const cover = document.getElementById("cover");
   const progressContainer = document.getElementById("progress-container");
 
-
   // const userList = useSelector((state) => state.userList);
   const likeMusic = useSelector((state) => state.likeMusic).data;
   const user = useSelector((state) => state.user);
@@ -38,7 +37,6 @@ export const Playbar = () => {
       } else {
         // console.log("유저가 맞는 사람")
         if (user.recent_played === null) {
-          
           // console.log("회원인데 리센트없는사람 ")
           //recent_played 없으면 바로 배열 0번째 ㄱ하고
           setpalyeCount(song.play_count);
@@ -54,11 +52,11 @@ export const Playbar = () => {
           // console.log("회원인데 리센트있는사람 ")
           // recent_played 있으면
           const arry = user.recent_played.split("-"); //receent찾아와서
-          const songs =user.MusicLikes;
+          const songs = user.MusicLikes;
           const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
           const firstSetting = songs[index].Music;
           setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
-          console.log(firstSetting)
+          console.log(firstSetting);
           if (index === -1) {
             // console.log("회원인데 리센트있는데 못찾는사람 ")
             // setpalyeCount(song.play_count);
@@ -69,15 +67,15 @@ export const Playbar = () => {
             // cover.src = song.img_file;
           } else {
             // console.log("회원인데 리센트있는데 찾은사람 ")
-            console.log(firstSetting.title)
+            console.log(firstSetting.title);
             setpalyeCount(firstSetting.play_count);
             sethash(firstSetting.ipfs_hash);
             setTilte(firstSetting.title);
-            title.innerText = firstSetting.title ;
+            title.innerText = firstSetting.title;
             audio.src = `https://ipfs.infura.io/ipfs/${firstSetting.ipfs_hash}`;
             cover.src = firstSetting.img_file;
             setcurrentTime(arry[1]);
-            console.log(title)
+            console.log(title);
           }
         }
       }
@@ -324,9 +322,9 @@ export const Playbar = () => {
           <PlayList playloadSong={playloadSong} />
         </div>
         <h4 id="title"></h4>
-        <div className="playbar-hidden">
+        {/* <div className="playbar-hidden">
           <button>플레이바히든버튼입니다</button>
-        </div>
+        </div> */}
       </div>
     </>
   );
