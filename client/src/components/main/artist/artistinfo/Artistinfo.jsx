@@ -32,7 +32,7 @@ export default function Artistinfo({ address }) {
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
     formData.append("img", img);
-    const url = "http://localhost:5000/files/imgupload";
+    const url = "http://localhost:5000/files/upload/img";
     const result = await axios.post(url, formData); //formData multer가읽을수있다.
     return result.data;
   };

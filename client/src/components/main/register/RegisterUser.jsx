@@ -79,7 +79,7 @@ const RegisterUser = () => {
       formData.append("img", albumCoverImgFile);
       console.log(formData);
       await axios
-        .post("http://localhost:5000/files/imgupload", formData)
+        .post("http://localhost:5000/files/upload/img", formData)
         .then((res) => (DBdata.cover_img_link = res.data))
         .catch((err) => alert(err));
       return DBdata;
