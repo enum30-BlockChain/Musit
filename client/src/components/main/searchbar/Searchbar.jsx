@@ -16,11 +16,9 @@ export const Searchbar = () => {
 
   const metamask = useSelector((state) => state.metamask);
 
-  useEffect(() => {
-    dispatch(readMetamaskData());
-  }, []);
-
-  const connectOnclick = () => {};
+  const connectOnclick = () => {
+    dispatch(connectMetamask())
+  };
 
   //[] 변하면 다시한번더 렌더링한다. uesEffect안의 함수 재실행
 

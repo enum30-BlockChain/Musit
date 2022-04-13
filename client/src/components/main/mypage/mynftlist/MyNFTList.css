@@ -1,0 +1,33 @@
+@import "../../../../styles/variables.css";
+
+.mynftlist .item-card-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.mynftlist .item-card-container .item-card {
+  background-color: var(--nft-card-bg-color);
+  width: 380px;
+  height: 300px;
+  margin: 15px;
+}
+
+.mynftlist .item-card-container .item-card:hover {
+  cursor: pointer;
+}
+
+.mynftlist .item-card-container .MuiCardHeader-root .MuiSvgIcon-root  {
+  color: #FFF;
+}
+
+.mynftlist .item-card-container .item-card .MuiCardHeader-subheader{
+  color: var(--black-light-color);
+}
+
+.mynftlist .item-card-container .item-card .description p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--black-light-color);
+}
