@@ -28,6 +28,7 @@ function Search(props) {
   const content = location.state !== null || undefined ? location.state : "";
 
   const musicList = useSelector((state) => state.musicList);
+  const likeMusic = useSelector((state) => state.likeMusic);
   const artistList = useSelector((state) => state.artistList);
   const searching = useSelector((state) => state.searching).searching;
 

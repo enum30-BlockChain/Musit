@@ -25,7 +25,6 @@ export default function SongCard(props) {
   const likeList = useSelector((state) => state.likeMusic);
   const [findlike, setFindlike] = useState("");
   const dispatch = useDispatch();
-   
 
   useEffect(() => {
       if(!likeList.loading){
