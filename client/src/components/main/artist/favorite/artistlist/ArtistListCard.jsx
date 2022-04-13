@@ -47,21 +47,22 @@ export default function ArtistListCard() {
   //row 안의 value값
   const rows = [];
 
-  // artistList.artistList.forEach((Artists, index) => {
-  //   rows.push(
-  //     createRow(
-  //       index,
-  //       Artists.artist_name,
-  //       <ArtistLikeCard
-  //         key={index}
-  //         sx={{ width: "50%" }}
-  //         Artists={Artists}
-  //         address={address}
-  //       />,
-  //       Artists.likes
-  //     )
-  //   );
-  // });
+  artistList.data.forEach((Artists, index) => {
+    rows.push(
+      createRow(
+        index,
+        Artists.artist_name,
+        <img src={Artists.img} style={{ width: "100px" }} />,
+        // <ArtistLikeCard
+        //   key={index}
+        //   sx={{ width: "50%" }}
+        //   Artists={Artists}
+        //   address={address}
+        // />,
+        Artists.likes
+      )
+    );
+  });
 
   console.log(artistList);
 

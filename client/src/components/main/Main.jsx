@@ -25,6 +25,7 @@ import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
 import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
 import { ArtistsList } from "./artist/favorite/ArtistsList";
+import Album from "./artist/myalbum/Album";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -86,6 +87,7 @@ export const Main = () => {
               }
             >
               <Route path="list" element={<ArtistsList />} />
+              <Route path="album" element={<Album />} />
             </Route>
             <Route path="store/*" element={<Store />} />
           </Route>
