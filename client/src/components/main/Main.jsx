@@ -128,11 +128,11 @@ export const Main = () => {
               <Route path="myalbum" element={<Album />} />
               <Route path="createnft" element={<Createnft />} />
               <Route path="auctionupload" element={<Auctionupload />} />
-              <Route path="cteate" element={<Create />} />
-              <Route path="store/*" element={<Store />} />
             </Route>
+            <Route path="cteate" element={<Create />} />
+            <Route path="store/*" element={<Store />} />
             <Route path="search" element={<Search />} />
-            <Route path="music/*" element={<Music />} />
+            <Route path="music" element={<Music />} />
           </Route>
         </Routes>
       </div>

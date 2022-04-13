@@ -5,14 +5,12 @@ import MusicPlayerSlider from "./MusicPlayerSlider";
 import SongCard from "./SongCard";
 import ArtistCard from "./ArtistCard";
 import ArtistModal from "./ArtistModal";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Divider from "@mui/material/Divider";
-import { readMusicList } from "../../../redux/actions/musicActions";
-import { dnsEncode } from "ethers/lib/utils";
 
 function Search(props) {
   const [musicmodal, setmusicmodal] = useState("");
@@ -29,32 +27,30 @@ function Search(props) {
   const artistList = useSelector((state) => state.artistList);
   const searching = useSelector((state) => state.searching).searching;
 
-  console.log(artistList)
   const getmusicList = async () => {
     //처음에 뮤직검색
     let searchCount = musicList.data.filter(
       (song) => song.title.indexOf(content) > -1
-      );
-      setFindMusic(searchCount);
-      setViewMusicCard(searchCount.length);
+    );
+    setFindMusic(searchCount);
+    setViewMusicCard(searchCount.length);
   };
   const getUser = async () => {
     //유저검색
     let searchCount = artistList.data.filter(
-            (a) => a.artist_name.indexOf(content) > -1
-          );
-      setFindArtist(searchCount);
+      (a) => a.artist_name.indexOf(content) > -1
+    );
+    setFindArtist(searchCount);
   };
   useEffect(() => {
-    if(!musicList.loading){
-    const init = async () => {
+    if (!musicList.loading) {
+      const init = async () => {
         await getUser(content);
         await getmusicList(content);
       };
       init();
     }
-    }, [musicList])
-    
+  }, [musicList]);
 
   useEffect(() => {
     changeSearchPage();
@@ -62,7 +58,6 @@ function Search(props) {
 
   const changeSearchPage = () => {
     if (musicList.data && artistList.data) {
-      console.log(artistList.data)
       const searchMusicNameData = musicList.data.filter((song) => {
         return song.title.indexOf(searching) > -1;
       });
@@ -71,7 +66,7 @@ function Search(props) {
       });
       setFindMusic(searchMusicNameData);
       setFindArtist(searchAtistData);
-      
+
       if (searchMusicNameData.length > 4) {
         setViewMusicCard(4);
         setValue(0);

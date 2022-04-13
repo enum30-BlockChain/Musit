@@ -48,7 +48,6 @@ export default function SongCard(props) {
 
     if (findlike.length === 0) {
       likeList.push(props.music);
-      console.log(likeList);
       dispatch(fetchLikeListData(likeList));
     } else {
       const newMySonglist = likeList.filter((song) => {
@@ -58,6 +57,7 @@ export default function SongCard(props) {
       dispatch(fetchLikeListData(newMySonglist));
     }
   };
+
   return (
     <Paper
       sx={{

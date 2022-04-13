@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MusicCard from "./MusicCard";
 import { readMusicList } from "../../../redux/actions/musicActions";
 import Media from "./media/Media.jsx";
@@ -13,7 +13,7 @@ export const Music = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
- useEffect(() => {
+  useEffect(() => {
     const init = async () => {
       await dispatch(readMusicList());
     };
@@ -22,7 +22,7 @@ export const Music = () => {
 
   return (
     <>
-     <Routes>
+      <Routes>
         <Route
           path="/genre"
           element={<Genre setmusicmodal={setmusicmodal} />}
@@ -31,7 +31,7 @@ export const Music = () => {
           path="/ranking"
           element={<Media setmusicmodal={setmusicmodal} />}
         />
-      </Routes> 
+      </Routes>
 
       {musicmodal && (
         <MusicPlayerSlider
@@ -42,7 +42,7 @@ export const Music = () => {
         />
       )}
 
-      {/* {musicList.length > 0 &&
+      {musicList.length > 0 &&
         musicList.map((music, i) => {
           const findLike = music.MusicLikes.find(
             (like) => like.user_address === user.address
@@ -58,7 +58,7 @@ export const Music = () => {
               />
             </>
           );
-        })} */}
+        })}
     </>
   );
 };
