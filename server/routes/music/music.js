@@ -54,10 +54,9 @@ router.get("/", async (req, res, next) => {
 router.get("/:ipfs_hash", async (req, res, next) => {
   try {
     const songInfo = await Music.findOne({
-      where: req.params.ipfs_hash,
-      include: [{ model: MusicLike }, { model: Artist }],
-    });
-    console.log(songInfo);
+			where: { ipfs_hash: req.params.ipfs_hash },
+			include: [{ model: MusicLike }, { model: Artist }],
+		});
     res.send(songInfo);
   } catch (err) {
     console.log(err);

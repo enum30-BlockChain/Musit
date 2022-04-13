@@ -9,14 +9,14 @@ export const createMusicData = (imgFormData, audioFormData, input) => {
       const artistInfo = getState().myArtist;
 
       const imgUrl = (
-        await axios.post("http://localhost:5000/files/imgupload", imgFormData)
+        await axios.post("http://localhost:5000/files/upload/img", imgFormData)
       ).data;
       console.log(imgUrl);
       console.log(audioFormData.get("audio"));
 
       const audioIpfsHash = (
         await axios.post(
-          "http://localhost:5000/files/audioupload",
+          "http://localhost:5000/files/upload/audio",
           audioFormData
         )
       ).data;

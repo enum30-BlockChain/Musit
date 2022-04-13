@@ -8,6 +8,32 @@ export const Artist = () => {
     console.log(e.target);
   }
 
+  const idonchange = (e) => {
+    setSelect(e.target.value);
+  };
+
+  const NickNameOnClick = async () => {
+    if (select === "") {
+      setSelect(artist.artist_name);
+    }
+    const newimg = await postImg();
+    await dispatch(updateArtistData({ artist_name: select, img: newimg }));
+  };
+
+  const postImg = async () => {
+    if (img !== "") {
+      formData.append("img", img);
+      const url = "http://localhost:5000/files/upload/img";
+      const result = await axios.post(url, formData);
+      return result.data;
+    }
+  };
+
+  const getImg = (e) => {
+    setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
+    setImg(e.target.files[0]);
+  };
+
   return (
     <>
       <div className="artistpage">
