@@ -1,3 +1,4 @@
+import axios from "axios";
 import Ethers from "../../web3/Ethers";
 import { ActionTypes } from "../constants/actionTypes";
 
@@ -23,6 +24,26 @@ export const readMyNFTList = () => {
 			dispatch({
 				type: ActionTypes.MUSIT_NFT_LIST_FAIL,
 				payload: "Read Minting list failed",
+			});
+		}
+	};
+};
+
+/* 민팅 동작 */
+export const mintingMusitNFT = (inputs) => {
+	return async (dispatch, getState) => {
+		dispatch({ type: ActionTypes.MUSIT_NFT_MINTING_REQUEST });
+		try {
+			const url = "http://localhost:5000/files/upload/metadata";
+			const result = ((await axios.post(url, inputs))).data;
+			dispatch({
+				type: ActionTypes.MUSIT_NFT_MINTING_SUCCESS,
+				payload: result,
+			});
+		} catch (error) {
+			dispatch({
+				type: ActionTypes.MUSIT_NFT_MINTING_FAIL,
+				payload: "Musit NFT Minting request fail",
 			});
 		}
 	};

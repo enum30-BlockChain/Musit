@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Typography, Box, Stack } from "@mui/material";
 import MusicPlayerSlider from "./MusicPlayerSlider";
-import SongCard from "./SongCard";
-import ArtistCard from "./ArtistCard";
-import ArtistModal from "./ArtistModal";
+import SongCard from "./music/SongCard";
+import ArtistCard from "./artist/ArtistCard";
+import ArtistModal from "./artist/ArtistModal";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
@@ -211,6 +211,7 @@ function Search(props) {
           <Grid
             sx={{
               width: "1480px",
+              m: "auto",
               padding: 0,
               overflow: "hidden",
             }}
@@ -245,7 +246,8 @@ function Search(props) {
           />
         </Box>
       </Box>
-
+        
+      {/* 모달창입니당 */}
       {artistModal && (
         <ArtistModal
           sx={{ display: "block" }}
@@ -254,6 +256,7 @@ function Search(props) {
           setmusicmodal={setmusicmodal}
         />
       )}
+
       {musicmodal && (
         <MusicPlayerSlider
           sx={{ display: "block" }}
@@ -265,4 +268,6 @@ function Search(props) {
     </Box>
   );
 }
+
+
 export default Search;

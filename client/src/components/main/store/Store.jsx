@@ -70,9 +70,6 @@ export const Store = () => {
 			</nav>
 			<div className="title">Musit NFT Store</div>
 			<button onClick={mintingOnClick}>Minting</button>
-			<Routes>
-				<Route path="mynfts" element={!musitNFT.loading && !musitNFT.error ? <MyNFTs /> : <></>} />
-			</Routes>
 		</div>
 	);
 }

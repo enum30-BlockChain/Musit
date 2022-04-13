@@ -1,7 +1,6 @@
 import "./Create.css";
 import { Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { useSelector, useDispatch } from "react-redux";
 import { createMusicData } from "../../../redux/actions/musicActions";

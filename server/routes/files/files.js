@@ -4,7 +4,7 @@ const ipfsClient = require("./ipfs");
 const { imgUpload, audioUpload } = require("./s3upload");
 const files = express.Router();
 
-files.post("/imgupload", (req, res, next) => {
+files.post("/upload/img", (req, res, next) => {
   console.log(111111111111);
   console.log(req.body);
   console.log(111111111111);
@@ -23,7 +23,7 @@ files.post("/imgupload", (req, res, next) => {
   }
 });
 
-files.post("/audioupload", (req, res, next) => {
+files.post("/upload/audio", (req, res, next) => {
   try {
     audioUpload(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
@@ -38,5 +38,21 @@ files.post("/audioupload", (req, res, next) => {
     res.send(500, "Upload audio failed");
   }
 });
+
+files.post("/upload/metadata", async (req, res, next) => {
+  try {
+    console.log(1111);
+    const ipfs = ipfsClient();
+    const metadata = JSON.stringify(req.body)
+    console.log(metadata);
+    const result = await ipfs.add(metadata);
+    console.log(result);
+    return res.send(result);
+  } catch (error) {
+    res.send(500, "Upload audio failed");
+  }
+});
+
+
 
 module.exports = files;
