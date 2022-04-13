@@ -1,6 +1,5 @@
 import "./MyNFTs.css"
 import React, { useEffect, useState } from 'react'
-import ItemModal from "./itemmodal/ItemModal"
 import { Avatar, Card, CardHeader, CardMedia, IconButton } from "@mui/material"
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useSelector } from "react-redux";
@@ -20,7 +19,7 @@ const MyNFTs = () => {
 	
   return (
 		<>
-			<div className="itemcard-container">
+			<div className="item-card-container">
 				{musitNFT.myNFTList.map((data, index) => (
 					<div className="item-box" key= {index}>
 						<Card className="itemCard" onClick={handleOpen}>
@@ -42,7 +41,6 @@ const MyNFTs = () => {
 								alt={data.title}
 							/>
 						</Card>
-						<ItemModal open={open} handleClose={handleClose} itemInfo={data} />
 					</div>
 				))}
 			</div>
