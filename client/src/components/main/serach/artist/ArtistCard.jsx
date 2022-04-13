@@ -9,7 +9,7 @@ import { borderRadius } from "@mui/system";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
 import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleLikeArtist } from "../../../redux/actions/artistActions";
+import { toggleLikeArtist } from "../../../../redux/actions/artistActions";
 import { Box } from "@mui/material";
 // import { fetchArtistLikeData } from "../../../redux/artist/artistAction";
 

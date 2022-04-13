@@ -7,10 +7,10 @@ import Media from "./media/Media.jsx";
 import MusicPlayerSlider from "../serach/MusicPlayerSlider";
 import Genre from "./genre/Genre.jsx";
 
-export const Music = () => {
+const Music = () => {
   const [musicmodal, setmusicmodal] = useState("");
   const musicList = useSelector((state) => state.musicList).data;
-  const user = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,6 +24,10 @@ export const Music = () => {
     <>
       <Routes>
         <Route
+          path=""
+          element={<MusicMain />}
+        />
+        <Route
           path="/genre"
           element={<Genre setmusicmodal={setmusicmodal} />}
         />
@@ -33,15 +37,40 @@ export const Music = () => {
         />
       </Routes>
 
+      {/* 뮤직플레이어 모달창 */}
       {musicmodal && (
         <MusicPlayerSlider
           sx={{ display: "block" }}
-          address={user.address}
           musicmodal={musicmodal}
           setmusicmodal={setmusicmodal}
         />
       )}
+    </>
+  );
+};
 
+
+ function MusicMain() {
+  const musicList = useSelector((state) => state.musicList).data;
+  const user = useSelector((state) => state.user);
+  return (
+    <div>
+      <nav className="user-nav">
+        <ul className="nav-links">
+          <li>
+            <Link to="/music/ranking">
+              <i className="uil uil-favorite"></i>
+              <span className="link-name"> Ranking</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/music/genre">
+              <i className="uil uil-play"></i>
+              <span className="link-name"> Recommend</span>
+            </Link>
+          </li>
+        </ul>
+      </nav>
       {musicList.length > 0 &&
         musicList.map((music, i) => {
           const findLike = music.MusicLikes.find(
@@ -59,6 +88,9 @@ export const Music = () => {
             </>
           );
         })}
-    </>
+    </div>
   );
-};
+}
+
+
+export default Music;

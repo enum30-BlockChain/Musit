@@ -22,7 +22,7 @@ function Modal({ props, onClose }) {
   "Rock",
   "Electronic",
   "Dance",]);
-  const [checkedInputs, setCheckedInputs] = useState(props.Genre.split(","));
+  const [checkedInputs, setCheckedInputs] = useState(props.genre);
   const [contents, setContents] = useState({
     cover_img_link: props.img_file,
     music_link: props.ipfs_hash,

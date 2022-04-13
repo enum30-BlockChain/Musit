@@ -32,7 +32,7 @@ import MyNFTList from "./mypage/mynftlist/MyNFTList";
 
 //Main-nav Store
 import { Store } from "./store/Store";
-import { Music } from "./music/Music";
+import Music from "./music/Music";
 import Search from "./serach/Search";
 import { Create } from "./create/Create";
 
@@ -133,7 +133,7 @@ export const Main = () => {
             <Route path="cteate" element={<Create />} />
             <Route path="store/*" element={<Store />} />
             <Route path="search" element={<Search />} />
-            <Route path="music" element={<Music />} />
+            <Route path="music/*" element={<Music />} />
             <Route path="minting/:ipfs_hash" element={<Minting/>} />
           </Route>
         </Routes>
