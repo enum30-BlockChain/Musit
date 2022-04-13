@@ -3,12 +3,7 @@
   text-align: center;
 }
 
-.favorite .musicfavorite {
-  margin: 5px;
-  width: 50%;
-}
-
 .favorite .artistfavorite {
   margin: 5px;
-  width: 50%;
+  width: 100%;
 }

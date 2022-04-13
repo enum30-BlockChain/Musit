@@ -8,16 +8,36 @@
 }
 
 .register-layout .register-user {
-  text-align: center;
   display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  /* align-items: center; */
+}
+
+.register-layout .register-user .address-and-img {
+  width: 100%;
+  height: 450px;
+}
+
+.register-layout .register-user .address-and-img .register-avatar {
+  align-items: center;
+}
+
+.register-layout .register-user .register-input {
+  width: 100%;
+  height: 100%;
 }
 
 .register-layout .address-and-img {
-  border-right: 1px solid var(--border-color);
-
+  border-right: 2px solid var(--border-color);
   text-align: center;
 }
 
+/* 
+.register-layout
+  .register-user
+  .address-and-img;
+   */
 /* 
 .container {
   text-align: center;

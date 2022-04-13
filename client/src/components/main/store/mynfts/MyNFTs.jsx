@@ -21,8 +21,8 @@ const MyNFTs = () => {
   return (
 		<>
 			<div className="itemcard-container">
-				{musitNFT.myMintedNFTList.map((data, index) => (
-					<div key= {index}>
+				{musitNFT.myNFTList.map((data, index) => (
+					<div className="item-box" key= {index}>
 						<Card className="itemCard" onClick={handleOpen}>
 							<CardHeader
 								title={`${data.title} #${data.tokenId}`}
@@ -39,12 +39,6 @@ const MyNFTs = () => {
 								component="img"
 								height="200"
 								image={data.image}
-								alt={data.title}
-							/>
-							<CardMedia
-								component="audio"
-								weight="200"
-								audio={`http://ipfs.infura.io/ipfs/${"Qmd1kXq4sVWK8Cw177fffa3LCQHZ1giJxcZVzRhcH5vWyb"}`}
 								alt={data.title}
 							/>
 						</Card>
