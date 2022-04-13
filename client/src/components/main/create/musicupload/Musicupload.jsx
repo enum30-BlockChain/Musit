@@ -1,12 +1,13 @@
-import "./Create.css";
+import "./Musicupload.css";
 import { Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import Createmain from "../Createmain";
 
 // const { create } = require("ipfs-http-client");
 
-export const Create = ({ address }) => {
+export const Musicupload = ({ address }) => {
   const [genre, setgenre] = useState([
     "Pop",
     "K-pop",

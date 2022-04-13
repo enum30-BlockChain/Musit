@@ -1,4 +1,4 @@
-import "./Userinformation";
+import "./Userinformation.css";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -101,13 +101,13 @@ export default function Userinformation({}) {
   ]);
 
   return (
-    <div className="user-card">
-      <div className="user-image">
+    <div className="userinfo-card">
+      <div className="userinfo-image">
         {user.img === "" ? (
           <Avatar alt="Remy Sharp" sx={{ width: 200, height: 200 }} />
         ) : (
           <img
-            className="user-image"
+            className="userinfo-image"
             alt="Remy Sharp"
             src={user.img}
             sx={{ width: 250, height: 250 }}
@@ -128,7 +128,7 @@ export default function Userinformation({}) {
           </div>
         )}
       </div>
-      <div className="user-info">
+      <div className="userinfo-info">
         <h2 className="nickname">Nickname</h2>
 
         {visible ? (
@@ -158,10 +158,10 @@ export default function Userinformation({}) {
         ) : (
           <div>
             <h2 className="Nation">Nation</h2>
-            <p>국가 : {user.nation}</p>
+            <p>국가 : {user.nation}</p>s
           </div>
         )}
-        <h2 className="Genre">Genre</h2>
+        <h2 className="userinfo-Genre">Genre</h2>
         {visible ? (
           <div>
             {genre.map((MusicType, index) => {

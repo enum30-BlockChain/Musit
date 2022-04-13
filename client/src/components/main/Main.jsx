@@ -3,7 +3,7 @@ import "./Main.css";
 //REACT FUCNTION , REDUX , ETC
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route, Router, Routes } from "react-router-dom";
 
 //top
 import { Searchbar } from "./searchbar/Searchbar";
@@ -13,9 +13,9 @@ import { Playbar } from "./playbar/Playbar";
 // import RegisterUser from "./register/RegisterUser";
 
 //Main-nav
-import Auctionmarket from "./auctionmarket/Auctionmarket";
 import Musiclist from "./musiclist/Musiclist";
-import Artistlist from "./artistlist/Artistlist";
+import Auctionmarket from "./auctionmarket/Auctionmarket";
+import Createmain from "./create/Createmain";
 
 //Main-nav Mypage
 import { Mypage } from "./mypage/Mypage";
@@ -34,15 +34,20 @@ import Mynftlist from "./mypage/mynftlist/Mynftlist";
 import { Store } from "./store/Store";
 import { Music } from "./music/Music";
 import Search from "./serach/Search";
-import { Create } from "./create/Create";
 
 //Main-nav Artist page
 import Artistinfo from "./artist/artistinfo/Artistinfo";
 import { Artist } from "./artist/Artist";
 import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
 import Album from "./artist/myalbum/Album";
-import Createnft from "./artist/createnft/Createnft";
+// import Createnft from "./artist/createnft/Createnft";
 import Auctionupload from "./artist/auctionupload/Auctionupload";
+
+//Main-nav Create
+import { Musicupload } from "./create/musicupload/Musicupload";
+import Musicuploadlist from "./create/musicuploadlist/Musicuploadlist";
+import Nftupload from "./create/nftupload/Nftupload";
+import Nftuploadlist from "./create/nftuploadlist/Nftuploadlist";
 
 import RegisterUser from "./register/RegisterUser";
 
@@ -86,8 +91,8 @@ export const Main = () => {
           <Route path="/">
             {/* Main navbar */}
             <Route path="musiclist" element={<Musiclist />} />
-            <Route path="artistlist" element={<Artistlist />} />
-            <Route path="store/*" element={<Store />} />
+
+            {/* <Route path="store/*" element={<Store />} /> */}
             <Route path="auctionmarket" element={<Auctionmarket />} />
 
             <Route index element={<Dashboard />} />
@@ -115,6 +120,7 @@ export const Main = () => {
               <Route path="myplaylist" element={<MyPlayList />} />
             </Route>
 
+            {/* Artist */}
             <Route
               path="artist"
               element={
@@ -126,14 +132,21 @@ export const Main = () => {
               }
             >
               <Route path="artistinfo" element={<Artistinfo />} />
-              <Route path="store/*" element={<Store />} />
               <Route path="artistdashbord" element={<Artistdashbord />} />
               <Route path="myupload" element={<Album />} />
-              <Route path="createnft" element={<Createnft />} />
-              <Route path="auctionupload" element={<Auctionupload />} />
+              {/* <Route path="createnft" element={<Createnft />} /> */}
             </Route>
 
-            <Route path="create" element={<Create />} />
+            {/* Create */}
+            <Route path="create" element={<Createmain />}>
+              <Route path="musicupload" element={<Musicupload />} />
+              <Route path="musicuploadlist" element={<Musicuploadlist />} />
+              <Route path="nftuplaod" element={<Nftupload />} />
+              <Route path="uploadnftlist" element={<Nftuploadlist />} />
+            </Route>
+
+            <Route path="store/*" element={<Store />} />
+            <Route path="auctionupload" element={<Auctionupload />} />
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />
           </Route>

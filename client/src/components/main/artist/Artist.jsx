@@ -19,7 +19,6 @@ export const Artist = () => {
                 <span className="link-name">Artist Dashboard</span>
               </Link>
             </li>
-
             <li>
               <Link to="/artist/createnft">
                 <i className="uil uil-favorite"></i>

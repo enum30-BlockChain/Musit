@@ -71,7 +71,7 @@ export const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/artist">
+              <Link to="/create">
                 <i className="uil uil-upload-alt"></i>
                 <span className="link-name">Create</span>
               </Link>
