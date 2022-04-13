@@ -28,7 +28,7 @@ import { History } from "./mypage/history/History";
 import { Collection } from "./mypage/collection/Collection";
 // import { Favorite } from "./mypage/favorite/Favorite";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
-import Mynftlist from "./mypage/mynftlist/Mynftlist";
+import MyNFTList from "./mypage/mynftlist/MyNFTList";
 
 //Main-nav Store
 import { Store } from "./store/Store";
@@ -111,7 +111,7 @@ export const Main = () => {
               <Route path="artistfavorite" element={<Artistfavorite />} />
               <Route path="playlist" element={<Playlist />} />
               <Route path="subscription" element={<Subscription />} />
-              <Route path="mynftlist" element={<Mynftlist />} />
+              <Route path="mynftlist" element={<MyNFTList />} />
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
               <Route path="artistsubmit" element={<Artistsubmit />} />

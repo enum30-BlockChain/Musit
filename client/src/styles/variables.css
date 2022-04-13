@@ -15,8 +15,8 @@
   --box1-color: rgba(255, 255, 255, 0.5);
   --box2-color: rgba(255, 255, 255, 0.5);
   --box3-color: rgba(255, 255, 255, 0.5);
-  --box4-color: rgba(255, 255, 255, 0.5);
-  --box5-color: rgba(255, 255, 255, 0.5);
+  --nft-card-bg-color: rgba(255, 255, 255, 0.5);
+  --nft-modal-bg-color: rgb(235, 235, 235);
   --mode-switch-color: #fff;
   --title-icon-color: #fff;
 
@@ -37,8 +37,8 @@ body.dark {
   --box1-color: rgba(255, 255, 255, 0.5);
   --box2-color: rgba(255, 255, 255, 0.5);
   --box3-color: rgba(255, 255, 255, 0.5);
-  --box4-color: rgba(255, 255, 255, 0.5);
-  --box5-color: rgba(255, 255, 255, 0.5);
+  --nft-card-bg-color: rgba(255, 255, 255, 0.5);
+  --nft-modal-bg-color: rgb(235, 235, 235);
   --mode-switch-color: #252626;
   --title-icon-color: #252626;
 }

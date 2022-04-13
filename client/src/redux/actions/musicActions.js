@@ -138,12 +138,9 @@ export const toggleLikeMusic = (music) => {
 						ipfs_hash: music.ipfs_hash,
 						user_address: user.address,
 					});
-          likeMusic.data.push(music)
           dispatch({
-            type:ActionTypes.LIKE_ARTIST_SUCCESS,
-            payload:{
-
-            }
+            type:ActionTypes.LIKE_MUSIC_SUCCESS,
+            payload:[...likeMusic.data,music],
           })
 				} else {
 					// 좋아요를 눌렀으면 다시 삭제
@@ -153,26 +150,22 @@ export const toggleLikeMusic = (music) => {
           const newMySonglist = likeMusic.data.filter((song)=>{
             return song.ipfs_hash.indexOf(music.ipfs_hash)<0;
           }) 
-          likeMusic.data=[...newMySonglist];
 					dispatch({
-						type: ActionTypes.LIKE_ARTIST_SUCCESS,
-						payload: {
-							artist_name: artistName,
-							user_address: userInfo.address,
-						},
+						type: ActionTypes.LIKE_MUSIC_SUCCESS,
+						payload:[...newMySonglist],
 					});
 				}
 			} else {
 				// user 정보, 선택한 아티스트 이름 중 하나라도 없으면 실패
 				dispatch({
-					type: ActionTypes.LIKE_ARTIST_FAIL,
+					type: ActionTypes.LIKE_MUSIC_FAIL,
 					payload: "Cannot find user info or selected artist info",
 				});
 			}
 		} catch (err) {
 			dispatch({
-				type: ActionTypes.LIKE_ARTIST_FAIL,
-				payload: "Like artist request fail",
+				type: ActionTypes.LIKE_MUSIC_FAIL,
+				payload: "Like music request fail",
 			});
 		}
 	};

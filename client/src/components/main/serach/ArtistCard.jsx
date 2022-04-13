@@ -6,47 +6,54 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import Avatar from "@mui/material/Avatar";
 import { borderRadius } from "@mui/system";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { pink } from "@mui/material/colors";
+import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
+import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
 import { useSelector, useDispatch } from "react-redux";
+import { toggleLikeArtist } from "../../../redux/actions/artistActions";
+import { Box } from "@mui/material";
 // import { fetchArtistLikeData } from "../../../redux/artist/artistAction";
 
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
-
 export default function ArtistCard(props) {
-  const [artist, setArtist] = useState(props.artist);
+  const [TotalLike, setTotalLike] = useState(props.artist.ArtistLikes.length);
+  const likeArtist = useSelector((state) => state.likeArtist).data;
+  const [artistlike, setArtistlike] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setArtistlike(
+      likeArtist.filter((artist) => {
+        return artist.artist_name.indexOf(props.artist.artist_name) > -1;
+      })
+    );
+  }, [likeArtist]);
+
   //파업창 띄워주는 것
   const postInfo = () => {
     props.setArtistModal(props.artist);
   };
-  ////////////////////////////////////////////
 
-  useEffect(() => {
-    setArtistlike();
-  }, []);
+  const likeOnclick = async () => {
+    console.log("likeOnclick을 누르고있어");
+    await dispatch(toggleLikeArtist(props.artist.artist_name));
 
-  const [artistlike, setArtistlike] = useState("");
-
-  const artistList = useSelector((state) => state.artistList);
-  const dispatch = useDispatch();
-
-  // const likeOnclick = () => {
-  //   dispatch(fetchArtistLikeData(props.address, props.artist.artist_name));
-  // };
+    if (artistlike.length === 0) {
+      likeArtist.push(props.artist);
+      await dispatch(toggleLikeArtist(likeArtist));
+    } else {
+      const newMyArtistlist = likeArtist.filter((artist) => {
+        return artist.artist_name.indexOf(props.artist.artist_name) < 0;
+      });
+      await dispatch(toggleLikeArtist(newMyArtistlist));
+    }
+  };
 
   return (
     <Paper
       sx={{
+        alignItems: "center",
         p: 2,
-        ml: 5,
+        m: 1.5,
         maxWidth: 160,
-        flexGrow: 1,
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
@@ -56,10 +63,10 @@ export default function ArtistCard(props) {
         direction="column"
         justifyContent="flex-start"
         alignItems="center"
+        
       >
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
-            {/* 프롭스를 통한 아티스트 이미지 */}
             <Avatar
               onClick={postInfo}
               alt="Remy Sharp"
@@ -98,20 +105,35 @@ export default function ArtistCard(props) {
             </Grid>
           </Grid>
           <Grid item>
-            <FavoriteBorderIcon
-              sx={{ color: pink[300] }}
-              cursor="pointer"
-              fontSize="large"
-              value={props.artist.artist_name}
-              onClick={() => {
-                likeOnclick();
-              }}
-            />
-            {/* <FavoriteIcon
-              sx={{ color: pink[300] }}
-              cursor="pointer"
-              fontSize="large"
-            /> */}
+            {artistlike.length === 0 ? (
+              <Box sx={{ display: "flex" }}>
+                <ThumbUpOffAltOutlinedIcon
+                  onClick={() => {
+                    likeOnclick();
+                    setTotalLike(TotalLike + 1);
+                    setArtistlike(1);
+                  }}
+                  sx={{ mr: 0.5 }}
+                  cursor="pointer"
+                  fontSize="small"
+                />
+                {TotalLike}
+              </Box>
+            ) : (
+              <Box sx={{ display: "flex" }}>
+                <ThumbUpOffAltRoundedIcon
+                  onClick={() => {
+                    likeOnclick();
+                    setTotalLike(TotalLike - 1);
+                    setArtistlike("");
+                  }}
+                  sx={{ mr: 0.5 }}
+                  cursor="pointer"
+                  fontSize="small"
+                />
+                {TotalLike}
+              </Box>
+            )}
           </Grid>
         </Grid>
       </Grid>

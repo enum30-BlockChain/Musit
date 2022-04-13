@@ -11,7 +11,8 @@ import HeadsetIcon from "@mui/icons-material/Headset";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
 import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
 import { Provider, useSelector, useDispatch } from "react-redux";
-// import { fetchLikeListData } from "../../../redux/likeList/likeListAction";
+import { toggleLikeMusic } from "../../../redux/actions/musicActions";
+
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -21,16 +22,18 @@ const Img = styled("img")({
 
 export default function SongCard(props) {
   const [TotalLike, setTotalLike] = useState(props.music.MusicLikes.length);
-  const likeList = useSelector((state) => state.likeMusic).data;
+  const likeList = useSelector((state) => state.likeMusic);
   const [findlike, setFindlike] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setFindlike(
-      likeList.filter((song) => {
-        return song.ipfs_hash.indexOf(props.music.ipfs_hash) > -1;
-      })
-    );
+    if (!likeList.loading) {
+      setFindlike(
+        likeList.data.filter((song) => {
+          return song.ipfs_hash.indexOf(props.music.ipfs_hash) > -1;
+        })
+      );
+    }
   }, [likeList]);
 
   const postInfo = () => {
@@ -38,26 +41,9 @@ export default function SongCard(props) {
   };
 
   const likecountpost = async () => {
-    await axios
-      .post("http://localhost:5000/music/like", {
-        address: props.address,
-        ipfs_hash: props.music.ipfs_hash,
-      })
-      .then((res) => {})
-      .catch((err) => alert("회원가입부터하세용.", err));
-
-    if (findlike.length === 0) {
-      likeList.push(props.music);
-      console.log(likeList);
-      dispatch(fetchLikeListData(likeList));
-    } else {
-      const newMySonglist = likeList.filter((song) => {
-        return song.ipfs_hash.indexOf(props.music.ipfs_hash) < 0;
-      });
-      console.log(newMySonglist);
-      dispatch(fetchLikeListData(newMySonglist));
-    }
+    dispatch(toggleLikeMusic(props.music));
   };
+
   return (
     <Paper
       sx={{
