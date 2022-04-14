@@ -1,39 +1,3 @@
-
-.user-card {
-  display: flex;
-  width: 100%;
-  height: 330px;
-  padding-left: 30px;
-  align-items: center;
-}
-
-.user-card .user-info {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-  padding-left: 30px;
-  justify-content: center;
-}
-
-.user-card .user-info .setting-btn {
-  bottom: 0;
-  position: flex;
-  width: 100px;
-}
-
-.user-card .user-image {
-  width: 200px;
-  height: 200px;
-  margin-left: 10px;
-  border-radius: 50%;
-}
-
-.user-card .user-image img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
 .user-nav {
   display: flex;
   justify-content: center;

@@ -36,9 +36,8 @@ export const Playbar = () => {
       if (!user.address) {
         // console.log("유저가아닌사람")
       } else {
-        // console.log("유저가 맞는 사람")
+        console.log("유저가 맞는 사람")
         if (user.recent_played === null) {
-          
           // console.log("회원인데 리센트없는사람 ")
           //recent_played 없으면 바로 배열 0번째 ㄱ하고
           setpalyeCount(song.play_count);
@@ -51,14 +50,12 @@ export const Playbar = () => {
           const audio = document.querySelector("#audio");
           const title = document.getElementById("title");
           const cover = document.getElementById("cover");
-          // console.log("회원인데 리센트있는사람 ")
+          console.log("회원인데 리센트있는사람 ")
           // recent_played 있으면
           const arry = user.recent_played.split("-"); //receent찾아와서
           const songs =user.MusicLikes;
           const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
-          const firstSetting = songs[index].Music;
           setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
-          console.log(firstSetting)
           if (index === -1) {
             // console.log("회원인데 리센트있는데 못찾는사람 ")
             // setpalyeCount(song.play_count);
@@ -68,8 +65,8 @@ export const Playbar = () => {
             // audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
             // cover.src = song.img_file;
           } else {
+            const firstSetting = songs[index].Music;
             // console.log("회원인데 리센트있는데 찾은사람 ")
-            console.log(firstSetting.title)
             setpalyeCount(firstSetting.play_count);
             sethash(firstSetting.ipfs_hash);
             setTilte(firstSetting.title);
@@ -77,12 +74,11 @@ export const Playbar = () => {
             audio.src = `https://ipfs.infura.io/ipfs/${firstSetting.ipfs_hash}`;
             cover.src = firstSetting.img_file;
             setcurrentTime(arry[1]);
-            console.log(title)
           }
         }
       }
     }
-  }, [user.MusicLikes]);
+  }, [user]);
 
   function loadSong(song) {
     //노래불러올때

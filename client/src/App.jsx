@@ -19,12 +19,12 @@ const App = () => {
   useEffect(() => {
     const init = async () => {
       await dispatch(readMetamaskData());
-      await dispatch(readUserData());
       await dispatch(readArtistList());
       await dispatch(readArtistData());
       await dispatch(readMusicList());
       await dispatch(readLikeMusicList());
       await dispatch(readLikeArtistList());
+      await dispatch(readUserData());
       Metamask.walletListener();
     };
     init();
