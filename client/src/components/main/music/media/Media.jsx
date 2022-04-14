@@ -24,7 +24,6 @@ const Media = (props) => {
     }else{
     setVeiwCard(musicList.length);
    }
-
   }, [props])
   
   //ToDO: musicList.length = 6 6개이하면 오류남
@@ -37,7 +36,6 @@ const Media = (props) => {
       : setListenRankingValue(listenRankingvalue + 100);
   };
   const listenRankingMoveRigth = () => {
-    console.log(listenRankingvalue)
     listenRankingvalue === -100 * (musicList.length- veiwCard)
       ? setListenRankingValue(0)
       : setListenRankingValue(listenRankingvalue - 100);

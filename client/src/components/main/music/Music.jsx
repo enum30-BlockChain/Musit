@@ -58,7 +58,8 @@ const Music = () => {
 };
 
 
- function MusicMain() {
+ function 
+ MusicMain() {
   const musicList = useSelector((state) => state.musicList).data;
   const user = useSelector((state) => state.user);
   return (
