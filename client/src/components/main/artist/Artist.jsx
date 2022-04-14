@@ -56,8 +56,6 @@ export const Artist = () => {
     setImg(artist.img);
   };
 
-  console.log(artist);
-
   return (
     <>
       <div className="artistpage">
