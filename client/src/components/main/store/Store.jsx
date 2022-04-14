@@ -2,7 +2,6 @@ import "./Store.css"
 import React, { useEffect, useState } from 'react'
 import Ethers from "../../../web3/Ethers";
 import { Routes, Route, Link } from "react-router-dom";
-import MyNFTs from "./mynfts/MyNFTs";
 import { useDispatch, useSelector } from "react-redux";
 import { readMyMintedNFTList, readMyNFTList } from "../../../redux/actions/musitNFTActions";
 
