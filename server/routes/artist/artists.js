@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { Artist, ArtistLike, Music, User } = require("../../models/index");
+const {
+  Artist,
+  ArtistLike,
+  Music,
+  User,
+  MusicLike,
+} = require("../../models/index");
 const likesRouter = require("./likes.js");
 
 /* Artist Likes Router */

@@ -131,7 +131,6 @@ export const toggleLikeMusic = (music) => {
       const likeFilter = likeMusic.data.filter(
         (song) => song.ipfs_hash.indexOf(music.ipfs_hash) > -1
       );
-
       if (likeMusic && music.ipfs_hash) {
         // user 정보, 선택한 아티스트 이름이 있을 때만 실행
         if (0 >= likeFilter.length) {
