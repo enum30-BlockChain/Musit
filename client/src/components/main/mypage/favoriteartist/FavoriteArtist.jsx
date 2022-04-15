@@ -1,4 +1,3 @@
-import "./FavoriteArtist.css";
 import React from "react";
 import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -11,7 +10,6 @@ const FavoriteArtist = () => {
   return (
     <div className="favorite">
       <div className="artistfavorite">
-        <h2>Artist Favorite</h2>
         {likeArtist.loading ? (
           <CircularProgress />
         ) : (

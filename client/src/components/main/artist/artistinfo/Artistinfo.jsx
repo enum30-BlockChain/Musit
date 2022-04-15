@@ -1,10 +1,12 @@
+import "./Artistinfo.css";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArtistData } from "../../../../redux/artist/artistAction";
+import { updateArtistData } from "../../../../redux/actions/artistActions";
+import { Avatar, Button } from "@mui/material";
 
-export default function Artistinfo({ address }) {
-  console.log(address);
+export default function Artistinfo() {
   const [select, setSelect] = useState("");
   const [visible, setVisible] = useState(false);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
@@ -12,63 +14,56 @@ export default function Artistinfo({ address }) {
 
   const formData = new FormData();
   const artist = useSelector((state) => state.artist);
+  const metamask = useSelector((state) => state.metamask);
+
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchArtistData(address)).then(() => {});
-  }, []);
-
   const idonchange = (e) => {
-    console.log(e.target.value);
     setSelect(e.target.value);
   };
 
+  const BaseOnClick = async () => {
+    setSelect(artist.artist_name);
+    setImg(artist.img);
+  };
+
   const NickNameOnClick = async () => {
-    const url = "http://localhost:5000/artists/change";
-    const response = await axios.post(url, { address, select });
-    return response.data;
+    let newImg = img !== artist.img ? await postImg() : img;
+    await dispatch(updateArtistData({ artist_name: select, img: newImg }));
   };
 
   const postImg = async () => {
-    //multer하고 s3저장후 링크가져오기
-    formData.append("img", img);
-    const url = "http://localhost:5000/files/upload/img";
-    const result = await axios.post(url, formData); //formData multer가읽을수있다.
-    return result.data;
+    if (img !== "") {
+      formData.append("img", img);
+      const url = "http://localhost:5000/files/upload/img";
+      const result = await axios.post(url, formData);
+      return result.data;
+    }
   };
 
   const getImg = (e) => {
-    setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0])); //화면에 띄우는 img
-    setImg(e.target.files[0]); //수정할 데이터 img 보낼꺼
+    setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
+    setImg(e.target.files[0]);
   };
 
-  const Submit = async () => {
-    const newimg = await postImg();
-    await axios
-      .post("http://localhost:5000/artists/changeimg", {
-        address,
-        downloadLink: newimg.downLoadLink,
-      })
-      .then((res) => {})
-      .catch((err) => alert(err));
-  };
+  console.log(img);
 
   return (
     <>
       <div className="artistpage">
         <div className="artist-card">
-          {/* 내이미지공간 */}
           <div className="artist-image">
-            {/* 현재 이미지 불러오기 */}
-            <img
-              style={{ objectFit: "cover" }}
-              src={artist.img}
-              alt="artist profile"
-            />
-            {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
+            {artist.img === "" ? (
+              <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
+            ) : (
+              <Avatar
+                alt="Remy Sharp"
+                src={artist.img}
+                sx={{ width: 260, height: 260 }}
+              />
+            )}
             {visible && (
               <div>
-                <button onClick={Submit}>올리기</button>
                 <input
                   type="file"
                   name="imgUpload"
@@ -90,16 +85,46 @@ export default function Artistinfo({ address }) {
               </div>
             )}
             <h2 className="address">Address</h2>
-            <span>{address}</span>
+            <span>{metamask.accounts[0]}</span>
             <h2 className="likes">Like</h2>
             <span>좋아요 : {artist.likes} </span>
-            <button
-              className="uil uil-setting"
-              onClick={async () => {
-                setVisible(!visible);
-                await NickNameOnClick();
-              }}
-            ></button>
+            {visible ? (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+                onClick={async () => {
+                  setVisible(!visible);
+                  await NickNameOnClick();
+                }}
+              >
+                Submit
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+                onClick={async () => {
+                  setVisible(!visible);
+                  await BaseOnClick();
+                }}
+              >
+                Edit
+              </Button>
+            )}
           </div>
         </div>
       </div>

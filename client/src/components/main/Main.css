@@ -18,12 +18,43 @@ nav.side-nav.close ~ section {
 
 .main .main-content {
   position: absolute;
-  overflow-y: scroll;
   width: 100%;
-  height: calc(100% - 65px - 100px);
+  height: calc(100% - 55px - 100px);
 
-  top: 65px;
+  top: 55px;
   left: 0px;
   padding: 0px 20px 20px 20px;
   transition: var(--tran-05);
+}
+
+.main .top-nav {
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid var(--alltime-white);
+  padding-bottom: 5px;
+}
+
+.main .top-nav .nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 1000px;
+}
+
+.main .top-nav .nav-links li {
+  position: relative;
+}
+
+.main .top-nav .nav-links li :is(i, .link-name) {
+  font-size: 17px;
+  color: var(--alltime-white);
+  transition: var(--tran-03);
+}
+
+.top-nav .nav-links a:hover :is(i, .link-name) {
+  color: var(--primary-color);
+}
+
+.top-nav .nav-links a.active :is(i, .link-name) {
+  color: var(--primary-color);
 }

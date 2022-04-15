@@ -1,4 +1,4 @@
-import "./Userinformation";
+import "./Userinformation.css";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -18,18 +18,6 @@ export default function Userinformation({}) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const metamask = useSelector((state) => state.metamask);
-
-  useEffect(() => {
-    const links = document.querySelectorAll(".user-nav .nav-links li");
-    links.forEach((link) => {
-      link.addEventListener("click", () => {
-        links.forEach((link) => {
-          link.classList.remove("active");
-        });
-        link.classList.add("active");
-      });
-    });
-  }, []);
 
   const idonchange = (e) => {
     setSelect(e.target.value);
@@ -98,16 +86,16 @@ export default function Userinformation({}) {
   ]);
 
   return (
-    <div className="user-card">
-      <div className="user-image">
+    <div className="userinfo-card">
+      <div className="userinfo-image">
         {user.img === "" ? (
-          <Avatar alt="Remy Sharp" sx={{ width: 200, height: 200 }} />
+          <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
         ) : (
-          <img
-            className="user-image"
+          <Avatar
+            className="userinfo-image"
             alt="Remy Sharp"
             src={user.img}
-            sx={{ width: 250, height: 250 }}
+            sx={{ width: 260, height: 260 }}
           />
         )}
         {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
@@ -125,7 +113,7 @@ export default function Userinformation({}) {
           </div>
         )}
       </div>
-      <div className="user-info">
+      <div className="userinfo-info">
         <h2 className="nickname">Nickname</h2>
 
         {visible ? (
@@ -158,7 +146,7 @@ export default function Userinformation({}) {
             <p>국가 : {user.nation}</p>
           </div>
         )}
-        <h2 className="Genre">Genre</h2>
+        <h2 className="userinfo-Genre">Genre</h2>
         {visible ? (
           <div>
             {genre.map((MusicType, index) => {
@@ -203,13 +191,23 @@ export default function Userinformation({}) {
             Submit
           </Button>
         ) : (
-          <button
-            className="uil uil-setting"
+          <Button
+            variant="contained"
+            sx={{
+              color: "var(--black-light-color)",
+              backgroundColor: "var(--box1-color)",
+              ":hover": {
+                background: "var(--primary-color)",
+                color: "var(--text-color)",
+              },
+            }}
             onClick={async () => {
               setVisible(!visible);
               await BaseOnClick();
             }}
-          />
+          >
+            Edit
+          </Button>
         )}
         <div className="setting-btn"></div>
       </div>

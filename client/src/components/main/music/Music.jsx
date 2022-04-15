@@ -25,25 +25,26 @@ const Music = () => {
   return (
     <>
       <Routes>
-        <Route
-          path=""
-          element={<MusicMain />}
-        />
+        <Route path="" element={<MusicMain />} />
         <Route
           path="/genre"
           element={
-             likeMusic.loading
-            ? <MediaSkeleton />
-            : <Genre setmusicmodal={setmusicmodal} />
-        }
+            likeMusic.loading ? (
+              <MediaSkeleton />
+            ) : (
+              <Genre setmusicmodal={setmusicmodal} />
+            )
+          }
         />
         <Route
           path="/ranking"
           element={
-            musicList.loading
-            ?<MediaSkeleton />
-            :<Media setmusicmodal={setmusicmodal} />
-        }
+            musicList.loading ? (
+              <MediaSkeleton />
+            ) : (
+              <Media setmusicmodal={setmusicmodal} />
+            )
+          }
         />
       </Routes>
 
@@ -66,7 +67,7 @@ const Music = () => {
 
   return (
     <div>
-      <nav style={{top:"60px",width:"85%", margin:"auto", position:"fixed"}} className="user-nav">
+      <nav style={{top:"60px",width:"85%", margin:"auto", position:"fixed"}} className="top-nav">
         <ul className="nav-links">
           <li>
             <Link to="/music/ranking">
@@ -111,6 +112,5 @@ const Music = () => {
     </div>
   );
 }
-
 
 export default Music;

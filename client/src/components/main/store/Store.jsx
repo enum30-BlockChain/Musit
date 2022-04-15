@@ -2,7 +2,6 @@ import "./Store.css"
 import React, { useEffect, useState } from 'react'
 import Ethers from "../../../web3/Ethers";
 import { Routes, Route, Link } from "react-router-dom";
-import MyNFTs from "./mynfts/MyNFTs";
 import { useDispatch, useSelector } from "react-redux";
 import { readMyMintedNFTList, readMyNFTList } from "../../../redux/actions/musitNFTActions";
 
@@ -28,6 +27,8 @@ export const Store = () => {
 	const musitNFT = useSelector((state) => state.musitNFT);
 	const selectedMusic = useSelector((state) => state.selectedMusic);
 	const dispatch = useDispatch()
+
+	
 
 	useEffect(() => {
 		loadMyNFTs()
@@ -55,21 +56,25 @@ export const Store = () => {
 		}
 	}
 
-
   return (
 		<div className="store">
-			<nav className="store-nav">
+			<nav className="top-nav">
 				<ul className="nav-links">
 					<li>
-						<Link to="/store/mynfts">
-							<i className="uil uil-headphones"></i>
-							<span className="link-name"> MyNFTs</span>
+						<Link to="/store/nfts">
+							<i className="uil uil-google-play"></i>
+							<span className="link-name">Ordinary Market</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="/store/auction">
+							<i className="uil uil-arrow-growth"></i>
+							<span className="link-name">Auction Market</span>
 						</Link>
 					</li>
 				</ul>
 			</nav>
-			<div className="title">Musit NFT Store</div>
-			<button onClick={mintingOnClick}>Minting</button>
+			
 		</div>
 	);
 }

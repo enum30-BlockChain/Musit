@@ -116,7 +116,7 @@ body.dark .side-nav .nav-links li a:hover :is(i, .link-name) {
 
 .menu-items .logout-mode {
   padding-top: 8px;
-  border-top: 1px solid var(--border-color);
+  border-top: 2px solid var(--border-color);
 }
 
 .menu-items .mode {

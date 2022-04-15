@@ -4,7 +4,7 @@ import axios from "axios";
 import { Stack, Slider } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
-import myImage from "./cd.png";
+import myImage from "./retro.png";
 
 export const Playbar = () => {
   const [percent, setPercent] = useState(0);
@@ -72,6 +72,7 @@ export const Playbar = () => {
             audio.src = `https://ipfs.infura.io/ipfs/${firstSetting.ipfs_hash}`;
             cover.src = firstSetting.img_file;
             setcurrentTime(arry[1]);
+            console.log(title);
           }
         }
       }
@@ -113,7 +114,8 @@ export const Playbar = () => {
     playSong();
   }
 
-  function shuffle(array) { //목록 한번 셔플해줄꺼
+  function shuffle(array) {
+    //목록 한번 셔플해줄꺼
     array.sort(() => Math.random() - 0.5);
   }
 
@@ -130,36 +132,41 @@ export const Playbar = () => {
 
   function EndNextSong() {
     let num = count;
-    if(repeatState){// 여긴 한곡만재생
-      console.log("한곡만재생중")
+    if (repeatState) {
+      // 여긴 한곡만재생
+      console.log("한곡만재생중");
       loadSong(likeMusic[num]);
       playSong();
-    }else{      //한곡재생아닐때
-        num++;
-        if (num > likeMusic.length - 1) {
-          num = 0;
-        }
-        setCount(num);
-        loadSong(likeMusic[num]);
-        playSong();
+    } else {
+      //한곡재생아닐때
+      num++;
+      if (num > likeMusic.length - 1) {
+        num = 0;
+      }
+      setCount(num);
+      loadSong(likeMusic[num]);
+      playSong();
     }
   }
 
   const [repeatState, setRepeatState] = useState(false);
 
   function changeRepeat() {
-    if(repeatState){
-      console.log("repeatState : off")
-      setRepeatState(false)
-    }else{
-      console.log("repeatState : on")
-      setRepeatState(true)
+    if (repeatState) {
+      console.log("repeatState : off");
+      setRepeatState(false);
+    } else {
+      console.log("repeatState : on");
+      setRepeatState(true);
     }
   }
   function changeRandom() {
     const firstSong = likeMusic[count]; //넣을꺼
     //지금재생 찾아서 삭제
-    likeMusic.splice(likeMusic.findIndex((music)=>music.ipfs_hash === firstSong.ipfs_hash),1); 
+    likeMusic.splice(
+      likeMusic.findIndex((music) => music.ipfs_hash === firstSong.ipfs_hash),
+      1
+    );
     //섞어주고
     shuffle(likeMusic);
     //넣어주고
@@ -368,15 +375,13 @@ export const Playbar = () => {
           <PlayList playloadSong={playloadSong} />
         </div>
         <h4 id="title"></h4>
-        <div className="playbar-hidden">
-          <button>플레이바히든버튼입니다</button>
-          <li>
-            <i className="uil uil-repeat"  onClick={changeRepeat}></i>
-          </li>
-          <li>
-           <i className="uil uil-arrow-random"  onClick={changeRandom}></i>
-          </li>
-        </div>
+
+        <li>
+          <i className="uil uil-repeat" onClick={changeRepeat}></i>
+        </li>
+        <li>
+          <i className="uil uil-arrow-random" onClick={changeRandom}></i>
+        </li>
       </div>
     </>
   );

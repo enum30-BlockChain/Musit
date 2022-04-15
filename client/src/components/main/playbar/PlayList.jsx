@@ -8,12 +8,12 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CloseIcon from '@mui/icons-material/Close';
-import { toggleLikeMusic } from "../../../redux/actions/musicActions"
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CloseIcon from "@mui/icons-material/Close";
+import { toggleLikeMusic } from "../../../redux/actions/musicActions";
 
 export default function PlayList(props) {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const likeMusic = useSelector((state) => state.likeMusic).data;
   const [state, setState] = useState({
     bottom: false,
@@ -51,7 +51,7 @@ export default function PlayList(props) {
                 sx={{ width: "100%" }}
                 key={song}
                 onClick={() => {
-                playsong(song, index);
+                  playsong(song, index);
                 }}
               >
                 <Avatar
@@ -70,9 +70,13 @@ export default function PlayList(props) {
                   }`}
                 />
               </ListItem>
-              <CloseIcon fontSize="large"  
-                onClick={() => {MinusLikelist(song)}} />
-           </ListItem >
+              <CloseIcon
+                fontSize="large"
+                onClick={() => {
+                  MinusLikelist(song);
+                }}
+              />
+            </ListItem>
           ))}
       </List>
     </Box>
@@ -80,7 +84,7 @@ export default function PlayList(props) {
 
   return (
     <div>
-      {[ "bottom"].map((anchor) => (
+      {["bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <Drawer

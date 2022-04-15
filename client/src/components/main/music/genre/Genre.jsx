@@ -1,66 +1,64 @@
-import React,{useEffect,useState} from 'react'
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import {  useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
-import "./Genre.css";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
+import React, { useEffect, useState } from "react";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export default function Genre(props) {
-    const [genreRecommend, setGenreRecommend] = useState([])
-    const musicList = useSelector((state) => state.musicList).data
-    const likeMusic = useSelector((state) => state.likeMusic).data;
-    const [genre, setGenre] = useState(0);
-    const [viewGenreCard, setViewGenreCard] = useState(0);
+  const [genreRecommend, setGenreRecommend] = useState([]);
+  const musicList = useSelector((state) => state.musicList).data;
+  const likeMusic = useSelector((state) => state.likeMusic).data;
+  const [genre, setGenre] = useState(0);
+  const [viewGenreCard, setViewGenreCard] = useState(0);
 
-    useEffect(() => {
-        const likeGenre = [...likeMusic];
-        const GenreBox =[]
-        likeGenre.forEach((e) => {
-          GenreBox.push(...e.genre);
-        });
-        const result = GenreBox.reduce((accu, curr) => { 
-          accu[curr] = (accu[curr] || 0)+1; 
-         return accu;
-       }, []);
-       
-       const GenreRecommendHandler =()=>{
-         const topGenre = Object.entries(result)
-             .sort(([,a],[,b]) => b-a)
-             .reduce((r, [k ]) => ([...r, k]), []);
-             if(topGenre.length > 0){
-               console.log("best like genre : ",topGenre[0]);
-               return musicList.filter((song) => song.genre.indexOf(topGenre[0]) > -1);
-              }else{
-                return musicList ;
-              }
-       }
-       setGenreRecommend(GenreRecommendHandler())
-       if(GenreRecommendHandler().length > 6){
-        setViewGenreCard(6)
-       }else{
-        setViewGenreCard(GenreRecommendHandler().length)
-       }
-       // console.log(result.sort((a,b)=>a-b))
-      }, [likeMusic])
-      
-       const postInfo= (music)=>{
-         props.setmusicmodal(music)
-       }
+  useEffect(() => {
+    const likeGenre = [...likeMusic];
+    const GenreBox = [];
+    likeGenre.forEach((e) => {
+      GenreBox.push(...e.genre);
+    });
+    const result = GenreBox.reduce((accu, curr) => {
+      accu[curr] = (accu[curr] || 0) + 1;
+      return accu;
+    }, []);
 
-       const genreMoveLeft = () => {
-        genre === 0
-          ? setGenre(-100 * (genreRecommend.length - viewGenreCard))
-          : setGenre(genre + 100);
-      };
-      const genreMoveRigth = () => {
-        genre === -100 * (genreRecommend.length - viewGenreCard)
-          ? setGenre(0)
-          : setGenre(genre - 100);
-      };
+    const GenreRecommendHandler = () => {
+      const topGenre = Object.entries(result)
+        .sort(([, a], [, b]) => b - a)
+        .reduce((r, [k]) => [...r, k], []);
+      if (topGenre.length > 0) {
+        console.log("best like genre : ", topGenre[0]);
+        return musicList.filter((song) => song.genre.indexOf(topGenre[0]) > -1);
+      } else {
+        return musicList;
+      }
+    };
+    setGenreRecommend(GenreRecommendHandler());
+    if (GenreRecommendHandler().length > 6) {
+      setViewGenreCard(6);
+    } else {
+      setViewGenreCard(GenreRecommendHandler().length);
+    }
+    // console.log(result.sort((a,b)=>a-b))
+  }, [likeMusic]);
+
+  const postInfo = (music) => {
+    props.setmusicmodal(music);
+  };
+
+  const genreMoveLeft = () => {
+    genre === 0
+      ? setGenre(-100 * (genreRecommend.length - viewGenreCard))
+      : setGenre(genre + 100);
+  };
+  const genreMoveRigth = () => {
+    genre === -100 * (genreRecommend.length - viewGenreCard)
+      ? setGenre(0)
+      : setGenre(genre - 100);
+  };
 
   return (
     <>
@@ -97,7 +95,7 @@ export default function Genre(props) {
                   >
                     <Box
                       key={index}
-                      sx={{ cursor: "pointer", width: 210, my: 5,m:2 }}
+                      sx={{ cursor: "pointer", width: 210, my: 5, m: 2 }}
                       onClick={() => {
                         postInfo(music);
                       }}
@@ -140,7 +138,7 @@ export default function Genre(props) {
             />
           </Box>
         </Box>
-        <nav className="user-nav">
+        <nav className="top-nav">
           <ul className="nav-links">
             <li>
               <Link to="/music/ranking">
@@ -277,7 +275,7 @@ export default function Genre(props) {
     //       <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }} onClick={genreMoveRigth}/>
     //       </Box>
     //     </Box>
-    //     <nav className="user-nav">
+    //     <nav className="top-nav">
     //     <ul className="nav-links">
     //       <li>
     //         <Link to="/music/ranking">

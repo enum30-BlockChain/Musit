@@ -1,18 +1,22 @@
-import "./Create.css";
+import "./Musicupload.css";
 import { Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
-import { useSelector, useDispatch } from "react-redux";
-import { createMusicData } from "../../../redux/actions/musicActions";
-import { readArtistList} from "../../../redux/actions/artistActions";
-import { Link, useNavigate } from "react-router-dom";
+import Createmain from "../Createmain";
+import { useDispatch, useSelector } from "react-redux";
+import { readArtistList } from "../../../../redux/actions/artistActions";
+import { createMusicData } from "../../../../redux/actions/musicActions";
+import { useNavigate } from "react-router-dom";
 
-export const Create = () => {
-  const navigate = useNavigate();
+// const { create } = require("ipfs-http-client");
+
+export const Musicupload = ({ address }) => {
+  const artistList = useSelector(state => state.artistList)
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch();
-  const artistList = useSelector((state) => state.artistList);
-  const user = useSelector((state) => state.user);
-  const [genre, setgenre] = useState([
+  const navigate = useNavigate();
+
+  const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
     "Classical Music",
@@ -43,7 +47,7 @@ export const Create = () => {
     description: "",
   });
   const imgFormData = new FormData();
-	const audioFormData = new FormData();
+  const audioFormData = new FormData();
 
   const getImg = (e) => {
     setAlbumCoverImgFile(e.target.files[0]);
@@ -57,7 +61,6 @@ export const Create = () => {
   const getDescription = (e) => {
     setDescription(e.target.value);
   };
-
 
   const changeHandler = (checked, value) => {
     if (checked) {
@@ -87,7 +90,7 @@ export const Create = () => {
     } else if (description === "") {
       alert("description 넣어주세여");
       return false;
-    }else if (checkedInputs.length == 0) {
+    } else if (checkedInputs.length == 0) {
       alert("장르를 체크해주세요");
       return false;
     }
@@ -96,17 +99,16 @@ export const Create = () => {
 
   const submit = async () => {
     imgFormData.append("img", albumCoverImgFile);
-		audioFormData.append("audio", audiofile);
+    audioFormData.append("audio", audiofile);
     DBdata.play_time = duration;
     DBdata.title = musicTitle;
     DBdata.genre = checkedInputs;
     DBdata.description = description;
     await findArtist();
     if (isValidDBdata()) {
-      await dispatch(createMusicData(imgFormData, audioFormData, DBdata))
+      await dispatch(createMusicData(imgFormData, audioFormData, DBdata));
       navigate("/search", { state: musicTitle });
     }
-
   };
 
   const findArtist = async () => {
@@ -209,7 +211,6 @@ export const Create = () => {
                   <label id={index} key={index}>
                     {MusicType}
                     <input
-                      key={index}
                       type={"checkbox"}
                       name={"MusicType"}
                       value={MusicType}

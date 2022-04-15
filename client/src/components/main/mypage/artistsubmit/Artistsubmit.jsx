@@ -71,12 +71,12 @@ export default function Artistsubmit() {
             <h1>Profile Image</h1>
             <div className="artist-register-profile-img">
               {albumCoverImgFile === "" ? (
-                <Avatar alt="Remy Sharp" sx={{ width: 128, height: 128 }} />
+                <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
               ) : (
                 <Avatar
                   alt="Remy Sharp"
                   src={URL.createObjectURL(albumCoverImgFile)}
-                  sx={{ width: 128, height: 128 }}
+                  sx={{ width: 260, height: 260 }}
                 />
               )}
             </div>
