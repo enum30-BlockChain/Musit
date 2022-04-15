@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./Searchbar.css";
 import Button from "@mui/material/Button";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import {
   connectMetamask,
-  readMetamaskData,
 } from "../../../redux/actions/metamaskActions";
 import { searchingReducer } from "../../../redux/actions/searchingAction";
+import { Drawer } from "@mui/material";
+import UserDrawer from "./userdrawer/UserDrawer";
 
 export const Searchbar = () => {
   const [searching, setseraching] = useState("");
+  const metamask = useSelector((state) => state.metamask);
   const navigate = useNavigate(); //페이지이동하면서 정보담아서 옮길수있따
   const dispatch = useDispatch();
 
-  const metamask = useSelector((state) => state.metamask);
+  const [open, setOpen] = useState(false);
+
 
   const connectOnclick = () => {
     dispatch(connectMetamask());
@@ -41,48 +43,53 @@ export const Searchbar = () => {
   //////////////////////////////////////////////////////
 
   return (
-    <>
-      <div className="searchbar">
-        <i className="uil uil-bars sidebar-toggle"></i>
-        <div className="search-box">
-          <i className="uil uil-search"></i>
-          <input
-            type="text"
-            placeholder="Search here..."
-            onKeyPress={changehandler}
-            onChange={getsSearchWord}
-          />
-        </div>
+		<>
+			<div className="searchbar">
+				<i className="uil uil-bars sidebar-toggle"></i>
+				<div className="search-box">
+					<i className="uil uil-search"></i>
+					<input
+						type="text"
+						placeholder="Search here..."
+						onKeyPress={changehandler}
+						onChange={getsSearchWord}
+					/>
+				</div>
 
-        <div className="user-info">
-          <div className="searchbar-address">
-            {sliceAddress ? (
-              <>
-                <div className="profile">
-                  <Link to=""></Link>
-                </div>
-                <div className="searchbar-nick"></div>
-                <p>{sliceAddress}</p>
-              </>
-            ) : (
-              <Button
-                variant="contained"
-                sx={{
-                  color: "var(--black-light-color)",
-                  backgroundColor: "var(--box1-color)",
-                  ":hover": {
-                    background: "var(--primary-color)",
-                    color: "var(--text-color)",
-                  },
-                }}
-                onClick={connectOnclick}
-              >
-                Connect
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
-    </>
-  );
+				<div className="searchbar-right-box">
+					{sliceAddress ? (
+						<div className="user-info" onClick={() => {setOpen(true)}}>
+							<div className="profile"></div>
+							<div className="address">
+								<p>{sliceAddress}</p>
+							</div>
+						</div>
+					) : (
+						<Button
+							variant="contained"
+							sx={{
+								color: "var(--black-light-color)",
+								backgroundColor: "var(--box1-color)",
+								":hover": {
+									background: "var(--primary-color)",
+									color: "var(--text-color)",
+								},
+							}}
+							onClick={connectOnclick}
+						>
+							Connect
+						</Button>
+					)}
+				</div>
+				<Drawer
+          anchor="right"
+					open={open}
+					onClose={() => {setOpen(false)}}
+					onOpen={() => {setOpen(true)}}
+				>
+					<UserDrawer />
+				</Drawer>
+			</div>
+		</>
+	);
 };
