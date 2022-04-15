@@ -28,12 +28,7 @@
   width: 400px;
   left: 0;
 }
-.ordinary-layout .ordinary-img-box .title-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 150px;
-}
+
 
 .ordinary-layout .ordinary-img-box h2 {
   margin: 0;

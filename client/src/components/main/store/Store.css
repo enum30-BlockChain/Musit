@@ -1,5 +1,10 @@
 @import "../../../styles/variables.css";
 
+.store {
+  width: 100%;
+  height: 100%;
+}
+
 .store .title {
   color: var(--text-color);
   font-size: 36px;
