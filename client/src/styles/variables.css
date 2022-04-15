@@ -31,11 +31,11 @@
 body.dark {
   /* ===== Dark Colors ===== */
   --alltime-white: white;
-  --primary-color: rgb(241, 164, 63);
+  --primary-color: #eee;
   --secondary-color: rgb(85, 81, 164);
   --panel-color: #252626;
   --text-color: rgb(255, 255, 255);
-  --black-light-color: #ccc;
+  --black-light-color: #333;
   --border-color: #4d4c4c;
   --toggle-color: rgb(173, 173, 173);
   --box1-color: rgba(255, 255, 255, 0.5);
