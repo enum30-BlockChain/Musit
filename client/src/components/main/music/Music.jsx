@@ -7,6 +7,9 @@ import Media from "./media/Media.jsx";
 import MusicPlayerSlider from "../serach/MusicPlayerSlider";
 import Genre from "./genre/Genre.jsx";
 import MediaSkeleton from "./media/MediaSkeleton";
+import MainCard from "./main/MainCard";
+import Enum30music from "./enummusic/Enummusic";
+import "./Music.css";
 
 const Music = () => {
   const [musicmodal, setmusicmodal] = useState("");
@@ -34,6 +37,7 @@ const Music = () => {
             )
           }
         />
+        <Route path="/enum30music" element={<Enum30music />}></Route>
         <Route
           path="/ranking"
           element={
@@ -61,10 +65,20 @@ const Music = () => {
 function MusicMain() {
   const musicList = useSelector((state) => state.musicList).data;
   const user = useSelector((state) => state.user);
+
   return (
     <div>
-      <nav className="top-nav">
+      <nav
+        style={{ top: "60px", width: "85%", margin: "auto", position: "fixed" }}
+        className="top-nav"
+      >
         <ul className="nav-links">
+          <li>
+            <Link to="/music/enum30music">
+              <i className="uil uil-favorite"></i>
+              <span className="link-name"> Enum30 x Music</span>
+            </Link>
+          </li>
           <li>
             <Link to="/music/ranking">
               <i className="uil uil-favorite"></i>
@@ -79,23 +93,32 @@ function MusicMain() {
           </li>
         </ul>
       </nav>
-      {musicList.length > 0 &&
-        musicList.map((music, i) => {
-          const findLike = music.MusicLikes.find(
-            (like) => like.user_address === user.address
-          );
-          return (
-            <>
-              <MusicCard
+      <div style={{ marginTop: "50px" }} className="music-cards-container">
+        {musicList.length > 0 &&
+          musicList.map((music, i) => {
+            const findLike = music.MusicLikes.find(
+              (like) => like.user_address === user.address
+            );
+            return (
+              <>
+                <MainCard
+                  id={i}
+                  key={i}
+                  music={music}
+                  address={user.address}
+                  checkBox={findLike}
+                />
+                {/* <MusicCard
                 id={i}
                 key={i}
                 music={music}
                 address={user.address}
                 checkBox={findLike}
-              />
-            </>
-          );
-        })}
+              /> */}
+              </>
+            );
+          })}
+      </div>
     </div>
   );
 }

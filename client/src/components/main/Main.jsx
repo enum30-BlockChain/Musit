@@ -14,7 +14,6 @@ import { Playbar } from "./playbar/Playbar";
 
 //Main-nav
 import Musiclist from "./musiclist/Musiclist";
-import Auctionmarket from "./auctionmarket/Auctionmarket";
 import Createmain from "./create/Createmain";
 
 //Main-nav Mypage
@@ -43,9 +42,6 @@ import Auctionupload from "./artist/auctionupload/Auctionupload";
 
 //Main-nav Create
 import { Musicupload } from "./create/musicupload/Musicupload";
-import Musicuploadlist from "./create/musicuploadlist/Musicuploadlist";
-import Nftupload from "./create/nftupload/Nftupload";
-import Nftuploadlist from "./create/nftuploadlist/Nftuploadlist";
 
 import RegisterUser from "./register/RegisterUser";
 
@@ -53,6 +49,7 @@ import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
 import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
 import Minting from "./minting/Minting";
+import Sell from "./store/sell/Sell";
 // import { ArtistsList } from "./artist/favorite/ArtistsList";
 
 export const Main = () => {
@@ -90,10 +87,6 @@ export const Main = () => {
           <Route path="/">
             {/* Main navbar */}
             <Route path="musiclist" element={<Musiclist />} />
-
-            {/* <Route path="store/*" element={<Store />} /> */}
-            <Route path="auctionmarket" element={<Auctionmarket />} />
-
             <Route index element={<Dashboard />} />
             <Route
               path="mypage"
@@ -136,17 +129,15 @@ export const Main = () => {
 
             {/* Create */}
             <Route path="create" element={<Createmain />}>
-              <Route path="musicupload" element={<Musicupload />} />
-              <Route path="musicuploadlist" element={<Musicuploadlist />} />
-              {/* <Route path="nftuplaod" element={<Nftupload />} /> */}
-              <Route path="nftupload/:ipfs_hash" element={<Minting />} />
-              <Route path="uploadnftlist" element={<Nftuploadlist />} />
+              <Route index element={<Musicupload />} />
+              <Route path="nft/:ipfs_hash" element={<Minting />} />
             </Route>
 
-            <Route path="store/*" element={<Store />} />
+            <Route path="store/*" element={<Store />}>
+              <Route path="sell" element={<Sell />} />
+            </Route>
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />
-            <Route path="minting/:ipfs_hash" element={<Minting />} />
           </Route>
         </Routes>
       </div>

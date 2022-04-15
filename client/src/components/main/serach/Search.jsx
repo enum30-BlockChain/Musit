@@ -238,7 +238,6 @@ function Search(props) {
                     return (
                       <ArtistCardSkeleton
                         artist={artist}
-                        setArtistModal={setArtistModal}
                         address={props.address}
                       />
                     );

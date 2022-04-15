@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import HeadsetIcon from "@mui/icons-material/Headset";
 import { Link } from "react-router-dom";
-import "./Media.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 

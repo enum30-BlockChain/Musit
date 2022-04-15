@@ -7,11 +7,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import Avatar from "@mui/material/Avatar";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function MusicCard() {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(7);
   const dispatch = useDispatch();
   const likeMusic = useSelector((state) => state.likeMusic);
   React.useEffect(() => {}, []);
@@ -33,7 +34,7 @@ export default function MusicCard() {
 
   //제목리스트 내용
   const columns = [
-    { id: "number", label: "Number", minWidth: 30 },
+    { id: "number", label: "Number", minWidth: 10 },
     { id: "albumcover", label: "Album Cover", minWidth: 30 },
     { id: "music", label: "Music Title", minWidth: 120 },
     { id: "artist", label: "Artist", minWidth: 120 },
@@ -60,7 +61,10 @@ export default function MusicCard() {
     rows.push(
       createRow(
         index,
-        <img src={favor.img_file} style={{ width: "100px" }} />,
+        <Avatar
+          src={favor.img_file}
+          style={{ width: "50px", height: "50px" }}
+        />,
         // <LikeSongCard address={address} favor={favor} />,
         favor.title,
         favor.artist_name,

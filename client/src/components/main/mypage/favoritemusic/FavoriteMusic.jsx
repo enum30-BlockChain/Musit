@@ -1,4 +1,3 @@
-import "./FavoriteMusic.css";
 import React from "react";
 import MusicCard from "./MusicCard";
 

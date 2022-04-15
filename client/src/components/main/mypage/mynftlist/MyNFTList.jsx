@@ -21,19 +21,9 @@ export default function MyNFTList() {
     }
   }
 
-  async function mintingOnClick() {
-    const result = await Ethers.minting(
-      "https://gateway.pinata.cloud/ipfs/QmZiFY6mvGyDvBqxHojHmiU1r8HCdh7QHZeEvYTpsWzqYT"
-    );
-
-    if (result.confirmations) loadMyNFTs();
-  }
-
   return (
     <>
-      <h1>My NFT LIST</h1>
       <div className="mynftlist">
-        {/* <button onClick={mintingOnClick}> Minting </button> */}
         <div className="item-card-container">
           {musitNFT.loading ? (
             <>

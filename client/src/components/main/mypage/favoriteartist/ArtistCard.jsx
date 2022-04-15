@@ -46,108 +46,101 @@ export default function ArtistCard({ List, setArtistModal }) {
     dispatch(toggleLikeArtist(List.artist_name));
   };
 
-  return (
-    <Paper
-      sx={{
-        p: 2,
-        ml: 5,
-        maxWidth: 200,
-        flexGrow: 1,
-        backgroundColor: (theme) =>
-          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-      }}
-    >
-      <Grid
-        container
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="center"
+  ///////////////////////////////////////////////////////////////
+  //mui 내용
+  function createColumn(id, label, minWidth, align, format) {
+    return { id, label, minWidth, align, format };
+  }
+
+  //제목리스트 내용
+  const columns = [
+    { id: "number", label: "Number", minWidth: 30 },
+    { id: "artistname", label: "Artist Name", minWidth: 30 },
+    { id: "artistsimg", label: "Artist Image", minWidth: 120 },
+    { id: "like", label: "Artist Like Count", minWidth: 120 },
+  ];
+
+  //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
+  function createRow(number, artistname, artistsimg, like) {
+    return { number, artistname, artistsimg, like };
+  }
+
+  //row 안의 value값
+  const rows = [];
+
+  likeArtist.data.forEach((List, index) => {
+    rows.push(
+      createRow(
+        index,
+        List.artist_name,
+        List.img === "" ? (
+          <Avatar alt="Remy Sharp" sx={{ width: "50px", height: "50px" }} />
+        ) : (
+          <img
+            className="user-image"
+            alt="Remy Sharp"
+            src={List.img}
+            sx={{ width: 100, height: 100 }}
+          />
+        ),
+        List.likes
+      )
+    );
+  });
+  if (likeArtist.error) {
+    return <>error</>;
+  } else
+    return (
+      <Paper
+        className="table-container"
+        sx={{ width: "100%", overflow: "hidden" }}
       >
-        <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
-            <Avatar
-              onClick={postInfo}
-              alt="Remy Sharp"
-              sx={{ width: 128, height: 128 }}
-              src={List.img}
-            />
-          </ButtonBase>
-        </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid
-              item
-              xs
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="flex-start"
-            >
-              <div style={{ width: 150, whiteSpace: "nowrap" }}>
-                <Typography
-                  sx={{ textOverflow: "ellipsis", overflow: "hidden" }}
-                  gutterBottom
-                  variant="title"
-                  component="div"
-                ></Typography>
-              </div>
-            </Grid>
-            <Grid item>
-              <Typography
-                sx={{ cursor: "pointer" }}
-                variant="body2"
-              ></Typography>
-            </Grid>
-          </Grid>
-          {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
-          <Grid item>
-            {artistlike.length === 0 ? (
-              <Box>
-                <FavoriteBorderIcon
-                  sx={{ color: pink[300] }}
-                  cursor="pointer"
-                  fontSize="large"
-                  onClick={() => {
-                    likeOnclick();
-                    setTotalLike(TotalLike + 1);
-                    setArtistlike(1);
-                  }}
-                />
-              </Box>
-            ) : (
-              <Box>
-                <FavoriteIcon
-                  sx={{ color: pink[300] }}
-                  cursor="pointer"
-                  fontSize="large"
-                  onClick={() => {
-                    likeOnclick();
-                    setTotalLike(TotalLike - 1);
-                    setArtistlike("");
-                  }}
-                />
-              </Box>
-            )}
-          </Grid>
-          <Grid>
-            <Link to="/">
-              <Button
-                variant="contained"
-                sx={{
-                  color: "var(--black-light-color)",
-                  backgroundColor: "var(--box1-color)",
-                  ":hover": {
-                    background: "var(--primary-color)",
-                    color: "var(--text-color)",
-                  },
-                }}
-              >
-                sell
-              </Button>
-            </Link>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Paper>
-  );
+        <TableContainer sx={{ maxHeight: 633 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column, index) => (
+                  <TableCell
+                    key={index}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                      {columns.map((column, index) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={index} align={column.align}>
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+    );
 }
