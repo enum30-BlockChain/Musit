@@ -1,6 +1,6 @@
 :root {
   /* ===== Colors ===== */
-  --primary-color: rgb(241, 164, 63);
+  --primary-color: rgb(241, 185, 112);
   --secondary-color: rgb(85, 81, 164);
   --panel-color: linear-gradient(
     60deg,
@@ -8,7 +8,7 @@
     var(--secondary-color) 100%
   );
   --text-color: #000;
-  --black-light-color: rgb(0, 0, 0);
+  --black-light-color: #333;
   --alltime-white: white;
   --border-color: #e6e5e5;
   --toggle-color: rgb(117, 113, 113);
@@ -32,7 +32,7 @@ body.dark {
   /* ===== Dark Colors ===== */
   --alltime-white: white;
   --primary-color: rgb(241, 164, 63);
-  --secondary-color: rgb(241, 164, 63);
+  --secondary-color: rgb(85, 81, 164);
   --panel-color: #252626;
   --text-color: rgb(255, 255, 255);
   --black-light-color: #ccc;
