@@ -32,8 +32,8 @@ import Search from "./serach/Search";
 
 //Main-nav Store
 import { Store } from "./store/Store";
-import Ordinary from "./store/enroll/ordinary/Ordinary"
-import Auction from "./store/enroll/auction/Auction"
+import Ordinary from "./store/enroll/ordinary/Ordinary";
+import Auction from "./store/enroll/auction/Auction";
 
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
