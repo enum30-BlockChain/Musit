@@ -63,7 +63,7 @@ export const Navbar = () => {
             <li>
               <Link to="/artist">
                 <i className="uil uil-palette"></i>
-                <span className="link-name">ARTIST PAGE</span>
+                <span className="link-name">ARTIST</span>
               </Link>
             </li>
             <li>
@@ -79,21 +79,9 @@ export const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/artistlist">
-                <i className="uil uil-palette"></i>
-                <span className="link-name"> ARTIST</span>
-              </Link>
-            </li>
-            <li>
               <Link to="/store">
                 <i className="uil uil-store"></i>
-                <span className="link-name"> NFT STORE</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/auctionmarket">
-                <i className="uil uil-arrow-growth"></i>
-                <span className="link-name">AUCTION MARKET</span>
+                <span className="link-name"> STORE</span>
               </Link>
             </li>
           </ul>
