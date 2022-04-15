@@ -80,7 +80,7 @@ export default function PlayList(props) {
 
   return (
     <div>
-      {[ "bottom"].map((anchor) => (
+      {["bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <Drawer

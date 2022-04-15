@@ -9,6 +9,8 @@ import Avatar from "@mui/material/Avatar";
 import CountryType from "./CountryType.jsx";
 import { createUserData } from "../../../redux/actions/userActions";
 
+import { connectMetamask } from "../../../redux/actions/metamaskActions";
+
 const RegisterUser = () => {
   useEffect(() => {
     alert("회원가입하세요");
@@ -46,9 +48,11 @@ const RegisterUser = () => {
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
   });
-  // const connectOnclick = () => {
-  //   Metamask.connectWallet();
-  // };
+
+  const connectOnclick = () => {
+    dispatch(connectMetamask());
+  };
+
   const formData = new FormData();
 
   const onChangeNick = (e) => {
@@ -107,9 +111,16 @@ const RegisterUser = () => {
             <>
               {metamask.accounts[0] === undefined ? (
                 <>
-                  <label htmlFor="register-usernickname">
-                    Bring your Wallet Address
-                  </label>
+                  <div>
+                    <label htmlFor="bringyouraddress">
+                      Bring your Wallet Address
+                    </label>
+                    <button
+                      id="bringyouraddress"
+                      style={{ display: "none" }}
+                      onClick={connectOnclick}
+                    ></button>
+                  </div>
                 </>
               ) : (
                 metamask.accounts[0]
@@ -121,13 +132,13 @@ const RegisterUser = () => {
               <Avatar
                 className="register-avatar"
                 alt="Remy Sharp"
-                // sx={{ width: 300vw, height: 300c }}
+                sx={{ width: 300, height: 300 }}
               />
             ) : (
               <Avatar
                 alt="Remy Sharp"
                 src={URL.createObjectURL(albumCoverImgFile)}
-                sx={{ width: 128, height: 128 }}
+                sx={{ width: 300, height: 300 }}
               />
             )}
 
