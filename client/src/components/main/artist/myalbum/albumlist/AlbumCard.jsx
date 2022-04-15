@@ -9,6 +9,9 @@ import { borderRadius } from "@mui/system";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleLikeMusic } from "../../../../../redux/actions/musicActions";
+import { Box } from "@mui/material";
 
 const Img = styled("img")({
   margin: "auto",
@@ -17,7 +20,26 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function AlbumCard({ address, song }) {
+export default function AlbumCard({ song }) {
+  const [TotalLike, setTotalLike] = useState("");
+  const [findlike, setFindlike] = useState("");
+  const likeList = useSelector((state) => state.likeMusic);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!likeList.loading) {
+      setFindlike(
+        likeList.data.filter((music) => {
+          return music.ipfs_hash.indexOf(song.ipfs_hash) > -1;
+        })
+      );
+    }
+  }, [likeList]);
+
+  const likecountpost = async () => {
+    dispatch(toggleLikeMusic({ ipfs_hash: song.ipfs_hash }));
+  };
+
   return (
     <Paper
       sx={{
@@ -72,22 +94,36 @@ export default function AlbumCard({ address, song }) {
           </Grid>
           {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
           <Grid item>
-            {song !== undefined ? (
-              <FavoriteBorderIcon
-                sx={{ color: pink[300] }}
-                cursor="pointer"
-                fontSize="large"
-                value={song.artist_name}
-                onClick={() => {}}
-              />
+            {findlike.length === 0 ? (
+              <Box>
+                <FavoriteBorderIcon
+                  sx={{ color: pink[300] }}
+                  cursor="pointer"
+                  fontSize="large"
+                  value={song.ipfs_hash}
+                  onClick={() => {
+                    likecountpost();
+                    setTotalLike();
+                    setFindlike(1);
+                  }}
+                />
+                {TotalLike}
+              </Box>
             ) : (
-              <FavoriteIcon
-                sx={{ color: pink[300] }}
-                cursor="pointer"
-                fontSize="large"
-                value={song.artist_name}
-                onClick={() => {}}
-              />
+              <Box>
+                <FavoriteIcon
+                  sx={{ color: pink[300] }}
+                  cursor="pointer"
+                  fontSize="large"
+                  value={song.ipfs_hash}
+                  onClick={() => {
+                    likecountpost();
+                    setTotalLike();
+                    setFindlike("");
+                  }}
+                />
+                {TotalLike}
+              </Box>
             )}
           </Grid>
         </Grid>

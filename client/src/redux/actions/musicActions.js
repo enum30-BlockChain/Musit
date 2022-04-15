@@ -123,52 +123,54 @@ export const updateMusicList = (input) => {
 /**** Other music ****/
 /* 좋아요 눌렀을 때 동작 */
 export const toggleLikeMusic = (music) => {
-	return async (dispatch, getState) => {
-		dispatch({ type: ActionTypes.LIKE_MUSIC_REQUEST });
-		try {
+  return async (dispatch, getState) => {
+    dispatch({ type: ActionTypes.LIKE_MUSIC_REQUEST });
+    try {
       const user = getState().user;
-      const likeMusic = getState().likeMusic;	
-      const likeFilter =likeMusic.data.filter((song) => song.ipfs_hash.indexOf(music.ipfs_hash)> -1);	
-			if (likeMusic && music.ipfs_hash) {
-				// user 정보, 선택한 아티스트 이름이 있을 때만 실행
-				if (0 >= likeFilter.length) {
-					// 좋아요를 안눌렀으면 생성
-					const url = `http://localhost:5000/music/likes`;
-					await axios.post(url, {
-						ipfs_hash: music.ipfs_hash,
-						user_address: user.address,
-					});
+      const likeMusic = getState().likeMusic;
+      const likeFilter = likeMusic.data.filter(
+        (song) => song.ipfs_hash.indexOf(music.ipfs_hash) > -1
+      );
+      if (likeMusic && music.ipfs_hash) {
+        // user 정보, 선택한 아티스트 이름이 있을 때만 실행
+        if (0 >= likeFilter.length) {
+          // 좋아요를 안눌렀으면 생성
+          const url = `http://localhost:5000/music/likes`;
+          await axios.post(url, {
+            ipfs_hash: music.ipfs_hash,
+            user_address: user.address,
+          });
           dispatch({
-            type:ActionTypes.LIKE_MUSIC_SUCCESS,
-            payload:[...likeMusic.data,music],
-          })
-				} else {
-					// 좋아요를 눌렀으면 다시 삭제
-					const url = `http://localhost:5000/music/likes/${music.ipfs_hash}`;
-					await axios.delete(url,  {data:{user_address: user.address}} );
+            type: ActionTypes.LIKE_MUSIC_SUCCESS,
+            payload: [...likeMusic.data, music],
+          });
+        } else {
+          // 좋아요를 눌렀으면 다시 삭제
+          const url = `http://localhost:5000/music/likes/${music.ipfs_hash}`;
+          await axios.delete(url, { data: { user_address: user.address } });
 
-          const newMySonglist = likeMusic.data.filter((song)=>{
-            return song.ipfs_hash.indexOf(music.ipfs_hash)<0;
-          }) 
-					dispatch({
-						type: ActionTypes.LIKE_MUSIC_SUCCESS,
-						payload:[...newMySonglist],
-					});
-				}
-			} else {
-				// user 정보, 선택한 아티스트 이름 중 하나라도 없으면 실패
-				dispatch({
-					type: ActionTypes.LIKE_MUSIC_FAIL,
-					payload: "Cannot find user info or selected artist info",
-				});
-			}
-		} catch (err) {
-			dispatch({
-				type: ActionTypes.LIKE_MUSIC_FAIL,
-				payload: "Like music request fail",
-			});
-		}
-	};
+          const newMySonglist = likeMusic.data.filter((song) => {
+            return song.ipfs_hash.indexOf(music.ipfs_hash) < 0;
+          });
+          dispatch({
+            type: ActionTypes.LIKE_MUSIC_SUCCESS,
+            payload: [...newMySonglist],
+          });
+        }
+      } else {
+        // user 정보, 선택한 아티스트 이름 중 하나라도 없으면 실패
+        dispatch({
+          type: ActionTypes.LIKE_MUSIC_FAIL,
+          payload: "Cannot find user info or selected artist info",
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: ActionTypes.LIKE_MUSIC_FAIL,
+        payload: "Like music request fail",
+      });
+    }
+  };
 };
 /**** Delete ****/
 export const deleteMusic = (input) => {

@@ -1,3 +1,6 @@
+.music-container * {
+  color: var(--playbar-base-color);
+}
 .music-container {
   background-color: rgba(243, 243, 243, 0.5);
   display: flex;
@@ -51,14 +54,17 @@
 }
 
 .action-btn {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border: 0;
-  color: #dfdbdf;
   font-size: 20px;
   cursor: pointer;
   padding: 10px;
   margin: 0 20px;
 }
+/* .action-btn i.fas {
+
+  color: var(--toggle-color);
+} */
 
 .action-btn.action-btn-big {
   color: #cdc2d0;

@@ -54,9 +54,7 @@ export const Playbar = () => {
           const arry = user.recent_played.split("-"); //receent찾아와서
           const songs = user.MusicLikes;
           const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
-          const firstSetting = songs[index].Music;
           setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
-          console.log(firstSetting);
           if (index === -1) {
             // console.log("회원인데 리센트있는데 못찾는사람 ")
             // setpalyeCount(song.play_count);
@@ -66,8 +64,8 @@ export const Playbar = () => {
             // audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
             // cover.src = song.img_file;
           } else {
+            const firstSetting = songs[index].Music;
             // console.log("회원인데 리센트있는데 찾은사람 ")
-            console.log(firstSetting.title);
             setpalyeCount(firstSetting.play_count);
             sethash(firstSetting.ipfs_hash);
             setTilte(firstSetting.title);
@@ -80,7 +78,7 @@ export const Playbar = () => {
         }
       }
     }
-  }, [user.MusicLikes]);
+  }, [user]);
 
   function loadSong(song) {
     //노래불러올때
@@ -116,15 +114,54 @@ export const Playbar = () => {
     loadSong(likeMusic[num]);
     playSong();
   }
+
+  function shuffle(array) {
+    //목록 한번 셔플해줄꺼
+    array.sort(() => Math.random() - 0.5);
+  }
+
   function nextSong() {
     let num = count;
-    num++;
-    if (num > likeMusic.length - 1) {
-      num = 0;
+    if (repeatState) {
+      // 여긴 한곡만재생
+      console.log("한곡만재생중");
+      loadSong(likeMusic[num]);
+      playSong();
+    } else {
+      //한곡재생아닐때
+      num++;
+      if (num > likeMusic.length - 1) {
+        num = 0;
+      }
+      setCount(num);
+      loadSong(likeMusic[num]);
+      playSong();
     }
-    setCount(num);
-    loadSong(likeMusic[num]);
-    playSong();
+  }
+
+  const [repeatState, setRepeatState] = useState(false);
+
+  function changeRepeat() {
+    if (repeatState) {
+      console.log("repeatState : off");
+      setRepeatState(false);
+    } else {
+      console.log("repeatState : on");
+      setRepeatState(true);
+    }
+  }
+  function changeRandom() {
+    const firstSong = likeMusic[count]; //넣을꺼
+    //지금재생 찾아서 삭제
+    likeMusic.splice(
+      likeMusic.findIndex((music) => music.ipfs_hash === firstSong.ipfs_hash),
+      1
+    );
+    //섞어주고
+    shuffle(likeMusic);
+    //넣어주고
+    likeMusic.unshift(firstSong);
+    setCount(0);
   }
 
   function playSong() {
@@ -322,9 +359,13 @@ export const Playbar = () => {
           <PlayList playloadSong={playloadSong} />
         </div>
         <h4 id="title"></h4>
-        {/* <div className="playbar-hidden">
-          <button>플레이바히든버튼입니다</button>
-        </div> */}
+
+        <li>
+          <i className="uil uil-repeat" onClick={changeRepeat}></i>
+        </li>
+        <li>
+          <i className="uil uil-arrow-random" onClick={changeRandom}></i>
+        </li>
       </div>
     </>
   );

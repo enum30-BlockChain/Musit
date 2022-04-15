@@ -11,7 +11,7 @@ import HeadsetIcon from "@mui/icons-material/Headset";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
 import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import { toggleLikeMusic } from "../../../redux/actions/musicActions";
+import { toggleLikeMusic } from "../../../../redux/actions/musicActions";
 
 const Img = styled("img")({
   margin: "auto",

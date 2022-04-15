@@ -24,7 +24,6 @@ const Media = (props) => {
     }else{
     setVeiwCard(musicList.length);
    }
-
   }, [props])
   
   //ToDO: musicList.length = 6 6개이하면 오류남
@@ -37,7 +36,6 @@ const Media = (props) => {
       : setListenRankingValue(listenRankingvalue + 100);
   };
   const listenRankingMoveRigth = () => {
-    console.log(listenRankingvalue)
     listenRankingvalue === -100 * (musicList.length- veiwCard)
       ? setListenRankingValue(0)
       : setListenRankingValue(listenRankingvalue - 100);
@@ -60,7 +58,7 @@ const Media = (props) => {
   return (
     <>
       <Box sx={{height:"100%"}}>
-        <Box sx={{height:"45%"}}>
+        <Box sx={{height:"45%",mb:2}}>
           <Typography variant="h4">
           Listening  Ranking
           </Typography>
@@ -71,7 +69,7 @@ const Media = (props) => {
           <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}}onClick={listenRankingMoveLeft}/>
           <Grid
             sx={{
-              width: "1260px",
+              width: "1460px",
               m:"auto",
               padding: 0,
               overflow: "hidden",
@@ -79,12 +77,12 @@ const Media = (props) => {
             }}
           >
             {  listeningTopList.map((music, index) => (
-              <Box key={index} sx={{cursor:"pointer",width: 210, my: 5 }}
-              onClick={()=>{postInfo(music)}}>
-                <div
-                key={index}
-                className="glide"
-                style={{ transform: `translateX(${listenRankingvalue}%)` }}>
+              <div
+              key={index}
+              className="glide"
+              style={{ transform: `translateX(${listenRankingvalue}%)` }}>
+                <Box key={index} sx={{cursor:"pointer",width: 210, my: 5, m:2 }}
+                onClick={()=>{postInfo(music)}}>
                   <img
                     style={{ width: 210, height: 150, objectFit:"cover" }}
                     alt={music.title}
@@ -104,8 +102,8 @@ const Media = (props) => {
                       {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
                     </Typography>
                   </Box>
-                  </div>
-              </Box>
+                </Box>
+              </div>
             ))}
             </Grid>
             <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }}onClick={listenRankingMoveRigth} />
@@ -127,7 +125,7 @@ const Media = (props) => {
           </li>
         </ul>
       </nav>
-        <Box  sx={{height:"45%"}}>
+        <Box  sx={{height:"45%",mt:1}}>
           <Typography variant="h4">
           like  Ranking
           </Typography>
@@ -137,23 +135,23 @@ const Media = (props) => {
             px: 2 }}>
               <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}}onClick={likeRankingMoveLeft}/>
               <Grid
-                sx={{
-                  width: "1260px",
-                  m:"auto",
-                  padding: 0,
-                  overflow: "hidden",
-                  display: "flex", flexWrap: "nowrap" 
-                }}>
+                  sx={{
+                    width: "1460px",
+                    m:"auto",
+                    padding: 0,
+                    overflow: "hidden",
+                    display: "flex", flexWrap: "nowrap" 
+                  }}>
 
             
             {  likeTopList.map((music, index) => (
-              <Box key={index} sx={{cursor:"pointer",width: 210, my: 5 }}
-              onClick={()=>{postInfo(music)}}
-              > 
               <div
                 key={index}
                 className="glide"
                 style={{ transform: `translateX(${likeRankingValue}%)` }}>
+                <Box key={index} sx={{cursor:"pointer",width: 210, my: 5,m:2 }}
+                onClick={()=>{postInfo(music)}}
+                > 
                   <img
                     style={{ width: 210, height: 150, objectFit:"cover"  }}
                     alt={music.title}
@@ -173,8 +171,8 @@ const Media = (props) => {
                       {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
                     </Typography>
                   </Box>
-                </div>
               </Box>
+            </div>
             ))}
               </Grid>
               <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }}onClick={rigthRankingMoveLeft} />

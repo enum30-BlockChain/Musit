@@ -7,9 +7,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import AlbumCard from "./AlbumCard";
+import { useLocation } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
-export default function AlbumList({ address, nickname }) {
+export default function AlbumList() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -33,16 +36,28 @@ export default function AlbumList({ address, nickname }) {
     { id: "title", label: "Title", minWidth: 30 },
     { id: "artist", label: "Artist Name", minWidth: 30 },
     { id: "albumimg", label: "Album Cover", minWidth: 120 },
-    { id: "like", label: "Music Like Count", minWidth: 120 },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, title, artist, albumimg, like) {
-    return { number, title, artist, albumimg, like };
+  function createRow(number, title, artist, albumimg) {
+    return { number, title, artist, albumimg };
   }
 
   ///////////////////////////////////////////////////////////
+  const [findMusic, setFindMusic] = React.useState("");
+
   const artist = useSelector((state) => state.artist);
+  const musicList = useSelector((state) => state.musicList);
+
+  // React.useEffect(() => {
+  //   if (!musicList.loading) {
+  //     setFindMusic(
+  //       musicList.data.filter((like) => {
+  //         return like.Artist.artist_name.indexOf(artist.artist_name) > -1;
+  //       })
+  //     );
+  //   }
+  // }, [musicList]);
 
   //row 안의 value값
   const rows = [];
@@ -54,7 +69,7 @@ export default function AlbumList({ address, nickname }) {
           index,
           song.title,
           song.artist_name,
-          <img src={song.img_file} style={{ width: "100px" }} />
+          <AlbumCard song={song} />
         )
       );
     });
