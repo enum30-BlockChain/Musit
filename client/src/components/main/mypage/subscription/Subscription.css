@@ -2,23 +2,18 @@
 
 .sub {
   margin-top: 20px;
-  width: 100%;
-  color: var(--text-color);
   text-align: center;
+  color: var(--text-color);
 }
 
-.sub-layout {
-  width: 100%;
-}
-
-.sub-layout .sub-box {
+.sub-box {
   display: flex;
-  justify-content: center;
+  width: 100%;
   margin-left: 10px;
   margin-right: 10px;
   color: var(--text-color);
 }
-.sub-layout .sub-box .sub-card {
+.sub-box .sub-card {
   height: 300px;
   width: 200px;
   background-color: var(--box1-color);

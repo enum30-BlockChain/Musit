@@ -63,12 +63,7 @@ export const Mypage = () => {
         </ul>
       </nav>
       <section className="details">
-        <div className="detail1">
-          <Userinformation />
-        </div>
-        <div className="detail2">
-          <Outlet />
-        </div>
+        <Outlet />
       </section>
     </div>
   );

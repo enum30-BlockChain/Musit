@@ -56,7 +56,7 @@ export default function ArtistCard() {
         index,
         List.artist_name,
         List.img === "" ? (
-          <Avatar alt="Remy Sharp" sx={{ width: 200, height: 200 }} />
+          <Avatar alt="Remy Sharp" sx={{ width: "50px", height: "50px" }} />
         ) : (
           <img
             className="user-image"
@@ -77,7 +77,7 @@ export default function ArtistCard() {
         className="table-container"
         sx={{ width: "100%", overflow: "hidden" }}
       >
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ maxHeight: 633 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>

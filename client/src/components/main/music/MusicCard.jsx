@@ -17,7 +17,7 @@ function MusicCard(props) {
     setlikeCount(props.music.MusicLikes.length)
     setpalyeCount(props.music.play_count)
     setCheckedInputs(props.checkBox);
-  }, [props])
+  }, [props.checkBox])
   
   const onPopup = () => {
     setModal(true);
