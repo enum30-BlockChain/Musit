@@ -7,6 +7,8 @@ import Media from "./media/Media.jsx";
 import MusicPlayerSlider from "../serach/MusicPlayerSlider";
 import Genre from "./genre/Genre.jsx";
 import MediaSkeleton from "./media/MediaSkeleton";
+import MainCard from "./main/MainCard"
+import "./Music.css"
 
 const Music = () => {
   const [musicmodal, setmusicmodal] = useState("");
@@ -58,13 +60,13 @@ const Music = () => {
 };
 
 
- function 
- MusicMain() {
+ function  MusicMain() {
   const musicList = useSelector((state) => state.musicList).data;
   const user = useSelector((state) => state.user);
+
   return (
     <div>
-      <nav className="user-nav">
+      <nav style={{top:"60px",width:"85%", margin:"auto", position:"fixed"}} className="user-nav">
         <ul className="nav-links">
           <li>
             <Link to="/music/ranking">
@@ -80,23 +82,32 @@ const Music = () => {
           </li>
         </ul>
       </nav>
-      {musicList.length > 0 &&
-        musicList.map((music, i) => {
-          const findLike = music.MusicLikes.find(
-            (like) => like.user_address === user.address
-          );
-          return (
-            <>
-              <MusicCard
+      <div style={{marginTop:"50px"}} className="music-cards-container">
+        {musicList.length > 0 &&
+          musicList.map((music, i) => {
+            const findLike = music.MusicLikes.find(
+              (like) => like.user_address === user.address
+            );
+            return (
+              <>
+                <MainCard
+                  id={i}
+                  key={i}
+                  music={music}
+                  address={user.address}
+                  checkBox={findLike}
+                />
+                {/* <MusicCard
                 id={i}
                 key={i}
                 music={music}
                 address={user.address}
                 checkBox={findLike}
-              />
-            </>
-          );
-        })}
+              /> */}
+              </>
+            );
+          })}
+      </div>
     </div>
   );
 }

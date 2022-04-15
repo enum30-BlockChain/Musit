@@ -1,0 +1,3 @@
+.music-cards-container .music-card.playing {
+    background-color: var(--box1-color);
+}

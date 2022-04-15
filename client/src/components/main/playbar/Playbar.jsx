@@ -7,7 +7,6 @@ import PlayList from "./PlayList";
 import myImage from "./cd.png";
 
 export const Playbar = () => {
-  const [state, setstate] = useState("pause");
   const [percent, setPercent] = useState(0);
   const [count, setCount] = useState(0);
   const [palyeCount, setpalyeCount] = useState(0);
@@ -120,6 +119,17 @@ export const Playbar = () => {
 
   function nextSong() {
     let num = count;
+        num++;
+        if (num > likeMusic.length - 1) {
+          num = 0;
+        }
+        setCount(num);
+        loadSong(likeMusic[num]);
+        playSong();
+  }
+
+  function EndNextSong() {
+    let num = count;
     if(repeatState){// 여긴 한곡만재생
       console.log("한곡만재생중")
       loadSong(likeMusic[num]);
@@ -158,24 +168,30 @@ export const Playbar = () => {
   }
 
   function playSong() {
-    setstate("palying");
     musicContainer.classList.add("play");
-    playBtn.querySelector("i.fas").classList.remove("fa-play");
     playBtn.querySelector("i.fas").classList.add("fa-pause");
+    playBtn.querySelector("i.fas").classList.remove("fa-play");
     audio.play();
   }
   function pauseSong() {
-    setstate("pause");
     musicContainer.classList.remove("play");
     playBtn.querySelector("i.fas").classList.add("fa-play");
     playBtn.querySelector("i.fas").classList.remove("fa-pause");
     audio.pause();
   }
 
-  function playOnClikc() {
-    if (state === "pause") {
+  function playOnClick() {
+    const musicCardAudio = document.querySelector("#MusicCardAudio");
+    musicCardAudio.pause();
+    const playbarState = document.querySelector("i.fa-play");
+
+    // 
+    const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
+    if (musicCardPlaying) musicCardPlaying.classList.remove("playing")
+
+    if (playbarState) {
       playSong();
-    } else if (state === "palying") {
+    } else {
       pauseSong();
     }
   }
@@ -311,7 +327,7 @@ export const Playbar = () => {
             setSavePoint(savePoint + 1);
           }}
           onEnded={() => {
-            nextSong();
+            EndNextSong();
             palyCountAdd();
           }}
         />
@@ -325,7 +341,7 @@ export const Playbar = () => {
           <button
             id="play"
             className="action-btn action-btn-big"
-            onClick={playOnClikc}
+            onClick={playOnClick}
           >
             <i className="fas fa-play"></i>
           </button>
