@@ -31,7 +31,6 @@ export default function MyNFTList() {
 
   return (
     <>
-      <h1>My NFT LIST</h1>
       <div className="mynftlist">
         {/* <button onClick={mintingOnClick}> Minting </button> */}
         <div className="item-card-container">
