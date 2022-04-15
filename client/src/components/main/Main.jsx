@@ -27,10 +27,13 @@ import { Collection } from "./mypage/collection/Collection";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 import MyNFTList from "./mypage/mynftlist/MyNFTList";
 
-//Main-nav Store
-import { Store } from "./store/Store";
 import Music from "./music/Music";
 import Search from "./serach/Search";
+
+//Main-nav Store
+import { Store } from "./store/Store";
+import Ordinary from "./store/enroll/ordinary/Ordinary"
+import Auction from "./store/enroll/auction/Auction"
 
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
@@ -49,7 +52,6 @@ import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
 import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
 import Minting from "./minting/Minting";
-import Sell from "./store/sell/Sell";
 // import { ArtistsList } from "./artist/favorite/ArtistsList";
 
 export const Main = () => {
@@ -130,11 +132,12 @@ export const Main = () => {
             {/* Create */}
             <Route path="create" element={<Createmain />}>
               <Route index element={<Musicupload />} />
-              <Route path="nft/:ipfs_hash" element={<Minting />} />
+              <Route path="nft/: " element={<Minting />} />
             </Route>
 
-            <Route path="store/*" element={<Store />}>
-              <Route path="sell" element={<Sell />} />
+            <Route path="store" element={<Store />}>
+              <Route path="enroll/ordinary/:ipfs_hash" element={<Ordinary />} />
+              <Route path="enroll/auction/:ipfs_hash" element={<Auction />} />
             </Route>
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />

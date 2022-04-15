@@ -10,6 +10,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 export default function Genre(props) {
   const [genreRecommend, setGenreRecommend] = useState([]);
   const musicList = useSelector((state) => state.musicList).data;
+  const artistList = useSelector((state) => state.artistList).data;
   const likeMusic = useSelector((state) => state.likeMusic).data;
   const [genre, setGenre] = useState(0);
   const [viewGenreCard, setViewGenreCard] = useState(0);
@@ -24,7 +25,6 @@ export default function Genre(props) {
       accu[curr] = (accu[curr] || 0) + 1;
       return accu;
     }, []);
-
     const GenreRecommendHandler = () => {
       const topGenre = Object.entries(result)
         .sort(([, a], [, b]) => b - a)
@@ -44,6 +44,20 @@ export default function Genre(props) {
     }
     // console.log(result.sort((a,b)=>a-b))
   }, [likeMusic]);
+
+  // useEffect(() => {
+    const likeGenre = [...artistList];
+    const GenreBox = [];
+    likeGenre.forEach((e) => {
+      console.log(e.artist_name)
+      e.Music.forEach((e)=>{
+          console.log(e)
+        // GenreBox.push(...e.genre);
+      })
+    });
+   console.log(artistList)
+  // }, [artistList])
+  
 
   const postInfo = (music) => {
     props.setmusicmodal(music);

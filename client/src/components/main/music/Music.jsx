@@ -66,6 +66,7 @@ function MusicMain() {
   const musicList = useSelector((state) => state.musicList).data;
   const user = useSelector((state) => state.user);
 
+  const result = [...musicList].sort((a,b)=>a.title < b.title? -1 :a.title>b.title?1:0)
   return (
     <div>
       <nav
@@ -93,9 +94,9 @@ function MusicMain() {
           </li>
         </ul>
       </nav>
-      <div style={{ marginTop: "50px" }} className="music-cards-container">
-        {musicList.length > 0 &&
-          musicList.map((music, i) => {
+      <div style={{marginTop:"50px"}} className="music-cards-container">
+        {result.length > 0 &&
+          result.map((music, i) => {
             const findLike = music.MusicLikes.find(
               (like) => like.user_address === user.address
             );
