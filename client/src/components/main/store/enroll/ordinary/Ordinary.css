@@ -1,0 +1,64 @@
+.ordinary-layout {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
+  width: 1000px;
+}
+
+.ordinary-layout .ordinary-img-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 500px;
+}
+
+.ordinary-layout .ordinary-img-box img {
+  text-align: center;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 20px;
+  height: 400px;
+  width: 400px;
+  left: 0;
+}
+
+.ordinary-layout .divider {
+  width: 2px;
+  background-color: var(--alltime-white);
+}
+
+.ordinary-layout .ordinary-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.ordinary-layout .ordinary-content-container .content-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 10px 50px;
+  height: 150px;
+}
+
+.ordinary-layout .ordinary-content-container .content-box.description-box {
+  height: 200px;
+}
+
+.ordinary-layout .ordinary-content-container .content-box.description-box .content {
+  min-height: 130px;
+  overflow: auto;
+}
+
+.ordinary-layout .ordinary-content-container .content-box.description-box .ordinary-btn {
+  text-align: right;
+}
+
+
+.ordinary-layout .ordinary-content-container .title {
+  margin: 0;
+  color: var(--text-color);
+}
