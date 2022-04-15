@@ -19,8 +19,6 @@ import Createmain from "./create/Createmain";
 //Main-nav Mypage
 import { Mypage } from "./mypage/Mypage";
 import Userinformation from "./mypage/userinformation/Userinformation";
-import { Musicfavorite } from "./mypage/musicfavorite/Musicfavorite";
-import { Artistfavorite } from "./mypage/artistfavorite/Artistfavorite";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
@@ -34,8 +32,8 @@ import Search from "./serach/Search";
 
 //Main-nav Store
 import { Store } from "./store/Store";
-import Ordinary from "./store/enroll/ordinary/Ordinary"
-import Auction from "./store/enroll/auction/Auction"
+import Ordinary from "./store/enroll/ordinary/Ordinary";
+import Auction from "./store/enroll/auction/Auction";
 
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";

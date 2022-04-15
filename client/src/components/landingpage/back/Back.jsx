@@ -39,7 +39,12 @@ function Back() {
                 y="5"
                 fill="rgba(255,255,255,0.3)"
               />
-              <use xlinkHref="#gentle-wave" x="48" y="7" fill="#fff" />
+              <use
+                xlinkHref="#gentle-wave"
+                x="48"
+                y="7"
+                fill="rgba(255,255,255,0.8)"
+              />
             </g>
           </svg>
         </div>
