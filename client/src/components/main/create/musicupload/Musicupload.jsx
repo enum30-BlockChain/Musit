@@ -3,11 +3,20 @@ import { Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Createmain from "../Createmain";
+import { useDispatch, useSelector } from "react-redux";
+import { readArtistList } from "../../../../redux/actions/artistActions";
+import { createMusicData } from "../../../../redux/actions/musicActions";
+import { useNavigate } from "react-router-dom";
 
 // const { create } = require("ipfs-http-client");
 
 export const Musicupload = ({ address }) => {
-  const [genre, setgenre] = useState([
+  const artistList = useSelector(state => state.artistList)
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
     "Classical Music",
@@ -202,7 +211,6 @@ export const Musicupload = ({ address }) => {
                   <label id={index} key={index}>
                     {MusicType}
                     <input
-                      key={index}
                       type={"checkbox"}
                       name={"MusicType"}
                       value={MusicType}
