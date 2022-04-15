@@ -1,4 +1,4 @@
-import { Button, Skeleton } from "@mui/material";
+import { Button, Input, Skeleton } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -23,7 +23,7 @@ const Ordinary = () => {
 	return musicData.loading || !musicData.ipfs_hash ? (
 		<LoadingContent/>
 	) : musicData.error ? (
-		<>Error</>
+		<ErrorContent/>
 	) : (
     <>
       <SuccessContent musicData={musicData} ipfs_hash={ipfs_hash} />
@@ -33,13 +33,13 @@ const Ordinary = () => {
 
 const LoadingContent = () => {
   return (
-		<section className="minting-layout">
-			<div className="content-box minting-img-box">
+		<section className="ordinary-layout">
+			<div className="content-box ordinary-img-box">
         <h2>Album Cover Image</h2>
 				<Skeleton width={400} height={400} sx={{marginTop:"20px"}} variant="circular" />
 			</div>
 
-			<div className="minting-content-container">
+			<div className="ordinary-content-container">
 				<div className="content-box title-box">
 					<h2 className="title">Title</h2>
           <Skeleton width={400} height={50} variant="text" />
@@ -57,55 +57,63 @@ const LoadingContent = () => {
 	);
 }
 
+const ErrorContent = () => {
+  return (
+		<section className="auction-layout">
+			ERROR
+		</section>
+	);
+}
+
 const SuccessContent = ({musicData, ipfs_hash}) => {
   const artistData = useSelector((state) => state.artist);
   const mintingData = useSelector((state) => state.musitNFTMinting);
 	const dispatch = useDispatch();
 
-  const mintingOnClick = async () => {
-    const metadata = {
-			artist_address: artistData.user_address,
-			audio_ipfs_hash: ipfs_hash,
-		};
-
-    await dispatch(mintingMusitNFT(metadata))
-    await Ethers.minting(mintingData.data.path)
+  const enrollSellOnClick = async () => {
+    
   }
 
 	return (
-		<section className="minting-layout">
-			<div className="content-box minting-img-box">
-				<h2>Album Cover Image</h2>
+		<section className="ordinary-layout">
+			<div className="content-box ordinary-img-box">
 				<img src={musicData.img_file} />
+					<h2 className="title">{musicData.title}</h2>
+					<h3 className="artist-name">{musicData.artist_name}</h3>
 			</div>
-
-			<div className="minting-content-container">
-				<div className="content-box title-box">
-					<h2 className="title">Title</h2>
-					<p className="content">{musicData.title}</p>
-				</div>
+			<div className="divider"></div>
+			<div className="ordinary-content-container">
 				<div className="content-box audio-box">
 					<h2 className="title">Audio</h2>
 					<audio src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`} controls />
 				</div>
+				<div className="content-box price-box">
+					<h2 className="title">Selling Price</h2>
+					<div className="input-box">
+						<Input type="number" />
+						<div>ETH</div>
+					</div>
+				</div>
 				<div className="content-box description-box">
 					<h2 className="title">Description</h2>
 					<p className="content">{musicData.description}</p>
-					<div className="minting-btn">
-						<Button
-              onClick={mintingOnClick}
-							sx={{
-                color: "var(--black-light-color)",
-								backgroundColor: "var(--box1-color)",
-								":hover": {
-									background: "var(--primary-color)",
-									color: "var(--text-color)",
-								},
-							}}
-						>
-							Ordinary
-						</Button>
-					</div>
+				</div>
+
+
+				<div className="content-box ordinary-btn">
+					<Button
+						onClick={enrollSellOnClick}
+						sx={{
+							color: "var(--black-light-color)",
+							backgroundColor: "var(--box1-color)",
+							":hover": {
+								background: "var(--primary-color)",
+								color: "var(--text-color)",
+							},
+						}}
+					>
+						Sell
+					</Button>
 				</div>
 			</div>
 		</section>
