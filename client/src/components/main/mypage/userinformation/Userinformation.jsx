@@ -19,18 +19,6 @@ export default function Userinformation({}) {
   const user = useSelector((state) => state.user);
   const metamask = useSelector((state) => state.metamask);
 
-  useEffect(() => {
-    const links = document.querySelectorAll(".user-nav .nav-links li");
-    links.forEach((link) => {
-      link.addEventListener("click", () => {
-        links.forEach((link) => {
-          link.classList.remove("active");
-        });
-        link.classList.add("active");
-      });
-    });
-  }, []);
-
   const idonchange = (e) => {
     setSelect(e.target.value);
   };

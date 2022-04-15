@@ -6,9 +6,25 @@ import Userinformation from "./userinformation/Userinformation";
 export const Mypage = () => {
   const artist = useSelector((state) => state.artist);
 
+  useEffect(() => {
+    topNavToggle();
+  }, []);
+
+  const topNavToggle = () => {
+    const links = document.querySelectorAll(".top-nav .nav-links li");
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        links.forEach((link) => {
+          link.classList.remove("active");
+        });
+        link.classList.add("active");
+      });
+    });
+  };
+
   return (
     <div className="mypage">
-      <nav className="user-nav">
+      <nav className="top-nav">
         <ul className="nav-links">
           <li>
             <Link to="/mypage/favoritemusic">
