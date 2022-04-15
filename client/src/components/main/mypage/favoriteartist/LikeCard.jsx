@@ -10,9 +10,9 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleLikeMusic } from "../../../../../redux/actions/musicActions";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { toggleLikeArtist } from "../../../../redux/actions/artistActions";
 
 const Img = styled("img")({
   margin: "auto",
@@ -21,31 +21,31 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function AlbumCard({ song, setmusicmodal }) {
-  const [TotalLike, setTotalLike] = useState("");
-  const [findlike, setFindlike] = useState("");
-  const likeList = useSelector((state) => state.likeMusic);
+export default function LikeCard({ List, setmusicmodal }) {
+  const [TotalLike, setTotalLike] = useState();
+  const likeArtist = useSelector((state) => state.likeArtist).data;
+  const [artistlike, setArtistlike] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!likeList.loading) {
-      setFindlike(
-        likeList.data.filter((music) => {
-          return music.ipfs_hash.indexOf(song.ipfs_hash) > -1;
+    if (!likeArtist.loading) {
+      setArtistlike(
+        likeArtist.filter((artist) => {
+          return artist.artist_name.indexOf(List.artist_name) > -1;
         })
       );
     }
-  }, [likeList]);
+  }, [likeArtist]);
 
-  const postInfo = () => {
-    setmusicmodal(song);
+  //파업창 띄워주는 것
+  // const postInfo = () => {
+  //   props.setArtistModal(props.artist);
+  // };
+
+  const likeOnclick = async () => {
+    dispatch(toggleLikeArtist(List.artist_name));
   };
 
-  const likecountpost = async () => {
-    dispatch(toggleLikeMusic({ ipfs_hash: song.ipfs_hash }));
-  };
-
-  const sellmusic = () => {};
   return (
     <Paper
       sx={{
@@ -68,8 +68,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
             <Avatar
               alt="Remy Sharp"
               sx={{ width: 128, height: 128 }}
-              src={song.img_file}
-              onClick={postInfo}
+              src={List.img}
             />
           </ButtonBase>
         </Grid>
@@ -101,35 +100,31 @@ export default function AlbumCard({ song, setmusicmodal }) {
           </Grid>
           {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
           <Grid item>
-            {findlike.length === 0 ? (
+            {artistlike.length === 0 ? (
               <Box>
                 <FavoriteBorderIcon
-                  sx={{ color: pink[300] }}
-                  cursor="pointer"
-                  fontSize="large"
-                  value={song.ipfs_hash}
                   onClick={() => {
-                    likecountpost();
-                    setTotalLike();
-                    setFindlike(1);
+                    likeOnclick();
+                    setTotalLike(TotalLike + 1);
+                    setArtistlike(1);
                   }}
+                  sx={{ mr: 0.5 }}
+                  cursor="pointer"
+                  fontSize="small"
                 />
-                {TotalLike}
               </Box>
             ) : (
               <Box>
                 <FavoriteIcon
-                  sx={{ color: pink[300] }}
-                  cursor="pointer"
-                  fontSize="large"
-                  value={song.ipfs_hash}
                   onClick={() => {
-                    likecountpost();
-                    setTotalLike();
-                    setFindlike("");
+                    likeOnclick();
+                    setTotalLike(TotalLike - 1);
+                    setArtistlike("");
                   }}
+                  sx={{ mr: 0.5 }}
+                  cursor="pointer"
+                  fontSize="small"
                 />
-                {TotalLike}
               </Box>
             )}
           </Grid>

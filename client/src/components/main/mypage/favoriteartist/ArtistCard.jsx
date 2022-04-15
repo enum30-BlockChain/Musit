@@ -9,10 +9,12 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
+import LikeCard from "./LikeCard";
 
 export default function ArtistCard() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [musicmodal, setmusicmodal] = React.useState("");
 
   const dispatch = useDispatch();
   const likeArtist = useSelector((state) => state.likeArtist);
@@ -55,16 +57,7 @@ export default function ArtistCard() {
       createRow(
         index,
         List.artist_name,
-        List.img === "" ? (
-          <Avatar alt="Remy Sharp" sx={{ width: "50px", height: "50px" }} />
-        ) : (
-          <img
-            className="user-image"
-            alt="Remy Sharp"
-            src={List.img}
-            sx={{ width: 100, height: 100 }}
-          />
-        ),
+        <LikeCard List={List} setmusicmodal={setmusicmodal} />,
         List.likes
       )
     );

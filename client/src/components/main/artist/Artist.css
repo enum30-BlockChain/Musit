@@ -31,6 +31,8 @@
 .artistpage .artist-card .artist-info {
   display: flex;
   flex-direction: column;
+  text-overflow: ellipsis;
+  width: 250px;
 }
 
 .artistpage .artist-card .artist-image {

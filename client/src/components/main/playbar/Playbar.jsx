@@ -35,6 +35,9 @@ export const Playbar = () => {
         // console.log("유저가아닌사람")
       } else {
         // console.log("유저가 맞는 사람")
+        const audio = document.querySelector("#audio");
+        const title = document.getElementById("title");
+        const cover = document.getElementById("cover");
         if (user.recent_played === null) {
           // console.log("회원인데 리센트없는사람 ")
           //recent_played 없으면 바로 배열 0번째 ㄱ하고
@@ -45,9 +48,6 @@ export const Playbar = () => {
           audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
           cover.src = song.img_file;
         } else {
-          const audio = document.querySelector("#audio");
-          const title = document.getElementById("title");
-          const cover = document.getElementById("cover");
           // console.log("회원인데 리센트있는사람 ")
           // recent_played 있으면
           const arry = user.recent_played.split("-"); //receent찾아와서
