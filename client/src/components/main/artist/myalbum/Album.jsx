@@ -21,7 +21,7 @@ const Album = () => {
           {artist.loading ? (
             <CircularProgress />
           ) : (
-            <AlbumList sx={{ width: "50%" }} />
+            <AlbumList sx={{ width: "50%", zIndex: "0" }} />
           )}
         </div>
       </div>

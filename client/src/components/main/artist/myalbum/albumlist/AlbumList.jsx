@@ -9,12 +9,13 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useSelector } from "react-redux";
 import AlbumCard from "./AlbumCard";
-import { useLocation } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
+import AlbumModel from "./AlbumModel";
+import zIndex from "@mui/material/styles/zIndex";
 
 export default function AlbumList() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [musicmodal, setmusicmodal] = React.useState("");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -43,23 +44,8 @@ export default function AlbumList() {
     return { number, title, artist, albumimg };
   }
 
-  ///////////////////////////////////////////////////////////
-  const [findMusic, setFindMusic] = React.useState("");
-
   const artist = useSelector((state) => state.artist);
-  const musicList = useSelector((state) => state.musicList);
 
-  // React.useEffect(() => {
-  //   if (!musicList.loading) {
-  //     setFindMusic(
-  //       musicList.data.filter((like) => {
-  //         return like.Artist.artist_name.indexOf(artist.artist_name) > -1;
-  //       })
-  //     );
-  //   }
-  // }, [musicList]);
-
-  //row 안의 value값
   const rows = [];
 
   artist.Music &&
@@ -69,7 +55,7 @@ export default function AlbumList() {
           index,
           song.title,
           song.artist_name,
-          <AlbumCard song={song} />
+          <AlbumCard song={song} setmusicmodal={setmusicmodal} />
         )
       );
     });
@@ -125,6 +111,13 @@ export default function AlbumList() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {musicmodal && (
+        <AlbumModel
+          sx={{ display: "block" }}
+          musicmodal={musicmodal}
+          setmusicmodal={setmusicmodal}
+        />
+      )}
     </Paper>
   );
 }
