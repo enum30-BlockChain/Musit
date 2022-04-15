@@ -31,7 +31,7 @@ nav.side-nav.close ~ section {
   display: flex;
   justify-content: center;
   border-bottom: 2px solid var(--alltime-white);
-  /* padding-bottom: 10px; */
+  padding-bottom: 5px;
 }
 
 .main .top-nav .nav-links {
