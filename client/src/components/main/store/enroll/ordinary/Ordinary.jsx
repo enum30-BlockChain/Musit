@@ -1,4 +1,4 @@
-import { Button, Input, Skeleton } from "@mui/material";
+import { Button, Input, Skeleton, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -78,27 +78,27 @@ const SuccessContent = ({musicData, ipfs_hash}) => {
 		<section className="ordinary-layout">
 			<div className="content-box ordinary-img-box">
 				<img src={musicData.img_file} />
-					<h2 className="title">{musicData.title}</h2>
-					<h3 className="artist-name">{musicData.artist_name}</h3>
-			</div>
-			<div className="divider"></div>
-			<div className="ordinary-content-container">
-				<div className="content-box audio-box">
-					<h2 className="title">Audio</h2>
-					<audio src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`} controls />
+				<div className="title-box">
+					<div className="title">{musicData.title}</div>
+					<div className="artist-name">{musicData.artist_name}</div>
 				</div>
+				<audio src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`} controls />
+			</div>
+			<div className="ordinary-content-container">
 				<div className="content-box price-box">
 					<h2 className="title">Selling Price</h2>
 					<div className="input-box">
-						<Input type="number" />
-						<div>ETH</div>
+						<TextField
+							label="ETH"
+							type="number"
+							inputProps={{defaultValue:0.0001, min: 0.0001, step: 0.0001}}
+						/>
 					</div>
 				</div>
 				<div className="content-box description-box">
 					<h2 className="title">Description</h2>
 					<p className="content">{musicData.description}</p>
 				</div>
-
 
 				<div className="content-box ordinary-btn">
 					<Button

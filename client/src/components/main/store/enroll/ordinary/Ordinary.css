@@ -1,17 +1,22 @@
 .ordinary-layout {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 50px auto;
+  border-radius: 50px;
   width: 1000px;
+  height: 800px;
+  background-color: var(--box1-color);
 }
 
 .ordinary-layout .ordinary-img-box {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   text-align: center;
   width: 100%;
-  height: 500px;
+  height: 100%;
 }
 
 .ordinary-layout .ordinary-img-box img {
@@ -23,17 +28,23 @@
   width: 400px;
   left: 0;
 }
+.ordinary-layout .ordinary-img-box .title-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 150px;
+}
 
-.ordinary-layout .divider {
-  width: 2px;
-  background-color: var(--alltime-white);
+.ordinary-layout .ordinary-img-box h2 {
+  margin: 0;
 }
 
 .ordinary-layout .ordinary-content-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   width: 100%;
+  height: 100%;
 }
 
 .ordinary-layout .ordinary-content-container .content-box {
@@ -44,17 +55,31 @@
   height: 150px;
 }
 
+.ordinary-layout .ordinary-content-container .content-box.price-box .input-box{
+  display: flex;
+  align-items: center;
+}
+
 .ordinary-layout .ordinary-content-container .content-box.description-box {
-  height: 200px;
+  height: 400px;
 }
 
 .ordinary-layout .ordinary-content-container .content-box.description-box .content {
-  min-height: 130px;
+  min-height: 200px;
   overflow: auto;
 }
 
-.ordinary-layout .ordinary-content-container .content-box.description-box .ordinary-btn {
+.ordinary-layout .ordinary-content-container .content-box.ordinary-btn {
+  height: 50px;
   text-align: right;
+}
+
+.ordinary-layout .ordinary-content-container .content-box.ordinary-btn button {
+  height: 100%;
+  width: 300px;
+  border-radius: 30px;
+  font-size: 24px;
+  font-weight: 400;
 }
 
 
