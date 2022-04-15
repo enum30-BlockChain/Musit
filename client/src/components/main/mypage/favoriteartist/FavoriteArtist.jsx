@@ -1,7 +1,7 @@
 import React from "react";
 import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
-import ArtistCard from "./ArtistList";
+import ArtistCard from "./ArtistCard";
 
 const FavoriteArtist = () => {
   const likeArtist = useSelector((state) => state.likeArtist);

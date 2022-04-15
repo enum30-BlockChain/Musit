@@ -1,49 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import Grid from "@mui/material/Grid";
+import * as React from "react";
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import ButtonBase from "@mui/material/ButtonBase";
-import Avatar from "@mui/material/Avatar";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { pink } from "@mui/material/colors";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
-import { toggleLikeArtist } from "../../../../redux/actions/artistActions";
+import { Avatar } from "@mui/material";
+import LikeCard from "./LikeCard";
 
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
+export default function ArtistCard() {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [musicmodal, setmusicmodal] = React.useState("");
 
-export default function ArtistCard({ List, setArtistModal }) {
-  const [TotalLike, setTotalLike] = useState("");
-  const likeArtist = useSelector((state) => state.likeArtist).data;
-  const [artistlike, setArtistlike] = useState("");
   const dispatch = useDispatch();
+  const likeArtist = useSelector((state) => state.likeArtist);
 
-  useEffect(() => {
-    if (!likeArtist.loading) {
-      setArtistlike(
-        likeArtist.filter((artist) => {
-          return artist.artist_name.indexOf(List.artist_name) > -1;
-        })
-      );
-    }
-  }, [likeArtist]);
+  React.useEffect(() => {}, []);
 
-  // 파업창 띄워주는 것
-  const postInfo = () => {
-    console.log(List);
-    setArtistModal(List);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const likeOnclick = async () => {
-    dispatch(toggleLikeArtist(List.artist_name));
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
 
   ///////////////////////////////////////////////////////////////
@@ -73,16 +57,7 @@ export default function ArtistCard({ List, setArtistModal }) {
       createRow(
         index,
         List.artist_name,
-        List.img === "" ? (
-          <Avatar alt="Remy Sharp" sx={{ width: "50px", height: "50px" }} />
-        ) : (
-          <img
-            className="user-image"
-            alt="Remy Sharp"
-            src={List.img}
-            sx={{ width: 100, height: 100 }}
-          />
-        ),
+        <LikeCard List={List} setmusicmodal={setmusicmodal} />,
         List.likes
       )
     );
@@ -144,3 +119,9 @@ export default function ArtistCard({ List, setArtistModal }) {
       </Paper>
     );
 }
+/* <ArtistCard
+            sx={{ width: "50%" }}
+            key={index}
+            artist={artist}
+            address={address}
+          /> */
