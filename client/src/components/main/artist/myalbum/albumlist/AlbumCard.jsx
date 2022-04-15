@@ -20,7 +20,7 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function AlbumCard({ song }) {
+export default function AlbumCard({ song, setmusicmodal }) {
   const [TotalLike, setTotalLike] = useState("");
   const [findlike, setFindlike] = useState("");
   const likeList = useSelector((state) => state.likeMusic);
@@ -35,6 +35,11 @@ export default function AlbumCard({ song }) {
       );
     }
   }, [likeList]);
+
+  const postInfo = () => {
+    console.log(song);
+    setmusicmodal(song);
+  };
 
   const likecountpost = async () => {
     dispatch(toggleLikeMusic({ ipfs_hash: song.ipfs_hash }));
@@ -63,6 +68,7 @@ export default function AlbumCard({ song }) {
               alt="Remy Sharp"
               sx={{ width: 128, height: 128 }}
               src={song.img_file}
+              onClick={postInfo}
             />
           </ButtonBase>
         </Grid>

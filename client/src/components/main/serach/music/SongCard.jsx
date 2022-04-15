@@ -37,6 +37,7 @@ export default function SongCard(props) {
   }, [likeList]);
 
   const postInfo = () => {
+    console.log(props);
     props.setmusicmodal(props.music);
   };
 

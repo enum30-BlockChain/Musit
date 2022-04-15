@@ -17,7 +17,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import { toggleLikeMusic } from "../../../redux/actions/musicActions";
+import { toggleLikeMusic } from "../../../../../redux/actions/musicActions";
 
 const WallPaper = styled("div")({
   position: "absolute",
@@ -60,7 +60,7 @@ const Widget = styled("div")(({ theme }) => ({
   position: "absolute",
   top: "35%",
   left: "35%",
-  zIndex: 1,
+  zIndex: 10,
   backgroundColor:
     theme.palette.mode === "dark" ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.4)",
   backdropFilter: "blur(40px)",
@@ -86,7 +86,7 @@ const TinyText = styled(Typography)({
   letterSpacing: 0.2,
 });
 
-export default function MusicPlayerSlider(props) {
+export default function AlbumModel(props) {
   const audioPlayer = useRef();
   const theme = useTheme();
   const [duration, setDuration] = useState(0); // seconds
