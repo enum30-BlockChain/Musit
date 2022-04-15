@@ -140,15 +140,14 @@ export const Main = () => {
             <Route path="create" element={<Createmain />}>
               <Route path="musicupload" element={<Musicupload />} />
               <Route path="musicuploadlist" element={<Musicuploadlist />} />
-              {/* <Route path="nftuplaod" element={<Nftupload />} /> */}
               <Route path="nftupload/:ipfs_hash" element={<Minting />} />
               <Route path="uploadnftlist" element={<Nftuploadlist />} />
             </Route>
 
             <Route path="store/*" element={<Store />} />
+            <Route path="sell" element={<></>} />
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />
-            <Route path="minting/:ipfs_hash" element={<Minting />} />
           </Route>
         </Routes>
       </div>

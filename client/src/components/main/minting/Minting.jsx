@@ -64,7 +64,6 @@ const SuccessContent = ({musicData, ipfs_hash}) => {
   const mintingOnClick = async () => {
     const metadata = {
 			artist_address: artistData.user_address,
-			
 			audio_ipfs_hash: ipfs_hash,
 		};
 
