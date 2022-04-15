@@ -26,27 +26,9 @@ export default function Createmain() {
         <nav className="top-nav">
           <ul className="nav-links">
             <li>
-              <Link to="/create/musicupload">
+              <Link to="/create/">
                 <i className="uil uil-headphones-alt"></i>
                 <span className="link-name">Music file upload</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/create/musicuploadlist">
-                <i className="uil uil-headphones-alt"></i>
-                <spen className="link-name">Upload Musiclist</spen>
-              </Link>
-            </li>
-            <li>
-              <Link to="/create/nftuplaod">
-                <i className="uil uil-headphones-alt"></i>
-                <span className="link-name">NFT Upload</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/create/uploadnftlist">
-                <i className="uil uil-headphones-alt"></i>
-                <span className="link-name">Upload NFT list</span>
               </Link>
             </li>
           </ul>

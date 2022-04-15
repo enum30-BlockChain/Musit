@@ -1,7 +1,7 @@
 import "./Store.css"
 import React, { useEffect } from 'react'
 import Ethers from "../../../web3/Ethers";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { readMyNFTList } from "../../../redux/actions/musitNFTActions";
 
@@ -71,7 +71,7 @@ export const Store = () => {
 					</li>
 				</ul>
 			</nav>
-			
+			<Outlet/>
 		</div>
 	);
 }
