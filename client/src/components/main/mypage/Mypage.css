@@ -53,35 +53,3 @@
   height: 100%;
   border-radius: 50%;
 }
-
-.mypage .user-nav {
-  display: flex;
-  justify-content: center;
-  border-bottom: 2px solid var(--alltime-white);
-  padding-bottom: 10px;
-}
-
-.mypage .user-nav .nav-links {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 1000px;
-}
-
-.mypage .user-nav .nav-links li {
-  position: relative;
-}
-
-.mypage .user-nav .nav-links li :is(i, .link-name) {
-  font-size: 17px;
-  color: var(--alltime-white);
-  transition: var(--tran-03);
-}
-
-.user-nav .nav-links a:hover :is(i, .link-name) {
-  color: var(--primary-color);
-}
-
-.user-nav .nav-links a.active :is(i, .link-name) {
-  color: var(--primary-color);
-}
