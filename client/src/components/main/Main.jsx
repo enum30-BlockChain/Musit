@@ -36,8 +36,8 @@ import Music from "./music/Music";
 import Search from "./serach/Search";
 
 //Main-nav Artist page
-import Artistinfo from "./artist/artistinfo/Artistinfo";
 import { Artist } from "./artist/Artist";
+import Artistinfo from "./artist/artistinfo/Artistinfo";
 import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
 import Album from "./artist/myalbum/Album";
 // import Createnft from "./artist/createnft/Createnft";
