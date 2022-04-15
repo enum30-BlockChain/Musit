@@ -203,13 +203,23 @@ export default function Userinformation({}) {
             Submit
           </Button>
         ) : (
-          <button
-            className="uil uil-setting"
+          <Button
+            variant="contained"
+            sx={{
+              color: "var(--black-light-color)",
+              backgroundColor: "var(--box1-color)",
+              ":hover": {
+                background: "var(--primary-color)",
+                color: "var(--text-color)",
+              },
+            }}
             onClick={async () => {
               setVisible(!visible);
               await BaseOnClick();
             }}
-          />
+          >
+            Edit
+          </Button>
         )}
         <div className="setting-btn"></div>
       </div>

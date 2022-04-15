@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updateArtistData } from "../../../../redux/actions/artistActions";
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 
 export default function Artistinfo() {
   const [select, setSelect] = useState("");
@@ -22,18 +22,20 @@ export default function Artistinfo() {
     setSelect(e.target.value);
   };
 
+  const BaseOnClick = async () => {
+    setSelect(artist.artist_name);
+    setImg(artist.img);
+  };
+
   const NickNameOnClick = async () => {
-    if (select === "") {
-      setSelect(artist.artist_name);
-    }
-    const newimg = await postImg();
-    await dispatch(updateArtistData({ artist_name: select, img: newimg }));
+    let newImg = img !== artist.img ? await postImg() : img;
+    await dispatch(updateArtistData({ artist_name: select, img: newImg }));
   };
 
   const postImg = async () => {
     if (img !== "") {
       formData.append("img", img);
-      const url = "http://localhost:5000/files/imgupload";
+      const url = "http://localhost:5000/files/upload/img";
       const result = await axios.post(url, formData);
       return result.data;
     }
@@ -43,6 +45,8 @@ export default function Artistinfo() {
     setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
     setImg(e.target.files[0]);
   };
+
+  console.log(img);
 
   return (
     <>
@@ -84,13 +88,43 @@ export default function Artistinfo() {
             <span>{metamask.accounts[0]}</span>
             <h2 className="likes">Like</h2>
             <span>좋아요 : {artist.likes} </span>
-            <button
-              className="uil uil-setting"
-              onClick={async () => {
-                setVisible(!visible);
-                await NickNameOnClick();
-              }}
-            ></button>
+            {visible ? (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+                onClick={async () => {
+                  setVisible(!visible);
+                  await NickNameOnClick();
+                }}
+              >
+                Submit
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+                onClick={async () => {
+                  setVisible(!visible);
+                  await BaseOnClick();
+                }}
+              >
+                Edit
+              </Button>
+            )}
           </div>
         </div>
       </div>
