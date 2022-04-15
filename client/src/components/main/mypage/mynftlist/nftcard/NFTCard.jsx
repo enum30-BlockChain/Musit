@@ -10,6 +10,7 @@ const NFTCard = ({data}) => {
 		<>
 			<div className="item-box">
 				<Card className="item-card" onClick={handleOpen} sx={{ maxWidth: 345 }}>
+					
 					<CardMedia
 						component="img"
 						height="180"

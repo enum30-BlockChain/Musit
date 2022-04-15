@@ -126,6 +126,7 @@ export default class Metamask {
 					return new Response(accounts[0], message);
 				} else {
 					const message: string = "😖Wallet is disconnected.";
+					window.location.reload();
 					return new Response("", message);
 				}
 			});
@@ -139,9 +140,7 @@ export default class Metamask {
 				}
 			});
 
-			metamask.on("message", (e) => {
-				console.log(e);
-				
+			metamask.on("message", () => {				
 				window.location.reload();
 			})
 

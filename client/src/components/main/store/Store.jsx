@@ -28,6 +28,8 @@ export const Store = () => {
 	const selectedMusic = useSelector((state) => state.selectedMusic);
 	const dispatch = useDispatch()
 
+	
+
 	useEffect(() => {
 		loadMyNFTs()
 	}, [user.loading])
@@ -54,21 +56,25 @@ export const Store = () => {
 		}
 	}
 
-
   return (
 		<div className="store">
-			<nav className="store-nav">
+			<nav className="top-nav">
 				<ul className="nav-links">
 					<li>
-						<Link to="/store/mynfts">
-							<i className="uil uil-headphones"></i>
-							<span className="link-name"> MyNFTs</span>
+						<Link to="/store/nfts">
+							<i className="uil uil-google-play"></i>
+							<span className="link-name">Ordinary Market</span>
+						</Link>
+					</li>
+					<li>
+						<Link to="/store/auction">
+							<i className="uil uil-arrow-growth"></i>
+							<span className="link-name">Auction Market</span>
 						</Link>
 					</li>
 				</ul>
 			</nav>
-			<div className="title">Musit NFT Store</div>
-			<button onClick={mintingOnClick}>Minting</button>
+			
 		</div>
 	);
 }
