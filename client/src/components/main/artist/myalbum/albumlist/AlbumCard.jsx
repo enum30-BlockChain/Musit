@@ -11,7 +11,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { pink } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleLikeMusic } from "../../../../../redux/actions/musicActions";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Img = styled("img")({
   margin: "auto",
@@ -45,6 +46,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
     dispatch(toggleLikeMusic({ ipfs_hash: song.ipfs_hash }));
   };
 
+  const sellmusic = () => {};
   return (
     <Paper
       sx={{
@@ -131,6 +133,23 @@ export default function AlbumCard({ song, setmusicmodal }) {
                 {TotalLike}
               </Box>
             )}
+          </Grid>
+          <Grid>
+            <Link to="/artist/auctionupload">
+              <Button
+                variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+              >
+                sell
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Grid>
