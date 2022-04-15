@@ -4,7 +4,7 @@ import axios from "axios";
 import { Stack, Slider } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
-import myImage from "./cd.png";
+import myImage from "./retro.png";
 
 export const Playbar = () => {
   const [state, setstate] = useState("pause");
@@ -22,7 +22,6 @@ export const Playbar = () => {
   const cover = document.getElementById("cover");
   const progressContainer = document.getElementById("progress-container");
 
-
   // const userList = useSelector((state) => state.userList);
   const likeMusic = useSelector((state) => state.likeMusic).data;
   const user = useSelector((state) => state.user);
@@ -36,7 +35,7 @@ export const Playbar = () => {
       if (!user.address) {
         // console.log("유저가아닌사람")
       } else {
-        console.log("유저가 맞는 사람")
+        // console.log("유저가 맞는 사람")
         if (user.recent_played === null) {
           // console.log("회원인데 리센트없는사람 ")
           //recent_played 없으면 바로 배열 0번째 ㄱ하고
@@ -50,10 +49,10 @@ export const Playbar = () => {
           const audio = document.querySelector("#audio");
           const title = document.getElementById("title");
           const cover = document.getElementById("cover");
-          console.log("회원인데 리센트있는사람 ")
+          // console.log("회원인데 리센트있는사람 ")
           // recent_played 있으면
           const arry = user.recent_played.split("-"); //receent찾아와서
-          const songs =user.MusicLikes;
+          const songs = user.MusicLikes;
           const index = songs.findIndex((i) => i.ipfs_hash == arry[0]); //=한개쓰면 0,1만나오고 ==몇번째인지 나온다.
           setCount(index); //목록맞춰주기 다음으로 넘길때 오류 발생 안함
           if (index === -1) {
@@ -70,10 +69,11 @@ export const Playbar = () => {
             setpalyeCount(firstSetting.play_count);
             sethash(firstSetting.ipfs_hash);
             setTilte(firstSetting.title);
-            title.innerText = firstSetting.title ;
+            title.innerText = firstSetting.title;
             audio.src = `https://ipfs.infura.io/ipfs/${firstSetting.ipfs_hash}`;
             cover.src = firstSetting.img_file;
             setcurrentTime(arry[1]);
+            console.log(title);
           }
         }
       }
@@ -114,15 +114,54 @@ export const Playbar = () => {
     loadSong(likeMusic[num]);
     playSong();
   }
+
+  function shuffle(array) {
+    //목록 한번 셔플해줄꺼
+    array.sort(() => Math.random() - 0.5);
+  }
+
   function nextSong() {
     let num = count;
-    num++;
-    if (num > likeMusic.length - 1) {
-      num = 0;
+    if (repeatState) {
+      // 여긴 한곡만재생
+      console.log("한곡만재생중");
+      loadSong(likeMusic[num]);
+      playSong();
+    } else {
+      //한곡재생아닐때
+      num++;
+      if (num > likeMusic.length - 1) {
+        num = 0;
+      }
+      setCount(num);
+      loadSong(likeMusic[num]);
+      playSong();
     }
-    setCount(num);
-    loadSong(likeMusic[num]);
-    playSong();
+  }
+
+  const [repeatState, setRepeatState] = useState(false);
+
+  function changeRepeat() {
+    if (repeatState) {
+      console.log("repeatState : off");
+      setRepeatState(false);
+    } else {
+      console.log("repeatState : on");
+      setRepeatState(true);
+    }
+  }
+  function changeRandom() {
+    const firstSong = likeMusic[count]; //넣을꺼
+    //지금재생 찾아서 삭제
+    likeMusic.splice(
+      likeMusic.findIndex((music) => music.ipfs_hash === firstSong.ipfs_hash),
+      1
+    );
+    //섞어주고
+    shuffle(likeMusic);
+    //넣어주고
+    likeMusic.unshift(firstSong);
+    setCount(0);
   }
 
   function playSong() {
@@ -320,9 +359,13 @@ export const Playbar = () => {
           <PlayList playloadSong={playloadSong} />
         </div>
         <h4 id="title"></h4>
-        <div className="playbar-hidden">
-          <button>플레이바히든버튼입니다</button>
-        </div>
+
+        <li>
+          <i className="uil uil-repeat" onClick={changeRepeat}></i>
+        </li>
+        <li>
+          <i className="uil uil-arrow-random" onClick={changeRandom}></i>
+        </li>
       </div>
     </>
   );

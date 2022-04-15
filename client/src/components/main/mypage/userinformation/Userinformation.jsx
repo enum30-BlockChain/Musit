@@ -1,4 +1,4 @@
-import "./Userinformation";
+import "./Userinformation.css";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -98,16 +98,16 @@ export default function Userinformation({}) {
   ]);
 
   return (
-    <div className="user-card">
-      <div className="user-image">
+    <div className="userinfo-card">
+      <div className="userinfo-image">
         {user.img === "" ? (
-          <Avatar alt="Remy Sharp" sx={{ width: 200, height: 200 }} />
+          <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
         ) : (
-          <img
-            className="user-image"
+          <Avatar
+            className="userinfo-image"
             alt="Remy Sharp"
             src={user.img}
-            sx={{ width: 250, height: 250 }}
+            sx={{ width: 260, height: 260 }}
           />
         )}
         {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
@@ -125,7 +125,7 @@ export default function Userinformation({}) {
           </div>
         )}
       </div>
-      <div className="user-info">
+      <div className="userinfo-info">
         <h2 className="nickname">Nickname</h2>
 
         {visible ? (
@@ -158,7 +158,7 @@ export default function Userinformation({}) {
             <p>국가 : {user.nation}</p>
           </div>
         )}
-        <h2 className="Genre">Genre</h2>
+        <h2 className="userinfo-Genre">Genre</h2>
         {visible ? (
           <div>
             {genre.map((MusicType, index) => {

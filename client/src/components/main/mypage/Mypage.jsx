@@ -22,7 +22,6 @@ export const Mypage = () => {
               <span className="link-name"> Favorite Artist</span>
             </Link>
           </li>
-
           <li>
             <Link to="/mypage/subscription">
               <i className="uil uil-bitcoin-sign"></i>
@@ -39,7 +38,7 @@ export const Mypage = () => {
             <li>
               <Link to="/mypage/artistsubmit">
                 <i className="uil uil-music"></i>
-                <span className="link-name"> Artist Submit</span>
+                <span className="link-name"> Artist Register</span>
               </Link>
             </li>
           ) : (
@@ -47,14 +46,14 @@ export const Mypage = () => {
           )}
         </ul>
       </nav>
-      <div className="details">
+      <section className="details">
         <div className="detail1">
           <Userinformation />
         </div>
         <div className="detail2">
           <Outlet />
         </div>
-      </div>
+      </section>
     </div>
   );
 };

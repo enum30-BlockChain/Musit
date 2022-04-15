@@ -9,6 +9,7 @@ import {
   readMetamaskData,
 } from "../../../redux/actions/metamaskActions";
 import { searchingReducer } from "../../../redux/actions/searchingAction";
+
 export const Searchbar = () => {
   const [searching, setseraching] = useState("");
   const navigate = useNavigate(); //페이지이동하면서 정보담아서 옮길수있따
@@ -17,7 +18,7 @@ export const Searchbar = () => {
   const metamask = useSelector((state) => state.metamask);
 
   const connectOnclick = () => {
-    dispatch(connectMetamask())
+    dispatch(connectMetamask());
   };
 
   //[] 변하면 다시한번더 렌더링한다. uesEffect안의 함수 재실행
@@ -69,7 +70,10 @@ export const Searchbar = () => {
                 sx={{
                   color: "var(--black-light-color)",
                   backgroundColor: "var(--box1-color)",
-                  ":hover": {background:"var(--primary-color)", color:"var(--text-color)"},
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
                 }}
                 onClick={connectOnclick}
               >

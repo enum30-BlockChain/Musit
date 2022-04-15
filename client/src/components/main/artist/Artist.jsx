@@ -1,23 +1,13 @@
 import "./Artist.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import Artistinfo from "./artistinfo/Artistinfo";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, Button } from "@mui/material";
 import { updateArtistData } from "../../../redux/actions/artistActions";
 
 export const Artist = () => {
-  const [select, setSelect] = useState("");
-  const [visible, setVisible] = useState(false);
-  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
-  const [img, setImg] = useState("");
-
-  const formData = new FormData();
-  const artist = useSelector((state) => state.artist);
-  const metamask = useSelector((state) => state.metamask);
-
-  const dispatch = useDispatch();
-
   function navlinkOnClick(e) {
     console.log(e.target);
   }
@@ -55,8 +45,6 @@ export const Artist = () => {
     setSelect(artist.artist_name);
     setImg(artist.img);
   };
-
-  console.log(artist);
 
   return (
     <>
@@ -139,13 +127,7 @@ export const Artist = () => {
             </li>
 
             <li>
-              <Link to="/artist/createnft">
-                <i className="uil uil-favorite"></i>
-                <span className="link-name">Create NFT</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/artist/myalbum">
+              <Link to="/artist/myupload">
                 <i className="uil uil-favorite"></i>
                 <span className="link-name">My Album</span>
               </Link>
@@ -158,10 +140,14 @@ export const Artist = () => {
             </li>
           </ul>
         </nav>
-
-        <div className="detail">
-          <Outlet />
-        </div>
+        <section className="artist-details">
+          <div className="artist-detail1">
+            <Artistinfo />
+          </div>
+          <div className="artist-detail2">
+            <Outlet />
+          </div>
+        </section>
       </div>
     </>
   );
