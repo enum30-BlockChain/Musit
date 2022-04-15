@@ -104,10 +104,12 @@ body.dark .side-nav .nav-links li a:hover:before {
 
 .side-nav .nav-links li a:hover :is(i, .link-name) {
   color: var(--primary-color);
+  font-size: 20px;
 }
 
 .side-nav .nav-links li.active :is(i, .link-name) {
   color: var(--primary-color);
+  font-size: 20px;
 }
 
 body.dark .side-nav .nav-links li a:hover :is(i, .link-name) {

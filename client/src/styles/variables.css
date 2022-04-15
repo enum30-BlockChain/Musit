@@ -1,11 +1,11 @@
 :root {
   /* ===== Colors ===== */
   --primary-color: rgb(241, 164, 63);
-  --secondary-color: rgb(241, 164, 63);
+  --secondary-color: rgb(85, 81, 164);
   --panel-color: linear-gradient(
     60deg,
-    rgb(250, 180, 89) 0%,
-    rgb(85, 81, 164) 100%
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
   );
   --text-color: #000;
   --black-light-color: rgb(0, 0, 0);
@@ -22,6 +22,9 @@
   --playbar-base-color: rgb(117, 113, 113);
 
   /* ====== Transition ====== */
+  --tran-02: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
   --tran-05: all 0.5s ease;
 }
 

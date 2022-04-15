@@ -52,7 +52,6 @@ import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
 import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
 import Minting from "./minting/Minting";
-import Test from "./store/Test";
 // import { ArtistsList } from "./artist/favorite/ArtistsList";
 
 export const Main = () => {
@@ -137,7 +136,6 @@ export const Main = () => {
             </Route>
 
             <Route path="store" element={<Store />}>
-              <Route path="test" element={<Test/>}/>
               <Route path="enroll/ordinary/:ipfs_hash" element={<Ordinary />} />
               <Route path="enroll/auction/:ipfs_hash" element={<Auction />} />
             </Route>

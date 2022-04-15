@@ -75,46 +75,27 @@ const SuccessContent = ({musicData, ipfs_hash}) => {
   }
 
 	return (
-		<section className="ordinary-layout">
-			<div className="content-box ordinary-img-box">
-				<img src={musicData.img_file} />
-				<div className="title-box">
-					<div className="title">{musicData.title}</div>
-					<div className="artist-name">{musicData.artist_name}</div>
-				</div>
-				<audio src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`} controls />
+		<section className="ordinary-container">
+			<div className="image-box">
+				<img src={musicData.img_file} alt="" />
 			</div>
-			<div className="ordinary-content-container">
-				<div className="content-box price-box">
-					<h2 className="title">Selling Price</h2>
-					<div className="input-box">
-						<TextField
-							label="ETH"
-							type="number"
-							inputProps={{defaultValue:0.0001, min: 0.0001, step: 0.0001}}
-						/>
-					</div>
-				</div>
-				<div className="content-box description-box">
-					<h2 className="title">Description</h2>
-					<p className="content">{musicData.description}</p>
+			<div className="left-box">
+				<div className="title-box">
+					<h2>Title</h2>
+					<h1>{musicData.title}</h1>
 				</div>
 
-				<div className="content-box ordinary-btn">
-					<Button
-						onClick={enrollSellOnClick}
-						sx={{
-							color: "var(--black-light-color)",
-							backgroundColor: "var(--box1-color)",
-							":hover": {
-								background: "var(--primary-color)",
-								color: "var(--text-color)",
-							},
-						}}
-					>
-						Sell
-					</Button>
+				<div className="genre-box">
+					<h2>Genre</h2>
+					<h1>{musicData.genre}</h1>
 				</div>
+
+				<div className="audio-box">
+					<audio src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`} controls></audio>
+				</div>
+			</div>
+			<div className="right-box">
+
 			</div>
 		</section>
 	);

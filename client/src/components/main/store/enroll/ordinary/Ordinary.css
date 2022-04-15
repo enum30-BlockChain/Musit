@@ -1,84 +1,86 @@
-.ordinary-layout {
+:root {
+  --layout-bg-color: #eaeaea;
+}
+
+.ordinary-container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px auto;
   border-radius: 50px;
-  width: 1000px;
-  height: 800px;
-  background-color: var(--box1-color);
+  width: 90%;
+  height: 70%;
+  background-color: var(--layout-bg-color);
 }
 
-.ordinary-layout .ordinary-img-box {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-}
-
-.ordinary-layout .ordinary-img-box img {
-  text-align: center;
+.ordinary-container .image-box {
+  position: absolute;
+  top: -100px;
+  left: 100px;
+  background-color: var(--primary-color);
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  object-fit: cover;
-  margin: 20px;
-  height: 400px;
-  width: 400px;
+  overflow: hidden;
+  z-index: 30;
+}
+
+.ordinary-container .image-box img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.ordinary-container .left-box {
+  position: absolute;
+  top: 200px;
   left: 0;
-}
-
-
-.ordinary-layout .ordinary-img-box h2 {
-  margin: 0;
-}
-
-.ordinary-layout .ordinary-content-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.ordinary-layout .ordinary-content-container .content-box {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin: 10px 50px;
-  height: 150px;
-}
-
-.ordinary-layout .ordinary-content-container .content-box.price-box .input-box{
-  display: flex;
   align-items: center;
+  border-bottom-left-radius: 50px;
+  width: 500px;
+  height: calc(100% - 200px);
 }
 
-.ordinary-layout .ordinary-content-container .content-box.description-box {
-  height: 400px;
-}
-
-.ordinary-layout .ordinary-content-container .content-box.description-box .content {
-  min-height: 200px;
-  overflow: auto;
-}
-
-.ordinary-layout .ordinary-content-container .content-box.ordinary-btn {
-  height: 50px;
-  text-align: right;
-}
-
-.ordinary-layout .ordinary-content-container .content-box.ordinary-btn button {
-  height: 100%;
+.ordinary-container .left-box div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 300px;
-  border-radius: 30px;
-  font-size: 24px;
-  font-weight: 400;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #d8d8d8;
 }
 
+.ordinary-container .left-box .title-box :is(h1, h2) {
+  display: inline-block;
+}
 
-.ordinary-layout .ordinary-content-container .title {
-  margin: 0;
-  color: var(--text-color);
+.ordinary-container .left-box h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.ordinary-container .left-box h2 {
+  color: var(--black-light-color);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ordinary-container .left-box .audio-box {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+.ordinary-container .left-box .audio-box audio {
+  border: 1px solid var(--primary-color);
+  border-radius: 20px;
 }
