@@ -39,7 +39,7 @@ export default function MusicCard() {
     { id: "artist", label: "Artist", minWidth: 120 },
     {
       id: "playtime",
-      label: "Music Play",
+      label: "Play Count",
       minWidth: 120,
     },
     {
@@ -64,7 +64,7 @@ export default function MusicCard() {
         // <LikeSongCard address={address} favor={favor} />,
         favor.title,
         favor.artist_name,
-        favor.play_time,
+        favor.play_count,
         <audio
           src={`https://ipfs.infura.io/ipfs/${favor.ipfs_hash}`}
           controls
@@ -73,19 +73,14 @@ export default function MusicCard() {
     );
   });
 
-  // if (likeMusic.artist_name == null) {
-  //   <div>loding</div>;
-  //   if (likeMusic.artist_name == false) {
-  //     return <div>실패</div>;
-  //   }
-  // }
+  console.log(likeMusic.data);
 
   return (
     <Paper
       className="table-container"
       sx={{ width: "100%", overflow: "hidden" }}
     >
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 650 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

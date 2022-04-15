@@ -38,7 +38,6 @@ export default function AlbumCard({ song, setmusicmodal }) {
   }, [likeList]);
 
   const postInfo = () => {
-    console.log(song);
     setmusicmodal(song);
   };
 
@@ -135,7 +134,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
             )}
           </Grid>
           <Grid>
-            <Link to="/artist/auctionupload">
+            <Link to="/">
               <Button
                 variant="contained"
                 sx={{

@@ -46,7 +46,11 @@ export default function Artistinfo() {
     setImg(e.target.files[0]);
   };
 
-  console.log(img);
+  const sliceAddress =
+    metamask.accounts[0] &&
+    metamask.accounts[0].substr(0, 5) +
+      metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
+      "...";
 
   return (
     <>
@@ -85,7 +89,7 @@ export default function Artistinfo() {
               </div>
             )}
             <h2 className="address">Address</h2>
-            <span>{metamask.accounts[0]}</span>
+            <span>{sliceAddress}</span>
             <h2 className="likes">Like</h2>
             <span>좋아요 : {artist.likes} </span>
             {visible ? (

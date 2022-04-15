@@ -2,8 +2,7 @@ import "./FavoriteArtist.css";
 import React from "react";
 import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
-import ArtistCard from "./ArtistCard";
-import { height } from "@mui/system";
+import ArtistCard from "./ArtistList";
 
 const FavoriteArtist = () => {
   const likeArtist = useSelector((state) => state.likeArtist);
@@ -14,7 +13,7 @@ const FavoriteArtist = () => {
         {likeArtist.loading ? (
           <CircularProgress />
         ) : (
-          <ArtistCard sx={{ width: "100%", height: "100%" }} />
+          <ArtistCard sx={{ width: "100%" }} />
         )}
       </div>
     </div>

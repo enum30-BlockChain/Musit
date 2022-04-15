@@ -85,6 +85,12 @@ export default function Userinformation({}) {
     "Dance",
   ]);
 
+  const sliceAddress =
+    metamask.accounts[0] &&
+    metamask.accounts[0].substr(0, 5) +
+      metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
+      "...";
+
   return (
     <div className="userinfo-card">
       <div className="userinfo-image">
@@ -130,7 +136,7 @@ export default function Userinformation({}) {
           <p>{user.nickname}</p>
         )}
         <h2 className="address">Address</h2>
-        <span>{metamask.accounts[0]}</span>
+        <span>{sliceAddress}</span>
         <h2 className="subscription">Subscription</h2>
         <span>{user.subscription}월이용권 </span>
         {visible ? (
