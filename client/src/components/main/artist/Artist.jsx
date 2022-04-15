@@ -2,8 +2,6 @@ import "./Artist.css";
 import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import Artistinfo from "./artistinfo/Artistinfo";
-import axios from "axios";
-import { updateArtistData } from "../../../redux/actions/artistActions";
 
 export const Artist = () => {
   useEffect(() => {

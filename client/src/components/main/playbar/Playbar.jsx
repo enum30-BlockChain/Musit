@@ -72,7 +72,6 @@ export const Playbar = () => {
             audio.src = `https://ipfs.infura.io/ipfs/${firstSetting.ipfs_hash}`;
             cover.src = firstSetting.img_file;
             setcurrentTime(arry[1]);
-            console.log(title);
           }
         }
       }
@@ -189,7 +188,7 @@ export const Playbar = () => {
 
   function playOnClick() {
     const musicCardAudio = document.querySelector("#MusicCardAudio");
-    musicCardAudio.pause();
+    if(musicCardAudio)musicCardAudio.pause();
     const playbarState = document.querySelector("i.fa-play");
 
     // 

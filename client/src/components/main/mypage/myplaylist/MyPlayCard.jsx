@@ -49,8 +49,8 @@ export default function MyplayCard() {
     { id: "music", label: "Music Title", minWidth: 120 },
     { id: "artist", label: "Artist", minWidth: 120 },
     {
-      id: "playtime",
-      label: "Music Play",
+      id: "playcount",
+      label: "Music Count",
       minWidth: 120,
     },
     {
@@ -61,8 +61,8 @@ export default function MyplayCard() {
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, albumcover, music, artist, playtime, audio) {
-    return { number, albumcover, music, artist, playtime, audio };
+  function createRow(number, albumcover, music, artist, playcount, audio) {
+    return { number, albumcover, music, artist, playcount, audio };
   }
 
   //row 안의 value값
