@@ -14,7 +14,6 @@ import { Playbar } from "./playbar/Playbar";
 
 //Main-nav
 import Musiclist from "./musiclist/Musiclist";
-import Auctionmarket from "./auctionmarket/Auctionmarket";
 import Createmain from "./create/Createmain";
 
 //Main-nav Mypage
@@ -30,10 +29,13 @@ import { Collection } from "./mypage/collection/Collection";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 import MyNFTList from "./mypage/mynftlist/MyNFTList";
 
-//Main-nav Store
-import { Store } from "./store/Store";
 import Music from "./music/Music";
 import Search from "./serach/Search";
+
+//Main-nav Store
+import { Store } from "./store/Store";
+import Ordinary from "./store/enroll/ordinary/Ordinary"
+import Auction from "./store/enroll/auction/Auction"
 
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
@@ -45,9 +47,6 @@ import Auctionupload from "./artist/auctionupload/Auctionupload";
 
 //Main-nav Create
 import { Musicupload } from "./create/musicupload/Musicupload";
-import Musicuploadlist from "./create/musicuploadlist/Musicuploadlist";
-import Nftupload from "./create/nftupload/Nftupload";
-import Nftuploadlist from "./create/nftuploadlist/Nftuploadlist";
 
 import RegisterUser from "./register/RegisterUser";
 
@@ -92,10 +91,6 @@ export const Main = () => {
           <Route path="/">
             {/* Main navbar */}
             <Route path="musiclist" element={<Musiclist />} />
-
-            {/* <Route path="store/*" element={<Store />} /> */}
-            <Route path="auctionmarket" element={<Auctionmarket />} />
-
             <Route index element={<Dashboard />} />
             <Route
               path="mypage"
@@ -138,17 +133,16 @@ export const Main = () => {
 
             {/* Create */}
             <Route path="create" element={<Createmain />}>
-              <Route path="musicupload" element={<Musicupload />} />
-              <Route path="musicuploadlist" element={<Musicuploadlist />} />
-              {/* <Route path="nftuplaod" element={<Nftupload />} /> */}
-              <Route path="nftupload/:ipfs_hash" element={<Minting />} />
-              <Route path="uploadnftlist" element={<Nftuploadlist />} />
+              <Route index element={<Musicupload />} />
+              <Route path="nft/: " element={<Minting />} />
             </Route>
 
-            <Route path="store/*" element={<Store />} />
+            <Route path="store" element={<Store />}>
+              <Route path="enroll/ordinary/:ipfs_hash" element={<Ordinary />} />
+              <Route path="enroll/auction/:ipfs_hash" element={<Auction />} />
+            </Route>
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />
-            <Route path="minting/:ipfs_hash" element={<Minting />} />
           </Route>
         </Routes>
       </div>

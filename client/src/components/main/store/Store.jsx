@@ -1,26 +1,9 @@
 import "./Store.css"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Ethers from "../../../web3/Ethers";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { readMyMintedNFTList, readMyNFTList } from "../../../redux/actions/musitNFTActions";
-
-
-
-function createTestArray (num) {
-  const array = []
-  for (let i = 0; i < num; i++) {
-    const testData = {
-			title: `title-${i}`,
-			genre: `genre-${i}`,
-			description: `descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescr-${i}`,
-			image: `image-${i}`,
-		};
-    array.push(testData)
-  }
-  return array
-}
-
+import { readMyNFTList } from "../../../redux/actions/musitNFTActions";
 
 export const Store = () => {
 	const user = useSelector((state) => state.user);
@@ -28,7 +11,21 @@ export const Store = () => {
 	const selectedMusic = useSelector((state) => state.selectedMusic);
 	const dispatch = useDispatch()
 
-	
+	const topNavToggle = () => {
+    const links = document.querySelectorAll(".top-nav .nav-links li");
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        links.forEach((link) => {
+          link.classList.remove("active");
+        });
+        link.classList.add("active");
+      });
+    });
+  };
+
+	useEffect(() => {
+    topNavToggle();
+  }, []);
 
 	useEffect(() => {
 		loadMyNFTs()
@@ -74,7 +71,7 @@ export const Store = () => {
 					</li>
 				</ul>
 			</nav>
-			
+			<Outlet/>
 		</div>
 	);
 }

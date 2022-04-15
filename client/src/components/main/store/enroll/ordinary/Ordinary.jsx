@@ -2,12 +2,13 @@ import { Button, Skeleton } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { readMusicData } from "../../../redux/actions/musicActions";
-import { mintingMusitNFT } from "../../../redux/actions/musitNFTActions";
-import Ethers from "../../../web3/Ethers";
-import "./Minting.css";
+import { readMusicData } from "../../../../../redux/actions/musicActions";
+import { mintingMusitNFT } from "../../../../../redux/actions/musitNFTActions";
+import Ethers from "../../../../../web3/Ethers";
 
-const Minting = () => {
+import "./Ordinary.css";
+
+const Ordinary = () => {
 	let { ipfs_hash } = useParams();
 	const dispatch = useDispatch();
 	const musicData = useSelector((state) => state.music);
@@ -102,7 +103,7 @@ const SuccessContent = ({musicData, ipfs_hash}) => {
 								},
 							}}
 						>
-							Minting
+							Ordinary
 						</Button>
 					</div>
 				</div>
@@ -111,4 +112,4 @@ const SuccessContent = ({musicData, ipfs_hash}) => {
 	);
 };
 
-export default Minting;
+export default Ordinary;
