@@ -1,0 +1,245 @@
+:root {
+  --point-color: #616186;
+  --content-bg-color1: #eaeaea;
+  --content-bg-color2: #d8d8d8;
+  --content-bg-color3: #c1c1c1;
+  --notice-bg-color: #e5cc89;
+}
+
+.enroll-container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  width: 80%;
+  height: 70%;
+  background-color: var(--point-color);
+}
+
+/* 이미지 박스 */
+.enroll-container .image-box {
+  position: absolute;
+  top: -100px;
+  left: 50px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 5px solid var(--content-bg-color1);
+  background-color: var(--content-bg-color1);
+  overflow: hidden;
+  z-index: 30;
+}
+
+.enroll-container .image-box img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  min-width: 100%;
+  height: 100%;
+}
+
+/*** 왼쪽 컨테이너 : 제목, 아티스트 ***/
+.enroll-container .left-container {
+  position: absolute;
+  top: 200px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom-left-radius: 50px;
+  width: 400px;
+  height: calc(100% - 200px);
+}
+
+.enroll-container .left-container > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--content-bg-color1);
+}
+
+.enroll-container .left-container h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.enroll-container .left-container h2 {
+  color: var(--black-light-color);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.enroll-container .left-container .genre-box h1{
+  max-height: 70px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.enroll-container .left-container .audio-box {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.enroll-container .left-container .audio-box audio {
+  background-color: var(--content-bg-color1);
+  border-radius: 10px;
+}
+.enroll-container .left-container .audio-box audio::-webkit-media-controls-panel {
+  background-color: var(--content-bg-color1);
+}
+
+
+/*** 오른쪽 컨테이너 ***/
+.enroll-container .right-container{
+  position: absolute;
+  left: 400px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--content-bg-color1);
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  width: calc(100% - 400px);
+  height: 100%;
+  padding: 36px 0;
+}
+
+
+/* 상세정보 컨테이너 */
+.enroll-container .right-container .info-container {
+  /* background-color: var(--content-bg-color2); */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+}
+
+.enroll-container .right-container .info-container > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 330px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--content-bg-color2);
+  margin-top: 20px;
+}
+
+
+.enroll-container .right-container .info-container h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.enroll-container .right-container .info-container h2 {
+  color: var(--black-light-color);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.enroll-container .right-container .info-container p {
+  color: var(--black-light-color);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.enroll-container .right-container .info-container .description-box {
+  height: 173px;
+}
+.enroll-container .right-container .info-container .description-box p {
+  flex: 1;
+  overflow: auto;
+  word-break: break-all;
+  white-space: normal;
+}
+
+/* 팔기/경매 입력 컨테이너 */
+.enroll-container .right-container .input-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding-right: 50px;
+}
+
+.enroll-container .right-container .input-container .btn-group {
+  display: flex;
+  justify-content: space-between;
+  width: 160px;
+  height: 35px;
+}
+
+.enroll-container .right-container .input-container .btn-group button {
+  width: 80px;
+  color: var(--black-light-color);
+  background-color: var(--content-bg-color3);
+  height: 100%;
+  border: none;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.enroll-container .right-container .input-container .btn-group button:first-child {
+  background-color: var(--content-bg-color2);
+}
+
+.enroll-container .right-container .input-container .btn-group button:hover {
+  background-color: var(--point-color);
+  color: #fff;
+}
+
+.enroll-container .right-container .input-container .input-form{
+  background-color: var(--content-bg-color2);
+  height: 100%;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  padding: 15px;
+}
+
+.enroll-container .right-container .input-container .input-form :is(.ordinary-form, .auction-form) > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 330px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--content-bg-color1);
+}
+
+.enroll-container .right-container .input-container .input-form h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.enroll-container .right-container .input-container .input-form h2 {
+  color: var(--black-light-color);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.enroll-container .right-container .input-container .input-form p {
+  color: var(--black-light-color);
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.enroll-container .right-container .input-container .input-form .ordinary-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.enroll-container .right-container .input-container .input-form .ordinary-form .notice-box {
+  background-color: var(--notice-bg-color);
+}

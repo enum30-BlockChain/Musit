@@ -1,14 +1,14 @@
 :root {
   /* ===== Colors ===== */
-  --primary-color: rgb(241, 164, 63);
-  --secondary-color: rgb(241, 164, 63);
+  --primary-color: rgb(241, 185, 112);
+  --secondary-color: rgb(85, 81, 164);
   --panel-color: linear-gradient(
     60deg,
-    rgb(250, 180, 89) 0%,
-    rgb(28, 26, 65) 100%
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
   );
   --text-color: #000;
-  --black-light-color: rgb(0, 0, 0);
+  --black-light-color: #333;
   --alltime-white: white;
   --border-color: #e6e5e5;
   --toggle-color: rgb(117, 113, 113);
@@ -22,17 +22,20 @@
   --playbar-base-color: rgb(117, 113, 113);
 
   /* ====== Transition ====== */
+  --tran-02: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
   --tran-05: all 0.5s ease;
 }
 
 body.dark {
   /* ===== Dark Colors ===== */
   --alltime-white: white;
-  --primary-color: rgb(241, 164, 63);
-  --secondary-color: rgb(241, 164, 63);
+  --primary-color: #eee;
+  --secondary-color: rgb(85, 81, 164);
   --panel-color: #252626;
   --text-color: rgb(255, 255, 255);
-  --black-light-color: #ccc;
+  --black-light-color: #333;
   --border-color: #4d4c4c;
   --toggle-color: rgb(173, 173, 173);
   --box1-color: rgba(255, 255, 255, 0.5);

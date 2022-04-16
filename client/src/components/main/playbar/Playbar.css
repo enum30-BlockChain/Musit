@@ -1,6 +1,17 @@
 .music-container * {
   color: var(--playbar-base-color);
 }
+
+.music-container .nowplaying {
+  width: 330px;
+  margin-right: 20px;
+  display: flex;
+}
+.music-container .playbaricon {
+  display: flex;
+  font-size: 25px;
+}
+
 .music-container {
   background-color: rgba(243, 243, 243, 0.5);
   display: flex;

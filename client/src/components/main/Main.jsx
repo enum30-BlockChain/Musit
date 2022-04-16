@@ -136,8 +136,7 @@ export const Main = () => {
             </Route>
 
             <Route path="store" element={<Store />}>
-              <Route path="enroll/ordinary/:ipfs_hash" element={<Ordinary />} />
-              <Route path="enroll/auction/:ipfs_hash" element={<Auction />} />
+              <Route path="enroll/:ipfs_hash" element={<Ordinary />} />
             </Route>
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />

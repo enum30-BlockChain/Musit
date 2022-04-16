@@ -35,6 +35,9 @@ export const Playbar = () => {
         // console.log("유저가아닌사람")
       } else {
         // console.log("유저가 맞는 사람")
+        const audio = document.querySelector("#audio");
+        const title = document.getElementById("title");
+        const cover = document.getElementById("cover");
         if (user.recent_played === null) {
           // console.log("회원인데 리센트없는사람 ")
           //recent_played 없으면 바로 배열 0번째 ㄱ하고
@@ -45,9 +48,6 @@ export const Playbar = () => {
           audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
           cover.src = song.img_file;
         } else {
-          const audio = document.querySelector("#audio");
-          const title = document.getElementById("title");
-          const cover = document.getElementById("cover");
           // console.log("회원인데 리센트있는사람 ")
           // recent_played 있으면
           const arry = user.recent_played.split("-"); //receent찾아와서
@@ -120,13 +120,13 @@ export const Playbar = () => {
 
   function nextSong() {
     let num = count;
-        num++;
-        if (num > likeMusic.length - 1) {
-          num = 0;
-        }
-        setCount(num);
-        loadSong(likeMusic[num]);
-        playSong();
+    num++;
+    if (num > likeMusic.length - 1) {
+      num = 0;
+    }
+    setCount(num);
+    loadSong(likeMusic[num]);
+    playSong();
   }
 
   function EndNextSong() {
@@ -188,12 +188,14 @@ export const Playbar = () => {
 
   function playOnClick() {
     const musicCardAudio = document.querySelector("#MusicCardAudio");
-    if(musicCardAudio)musicCardAudio.pause();
+    if (musicCardAudio) musicCardAudio.pause();
     const playbarState = document.querySelector("i.fa-play");
 
-    // 
-    const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
-    if (musicCardPlaying) musicCardPlaying.classList.remove("playing")
+    //
+    const musicCardPlaying = document.querySelector(
+      ".music-cards-container .music-card.playing"
+    );
+    if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
 
     if (playbarState) {
       playSong();
@@ -363,24 +365,29 @@ export const Playbar = () => {
           alignItems="center"
         ></Stack>
 
-        <div className="left-right">
+        <div className="volume-control">
           <Slider
             aria-label="Volume"
             placeholder="Volume"
             value={value}
             onChange={handleChange}
-            sx={{ width: 250 }}
+            sx={{ width: 220, height: 5 }}
           />
-          <PlayList playloadSong={playloadSong} />
+          <div className="nowplaying">
+            <h3>Now playing :</h3>
+            <h3 id="title"></h3>
+          </div>
         </div>
-        <h4 id="title"></h4>
+        <div className="playbaricon">
+          <li>
+            <i className="uil uil-repeat" onClick={changeRepeat}></i>
+          </li>
+          <li>
+            <i className="uil uil-arrow-random" onClick={changeRandom}></i>
+          </li>
+        </div>
 
-        <li>
-          <i className="uil uil-repeat" onClick={changeRepeat}></i>
-        </li>
-        <li>
-          <i className="uil uil-arrow-random" onClick={changeRandom}></i>
-        </li>
+        <PlayList playloadSong={playloadSong} />
       </div>
     </>
   );

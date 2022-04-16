@@ -50,14 +50,9 @@ export const Artist = () => {
             </li>
           </ul>
         </nav>
-        <section className="artist-details">
-          <div className="artist-detail1">
-            <Artistinfo />
-          </div>
-          <div className="artist-detail2">
-            <Outlet />
-          </div>
-        </section>
+        <div className="details">
+          <Outlet />
+        </div>
       </div>
     </>
   );
