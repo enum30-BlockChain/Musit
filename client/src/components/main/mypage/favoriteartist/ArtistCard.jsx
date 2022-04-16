@@ -8,8 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar } from "@mui/material";
 import LikeCard from "./LikeCard";
+import AlbumModel from "./AlbumModel";
 
 export default function ArtistCard() {
   const [page, setPage] = React.useState(0);
@@ -18,8 +18,6 @@ export default function ArtistCard() {
 
   const dispatch = useDispatch();
   const likeArtist = useSelector((state) => state.likeArtist);
-
-  React.useEffect(() => {}, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -62,6 +60,9 @@ export default function ArtistCard() {
       )
     );
   });
+
+  console.log(likeArtist);
+
   if (likeArtist.error) {
     return <>error</>;
   } else
@@ -116,12 +117,14 @@ export default function ArtistCard() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+
+        {musicmodal && (
+          <AlbumModel
+            sx={{ display: "block" }}
+            musicmodal={musicmodal}
+            setmusicmodal={setmusicmodal}
+          />
+        )}
       </Paper>
     );
 }
-/* <ArtistCard
-            sx={{ width: "50%" }}
-            key={index}
-            artist={artist}
-            address={address}
-          /> */

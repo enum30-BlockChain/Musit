@@ -5,14 +5,13 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import Avatar from "@mui/material/Avatar";
-import { borderRadius } from "@mui/system";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { pink } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { toggleLikeArtist } from "../../../../redux/actions/artistActions";
+import { toggleLikeMusic } from "../../../../redux/actions/musicActions";
 
 const Img = styled("img")({
   margin: "auto",
@@ -37,13 +36,14 @@ export default function LikeCard({ List, setmusicmodal }) {
     }
   }, [likeArtist]);
 
-  //파업창 띄워주는 것
-  // const postInfo = () => {
-  //   props.setArtistModal(props.artist);
-  // };
+  // 파업창 띄워주는 것
+  const postInfo = () => {
+    console.log(List);
+    setmusicmodal(List);
+  };
 
   const likeOnclick = async () => {
-    dispatch(toggleLikeArtist(List.artist_name));
+    dispatch(toggleLikeMusic(List.Music));
   };
 
   return (
@@ -69,6 +69,7 @@ export default function LikeCard({ List, setmusicmodal }) {
               alt="Remy Sharp"
               sx={{ width: 128, height: 128 }}
               src={List.img}
+              onClick={postInfo}
             />
           </ButtonBase>
         </Grid>
