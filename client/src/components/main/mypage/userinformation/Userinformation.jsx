@@ -85,6 +85,12 @@ export default function Userinformation({}) {
     "Dance",
   ]);
 
+  const sliceAddress =
+    metamask.accounts[0] &&
+    metamask.accounts[0].substr(0, 5) +
+      metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
+      "...";
+
   return (
     <div className="userinfo-layout">
       <div className="userinfo-card">

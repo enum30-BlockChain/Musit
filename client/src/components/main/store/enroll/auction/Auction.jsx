@@ -1,10 +1,11 @@
-import { Button, Skeleton } from "@mui/material";
+import { Button, Input, Skeleton, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { readMusicData } from "../../../../../redux/actions/musicActions";
 import { mintingMusitNFT } from "../../../../../redux/actions/musitNFTActions";
 import Ethers from "../../../../../web3/Ethers";
+
 import "./Auction.css";
 
 const Auction = () => {
@@ -22,7 +23,7 @@ const Auction = () => {
 	return musicData.loading || !musicData.ipfs_hash ? (
 		<LoadingContent/>
 	) : musicData.error ? (
-		<>Error</>
+		<ErrorContent/>
 	) : (
     <>
       <SuccessContent musicData={musicData} ipfs_hash={ipfs_hash} />
@@ -32,13 +33,13 @@ const Auction = () => {
 
 const LoadingContent = () => {
   return (
-		<section className="minting-layout">
-			<div className="content-box minting-img-box">
+		<section className="auction-layout">
+			<div className="content-box auction-img-box">
         <h2>Album Cover Image</h2>
 				<Skeleton width={400} height={400} sx={{marginTop:"20px"}} variant="circular" />
 			</div>
 
-			<div className="minting-content-container">
+			<div className="auction-content-container">
 				<div className="content-box title-box">
 					<h2 className="title">Title</h2>
           <Skeleton width={400} height={50} variant="text" />
@@ -56,55 +57,63 @@ const LoadingContent = () => {
 	);
 }
 
+const ErrorContent = () => {
+  return (
+		<section className="auction-layout">
+			ERROR
+		</section>
+	);
+}
+
 const SuccessContent = ({musicData, ipfs_hash}) => {
   const artistData = useSelector((state) => state.artist);
   const mintingData = useSelector((state) => state.musitNFTMinting);
 	const dispatch = useDispatch();
 
-  const mintingOnClick = async () => {
-    const metadata = {
-			artist_address: artistData.user_address,
-			audio_ipfs_hash: ipfs_hash,
-		};
-
-    await dispatch(mintingMusitNFT(metadata))
-    await Ethers.minting(mintingData.data.path)
+  const enrollSellOnClick = async () => {
+    
   }
 
 	return (
-		<section className="minting-layout">
-			<div className="content-box minting-img-box">
-				<h2>Album Cover Image</h2>
+		<section className="auction-layout">
+			<div className="content-box auction-img-box">
 				<img src={musicData.img_file} />
-			</div>
-
-			<div className="minting-content-container">
-				<div className="content-box title-box">
-					<h2 className="title">Title</h2>
-					<p className="content">{musicData.title}</p>
+				<div className="title-box">
+					<div className="title">{musicData.title}</div>
+					<div className="artist-name">{musicData.artist_name}</div>
 				</div>
-				<div className="content-box audio-box">
-					<h2 className="title">Audio</h2>
-					<audio src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`} controls />
+				<audio src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`} controls />
+			</div>
+			<div className="auction-content-container">
+				<div className="content-box price-box">
+					<h2 className="title">Selling Price</h2>
+					<div className="input-box">
+						<TextField
+							label="ETH"
+							type="number"
+							inputProps={{defaultValue:0.0001, min: 0.0001, step: 0.0001}}
+						/>
+					</div>
 				</div>
 				<div className="content-box description-box">
 					<h2 className="title">Description</h2>
 					<p className="content">{musicData.description}</p>
-					<div className="minting-btn">
-						<Button
-              onClick={mintingOnClick}
-							sx={{
-                color: "var(--black-light-color)",
-								backgroundColor: "var(--box1-color)",
-								":hover": {
-									background: "var(--primary-color)",
-									color: "var(--text-color)",
-								},
-							}}
-						>
-							Auction
-						</Button>
-					</div>
+				</div>
+
+				<div className="content-box auction-btn">
+					<Button
+						onClick={enrollSellOnClick}
+						sx={{
+							color: "var(--black-light-color)",
+							backgroundColor: "var(--box1-color)",
+							":hover": {
+								background: "var(--primary-color)",
+								color: "var(--text-color)",
+							},
+						}}
+					>
+						Sell
+					</Button>
 				</div>
 			</div>
 		</section>

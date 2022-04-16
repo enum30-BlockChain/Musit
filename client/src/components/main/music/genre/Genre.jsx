@@ -6,14 +6,21 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
+import ArtistCard from "../../serach/artist/ArtistCard";
+import ArtistModal from "../../serach/artist/ArtistModal";
 export default function Genre(props) {
   const [genreRecommend, setGenreRecommend] = useState([]);
+  const [artistRecommend, setArtistRecommend] = useState([]);
   const musicList = useSelector((state) => state.musicList).data;
   const artistList = useSelector((state) => state.artistList).data;
   const likeMusic = useSelector((state) => state.likeMusic).data;
   const [genre, setGenre] = useState(0);
   const [viewGenreCard, setViewGenreCard] = useState(0);
+  const [likeTopGenre, setLikeTopGenre] = useState("");
+  const [artistModal, setArtistModal] = useState("");
+  const [musicmodal, setmusicmodal] = useState("");
+  const [value, setValue] = useState(0);
+  const [viewArtistCard, setViewArtistCard] = useState(0);
 
   useEffect(() => {
     const likeGenre = [...likeMusic];
@@ -29,8 +36,9 @@ export default function Genre(props) {
       const topGenre = Object.entries(result)
         .sort(([, a], [, b]) => b - a)
         .reduce((r, [k]) => [...r, k], []);
-      if (topGenre.length > 0) {
-        console.log("best like genre : ", topGenre[0]);
+        if (topGenre.length > 0) {
+          console.log("best like genre : ", topGenre[0]);
+          setLikeTopGenre(topGenre[0])
         return musicList.filter((song) => song.genre.indexOf(topGenre[0]) > -1);
       } else {
         return musicList;
@@ -45,19 +53,44 @@ export default function Genre(props) {
     // console.log(result.sort((a,b)=>a-b))
   }, [likeMusic]);
 
-  // useEffect(() => {
+  useEffect(() => {
+    //아티스트가 올린 노래 장르 종합해서 아티스트 추천 목록에 아티스트 넣어줌
     const likeGenre = [...artistList];
-    const GenreBox = [];
+    const artistRecommendBox = [];
     likeGenre.forEach((e) => {
-      console.log(e.artist_name)
-      e.Music.forEach((e)=>{
-          console.log(e)
-        // GenreBox.push(...e.genre);
+      const aritstGenreBox = [];
+      e.Music.forEach((a)=>{
+        aritstGenreBox.push(...a.genre);
       })
+      const result = aritstGenreBox.reduce((accu, curr) => {
+        accu[curr] = (accu[curr] || 0) + 1;
+        return accu;
+      }, []);
+      const topGenre = Object.entries(result)
+        .sort(([, a], [, b]) => b - a)
+        .reduce((r, [k]) => [...r, k], []);
+      if(topGenre.indexOf(likeTopGenre) <= 3 && topGenre.indexOf(likeTopGenre) > -1){
+        artistRecommendBox.push(e)
+      }
     });
-   console.log(artistList)
-  // }, [artistList])
-  
+    if(artistRecommendBox.length === 0){
+      setArtistRecommend(artistList)
+      if (artistList.length > 8) {
+        setViewArtistCard(8);
+      } else {
+        setViewArtistCard(artistList.length);
+      }
+    }else{
+      setArtistRecommend(artistRecommendBox)
+      if (artistRecommendBox.length > 8) {
+        setViewArtistCard(8);
+      } else {
+        setViewArtistCard(artistRecommendBox.length);
+      }
+    }
+
+  }, [artistList,likeTopGenre])
+
 
   const postInfo = (music) => {
     props.setmusicmodal(music);
@@ -73,7 +106,16 @@ export default function Genre(props) {
       ? setGenre(0)
       : setGenre(genre - 100);
   };
-
+  const moveAhead = () => {
+    value === 0
+      ? setValue(-100 * (artistRecommend.length - viewArtistCard))
+      : setValue(value + 100);
+  };
+  const moveBehind = () => {
+    value === -100 * (artistRecommend.length - viewArtistCard)
+      ? setValue(0)
+      : setValue(value - 100);
+  };
   return (
     <>
       <Box sx={{ height: "100%" }}>
@@ -177,7 +219,7 @@ export default function Genre(props) {
               px: 2,
             }}
           >
-            <ArrowBackIosIcon sx={{ fontSize: 65, cursor: "pointer" }} />
+            <ArrowBackIosIcon sx={{ fontSize: 65, cursor: "pointer" }} onClick={moveAhead} />
             <Grid
               sx={{
                 width: "1460px",
@@ -188,176 +230,37 @@ export default function Genre(props) {
                 flexWrap: "nowrap",
               }}
             >
-              {/* {  likeTopList.map((music, index) => (
-            <div
-              key={index}
-              className="glide"
-              style={{ transform: `translateX(${likeRankingValue}%)` }}>
-              <Box key={index} sx={{cursor:"pointer",width: 210, my: 5,m:2 }}
-              onClick={()=>{postInfo(music)}}
-              > 
-                <img
-                  style={{ width: 210, height: 150, objectFit:"cover"  }}
-                  alt={music.title}
-                  src={music.img_file}
-                />
-                <Box sx={{ pr: 2 }}>
-                  <Typography gutterBottom variant="body2">
-                    {music.title}
-                  </Typography>
-                  <Typography display="block" variant="caption" color="text.secondary">
-                    {music.artist_name}
-                  </Typography>
-                  <Typography display="block" variant="overline" color="text.secondary">
-                    {music.genre}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
-                  </Typography>
-                </Box>
-            </Box>
-          </div>
-          ))} */}
+             {artistRecommend && artistRecommend.map((artist, i) => {
+                    return (
+
+                      <Grid xs={{ width: "25%" }}>
+                        <div
+                          key={i}
+                          className="glide"
+                          style={{ transform: `translateX(${value}%)` }}
+                        >
+                          <ArtistCard
+                            artist={artist}
+                            setArtistModal={setArtistModal}
+                          />
+                        </div>
+                      </Grid>
+                    );
+              })}
             </Grid>
-            <ArrowForwardIosIcon sx={{ fontSize: 65, cursor: "pointer" }} />
+            <ArrowForwardIosIcon sx={{ fontSize: 65, cursor: "pointer" }} onClick={moveBehind}/>
           </Box>
         </Box>
       </Box>
+
+      {artistModal && (
+        <ArtistModal
+          sx={{ display: "block" }}
+          artistModal={artistModal}
+          setArtistModal={setArtistModal}
+          setmusicmodal={setmusicmodal}
+        />
+      )}
     </>
-
-    // <div>
-    //    <Box sx={{height:"100%"}}>
-    //     <Box sx={{height:"45%"}}>
-    //       <Typography variant="h4">
-    //       Genre  Recommend
-    //       </Typography>
-    //       <Box sx={{
-    //       display: "flex",
-    //       alignItems: 'center',
-    //       px: 2 }}>
-    //       <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}} onClick={genreMoveLeft}/>
-    //       <Grid
-    //         sx={{
-    //           width: "1260px",
-    //           m:"auto",
-    //           padding: 0,
-    //           overflow: "hidden",
-    //           display: "flex", flexWrap: "nowrap"
-    //         }}
-    //       >
-    //         {genreRecommend &&
-    //           genreRecommend.map((music, index) => (
-    //             <Box
-    //               key={index}
-    //               sx={{ cursor: "pointer", width: 210,  my: 5 }}
-    //               onClick={() => { postInfo(music); }} >
-    //             <div
-    //             key={index}
-    //             className="glide"
-    //             style={{ transform: `translateX(${genre}%)` }}>
-    //               <img
-    //                 style={{ width: 210, height: 150, objectFit:"cover" }}
-    //                 alt={music.title}
-    //                 src={music.img_file}
-    //               />
-    //               <Box sx={{ pr: 2 }}>
-    //                 <Typography gutterBottom variant="body2">
-    //                   {music.title}
-    //                 </Typography>
-    //                 <Typography
-    //                   display="block"
-    //                   variant="caption"
-    //                   color="text.secondary"
-    //                 >
-    //                   {music.artist_name}
-    //                 </Typography>
-    //                 <Typography
-    //                   display="block"
-    //                   variant="overline"
-    //                   color="text.secondary"
-    //                 >
-    //                   {music.genre}
-    //                 </Typography>
-    //                 <Typography variant="caption" color="text.secondary">
-    //                   {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
-    //                 </Typography>
-    //               </Box>
-    //               </div>
-    //             </Box>
-    //           ))}
-    //         </Grid>
-    //       <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }} onClick={genreMoveRigth}/>
-    //       </Box>
-    //     </Box>
-    //     <nav className="top-nav">
-    //     <ul className="nav-links">
-    //       <li>
-    //         <Link to="/music/ranking">
-    //           <i className="uil uil-favorite"></i>
-    //           <span className="link-name"> Ranking</span>
-    //         </Link>
-    //       </li>
-    //       <li>
-    //         <Link to="/music/genre">
-    //           <i className="uil uil-play"></i>
-    //           <span className="link-name"> Recommend</span>
-    //         </Link>
-    //       </li>
-    //     </ul>
-    //   </nav>
-    //     <Box  sx={{height:"45%"}}>
-    //       <Typography variant="h4">
-    //       like  Ranking
-    //       </Typography>
-    //         <Box sx={{
-    //         display: "flex",
-    //         alignItems: 'center',
-    //         px: 2 }}>
-    //           <ArrowBackIosIcon sx={{fontSize: 65,cursor:"pointer"}} />
-    //           <Grid
-    //             sx={{
-    //               width: "1280px",
-    //               m:"auto",
-    //               padding: 0,
-    //               overflow: "hidden",
-    //               display: "flex", flexWrap: "nowrap"
-    //             }}>
-
-    //         {/* {  likeTopList.map((music, index) => (
-    //           <Box key={index} sx={{cursor:"pointer",width: 210,  my: 5 }}
-    //           onClick={()=>{postInfo(music)}}
-    //           >
-    //           <div
-    //             key={index}
-    //             className="glide"
-    //             style={{ transform: `translateX(${likeRanking}%)` }}>
-    //               <img
-    //                 style={{ width: 210, height: 150, objectFit:"cover"  }}
-    //                 alt={music.title}
-    //                 src={music.img_file}
-    //               />
-    //               <Box sx={{ pr: 2 }}>
-    //                 <Typography gutterBottom variant="body2">
-    //                   {music.title}
-    //                 </Typography>
-    //                 <Typography display="block" variant="caption" color="text.secondary">
-    //                   {music.artist_name}
-    //                 </Typography>
-    //                 <Typography display="block" variant="overline" color="text.secondary">
-    //                   {music.genre}
-    //                 </Typography>
-    //                 <Typography variant="caption" color="text.secondary">
-    //                   {`${music.play_count} listening `} • {`${music.MusicLikes.length} like`}
-    //                 </Typography>
-    //               </Box>
-    //             </div>
-    //           </Box>
-    //         ))} */}
-    //           </Grid>
-    //           <ArrowForwardIosIcon  sx={{fontSize:65, cursor:"pointer", }}  />
-    //         </Box>
-    //     </Box>
-    //   </Box>
-    // </div>
   );
 }

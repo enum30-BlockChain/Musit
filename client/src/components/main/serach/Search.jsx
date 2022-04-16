@@ -65,7 +65,6 @@ function Search(props) {
   };
 
   useEffect(() => {
-
     if (!musicList.loading) {
       const init = async () => {
         await getUser();
@@ -168,35 +167,33 @@ function Search(props) {
               sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
             >
               {musicList.loading
-              ? ([1,2,3,4].map((music, i) => {
-                return (
+                ? [1, 2, 3, 4].map((music, i) => {
+                    return (
                       <SongCardSkeleton
                         music={music}
                         setmusicmodal={setmusicmodal}
                         address={props.address}
                       />
-                );
-              }))
-              :(findMusic && findMusic.map((music, i) => {
-                  return (
-                    <Grid xs={{ width: "25%" }}>
-                      <div
-                        key={i}
-                        className="glide"
-                        style={{ transform: `translateX(${value}%)` }}
-                      >
-                        <SongCard
-                          music={music}
-                          setmusicmodal={setmusicmodal}
-                          address={props.address}
-                        />
-                      </div>
-                    </Grid>
-                  );
-                }))
-              }
-              
-
+                    );
+                  })
+                : findMusic &&
+                  findMusic.map((music, i) => {
+                    return (
+                      <Grid xs={{ width: "25%" }}>
+                        <div
+                          key={i}
+                          className="glide"
+                          style={{ transform: `translateX(${value}%)` }}
+                        >
+                          <SongCard
+                            music={music}
+                            setmusicmodal={setmusicmodal}
+                            address={props.address}
+                          />
+                        </div>
+                      </Grid>
+                    );
+                  })}
             </Grid>
           </Grid>
           <ArrowForwardIosIcon
@@ -237,16 +234,16 @@ function Search(props) {
               sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
             >
               {artistList.loading
-              ? ([1,2,3,4,5,6,7,8].map((artist, i) => {
-                return (
+                ? [1, 2, 3, 4, 5, 6, 7, 8].map((artist, i) => {
+                    return (
                       <ArtistCardSkeleton
                         artist={artist}
                         address={props.address}
                       />
-                  );
-                }) 
-              )
-              : (findArtist && findArtist.map((artist, i) => {
+                    );
+                  })
+                : findArtist &&
+                  findArtist.map((artist, i) => {
                     return (
                       <Grid xs={{ width: "25%" }}>
                         <div
@@ -262,8 +259,7 @@ function Search(props) {
                         </div>
                       </Grid>
                     );
-              }))
-              }
+                  })}
             </Grid>
           </Grid>
           <ArrowForwardIosIcon
@@ -272,7 +268,7 @@ function Search(props) {
           />
         </Box>
       </Box>
-        
+
       {/* 모달창입니당 */}
       {artistModal && (
         <ArtistModal
@@ -294,6 +290,5 @@ function Search(props) {
     </Box>
   );
 }
-
 
 export default Search;
