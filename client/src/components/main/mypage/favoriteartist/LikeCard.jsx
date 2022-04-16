@@ -20,10 +20,10 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function LikeCard({ List, setmusicmodal }) {
+export default function LikeCard({ List, setArtistModal }) {
   const [TotalLike, setTotalLike] = useState();
-  const likeArtist = useSelector((state) => state.likeArtist).data;
   const [artistlike, setArtistlike] = useState("");
+  const likeArtist = useSelector((state) => state.likeArtist).data;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,8 +38,7 @@ export default function LikeCard({ List, setmusicmodal }) {
 
   // 파업창 띄워주는 것
   const postInfo = () => {
-    console.log(List);
-    setmusicmodal(List);
+    setArtistModal(List);
   };
 
   const likeOnclick = async () => {
