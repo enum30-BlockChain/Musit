@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { toggleLikeArtist } from "../../../../redux/actions/artistActions";
-import { toggleLikeMusic } from "../../../../redux/actions/musicActions";
 
 const Img = styled("img")({
   margin: "auto",
@@ -42,7 +41,7 @@ export default function LikeCard({ List, setArtistModal }) {
   };
 
   const likeOnclick = async () => {
-    dispatch(toggleLikeMusic(List.Music));
+    dispatch(toggleLikeArtist(List.artist_name));
   };
 
   return (
