@@ -11,23 +11,24 @@ const Enroll = () => {
 	let { tokenId } = useParams();
 	const dispatch = useDispatch();
 	const userData = useSelector((state) => state.user);
+	const metamask = useSelector((state) => state.metamask);
 	const musicData = useSelector((state) => state.music);
 	const musitNFT = useSelector((state) => state.musitNFT);
 	
 	useEffect(async () => {
-		if(userData.loading) {
-			console.log(111);
+		if(!userData.loading && !musitNFT.loading) {
 			await dispatch(readMyNFTList())
 			const thisNFT = await musitNFT.myNFTList.filter(
 				(nft) => parseInt(nft.tokenId) === parseInt(tokenId)
 			)[0]; 
+			console.log(thisNFT);
 			await dispatch(readMusicData(thisNFT.audio_ipfs_hash));
 		}
-	}, [userData.loading]);
+	}, []);
 
-	return musicData.loading  || !musicData.ipfs_hash ? (
+	return musicData.loading ? (
 		<LoadingContent />
-	) : musicData.error ? (
+	) : musicData.error || !musicData.ipfs_hash ? (
 		<ErrorContent />
 	) : (
 		<>
@@ -172,13 +173,13 @@ const OrdinaryForm = () => {
 const AuctionForm = () => {
 	const getNowDateTime = () => {
 		const now = Date.now();
-		const date = (new Date(now).toLocaleDateString().split("."))
-		date[1] = ("0" + date[1].slice(-2).trim()).slice(-2)
-		date[2] = ("0" + date[2].slice(-2).trim()).slice(-2)
-		const time = (new Date(now).toLocaleTimeString().split(":"))
-		time[0] = ("0" + time[0].slice(-2).trim()).slice(-2)
-		time[1] = ("0" + time[1].slice(-2).trim()).slice(-2)
-		return `${date[0]}-${date[1]}-${date[2]}T${time[0]}:${time[1]}`
+		const today = (new Date(now))
+		const time = (new Date(now).toTimeString().slice(0,5))
+		let year = today.getFullYear();
+		let month = ("0" + (today.getMonth() + 1)).slice(-2);
+		let date = today.getDate() + 1;
+		const result = `${year}-${month}-${date}T${time}`
+		return result;
 	}
 
 	return (
@@ -210,6 +211,7 @@ const AuctionForm = () => {
 					id="datetime-local"
 					type="datetime-local"
 					defaultValue={getNowDateTime()}
+					//TODO: min, max date
 					onChange={(e) => console.log(e.target.value)}
 				/>
 				<button>submit</button>
