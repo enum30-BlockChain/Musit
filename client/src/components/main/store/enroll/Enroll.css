@@ -3,7 +3,7 @@
   --content-bg-color1: #eaeaea;
   --content-bg-color2: #d8d8d8;
   --content-bg-color3: #c1c1c1;
-  --notice-bg-color: #e5cc89;
+  --notice-bg-color: #e5d489;
 }
 
 .enroll-container {
@@ -28,7 +28,16 @@
 }
 .enroll-container p {
   color: var(--black-light-color);
+}
+.enroll-container button {
+  background-color: var(--content-bg-color2);
 } 
+.enroll-container button:hover {
+  cursor: pointer;
+  background-color: var(--point-color);
+  color: #FFF;
+}
+
 
 /* 이미지 박스 */
 .enroll-container .image-box {
@@ -212,6 +221,7 @@
 .enroll-container .right-container .input-container:is(.sell, .auction) .btn-group button:hover {
   background-color: var(--point-color);
   color: #fff;
+  cursor: pointer;
 }
 
 .enroll-container .right-container .input-container .input-form{

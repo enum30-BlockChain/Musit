@@ -137,12 +137,12 @@ contract Auction is ReentrancyGuard, Ownable {
     uint fee = (auctionItem.topBid * feePercent) / 100;
 
     if (auctionItem.topBidder != address(0)) {
-      auctionItem.nft.transferFrom(address(this), auctionItem.topBidder, auctionItem.tokenId);
+      auctionItem.nft.safeTransferFrom(address(this), auctionItem.topBidder, auctionItem.tokenId);
       auctionItem.seller.transfer(auctionItem.topBid); // 수수료 제외한 나머지 판매자에게 전송
       feeAccount.transfer((auctionItem.topBid * feePercent) / 100); // 수수료는 배포자에게 전송
       pendingBids[_itemId][auctionItem.topBidder] = 0;  // 입찰자는 출금을 못하도록 0으로 바꿈
     } else {
-      auctionItem.nft.transferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
+      auctionItem.nft.safeTransferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
     }
     
     emit End(_itemId, auctionItem.topBidder, auctionItem.topBid, fee);

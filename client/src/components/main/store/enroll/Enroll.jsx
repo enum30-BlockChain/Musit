@@ -3,36 +3,43 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { readMusicData } from "../../../../redux/actions/musicActions";
-import { mintingMusitNFT } from "../../../../redux/actions/musitNFTActions";
-import Ethers from "../../../../web3/Ethers";
+import { readMyNFTList } from "../../../../redux/actions/musitNFTActions";
 
 import "./Enroll.css";
 
 const Enroll = () => {
-	let { ipfs_hash } = useParams();
+	let { tokenId } = useParams();
 	const dispatch = useDispatch();
+	const userData = useSelector((state) => state.user);
 	const musicData = useSelector((state) => state.music);
-
+	const musitNFT = useSelector((state) => state.musitNFT);
+	
 	useEffect(async () => {
-		await dispatch(readMusicData(ipfs_hash));
-	}, []);
+		if(userData.loading) {
+			console.log(111);
+			await dispatch(readMyNFTList())
+			const thisNFT = await musitNFT.myNFTList.filter(
+				(nft) => parseInt(nft.tokenId) === parseInt(tokenId)
+			)[0]; 
+			await dispatch(readMusicData(thisNFT.audio_ipfs_hash));
+		}
+	}, [userData.loading]);
 
-	return musicData.loading || !musicData.ipfs_hash ? (
+	return musicData.loading  || !musicData.ipfs_hash ? (
 		<LoadingContent />
 	) : musicData.error ? (
 		<ErrorContent />
 	) : (
 		<>
-			<SuccessContent musicData={musicData} ipfs_hash={ipfs_hash} />
+			<SuccessContent musicData={musicData} />
 		</>
 	);
 };
 
 /* 페이지 로딩 Success 화면 */
-const SuccessContent = ({ musicData, ipfs_hash }) => {
+const SuccessContent = ({ musicData }) => {
 	const artistData = useSelector((state) => state.artist);
-	const mintingData = useSelector((state) => state.musitNFTMinting);
-	const dispatch = useDispatch();
+	const musitNFT = useSelector((state) => state.musitNFT);
 
 	// Sell, Auction 입력창 변경
 	const selectSellOnClick = () => {
@@ -42,7 +49,6 @@ const SuccessContent = ({ musicData, ipfs_hash }) => {
 	};
 	const selectAuctionOnClick = () => {
 		const inputContainer = document.querySelector(".input-container");
-		
 		inputContainer.classList.add("auction")
 		inputContainer.classList.remove("sell")
 	};
@@ -67,7 +73,7 @@ const SuccessContent = ({ musicData, ipfs_hash }) => {
 
 				<div className="audio-box">
 					<audio
-						src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`}
+						src={`https://ipfs.infura.io/ipfs/${musicData.ipfs_hash}`}
 						controls
 					></audio>
 				</div>
@@ -164,6 +170,17 @@ const OrdinaryForm = () => {
 	/* 경매 */
 }
 const AuctionForm = () => {
+	const getNowDateTime = () => {
+		const now = Date.now();
+		const date = (new Date(now).toLocaleDateString().split("."))
+		date[1] = ("0" + date[1].slice(-2).trim()).slice(-2)
+		date[2] = ("0" + date[2].slice(-2).trim()).slice(-2)
+		const time = (new Date(now).toLocaleTimeString().split(":"))
+		time[0] = ("0" + time[0].slice(-2).trim()).slice(-2)
+		time[1] = ("0" + time[1].slice(-2).trim()).slice(-2)
+		return `${date[0]}-${date[1]}-${date[2]}T${time[0]}:${time[1]}`
+	}
+
 	return (
 		<div className="auction-form">
 			<div className="notice-box">
@@ -183,15 +200,18 @@ const AuctionForm = () => {
 				<h2>Approval</h2>
 				<button>Set approvals</button>
 			</div>
-			<div className="end-date-box">
-				<h2>End-date</h2>
-				<input type="date" required onChange={(e) => {console.log(e.target.value)}}/>
-			</div>
 			<div className="price-box">
 				<h2>Start-Price</h2>
 				<p>Please ETH price to sell. </p>
 				<p>(The smallest unit is 0.0001 ETH.)</p>
 				<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} />
+				<h2>End-date</h2>
+				<TextField
+					id="datetime-local"
+					type="datetime-local"
+					defaultValue={getNowDateTime()}
+					onChange={(e) => console.log(e.target.value)}
+				/>
 				<button>submit</button>
 			</div>
 		</div>

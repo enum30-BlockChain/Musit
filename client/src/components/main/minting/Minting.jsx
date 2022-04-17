@@ -68,7 +68,6 @@ const SuccessContent = ({musicData, ipfs_hash}) => {
 		};
 
     await dispatch(mintingMusitNFT(metadata))
-    await Ethers.minting(mintingData.data.path)
   }
 
 	return (
