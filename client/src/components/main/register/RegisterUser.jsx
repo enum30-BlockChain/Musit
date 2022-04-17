@@ -13,7 +13,9 @@ import { connectMetamask } from "../../../redux/actions/metamaskActions";
 
 const RegisterUser = () => {
   useEffect(() => {
-    alert("회원가입하세요");
+    if (metamask.accounts[0] == "") {
+      alert("회원가입하세요");
+    }
   }, []);
 
   const metamask = useSelector((state) => state.metamask);
