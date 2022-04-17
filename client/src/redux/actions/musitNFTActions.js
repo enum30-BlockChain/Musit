@@ -34,12 +34,19 @@ export const mintingMusitNFT = (inputs) => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.MUSIT_NFT_MINTING_REQUEST });
 		try {
-			const url = "http://localhost:5000/files/upload/metadata";
-			const result = ((await axios.post(url, inputs))).data;
-			dispatch({
-				type: ActionTypes.MUSIT_NFT_MINTING_SUCCESS,
-				payload: result,
-			});
+			if (inputs.artist_address !== undefined && inputs.audio_ipfs_hash !== undefined) {
+				const url = "http://localhost:5000/files/upload/metadata";
+				const result = ((await axios.post(url, inputs))).data;
+				dispatch({
+					type: ActionTypes.MUSIT_NFT_MINTING_SUCCESS,
+					payload: result,
+				});
+			} else {
+				dispatch({
+					type: ActionTypes.MUSIT_NFT_MINTING_FAIL,
+					payload: "Improper metadata",
+				});
+			}
 		} catch (error) {
 			dispatch({
 				type: ActionTypes.MUSIT_NFT_MINTING_FAIL,
