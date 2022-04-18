@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { readMyNFTList } from "../../../../redux/actions/musitNFTActions";
-import Ethers from "../../../../web3/Ethers";
 import "./MyNFTList.css";
 import NFTCard from "./nftcard/NFTCard";
 import NFTCardSkeleton from "./nftcard/NFTCardSkeleton";

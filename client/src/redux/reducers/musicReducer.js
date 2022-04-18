@@ -3,10 +3,14 @@ import { ActionTypes } from "../constants/actionTypes";
 /* Music Reducer */
 const musicInitialState = {
   loading: false,
+  ipfs_hash: null,
+  title: null,
+  play_time: null,
+  play_count: null,
+  description: null,
+  img_file: null,
+  genre: null,
   artist_name: null,
-  user_address: null,
-  img: null,
-  likes: null,
   Artist: {},
   MusicLike: [],
   error: false,
