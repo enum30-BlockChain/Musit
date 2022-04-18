@@ -28,8 +28,8 @@ export const Store = () => {
   }, []);
 
 	useEffect(() => {
-		loadMyNFTs()
-	}, [user.loading])
+		// loadMyNFTs()
+	}, [])
 
 	async function mintingOnClick() {
 		dispatch

@@ -21,7 +21,7 @@ export const musitNFTReducer = (state = initialMusitNFTListState, { type, payloa
       return {
         ...state,
         loading: false,
-        myNFTList: payload,
+        myNFTList: [...payload],
         error: false,
         errorMsg: "",
       };
@@ -43,7 +43,7 @@ export const musitNFTReducer = (state = initialMusitNFTListState, { type, payloa
       return {
         ...state,
         loading: false,
-        myMintedNFTList: payload,
+        myMintedNFTList: [...payload],
         error: false,
         errorMsg: "",
       };

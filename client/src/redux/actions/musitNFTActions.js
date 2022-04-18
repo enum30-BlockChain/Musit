@@ -68,7 +68,6 @@ export const mintingMusitNFT = (inputs) => {
 				const url = "http://localhost:5000/files/upload/metadata";
 				const uploadResult = ((await axios.post(url, inputs))).data;
 				const result = await Ethers.minting(uploadResult.path)
-				console.log(result);
 				dispatch({
 					type: ActionTypes.MUSIT_NFT_MINTING_SUCCESS,
 					payload: result,

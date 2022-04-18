@@ -11,24 +11,34 @@ const Enroll = () => {
 	let { tokenId } = useParams();
 	const dispatch = useDispatch();
 	const userData = useSelector((state) => state.user);
-	const metamask = useSelector((state) => state.metamask);
 	const musicData = useSelector((state) => state.music);
 	const musitNFT = useSelector((state) => state.musitNFT);
 	
 	useEffect(async () => {
-		if(!userData.loading && !musitNFT.loading) {
+		if(userData.address) {
+			console.log(userData.address)
 			await dispatch(readMyNFTList())
+			console.log(musitNFT.myNFTList);
+		}
+	}, [userData.loading]);
+
+	useEffect(async () => {
+		if(musitNFT.myNFTList.length > 0) {
+			console.log(musitNFT.myNFTList);
 			const thisNFT = await musitNFT.myNFTList.filter(
-				(nft) => parseInt(nft.tokenId) === parseInt(tokenId)
+				(nft) => {
+					console.log(parseInt(nft.tokenId) === parseInt(tokenId))
+					return parseInt(nft.tokenId) === parseInt(tokenId)
+				}
 			)[0]; 
-			console.log(thisNFT);
+			console.log(thisNFT.audio_ipfs_hash);
 			await dispatch(readMusicData(thisNFT.audio_ipfs_hash));
 		}
-	}, []);
+	}, [musitNFT.loading]);
 
-	return musicData.loading ? (
+	return musicData.loading || musitNFT.loading  ? (
 		<LoadingContent />
-	) : musicData.error || !musicData.ipfs_hash ? (
+	) : musicData.error || musicData.ipfs_hash === null ? (
 		<ErrorContent />
 	) : (
 		<>
@@ -211,7 +221,6 @@ const AuctionForm = () => {
 					id="datetime-local"
 					type="datetime-local"
 					defaultValue={getNowDateTime()}
-					//TODO: min, max date
 					onChange={(e) => console.log(e.target.value)}
 				/>
 				<button>submit</button>
