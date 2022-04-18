@@ -1,5 +1,6 @@
 import "./LandigMainPage.css";
 import React from "react";
+import Glitch from "./glitch/Glitch";
 // import Button from "@mui/material/Button";
 // import Metamask from "./../../web3/Metamask";
 
@@ -14,7 +15,9 @@ export default function LandingMainPage({ address }) {
 
   return (
     <>
-      <div className="landing-layout"></div>
+      <div className="landing-layout">
+        <Glitch />
+      </div>
     </>
   );
 }

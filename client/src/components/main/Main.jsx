@@ -15,7 +15,7 @@ import { Playbar } from "./playbar/Playbar";
 //Main-nav
 import Musiclist from "./musiclist/Musiclist";
 import Createmain from "./create/Createmain";
-
+import LandingMainPage from "../landingpage/LandingMainPage";
 //Main-nav Mypage
 import { Mypage } from "./mypage/Mypage";
 import Userinformation from "./mypage/userinformation/Userinformation";
@@ -27,7 +27,9 @@ import { Collection } from "./mypage/collection/Collection";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 import MyNFTList from "./mypage/mynftlist/MyNFTList";
 
+// Main-nav music
 import Music from "./music/Music";
+import Enummusic from "./music/enummusic/Enummusic";
 import Search from "./serach/Search";
 
 //Main-nav Store
@@ -88,6 +90,7 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             {/* Main navbar */}
+            <Route path="landingpage" element={<LandingMainPage />} />
             <Route path="musiclist" element={<Musiclist />} />
             <Route index element={<Dashboard />} />
             <Route
@@ -139,7 +142,9 @@ export const Main = () => {
               <Route path="enroll/:ipfs_hash" element={<Ordinary />} />
             </Route>
             <Route path="search" element={<Search />} />
-            <Route path="music/*" element={<Music />} />
+            <Route path="music/*" element={<Music />}>
+              <Route path="enum30music" element={<Enummusic />} />
+            </Route>
           </Route>
         </Routes>
       </div>
