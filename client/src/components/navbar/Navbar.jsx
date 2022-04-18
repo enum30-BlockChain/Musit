@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 export const Navbar = () => {
   const artist = useSelector((state) => state.artist);
-  const [address, setAddress] = useState("");
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     const body = document.querySelector("body");
@@ -54,12 +54,22 @@ export const Navbar = () => {
 
         <div className="menu-items">
           <ul className="nav-links">
-            <li>
-              <Link to="/mypage">
-                <i className="uil uil-create-dashboard"></i>
-                <span className="link-name">MYPAGE</span>
-              </Link>
-            </li>
+            {user.nickname !== null ? (
+              <li>
+                <Link to="/mypage">
+                  <i className="uil uil-create-dashboard"></i>
+                  <span className="link-name">MYPAGE</span>
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link to="/register">
+                  <i className="uil uil-create-dashboard"></i>
+                  <span className="link-name">REGISTER</span>
+                </Link>
+              </li>
+            )}
+
             <li>
               <Link to="/artist">
                 <i className="uil uil-palette"></i>

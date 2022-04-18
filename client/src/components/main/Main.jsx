@@ -52,8 +52,10 @@ import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
 import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
 import Minting from "./minting/Minting";
-// import { ArtistsList } from "./artist/favorite/ArtistsList";
+import { CircularProgress } from "@mui/material";
+import { useAlert } from "react-alert";
 
+// import { ArtistsList } from "./artist/favorite/ArtistsList";
 export const Main = () => {
   const user = useSelector((state) => state.user);
   const artist = useSelector((state) => state.artist);
@@ -93,10 +95,10 @@ export const Main = () => {
             <Route
               path="mypage"
               element={
-                user.nickname !== null ? (
-                  <Mypage path="userinformation" />
+                user.loading ? (
+                  <CircularProgress />
                 ) : (
-                  <RegisterUser />
+                  <Mypage path="userinformation" />
                 )
               }
             >
@@ -111,6 +113,7 @@ export const Main = () => {
               <Route path="favoritemusic" element={<FavoriteMusic />} />
               <Route path="myplaylist" element={<MyPlayList />} />
             </Route>
+            <Route path="register" element={<RegisterUser />} />
 
             {/* Artist */}
             <Route
