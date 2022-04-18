@@ -34,7 +34,7 @@ export default function ArtistCard(props) {
   };
 
   const likeOnclick = async () => {
-    dispatch(toggleLikeArtist(props.artist.artist_name));
+    await dispatch(toggleLikeArtist(props.artist.artist_name));
   };
 
   return (
