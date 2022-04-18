@@ -10,10 +10,11 @@ import CountryType from "./CountryType.jsx";
 import { createUserData } from "../../../redux/actions/userActions";
 
 import { connectMetamask } from "../../../redux/actions/metamaskActions";
+import { Link } from "react-router-dom";
 
 const RegisterUser = () => {
   useEffect(() => {
-    if (metamask.accounts[0] == "") {
+    if (user.nickname == null) {
       alert("회원가입하세요");
     }
   }, []);
@@ -80,10 +81,8 @@ const RegisterUser = () => {
   };
 
   const postImg = async () => {
-    console.log(albumCoverImgFile);
     if (albumCoverImgFile !== "") {
       formData.append("img", albumCoverImgFile);
-      console.log(formData);
       await axios
         .post("http://localhost:5000/files/upload/img", formData)
         .then((res) => (DBdata.cover_img_link = res.data))
@@ -183,11 +182,10 @@ const RegisterUser = () => {
             <div className="genre">
               {genre.map((musictype, i) => {
                 return (
-                  <div className="music-type-container">
+                  <div className="music-type-container" key={i}>
                     <div className="music-type-name">{musictype}</div>
                     <div>
                       <input
-                        key={i}
                         type="checkbox"
                         musictype="musicType"
                         onChange={(e) => {
@@ -204,9 +202,12 @@ const RegisterUser = () => {
             </div>
           </div>
         </div>
-        <Button className="submit" onClick={UserHandleOnClick}>
-          Submit
-        </Button>
+
+        <Link to="/">
+          <Button className="submit" onClick={UserHandleOnClick}>
+            Submit
+          </Button>
+        </Link>
       </div>
     </>
   );
