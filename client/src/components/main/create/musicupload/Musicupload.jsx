@@ -7,12 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { readArtistList } from "../../../../redux/actions/artistActions";
 import { createMusicData } from "../../../../redux/actions/musicActions";
 import { useNavigate } from "react-router-dom";
+import Progress from "./progress/Progress";
+import MessageHandler from "./progress/MessageHandler";
 
 // const { create } = require("ipfs-http-client");
 
-export const Musicupload = ({ address }) => {
+export const Musicupload = () => {
   const artistList = useSelector(state => state.artistList)
   const user = useSelector(state => state.user)
+  const music = useSelector(state => state.music)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,6 +42,7 @@ export const Musicupload = ({ address }) => {
   const [duration, setDuration] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [tttttt, settttttt] = useState(false);
   const [DBdata, setDBdata] = useState({
     title: "",
     play_time: "",
@@ -106,11 +110,13 @@ export const Musicupload = ({ address }) => {
     DBdata.description = description;
     await findArtist();
     if (isValidDBdata()) {
-      await dispatch(createMusicData(imgFormData, audioFormData, DBdata));
-      navigate("/search", { state: musicTitle });
+      await dispatch(createMusicData(imgFormData, audioFormData, DBdata))
+      // navigate("/create", { state: musicTitle });
+      await settttttt(true)
     }
+    await settttttt(false)
   };
-
+  
   const findArtist = async () => {
     artistList.data.map((a, index) => {
       if (a.user_address === user.address) {
@@ -129,6 +135,7 @@ export const Musicupload = ({ address }) => {
 
   return (
     <>
+         <MessageHandler test={tttttt}/>
       <h1 className="create-title">Create your music file</h1>
       <div className="create-layout">
         <div className="create-imgbox">
@@ -230,6 +237,7 @@ export const Musicupload = ({ address }) => {
       <div className="create-btn">
         <Button onClick={submit}> submit </Button>
       </div>
+         {music.loading && <Progress />}
     </>
   );
 };
