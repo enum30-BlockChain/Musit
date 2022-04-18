@@ -6,7 +6,6 @@ import Createmain from "../Createmain";
 import { useDispatch, useSelector } from "react-redux";
 import { readArtistList } from "../../../../redux/actions/artistActions";
 import { createMusicData } from "../../../../redux/actions/musicActions";
-import { useNavigate } from "react-router-dom";
 import Progress from "./progress/Progress";
 import MessageHandler from "./progress/MessageHandler";
 
@@ -17,8 +16,6 @@ export const Musicupload = () => {
   const user = useSelector(state => state.user)
   const music = useSelector(state => state.music)
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
@@ -42,7 +39,7 @@ export const Musicupload = () => {
   const [duration, setDuration] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [tttttt, settttttt] = useState(false);
+  const [messageState, setMessageState] = useState(false);
   const [DBdata, setDBdata] = useState({
     title: "",
     play_time: "",
@@ -111,10 +108,9 @@ export const Musicupload = () => {
     await findArtist();
     if (isValidDBdata()) {
       await dispatch(createMusicData(imgFormData, audioFormData, DBdata))
-      // navigate("/create", { state: musicTitle });
-      await settttttt(true)
+      await setMessageState(true)
     }
-    await settttttt(false)
+    await setMessageState(false)
   };
   
   const findArtist = async () => {
@@ -135,7 +131,7 @@ export const Musicupload = () => {
 
   return (
     <>
-         <MessageHandler test={tttttt}/>
+         <MessageHandler test={messageState}/>
       <h1 className="create-title">Create your music file</h1>
       <div className="create-layout">
         <div className="create-imgbox">
