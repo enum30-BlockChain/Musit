@@ -191,7 +191,7 @@ export const Playbar = () => {
     if(musicCardAudio)musicCardAudio.pause();
     const playbarState = document.querySelector("i.fa-play");
 
-    // 
+    // 뮤직쪽에서 플레이중이면 삭제시켜주자
     const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
     if (musicCardPlaying) musicCardPlaying.classList.remove("playing")
 
