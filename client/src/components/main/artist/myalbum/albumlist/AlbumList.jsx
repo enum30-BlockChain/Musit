@@ -60,6 +60,8 @@ export default function AlbumList() {
       );
     });
 
+  console.log(artist);
+
   return (
     <Paper
       className="table-container"

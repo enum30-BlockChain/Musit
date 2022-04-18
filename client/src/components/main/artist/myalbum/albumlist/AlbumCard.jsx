@@ -134,7 +134,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
             )}
           </Grid>
           <Grid>
-            <Link to="/">
+            <Link to={`/create/nft/${song.ipfs_hash}`}>
               <Button
                 variant="contained"
                 sx={{
@@ -146,7 +146,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
                   },
                 }}
               >
-                sell
+                Mint
               </Button>
             </Link>
           </Grid>
