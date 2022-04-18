@@ -41,22 +41,29 @@ export default function MainCard(props) {
     audio.pause();
   }
 
-  const musicCardOnClick = async (e) => {
-    const musicCard = document.querySelector(`.music-cards-container .music-card.card-${props.id}`)
-    const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
-    if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
-    musicCard.classList.add("playing");
-    await playBarPauseSong()
+  const musicCardOnClick = async () => {
+    const musicCard = document.querySelector(`.music-card.card-${props.id}`)
+    console.log(musicCard)
+    const musicCardPlaying = document.querySelector(" .music-card.playing")
+    console.log(musicCardPlaying)
+    musicCard.classList.toggle("playing");
     const audio = document.querySelector("#MusicCardAudio");
-    audio.src =`https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`;
-    audio.play();
+    const playingState = document.querySelector(` .music-card.card-${props.id}.music-card.playing`);
+    if(playingState){
+      audio.src =`https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`;
+      await playBarPauseSong()
+      audio.play();
+    }else{ 
+      audio.pause();
+    }
+    if(musicCardPlaying)musicCardPlaying.classList.remove("playing");
   }
 
   const palyCountAdd = async () => {
     const content = { play_count: props.music.play_count + 1 };
     await axios.patch(`http://localhost:5000/music/${ props.music.ipfs_hash}`, content);
     // .then((res) => console.log(res))
-    const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
+    const musicCardPlaying = document.querySelector(" .music-card.playing")
     if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
   };
   return (
@@ -129,13 +136,13 @@ export default function MainCard(props) {
             )}
             <Box sx={{ display: 'flex', alignItems: 'center',width:"0%"}}>
             <HeadsetIcon fontSize="small"  />
-              <Typography variant="overline" display="block" sx={{color:"gray"}}>
+              <Typography variant="overline" display="block" >
               {props.music.play_count}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center',width:"30%"}}>
               <AccessTimeIcon fontSize="small"  />
-              <Typography variant="overline" display="block" sx={{color:"gray"}}>
+              <Typography variant="overline" display="block" >
               {Math.floor(props.music.play_time / 60)}: {props.music.play_time % 60}
               </Typography>
             </Box>

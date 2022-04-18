@@ -7,21 +7,22 @@ import axios from "axios";
 import { Input, Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import CountryType from "./CountryType.jsx";
-import { createUserData } from "../../../redux/actions/userActions";
+import {
+  createUserData,
+  readUserData,
+} from "../../../redux/actions/userActions";
 
 import { connectMetamask } from "../../../redux/actions/metamaskActions";
 import { Link } from "react-router-dom";
 
 const RegisterUser = () => {
-  useEffect(() => {
-    if (user.nickname == null) {
-      alert("회원가입하세요");
-    }
-  }, []);
-
   const metamask = useSelector((state) => state.metamask);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch(); //redux 초기값 넣어주자
+
+  useEffect(() => {
+    alert("회원가입해주세요");
+  }, []);
 
   //선택한 장르를 변경해주는 값
   const [checkedInputs, setCheckedInputs] = useState([]);
@@ -71,7 +72,8 @@ const RegisterUser = () => {
       nickname: nickname,
       img: DBdata.cover_img_link,
     };
-    dispatch(createUserData(userdata));
+    await dispatch(createUserData(userdata));
+    window.location.reload();
   };
 
   const getImg = (e) => {
@@ -128,21 +130,23 @@ const RegisterUser = () => {
               )}
             </>
 
-            <h1>Profile Image</h1>
-            {albumCoverImgFile === "" ? (
-              <Avatar
-                className="register-avatar"
-                alt="Remy Sharp"
-                sx={{ width: 300, height: 300 }}
-              />
-            ) : (
-              <Avatar
-                alt="Remy Sharp"
-                src={URL.createObjectURL(albumCoverImgFile)}
-                sx={{ width: 300, height: 300 }}
-              />
-            )}
-
+            <h1 className="profileimage">Profile Image</h1>
+            <div className="profile-img-upload">
+              {albumCoverImgFile === "" ? (
+                <Avatar
+                  className="register-avatar"
+                  alt="Remy Sharp"
+                  sx={{ width: 330, height: 330 }}
+                />
+              ) : (
+                <Avatar
+                  className="register-avatar"
+                  alt="Remy Sharp"
+                  src={URL.createObjectURL(albumCoverImgFile)}
+                  sx={{ width: 330, height: 330 }}
+                />
+              )}
+            </div>
             <div>
               <label htmlFor="register-fileupload">
                 Choose your profile image

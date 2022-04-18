@@ -13,9 +13,9 @@ import { Playbar } from "./playbar/Playbar";
 // import RegisterUser from "./register/RegisterUser";
 
 //Main-nav
-import Musiclist from "./musiclist/Musiclist";
-import Createmain from "./create/Createmain";
 
+import Createmain from "./create/Createmain";
+import LandingMainPage from "../landingpage/LandingMainPage";
 //Main-nav Mypage
 import { Mypage } from "./mypage/Mypage";
 import Userinformation from "./mypage/userinformation/Userinformation";
@@ -27,7 +27,13 @@ import { Collection } from "./mypage/collection/Collection";
 import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 import MyNFTList from "./mypage/mynftlist/MyNFTList";
 
+// Main-nav music
 import Music from "./music/Music";
+import Enummusic from "./music/enummusic/Enummusic";
+import Genre from "./music/genre/Genre";
+import MediaSkeleton from "./music/media/MediaSkeleton";
+import Media from "./music/media/Media";
+
 import Search from "./serach/Search";
 
 //Main-nav Store
@@ -52,6 +58,9 @@ import MyPlayList from "./mypage/myplaylist/MyPlayList";
 import Minting from "./minting/Minting";
 import Enroll from "./store/enroll/Enroll";
 // import { ArtistsList } from "./artist/favorite/ArtistsList";
+import { CircularProgress } from "@mui/material";
+
+import Error from "../Error";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -87,15 +96,16 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             {/* Main navbar */}
-            <Route path="musiclist" element={<Musiclist />} />
+            <Route path="landingpage" element={<LandingMainPage />} />
+
             <Route index element={<Dashboard />} />
             <Route
               path="mypage"
               element={
-                user.nickname !== null ? (
-                  <Mypage path="userinformation" />
+                user.loading ? (
+                  <CircularProgress />
                 ) : (
-                  <RegisterUser />
+                  <Mypage path="userinformation" />
                 )
               }
             >
@@ -110,6 +120,7 @@ export const Main = () => {
               <Route path="favoritemusic" element={<FavoriteMusic />} />
               <Route path="myplaylist" element={<MyPlayList />} />
             </Route>
+            <Route path="register" element={<RegisterUser />} />
 
             {/* Artist */}
             <Route
@@ -134,12 +145,20 @@ export const Main = () => {
               <Route path="nft/:ipfs_hash" element={<Minting />} />
             </Route>
 
+            {/* music */}
+            <Route path="music" element={<Music />}>
+              <Route path="enummusic" element={<Enummusic />} />
+              <Route path="genre" element={<Genre />} />
+              <Route path="ranking" element={<Media />} />
+            </Route>
+
             <Route path="store" element={<Store />}>
+              <Route path="auction" element={<Auction />} />
             </Route>
             <Route path="enroll/:tokenId" element={<Enroll/>} />
             <Route path="search" element={<Search />} />
-            <Route path="music/*" element={<Music />} />
           </Route>
+          <Route path="error" element={<Error />} />
         </Routes>
       </div>
       {user.address && <Playbar />}

@@ -70,7 +70,7 @@ export default function ArtistCard() {
         className="table-container"
         sx={{ width: "100%", overflow: "hidden" }}
       >
-        <TableContainer sx={{ maxHeight: 633 }}>
+        <TableContainer sx={{ maxHeight: 633, width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
