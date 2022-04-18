@@ -153,7 +153,6 @@ export const Main = () => {
             </Route>
 
             <Route path="store" element={<Store />}>
-              <Route path="auction" element={<Auction />} />
             </Route>
             <Route path="enroll/:tokenId" element={<Enroll/>} />
             <Route path="search" element={<Search />} />
