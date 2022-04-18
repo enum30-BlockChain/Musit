@@ -41,15 +41,20 @@ export default function MainCard(props) {
     audio.pause();
   }
 
-  const musicCardOnClick = async (e) => {
+  const musicCardOnClick = async () => {
     const musicCard = document.querySelector(`.music-cards-container .music-card.card-${props.id}`)
     const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
-    if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
-    musicCard.classList.add("playing");
-    await playBarPauseSong()
+    musicCard.classList.toggle("playing");
     const audio = document.querySelector("#MusicCardAudio");
-    audio.src =`https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`;
-    audio.play();
+    const playingState = document.querySelector(`.music-cards-container .music-card.card-${props.id}.music-card.playing`);
+    if(playingState){
+      audio.src =`https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`;
+      await playBarPauseSong()
+      audio.play();
+    }else{ 
+      audio.pause();
+    }
+    if(musicCardPlaying)musicCardPlaying.classList.remove("playing");
   }
 
   const palyCountAdd = async () => {

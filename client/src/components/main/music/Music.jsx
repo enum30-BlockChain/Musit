@@ -10,6 +10,7 @@ import MediaSkeleton from "./media/MediaSkeleton";
 import MainCard from "./main/MainCard";
 import Enum30music from "./enummusic/Enummusic";
 import "./Music.css";
+import ScrollEvent from"./scrollEvent/ScrollEvent"
 
 const Music = () => {
   const [musicmodal, setmusicmodal] = useState("");
@@ -68,7 +69,7 @@ function MusicMain() {
 
   const result = [...musicList].sort((a,b)=>a.title < b.title? -1 :a.title>b.title?1:0)
   return (
-    <div>
+    <div className="musicmain-wrap">
       <nav
         style={{ top: "60px", width: "85%", margin: "auto", position: "fixed" }}
         className="top-nav"
@@ -95,20 +96,17 @@ function MusicMain() {
         </ul>
       </nav>
       <div style={{marginTop:"50px"}} className="music-cards-container">
+        <ScrollEvent />
         {result.length > 0 &&
           result.map((music, i) => {
-            const findLike = music.MusicLikes.find(
-              (like) => like.user_address === user.address
-            );
             return (
               <>
-                <MainCard
+                {/* <MainCard
                   id={i}
                   key={i}
                   music={music}
                   address={user.address}
-                  checkBox={findLike}
-                />
+                /> */}
                 {/* <MusicCard
                 id={i}
                 key={i}

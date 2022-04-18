@@ -1,0 +1,21 @@
+.scrollEventContant {
+  margin: 0;
+  padding: 0;
+  width:'50%';
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .ListItem {
+    height: 300px;
+    width:'80%';
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .Loading {
+    height: 60px;
+  }
+  
