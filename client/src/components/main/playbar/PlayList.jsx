@@ -86,7 +86,7 @@ export default function PlayList(props) {
     <div>
       {["bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Button sx={{color:"black",m:2}} onClick={toggleDrawer(anchor, true)}>Play List</Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
