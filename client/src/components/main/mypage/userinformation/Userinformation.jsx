@@ -92,130 +92,135 @@ export default function Userinformation({}) {
       "...";
 
   return (
-    <div className="userinfo-card">
-      <div className="userinfo-image">
-        {user.img === "" ? (
-          <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
-        ) : (
-          <Avatar
-            className="userinfo-image"
-            alt="Remy Sharp"
-            src={user.img}
-            sx={{ width: 260, height: 260 }}
-          />
-        )}
-        {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
-        {visible && (
-          <div>
-            <input
-              type="file"
-              name="imgUpload"
-              accept="image/*"
-              onChange={getImg}
-            ></input>
-            {albumCoverImgFile && (
-              <img style={{ width: "100px" }} src={albumCoverImgFile}></img>
-            )}
-          </div>
-        )}
-      </div>
-      <div className="userinfo-info">
-        <h2 className="nickname">Nickname</h2>
-
-        {visible ? (
-          <div>
-            <Input
-              inputProps={{ style: { fontSize: 30 } }}
-              type="text"
-              sx={{ width: 400 }}
-              defaultValue={user.nickname}
-              onChange={idonchange}
+    <div className="userinfo-layout">
+      <div className="userinfo-card">
+        <div className="userinfo-image">
+          {user.img === "" ? (
+            <Avatar alt="Remy Sharp" sx={{ width: 300, height: 300 }} />
+          ) : (
+            <Avatar
+              className="userinfo-image"
+              alt="Remy Sharp"
+              src={user.img}
+              sx={{ width: 300, height: 300 }}
             />
-          </div>
-        ) : (
-          <p>{user.nickname}</p>
-        )}
-        <h2 className="address">Address</h2>
-        <span>{sliceAddress}</span>
-        <h2 className="subscription">Subscription</h2>
-        <span>{user.subscription}월이용권 </span>
-        {visible ? (
-          <div>
-            <CountryType
-              inputProps={{ width: "400px" }}
-              setSelected={setSelected}
-            />
-          </div>
-        ) : (
-          <div>
-            <h2 className="Nation">Nation</h2>
-            <p>국가 : {user.nation}</p>
-          </div>
-        )}
-        <h2 className="userinfo-Genre">Genre</h2>
-        {visible ? (
-          <div>
-            {genre.map((MusicType, index) => {
-              return (
-                <>
-                  <label>
-                    {MusicType}
-                    <input
-                      type={"checkbox"}
-                      name={"MusicType"}
-                      value={MusicType}
-                      onChange={(e) => {
-                        changeHandler(e.currentTarget.checked, MusicType);
-                      }}
-                      checked={checkedInputs.includes(MusicType) ? true : false}
-                    />
-                  </label>
-                </>
-              );
-            })}
-          </div>
-        ) : (
-          <span>{user.genre}</span>
-        )}
+          )}
+          {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
+          {visible && (
+            <div>
+              <input
+                type="file"
+                name="imgUpload"
+                accept="image/*"
+                onChange={getImg}
+                // style="none"
+              ></input>
+              {albumCoverImgFile && (
+                <img style={{ width: "100px" }} src={albumCoverImgFile}></img>
+              )}
+            </div>
+          )}
+        </div>
+        <div className="userinfo-info">
+          <h2 className="nickname">Nickname</h2>
 
-        {visible ? (
-          <Button
-            variant="contained"
-            sx={{
-              color: "var(--black-light-color)",
-              backgroundColor: "var(--box1-color)",
-              ":hover": {
-                background: "var(--primary-color)",
-                color: "var(--text-color)",
-              },
-            }}
-            onClick={async () => {
-              setVisible(!visible);
-              await ChangeUser();
-            }}
-          >
-            Submit
-          </Button>
-        ) : (
-          <Button
-            variant="contained"
-            sx={{
-              color: "var(--black-light-color)",
-              backgroundColor: "var(--box1-color)",
-              ":hover": {
-                background: "var(--primary-color)",
-                color: "var(--text-color)",
-              },
-            }}
-            onClick={async () => {
-              setVisible(!visible);
-              await BaseOnClick();
-            }}
-          >
-            Edit
-          </Button>
-        )}
-        <div className="setting-btn"></div>
+          {visible ? (
+            <div>
+              <Input
+                inputProps={{ style: { fontSize: 30 } }}
+                type="text"
+                sx={{ width: 400 }}
+                defaultValue={user.nickname}
+                onChange={idonchange}
+              />
+            </div>
+          ) : (
+            <p>{user.nickname}</p>
+          )}
+          <h2 className="address">Address</h2>
+          <span>{metamask.accounts[0]}</span>
+          <h2 className="subscription">Subscription</h2>
+          <span>{user.subscription}월이용권 </span>
+          {visible ? (
+            <div>
+              <CountryType
+                inputProps={{ width: "400px" }}
+                setSelected={setSelected}
+              />
+            </div>
+          ) : (
+            <div>
+              <h2 className="Nation">Nation</h2>
+              <p>국가 : {user.nation}</p>
+            </div>
+          )}
+          <h2 className="userinfo-Genre">Genre</h2>
+          {visible ? (
+            <div>
+              {genre.map((MusicType, index) => {
+                return (
+                  <>
+                    <label>
+                      {MusicType}
+                      <input
+                        type={"checkbox"}
+                        name={"MusicType"}
+                        value={MusicType}
+                        onChange={(e) => {
+                          changeHandler(e.currentTarget.checked, MusicType);
+                        }}
+                        checked={
+                          checkedInputs.includes(MusicType) ? true : false
+                        }
+                      />
+                    </label>
+                  </>
+                );
+              })}
+            </div>
+          ) : (
+            <span>{user.genre}</span>
+          )}
+
+          {visible ? (
+            <Button
+              variant="contained"
+              sx={{
+                color: "var(--black-light-color)",
+                backgroundColor: "var(--box1-color)",
+                ":hover": {
+                  background: "var(--primary-color)",
+                  color: "var(--text-color)",
+                },
+              }}
+              onClick={async () => {
+                setVisible(!visible);
+                await ChangeUser();
+              }}
+            >
+              Submit
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{
+                color: "var(--black-light-color)",
+                backgroundColor: "var(--box1-color)",
+                ":hover": {
+                  background: "var(--primary-color)",
+                  color: "var(--text-color)",
+                },
+              }}
+              onClick={async () => {
+                setVisible(!visible);
+                await BaseOnClick();
+              }}
+            >
+              Edit
+            </Button>
+          )}
+          <div className="setting-btn"></div>
+        </div>
       </div>
     </div>
   );

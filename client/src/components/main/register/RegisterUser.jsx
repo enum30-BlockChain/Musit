@@ -128,21 +128,23 @@ const RegisterUser = () => {
               )}
             </>
 
-            <h1>Profile Image</h1>
-            {albumCoverImgFile === "" ? (
-              <Avatar
-                className="register-avatar"
-                alt="Remy Sharp"
-                sx={{ width: 300, height: 300 }}
-              />
-            ) : (
-              <Avatar
-                alt="Remy Sharp"
-                src={URL.createObjectURL(albumCoverImgFile)}
-                sx={{ width: 300, height: 300 }}
-              />
-            )}
-
+            <h1 className="profileimage">Profile Image</h1>
+            <div className="profile-img-upload">
+              {albumCoverImgFile === "" ? (
+                <Avatar
+                  className="register-avatar"
+                  alt="Remy Sharp"
+                  sx={{ width: 330, height: 330 }}
+                />
+              ) : (
+                <Avatar
+                  className="register-avatar"
+                  alt="Remy Sharp"
+                  src={URL.createObjectURL(albumCoverImgFile)}
+                  sx={{ width: 330, height: 330 }}
+                />
+              )}
+            </div>
             <div>
               <label htmlFor="register-fileupload">
                 Choose your profile image
