@@ -5,7 +5,7 @@ import axios from "axios";
 import { Avatar, Button, Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../../../../redux/actions/userActions";
-import CountryType from "../../register/CountryType";
+import CountryType from "../../register/usersubmit/CountryType";
 
 export default function Userinformation({}) {
   const [select, setSelect] = useState("");

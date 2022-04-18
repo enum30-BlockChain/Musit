@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input, Button, Avatar } from "@mui/material";
 import axios from "axios";
 import { createArtistData } from "../../../../redux/actions/artistActions";
+import { Link } from "react-router-dom";
 
 export default function Artistsubmit() {
   const [inputs, setInputs] = useState("");
@@ -92,7 +93,9 @@ export default function Artistsubmit() {
               onChange={getImg}
             />
           </div>
-          <Button onClick={submitOnClick}>Artist Registration</Button>
+          <Link to={"/"}>
+            <Button onClick={submitOnClick}>Artist Registration</Button>
+          </Link>
         </div>
       </div>
     </>
