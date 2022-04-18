@@ -3,9 +3,7 @@ import "./Searchbar.css";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  connectMetamask,
-} from "../../../redux/actions/metamaskActions";
+import { connectMetamask } from "../../../redux/actions/metamaskActions";
 import { searchingReducer } from "../../../redux/actions/searchingAction";
 import { Drawer } from "@mui/material";
 import UserDrawer from "./userdrawer/UserDrawer";
@@ -17,7 +15,6 @@ export const Searchbar = () => {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
-
 
   const connectOnclick = () => {
     dispatch(connectMetamask());
@@ -43,53 +40,63 @@ export const Searchbar = () => {
   //////////////////////////////////////////////////////
 
   return (
-		<>
-			<div className="searchbar">
-				<i className="uil uil-bars sidebar-toggle"></i>
-				<div className="search-box">
-					<i className="uil uil-search"></i>
-					<input
-						type="text"
-						placeholder="Search here..."
-						onKeyPress={changehandler}
-						onChange={getsSearchWord}
-					/>
-				</div>
+    <>
+      <div className="searchbar">
+        <i className="uil uil-bars sidebar-toggle"></i>
+        <div className="search-box">
+          <i className="uil uil-search"></i>
+          <input
+            type="text"
+            placeholder="Search here..."
+            onKeyPress={changehandler}
+            onChange={getsSearchWord}
+          />
+        </div>
 
-				<div className="searchbar-right-box">
-					{sliceAddress ? (
-						<div className="user-info" onClick={() => {setOpen(true)}}>
-							<div className="profile"></div>
-							<div className="address">
-								<p>{sliceAddress}</p>
-							</div>
-						</div>
-					) : (
-						<Button
-							variant="contained"
-							sx={{
-								color: "var(--black-light-color)",
-								backgroundColor: "var(--box1-color)",
-								":hover": {
-									background: "var(--primary-color)",
-									color: "var(--text-color)",
-								},
-							}}
-							onClick={connectOnclick}
-						>
-							Connect
-						</Button>
-					)}
-				</div>
-				<Drawer
+        <div className="searchbar-right-box">
+          {sliceAddress ? (
+            <div
+              className="user-info"
+              onClick={() => {
+                setOpen(true);
+              }}
+            >
+              <div className="profile"></div>
+              <div className="address">
+                <p>{sliceAddress}</p>
+              </div>
+            </div>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{
+                color: "var(--black-light-color)",
+                backgroundColor: "var(--box1-color)",
+                ":hover": {
+                  background: "var(--primary-color)",
+                  color: "var(--text-color)",
+                },
+              }}
+              onClick={connectOnclick}
+            >
+              Connect
+            </Button>
+          )}
+        </div>
+        <Drawer
           anchor="right"
-					open={open}
-					onClose={() => {setOpen(false)}}
-					onOpen={() => {setOpen(true)}}
-				>
-					<UserDrawer />
-				</Drawer>
-			</div>
-		</>
-	);
+          open={open}
+          onClose={() => {
+            setOpen(false);
+          }}
+          onOpen={() => {
+            setOpen(true);
+          }}
+          PaperProps={{ style: { backgroundColor: "rgba(225,225,225,0.8)" } }}
+        >
+          <UserDrawer />
+        </Drawer>
+      </div>
+    </>
+  );
 };

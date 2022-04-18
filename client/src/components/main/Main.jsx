@@ -32,8 +32,8 @@ import Search from "./serach/Search";
 
 //Main-nav Store
 import { Store } from "./store/Store";
-import Ordinary from "./store/enroll/ordinary/Ordinary"
-import Auction from "./store/enroll/auction/Auction"
+import Ordinary from "./store/enroll/ordinary/Ordinary";
+import Auction from "./store/enroll/auction/Auction";
 
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
@@ -132,12 +132,11 @@ export const Main = () => {
             {/* Create */}
             <Route path="create" element={<Createmain />}>
               <Route index element={<Musicupload />} />
-              <Route path="nft/: " element={<Minting />} />
+              <Route path="nft/:ipfs_hash" element={<Minting />} />
             </Route>
 
             <Route path="store" element={<Store />}>
-              <Route path="enroll/ordinary/:ipfs_hash" element={<Ordinary />} />
-              <Route path="enroll/auction/:ipfs_hash" element={<Auction />} />
+              <Route path="enroll/:ipfs_hash" element={<Ordinary />} />
             </Route>
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />

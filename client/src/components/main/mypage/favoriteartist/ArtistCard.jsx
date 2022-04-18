@@ -8,18 +8,15 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar } from "@mui/material";
 import LikeCard from "./LikeCard";
+import AlbumModel from "./AlbumModel";
+import MusicPlayerSlider from "./MusicPlayerSlider";
 
 export default function ArtistCard() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [artistModal, setArtistModal] = React.useState("");
   const [musicmodal, setmusicmodal] = React.useState("");
-
-  const dispatch = useDispatch();
-  const likeArtist = useSelector((state) => state.likeArtist);
-
-  React.useEffect(() => {}, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -49,6 +46,8 @@ export default function ArtistCard() {
     return { number, artistname, artistsimg, like };
   }
 
+  const likeArtist = useSelector((state) => state.likeArtist);
+
   //row 안의 value값
   const rows = [];
 
@@ -57,11 +56,12 @@ export default function ArtistCard() {
       createRow(
         index,
         List.artist_name,
-        <LikeCard List={List} setmusicmodal={setmusicmodal} />,
+        <LikeCard List={List} setArtistModal={setArtistModal} />,
         List.likes
       )
     );
   });
+
   if (likeArtist.error) {
     return <>error</>;
   } else
@@ -116,12 +116,24 @@ export default function ArtistCard() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+
+        {artistModal && (
+          <AlbumModel
+            sx={{ display: "block" }}
+            artistModal={artistModal}
+            setArtistModal={setArtistModal}
+            musicmodal={musicmodal}
+            setmusicmodal={setmusicmodal}
+          />
+        )}
+
+        {musicmodal && (
+          <MusicPlayerSlider
+            sx={{ display: "block" }}
+            musicmodal={musicmodal}
+            setmusicmodal={setmusicmodal}
+          />
+        )}
       </Paper>
     );
 }
-/* <ArtistCard
-            sx={{ width: "50%" }}
-            key={index}
-            artist={artist}
-            address={address}
-          /> */
