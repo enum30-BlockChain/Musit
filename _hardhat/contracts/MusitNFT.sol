@@ -11,11 +11,13 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract MusitNFT is ERC721URIStorage, Ownable {
   using Counters for Counters.Counter;
 
-  event Minted (uint256 tokenId, string tokenURI, address indexed minter);
+  mapping (uint => bool) isOnMarket; // tokenId => enrolled on market
 
   uint256 public mintPrice; // 민팅 가격
   uint256 public totalSupplied; // 현재까지 발행된 총 수량
   Counters.Counter public tokenCount; // 발행할 NFT 토큰 Id
+
+  event Minted (uint256 tokenId, string tokenURI, address indexed minter);
 
   constructor (uint _mintPrice) ERC721("Musit NFT","MUSIT") {
     mintPrice = _mintPrice;
@@ -36,5 +38,12 @@ contract MusitNFT is ERC721URIStorage, Ownable {
     totalSupplied = newTokenId;
 
     return newTokenId;
+  }
+
+  function getIsOnMarket(uint _tokenId) external view returns(bool) {
+    return isOnMarket[_tokenId];
+  }
+  function setIsOnMarket(uint _tokenId, bool _isOnMarket) external {
+    isOnMarket[_tokenId]  = _isOnMarket;
   }
 }

@@ -25,6 +25,7 @@ interface MusitNFTInterface extends ethers.utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
+    "getIsOnMarket(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "mintPrice()": FunctionFragment;
     "minting(string)": FunctionFragment;
@@ -34,6 +35,7 @@ interface MusitNFTInterface extends ethers.utils.Interface {
     "renounceOwnership()": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
+    "setIsOnMarket(uint256,bool)": FunctionFragment;
     "setMintPrice(uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
@@ -51,6 +53,10 @@ interface MusitNFTInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
     functionFragment: "getApproved",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getIsOnMarket",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -76,6 +82,10 @@ interface MusitNFTInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "setApprovalForAll",
     values: [string, boolean]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setIsOnMarket",
+    values: [BigNumberish, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "setMintPrice",
@@ -114,6 +124,10 @@ interface MusitNFTInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getIsOnMarket",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
@@ -132,6 +146,10 @@ interface MusitNFTInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setApprovalForAll",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setIsOnMarket",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -262,6 +280,11 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    getIsOnMarket(
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     isApprovedForAll(
       owner: string,
       operator: string,
@@ -306,6 +329,12 @@ export class MusitNFT extends BaseContract {
     setApprovalForAll(
       operator: string,
       approved: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setIsOnMarket(
+      _tokenId: BigNumberish,
+      _isOnMarket: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -358,6 +387,11 @@ export class MusitNFT extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  getIsOnMarket(
+    _tokenId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   isApprovedForAll(
     owner: string,
     operator: string,
@@ -399,6 +433,12 @@ export class MusitNFT extends BaseContract {
   setApprovalForAll(
     operator: string,
     approved: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setIsOnMarket(
+    _tokenId: BigNumberish,
+    _isOnMarket: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -446,6 +486,11 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    getIsOnMarket(
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     isApprovedForAll(
       owner: string,
       operator: string,
@@ -482,6 +527,12 @@ export class MusitNFT extends BaseContract {
     setApprovalForAll(
       operator: string,
       approved: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setIsOnMarket(
+      _tokenId: BigNumberish,
+      _isOnMarket: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -620,6 +671,11 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getIsOnMarket(
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     isApprovedForAll(
       owner: string,
       operator: string,
@@ -664,6 +720,12 @@ export class MusitNFT extends BaseContract {
     setApprovalForAll(
       operator: string,
       approved: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setIsOnMarket(
+      _tokenId: BigNumberish,
+      _isOnMarket: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -718,6 +780,11 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getIsOnMarket(
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     isApprovedForAll(
       owner: string,
       operator: string,
@@ -762,6 +829,12 @@ export class MusitNFT extends BaseContract {
     setApprovalForAll(
       operator: string,
       approved: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setIsOnMarket(
+      _tokenId: BigNumberish,
+      _isOnMarket: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
