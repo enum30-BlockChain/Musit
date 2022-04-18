@@ -5,9 +5,11 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./MusitNFT.sol";
 
 contract Auction is ReentrancyGuard, Ownable {
   using Counters for Counters.Counter;
+  MusitNFT musitNft;
 
   Counters.Counter public itemCounter;
   address payable public immutable feeAccount;
@@ -36,7 +38,7 @@ contract Auction is ReentrancyGuard, Ownable {
     uint indexed itemId,
     uint _startPrice,
     address _nft, 
-    uint _tokenId, 
+    uint indexed _tokenId, 
     address indexed seller
   );
 
@@ -69,6 +71,9 @@ contract Auction is ReentrancyGuard, Ownable {
     require(_startPrice % minBidUnit == 0, "Check the minimum unit of start price");
     require(_startPrice >= minBidUnit, "Should start price is bigger than mininum bid amount");
     require(block.timestamp < _endAt, "Cannot set end time as past time");
+    musitNft = MusitNFT(address(_nft));
+    require(!musitNft.getIsOnMarket(_tokenId), "This is on the market");
+
     itemCounter.increment();
     uint _itemId = itemCounter.current();
     items[_itemId] = Item(
@@ -86,6 +91,7 @@ contract Auction is ReentrancyGuard, Ownable {
     _nft.transferFrom(msg.sender, address(this), _tokenId);
 
     emit Enrolled(_itemId, _startPrice, address(_nft), _tokenId, msg.sender);
+    musitNft.setIsOnMarket(_tokenId, true);
   }  
 
   // 경매 참여 함수
@@ -127,6 +133,8 @@ contract Auction is ReentrancyGuard, Ownable {
     }
     
     emit End(_itemId, auctionItem.topBidder, auctionItem.topBid, fee);
+    musitNft = MusitNFT(address(auctionItem.nft));
+    musitNft.setIsOnMarket(auctionItem.tokenId, false);
   }
 
   // 경매 강제 종료 함수
@@ -137,15 +145,17 @@ contract Auction is ReentrancyGuard, Ownable {
     uint fee = (auctionItem.topBid * feePercent) / 100;
 
     if (auctionItem.topBidder != address(0)) {
-      auctionItem.nft.transferFrom(address(this), auctionItem.topBidder, auctionItem.tokenId);
+      auctionItem.nft.safeTransferFrom(address(this), auctionItem.topBidder, auctionItem.tokenId);
       auctionItem.seller.transfer(auctionItem.topBid); // 수수료 제외한 나머지 판매자에게 전송
       feeAccount.transfer((auctionItem.topBid * feePercent) / 100); // 수수료는 배포자에게 전송
       pendingBids[_itemId][auctionItem.topBidder] = 0;  // 입찰자는 출금을 못하도록 0으로 바꿈
     } else {
-      auctionItem.nft.transferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
+      auctionItem.nft.safeTransferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
     }
     
     emit End(_itemId, auctionItem.topBidder, auctionItem.topBid, fee);
+    musitNft = MusitNFT(address(auctionItem.nft));
+    musitNft.setIsOnMarket(auctionItem.tokenId, false);
   }
 
   // 경매 입찰 참여자가 없으면 경매 취소할 수 있는 함수
@@ -159,6 +169,8 @@ contract Auction is ReentrancyGuard, Ownable {
     auctionItem.nft.transferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
 
     emit Cancel(_itemId, msg.sender);
+    musitNft = MusitNFT(address(auctionItem.nft));
+    musitNft.setIsOnMarket(auctionItem.tokenId, false);
   }
 
   // 강제 취소 함수
@@ -171,6 +183,8 @@ contract Auction is ReentrancyGuard, Ownable {
     auctionItem.nft.transferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
 
     emit Cancel(_itemId, msg.sender);
+    musitNft = MusitNFT(address(auctionItem.nft));
+    musitNft.setIsOnMarket(auctionItem.tokenId, false);
   }
 
   // pending bids 출금 함수

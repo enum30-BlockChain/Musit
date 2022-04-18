@@ -11,8 +11,6 @@ export const createMusicData = (imgFormData, audioFormData, input) => {
       const imgUrl = (
         await axios.post("http://localhost:5000/files/upload/img", imgFormData)
       ).data;
-      console.log(imgUrl);
-      console.log(audioFormData.get("audio"));
 
       const audioIpfsHash = (
         await axios.post(
@@ -26,7 +24,6 @@ export const createMusicData = (imgFormData, audioFormData, input) => {
         img_file: imgUrl,
         ipfs_hash: audioIpfsHash,
       };
-      console.log(musicData);
       const createData = await axios.post(
         "http://localhost:5000/music/",
         musicData
@@ -66,12 +63,19 @@ export const readMusicData = (ipfs_hash) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
     try {
-      const url = `http://localhost:5000/music/${ipfs_hash}`;
-      const musicList = (await axios.get(url)).data;
-      dispatch({
-        type: ActionTypes.MUSIC_READ_SUCCESS,
-        payload: musicList,
-      });
+      if (ipfs_hash) {
+        const url = `http://localhost:5000/music/${ipfs_hash}`;
+        const musicList = (await axios.get(url)).data;
+        dispatch({
+          type: ActionTypes.MUSIC_READ_SUCCESS,
+          payload: musicList,
+        });
+      } else {
+        dispatch({
+          type: ActionTypes.MUSIC_DATA_FAIL,
+          payload: "No ipfs_hash found",
+        });
+      }
     } catch (error) {
       dispatch({
         type: ActionTypes.MUSIC_DATA_FAIL,

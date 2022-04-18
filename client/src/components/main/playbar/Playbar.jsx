@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import myImage from "./retro.png";
 
+const fakeFetch = (delay = 1000) => new Promise(res => setTimeout(res, delay));
+
 export const Playbar = () => {
   const [percent, setPercent] = useState(0);
   const [count, setCount] = useState(0);
@@ -149,17 +151,18 @@ export const Playbar = () => {
   }
 
   const [repeatState, setRepeatState] = useState(false);
+  const [Shuffle, setShuffle] = useState({isLoading: false });;
+  const {isLoading} = Shuffle;
 
   function changeRepeat() {
     if (repeatState) {
-      console.log("repeatState : off");
       setRepeatState(false);
     } else {
-      console.log("repeatState : on");
       setRepeatState(true);
     }
   }
-  function changeRandom() {
+  async function changeRandom() {
+    setShuffle({isLoading: true });
     const firstSong = likeMusic[count]; //넣을꺼
     //지금재생 찾아서 삭제
     likeMusic.splice(
@@ -171,6 +174,8 @@ export const Playbar = () => {
     //넣어주고
     likeMusic.unshift(firstSong);
     setCount(0);
+    await fakeFetch();
+    setShuffle({isLoading: false});
   }
 
   function playSong() {
@@ -377,12 +382,30 @@ export const Playbar = () => {
           </div>
         </div>
         <div className="playbaricon">
-          <li>
-            <i className="uil uil-repeat" onClick={changeRepeat}></i>
-          </li>
-          <li>
+
+          {repeatState
+          ?(
+            <li>
+             <i className="uil uil-repeat" onClick={changeRepeat}> </i>
+            </li>
+          )
+          :(
+            <li>
+            <i style={{color:"#e6e5e5"}} className="uil uil-repeat" onClick={changeRepeat}> </i>
+           </li>
+          )}
+
+          {isLoading
+          ?(
+            <li>
             <i className="uil uil-arrow-random" onClick={changeRandom}></i>
           </li>
+          )
+          :(
+            <li>
+            <i  style={{color:"#e6e5e5"}} className="uil uil-arrow-random" onClick={changeRandom}></i>
+          </li>
+          )}
         </div>
 
         <PlayList playloadSong={playloadSong} />

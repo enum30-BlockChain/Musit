@@ -37,8 +37,6 @@ import Search from "./serach/Search";
 
 //Main-nav Store
 import { Store } from "./store/Store";
-import Ordinary from "./store/enroll/ordinary/Ordinary";
-import Auction from "./store/enroll/auction/Auction";
 
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
@@ -55,6 +53,8 @@ import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
 import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
 import Minting from "./minting/Minting";
+import Enroll from "./store/enroll/Enroll";
+// import { ArtistsList } from "./artist/favorite/ArtistsList";
 import { CircularProgress } from "@mui/material";
 
 import Error from "../Error";
@@ -151,9 +151,8 @@ export const Main = () => {
             </Route>
 
             <Route path="store" element={<Store />}>
-              <Route path="enroll/:ipfs_hash" element={<Ordinary />} />
-              <Route path="auction" element={<Auction />} />
             </Route>
+            <Route path="enroll/:tokenId" element={<Enroll/>} />
             <Route path="search" element={<Search />} />
           </Route>
           <Route path="error" element={<Error />} />

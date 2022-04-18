@@ -4,9 +4,11 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./MusitNFT.sol";
 
 contract Marketplace is ReentrancyGuard {
   using Counters for Counters.Counter;
+  MusitNFT musitNft;
 
   address payable public immutable feeAccount; // 수수료를 받을 주소
   uint256 public immutable feePercent; // 팔때 받을 수수료
@@ -48,7 +50,8 @@ contract Marketplace is ReentrancyGuard {
   function enroll(IERC721 _nft, uint256 _tokenId, uint256 _price) external nonReentrant {
     require(_price > 0, "Price must be greater than zero");
     require(msg.sender == _nft.ownerOf(_tokenId), "Only owner can enroll");
-
+    musitNft = MusitNFT(address(_nft));
+    require(!musitNft.getIsOnMarket(_tokenId), "This is on the market");
 
     itemCount.increment();
     uint256 itemId = itemCount.current();
@@ -70,6 +73,8 @@ contract Marketplace is ReentrancyGuard {
       msg.sender,
       address(_nft)
     );
+    
+    musitNft.setIsOnMarket(_tokenId, true);
   }
 
   function purchase(uint256 _itemId) external payable nonReentrant {
@@ -87,7 +92,7 @@ contract Marketplace is ReentrancyGuard {
     item.sold = true;
 
     // transfer nft to buyer
-    item.nft.transferFrom(address(this), msg.sender, item.tokenId);
+    item.nft.safeTransferFrom(address(this), msg.sender, item.tokenId);
 
     // emit Bought event
     emit Bought(
@@ -98,6 +103,8 @@ contract Marketplace is ReentrancyGuard {
       msg.sender, 
       address(item.nft)
     );
+    musitNft = MusitNFT(address(item.nft));
+    musitNft.setIsOnMarket(item.tokenId, false);
   }
 
   function getTotalPrice(uint256 _itemId) public view returns (uint256) {
