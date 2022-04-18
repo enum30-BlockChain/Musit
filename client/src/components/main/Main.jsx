@@ -32,7 +32,6 @@ import Search from "./serach/Search";
 
 //Main-nav Store
 import { Store } from "./store/Store";
-import Auction from "./store/enroll/auction/Auction";
 
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
@@ -136,8 +135,8 @@ export const Main = () => {
             </Route>
 
             <Route path="store" element={<Store />}>
-              <Route path="enroll/:tokenId" element={<Enroll/>} />
             </Route>
+            <Route path="enroll/:tokenId" element={<Enroll/>} />
             <Route path="search" element={<Search />} />
             <Route path="music/*" element={<Music />} />
           </Route>

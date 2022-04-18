@@ -1,5 +1,6 @@
 import {
 	BigNumber,
+	BigNumberish,
 	Contract,
 	ContractTransaction,
 	ethers,
@@ -44,12 +45,12 @@ interface Contracts {
 }
 
 export default class Ethers {
-	static ethToWei(eth: string): BigNumber {
-		return ethers.utils.parseEther(eth);
+	static ethToWei(eth: string | number): BigNumber {
+		return ethers.utils.parseEther(eth.toString());
 	}
 
-	static weiToEth(wei: string): BigNumber {
-		return ethers.utils.parseUnits(wei);
+	static weiToEth(wei: string | number): BigNumber {
+		return ethers.utils.parseUnits(wei.toString());
 	}
 
 	static loadContracts(): Contracts | null {
@@ -142,7 +143,7 @@ export default class Ethers {
 	// }
 
 	// NFT 권한 넘기기
-	static async approvalNFT(
+	static async approveMyNFT(
 		contract: string,
 		tokenId: string
 	): Promise<ContractTransaction | null> {
@@ -154,6 +155,21 @@ export default class Ethers {
 				contractAddress = auction.address;
 			}
 			const result = await musitNFT.approve(contractAddress, tokenId);
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	// NFT 권한 넘기기
+	static async enrollMarketplace(
+		tokenId: string,
+		sellPrice: number | string,
+	): Promise<ContractTransaction | null> {
+		try {
+			const result = await marketplace.enroll(musitNFT.address, tokenId, this.ethToWei(sellPrice))
+			console.log(result)
 			return result;
 		} catch (error) {
 			console.log(error);

@@ -1,6 +1,5 @@
 import "./Store.css"
 import React, { useEffect } from 'react'
-import Ethers from "../../../web3/Ethers";
 import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { readMyNFTList } from "../../../redux/actions/musitNFTActions";
@@ -31,25 +30,9 @@ export const Store = () => {
 		// loadMyNFTs()
 	}, [])
 
-	async function mintingOnClick() {
-		dispatch
-		const result = await Ethers.minting("https://gateway.pinata.cloud/ipfs/QmZiFY6mvGyDvBqxHojHmiU1r8HCdh7QHZeEvYTpsWzqYT");
-		
-		if(result.confirmations) loadMyNFTs()
-	}
-
 	async function loadMyNFTs() {
 		if (!user.loading && !user.error) {
 			await dispatch(readMyNFTList())
-		}
-	}
-
-
-	async function loadItems () {
-		const marketplace = Ethers.loadContracts().marketplace;
-		if (marketplace) {
-			const itemCount = marketplace.itemCount();
-			
 		}
 	}
 

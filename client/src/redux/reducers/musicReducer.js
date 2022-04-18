@@ -10,6 +10,7 @@ const musicInitialState = {
   description: null,
   img_file: null,
   genre: null,
+  artist_name: null,
   Artist: {},
   MusicLike: [],
   error: false,

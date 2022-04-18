@@ -1,9 +1,10 @@
-import { Button, Input, Skeleton, TextField } from "@mui/material";
-import React, { useEffect } from "react";
+import { Skeleton } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { readMusicData } from "../../../../redux/actions/musicActions";
 import { readMyNFTList } from "../../../../redux/actions/musitNFTActions";
+import Ethers from "../../../../web3/Ethers";
 
 import "./Enroll.css";
 
@@ -13,44 +14,38 @@ const Enroll = () => {
 	const userData = useSelector((state) => state.user);
 	const musicData = useSelector((state) => state.music);
 	const musitNFT = useSelector((state) => state.musitNFT);
+	const [nftData, setNftData] = useState({});
 	
 	useEffect(async () => {
 		if(userData.address) {
-			console.log(userData.address)
 			await dispatch(readMyNFTList())
-			console.log(musitNFT.myNFTList);
 		}
 	}, [userData.loading]);
 
 	useEffect(async () => {
 		if(musitNFT.myNFTList.length > 0) {
-			console.log(musitNFT.myNFTList);
 			const thisNFT = await musitNFT.myNFTList.filter(
-				(nft) => {
-					console.log(parseInt(nft.tokenId) === parseInt(tokenId))
-					return parseInt(nft.tokenId) === parseInt(tokenId)
-				}
-			)[0]; 
-			console.log(thisNFT.audio_ipfs_hash);
-			await dispatch(readMusicData(thisNFT.audio_ipfs_hash));
+				(nft) => parseInt(nft.tokenId) === parseInt(tokenId)
+			)[0];
+			setNftData(thisNFT)
+			await dispatch(readMusicData(thisNFT.ipfs_hash));
 		}
 	}, [musitNFT.loading]);
 
-	return musicData.loading || musitNFT.loading  ? (
+	return musicData.loading || musitNFT.loading || musicData.ipfs_hash === null? (
 		<LoadingContent />
-	) : musicData.error || musicData.ipfs_hash === null ? (
+	) : musitNFT.error ? (
 		<ErrorContent />
 	) : (
 		<>
-			<SuccessContent musicData={musicData} />
+			<SuccessContent nftData={nftData} />
 		</>
 	);
 };
 
 /* 페이지 로딩 Success 화면 */
-const SuccessContent = ({ musicData }) => {
-	const artistData = useSelector((state) => state.artist);
-	const musitNFT = useSelector((state) => state.musitNFT);
+const SuccessContent = ({nftData}) => {
+	const musicData = useSelector((state) => state.music);
 
 	// Sell, Auction 입력창 변경
 	const selectSellOnClick = () => {
@@ -68,23 +63,23 @@ const SuccessContent = ({ musicData }) => {
 		<section className="enroll-container">
 			{/* 이미지 박스 */}
 			<div className="image-box">
-				<img src={musicData.img_file} alt="" />
+				<img src={nftData.img_file} alt="" />
 			</div>
 
 			{/*** 왼쪽 컨테이너 ***/}
 			<section className="left-container">
 				<div className="title-box">
 					<h2>Title</h2>
-					<h1>{musicData.title}</h1>
+					<h1>{nftData.title}</h1>
 				</div>
 				<div className="artist-name-box">
 					<h2>Artist Name</h2>
-					<h1>{musicData.artist_name}</h1>
+					<h1>{nftData.artist_name}</h1>
 				</div>
 
 				<div className="audio-box">
 					<audio
-						src={`https://ipfs.infura.io/ipfs/${musicData.ipfs_hash}`}
+						src={`https://ipfs.infura.io/ipfs/${nftData.ipfs_hash}`}
 						controls
 					></audio>
 				</div>
@@ -113,11 +108,11 @@ const SuccessContent = ({ musicData }) => {
 						<h2>
 							<i className="uil uil-music"></i> Genre
 						</h2>
-						<h1>{musicData.genre.join(", ")}</h1>
+						<h1>{nftData.genre.join(", ")}</h1>
 					</div>
 					<div className="description-box">
 						<h2>Description</h2>
-						<p>{musicData.description}</p>
+						<p>{nftData.description}</p>
 					</div>
 				</section>
 
@@ -143,10 +138,25 @@ const SuccessContent = ({ musicData }) => {
 	);
 };
 
-{
-	/* 일반 판매 */
-}
+
+/* 일반 판매 */
 const OrdinaryForm = () => {
+	let { tokenId } = useParams();
+	const [sellPrice, setSellPrice] = useState("0.0001");
+
+	// Marketplace 컨트랙트에 내 NFT를 접근 권한 허용하기
+	const setPermissionOnClick = async () => {
+		await Ethers.approveMyNFT("marketplace", tokenId)
+	}
+
+	const sellPriceOnChange = (e) => {
+		setSellPrice(e.target.value)
+	}
+
+	const submitOnClick = async () => {
+		await Ethers.enrollMarketplace(tokenId, sellPrice)
+	}
+
 	return (
 		<div className="ordinary-form">
 			<div className="notice-box">
@@ -154,32 +164,38 @@ const OrdinaryForm = () => {
 					<i className="uil uil-exclamation-triangle"></i> Must Read
 				</h2>
 				<p>
-					Before you enroll nft to marketplace, you have to give us the athority
-					of your items.
+					Before you enroll nft to marketplace, you have to give us the
+					permission to access your items.
 				</p>
 				<p>
-					Please click below button to give us approvals first and then input
+					Please click below button to give us permission first and then input
 					sell price
 				</p>
 			</div>
-			<div className="approvals-box">
-				<h2>Approval</h2>
-				<button>Set approvals</button>
+			<div className="permission-box">
+				<h2>Permission</h2>
+				<button onClick={setPermissionOnClick}>Give Permission</button>
 			</div>
 			<div className="price-box">
 				<h2>Sell-Price</h2>
 				<p>Please ETH price to sell. </p>
 				<p>(The smallest unit is 0.0001 ETH.)</p>
-				<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} required/>
-				<button>submit</button>
+				<input
+					type="number"
+					defaultValue={0.0001}
+					min={0.0001}
+					step={0.0001}
+					onChange={sellPriceOnChange}
+					required
+				/>
+				<button onClick={submitOnClick}>submit</button>
 			</div>
 		</div>
 	);
 };
 
-{
-	/* 경매 */
-}
+
+/* 경매 */
 const AuctionForm = () => {
 	const getNowDateTime = () => {
 		const now = Date.now();
@@ -187,7 +203,18 @@ const AuctionForm = () => {
 		const time = (new Date(now).toTimeString().slice(0,5))
 		let year = today.getFullYear();
 		let month = ("0" + (today.getMonth() + 1)).slice(-2);
-		let date = today.getDate() + 1;
+		let date = today.getDate();
+		const result = `${year}-${month}-${date}T${time}`
+		return result;
+	}
+
+	const getMaxDateTime = () => {
+		const now = Date.now();
+		const today = (new Date(now))
+		const time = (new Date(now).toTimeString().slice(0,5))
+		let year = today.getFullYear();
+		let month = ("0" + (today.getMonth() + 1)).slice(-2);
+		let date = today.getDate() + 7;
 		const result = `${year}-${month}-${date}T${time}`
 		return result;
 	}
@@ -199,17 +226,17 @@ const AuctionForm = () => {
 					<i className="uil uil-exclamation-triangle"></i> Must Read
 				</h2>
 				<p>
-					Before you enroll nft to marketplace, you have to give us the athority
-					of your items.
+					Before you enroll nft to marketplace, you have to give us the
+					permission to access your items.
 				</p>
 				<p>
-					Please click below button to give us approvals first and then input
+					Please click below button to give us permission first and then input
 					sell price
 				</p>
 			</div>
-			<div className="approvals-box">
-				<h2>Approval</h2>
-				<button>Set approvals</button>
+			<div className="permission-box">
+				<h2>Permission</h2>
+				<button>Give Permission</button>
 			</div>
 			<div className="price-box">
 				<h2>Start-Price</h2>
@@ -217,11 +244,13 @@ const AuctionForm = () => {
 				<p>(The smallest unit is 0.0001 ETH.)</p>
 				<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} />
 				<h2>End-date</h2>
-				<TextField
+				<input
 					id="datetime-local"
 					type="datetime-local"
+					min={getNowDateTime()}
+					max={getMaxDateTime()}
 					defaultValue={getNowDateTime()}
-					onChange={(e) => console.log(e.target.value)}
+					onChange={(e) => console.log((new Date(e.target.value)).getTime())}
 				/>
 				<button>submit</button>
 			</div>
@@ -232,31 +261,69 @@ const AuctionForm = () => {
 /* Loading 화면 */
 const LoadingContent = () => {
 	return (
-		<section className="enroll-layout">
-			<div className="content-box enroll-img-box">
-				<h2>Album Cover Image</h2>
-				<Skeleton
-					width={400}
-					height={400}
-					sx={{ marginTop: "20px" }}
-					variant="circular"
-				/>
+		<section className="enroll-container">
+			{/* 이미지 박스 */}
+			<div className="image-box">
+				<Skeleton width={"100%"} height={"100%"} variant="circular" />
 			</div>
 
-			<div className="enroll-content-container">
-				<div className="content-box title-box">
-					<h2 className="title">Title</h2>
-					<Skeleton width={400} height={50} variant="text" />
+			{/*** 왼쪽 컨테이너 ***/}
+			<section className="left-container">
+				<div className="title-box">
+					<h2>Title</h2>
+					<Skeleton width={"100%"} height={"100%"} variant="text" />
 				</div>
-				<div className="content-box audio-box">
-					<h2 className="title">Audio</h2>
-					<Skeleton width={400} height={50} variant="text" />
+				<div className="artist-name-box">
+					<h2>Artist Name</h2>
+					<Skeleton width={"100%"} height={"100%"} variant="text" />
 				</div>
-				<div className="content-box description-box">
-					<h2 className="title">Description</h2>
-					<Skeleton width={400} height={200} variant="text" />
+				<div>
+					<Skeleton width={"100%"} height={"100%"} variant="text" />
 				</div>
-			</div>
+			</section>
+
+			{/*** 오른쪽 컨테이너 ***/}
+			<section className="right-container">
+				{/* 상세정보 컨테이너 */}
+				<section className="info-container">
+					<div className="total-play-time-box">
+						<h2>
+							<i className="uil uil-clock"></i> Total Play Time
+						</h2>
+						<Skeleton width={"100%"} height={"100%"} variant="text" />
+					</div>
+					<div className="total-play-time-box">
+						<h2>
+							<i className="uil uil-thumbs-up"></i>Total Likes
+						</h2>
+						<Skeleton width={"100%"} height={"100%"} variant="text" />
+					</div>
+					<div className="genre-box">
+						<h2>
+							<i className="uil uil-music"></i> Genre
+						</h2>
+						<Skeleton width={"100%"} height={"100%"} variant="text" />
+					</div>
+					<div className="description-box">
+						<h2>Description</h2>
+						<Skeleton width={"100%"} height={"100%"} variant="text" />
+					</div>
+				</section>
+
+				{/* 입력 컨테이너 */}
+				<section className="input-container sell">
+					<div className="btn-group">
+						<button className="sell-btn" >
+							Sell
+						</button>
+						<button className="auction-btn" >
+							Auction
+						</button>
+					</div>
+					<div className="input-form">
+					</div>
+				</section>
+			</section>
 		</section>
 	);
 };

@@ -38,17 +38,27 @@ files.post("/upload/audio", (req, res, next) => {
 
 files.post("/upload/metadata", async (req, res, next) => {
   try {
-    if (req.body.artist_address !== undefined && req.body.audio_ipfs_hash !== undefined) {
-      const ipfs = ipfsClient();
-      const metadata = JSON.stringify({
-        artist_address : req.body.artist_address,
-        audio_ipfs_hash : req.body.audio_ipfs_hash
-      })
-      const result = await ipfs.add(metadata);
-      return res.send(result);
-    } else {
-      res.send(400, "Improper metadata");
-    }
+    if (
+			req.body.artist_address !== undefined &&
+			req.body.ipfs_hash !== undefined &&
+			req.body.title !== undefined &&
+			req.body.img_file !== undefined
+		) {
+			const ipfs = ipfsClient();
+			const metadata = JSON.stringify({
+				ipfs_hash: req.body.ipfs_hash,
+				title: req.body.title,
+				description: req.body.description,
+				img_file: req.body.img_file,
+				genre: req.body.genre,
+				artist_name: req.body.artist_name,
+				artist_address: req.body.user_address,
+			});
+			const result = await ipfs.add(metadata);
+			return res.send(result);
+		} else {
+			res.send(400, "Improper metadata");
+		}
   } catch (error) {
     res.send(500, "Upload metadata failed");
   }

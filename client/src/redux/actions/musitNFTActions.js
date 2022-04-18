@@ -64,7 +64,7 @@ export const mintingMusitNFT = (inputs) => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.MUSIT_NFT_MINTING_REQUEST });
 		try {
-			if (inputs.artist_address !== undefined && inputs.audio_ipfs_hash !== undefined) {
+			if (inputs.artist_address !== undefined && inputs.ipfs_hash !== undefined ) {
 				const url = "http://localhost:5000/files/upload/metadata";
 				const uploadResult = ((await axios.post(url, inputs))).data;
 				const result = await Ethers.minting(uploadResult.path)
@@ -85,4 +85,19 @@ export const mintingMusitNFT = (inputs) => {
 			});
 		}
 	};
+};
+
+
+/**** Seleted nft ****/
+export const selectedArtist = (artist) => {
+  return {
+    type: ActionTypes.SELECTED_MUSIT_NFT,
+    payload: artist,
+  };
+};
+
+export const removeSelectedArtist = () => {
+  return {
+    type: ActionTypes.REMOVE_SELECTED_MUSIT_NFT,
+  };
 };

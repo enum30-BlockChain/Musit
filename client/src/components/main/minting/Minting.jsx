@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { readMusicData } from "../../../redux/actions/musicActions";
 import { mintingMusitNFT } from "../../../redux/actions/musitNFTActions";
-import Ethers from "../../../web3/Ethers";
 import "./Minting.css";
 
 const Minting = () => {
@@ -56,17 +55,21 @@ const LoadingContent = () => {
 	);
 }
 
-const SuccessContent = ({musicData, ipfs_hash}) => {
+const SuccessContent = ({ipfs_hash}) => {
   const artistData = useSelector((state) => state.artist);
-  const mintingData = useSelector((state) => state.musitNFTMinting);
+  const musicData = useSelector((state) => state.music);
 	const dispatch = useDispatch();
 
   const mintingOnClick = async () => {
     const metadata = {
+			ipfs_hash: musicData.ipfs_hash,
+			title: musicData.title,
+			description: musicData.description,
+			img_file: musicData.img_file,
+			genre: musicData.genre,
+			artist_name: musicData.artist_name,
 			artist_address: artistData.user_address,
-			audio_ipfs_hash: ipfs_hash,
 		};
-
     await dispatch(mintingMusitNFT(metadata))
   }
 
