@@ -13,7 +13,7 @@ import { Playbar } from "./playbar/Playbar";
 // import RegisterUser from "./register/RegisterUser";
 
 //Main-nav
-import Musiclist from "./musiclist/Musiclist";
+
 import Createmain from "./create/Createmain";
 import LandingMainPage from "../landingpage/LandingMainPage";
 //Main-nav Mypage
@@ -30,6 +30,10 @@ import MyNFTList from "./mypage/mynftlist/MyNFTList";
 // Main-nav music
 import Music from "./music/Music";
 import Enummusic from "./music/enummusic/Enummusic";
+import Genre from "./music/genre/Genre";
+import MediaSkeleton from "./music/media/MediaSkeleton";
+import Media from "./music/media/Media";
+
 import Search from "./serach/Search";
 
 //Main-nav Store
@@ -55,6 +59,8 @@ import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
 import Minting from "./minting/Minting";
 // import { ArtistsList } from "./artist/favorite/ArtistsList";
+
+import Error from "../Error";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -91,7 +97,7 @@ export const Main = () => {
           <Route path="/">
             {/* Main navbar */}
             <Route path="landingpage" element={<LandingMainPage />} />
-            <Route path="musiclist" element={<Musiclist />} />
+
             <Route index element={<Dashboard />} />
             <Route
               path="mypage"
@@ -138,14 +144,20 @@ export const Main = () => {
               <Route path="nft/:ipfs_hash" element={<Minting />} />
             </Route>
 
+            {/* music */}
+            <Route path="music" element={<Music />}>
+              <Route path="enummusic" element={<Enummusic />} />
+              <Route path="genre" element={<Genre />} />
+              <Route path="ranking" element={<Media />} />
+            </Route>
+
             <Route path="store" element={<Store />}>
               <Route path="enroll/:ipfs_hash" element={<Ordinary />} />
+              <Route path="auction" element={<Auction />} />
             </Route>
             <Route path="search" element={<Search />} />
-            <Route path="music/*" element={<Music />}>
-              <Route path="enum30music" element={<Enummusic />} />
-            </Route>
           </Route>
+          <Route path="error" element={<Error />} />
         </Routes>
       </div>
       {user.address && <Playbar />}

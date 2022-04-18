@@ -2,7 +2,7 @@ import "./Mypage.css";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
-import Userinformation from "./userinformation/Userinformation";
+
 export const Mypage = () => {
   const artist = useSelector((state) => state.artist);
 
