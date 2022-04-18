@@ -42,11 +42,13 @@ export default function MainCard(props) {
   }
 
   const musicCardOnClick = async () => {
-    const musicCard = document.querySelector(`.music-cards-container .music-card.card-${props.id}`)
-    const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
+    const musicCard = document.querySelector(`.music-card.card-${props.id}`)
+    console.log(musicCard)
+    const musicCardPlaying = document.querySelector(" .music-card.playing")
+    console.log(musicCardPlaying)
     musicCard.classList.toggle("playing");
     const audio = document.querySelector("#MusicCardAudio");
-    const playingState = document.querySelector(`.music-cards-container .music-card.card-${props.id}.music-card.playing`);
+    const playingState = document.querySelector(` .music-card.card-${props.id}.music-card.playing`);
     if(playingState){
       audio.src =`https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`;
       await playBarPauseSong()
@@ -61,7 +63,7 @@ export default function MainCard(props) {
     const content = { play_count: props.music.play_count + 1 };
     await axios.patch(`http://localhost:5000/music/${ props.music.ipfs_hash}`, content);
     // .then((res) => console.log(res))
-    const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
+    const musicCardPlaying = document.querySelector(" .music-card.playing")
     if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
   };
   return (

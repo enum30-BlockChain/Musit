@@ -1,10 +1,12 @@
 import React from "react";
 import MainCard from "../main/MainCard";
+import ScrollEvent from "../scrollEvent/ScrollEvent";
 
 export default function Enummusic() {
   return (
     <>
-      <div style={{ marginTop: "50px" }} className="music-cards-container">
+    <ScrollEvent />
+      {/* <div style={{ marginTop: "50px" }} className="music-cards-container">
         {result.length > 0 &&
           result.map((music, i) => {
             const findLike = music.MusicLikes.find(
@@ -22,7 +24,7 @@ export default function Enummusic() {
               </>
             );
           })}
-      </div>
+      </div> */}
     </>
   );
 }

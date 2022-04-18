@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import useIntersect from "./UseIntersect";
-import "./styles.css";
+import "./ScrollEvent.css";
 import MainCard from "../main/MainCard";
 import { useSelector } from "react-redux";
 const fakeFetch = (delay = 1000) => new Promise(res => setTimeout(res, delay));
