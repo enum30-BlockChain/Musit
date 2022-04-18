@@ -136,13 +136,13 @@ export default function MainCard(props) {
             )}
             <Box sx={{ display: 'flex', alignItems: 'center',width:"0%"}}>
             <HeadsetIcon fontSize="small"  />
-              <Typography variant="overline" display="block" sx={{color:"gray"}}>
+              <Typography variant="overline" display="block" >
               {props.music.play_count}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center',width:"30%"}}>
               <AccessTimeIcon fontSize="small"  />
-              <Typography variant="overline" display="block" sx={{color:"gray"}}>
+              <Typography variant="overline" display="block" >
               {Math.floor(props.music.play_time / 60)}: {props.music.play_time % 60}
               </Typography>
             </Box>
