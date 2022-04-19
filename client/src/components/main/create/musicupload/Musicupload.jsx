@@ -131,7 +131,6 @@ export const Musicupload = () => {
 
   return (
     <>
-         <MessageHandler test={messageState}/>
       <h1 className="create-title">Create your music file</h1>
       <div className="create-layout">
         <div className="create-imgbox">
@@ -234,6 +233,7 @@ export const Musicupload = () => {
         <Button onClick={submit}> submit </Button>
       </div>
          {music.loading && <Progress />}
+         <MessageHandler test={messageState} title={DBdata.title}/>
     </>
   );
 };

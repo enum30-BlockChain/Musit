@@ -3,6 +3,8 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+const fakeFetch = (delay = 1500) => new Promise(res => setTimeout(res, delay));
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -11,6 +13,7 @@ export default function Message(props) {
   const music = useSelector(state => state.music)
   const [open, setOpen] = useState(false);
   const [secondopen, setSecondOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setOpen(true);
@@ -28,16 +31,19 @@ export default function Message(props) {
   };
 
   useEffect(() => {
+    const init = async () => {
     if (props.test){
-      console.log(music.errorMsg.length)
-      if(music.errorMsg.length>0){
-        console.log(111111111)
-        handleClick()
-      }else{
-        console.log(22222222222222)
-        handleClick2()
+        console.log(music.errorMsg.length)
+        if(music.errorMsg.length>0){
+          handleClick()
+        }else{
+          handleClick2()
+          await fakeFetch()
+          navigate("/artist/myupload", { state:props.title });
+        }
       }
     }
+    init()
   }, [props])
   
   return (
@@ -52,8 +58,6 @@ export default function Message(props) {
           음원이 정상등록되었습니다.
         </Alert>
       </Snackbar>
-      {/* <Alert severity="error">This is an error message!</Alert>
-      <Alert severity="success">This is a success message!</Alert> */}
     </Stack>
   );
 }
