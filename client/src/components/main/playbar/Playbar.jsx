@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import myImage from "./retro.png";
 
-const fakeFetch = (delay = 1000) => new Promise(res => setTimeout(res, delay));
+const fakeFetch = (delay = 1000) =>
+  new Promise((res) => setTimeout(res, delay));
 
 export const Playbar = () => {
   const [percent, setPercent] = useState(0);
@@ -151,8 +152,8 @@ export const Playbar = () => {
   }
 
   const [repeatState, setRepeatState] = useState(false);
-  const [Shuffle, setShuffle] = useState({isLoading: false });;
-  const {isLoading} = Shuffle;
+  const [Shuffle, setShuffle] = useState({ isLoading: false });
+  const { isLoading } = Shuffle;
 
   function changeRepeat() {
     if (repeatState) {
@@ -162,7 +163,7 @@ export const Playbar = () => {
     }
   }
   async function changeRandom() {
-    setShuffle({isLoading: true });
+    setShuffle({ isLoading: true });
     const firstSong = likeMusic[count]; //넣을꺼
     //지금재생 찾아서 삭제
     likeMusic.splice(
@@ -175,7 +176,7 @@ export const Playbar = () => {
     likeMusic.unshift(firstSong);
     setCount(0);
     await fakeFetch();
-    setShuffle({isLoading: false});
+    setShuffle({ isLoading: false });
   }
 
   function playSong() {
@@ -197,8 +198,10 @@ export const Playbar = () => {
     const playbarState = document.querySelector("i.fa-play");
 
     // 뮤직쪽에서 플레이중이면 삭제시켜주자
-    const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
-    if (musicCardPlaying) musicCardPlaying.classList.remove("playing")
+    const musicCardPlaying = document.querySelector(
+      ".music-cards-container .music-card.playing"
+    );
+    if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
 
     if (playbarState) {
       playSong();
@@ -322,92 +325,97 @@ export const Playbar = () => {
             <div className="progress" style={{ width: `${percent}%` }}></div>
           </div>
         </div>
-        <audio
-          id="audio"
-          onLoadedData={() => {
-            //불러올때
-            audio.currentTime = currentTime;
-          }}
-          onTimeUpdate={(e) => {
-            if (savePoint > 0) {
-              const saveTime = Math.floor(e.currentTarget.currentTime);
-              postTime(saveTime);
-              DurTime(e);
-              updateProgress(e);
-            }
-            setSavePoint(savePoint + 1);
-          }}
-          onEnded={() => {
-            EndNextSong();
-            palyCountAdd();
-          }}
-        />
-        <div className="img-container">
-          <img src={myImage} alt="music-cover" id="cover" />
-        </div>
-        <div className="navigation">
-          <button id="prev" className="action-btn" onClick={prevSong}>
-            <i className="fas fa-backward"></i>
-          </button>
-          <button
-            id="play"
-            className="action-btn action-btn-big"
-            onClick={playOnClick}
-          >
-            <i className="fas fa-play"></i>
-          </button>
-          <button id="next" className="action-btn" onClick={nextSong}>
-            <i className="fas fa-forward"></i>
-          </button>
-        </div>
-
-        <Stack
-          spacing={2}
-          direction="row"
-          sx={{ mb: 1 }}
-          alignItems="center"
-        ></Stack>
-
-        <div className="volume-control">
-          <Slider
-            aria-label="Volume"
-            placeholder="Volume"
-            value={value}
-            onChange={handleChange}
-            sx={{ width: 220, height: 5 }}
+        <div className="music-control-box">
+          <audio
+            id="audio"
+            onLoadedData={() => {
+              //불러올때
+              audio.currentTime = currentTime;
+            }}
+            onTimeUpdate={(e) => {
+              if (savePoint > 0) {
+                const saveTime = Math.floor(e.currentTarget.currentTime);
+                postTime(saveTime);
+                DurTime(e);
+                updateProgress(e);
+              }
+              setSavePoint(savePoint + 1);
+            }}
+            onEnded={() => {
+              EndNextSong();
+              palyCountAdd();
+            }}
           />
+          <div className="img-container">
+            <img src={myImage} alt="music-cover" id="cover" />
+          </div>
+
+          <div className="navigation">
+            <button id="prev" className="action-btn" onClick={prevSong}>
+              <i className="fas fa-backward"></i>
+            </button>
+            <button
+              id="play"
+              className="action-btn action-btn-big"
+              onClick={playOnClick}
+            >
+              <i className="fas fa-play"></i>
+            </button>
+            <button id="next" className="action-btn" onClick={nextSong}>
+              <i className="fas fa-forward"></i>
+            </button>
+          </div>
+
+          <Stack
+            spacing={2}
+            direction="row"
+            sx={{ mb: 1 }}
+            alignItems="center"
+          ></Stack>
+
+          <div className="volume-control">
+            <Slider
+              aria-label="Volume"
+              placeholder="Volume"
+              value={value}
+              onChange={handleChange}
+              sx={{ width: 220, height: 5 }}
+            />
+          </div>
           <div className="nowplaying">
-            <h3>Now playing :</h3>
+            <h3>Now playing : </h3>
             <h3 id="title"></h3>
           </div>
+          <div className="playbaricon">
+            {repeatState ? (
+              <li>
+                <i className="uil uil-repeat" onClick={changeRepeat}></i>
+              </li>
+            ) : (
+              <li>
+                <i
+                  style={{ color: "#e6e5e5" }}
+                  className="uil uil-repeat"
+                  onClick={changeRepeat}
+                ></i>
+              </li>
+            )}
+
+            {isLoading ? (
+              <li>
+                <i className="uil uil-arrow-random" onClick={changeRandom}></i>
+              </li>
+            ) : (
+              <li>
+                <i
+                  style={{ color: "#e6e5e5" }}
+                  className="uil uil-arrow-random"
+                  onClick={changeRandom}
+                ></i>
+              </li>
+            )}
+          </div>
         </div>
-        <div className="playbaricon">
-
-          {repeatState
-          ?(
-            <li>
-             <i className="uil uil-repeat" onClick={changeRepeat}> </i>
-            </li>
-          )
-          :(
-            <li>
-            <i style={{color:"#e6e5e5"}} className="uil uil-repeat" onClick={changeRepeat}> </i>
-           </li>
-          )}
-
-          {isLoading
-          ?(
-            <li>
-            <i className="uil uil-arrow-random" onClick={changeRandom}></i>
-          </li>
-          )
-          :(
-            <li>
-            <i  style={{color:"#e6e5e5"}} className="uil uil-arrow-random" onClick={changeRandom}></i>
-          </li>
-          )}
-        </div>
-
         <PlayList playloadSong={playloadSong} />
       </div>
     </>

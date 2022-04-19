@@ -17,7 +17,7 @@ export default function Error({ error }) {
           <p className="error-message">{error.message}</p>
         </div>
         <div className="error-btn-style" onClick={moveToLandingpage}>
-          Move to Landingpage
+          Move to Mainpage
         </div>
       </div>
     </>
