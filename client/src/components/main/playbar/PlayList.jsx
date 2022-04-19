@@ -11,6 +11,7 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CloseIcon from "@mui/icons-material/Close";
 import { toggleLikeMusic } from "../../../redux/actions/musicActions";
+import { height } from "@mui/system";
 
 export default function PlayList(props) {
   const dispatch = useDispatch();
@@ -95,6 +96,7 @@ export default function PlayList(props) {
           <Drawer
             anchor={anchor}
             open={state[anchor]}
+            sx={{position:"fixed", bottom: "100px", height:"calc(100vh-100px)"}}
             onClose={toggleDrawer(anchor, false)}
           >
             {list(anchor)}

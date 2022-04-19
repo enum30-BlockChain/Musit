@@ -43,7 +43,6 @@
 
 .mynftlist .item-card-container .item-card:hover .img-box {
   border: 5px solid var(--primary-color);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
 .mynftlist .item-card-container .item-card:hover .content-wrap {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
