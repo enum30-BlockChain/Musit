@@ -1,5 +1,5 @@
 import "./ArtistModel.css";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import { Box, Avatar } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -91,9 +91,6 @@ export default function ArtistModal(props) {
   const musics = props.artistModal.Music;
 
   const length = musics.length;
-
-  console.log(length);
-  console.log(current);
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
