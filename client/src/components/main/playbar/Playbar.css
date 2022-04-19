@@ -1,12 +1,16 @@
+@import "../../../styles/variables.css";
+
 .music-container * {
   color: var(--playbar-base-color);
 }
 
 .music-container .nowplaying {
-  width: 330px;
-  margin-right: 20px;
+  width: auto;
+  margin-left: 25px;
+  margin-right: 5px;
   display: flex;
 }
+
 .music-container .playbaricon {
   display: flex;
   font-size: 25px;
@@ -119,7 +123,7 @@
 }
 
 .progress {
-  background-color: rgb(85, 81, 164);
+  background-color: var(--error-color);
   border-radius: 5px;
   height: 100%;
   width: 100%;

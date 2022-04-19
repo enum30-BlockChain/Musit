@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import myImage from "./retro.png";
 
-const fakeFetch = (delay = 1000) => new Promise(res => setTimeout(res, delay));
+const fakeFetch = (delay = 1000) =>
+  new Promise((res) => setTimeout(res, delay));
 
 export const Playbar = () => {
   const [percent, setPercent] = useState(0);
@@ -151,8 +152,8 @@ export const Playbar = () => {
   }
 
   const [repeatState, setRepeatState] = useState(false);
-  const [Shuffle, setShuffle] = useState({isLoading: false });;
-  const {isLoading} = Shuffle;
+  const [Shuffle, setShuffle] = useState({ isLoading: false });
+  const { isLoading } = Shuffle;
 
   function changeRepeat() {
     if (repeatState) {
@@ -162,7 +163,7 @@ export const Playbar = () => {
     }
   }
   async function changeRandom() {
-    setShuffle({isLoading: true });
+    setShuffle({ isLoading: true });
     const firstSong = likeMusic[count]; //넣을꺼
     //지금재생 찾아서 삭제
     likeMusic.splice(
@@ -175,7 +176,7 @@ export const Playbar = () => {
     likeMusic.unshift(firstSong);
     setCount(0);
     await fakeFetch();
-    setShuffle({isLoading: false});
+    setShuffle({ isLoading: false });
   }
 
   function playSong() {
@@ -197,8 +198,10 @@ export const Playbar = () => {
     const playbarState = document.querySelector("i.fa-play");
 
     // 뮤직쪽에서 플레이중이면 삭제시켜주자
-    const musicCardPlaying = document.querySelector(".music-cards-container .music-card.playing")
-    if (musicCardPlaying) musicCardPlaying.classList.remove("playing")
+    const musicCardPlaying = document.querySelector(
+      ".music-cards-container .music-card.playing"
+    );
+    if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
 
     if (playbarState) {
       playSong();
@@ -376,35 +379,44 @@ export const Playbar = () => {
             onChange={handleChange}
             sx={{ width: 220, height: 5 }}
           />
-          <div className="nowplaying">
-            <h3>Now playing :</h3>
-            <h3 id="title"></h3>
-          </div>
+        </div>
+        <div className="nowplaying">
+          <h3>Now playing :</h3>
+        </div>
+        <div className="nowplaying-massege">
+          <h3 id="title"></h3>
         </div>
         <div className="playbaricon">
-
-          {repeatState
-          ?(
+          {repeatState ? (
             <li>
-             <i className="uil uil-repeat" onClick={changeRepeat}> </i>
+              <i className="uil uil-repeat" onClick={changeRepeat}>
+                {" "}
+              </i>
             </li>
-          )
-          :(
+          ) : (
             <li>
-            <i style={{color:"#e6e5e5"}} className="uil uil-repeat" onClick={changeRepeat}> </i>
-           </li>
+              <i
+                style={{ color: "#e6e5e5" }}
+                className="uil uil-repeat"
+                onClick={changeRepeat}
+              >
+                {" "}
+              </i>
+            </li>
           )}
 
-          {isLoading
-          ?(
+          {isLoading ? (
             <li>
-            <i className="uil uil-arrow-random" onClick={changeRandom}></i>
-          </li>
-          )
-          :(
+              <i className="uil uil-arrow-random" onClick={changeRandom}></i>
+            </li>
+          ) : (
             <li>
-            <i  style={{color:"#e6e5e5"}} className="uil uil-arrow-random" onClick={changeRandom}></i>
-          </li>
+              <i
+                style={{ color: "#e6e5e5" }}
+                className="uil uil-arrow-random"
+                onClick={changeRandom}
+              ></i>
+            </li>
           )}
         </div>
 
