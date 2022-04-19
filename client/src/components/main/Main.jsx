@@ -10,10 +10,10 @@ import { Searchbar } from "./searchbar/Searchbar";
 //bottom
 import { Dashboard } from "./dashboard/Dashboard";
 import { Playbar } from "./playbar/Playbar";
-// import RegisterUser from "./register/RegisterUser";
 
 //Main-nav
-
+import Artistsubmit from "./register/artistsubmit/Artistsubmit";
+import RegisterUser from "./register/usersubmit/RegisterUser";
 import Createmain from "./create/Createmain";
 import LandingMainPage from "../landingpage/LandingMainPage";
 //Main-nav Mypage
@@ -24,7 +24,6 @@ import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
 import { Collection } from "./mypage/collection/Collection";
 // import { Favorite } from "./mypage/favorite/Favorite";
-import Artistsubmit from "./mypage/artistsubmit/Artistsubmit";
 import MyNFTList from "./mypage/mynftlist/MyNFTList";
 
 // Main-nav music
@@ -49,8 +48,6 @@ import Auctionupload from "./artist/auctionupload/Auctionupload";
 
 //Main-nav Create
 import { Musicupload } from "./create/musicupload/Musicupload";
-
-import RegisterUser from "./register/RegisterUser";
 
 import FavoriteArtist from "./mypage/favoriteartist/FavoriteArtist";
 import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
@@ -116,7 +113,6 @@ export const Main = () => {
               <Route path="mynftlist" element={<MyNFTList />} />
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
-              <Route path="artistsubmit" element={<Artistsubmit />} />
               <Route path="favoritartist" element={<FavoriteArtist />} />
               <Route path="favoritemusic" element={<FavoriteMusic />} />
               <Route path="myplaylist" element={<MyPlayList />} />
@@ -130,7 +126,8 @@ export const Main = () => {
                 artist.artist_name !== null ? (
                   <Artist path="artist" />
                 ) : (
-                  <Artistsubmit />
+                  <></>
+                  // <Artistsubmit path="artistsubmit" />
                 )
               }
             >
@@ -139,6 +136,7 @@ export const Main = () => {
               <Route path="myupload" element={<Album />} />
               <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
+            <Route path="artistsubmit" element={<Artistsubmit />} />
 
             {/* Create */}
             <Route path="create" element={<Createmain />}>

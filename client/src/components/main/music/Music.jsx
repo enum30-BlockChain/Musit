@@ -43,6 +43,7 @@ export default function Music() {
             </li>
           </ul>
         </nav>
+        
         <section className="details">
           <Outlet />
         </section>

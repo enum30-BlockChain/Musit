@@ -45,7 +45,14 @@ const Enroll = () => {
 
 /* 페이지 로딩 Success 화면 */
 const SuccessContent = ({nftData}) => {
+	let { tokenId } = useParams();
 	const musicData = useSelector((state) => state.music);
+	const [isOnMarket, setIsOnMarket] = useState(true);
+
+	useEffect(async () => {
+		console.log(await Ethers.isOnMarket(tokenId));
+		setIsOnMarket(await Ethers.isOnMarket(tokenId))
+	},[nftData])
 
 	// Sell, Auction 입력창 변경
 	const selectSellOnClick = () => {
@@ -127,10 +134,25 @@ const SuccessContent = ({nftData}) => {
 						</button>
 					</div>
 					<div className="input-form">
-						{/* 일반 판매 */}
-						<OrdinaryForm />
-						{/* 경매 */}
-						<AuctionForm />
+						{isOnMarket ? (
+							<>
+								<div className="not-available-box">
+									<h2>
+										<i className="uil uil-exclamation-triangle"></i> Not
+										available
+									</h2>
+									<p>This item is already on the market.</p>
+									<p>You cannot enroll items on the market.</p>
+								</div>
+							</>
+						) : (
+							<>
+								{/* 일반 판매 */}
+								<OrdinaryForm isOnMarket={isOnMarket} />
+								{/* 경매 */}
+								<AuctionForm isOnMarket={isOnMarket} />
+							</>
+						)}
 					</div>
 				</section>
 			</section>
@@ -140,7 +162,7 @@ const SuccessContent = ({nftData}) => {
 
 
 /* 일반 판매 */
-const OrdinaryForm = () => {
+const OrdinaryForm = ({isOnMarket}) => {
 	let { tokenId } = useParams();
 	const [sellPrice, setSellPrice] = useState("0.0001");
 
@@ -149,10 +171,12 @@ const OrdinaryForm = () => {
 		await Ethers.approveMyNFT("marketplace", tokenId)
 	}
 
+	// 판매 가격 입력
 	const sellPriceOnChange = (e) => {
 		setSellPrice(e.target.value)
 	}
 
+	// NFT 판매 등록
 	const submitOnClick = async () => {
 		await Ethers.enrollMarketplace(tokenId, sellPrice)
 	}
@@ -197,6 +221,9 @@ const OrdinaryForm = () => {
 
 /* 경매 */
 const AuctionForm = () => {
+	let { tokenId } = useParams();
+
+	// 현재 시간 형식 변경 => input date form에 입력할 포맷으로 변경
 	const getNowDateTime = () => {
 		const now = Date.now();
 		const today = (new Date(now))
@@ -207,7 +234,8 @@ const AuctionForm = () => {
 		const result = `${year}-${month}-${date}T${time}`
 		return result;
 	}
-
+	
+	// 입력할 최대 시간 형식 변경 => 현재 시간으로 부터 7일
 	const getMaxDateTime = () => {
 		const now = Date.now();
 		const today = (new Date(now))
@@ -219,6 +247,11 @@ const AuctionForm = () => {
 		return result;
 	}
 
+	// Auction 컨트랙트에 내 NFT를 접근 권한 허용하기
+	const setPermissionOnClick = async () => {
+		await Ethers.approveMyNFT("auction", tokenId)
+	}
+
 	return (
 		<div className="auction-form">
 			<div className="notice-box">
@@ -226,7 +259,7 @@ const AuctionForm = () => {
 					<i className="uil uil-exclamation-triangle"></i> Must Read
 				</h2>
 				<p>
-					Before you enroll nft to marketplace, you have to give us the
+					Before you enroll nft to auction market, you have to give us the
 					permission to access your items.
 				</p>
 				<p>
@@ -236,7 +269,7 @@ const AuctionForm = () => {
 			</div>
 			<div className="permission-box">
 				<h2>Permission</h2>
-				<button>Give Permission</button>
+				<button onClick={setPermissionOnClick}>Give Permission</button>
 			</div>
 			<div className="price-box">
 				<h2>Start-Price</h2>

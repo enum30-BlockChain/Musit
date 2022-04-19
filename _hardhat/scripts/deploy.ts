@@ -10,18 +10,21 @@ async function main() {
   console.log(`Account balance: ${(await deployer.getBalance()).toString()}`);
 
   // We get the contract to deploy
+  console.log("Deploying MusitNFT");
   const MusitNFT = await ethers.getContractFactory("MusitNFT");
   const musitNFT = await (await MusitNFT.deploy(hre.ethers.utils.parseEther("0.0001"))).deployed();
-
+  console.log("MusitNFT address:", musitNFT.address);
+  
+  console.log("Deploying Marketplace");
   const Marketplace = await ethers.getContractFactory("Marketplace");
   const marketplace = await (await Marketplace.deploy(1)).deployed();
-
+  console.log("Marketplace address:", marketplace.address);
+  
+  console.log("Deploying Auction");
   const Auction = await ethers.getContractFactory("Auction");
   const auction = await (await Auction.deploy(1)).deployed();
-
-  console.log("MusitNFT address:", musitNFT.address);
-  console.log("Marketplace address:", marketplace.address);
   console.log("Auction address:", auction.address);
+
 
   saveJsonFilesToClientFolder(musitNFT, "MusitNFT");
   saveJsonFilesToClientFolder(marketplace, "Marketplace");

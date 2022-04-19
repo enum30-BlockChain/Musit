@@ -65,7 +65,27 @@ const CoverImage = styled("div")({
   },
 });
 
+const Slider = styled("slider")({
+  position: "relative",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const SliderBox = styled("slider")({
+  position: "relative",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "10px",
+});
+
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+
 export default function ArtistModal(props) {
+  const [current, setCurrent] = useState(0);
+  // const length = musics.length;/
+
   const TotalCount = props.artistModal.Music.map((e) => e.play_count) //play총합
     .reduce((prev, curr) => prev + curr, 0);
 
@@ -137,16 +157,22 @@ export default function ArtistModal(props) {
               <b>Music List</b>
             </Typography>
           </Box>
-          <Box sx={{ mt: 4, ml: 5, display: "flex", flexDirection: "row" }}>
-            {musics.map((music) => {
-              return (
-                <ArtistSongCard
-                  music={music}
-                  setmusicmodal={props.setmusicmodal}
-                />
-              );
-            })}
-          </Box>
+          <Slider>
+            <FaArrowAltCircleLeft className="left-arrow" />
+            <SliderBox
+              sx={{ mt: 4, ml: 5, display: "flex", flexDirection: "row" }}
+            >
+              {musics.map((music) => {
+                return (
+                  <ArtistSongCard
+                    music={music}
+                    setmusicmodal={props.setmusicmodal}
+                  />
+                );
+              })}
+            </SliderBox>
+            <FaArrowAltCircleRight className="right-arrow" />
+          </Slider>
         </Box>
       </Widget>
       {/* <WallPaper sx={{cursor:"pointer"}} 

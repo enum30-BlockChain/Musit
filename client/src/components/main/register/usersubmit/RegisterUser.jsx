@@ -7,13 +7,10 @@ import axios from "axios";
 import { Input, Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import CountryType from "./CountryType.jsx";
-import {
-  createUserData,
-  readUserData,
-} from "../../../redux/actions/userActions";
 
-import { connectMetamask } from "../../../redux/actions/metamaskActions";
 import { Link } from "react-router-dom";
+import { createUserData } from "../../../../redux/actions/userActions";
+import { connectMetamask } from "../../../../redux/actions/metamaskActions";
 
 const RegisterUser = () => {
   const metamask = useSelector((state) => state.metamask);

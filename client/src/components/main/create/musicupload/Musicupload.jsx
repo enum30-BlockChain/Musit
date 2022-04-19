@@ -6,16 +6,16 @@ import Createmain from "../Createmain";
 import { useDispatch, useSelector } from "react-redux";
 import { readArtistList } from "../../../../redux/actions/artistActions";
 import { createMusicData } from "../../../../redux/actions/musicActions";
-import { useNavigate } from "react-router-dom";
+import Progress from "./progress/Progress";
+import MessageHandler from "./progress/MessageHandler";
 
 // const { create } = require("ipfs-http-client");
 
-export const Musicupload = ({ address }) => {
+export const Musicupload = () => {
   const artistList = useSelector(state => state.artistList)
   const user = useSelector(state => state.user)
+  const music = useSelector(state => state.music)
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
@@ -39,6 +39,7 @@ export const Musicupload = ({ address }) => {
   const [duration, setDuration] = useState("");
   const [musicTitle, setMusicTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [messageState, setMessageState] = useState(false);
   const [DBdata, setDBdata] = useState({
     title: "",
     play_time: "",
@@ -106,11 +107,12 @@ export const Musicupload = ({ address }) => {
     DBdata.description = description;
     await findArtist();
     if (isValidDBdata()) {
-      await dispatch(createMusicData(imgFormData, audioFormData, DBdata));
-      navigate("/search", { state: musicTitle });
+      await dispatch(createMusicData(imgFormData, audioFormData, DBdata))
+      await setMessageState(true)
     }
+    await setMessageState(false)
   };
-
+  
   const findArtist = async () => {
     artistList.data.map((a, index) => {
       if (a.user_address === user.address) {
@@ -230,6 +232,8 @@ export const Musicupload = ({ address }) => {
       <div className="create-btn">
         <Button onClick={submit}> submit </Button>
       </div>
+         {music.loading && <Progress />}
+         <MessageHandler test={messageState} title={DBdata.title}/>
     </>
   );
 };

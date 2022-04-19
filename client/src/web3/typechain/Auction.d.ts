@@ -616,7 +616,7 @@ export class Auction extends BaseContract {
       itemId?: BigNumberish | null,
       _startPrice?: null,
       _nft?: null,
-      _tokenId?: null,
+      _tokenId?: BigNumberish | null,
       seller?: string | null
     ): TypedEventFilter<
       [BigNumber, BigNumber, string, BigNumber, string],
@@ -633,7 +633,7 @@ export class Auction extends BaseContract {
       itemId?: BigNumberish | null,
       _startPrice?: null,
       _nft?: null,
-      _tokenId?: null,
+      _tokenId?: BigNumberish | null,
       seller?: string | null
     ): TypedEventFilter<
       [BigNumber, BigNumber, string, BigNumber, string],

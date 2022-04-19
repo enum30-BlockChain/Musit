@@ -11,8 +11,6 @@ export const createMusicData = (imgFormData, audioFormData, input) => {
       const imgUrl = (
         await axios.post("http://localhost:5000/files/upload/img", imgFormData)
       ).data;
-      console.log(imgUrl);
-      console.log(audioFormData.get("audio"));
 
       const audioIpfsHash = (
         await axios.post(
@@ -26,7 +24,6 @@ export const createMusicData = (imgFormData, audioFormData, input) => {
         img_file: imgUrl,
         ipfs_hash: audioIpfsHash,
       };
-      console.log(musicData);
       const createData = await axios.post(
         "http://localhost:5000/music/",
         musicData

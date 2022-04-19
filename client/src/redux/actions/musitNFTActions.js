@@ -89,14 +89,14 @@ export const mintingMusitNFT = (inputs) => {
 
 
 /**** Seleted nft ****/
-export const selectedArtist = (artist) => {
+export const selectedMusitNFT = (nftInfo) => {
   return {
     type: ActionTypes.SELECTED_MUSIT_NFT,
-    payload: artist,
+    payload: nftInfo,
   };
 };
 
-export const removeSelectedArtist = () => {
+export const removeSelectedMusitNFT = () => {
   return {
     type: ActionTypes.REMOVE_SELECTED_MUSIT_NFT,
   };

@@ -16,6 +16,14 @@ export default function MainCard(props) {
   const [findlike, setFindlike] = useState("")
   const likeList = useSelector((state) => state.likeMusic);
   const dispatch = useDispatch();
+  const slicedescription =()=>{
+    if(props.music.description.length >25){
+     return props.music.description.substr(0, 25) +
+        "..." ;
+    }else{
+      return props.music.description
+    }
+  }
 
   useEffect(() => {
     if (!likeList.loading) {
@@ -99,7 +107,7 @@ export default function MainCard(props) {
                 {props.music.artist_name}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary" component="div" sx={{width:"40%"}}>
-                {props.music.description}
+                {slicedescription()}
               </Typography>
           </Box>
           </Box>
@@ -143,7 +151,7 @@ export default function MainCard(props) {
             <Box sx={{ display: 'flex', alignItems: 'center',width:"30%"}}>
               <AccessTimeIcon fontSize="small"  />
               <Typography variant="overline" display="block" >
-              {Math.floor(props.music.play_time / 60)}: {props.music.play_time % 60}
+               {Math.floor(props.music.play_time / 60)}:{props.music.play_time % 60}
               </Typography>
             </Box>
           </Box>
