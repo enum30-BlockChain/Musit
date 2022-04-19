@@ -206,7 +206,7 @@ export default function Genre() {
             />
           </Box>
         </Box>
-       <Divider />
+       <Divider sx={{ my: 2 }}/>
         <Box sx={{ height: "45%", mt: 1 }}>
           <Typography variant="h4">like Ranking</Typography>
           <Box
