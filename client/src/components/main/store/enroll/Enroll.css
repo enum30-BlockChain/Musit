@@ -119,12 +119,12 @@
 
 /* 상세정보 컨테이너 */
 .enroll-container .right-container .info-container {
-  /* background-color: var(--content-bg-color2); */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   width: 50%;
+  height: 100%;
 }
 
 .enroll-container .right-container .info-container > div {
@@ -255,6 +255,13 @@
 .enroll-container .right-container .input-container .input-form h2 {
   font-size: 18px;
   font-weight: 600;
+}
+
+.enroll-container .right-container .input-container .input-form .title-box {
+  display: flex;
+}
+.enroll-container .right-container .input-container .input-form h5 {
+  color: red;
 }
 
 .enroll-container .right-container .input-container .input-form p {

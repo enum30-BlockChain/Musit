@@ -201,11 +201,15 @@ const OrdinaryForm = ({isOnMarket}) => {
 				</p>
 			</div>
 			<div className="permission-box">
-				<h2>Permission</h2>
+				<div className="title-box">
+					<h2>Permission</h2> <h5>*</h5>
+				</div>
 				<button onClick={setPermissionOnClick}>Give Permission</button>
 			</div>
 			<div className="price-box">
-				<h2>Sell-Price</h2>
+				<div className="title-box">
+					<h2>Sell-Price</h2> <h5>*</h5>
+				</div>
 				<p>Please ETH price to sell.(Unit: 0.0001 ETH)</p>
 				<input
 					type="number"
@@ -271,15 +275,22 @@ const AuctionForm = () => {
 				</p>
 			</div>
 			<div className="permission-box">
-				<h2>Permission</h2>
+				<div className="title-box">
+					<h2>Permission</h2> <h5>*</h5>
+				</div>
 				<button onClick={setPermissionOnClick}>Give Permission</button>
 			</div>
 			<div className="price-box">
-				<h2>Start-Price</h2>
+				<div className="title-box">
+					<h2>Sell-Price</h2> <h5>*</h5>
+				</div>
 				<p>Please ETH price to sell. (Unit : 0.0001 ETH)</p>
-				<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} />
-				<h2>End-date</h2>
+				<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} required />
+				<div className="title-box">
+					<h2>End-Date</h2> <h5>*</h5>
+				</div>
 				<input
+					required
 					id="datetime-local"
 					type="datetime-local"
 					min={getNowDateTime()}
