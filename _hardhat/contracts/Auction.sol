@@ -210,4 +210,12 @@ contract Auction is ReentrancyGuard, Ownable {
   function getBlockTimestamp() public view returns (uint) {
     return block.timestamp;
   }
+
+  function getItems(uint _itemId) public view returns (Item memory) {
+    return items[_itemId];
+  }
+  
+  function getPendingBids(uint _itemId, address _addr) public view returns (uint) {
+    return pendingBids[_itemId][_addr];
+  }
 }
