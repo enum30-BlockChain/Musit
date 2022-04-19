@@ -20,6 +20,8 @@
   --mode-switch-color: #fff;
   --title-icon-color: #fff;
   --playbar-base-color: rgb(117, 113, 113);
+  --error-color: #eb6f6f;
+  --warning-color: #e5d489;
 
   /* ====== Transition ====== */
   --tran-02: all 0.2s ease;
@@ -46,4 +48,6 @@ body.dark {
   --mode-switch-color: #252626;
   --title-icon-color: #252626;
   --playbar-base-color: rgb(117, 113, 113);
+  --error-color: #eb6f6f;
+  --warning-color: #e5d489;
 }

@@ -1,21 +1,31 @@
 import "./Error.css";
 import React from "react";
 
-export default function Error(props) {
+export default function Error({ error }) {
   const moveToLandingpage = () => {
     window.location.href = "/landingpage";
   };
+  console.log(error);
 
   return (
     <>
-      <p className="glitch">{props.error.status} Error Page</p>
+      <div className="error-layout">
+        <p className="error-title">Oops!</p>
 
-      <h1>Your Error is {props.error.name}</h1>
-      <p>{props.error.message}</p>
+        <p className="error-name">{error.number}</p>
+        <p className="error-message">{error.message}</p>
 
-      <button onClick={moveToLandingpage}>Move to Landingpage</button>
-      <br></br>
-      <button onClick={(e) => history.go(-1)}>Move to previous page</button>
+        <div className="error-btn-style">
+          <label className="error-btn" htmlfor="movetolanding">
+            Move to Landingpage
+          </label>
+          <button
+            style={{ display: "none" }}
+            id="movetolanding"
+            onClick={moveToLandingpage}
+          ></button>
+        </div>
+      </div>
     </>
   );
 }

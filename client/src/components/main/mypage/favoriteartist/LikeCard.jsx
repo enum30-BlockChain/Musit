@@ -10,7 +10,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { toggleLikeArtist } from "../../../../redux/actions/artistActions";
+import {
+  readLikeArtistList,
+  toggleLikeArtist,
+} from "../../../../redux/actions/artistActions";
 
 const Img = styled("img")({
   margin: "auto",
@@ -42,6 +45,7 @@ export default function LikeCard({ List, setArtistModal }) {
 
   const likeOnclick = async () => {
     dispatch(toggleLikeArtist(List.artist_name));
+    alert("좋아요를 취소하였습니다.");
   };
 
   return (
@@ -126,23 +130,6 @@ export default function LikeCard({ List, setArtistModal }) {
                 />
               </Box>
             )}
-          </Grid>
-          <Grid>
-            <Link to="/">
-              <Button
-                variant="contained"
-                sx={{
-                  color: "var(--black-light-color)",
-                  backgroundColor: "var(--box1-color)",
-                  ":hover": {
-                    background: "var(--primary-color)",
-                    color: "var(--text-color)",
-                  },
-                }}
-              >
-                sell
-              </Button>
-            </Link>
           </Grid>
         </Grid>
       </Grid>
