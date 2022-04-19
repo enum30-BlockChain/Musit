@@ -70,12 +70,21 @@ export const Navbar = () => {
               </li>
             )}
 
-            <li>
-              <Link to="/artist">
-                <i className="uil uil-palette"></i>
-                <span className="link-name">ARTIST</span>
-              </Link>
-            </li>
+            {artist.artist_name !== null ? (
+              <li>
+                <Link to="/artist">
+                  <i className="uil uil-palette"></i>
+                  <span className="link-name">ARTIST</span>
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link to="/artistsubmit">
+                  <i className="uil uil-music"></i>
+                  <span className="link-name"> Artist Register</span>
+                </Link>
+              </li>
+            )}
             <li>
               <Link to="/create">
                 <i className="uil uil-upload-alt"></i>
