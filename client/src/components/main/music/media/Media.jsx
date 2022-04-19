@@ -16,10 +16,11 @@ const Media = () => {
   const musicList = useSelector((state) => state.musicList).data;
   const listeningTopList = [...musicList].sort(
     (a, b) => b.play_count - a.play_count
-  ); //랭킹만들기
+  ).slice(0, 20); //랭킹만들기
+
   const likeTopList = [...musicList].sort(
     (a, b) => b.MusicLikes.length - a.MusicLikes.length
-  ); //랭킹만들기
+  ).slice(0, 20); 
 
   const [listenRankingvalue, setListenRankingValue] = useState(0);
   const [likeRankingValue, setLikeRankingValue] = useState(0);
@@ -39,24 +40,24 @@ const Media = () => {
   //ToDO: musicList.length = 6 6개이하면 오류남
 
   const listenRankingMoveLeft = () => {
-    // console.log(listenRankingvalue)
-    // console.log(musicList.length)
+    console.log(listeningTopList.length)
+    console.log(veiwCard)
     listenRankingvalue === 0
-      ? setListenRankingValue(-100 * (musicList.length - veiwCard))
+      ? setListenRankingValue(-100 * (listeningTopList.length - veiwCard))
       : setListenRankingValue(listenRankingvalue + 100);
   };
   const listenRankingMoveRigth = () => {
-    listenRankingvalue === -100 * (musicList.length - veiwCard)
+    listenRankingvalue === -100 * (listeningTopList.length - veiwCard)
       ? setListenRankingValue(0)
       : setListenRankingValue(listenRankingvalue - 100);
   };
   const likeRankingMoveLeft = () => {
     likeRankingValue === 0
-      ? setLikeRankingValue(-100 * (musicList.length - veiwCard))
+      ? setLikeRankingValue(-100 * (likeTopList.length - veiwCard))
       : setLikeRankingValue(likeRankingValue + 100);
   };
   const rigthRankingMoveLeft = () => {
-    likeRankingValue === -100 * (musicList.length - veiwCard)
+    likeRankingValue === -100 * (likeTopList.length - veiwCard)
       ? setLikeRankingValue(0)
       : setLikeRankingValue(likeRankingValue - 100);
   };
@@ -72,7 +73,7 @@ const Media = () => {
     :(
       <Box sx={{ height: "100%" }}>
         <Box sx={{ height: "45%", mb: 2 }}>
-          <Typography variant="h4">Listening Ranking</Typography>
+          <Typography variant="h4">Listening Top20 Ranking</Typography>
           <Box
             sx={{
               display: "flex",
@@ -114,7 +115,7 @@ const Media = () => {
                     />
                     <Box sx={{ pr: 2 }}>
                       <Typography gutterBottom variant="body2">
-                        {music.title}
+                      {index+1}. &nbsp; {music.title}
                       </Typography>
                       <Typography
                         display="block"
@@ -147,7 +148,7 @@ const Media = () => {
         </Box>
         <Divider sx={{ my: 2 }} />
         <Box sx={{ height: "45%", mt: 1 }}>
-          <Typography variant="h4">like Ranking</Typography>
+          <Typography variant="h4">like Top20 Ranking</Typography>
           <Box
             sx={{
               display: "flex",
@@ -189,7 +190,7 @@ const Media = () => {
                     />
                     <Box sx={{ pr: 2 }}>
                       <Typography gutterBottom variant="body2">
-                        {music.title}
+                      {index+1}. &nbsp; {music.title}
                       </Typography>
                       <Typography
                         display="block"
