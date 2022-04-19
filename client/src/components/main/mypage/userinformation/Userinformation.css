@@ -1,10 +1,18 @@
-.userinfo-layout {
-  background-color: blue;
+@import "../../../../styles/variables.css";
+
+/* .userinfo-layout {
+} */
+
+.userinfo-layout .userinfo-card {
+  margin-top: 10px;
+  width: 400px;
+  height: 900px;
+  border-radius: 10px;
+  background-color: var(--box1-color);
+  margin: auto;
 }
 
-.userinfo-card {
-  width: 400px;
-  height: 850px;
-  background-color: red;
-  margin: auto;
+.userinfo-layout .userinfo-card .userinfo-image {
+  display: flex;
+  justify-content: center;
 }
