@@ -5,7 +5,6 @@ import { Box, Avatar } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import ArtistSongCard from "./ArtistSongCard";
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
 const WallPaper = styled("div")({
   position: "absolute",

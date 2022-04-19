@@ -10,20 +10,14 @@ export default function Error({ error }) {
   return (
     <>
       <div className="error-layout">
-        <p className="error-title">Oops!</p>
+        <div className="error-details">
+          <p className="error-title">Oops!</p>
 
-        <p className="error-name">{error.number}</p>
-        <p className="error-message">{error.message}</p>
-
-        <div className="error-btn-style">
-          <label className="error-btn" htmlfor="movetolanding">
-            Move to Landingpage
-          </label>
-          <button
-            style={{ display: "none" }}
-            id="movetolanding"
-            onClick={moveToLandingpage}
-          ></button>
+          <p className="error-name">{error.name}</p>
+          <p className="error-message">{error.message}</p>
+        </div>
+        <div className="error-btn-style" onClick={moveToLandingpage}>
+          Move to Landingpage
         </div>
       </div>
     </>
