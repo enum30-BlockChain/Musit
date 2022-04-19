@@ -325,101 +325,97 @@ export const Playbar = () => {
             <div className="progress" style={{ width: `${percent}%` }}></div>
           </div>
         </div>
-        <audio
-          id="audio"
-          onLoadedData={() => {
-            //불러올때
-            audio.currentTime = currentTime;
-          }}
-          onTimeUpdate={(e) => {
-            if (savePoint > 0) {
-              const saveTime = Math.floor(e.currentTarget.currentTime);
-              postTime(saveTime);
-              DurTime(e);
-              updateProgress(e);
-            }
-            setSavePoint(savePoint + 1);
-          }}
-          onEnded={() => {
-            EndNextSong();
-            palyCountAdd();
-          }}
-        />
-        <div className="img-container">
-          <img src={myImage} alt="music-cover" id="cover" />
-        </div>
-        <div className="navigation">
-          <button id="prev" className="action-btn" onClick={prevSong}>
-            <i className="fas fa-backward"></i>
-          </button>
-          <button
-            id="play"
-            className="action-btn action-btn-big"
-            onClick={playOnClick}
-          >
-            <i className="fas fa-play"></i>
-          </button>
-          <button id="next" className="action-btn" onClick={nextSong}>
-            <i className="fas fa-forward"></i>
-          </button>
-        </div>
-
-        <Stack
-          spacing={2}
-          direction="row"
-          sx={{ mb: 1 }}
-          alignItems="center"
-        ></Stack>
-
-        <div className="volume-control">
-          <Slider
-            aria-label="Volume"
-            placeholder="Volume"
-            value={value}
-            onChange={handleChange}
-            sx={{ width: 220, height: 5 }}
+        <div className="music-control-box">
+          <audio
+            id="audio"
+            onLoadedData={() => {
+              //불러올때
+              audio.currentTime = currentTime;
+            }}
+            onTimeUpdate={(e) => {
+              if (savePoint > 0) {
+                const saveTime = Math.floor(e.currentTarget.currentTime);
+                postTime(saveTime);
+                DurTime(e);
+                updateProgress(e);
+              }
+              setSavePoint(savePoint + 1);
+            }}
+            onEnded={() => {
+              EndNextSong();
+              palyCountAdd();
+            }}
           />
-        </div>
-        <div className="nowplaying">
-          <h3>Now playing :</h3>
-        </div>
-        <div className="nowplaying-massege">
-          <h3 id="title"></h3>
-        </div>
-        <div className="playbaricon">
-          {repeatState ? (
-            <li>
-              <i className="uil uil-repeat" onClick={changeRepeat}>
-                {" "}
-              </i>
-            </li>
-          ) : (
-            <li>
-              <i
-                style={{ color: "#e6e5e5" }}
-                className="uil uil-repeat"
-                onClick={changeRepeat}
-              >
-                {" "}
-              </i>
-            </li>
-          )}
+          <div className="img-container">
+            <img src={myImage} alt="music-cover" id="cover" />
+          </div>
 
-          {isLoading ? (
-            <li>
-              <i className="uil uil-arrow-random" onClick={changeRandom}></i>
-            </li>
-          ) : (
-            <li>
-              <i
-                style={{ color: "#e6e5e5" }}
-                className="uil uil-arrow-random"
-                onClick={changeRandom}
-              ></i>
-            </li>
-          )}
-        </div>
+          <div className="navigation">
+            <button id="prev" className="action-btn" onClick={prevSong}>
+              <i className="fas fa-backward"></i>
+            </button>
+            <button
+              id="play"
+              className="action-btn action-btn-big"
+              onClick={playOnClick}
+            >
+              <i className="fas fa-play"></i>
+            </button>
+            <button id="next" className="action-btn" onClick={nextSong}>
+              <i className="fas fa-forward"></i>
+            </button>
+          </div>
 
+          <Stack
+            spacing={2}
+            direction="row"
+            sx={{ mb: 1 }}
+            alignItems="center"
+          ></Stack>
+
+          <div className="volume-control">
+            <Slider
+              aria-label="Volume"
+              placeholder="Volume"
+              value={value}
+              onChange={handleChange}
+              sx={{ width: 220, height: 5 }}
+            />
+          </div>
+          <div className="nowplaying">
+            <h3>Now playing : </h3>
+            <h3 id="title"></h3>
+          </div>
+          <div className="playbaricon">
+            {repeatState ? (
+              <li>
+                <i className="uil uil-repeat" onClick={changeRepeat}></i>
+              </li>
+            ) : (
+              <li>
+                <i
+                  style={{ color: "#e6e5e5" }}
+                  className="uil uil-repeat"
+                  onClick={changeRepeat}
+                ></i>
+              </li>
+            )}
+
+            {isLoading ? (
+              <li>
+                <i className="uil uil-arrow-random" onClick={changeRandom}></i>
+              </li>
+            ) : (
+              <li>
+                <i
+                  style={{ color: "#e6e5e5" }}
+                  className="uil uil-arrow-random"
+                  onClick={changeRandom}
+                ></i>
+              </li>
+            )}
+          </div>
+        </div>
         <PlayList playloadSong={playloadSong} />
       </div>
     </>
