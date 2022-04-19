@@ -1,12 +1,3 @@
-:root {
-  --point-color: #616186;
-  --content-bg-color1: #eaeaea;
-  --content-bg-color2: #d8d8d8;
-  --content-bg-color3: #c1c1c1;
-  --not-available-bg-color: #eb6f6f;
-  --notice-bg-color: #e5d489;
-}
-
 .enroll-container {
   position: relative;
   top: 50%;
@@ -18,7 +9,7 @@
   border-radius: 50px;
   width: 80%;
   height: 70%;
-  background-color: var(--point-color);
+  background-color: var(--third-color);
 }
 
 .enroll-container h1 {
@@ -35,7 +26,7 @@
 } 
 .enroll-container button:hover {
   cursor: pointer;
-  background-color: var(--point-color);
+  background-color: var(--third-color);
   color: #FFF;
 }
 
@@ -220,7 +211,7 @@
 }
 
 .enroll-container .right-container .input-container:is(.sell, .auction) .btn-group button:hover {
-  background-color: var(--point-color);
+  background-color: var(--third-color);
   color: #fff;
   cursor: pointer;
 }
@@ -259,7 +250,7 @@
 }
 
 .enroll-container .right-container .input-container .input-form .not-available-box {
-  background-color: var(--not-available-bg-color);
+  background-color: var(--error-color);
   border-radius: 10px;
   padding: 10px;
   height: 100%;
@@ -277,7 +268,7 @@
 }
 
 .enroll-container .right-container .input-container .input-form .ordinary-form .notice-box {
-  background-color: var(--notice-bg-color);
+  background-color: var(--warning-color);
 }
 
 .enroll-container .right-container .input-container.sell .input-form .auction-form {

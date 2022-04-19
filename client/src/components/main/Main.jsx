@@ -108,6 +108,7 @@ export const Main = () => {
               <Route path="playlist" element={<Playlist />} />
               <Route path="subscription" element={<Subscription />} />
               <Route path="mynftlist" element={<MyNFTList />} />
+              <Route path="mynftlist/:tokenId" element={<Enroll />} />
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
               <Route path="favoritartist" element={<FavoriteArtist />} />
