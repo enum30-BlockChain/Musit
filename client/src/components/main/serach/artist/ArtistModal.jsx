@@ -80,8 +80,6 @@ const SliderBox = styled("slider")({
   borderRadius: "10px",
 });
 
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
-
 export default function ArtistModal(props) {
   const [current, setCurrent] = useState(0);
   // const length = musics.length;/
@@ -158,7 +156,7 @@ export default function ArtistModal(props) {
             </Typography>
           </Box>
           <Slider>
-            <FaArrowAltCircleLeft className="left-arrow" />
+            <i className="uil uil-angle-double-left"></i>
             <SliderBox
               sx={{ mt: 4, ml: 5, display: "flex", flexDirection: "row" }}
             >
@@ -171,7 +169,7 @@ export default function ArtistModal(props) {
                 );
               })}
             </SliderBox>
-            <FaArrowAltCircleRight className="right-arrow" />
+            <i className="uil uil-angle-double-right"></i>
           </Slider>
         </Box>
       </Widget>
