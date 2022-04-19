@@ -1,33 +1,45 @@
-@import "../../../../styles/variables.css";
+.mynftlist {
+  width: 100%;
+  height: 100%;
+}
 
 .mynftlist .item-card-container {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
 }
 
 .mynftlist .item-card-container .item-card {
-  background-color: var(--nft-card-bg-color);
-  width: 380px;
-  height: 300px;
+  position: relative;
   margin: 15px;
+  width: 380px;
+  height: 380px;
+  transition: var(--tran-02);
 }
 
-.mynftlist .item-card-container .item-card:hover {
-  cursor: pointer;
+.mynftlist .item-card-container .item-card .img-box{
+  position: relative;
+  width: 50%;
+  height: 50%;
+  border: 5px solid var(--third-color);
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
 }
-
-.mynftlist .item-card-container .MuiCardHeader-root .MuiSvgIcon-root  {
-  color: #FFF;
+.mynftlist .item-card-container .item-card .img-box img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
-
-.mynftlist .item-card-container .item-card .MuiCardHeader-subheader{
-  color: var(--black-light-color);
-}
-
-.mynftlist .item-card-container .item-card .description p {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--black-light-color);
+.mynftlist .item-card-container .item-card .content-wrap {
+  position: absolute;
+  background-color: var(--third-color);
+  width: 100%;
+  height: 80%;
+  top: 20%;
+  border-radius: 10px;
 }

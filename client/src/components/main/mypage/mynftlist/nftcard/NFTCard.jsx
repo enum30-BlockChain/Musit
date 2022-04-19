@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {  Card, CardContent, CardMedia, Typography } from "@mui/material"
+import {  Card, CardContent, CardHeader, CardMedia, Typography } from "@mui/material"
 
 const NFTCard = ({data}) => {
 	const cardOnClick = () => {
@@ -8,25 +8,20 @@ const NFTCard = ({data}) => {
 	
   return (
 		<>
-			<div className="item-box">
-				<Card className="item-card" sx={{ maxWidth: 345 }}>
-					
-					<CardMedia
-						component="img"
-						height="180"
-						image={data.img_file}
-						alt={data.title}
-					/>
-
-					<CardContent>
-						<Typography gutterBottom variant="h4" component="h4">
-							{data.title}
-						</Typography>
-						<Typography gutterBottom variant="h5" component="h5">
-							{data.artist_name}
-						</Typography>
-					</CardContent>
-				</Card>
+			<div className="item-card">
+				<div className="img-box">
+					<img src={data.img_file} />
+				</div>
+				<div className="content-wrap">
+					<div className="content-box">
+						<h2 className="title">Title</h2>
+						<h1 className="content">{data.title}</h1>
+					</div>
+					<div className="content-box">
+						<h2 className="title">Artist</h2>
+						<h1 className="content">{data.artist_name}</h1>
+					</div>
+				</div>
 			</div>
 		</>
 	);
