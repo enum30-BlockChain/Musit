@@ -28,7 +28,6 @@ export default function AlbumList() {
    if(content===""){
      setupLoadMusic(Box)
     }else{
-      console.log(content)
       let searchCount = Box.filter(
         (a) => a.title.indexOf(content) > -1
         );
@@ -40,7 +39,6 @@ export default function AlbumList() {
           });
           Box.unshift(...searchCount)
         }
-        console.log(Box)
     setupLoadMusic(Box)
   }, [artist])
   

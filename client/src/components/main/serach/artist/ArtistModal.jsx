@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
+import "./ArtistModel.css";
+import React, { useEffect, useRef, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import { Box, Avatar } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import ArtistSongCard from "./ArtistSongCard";
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
 const WallPaper = styled("div")({
   position: "absolute",
@@ -65,14 +67,14 @@ const CoverImage = styled("div")({
   },
 });
 
-const Slider = styled("slider")({
+const Slider = styled("div")({
   position: "relative",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
 });
 
-const SliderBox = styled("slider")({
+const SliderBox = styled("div")({
   position: "relative",
   display: "flex",
   justifyContent: "center",
@@ -82,12 +84,26 @@ const SliderBox = styled("slider")({
 
 export default function ArtistModal(props) {
   const [current, setCurrent] = useState(0);
-  // const length = musics.length;/
 
   const TotalCount = props.artistModal.Music.map((e) => e.play_count) //play총합
     .reduce((prev, curr) => prev + curr, 0);
 
   const musics = props.artistModal.Music;
+
+  const length = musics.length;
+
+  const nextSlide = () => {
+    setCurrent(current === length - 1 ? 0 : current + 1);
+  };
+
+  const prevSlide = () => {
+    setCurrent(current === 0 ? length - 1 : current - 1);
+  };
+
+  if (!Array.isArray(musics) || musics.length <= 0) {
+    return null;
+  }
+
   return (
     <Box sx={{ width: "100%", overflow: "hidden" }}>
       <Widget>
@@ -156,20 +172,28 @@ export default function ArtistModal(props) {
             </Typography>
           </Box>
           <Slider>
-            <i className="uil uil-angle-double-left"></i>
+            <i className="uil uil-angle-double-left" onClick={prevSlide}></i>
             <SliderBox
               sx={{ mt: 4, ml: 5, display: "flex", flexDirection: "row" }}
             >
-              {musics.map((music) => {
+              {musics.map((music, i) => {
                 return (
-                  <ArtistSongCard
-                    music={music}
-                    setmusicmodal={props.setmusicmodal}
-                  />
+                  <div
+                    className={i === current ? "slide active" : "slide"}
+                    key={i}
+                  >
+                    {i === current && (
+                      <ArtistSongCard
+                        key={i}
+                        music={music}
+                        setmusicmodal={props.setmusicmodal}
+                      />
+                    )}
+                  </div>
                 );
               })}
             </SliderBox>
-            <i className="uil uil-angle-double-right"></i>
+            <i className="uil uil-angle-double-right" onClick={nextSlide}></i>
           </Slider>
         </Box>
       </Widget>

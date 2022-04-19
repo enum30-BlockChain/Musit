@@ -8,6 +8,8 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArtistCard from "../../serach/artist/ArtistCard";
 import ArtistModal from "../../serach/artist/ArtistModal";
+import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
+
 export default function Genre(props) {
   const [genreRecommend, setGenreRecommend] = useState([]);
   const [artistRecommend, setArtistRecommend] = useState([]);
@@ -93,7 +95,7 @@ export default function Genre(props) {
 
 
   const postInfo = (music) => {
-    props.setmusicmodal(music);
+   setmusicmodal(music);
   };
 
   const genreMoveLeft = () => {
@@ -258,6 +260,13 @@ export default function Genre(props) {
           sx={{ display: "block" }}
           artistModal={artistModal}
           setArtistModal={setArtistModal}
+          setmusicmodal={setmusicmodal}
+        />
+      )}
+      {musicmodal && (
+        <MusicPlayerSlider
+          sx={{ display: "block" }}
+          musicmodal={musicmodal}
           setmusicmodal={setmusicmodal}
         />
       )}
