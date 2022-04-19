@@ -46,7 +46,7 @@ export default function PlayList(props) {
       <List>
         {likeMusic &&
           likeMusic.map((song, index) => (
-            <ListItem button>
+            <ListItem button key={song}>
               <ListItem
                 sx={{ width: "100%" }}
                 key={song}
@@ -86,7 +86,12 @@ export default function PlayList(props) {
     <div>
       {["bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button sx={{color:"black",m:2}} onClick={toggleDrawer(anchor, true)}>Play List</Button>
+          <Button
+            sx={{ color: "black", m: 2 }}
+            onClick={toggleDrawer(anchor, true)}
+          >
+            Play List
+          </Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}

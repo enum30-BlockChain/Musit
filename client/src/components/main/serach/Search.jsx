@@ -170,6 +170,7 @@ function Search(props) {
                 ? [1, 2, 3, 4].map((music, i) => {
                     return (
                       <SongCardSkeleton
+                        key={i}
                         music={music}
                         setmusicmodal={setmusicmodal}
                         address={props.address}
@@ -179,9 +180,8 @@ function Search(props) {
                 : findMusic &&
                   findMusic.map((music, i) => {
                     return (
-                      <Grid xs={{ width: "25%" }}>
+                      <Grid xs={{ width: "25%" }} key={i}>
                         <div
-                          key={i}
                           className="glide"
                           style={{ transform: `translateX(${value}%)` }}
                         >
@@ -237,6 +237,7 @@ function Search(props) {
                 ? [1, 2, 3, 4, 5, 6, 7, 8].map((artist, i) => {
                     return (
                       <ArtistCardSkeleton
+                        key={i}
                         artist={artist}
                         address={props.address}
                       />
