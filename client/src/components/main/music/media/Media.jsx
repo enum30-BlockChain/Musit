@@ -3,10 +3,10 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
-import HeadsetIcon from "@mui/icons-material/Headset";
 import { Link } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
 
 const Media = (props) => {
   const musicList = useSelector((state) => state.musicList).data;
@@ -20,7 +20,7 @@ const Media = (props) => {
   const [listenRankingvalue, setListenRankingValue] = useState(0);
   const [likeRankingValue, setLikeRankingValue] = useState(0);
   const [veiwCard, setVeiwCard] = useState(0);
-
+  const [musicmodal, setmusicmodal] = useState("");
   useEffect(() => {
     if (musicList.length > 6) {
       setVeiwCard(6);
@@ -55,9 +55,9 @@ const Media = (props) => {
   };
 
   const postInfo = (music) => {
-    props.setmusicmodal(music);
+  setmusicmodal(music);
   };
-
+  console.log(musicmodal)
   return (
     <>
       <Box sx={{ height: "100%" }}>
@@ -226,6 +226,14 @@ const Media = (props) => {
           </Box>
         </Box>
       </Box>
+      {musicmodal && (
+        <MusicPlayerSlider
+          sx={{ display: "block" }}
+          musicmodal={musicmodal}
+          setmusicmodal={setmusicmodal}
+        />
+      )}
+
     </>
   );
 };

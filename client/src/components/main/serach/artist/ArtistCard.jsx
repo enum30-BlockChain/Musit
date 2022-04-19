@@ -86,7 +86,7 @@ export default function ArtistCard(props) {
                 </Typography>
               </div>
             </Grid>
-            <Grid item>
+            <Grid item xs={12} sm>
               <Typography
                 sx={{ cursor: "pointer" }}
                 variant="body2"

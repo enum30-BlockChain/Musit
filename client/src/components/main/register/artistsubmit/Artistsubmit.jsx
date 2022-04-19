@@ -1,5 +1,5 @@
 import "./Artistsubmit.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Button, Avatar } from "@mui/material";
 import axios from "axios";
@@ -7,6 +7,10 @@ import { createArtistData } from "../../../../redux/actions/artistActions";
 import { Link } from "react-router-dom";
 
 export default function Artistsubmit() {
+  useEffect(() => {
+    alert("아티스트 가입해주세요");
+  }, []);
+
   const [inputs, setInputs] = useState("");
   const [DBdata, setDBdata] = useState({
     cover_img_link: "",
