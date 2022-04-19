@@ -9,8 +9,12 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArtistCard from "../../serach/artist/ArtistCard";
 import ArtistModal from "../../serach/artist/ArtistModal";
 import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
+import Divider from "@mui/material/Divider";
+import SimpleBackdrop from "../SimpleBackdrop";
+const fakeFetch = (delay = 500) => new Promise(res => setTimeout(res, delay));
 
-export default function Genre(props) {
+export default function Genre() {
+  const [lodingState,setLoadingState] = useState(true);
   const [genreRecommend, setGenreRecommend] = useState([]);
   const [artistRecommend, setArtistRecommend] = useState([]);
   const musicList = useSelector((state) => state.musicList).data;
@@ -23,7 +27,10 @@ export default function Genre(props) {
   const [musicmodal, setmusicmodal] = useState("");
   const [value, setValue] = useState(0);
   const [viewArtistCard, setViewArtistCard] = useState(0);
-
+  useEffect(async () => {
+    await fakeFetch();
+    setLoadingState(false);
+  }, []);
   useEffect(() => {
     const likeGenre = [...likeMusic];
     const GenreBox = [];
@@ -120,7 +127,10 @@ export default function Genre(props) {
   };
   return (
     <>
-      <Box sx={{ height: "100%" }}>
+      {lodingState
+      ?<SimpleBackdrop/>
+      :(
+        <Box sx={{ height: "100%" }}>
         <Box sx={{ height: "45%", mb: 2 }}>
           <Typography variant="h4">Genre Recommend</Typography>
           <Box
@@ -196,22 +206,7 @@ export default function Genre(props) {
             />
           </Box>
         </Box>
-        <nav className="top-nav">
-          <ul className="nav-links">
-            <li>
-              <Link to="/music/ranking">
-                <i className="uil uil-favorite"></i>
-                <span className="link-name"> Ranking</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/music/genre">
-                <i className="uil uil-play"></i>
-                <span className="link-name"> Recommend</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+       <Divider />
         <Box sx={{ height: "45%", mt: 1 }}>
           <Typography variant="h4">like Ranking</Typography>
           <Box
@@ -254,6 +249,9 @@ export default function Genre(props) {
           </Box>
         </Box>
       </Box>
+      )
+      }
+    
 
       {artistModal && (
         <ArtistModal
