@@ -8,12 +8,8 @@ import Avatar from "@mui/material/Avatar";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
-import {
-  readLikeArtistList,
-  toggleLikeArtist,
-} from "../../../../redux/actions/artistActions";
+import { Box } from "@mui/material";
+import { toggleLikeArtist } from "../../../../redux/actions/artistActions";
 
 const Img = styled("img")({
   margin: "auto",
@@ -40,6 +36,7 @@ export default function LikeCard({ List, setArtistModal }) {
 
   // 파업창 띄워주는 것
   const postInfo = () => {
+    console.log(List);
     setArtistModal(List);
   };
 

@@ -139,9 +139,10 @@ export default function AlbumModel(props) {
             </Typography>
           </Box>
           <Box sx={{ mt: 4, ml: 5, display: "flex", flexDirection: "row" }}>
-            {musics.map((music) => {
+            {musics.map((music, index) => {
               return (
                 <ArtistSongCard
+                  index={index}
                   music={music}
                   setmusicmodal={props.setmusicmodal}
                 />

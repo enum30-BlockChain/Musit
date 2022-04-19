@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import LikeCard from "./LikeCard";
 import AlbumModel from "./AlbumModel";
 import MusicPlayerSlider from "./MusicPlayerSlider";
+import "./css/FavoriteAritst.css";
+import { Avatar, Box } from "@mui/material";
 
 export default function ArtistCard() {
   const [page, setPage] = React.useState(0);
@@ -36,27 +38,36 @@ export default function ArtistCard() {
   //제목리스트 내용
   const columns = [
     { id: "number", label: "Number", minWidth: 30 },
-    { id: "artistname", label: "Artist Name", minWidth: 30 },
     { id: "artistsimg", label: "Artist Image", minWidth: 120 },
+    { id: "artistname", label: "Artist Name", minWidth: 30 },
     { id: "like", label: "Artist Like Count", minWidth: 120 },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, artistname, artistsimg, like) {
-    return { number, artistname, artistsimg, like };
+  function createRow(number, artistsimg, artistname, like) {
+    return { number, artistsimg, artistname, like };
   }
 
   const likeArtist = useSelector((state) => state.likeArtist);
 
   //row 안의 value값
   const rows = [];
-
+  console.log(likeArtist);
   likeArtist.data.forEach((List, index) => {
     rows.push(
       createRow(
-        index,
+        index + 1,
+        <Box sx={{ display: "inline-table" }}>
+          <Avatar
+            src={List.img}
+            style={{
+              width: "50px",
+              height: "50px",
+            }}
+          />
+        </Box>,
         List.artist_name,
-        <LikeCard List={List} setArtistModal={setArtistModal} />,
+        // <LikeCard List={List} setArtistModal={setArtistModal} />,
         List.likes
       )
     );
@@ -78,7 +89,7 @@ export default function ArtistCard() {
                   <TableCell
                     key={index}
                     align={column.align}
-                    style={{ minWidth: column.minWidth }}
+                    style={{ minWidth: column.minWidth, textAlign: "center" }}
                   >
                     {column.label}
                   </TableCell>
@@ -90,11 +101,25 @@ export default function ArtistCard() {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={index}
+                      style={{ zIndex: "100" }}
+                      onClick={() => {
+                        console.log(row);
+                        console.log(List);
+                      }}
+                    >
                       {columns.map((column, index) => {
                         const value = row[column.id];
                         return (
-                          <TableCell key={index} align={column.align}>
+                          <TableCell
+                            key={index}
+                            align={column.align}
+                            style={{ zIndex: "1", textAlign: "center" }}
+                          >
                             {column.format && typeof value === "number"
                               ? column.format(value)
                               : value}
