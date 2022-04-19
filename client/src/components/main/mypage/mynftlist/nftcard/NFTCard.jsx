@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
-import {  Card, CardContent, CardHeader, CardMedia, Typography } from "@mui/material"
+import { useNavigate } from 'react-router';
 
 const NFTCard = ({data}) => {
+	const navigate = useNavigate()
 	const cardOnClick = () => {
-
+		navigate(`/enroll/${data.tokenId}`);
 	}
 	
   return (
 		<>
-			<div className="item-card">
+			<div className="item-card" onClick={cardOnClick}>
 				<div className="img-box">
 					<img src={data.img_file} />
 				</div>
