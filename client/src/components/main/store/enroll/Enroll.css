@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50px;
+  border-radius: 25px;
   width: 80%;
   height: 70%;
   background-color: var(--third-color);
@@ -20,14 +20,6 @@
 }
 .enroll-container p {
   color: var(--black-light-color);
-}
-.enroll-container button {
-  background-color: var(--content-bg-color2);
-} 
-.enroll-container button:hover {
-  cursor: pointer;
-  background-color: var(--third-color);
-  color: #FFF;
 }
 
 
@@ -63,7 +55,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-bottom-left-radius: 50px;
+  border-bottom-left-radius: 25px;
   width: 400px;
   height: calc(100% - 200px);
 }
@@ -117,11 +109,11 @@
   display: flex;
   justify-content: space-between;
   background-color: var(--content-bg-color1);
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
   width: calc(100% - 400px);
   height: 100%;
-  padding: 36px 0;
+  padding: 24px 0;
 }
 
 
@@ -180,6 +172,13 @@
   padding-right: 50px;
 }
 
+.enroll-container .right-container .input-container input{
+  border: none;
+  font-size: 20px;
+  border-radius: 10px;
+  text-align: right;
+}
+
 .enroll-container .right-container .input-container .btn-group {
   display: flex;
   justify-content: space-between;
@@ -233,6 +232,20 @@
   padding: 10px;
   background-color: var(--content-bg-color1);
 }
+.enroll-container .right-container .input-container .input-form button {
+  background-color: var(--content-bg-color2);
+  border: none;
+  border-radius: 10px;
+  color: var(--black-light-color);
+  margin-top: 5px;
+  height: 40px;
+} 
+
+.enroll-container .right-container .input-container .input-form button:hover {
+  cursor: pointer;
+  background-color: var(--third-color);
+  color: #FFF;
+}
 
 .enroll-container .right-container .input-container .input-form h1 {
   font-size: 24px;
@@ -283,5 +296,5 @@
 }
 
 .enroll-container .right-container .input-container .input-form .auction-form .notice-box {
-  background-color: var(--notice-bg-color);
+  background-color: var(--warning-color);
 }

@@ -206,8 +206,7 @@ const OrdinaryForm = ({isOnMarket}) => {
 			</div>
 			<div className="price-box">
 				<h2>Sell-Price</h2>
-				<p>Please ETH price to sell. </p>
-				<p>(The smallest unit is 0.0001 ETH.)</p>
+				<p>Please ETH price to sell.(Unit: 0.0001 ETH)</p>
 				<input
 					type="number"
 					defaultValue={0.0001}
@@ -277,8 +276,7 @@ const AuctionForm = () => {
 			</div>
 			<div className="price-box">
 				<h2>Start-Price</h2>
-				<p>Please ETH price to sell. </p>
-				<p>(The smallest unit is 0.0001 ETH.)</p>
+				<p>Please ETH price to sell. (Unit : 0.0001 ETH)</p>
 				<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} />
 				<h2>End-date</h2>
 				<input

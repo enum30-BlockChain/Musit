@@ -10,7 +10,7 @@ import {
 import MusitNftJson from "./MusitNFT.json";
 import MarketplaceJson from "./Marketplace.json";
 import AuctionJson from "./Auction.json";
-import { MintedEvent, MusitNFT } from "./typechain/MusitNFT";
+import { MusitNFT } from "./typechain/MusitNFT";
 import { Marketplace } from "./typechain/Marketplace";
 
 const gwei50 = ethers.utils.parseUnits("50", "gwei").toString();
@@ -108,17 +108,6 @@ export default class Ethers {
 			return null;
 		}
 	}
-
-  // 현재 음원이 NFT로 발행됐는지 확인
-  // static async isMinted(): Promise<ContractTransaction | null> {
-	// 	try {
-	// 		musitNFT.tokenURI()
-	// 		return result;
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 		return null;
-	// 	}
-	// }
 
 	// NFT 권한 넘기기
 	static async approveMyNFT(
