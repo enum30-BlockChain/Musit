@@ -145,7 +145,7 @@ const Media = () => {
             />
           </Box>
         </Box>
-        <Divider sx={{ my: 5 }} />
+        <Divider sx={{ my: 2 }} />
         <Box sx={{ height: "45%", mt: 1 }}>
           <Typography variant="h4">like Ranking</Typography>
           <Box
