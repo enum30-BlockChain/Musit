@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { readMusicData } from "../../../../redux/actions/musicActions";
-import { readMyNFTList } from "../../../../redux/actions/musitNFTActions";
+import { readMyNFTList, removeSelectedMusitNFT, selectedMusitNFT } from "../../../../redux/actions/musitNFTActions";
 import Ethers from "../../../../web3/Ethers";
 
 import "./Enroll.css";
@@ -14,7 +14,7 @@ const Enroll = () => {
 	const userData = useSelector((state) => state.user);
 	const musicData = useSelector((state) => state.music);
 	const musitNFT = useSelector((state) => state.musitNFT);
-	const [nftData, setNftData] = useState({});
+	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 	
 	useEffect(async () => {
 		if(userData.address) {
@@ -27,18 +27,23 @@ const Enroll = () => {
 			const thisNFT = await musitNFT.myNFTList.filter(
 				(nft) => parseInt(nft.tokenId) === parseInt(tokenId)
 			)[0];
-			setNftData(thisNFT)
+			await dispatch(selectedMusitNFT(thisNFT))
 			await dispatch(readMusicData(thisNFT.ipfs_hash));
+		}
+		return async () => {
+			await dispatch(removeSelectedMusitNFT())
 		}
 	}, [musitNFT.loading]);
 
-	return musicData.loading || musitNFT.loading || musicData.ipfs_hash === null? (
+	return musicData.loading ||
+		musitNFT.loading ||
+		musicData.ipfs_hash === null ? (
 		<LoadingContent />
 	) : musitNFT.error ? (
 		<ErrorContent />
 	) : (
 		<>
-			<SuccessContent nftData={nftData} />
+			<SuccessContent nftData={selectedNFT} />
 		</>
 	);
 };
@@ -50,9 +55,8 @@ const SuccessContent = ({nftData}) => {
 	const [isOnMarket, setIsOnMarket] = useState(true);
 
 	useEffect(async () => {
-		console.log(await Ethers.isOnMarket(tokenId));
 		setIsOnMarket(await Ethers.isOnMarket(tokenId))
-	},[nftData])
+	},[])
 
 	// Sell, Auction 입력창 변경
 	const selectSellOnClick = () => {
@@ -202,8 +206,7 @@ const OrdinaryForm = ({isOnMarket}) => {
 			</div>
 			<div className="price-box">
 				<h2>Sell-Price</h2>
-				<p>Please ETH price to sell. </p>
-				<p>(The smallest unit is 0.0001 ETH.)</p>
+				<p>Please ETH price to sell.(Unit: 0.0001 ETH)</p>
 				<input
 					type="number"
 					defaultValue={0.0001}
@@ -273,8 +276,7 @@ const AuctionForm = () => {
 			</div>
 			<div className="price-box">
 				<h2>Start-Price</h2>
-				<p>Please ETH price to sell. </p>
-				<p>(The smallest unit is 0.0001 ETH.)</p>
+				<p>Please ETH price to sell. (Unit : 0.0001 ETH)</p>
 				<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} />
 				<h2>End-date</h2>
 				<input

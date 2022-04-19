@@ -1,20 +1,24 @@
 import "./Musicupload.css";
-import { Button, Input } from "@mui/material";
+import { Box, Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
-import Createmain from "../Createmain";
 import { useDispatch, useSelector } from "react-redux";
 import { readArtistList } from "../../../../redux/actions/artistActions";
 import { createMusicData } from "../../../../redux/actions/musicActions";
 import Progress from "./progress/Progress";
 import MessageHandler from "./progress/MessageHandler";
-
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 // const { create } = require("ipfs-http-client");
-
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 export const Musicupload = () => {
-  const artistList = useSelector(state => state.artistList)
-  const user = useSelector(state => state.user)
-  const music = useSelector(state => state.music)
+  const artistList = useSelector((state) => state.artistList);
+  const user = useSelector((state) => state.user);
+  const music = useSelector((state) => state.music);
   const dispatch = useDispatch();
   const [genre, setGenre] = useState([
     "Pop",
@@ -107,12 +111,12 @@ export const Musicupload = () => {
     DBdata.description = description;
     await findArtist();
     if (isValidDBdata()) {
-      await dispatch(createMusicData(imgFormData, audioFormData, DBdata))
-      await setMessageState(true)
+      await dispatch(createMusicData(imgFormData, audioFormData, DBdata));
+      await setMessageState(true);
     }
-    await setMessageState(false)
+    await setMessageState(false);
   };
-  
+
   const findArtist = async () => {
     artistList.data.map((a, index) => {
       if (a.user_address === user.address) {
@@ -178,7 +182,7 @@ export const Musicupload = () => {
           <label className="create-file-btn" for="input-file">
             Music file Upload
           </label>
-          <Input
+          <input
             id="input-file"
             type="file"
             inputProps={{ accept: "audio/*" }}
@@ -189,11 +193,11 @@ export const Musicupload = () => {
           />
 
           <h2>Music Title</h2>
-          <Input
+          <input
+            style={{ width: 400, backgroundColor: "opacity", fontSize: "25px" }}
             onChange={getTitle}
             value={musicTitle}
-            sx={{ width: 400 }}
-            inputProps={{ style: { fontSize: 30 } }}
+            // inputProps={{ style: { fontSize: 30 } }}
             placeholder="Music Title"
           />
           <h2>Music Description</h2>
@@ -201,39 +205,42 @@ export const Musicupload = () => {
             maxRows={4}
             aria-label="maximum height"
             placeholder="Fill your music description"
-            style={{ width: 400, height: 80 }}
+            style={{ width: 700, height: 150 }}
             onChange={getDescription}
           />
-          {/* <input onchange={getDescription} value={musicDescription} /> */}
           <h2>Genre</h2>
-          <form>
-            {genre.map((MusicType, index) => {
-              return (
-                <>
-                  <label id={index} key={index}>
-                    {MusicType}
-                    <input
-                      type={"checkbox"}
-                      name={"MusicType"}
-                      value={MusicType}
-                      onChange={(e) => {
-                        changeHandler(e.currentTarget.checked, MusicType);
-                      }}
-                      checked={checkedInputs.includes(MusicType) ? true : false}
-                    />
-                  </label>
-                </>
-              );
-            })}
-          </form>
+          <Box sx={{ mx: "auto", width: "775px", display: "flex" }}>
+            <form>
+              {genre.map((MusicType, index) => {
+                return (
+                  <>
+                    <label id={index} key={index}>
+                      <Checkbox
+                        type={"checkbox"}
+                        name={"MusicType"}
+                        value={MusicType}
+                        onChange={(e) => {
+                          changeHandler(e.currentTarget.checked, MusicType);
+                        }}
+                        checked={
+                          checkedInputs.includes(MusicType) ? true : false
+                        }
+                      />
+                      {MusicType}
+                    </label>
+                  </>
+                );
+              })}
+            </form>
+          </Box>
         </div>
       </div>
       {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
-      <div className="create-btn">
-        <Button onClick={submit}> submit </Button>
+      <div className="create-btn" onClick={submit}>
+        Submit
       </div>
-         {music.loading && <Progress />}
-         <MessageHandler test={messageState} title={DBdata.title}/>
+      {music.loading && <Progress />}
+      <MessageHandler test={messageState} title={DBdata.title} />
     </>
   );
 };

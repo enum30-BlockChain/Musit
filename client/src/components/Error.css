@@ -1,8 +1,11 @@
+@import "../styles//variables.css";
+
 .error-layout {
   text-align: center;
 }
 
 .error-title {
+  margin-top: 10px;
   font-size: 10rem;
   font-weight: bold;
   color: rgb(236, 236, 236);
@@ -10,16 +13,16 @@
   /* text-transform: uppercase; */
 
   text-shadow: -0.05em 0.03em 0 rgba(85, 81, 164, 0.75),
-    0.06em 0.04em 0 rgba(241, 185, 112, 0.75);
+    0.06em 0.07em 0 var(--error-color);
 }
 
 .error-name {
-  font-size: 12rem;
+  font-size: 8rem;
   font-weight: bold;
   color: rgb(236, 236, 236);
 
   text-shadow: -0.05em 0.03em 0 rgba(85, 81, 164, 0.75),
-    0.06em 0.04em 0 rgba(241, 185, 112, 0.75);
+    0.06em 0.07em 0 var(--error-color);
 }
 
 .error-message {
@@ -31,6 +34,15 @@
     0.06em 0.04em 0 rgba(241, 185, 112, 0.75);
 }
 
-.error-btn {
+.error-btn-style {
+  margin: auto;
+  margin-top: 25px;
+  width: 400px;
+  height: 55px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: rgb(236, 236, 236);
   font-size: 2rem;
+  text-shadow: -0.09em 0.03em 0 rgba(85, 81, 164, 0.75),
+    0.09em 0.08em 0 rgba(241, 185, 112, 0.75);
 }
