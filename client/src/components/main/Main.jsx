@@ -8,7 +8,6 @@ import { Route, Router, Routes } from "react-router-dom";
 //top
 import { Searchbar } from "./searchbar/Searchbar";
 //bottom
-import { Dashboard } from "./dashboard/Dashboard";
 import { Playbar } from "./playbar/Playbar";
 
 //Main-nav
@@ -91,9 +90,7 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             {/* Main navbar */}
-            <Route path="landingpage" element={<LandingMainPage />} />
-
-            <Route index element={<Dashboard />} />
+            <Route index element={<LandingMainPage />} />
             <Route
               path="mypage"
               element={

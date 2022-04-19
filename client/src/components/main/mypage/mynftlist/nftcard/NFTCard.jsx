@@ -13,13 +13,22 @@ const NFTCard = ({data}) => {
 					<img src={data.img_file} />
 				</div>
 				<div className="content-wrap">
+					<div className="color-box"></div>
 					<div className="content-box">
-						<h2 className="title">Title</h2>
-						<h1 className="content">{data.title}</h1>
+						<div className="content">
+							<h2>Title</h2>
+							<h1>{data.title}</h1>
+						</div>
+						<div className="content">
+							<h2>Artist</h2>
+							<h1>{data.artist_name}</h1>
+						</div>
 					</div>
-					<div className="content-box">
-						<h2 className="title">Artist</h2>
-						<h1 className="content">{data.artist_name}</h1>
+					<div className="audio-box">
+						<audio
+							src={`https://ipfs.infura.io/ipfs/${data.ipfs_hash}`}
+							controls
+						/>
 					</div>
 				</div>
 			</div>
