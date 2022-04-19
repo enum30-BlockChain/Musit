@@ -4,6 +4,7 @@ import { Box, Avatar } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import ArtistSongCard from "./ArtistSongCard";
+import zIndex from "@mui/material/styles/zIndex";
 
 const WallPaper = styled("div")({
   position: "absolute",
@@ -46,7 +47,7 @@ const Widget = styled("div")(({ theme }) => ({
   position: "absolute",
   top: "15%",
   left: "10%",
-  zIndex: 1,
+  zIndex: 10,
   backgroundColor:
     theme.palette.mode === "dark" ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.4)",
   backdropFilter: "blur(40px)",
