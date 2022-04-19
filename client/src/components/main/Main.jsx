@@ -55,6 +55,7 @@ import Enroll from "./store/enroll/Enroll";
 import { CircularProgress } from "@mui/material";
 
 import Error from "../Error";
+import { Test } from "../Test";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -147,6 +148,7 @@ export const Main = () => {
             <Route path="search" element={<Search />} />
           </Route>
           <Route path="error" element={<Error />} />
+          <Route path="test" element={<Test />} />
         </Routes>
       </div>
       {user.address && <Playbar />}

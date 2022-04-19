@@ -45,7 +45,14 @@ const Enroll = () => {
 
 /* 페이지 로딩 Success 화면 */
 const SuccessContent = ({nftData}) => {
+	let { tokenId } = useParams();
 	const musicData = useSelector((state) => state.music);
+	const [isOnMarket, setIsOnMarket] = useState(true);
+
+	useEffect(async () => {
+		console.log(await Ethers.isOnMarket(tokenId));
+		setIsOnMarket(await Ethers.isOnMarket(tokenId))
+	},[nftData])
 
 	// Sell, Auction 입력창 변경
 	const selectSellOnClick = () => {
@@ -127,10 +134,25 @@ const SuccessContent = ({nftData}) => {
 						</button>
 					</div>
 					<div className="input-form">
-						{/* 일반 판매 */}
-						<OrdinaryForm />
-						{/* 경매 */}
-						<AuctionForm />
+						{isOnMarket ? (
+							<>
+								<div className="not-available-box">
+									<h2>
+										<i className="uil uil-exclamation-triangle"></i> Not
+										available
+									</h2>
+									<p>This item is already on the market.</p>
+									<p>You cannot enroll items on the market.</p>
+								</div>
+							</>
+						) : (
+							<>
+								{/* 일반 판매 */}
+								<OrdinaryForm isOnMarket={isOnMarket} />
+								{/* 경매 */}
+								<AuctionForm isOnMarket={isOnMarket} />
+							</>
+						)}
 					</div>
 				</section>
 			</section>
@@ -140,7 +162,7 @@ const SuccessContent = ({nftData}) => {
 
 
 /* 일반 판매 */
-const OrdinaryForm = () => {
+const OrdinaryForm = ({isOnMarket}) => {
 	let { tokenId } = useParams();
 	const [sellPrice, setSellPrice] = useState("0.0001");
 

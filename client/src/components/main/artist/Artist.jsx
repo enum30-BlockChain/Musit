@@ -1,8 +1,6 @@
 import "./Artist.css";
 import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
-import Artistinfo from "./artistinfo/Artistinfo";
-
 export const Artist = () => {
   useEffect(() => {
     topNavToggle();

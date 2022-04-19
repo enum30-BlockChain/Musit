@@ -172,7 +172,7 @@ export default function ArtistModal(props) {
             </Typography>
           </Box>
           <Slider>
-            <FaArrowAltCircleLeft className="left-arrow" onClick={prevSlide} />
+            <i className="uil uil-angle-double-left" onClick={prevSlide}></i>
             <SliderBox
               sx={{ mt: 4, ml: 5, display: "flex", flexDirection: "row" }}
             >
@@ -193,10 +193,7 @@ export default function ArtistModal(props) {
                 );
               })}
             </SliderBox>
-            <FaArrowAltCircleRight
-              className="right-arrow"
-              onClick={nextSlide}
-            />
+            <i className="uil uil-angle-double-right" onClick={nextSlide}></i>
           </Slider>
         </Box>
       </Widget>
