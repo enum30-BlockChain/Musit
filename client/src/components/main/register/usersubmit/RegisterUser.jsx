@@ -57,7 +57,7 @@ const RegisterUser = () => {
   };
 
   //유효성검사
-  const [isName, setIsName] = useState(false);
+  const [isName] = useState(false);
 
   const formData = new FormData();
 
@@ -66,10 +66,13 @@ const RegisterUser = () => {
     setNickname(e.target.value);
     if (e.target.value.length < 2 || e.target.value.length > 5) {
       setnicknameMessage("2글자 이상 5글자 이하로 작성해주세요");
-      setIsName(false);
+
+      false;
+    } else {
+      setnicknameMessage("올바른 방식입니다.");
+
+      true;
     }
-    setnicknameMessage("올바른 방식입니다.");
-    setIsName(true);
   };
 
   const UserHandleOnClick = async () => {

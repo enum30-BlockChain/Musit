@@ -3,8 +3,7 @@ import Grid from "@mui/material/Grid";
 
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
-import Skeleton from '@mui/material/Skeleton';
-import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
+import Skeleton from "@mui/material/Skeleton";
 import { Box } from "@mui/material";
 
 export default function ArtistCardSkeleton() {
@@ -45,7 +44,7 @@ export default function ArtistCardSkeleton() {
                   variant="title"
                   component="div"
                 >
-                  <Skeleton  width="70%"/>
+                  <Skeleton width="70%" />
                 </Typography>
               </div>
             </Grid>
@@ -57,9 +56,9 @@ export default function ArtistCardSkeleton() {
             </Grid>
           </Grid>
           <Grid item>
-              <Box sx={{ display: "flex" }}>
-                 <Skeleton  width={25}/>
-              </Box>
+            <Box sx={{ display: "flex" }}>
+              <Skeleton width={25} />
+            </Box>
           </Grid>
         </Grid>
       </Grid>

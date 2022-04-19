@@ -1,5 +1,6 @@
 import React from "react";
 import MusicCard from "./MusicCard";
+import "./FavoriteMusic.css";
 
 const FavoriteMusic = () => {
   return (
