@@ -237,7 +237,7 @@ export const Musicupload = () => {
       </div>
       {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
       <div className="create-btn" onClick={submit}>
-        Submit
+      <Button onClick={submit} sx={{fontSize:40 ,color:"black"}}>  <FileUploadIcon sx={{mx:1,fontSize:40}} /> Up Load </Button>
       </div>
       {music.loading && <Progress />}
       <MessageHandler test={messageState} title={DBdata.title} />
