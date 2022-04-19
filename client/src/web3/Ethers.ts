@@ -13,6 +13,9 @@ import AuctionJson from "./Auction.json";
 import { MintedEvent, MusitNFT } from "./typechain/MusitNFT";
 import { Marketplace } from "./typechain/Marketplace";
 
+const gwei50 = ethers.utils.parseUnits("50", "gwei").toString();
+
+
 interface Window {
 	ethereum: any;
 }
@@ -71,6 +74,7 @@ export default class Ethers {
 		try {
 			const options = {
 				value: ethers.utils.parseEther("0.0001"),
+				gasPrice: gwei50,
 			};
 
 			return await (await musitNFT.minting(tokenURI, options)).wait();
@@ -143,7 +147,6 @@ export default class Ethers {
 	): Promise<ContractTransaction | null> {
 		try {
 			const result = await marketplace.enroll(musitNFT.address, tokenId, this.ethToWei(sellPrice))
-			console.log(result)
 			return result;
 		} catch (error) {
 			console.log(error);
@@ -153,11 +156,10 @@ export default class Ethers {
 
 	// Marketplace/Auction에 NFT 있는지 확인
 	static async isOnMarket(
-		tokenId: string,
+		tokenId: string | number,
 	): Promise<ContractTransaction | null> {
 		try {
 			const result = await musitNFT.getIsOnMarket(tokenId);
-			console.log(result)
 			return result;
 		} catch (error) {
 			console.log(error);
@@ -183,8 +185,7 @@ export default class Ethers {
 				result =
 					ethers.utils.verifyMessage(message, singedMessage) ===
 					(await signer.getAddress());
-			}
-			console.log(result);
+			};
 			return result;
 		} catch (error) {
 			console.log(error);
