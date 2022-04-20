@@ -39,7 +39,7 @@ import { Store } from "./store/Store";
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
 import Artistinfo from "./artist/artistinfo/Artistinfo";
-import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
+import {Artistdashbord} from "./artist/artistdashbord/Artistdashbord";
 import Album from "./artist/myalbum/Album";
 import Auctionupload from "./artist/auctionupload/Auctionupload";
 
