@@ -1,0 +1,30 @@
+@import "../../../../styles/variables.css";
+
+.sub {
+  margin-top: 20px;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.sub-box {
+  display: flex;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: var(--text-color);
+}
+.sub-box .sub-card {
+  height: 300px;
+  width: 200px;
+  background-color: var(--box1-color);
+  color: var(--text-color);
+
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 20px;
+  text-align: center;
+  margin: 30px;
+}

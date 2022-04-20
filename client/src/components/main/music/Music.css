@@ -1,0 +1,11 @@
+
+.musicmain-wrap{
+    max-height: 100%;
+    overflow: auto;  
+}
+
+
+.music-cards-container .music-card.playing {
+    background-color: var(--box1-color);
+}
+

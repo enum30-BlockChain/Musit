@@ -1,0 +1,93 @@
+@import "../../../styles/variables.css";
+
+.searchbar {
+  display: flex;
+  padding: 5px 20px;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 55px;
+  left: 0;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchbar .sidebar-toggle {
+  font-size: 26px;
+  color: white;
+  cursor: pointer;
+}
+
+.searchbar .search-box {
+  position: relative;
+  height: 40px;
+  max-width: 38vw;
+  width: 100%;
+  margin: 0 30px;
+}
+
+.searchbar .search-box .uil-search {
+  color: white;
+}
+.searchbar .search-box ::-webkit-input-placeholder {
+  color: white;
+}
+
+.address-appear {
+  font-size: 10px;
+  color: white;
+  margin-right: 15px;
+}
+
+.searchbar .search-box input {
+  position: absolute;
+  border: 2px solid;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--alltime-white);
+  padding: 0 25px 0 50px;
+  height: 100%;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 400;
+  outline: none;
+}
+
+.searchbar .search-box i {
+  position: absolute;
+  left: 15px;
+  font-size: 22px;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--black-light-color);
+}
+
+.searchbar .profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.searchbar-right-box .user-info {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.searchbar-right-box .user-info:hover {
+  cursor: pointer;
+}
+
+.searchbar-right-box p {
+  color: var(--alltime-white);
+}
+
+.searchbar-right-box .profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--box1-color);
+  margin-right: 15px;
+}

@@ -1,0 +1,10 @@
+.Album {
+  display: flex;
+  text-align: center;
+}
+
+.Album .list {
+  margin: 5px;
+  width: 100%;
+  z-index: 1;
+}
