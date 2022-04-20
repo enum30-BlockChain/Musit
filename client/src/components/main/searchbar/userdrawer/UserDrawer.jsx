@@ -17,14 +17,14 @@ const UserDrawer = () => {
           </a>
         </li>
       </ul>
-      {/* <div className="totaluserinfo">
+      <div className="totaluserinfo">
         <div className="userinfo-toggle">
           <Userinfomation />
         </div>
         <div className="artistinfo-toggle">
           <Artistinfo />
         </div>
-      </div> */}
+      </div>
     </section>
   );
 };

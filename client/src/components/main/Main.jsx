@@ -128,9 +128,9 @@ export const Main = () => {
             </Route>
             <Route path="artistsubmit" element={<Artistsubmit />} />
 
+            <Route path="createmusic" element={<Musicupload />} />
             {/* Create */}
             <Route path="create" element={<Createmain />}>
-              <Route index element={<Musicupload />} />
               <Route path="nft/:ipfs_hash" element={<Minting />} />
             </Route>
 
