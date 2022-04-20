@@ -9,15 +9,17 @@ import { Route, Router, Routes } from "react-router-dom";
 import { Searchbar } from "./searchbar/Searchbar";
 //bottom
 import { Playbar } from "./playbar/Playbar";
+import Userinformation from "./mypage/userinformation/Userinformation";
 
 //Main-nav
 import Artistsubmit from "./register/artistsubmit/Artistsubmit";
 import RegisterUser from "./register/usersubmit/RegisterUser";
 import Createmain from "./create/Createmain";
 import LandingMainPage from "../landingpage/LandingMainPage";
+
 //Main-nav Mypage
 import { Mypage } from "./mypage/Mypage";
-import Userinformation from "./mypage/userinformation/Userinformation";
+import Userdashboard from "./mypage/userdashboard/Userdashbord";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
@@ -28,7 +30,6 @@ import MyNFTList from "./mypage/mynftlist/MyNFTList";
 import Music from "./music/Music";
 import Enummusic from "./music/enummusic/Enummusic";
 import Genre from "./music/genre/Genre";
-import MediaSkeleton from "./music/media/MediaSkeleton";
 import Media from "./music/media/Media";
 
 import Search from "./serach/Search";
@@ -39,7 +40,7 @@ import { Store } from "./store/Store";
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
 import Artistinfo from "./artist/artistinfo/Artistinfo";
-import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
+import { Artistdashbord } from "./artist/artistdashbord/Artistdashbord";
 import Album from "./artist/myalbum/Album";
 import Auctionupload from "./artist/auctionupload/Auctionupload";
 
@@ -59,7 +60,6 @@ import { Test } from "../Test";
 export const Main = () => {
   const user = useSelector((state) => state.user);
   const artist = useSelector((state) => state.artist);
-
   useEffect(() => {
     sidebarToggle();
   }, []);
@@ -101,6 +101,7 @@ export const Main = () => {
                 )
               }
             >
+              <Route index element={<Userdashboard />} />
               <Route path="userinformation" element={<Userinformation />} />
               <Route path="playlist" element={<Playlist />} />
               <Route path="subscription" element={<Subscription />} />
@@ -109,8 +110,9 @@ export const Main = () => {
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
               <Route path="favoritartist" element={<FavoriteArtist />} />
-              <Route path="favoritemusic" element={<FavoriteMusic />} />
+              <Route path="favoritmusic" element={<FavoriteMusic />} />
               <Route path="myplaylist" element={<MyPlayList />} />
+              <Route path="artistsubmit" element={<Artistsubmit />} />
             </Route>
             <Route path="register" element={<RegisterUser />} />
 
@@ -121,8 +123,9 @@ export const Main = () => {
                 artist.artist_name !== null ? <Artist path="artist" /> : <></>
               }
             >
+              <Route path="createmusic" element={<Musicupload />} />
               <Route path="artistinfo" element={<Artistinfo />} />
-              <Route path="artistdashbord" element={<Artistdashbord />} />
+              <Route index element={<Artistdashbord />} />
               <Route path="myupload" element={<Album />} />
               <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
@@ -130,19 +133,20 @@ export const Main = () => {
 
             {/* Create */}
             <Route path="create" element={<Createmain />}>
-              <Route index element={<Musicupload />} />
               <Route path="nft/:ipfs_hash" element={<Minting />} />
             </Route>
 
             {/* music */}
             <Route path="music" element={<Music />}>
-              <Route path="enummusic" element={<Enummusic />} />
+              <Route index element={<Enummusic />} />
               <Route path="genre" element={<Genre />} />
               <Route path="ranking" element={<Media />} />
             </Route>
 
-            <Route path="store" element={<Store />}></Route>
-            <Route path="enroll/:tokenId" element={<Enroll />} />
+            {/* Store */}
+            <Route path="store" element={<Store />} />
+            <Route path="store/enroll/:tokenId" element={<Enroll />} />
+
             <Route path="search" element={<Search />} />
           </Route>
           <Route path="error" element={<Error />} />

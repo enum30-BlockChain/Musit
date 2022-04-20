@@ -1,13 +1,12 @@
 import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userReducer } from "./reducers/userReducer";
 import { metaMaskReducer } from "./reducers/metamaskReducer";
 import { artistListReducer, likeArtistReducer, artistReducer, selectedArtistReducer } from "./reducers/artistReducer";
 import { likeMusicReducer, musicListReducer, musicReducer, selectedMusicReducer } from "./reducers/musicReducer";
-import { musitNFTMintingReducer, musitNFTReducer, selectedMusitNFTReducer } from "./reducers/musitNFTReducer";
 import { searchingReducer } from "./reducers/searchingReducer";
+import { onAuctionMusitNFTReducer, onMarketMusitNFTReducer, ownedMusitNFTReducer, selectedMusitNFTReducer } from "./reducers/contractReducer";
 
 
 
@@ -36,8 +35,9 @@ const rootReducer = combineReducers({
   metamask: metaMaskReducer,
 
   // Contracts Reducer
-  musitNFT: musitNFTReducer,
-  musitNFTMinting: musitNFTMintingReducer,
+  ownedMusitNFT: ownedMusitNFTReducer,
+  market: onMarketMusitNFTReducer,
+  auction: onAuctionMusitNFTReducer,
   selectedMusitNFT: selectedMusitNFTReducer,
 });
 

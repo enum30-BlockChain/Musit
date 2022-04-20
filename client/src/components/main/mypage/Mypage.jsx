@@ -27,7 +27,13 @@ export const Mypage = () => {
       <nav className="top-nav">
         <ul className="nav-links">
           <li>
-            <Link to="/mypage/favoritemusic">
+            <Link to="/mypage">
+              <i className="uil uil-user"></i>
+              <span className="link-name"> My Dashboard</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/mypage/favoritmusic">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Music</span>
             </Link>
@@ -48,6 +54,12 @@ export const Mypage = () => {
             <Link to="/mypage/mynftlist">
               <i className="uil uil-bitcoin-sign"></i>
               <span className="link-name"> My nft list</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="artistsubmit">
+              <i className="uil uil-user-plus"></i>
+              <span className="link-name"> Artist Register</span>
             </Link>
           </li>
         </ul>

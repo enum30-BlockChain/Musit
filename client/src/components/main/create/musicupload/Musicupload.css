@@ -1,16 +1,23 @@
+.create-mainlayout {
+  margin: 20px 110px 20px 110px;
+  padding: 20px;
+  height: 680px;
+  background-color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  border-radius: 10px;
+}
+
 .create-title {
-  margin-top: 30px;
   text-align: center;
 }
 .create-layout {
   justify-content: center;
-  margin-top: 30px;
+
   display: flex;
 }
 
 .create-btn {
   text-align: center;
-  margin-top: 40px;
 }
 
 .create-layout .create-box {
@@ -21,7 +28,7 @@
 }
 
 .create-layout .create-imgbox {
-  border-right: 1px solid var(--border-color);
+  border-right: 2px solid var(--border-color);
   text-align: center;
   margin-top: 40px;
   width: 100%;
@@ -33,8 +40,8 @@
   border-radius: 50%;
   object-fit: cover;
   margin-top: 20px;
-  height: 400px;
-  width: 400px;
+  height: 420px;
+  width: 420px;
   left: 0;
   animation: rotate 8s linear infinite;
 }
@@ -47,4 +54,9 @@
   text-align: center;
   margin-top: 40px;
   width: 100%;
+}
+
+.create-mainlayout .create-layout .create-inputbox .checkbox-musicupload {
+  background-color: white;
+  color: var(--error-color);
 }

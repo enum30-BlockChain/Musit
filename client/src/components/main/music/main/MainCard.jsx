@@ -51,9 +51,7 @@ export default function MainCard(props) {
 
   const musicCardOnClick = async () => {
     const musicCard = document.querySelector(`.music-card.card-${props.id}`)
-    console.log(musicCard)
     const musicCardPlaying = document.querySelector(" .music-card.playing")
-    console.log(musicCardPlaying)
     musicCard.classList.toggle("playing");
     const audio = document.querySelector("#MusicCardAudio");
     const playingState = document.querySelector(` .music-card.card-${props.id}.music-card.playing`);

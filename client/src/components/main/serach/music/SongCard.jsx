@@ -37,7 +37,6 @@ export default function SongCard(props) {
   }, [likeList]);
 
   const postInfo = () => {
-    console.log(props);
     props.setmusicmodal(props.music);
   };
 
@@ -52,8 +51,7 @@ export default function SongCard(props) {
         p: 2,
         mx: 1.5,
         maxWidth: 350,
-        backgroundColor: (theme) =>
-          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        bgcolor: "var(--box1-color)",
       }}
     >
       <Grid sx={{ height: 150, display: "flex", width: "100%" }}>

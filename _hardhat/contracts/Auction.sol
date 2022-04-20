@@ -17,6 +17,7 @@ contract Auction is ReentrancyGuard, Ownable {
   uint public minBidUnit;
 
   mapping (uint => Item) public items; // itemId => 경매아이템 : 경매에 올린 아이템 리스트
+  mapping (address => mapping(uint => uint)) public nftToItemId; // [nft contract address] [tokenId]  => itemId (last enrolled)
   mapping (uint => mapping (address => uint)) public pendingBids; // itemId => ( bidder => bid ) : 입찰하려고 올린 금액들
 
   enum StatusType { ENROLLED, CLOSED, CANCELLED }
@@ -75,8 +76,8 @@ contract Auction is ReentrancyGuard, Ownable {
     require(!musitNft.getIsOnMarket(_tokenId), "This is on the market");
 
     itemCounter.increment();
-    uint _itemId = itemCounter.current();
-    items[_itemId] = Item(
+    uint itemId = itemCounter.current();
+    items[itemId] = Item(
       _startPrice, 
       block.timestamp,
       _endAt/1000, 
@@ -88,9 +89,11 @@ contract Auction is ReentrancyGuard, Ownable {
       _nft
     );
 
+    nftToItemId[address(_nft)][_tokenId] = itemId;
+
     _nft.transferFrom(msg.sender, address(this), _tokenId);
 
-    emit Enrolled(_itemId, _startPrice, address(_nft), _tokenId, msg.sender);
+    emit Enrolled(itemId, _startPrice, address(_nft), _tokenId, msg.sender);
     musitNft.setIsOnMarket(_tokenId, true);
   }  
 
@@ -132,7 +135,10 @@ contract Auction is ReentrancyGuard, Ownable {
       auctionItem.nft.transferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
     }
     
+    nftToItemId[address(auctionItem.nft)][auctionItem.tokenId] = 0;
+
     emit End(_itemId, auctionItem.topBidder, auctionItem.topBid, fee);
+
     musitNft = MusitNFT(address(auctionItem.nft));
     musitNft.setIsOnMarket(auctionItem.tokenId, false);
   }
@@ -152,6 +158,8 @@ contract Auction is ReentrancyGuard, Ownable {
     } else {
       auctionItem.nft.safeTransferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
     }
+
+    nftToItemId[address(auctionItem.nft)][auctionItem.tokenId] = 0;
     
     emit End(_itemId, auctionItem.topBidder, auctionItem.topBid, fee);
     musitNft = MusitNFT(address(auctionItem.nft));
@@ -167,6 +175,7 @@ contract Auction is ReentrancyGuard, Ownable {
     auctionItem.status = StatusType.CANCELLED;
 
     auctionItem.nft.transferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
+    nftToItemId[address(auctionItem.nft)][auctionItem.tokenId] = 0;
 
     emit Cancel(_itemId, msg.sender);
     musitNft = MusitNFT(address(auctionItem.nft));
@@ -181,6 +190,7 @@ contract Auction is ReentrancyGuard, Ownable {
 
     payable(auctionItem.topBidder).transfer(auctionItem.topBid);
     auctionItem.nft.transferFrom(address(this), auctionItem.seller, auctionItem.tokenId);
+    nftToItemId[address(auctionItem.nft)][auctionItem.tokenId] = 0;
 
     emit Cancel(_itemId, msg.sender);
     musitNft = MusitNFT(address(auctionItem.nft));
@@ -209,5 +219,9 @@ contract Auction is ReentrancyGuard, Ownable {
 
   function getBlockTimestamp() public view returns (uint) {
     return block.timestamp;
+  }
+  
+  function getPendingBids(uint _itemId, address _addr) public view returns (uint) {
+    return pendingBids[_itemId][_addr];
   }
 }

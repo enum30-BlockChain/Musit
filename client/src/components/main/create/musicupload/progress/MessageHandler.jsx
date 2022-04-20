@@ -33,7 +33,6 @@ export default function Message(props) {
   useEffect(() => {
     const init = async () => {
     if (props.test){
-        console.log(music.errorMsg.length)
         if(music.errorMsg.length>0){
           handleClick()
         }else{

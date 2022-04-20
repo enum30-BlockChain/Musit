@@ -1,10 +1,8 @@
 import { Contract } from "ethers";
 import fs from "fs";
-import hre, { artifacts, ethers } from "hardhat";
+import { artifacts, ethers } from "hardhat";
 
 async function main() {
-  hre.run("compile");
-
   const [deployer] = await ethers.getSigners();
   console.log(`Deploying contracts with the account: ${deployer.address}`);
   console.log(`Account balance: ${(await deployer.getBalance()).toString()}`);
@@ -12,7 +10,7 @@ async function main() {
   // We get the contract to deploy
   console.log("Deploying MusitNFT");
   const MusitNFT = await ethers.getContractFactory("MusitNFT");
-  const musitNFT = await (await MusitNFT.deploy(hre.ethers.utils.parseEther("0.0001"))).deployed();
+  const musitNFT = await (await MusitNFT.deploy(ethers.utils.parseEther("0.0001"))).deployed();
   console.log("MusitNFT address:", musitNFT.address);
   
   console.log("Deploying Marketplace");

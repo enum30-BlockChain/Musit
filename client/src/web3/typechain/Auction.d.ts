@@ -32,9 +32,13 @@ interface AuctionInterface extends ethers.utils.Interface {
     "forceCancel(uint256)": FunctionFragment;
     "forceEnd(uint256)": FunctionFragment;
     "getBlockTimestamp()": FunctionFragment;
+    "getItems(uint256)": FunctionFragment;
+    "getNftToItemId(address,uint256)": FunctionFragment;
+    "getPendingBids(uint256,address)": FunctionFragment;
     "itemCounter()": FunctionFragment;
     "items(uint256)": FunctionFragment;
     "minBidUnit()": FunctionFragment;
+    "nftToItemId(address,uint256)": FunctionFragment;
     "owner()": FunctionFragment;
     "pendingBids(uint256,address)": FunctionFragment;
     "removeFee(uint256)": FunctionFragment;
@@ -78,6 +82,18 @@ interface AuctionInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "getItems",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getNftToItemId",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getPendingBids",
+    values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "itemCounter",
     values?: undefined
   ): string;
@@ -85,6 +101,10 @@ interface AuctionInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "minBidUnit",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "nftToItemId",
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -127,12 +147,25 @@ interface AuctionInterface extends ethers.utils.Interface {
     functionFragment: "getBlockTimestamp",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "getItems", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getNftToItemId",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getPendingBids",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "itemCounter",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "items", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "minBidUnit", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "nftToItemId",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "pendingBids",
@@ -297,6 +330,47 @@ export class Auction extends BaseContract {
 
     getBlockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    getItems(
+      _itemId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        [
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          string,
+          string,
+          BigNumber,
+          number,
+          string
+        ] & {
+          startPrice: BigNumber;
+          startAt: BigNumber;
+          endAt: BigNumber;
+          tokenId: BigNumber;
+          seller: string;
+          topBidder: string;
+          topBid: BigNumber;
+          status: number;
+          nft: string;
+        }
+      ]
+    >;
+
+    getNftToItemId(
+      _nft: string,
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    getPendingBids(
+      _itemId: BigNumberish,
+      _addr: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     itemCounter(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _value: BigNumber }>;
@@ -329,6 +403,12 @@ export class Auction extends BaseContract {
     >;
 
     minBidUnit(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    nftToItemId(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -402,6 +482,45 @@ export class Auction extends BaseContract {
 
   getBlockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
+  getItems(
+    _itemId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      string,
+      string,
+      BigNumber,
+      number,
+      string
+    ] & {
+      startPrice: BigNumber;
+      startAt: BigNumber;
+      endAt: BigNumber;
+      tokenId: BigNumber;
+      seller: string;
+      topBidder: string;
+      topBid: BigNumber;
+      status: number;
+      nft: string;
+    }
+  >;
+
+  getNftToItemId(
+    _nft: string,
+    _tokenId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getPendingBids(
+    _itemId: BigNumberish,
+    _addr: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   itemCounter(overrides?: CallOverrides): Promise<BigNumber>;
 
   items(
@@ -432,6 +551,12 @@ export class Auction extends BaseContract {
   >;
 
   minBidUnit(overrides?: CallOverrides): Promise<BigNumber>;
+
+  nftToItemId(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -493,6 +618,45 @@ export class Auction extends BaseContract {
 
     getBlockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getItems(
+      _itemId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        string,
+        BigNumber,
+        number,
+        string
+      ] & {
+        startPrice: BigNumber;
+        startAt: BigNumber;
+        endAt: BigNumber;
+        tokenId: BigNumber;
+        seller: string;
+        topBidder: string;
+        topBid: BigNumber;
+        status: number;
+        nft: string;
+      }
+    >;
+
+    getNftToItemId(
+      _nft: string,
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getPendingBids(
+      _itemId: BigNumberish,
+      _addr: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     itemCounter(overrides?: CallOverrides): Promise<BigNumber>;
 
     items(
@@ -523,6 +687,12 @@ export class Auction extends BaseContract {
     >;
 
     minBidUnit(overrides?: CallOverrides): Promise<BigNumber>;
+
+    nftToItemId(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
@@ -726,11 +896,34 @@ export class Auction extends BaseContract {
 
     getBlockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getItems(
+      _itemId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getNftToItemId(
+      _nft: string,
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getPendingBids(
+      _itemId: BigNumberish,
+      _addr: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     itemCounter(overrides?: CallOverrides): Promise<BigNumber>;
 
     items(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     minBidUnit(overrides?: CallOverrides): Promise<BigNumber>;
+
+    nftToItemId(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -805,6 +998,23 @@ export class Auction extends BaseContract {
 
     getBlockTimestamp(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    getItems(
+      _itemId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getNftToItemId(
+      _nft: string,
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getPendingBids(
+      _itemId: BigNumberish,
+      _addr: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     itemCounter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     items(
@@ -813,6 +1023,12 @@ export class Auction extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     minBidUnit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    nftToItemId(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

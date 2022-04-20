@@ -1,5 +1,3 @@
-import "./Artistinfo.css";
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,6 +54,10 @@ export default function Artistinfo() {
     <>
       <div className="artistpage">
         <div className="artist-card">
+          <div className="title">
+            <i className="uil uil-create-dashboard"></i>
+            <span className="text">Artist Dashboard</span>
+          </div>
           <div className="artist-image">
             {artist.img === "" ? (
               <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />

@@ -1,0 +1,30 @@
+.scrollEventContant {
+  margin: 0;
+  padding-top: 10px;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: var(--box1-color);
+  border-radius: 5px;
+}
+
+.scrollBox {
+  width: "50%";
+  height: 700px;
+  overflow: auto;
+}
+.ListItem {
+  height: 600px;
+  width: "80%";
+  border-bottom: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Loading {
+  height: 60px;
+}
+
+.music-card.playing {
+  background-color: var(--box1-color);
+}

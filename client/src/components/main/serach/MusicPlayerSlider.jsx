@@ -133,7 +133,7 @@ export default function MusicPlayerSlider(props) {
       <Widget>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <CoverImage>
-            <img alt="이미지주소 넣으셈" src={props.musicmodal.img_file} />
+            <img alt="이미지주소 넣으셈" src={props.musicmodal.img_file} style={{ height: "100%", weight: "100%", objectFit: "cover"}} />
           </CoverImage>
           <audio
             ref={audioPlayer}
@@ -161,7 +161,7 @@ export default function MusicPlayerSlider(props) {
                 color="text.secondary"
                 fontWeight={500}
               >
-                Genre: {props.musicmodal.Genre}
+                Genre: {props.musicmodal.genre}
               </Typography>
               <Typography noWrap>
                 <b> {props.musicmodal.title}</b>
@@ -272,6 +272,12 @@ export default function MusicPlayerSlider(props) {
               setPaused(!paused);
               if (paused === true) {
                 audioPlayer.current.play();
+                const musicContainer = document.querySelector(".music-container");
+                const playBtn = document.querySelector("#play");
+                musicContainer.classList.remove("play");
+                playBtn.querySelector("i.fas").classList.add("fa-play");
+                playBtn.querySelector("i.fas").classList.remove("fa-pause");
+                audio.pause();
               } else if (paused === false) {
                 audioPlayer.current.pause();
               }

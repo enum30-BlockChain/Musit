@@ -135,109 +135,121 @@ export const Musicupload = () => {
 
   return (
     <>
-      <h1 className="create-title">Create your music file</h1>
-      <div className="create-layout">
-        <div className="create-imgbox">
-          <h2>Album Cover Image</h2>
-          {albumCoverImgFile && (
-            <img src={URL.createObjectURL(albumCoverImgFile)}></img>
-          )}
+      <div className="create-mainlayout">
+        <div className="title">
+          <i className="uil uil-upload-alt"></i>
+          <span className="text"> Create your music file</span>
+        </div>
+        <div className="create-layout">
+          <div className="create-imgbox">
+            <h2>Album Cover Image</h2>
+            {albumCoverImgFile && (
+              <img src={URL.createObjectURL(albumCoverImgFile)}></img>
+            )}
 
-          <div className="create-img-upload-btn">
-            <label className="create-coverupload-btn" for="coverupload">
-              Choose your cover image
+            <div className="create-img-upload-btn">
+              <label className="create-coverupload-btn" for="coverupload">
+                Choose your cover image
+              </label>
+              <input
+                id="coverupload"
+                name="imgUpload"
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={getImg}
+              />
+            </div>
+          </div>
+
+          <div className="creae-inputbox">
+            <h2>Music File</h2>
+            <div className="upload-music">
+              {audiofile && (
+                <audio
+                  src={URL.createObjectURL(audiofile)}
+                  onLoadedData={(e) => {
+                    setDuration(Math.floor(e.currentTarget.duration));
+                    // console.log(e.currentTarget.duration);
+                  }}
+                  // onTimeUpdate= {(e) =>{
+                  //   console.log(e.currentTarget.currentTime)
+                  // }}
+                  autoplay
+                  loop
+                  controls
+                >
+                  오디오 지원되지 않는 브라우저
+                </audio>
+              )}
+            </div>
+            <label className="create-file-btn" for="input-file">
+              Music file Upload
             </label>
             <input
-              id="coverupload"
-              name="imgUpload"
+              id="input-file"
               type="file"
-              accept="image/*"
+              inputProps={{ accept: "audio/*" }}
               style={{ display: "none" }}
-              onChange={getImg}
+              onChange={getAudio}
+              Address
+              sx={{ width: 400 }}
             />
+
+            <h2>Music Title</h2>
+            <input
+              style={{
+                width: 500,
+                backgroundColor: "opacity",
+                fontSize: "25px",
+              }}
+              onChange={getTitle}
+              value={musicTitle}
+              // inputProps={{ style: { fontSize: 30 } }}
+              placeholder="Music Title"
+            />
+            <h2>Music Description</h2>
+            <TextareaAutosize
+              maxRows={4}
+              aria-label="maximum height"
+              placeholder="Fill your music description"
+              style={{ width: 500, height: 100 }}
+              onChange={getDescription}
+            />
+            <h2>Genre</h2>
+            <Box sx={{ mx: "auto", width: "500px" }}>
+              <form>
+                {genre.map((MusicType, index) => {
+                  return (
+                    <>
+                      <label id={index} key={index}>
+                        <Checkbox
+                          className="checkbox-musicupload"
+                          type={"checkbox"}
+                          name={"MusicType"}
+                          value={MusicType}
+                          onChange={(e) => {
+                            changeHandler(e.currentTarget.checked, MusicType);
+                          }}
+                          checked={
+                            checkedInputs.includes(MusicType) ? true : false
+                          }
+                        />
+                        {MusicType}
+                      </label>
+                    </>
+                  );
+                })}
+              </form>
+            </Box>
+            <div className="create-btn">
+              <Button onClick={submit} sx={{ fontSize: 30, color: "black" }}>
+                upload
+              </Button>
+            </div>
           </div>
         </div>
-
-        <div className="creae-inputbox">
-          <h2>Music File</h2>
-          <div className="upload-music">
-            {audiofile && (
-              <audio
-                src={URL.createObjectURL(audiofile)}
-                onLoadedData={(e) => {
-                  setDuration(Math.floor(e.currentTarget.duration));
-                  // console.log(e.currentTarget.duration);
-                }}
-                // onTimeUpdate= {(e) =>{
-                //   console.log(e.currentTarget.currentTime)
-                // }}
-                autoplay
-                loop
-                controls
-              >
-                오디오 지원되지 않는 브라우저
-              </audio>
-            )}
-          </div>
-          <label className="create-file-btn" for="input-file">
-            Music file Upload
-          </label>
-          <input
-            id="input-file"
-            type="file"
-            inputProps={{ accept: "audio/*" }}
-            style={{ display: "none" }}
-            onChange={getAudio}
-            Address
-            sx={{ width: 400 }}
-          />
-
-          <h2>Music Title</h2>
-          <input
-            style={{ width: 400, backgroundColor: "opacity", fontSize: "25px" }}
-            onChange={getTitle}
-            value={musicTitle}
-            // inputProps={{ style: { fontSize: 30 } }}
-            placeholder="Music Title"
-          />
-          <h2>Music Description</h2>
-          <TextareaAutosize
-            maxRows={4}
-            aria-label="maximum height"
-            placeholder="Fill your music description"
-            style={{ width: 700, height: 150 }}
-            onChange={getDescription}
-          />
-          <h2>Genre</h2>
-          <Box sx={{ mx: "auto", width: "775px", display: "flex" }}>
-            <form>
-              {genre.map((MusicType, index) => {
-                return (
-                  <>
-                    <label id={index} key={index}>
-                      <Checkbox
-                        type={"checkbox"}
-                        name={"MusicType"}
-                        value={MusicType}
-                        onChange={(e) => {
-                          changeHandler(e.currentTarget.checked, MusicType);
-                        }}
-                        checked={
-                          checkedInputs.includes(MusicType) ? true : false
-                        }
-                      />
-                      {MusicType}
-                    </label>
-                  </>
-                );
-              })}
-            </form>
-          </Box>
-        </div>
-      </div>
-      {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
-      <div className="create-btn" onClick={submit}>
-        Submit
+        {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
       </div>
       {music.loading && <Progress />}
       <MessageHandler test={messageState} title={DBdata.title} />

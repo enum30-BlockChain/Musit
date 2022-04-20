@@ -14,7 +14,8 @@ contract Marketplace is ReentrancyGuard {
   uint256 public immutable feePercent; // 팔때 받을 수수료
   Counters.Counter public itemCount;
 
-  mapping(uint256 => Item) public items; // itemId => Item
+  mapping (uint256 => Item) public items; // itemId => Item
+  mapping (address => mapping(uint => uint)) public nftToItemId; // [nft contract address] [tokenId]  => itemId (last enrolled)
   
   struct Item {
     uint256 itemId; // 판매 등록한 아이템 id
@@ -74,6 +75,8 @@ contract Marketplace is ReentrancyGuard {
       address(_nft)
     );
     
+    nftToItemId[address(_nft)][_tokenId] = itemId;
+
     musitNft.setIsOnMarket(_tokenId, true);
   }
 
@@ -94,6 +97,8 @@ contract Marketplace is ReentrancyGuard {
     // transfer nft to buyer
     item.nft.safeTransferFrom(address(this), msg.sender, item.tokenId);
 
+    nftToItemId[address(item.nft)][item.tokenId] = 0;
+
     // emit Bought event
     emit Bought(
       _itemId, 
@@ -103,6 +108,7 @@ contract Marketplace is ReentrancyGuard {
       msg.sender, 
       address(item.nft)
     );
+
     musitNft = MusitNFT(address(item.nft));
     musitNft.setIsOnMarket(item.tokenId, false);
   }

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { readMusicData } from "../../../redux/actions/musicActions";
-import { mintingMusitNFT } from "../../../redux/actions/musitNFTActions";
+import { mintingMusitNFT } from "../../../redux/actions/contractActions";
 import "./Minting.css";
 
 const Minting = () => {

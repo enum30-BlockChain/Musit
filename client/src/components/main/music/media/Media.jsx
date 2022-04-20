@@ -120,18 +120,18 @@ const Media = () => {
                       <Typography
                         display="block"
                         variant="caption"
-                        color="text.secondary"
+                        
                       >
                         {music.artist_name}
                       </Typography>
                       <Typography
                         display="block"
                         variant="overline"
-                        color="text.secondary"
+                        
                       >
                         {music.genre}
                       </Typography>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" >
                         {`${music.play_count} listening `} •{" "}
                         {`${music.MusicLikes.length} like`}
                       </Typography>
@@ -195,18 +195,18 @@ const Media = () => {
                       <Typography
                         display="block"
                         variant="caption"
-                        color="text.secondary"
+                        
                       >
                         {music.artist_name}
                       </Typography>
                       <Typography
                         display="block"
                         variant="overline"
-                        color="text.secondary"
+                        
                       >
                         {music.genre}
                       </Typography>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" >
                         {`${music.play_count} listening `} •{" "}
                         {`${music.MusicLikes.length} like`}
                       </Typography>
