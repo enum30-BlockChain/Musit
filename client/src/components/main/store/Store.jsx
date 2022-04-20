@@ -1,79 +1,93 @@
 import "./Store.css";
 import React, { useEffect } from "react";
-import Ethers from "../../../web3/Ethers";
-import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { readMyNFTList } from "../../../redux/actions/musitNFTActions";
+import { readOnAuctionNFTList, readOnMarketNFTList } from "../../../redux/actions/contractActions";
+import NFTCard from "./nftcard/NFTCard"
 
 export const Store = () => {
   const user = useSelector((state) => state.user);
-  const musitNFT = useSelector((state) => state.musitNFT);
-  const selectedMusic = useSelector((state) => state.selectedMusic);
+  const market = useSelector((state) => state.market);
+  const auction = useSelector((state) => state.auction);
   const dispatch = useDispatch();
 
-  const topNavToggle = () => {
-    const links = document.querySelectorAll(".top-nav .nav-links li");
-    links.forEach((link) => {
-      link.addEventListener("click", () => {
-        links.forEach((link) => {
-          link.classList.remove("active");
-        });
-        link.classList.add("active");
-      });
-    });
-  };
-
-  useEffect(() => {
-    topNavToggle();
+  useEffect(async () => {
+    btnListener()
+    await dispatch(readOnMarketNFTList())
+    await dispatch(readOnAuctionNFTList())
   }, []);
 
-  useEffect(() => {
-    loadMyNFTs();
-  }, [user.loading]);
-
-  async function mintingOnClick() {
-    dispatch;
-    const result = await Ethers.minting(
-      "https://gateway.pinata.cloud/ipfs/QmZiFY6mvGyDvBqxHojHmiU1r8HCdh7QHZeEvYTpsWzqYT"
-    );
-
-    if (result.confirmations) loadMyNFTs();
-  }
-
-  async function loadMyNFTs() {
-    if (!user.loading && !user.error) {
-      await dispatch(readMyNFTList());
-    }
-  }
-
-  async function loadItems() {
-    const marketplace = Ethers.loadContracts().marketplace;
-    if (marketplace) {
-      const itemCount = marketplace.itemCount();
-    }
+  const btnListener = () => {
+    document
+			.querySelector(".nav-links .ordinary-market")
+			.addEventListener("click", () => {
+				const contentContainer = document.querySelector(
+					".store .content-container"
+				);
+				contentContainer.classList.add("ordinary");
+				contentContainer.classList.remove("auction");
+			});
+		document
+			.querySelector(".nav-links .auction-market")
+			.addEventListener("click", () => {
+				const contentContainer = document.querySelector(
+					".store .content-container"
+				);
+				contentContainer.classList.remove("ordinary");
+				contentContainer.classList.add("auction");
+			});
   }
 
   return (
-    <div className="store">
+    <section className="store">
       <nav className="top-nav">
         <ul className="nav-links">
-          <li>
-            <Link to="/store/nfts">
+          <li className="ordinary-market">
+            <a>
               <i className="uil uil-shopping-cart"></i>
               <span className="link-name"> Ordinary Market</span>
-            </Link>
+            </a>
           </li>
-          <li>
-            <Link to="/store/auction">
+          <li className="auction-market">
+            <a>
               <i className="uil uil-arrow-growth"></i>
               <span className="link-name"> Auction Market</span>
-            </Link>
+            </a>
           </li>
         </ul>
       </nav>
-      <div>
-        <Outlet />
-      </div>
-    </div>
+      <section className="content-container ordinary">
+        {market.loading ? <>loading</> : <Ordinary />}
+        {auction.loading ? <>loading</> : <Auction />}
+      </section>
+    </section>
   );
 };
+
+const Ordinary = () => {
+  const market = useSelector((state) => state.market);
+
+  return (
+    <section className="ordinary-box">
+      {market.data.map((nft, index) => <>
+        <NFTCard data={nft} key={index} />
+      </>)}
+    </section>
+  )
+}
+
+const Auction = () => {
+  const auction = useSelector((state) => state.auction);
+
+  useEffect(() => {
+    console.log(1)
+  }, [])
+
+  return (
+    <section className="auction-box">
+      {auction.data.map((nft, index) => <>
+        <NFTCard data={nft} key={index} />
+      </>)}
+    </section>
+  )
+}
+

@@ -66,9 +66,6 @@ const config: HardhatUserConfig = {
     ropsten: {
       url: getURL("alchemy", "ropsten"),
       accounts: getPrivateKey(),
-      gas:"auto",
-      gasPrice: "auto",
-      minGasPrice: 170000000000
     },
     rinkeby: {
       url: getURL("alchemy", "rinkeby"),

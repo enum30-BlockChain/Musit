@@ -30,29 +30,38 @@ export const readMyNFTList = () => {
 };
 
 
-/* 내가 민팅했던 NFT 리스트 불러오기 */
-export const readMyMintedNFTList = () => {
+/* 마켓에 올라온 NFT 리스트 불러오기 */
+export const readOnMarketNFTList = () => {
 	return async (dispatch, getState) => {
-		dispatch({ type: ActionTypes.MUSIT_NFT_MINTED_LIST_REQUEST });
+		dispatch({ type: ActionTypes.MUSIT_NFT_MARKET_LIST_REQUEST });
 		try {
-			const user = getState().user;
-      console.log(user.address);
-      
-			if (user.address) {
-        const myMintedNFTList = await Ethers.myMintingNFTList(user.address)
-				dispatch({
-					type: ActionTypes.MUSIT_NFT_MINTED_LIST_SUCCESS,
-					payload: myMintedNFTList,
-				});
-			} else {
-				dispatch({
-					type: ActionTypes.MUSIT_NFT_MINTED_LIST_FAIL,
-					payload: "Cannot find user address",
-				});
-			}
+			const onMarketNFTList = await Ethers.onMarketNFTList()
+			dispatch({
+				type: ActionTypes.MUSIT_NFT_MARKET_LIST_SUCCESS,
+				payload: onMarketNFTList,
+			})
 		} catch (error) {
 			dispatch({
-				type: ActionTypes.MUSIT_NFT_MINTED_LIST_FAIL,
+				type: ActionTypes.MUSIT_NFT_MARKET_LIST_FAIL,
+				payload: "Read minted list failed",
+			});
+		}
+	};
+};
+
+/* 경매에 올라온 NFT 리스트 불러오기 */
+export const readOnAuctionNFTList = () => {
+	return async (dispatch, getState) => {
+		dispatch({ type: ActionTypes.MUSIT_NFT_AUCTION_LIST_REQUEST });
+		try {
+			const onAuctionNFTList = await Ethers.onAuctionNFTList()
+			dispatch({
+				type: ActionTypes.MUSIT_NFT_AUCTION_LIST_SUCCESS,
+				payload: onAuctionNFTList,
+			})
+		} catch (error) {
+			dispatch({
+				type: ActionTypes.MUSIT_NFT_AUCTION_LIST_FAIL,
 				payload: "Read minted list failed",
 			});
 		}
