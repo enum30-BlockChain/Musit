@@ -136,7 +136,7 @@ export const Main = () => {
 
             {/* music */}
             <Route path="music" element={<Music />}>
-              <Route path="enummusic" element={<Enummusic />} />
+              <Route index element={<Enummusic />} />
               <Route path="genre" element={<Genre />} />
               <Route path="ranking" element={<Media />} />
             </Route>

@@ -24,7 +24,7 @@ export default function Music() {
         <nav className="top-nav">
           <ul className="nav-links">
             <li>
-              <Link to="/music/enummusic">
+              <Link to="/music">
                 <i className="uil uil-favorite"></i>
                 <span className="link-name"> Enum30 x Music</span>
               </Link>

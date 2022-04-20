@@ -119,7 +119,7 @@ const SuccessContent = ({nftData}) => {
 						<h2>
 							<i className="uil uil-music"></i> Genre
 						</h2>
-						<h1>{nftData.genre.join(", ")}</h1>
+						<h1>{nftData.genre && nftData.genre.join(", ")}</h1>
 					</div>
 					<div className="description-box">
 						<h2>Description</h2>

@@ -86,6 +86,12 @@ export default class Ethers {
 
 	static async myNFTList(address: string): Promise<object[] | null> {
 		try {
+			const nftBalance = await musitNFT.balanceOf(address);
+			let nftList: (string|number)[] = [];
+			for (let i = 0; i < nftBalance; i++) {
+				nftList.push(await musitNFT.tokenOfOwnerByIndex(address, i))
+			}
+
 			const filter: EventFilter = musitNFT.filters.Transfer(null, address);
 			const myNFTList: object[] = await Promise.all(
 				(
