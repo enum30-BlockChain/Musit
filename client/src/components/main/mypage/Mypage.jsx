@@ -27,7 +27,7 @@ export const Mypage = () => {
       <nav className="top-nav">
         <ul className="nav-links">
           <li>
-            <Link to="/mypage/favoritemusic">
+            <Link to="/mypage">
               <i className="uil uil-favorite"></i>
               <span className="link-name"> Favorite Music</span>
             </Link>

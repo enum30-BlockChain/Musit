@@ -28,7 +28,7 @@ export const Artist = () => {
         <nav className="top-nav">
           <ul className="nav-links" onClick={navlinkOnClick}>
             <li>
-              <Link to="/artist/artistdashbord">
+              <Link to="/artist">
                 <i className="uil uil-favorite"></i>
                 <span className="link-name">Artist Dashboard</span>
               </Link>
