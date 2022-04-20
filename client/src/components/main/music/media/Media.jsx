@@ -3,66 +3,77 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
-import HeadsetIcon from "@mui/icons-material/Headset";
-import { Link } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
+import Divider from "@mui/material/Divider";
+import SimpleBackdrop from "../SimpleBackdrop";
+const fakeFetch = (delay = 500) => new Promise(res => setTimeout(res, delay));
 
-const Media = (props) => {
+const Media = () => {
+  const [lodingState,setLoadingState] = useState(true);
+
   const musicList = useSelector((state) => state.musicList).data;
   const listeningTopList = [...musicList].sort(
     (a, b) => b.play_count - a.play_count
-  ); //랭킹만들기
+  ).slice(0, 20); //랭킹만들기
+
   const likeTopList = [...musicList].sort(
     (a, b) => b.MusicLikes.length - a.MusicLikes.length
-  ); //랭킹만들기
+  ).slice(0, 20); 
 
   const [listenRankingvalue, setListenRankingValue] = useState(0);
   const [likeRankingValue, setLikeRankingValue] = useState(0);
   const [veiwCard, setVeiwCard] = useState(0);
-
-  useEffect(() => {
+  const [musicmodal, setmusicmodal] = useState("");
+  
+  useEffect(async () => {
     if (musicList.length > 6) {
       setVeiwCard(6);
     } else {
       setVeiwCard(musicList.length);
     }
-  }, [props]);
+    await fakeFetch()
+    setLoadingState(false);
+  }, []);
 
   //ToDO: musicList.length = 6 6개이하면 오류남
 
   const listenRankingMoveLeft = () => {
-    // console.log(listenRankingvalue)
-    // console.log(musicList.length)
+    console.log(listeningTopList.length)
+    console.log(veiwCard)
     listenRankingvalue === 0
-      ? setListenRankingValue(-100 * (musicList.length - veiwCard))
+      ? setListenRankingValue(-100 * (listeningTopList.length - veiwCard))
       : setListenRankingValue(listenRankingvalue + 100);
   };
   const listenRankingMoveRigth = () => {
-    listenRankingvalue === -100 * (musicList.length - veiwCard)
+    listenRankingvalue === -100 * (listeningTopList.length - veiwCard)
       ? setListenRankingValue(0)
       : setListenRankingValue(listenRankingvalue - 100);
   };
   const likeRankingMoveLeft = () => {
     likeRankingValue === 0
-      ? setLikeRankingValue(-100 * (musicList.length - veiwCard))
+      ? setLikeRankingValue(-100 * (likeTopList.length - veiwCard))
       : setLikeRankingValue(likeRankingValue + 100);
   };
   const rigthRankingMoveLeft = () => {
-    likeRankingValue === -100 * (musicList.length - veiwCard)
+    likeRankingValue === -100 * (likeTopList.length - veiwCard)
       ? setLikeRankingValue(0)
       : setLikeRankingValue(likeRankingValue - 100);
   };
 
   const postInfo = (music) => {
-    props.setmusicmodal(music);
+  setmusicmodal(music);
   };
 
   return (
     <>
+    {lodingState
+    ? <SimpleBackdrop />
+    :(
       <Box sx={{ height: "100%" }}>
         <Box sx={{ height: "45%", mb: 2 }}>
-          <Typography variant="h4">Listening Ranking</Typography>
+          <Typography variant="h4">Listening Top20 Ranking</Typography>
           <Box
             sx={{
               display: "flex",
@@ -104,7 +115,7 @@ const Media = (props) => {
                     />
                     <Box sx={{ pr: 2 }}>
                       <Typography gutterBottom variant="body2">
-                        {music.title}
+                      {index+1}. &nbsp; {music.title}
                       </Typography>
                       <Typography
                         display="block"
@@ -135,24 +146,9 @@ const Media = (props) => {
             />
           </Box>
         </Box>
-        <nav className="top-nav">
-          <ul className="nav-links">
-            <li>
-              <Link to="/music/ranking">
-                <i className="uil uil-favorite"></i>
-                <span className="link-name"> Ranking</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/music/genre">
-                <i className="uil uil-play"></i>
-                <span className="link-name"> Recommend</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+        <Divider sx={{ my: 2 }} />
         <Box sx={{ height: "45%", mt: 1 }}>
-          <Typography variant="h4">like Ranking</Typography>
+          <Typography variant="h4">like Top20 Ranking</Typography>
           <Box
             sx={{
               display: "flex",
@@ -194,7 +190,7 @@ const Media = (props) => {
                     />
                     <Box sx={{ pr: 2 }}>
                       <Typography gutterBottom variant="body2">
-                        {music.title}
+                      {index+1}. &nbsp; {music.title}
                       </Typography>
                       <Typography
                         display="block"
@@ -226,6 +222,17 @@ const Media = (props) => {
           </Box>
         </Box>
       </Box>
+    ) 
+    }
+      
+      {musicmodal && (
+        <MusicPlayerSlider
+          sx={{ display: "block" }}
+          musicmodal={musicmodal}
+          setmusicmodal={setmusicmodal}
+        />
+      )}
+
     </>
   );
 };

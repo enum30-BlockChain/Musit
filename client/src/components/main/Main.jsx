@@ -8,7 +8,6 @@ import { Route, Router, Routes } from "react-router-dom";
 //top
 import { Searchbar } from "./searchbar/Searchbar";
 //bottom
-import { Dashboard } from "./dashboard/Dashboard";
 import { Playbar } from "./playbar/Playbar";
 
 //Main-nav
@@ -23,7 +22,6 @@ import { Playlist } from "./mypage/playlist/Playlist";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
 import { Collection } from "./mypage/collection/Collection";
-// import { Favorite } from "./mypage/favorite/Favorite";
 import MyNFTList from "./mypage/mynftlist/MyNFTList";
 
 // Main-nav music
@@ -43,7 +41,6 @@ import { Artist } from "./artist/Artist";
 import Artistinfo from "./artist/artistinfo/Artistinfo";
 import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
 import Album from "./artist/myalbum/Album";
-// import Createnft from "./artist/createnft/Createnft";
 import Auctionupload from "./artist/auctionupload/Auctionupload";
 
 //Main-nav Create
@@ -54,7 +51,6 @@ import FavoriteMusic from "./mypage/favoritemusic/FavoriteMusic";
 import MyPlayList from "./mypage/myplaylist/MyPlayList";
 import Minting from "./minting/Minting";
 import Enroll from "./store/enroll/Enroll";
-// import { ArtistsList } from "./artist/favorite/ArtistsList";
 import { CircularProgress } from "@mui/material";
 
 import Error from "../Error";
@@ -94,9 +90,7 @@ export const Main = () => {
         <Routes>
           <Route path="/">
             {/* Main navbar */}
-            <Route path="landingpage" element={<LandingMainPage />} />
-
-            <Route index element={<Dashboard />} />
+            <Route index element={<LandingMainPage />} />
             <Route
               path="mypage"
               element={
@@ -111,6 +105,7 @@ export const Main = () => {
               <Route path="playlist" element={<Playlist />} />
               <Route path="subscription" element={<Subscription />} />
               <Route path="mynftlist" element={<MyNFTList />} />
+              <Route path="mynftlist/:tokenId" element={<Enroll />} />
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
               <Route path="favoritartist" element={<FavoriteArtist />} />
@@ -123,12 +118,7 @@ export const Main = () => {
             <Route
               path="artist"
               element={
-                artist.artist_name !== null ? (
-                  <Artist path="artist" />
-                ) : (
-                  <></>
-                  // <Artistsubmit path="artistsubmit" />
-                )
+                artist.artist_name !== null ? <Artist path="artist" /> : <></>
               }
             >
               <Route path="artistinfo" element={<Artistinfo />} />

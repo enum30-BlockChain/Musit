@@ -133,7 +133,7 @@ export default function MusicPlayerSlider(props) {
       <Widget>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <CoverImage>
-            <img alt="이미지주소 넣으셈" src={props.musicmodal.img_file} />
+            <img alt="이미지주소 넣으셈" src={props.musicmodal.img_file} style={{ height: "100%", weight: "100%", objectFit: "cover"}} />
           </CoverImage>
           <audio
             ref={audioPlayer}
@@ -300,6 +300,7 @@ export default function MusicPlayerSlider(props) {
           alignItems="center"
         >
           <VolumeDownRounded htmlColor={lightIconColor} />
+          
           <Slider
             aria-label="Volume"
             defaultValue={100}

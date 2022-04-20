@@ -50,14 +50,29 @@ const RegisterUser = () => {
     cover_img_link: "",
   });
 
+  //오류상태매세지
+  const [nicknameMessage, setnicknameMessage] = useState("");
   const connectOnclick = () => {
     dispatch(connectMetamask());
   };
 
+  //유효성검사
+  const [isName] = useState(false);
+
   const formData = new FormData();
 
   const onChangeNick = (e) => {
+    console.log(e.target.value.length);
     setNickname(e.target.value);
+    if (e.target.value.length < 2 || e.target.value.length > 5) {
+      setnicknameMessage("2글자 이상 5글자 이하로 작성해주세요");
+
+      false;
+    } else {
+      setnicknameMessage("올바른 방식입니다.");
+
+      true;
+    }
   };
 
   const UserHandleOnClick = async () => {
@@ -170,7 +185,13 @@ const RegisterUser = () => {
                 onChange={onChangeNick}
               ></Input>
             </li>
-
+            <li>
+              {nickname.length > 0 && (
+                <span className={`message ${isName ? "success" : "error"}`}>
+                  {nicknameMessage}
+                </span>
+              )}
+            </li>
             <div>
               <h2>Nations</h2>
               <CountryType

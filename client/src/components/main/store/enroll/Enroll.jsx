@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { readMusicData } from "../../../../redux/actions/musicActions";
-import { readMyNFTList } from "../../../../redux/actions/musitNFTActions";
+import { readMyNFTList, removeSelectedMusitNFT, selectedMusitNFT } from "../../../../redux/actions/musitNFTActions";
 import Ethers from "../../../../web3/Ethers";
 
 import "./Enroll.css";
@@ -14,7 +14,7 @@ const Enroll = () => {
 	const userData = useSelector((state) => state.user);
 	const musicData = useSelector((state) => state.music);
 	const musitNFT = useSelector((state) => state.musitNFT);
-	const [nftData, setNftData] = useState({});
+	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 	
 	useEffect(async () => {
 		if(userData.address) {
@@ -27,18 +27,23 @@ const Enroll = () => {
 			const thisNFT = await musitNFT.myNFTList.filter(
 				(nft) => parseInt(nft.tokenId) === parseInt(tokenId)
 			)[0];
-			setNftData(thisNFT)
+			await dispatch(selectedMusitNFT(thisNFT))
 			await dispatch(readMusicData(thisNFT.ipfs_hash));
+		}
+		return async () => {
+			await dispatch(removeSelectedMusitNFT())
 		}
 	}, [musitNFT.loading]);
 
-	return musicData.loading || musitNFT.loading || musicData.ipfs_hash === null? (
+	return musicData.loading ||
+		musitNFT.loading ||
+		musicData.ipfs_hash === null ? (
 		<LoadingContent />
 	) : musitNFT.error ? (
 		<ErrorContent />
 	) : (
 		<>
-			<SuccessContent nftData={nftData} />
+			<SuccessContent nftData={selectedNFT} />
 		</>
 	);
 };
@@ -50,9 +55,8 @@ const SuccessContent = ({nftData}) => {
 	const [isOnMarket, setIsOnMarket] = useState(true);
 
 	useEffect(async () => {
-		console.log(await Ethers.isOnMarket(tokenId));
 		setIsOnMarket(await Ethers.isOnMarket(tokenId))
-	},[nftData])
+	},[])
 
 	// Sell, Auction 입력창 변경
 	const selectSellOnClick = () => {
@@ -162,7 +166,7 @@ const SuccessContent = ({nftData}) => {
 
 
 /* 일반 판매 */
-const OrdinaryForm = ({isOnMarket}) => {
+const OrdinaryForm = () => {
 	let { tokenId } = useParams();
 	const [sellPrice, setSellPrice] = useState("0.0001");
 
@@ -177,8 +181,15 @@ const OrdinaryForm = ({isOnMarket}) => {
 	}
 
 	// NFT 판매 등록
-	const submitOnClick = async () => {
-		await Ethers.enrollMarketplace(tokenId, sellPrice)
+	const submitOnClick = async (e) => {
+		e.preventDefault();
+		let isFormValid = document.querySelector('.input-box').checkValidity();
+		console.log(isFormValid);
+    if(!isFormValid) {
+			document.querySelector('.input-box').reportValidity();
+		} else {
+			await Ethers.enrollMarketplace(tokenId, sellPrice)
+		}
 	}
 
 	return (
@@ -197,13 +208,16 @@ const OrdinaryForm = ({isOnMarket}) => {
 				</p>
 			</div>
 			<div className="permission-box">
-				<h2>Permission</h2>
+				<div className="title-box">
+					<h2>Permission</h2> <h5>*</h5>
+				</div>
 				<button onClick={setPermissionOnClick}>Give Permission</button>
 			</div>
-			<div className="price-box">
-				<h2>Sell-Price</h2>
-				<p>Please ETH price to sell. </p>
-				<p>(The smallest unit is 0.0001 ETH.)</p>
+			<form className="input-box">
+				<div className="title-box">
+					<h2>Sell-Price</h2> <h5>*</h5>
+				</div>
+				<p>Please ETH price to sell.(Unit: 0.0001 ETH)</p>
 				<input
 					type="number"
 					defaultValue={0.0001}
@@ -213,7 +227,7 @@ const OrdinaryForm = ({isOnMarket}) => {
 					required
 				/>
 				<button onClick={submitOnClick}>submit</button>
-			</div>
+			</form>
 		</div>
 	);
 };
@@ -223,19 +237,19 @@ const OrdinaryForm = ({isOnMarket}) => {
 const AuctionForm = () => {
 	let { tokenId } = useParams();
 
-	// 현재 시간 형식 변경 => input date form에 입력할 포맷으로 변경
-	const getNowDateTime = () => {
-		const now = Date.now();
-		const today = (new Date(now))
-		const time = (new Date(now).toTimeString().slice(0,5))
-		let year = today.getFullYear();
-		let month = ("0" + (today.getMonth() + 1)).slice(-2);
-		let date = today.getDate();
+	// 입력 최소 시간 => 현재 시간 + 5분
+	const getMinDateTime = () => {
+		const ms = Date.now() + 60000 * 5; // 현재 시간 + 5분
+		const minDateTime = (new Date(ms));
+		const time = (new Date(ms).toTimeString().slice(0,5))
+		let year = minDateTime.getFullYear();
+		let month = ("0" + (minDateTime.getMonth() + 1)).slice(-2);
+		let date = minDateTime.getDate();
 		const result = `${year}-${month}-${date}T${time}`
 		return result;
 	}
 	
-	// 입력할 최대 시간 형식 변경 => 현재 시간으로 부터 7일
+	// 입력 최대 시간 => 현재 시간 + 7일
 	const getMaxDateTime = () => {
 		const now = Date.now();
 		const today = (new Date(now))
@@ -250,6 +264,20 @@ const AuctionForm = () => {
 	// Auction 컨트랙트에 내 NFT를 접근 권한 허용하기
 	const setPermissionOnClick = async () => {
 		await Ethers.approveMyNFT("auction", tokenId)
+	}
+
+	// NFT 경매 등록
+	const submitOnClick = async (e) => {
+		e.preventDefault();
+		let isFormValid = document.querySelector('.input-box').checkValidity();
+		console.log(isFormValid);
+    if(!isFormValid) {
+			document.querySelector('.input-box').reportValidity();
+		} else {
+			const endAt = document.querySelector("#datetime-local").value;
+			console.log(new Date(endAt).getTime())
+			// await Ethers.enrollAuction(tokenId, sellPrice, endAt)
+		}
 	}
 
 	return (
@@ -268,25 +296,35 @@ const AuctionForm = () => {
 				</p>
 			</div>
 			<div className="permission-box">
-				<h2>Permission</h2>
+				<div className="title-box">
+					<h2>Permission</h2> <h5>*</h5>
+				</div>
 				<button onClick={setPermissionOnClick}>Give Permission</button>
 			</div>
-			<div className="price-box">
-				<h2>Start-Price</h2>
-				<p>Please ETH price to sell. </p>
-				<p>(The smallest unit is 0.0001 ETH.)</p>
-				<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} />
-				<h2>End-date</h2>
-				<input
-					id="datetime-local"
-					type="datetime-local"
-					min={getNowDateTime()}
-					max={getMaxDateTime()}
-					defaultValue={getNowDateTime()}
-					onChange={(e) => console.log((new Date(e.target.value)).getTime())}
-				/>
-				<button>submit</button>
-			</div>
+			<form className="input-box">
+				<div className="price-box">
+					<div className="title-box">
+						<h2>Sell-Price</h2> <h5>*</h5>
+					</div>
+					<p>Please ETH price to sell. (Unit : 0.0001 ETH)</p>
+					<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} required />
+				</div>
+				<div className="end-date-box">
+					<div className="title-box">
+						<h2>End-Date</h2> <h5>*</h5>
+					</div>
+					<input
+						required
+						id="datetime-local"
+						type="datetime-local"
+						min={getMinDateTime()}
+						max={getMaxDateTime()}
+						defaultValue={getMinDateTime()}
+						onChange={(e) => console.log((new Date(e.target.value)).getTime())}
+					/>
+				</div>
+				<button onClick={submitOnClick}>submit</button>
+			</form>
 		</div>
 	);
 };
