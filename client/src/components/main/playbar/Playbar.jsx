@@ -94,6 +94,7 @@ export const Playbar = () => {
 
   function playloadSong(song, index) {
     //play list 노래불러올때
+ 
     setpalyeCount(song.play_count);
     sethash(song.ipfs_hash);
     setTilte(song.title);
@@ -180,9 +181,13 @@ export const Playbar = () => {
   }
 
   function playSong() {
+    const musciCardAudio = document.querySelector("#MusicCardAudio");
+    if(musciCardAudio)musciCardAudio.pause();
     musicContainer.classList.add("play");
     playBtn.querySelector("i.fas").classList.add("fa-pause");
     playBtn.querySelector("i.fas").classList.remove("fa-play");
+    const musicCardPlaying = document.querySelector(" .music-card.playing")
+    if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
     audio.play();
   }
   function pauseSong() {
