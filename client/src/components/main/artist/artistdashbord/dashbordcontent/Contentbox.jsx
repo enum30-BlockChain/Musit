@@ -6,10 +6,6 @@ import "./Contentbox.css";
 export const Contentbox = () => {
   return (
     <div className="contentbox">
-      <div className="title">
-        <i className="uil uil-create-dashboard"></i>
-        <span className="text">Artist Dashboard</span>
-      </div>
       <div className="boxes">
         <div className="box box1">
           {/* 아티스트가 받은 음악 좋아요 갯수 */}

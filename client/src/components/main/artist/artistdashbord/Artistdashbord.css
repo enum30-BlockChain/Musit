@@ -8,6 +8,10 @@
   margin-bottom: 15px;
 }
 
+.dashboard .dashboard-layout {
+  display: flex;
+}
+
 .dashboard .title i {
   position: relative;
   height: 35px;

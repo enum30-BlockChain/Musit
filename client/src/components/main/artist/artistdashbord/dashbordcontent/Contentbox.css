@@ -16,7 +16,7 @@
   align-items: center;
   border-radius: 12px;
   width: calc(100% / 3 - 15px);
-  padding: 40px;
+  padding: 87px;
   background-color: var(--box1-color);
   transition: var(--tran-05);
 }
