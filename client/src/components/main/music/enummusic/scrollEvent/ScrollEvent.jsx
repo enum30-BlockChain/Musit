@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import useIntersect from "./UseIntersect";
 import "./ScrollEvent.css";
-import MainCard from "../main/MainCard";
+import MainCard from "../../main/MainCard";
+import MainCardNav from "../../main/MainCardNav";
 import { useSelector } from "react-redux";
-import SimpleBackdrop from "../SimpleBackdrop";
+import SimpleBackdrop from "../../SimpleBackdrop";
 
 const fakeFetch = (delay = 500) => new Promise(res => setTimeout(res, delay));
 
@@ -55,7 +56,10 @@ function ScrollEvent() {
     )
   }else{
     return (
+      <>
       <div className="scrollEventContant">
+        <MainCardNav/>
+        <div className="scrollBox">
         {[...Array(itemCount)].map((_, i) => {
           if(result.length > i){
             return <MainCard
@@ -67,10 +71,12 @@ function ScrollEvent() {
             return <ListItem key={i} number={i} />;
           }
         })}
-        <div ref={setRef} className="Loading">
-          {isLoading && "Loading..."}
+          <div ref={setRef} className="Loading">
+            {isLoading && "Loading..."}
+          </div>
         </div>
-      </div>
+        </div>
+      </>
     );
   }
 }

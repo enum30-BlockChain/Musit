@@ -44,8 +44,7 @@ export default function ArtistCard(props) {
         p: 2,
         m: 1.5,
         maxWidth: 160,
-        backgroundColor: (theme) =>
-          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        bgcolor: "var(--box1-color)",
       }}
     >
       <Grid
