@@ -1,7 +1,7 @@
 import React from "react";
-import { Activity } from "./activity/Activity";
-import { Contentbox } from "./contentbox/Contentbox";
-import "./Dashboard.css";
+import { Activity } from "./dashbordcontent/Activity";
+import { Contentbox } from "./dashbordcontent/Content";
+import "./Artistdashbord.css";
 
 export const Dashboard = () => {
   return (
