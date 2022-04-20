@@ -39,7 +39,7 @@ import { Store } from "./store/Store";
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
 import Artistinfo from "./artist/artistinfo/Artistinfo";
-import Artistdashbord from "./artist/artistdashbord/Artistdashbord";
+import { Artistdashbord } from "./artist/artistdashbord/Artistdashbord";
 import Album from "./artist/myalbum/Album";
 import Auctionupload from "./artist/auctionupload/Auctionupload";
 
@@ -109,7 +109,7 @@ export const Main = () => {
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
               <Route path="favoritartist" element={<FavoriteArtist />} />
-              <Route path="favoritemusic" element={<FavoriteMusic />} />
+              <Route index element={<FavoriteMusic />} />
               <Route path="myplaylist" element={<MyPlayList />} />
             </Route>
             <Route path="register" element={<RegisterUser />} />
@@ -122,7 +122,7 @@ export const Main = () => {
               }
             >
               <Route path="artistinfo" element={<Artistinfo />} />
-              <Route path="artistdashbord" element={<Artistdashbord />} />
+              <Route index element={<Artistdashbord />} />
               <Route path="myupload" element={<Album />} />
               <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
@@ -136,7 +136,7 @@ export const Main = () => {
 
             {/* music */}
             <Route path="music" element={<Music />}>
-              <Route path="enummusic" element={<Enummusic />} />
+              <Route index element={<Enummusic />} />
               <Route path="genre" element={<Genre />} />
               <Route path="ranking" element={<Media />} />
             </Route>
