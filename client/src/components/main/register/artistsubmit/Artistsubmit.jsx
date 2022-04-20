@@ -7,9 +7,9 @@ import { createArtistData } from "../../../../redux/actions/artistActions";
 import { Link } from "react-router-dom";
 
 export default function Artistsubmit() {
-  useEffect(() => {
-    alert("아티스트 가입해주세요");
-  }, []);
+  // useEffect(() => {
+  //   alert("아티스트 가입해주세요");
+  // }, []);
 
   const [inputs, setInputs] = useState("");
   const [DBdata, setDBdata] = useState({
@@ -32,6 +32,7 @@ export default function Artistsubmit() {
       img: DBdata.cover_img_link,
     };
     dispatch(createArtistData(artistsdata));
+    alert("아티스트 등록이 완료되었습니다");
   };
 
   const onChange = (e) => {
@@ -58,30 +59,30 @@ export default function Artistsubmit() {
   return (
     <>
       <div className="artist-nickname">
-        <div className="grid">
-          <div className="box">
-            <div className="artist-name">
-              <h1>Artist Nickname</h1>
-              <Input
-                required
-                placeholder="Please enter your Nickname."
-                inputProps={{ style: { fontSize: 30 } }}
-                label="Email"
-                sx={{ width: 400 }}
-                variant="standard"
-                name="nickname"
-                onChange={onChange}
-              />
-            </div>
-            <h1>Profile Image</h1>
+        <div className="regi-grid">
+          <div className="artist-name">
+            <p className="artist-infomation-regi">Artist Nickname</p>
+            <Input
+              required
+              placeholder="Please enter your Nickname."
+              inputProps={{ style: { fontSize: 30 } }}
+              label="Email"
+              sx={{ width: 400 }}
+              variant="standard"
+              name="nickname"
+              onChange={onChange}
+            />
+          </div>
+          <div className="artist-name">
+            <p className="artist-infomation-regi">Profile Image</p>
             <div className="artist-register-profile-img">
               {albumCoverImgFile === "" ? (
-                <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
+                <Avatar alt="Remy Sharp" sx={{ width: 330, height: 330 }} />
               ) : (
                 <Avatar
                   alt="Remy Sharp"
                   src={URL.createObjectURL(albumCoverImgFile)}
-                  sx={{ width: 260, height: 260 }}
+                  sx={{ width: 330, height: 330 }}
                 />
               )}
             </div>
@@ -97,8 +98,12 @@ export default function Artistsubmit() {
               onChange={getImg}
             />
           </div>
-          <Link to={"/"}>
-            <Button onClick={submitOnClick}>Artist Registration</Button>
+        </div>
+        <div className="artist-submit-layout">
+          <Link to={"/artist"}>
+            <div className="artist-submit" onClick={submitOnClick}>
+              Artist Submit
+            </div>
           </Link>
         </div>
       </div>

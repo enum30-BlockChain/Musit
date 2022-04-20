@@ -1,5 +1,26 @@
 import React from "react";
+// import { Activity } from "./dashbordcontent/Activity";
+import { Contentbox } from "./dashbordcontent/Contentbox";
+import "./Artistdashbord.css";
 
-export default function Artistdashbord() {
-  return <h1>총 좋아요 수display, 아티스트 수입</h1>;
-}
+import Artistinfo from "../../artist/artistinfo/Artistinfo";
+
+export const Artistdashbord = () => {
+  return (
+    <div className="dashboard">
+      <div className="title">
+        <i className="uil uil-create-dashboard"></i>
+        <span className="text">Artist Dashboard</span>
+      </div>
+      <div className="dashboard-layout">
+        <div className="informatino-artist">
+          <Artistinfo />
+        </div>
+        <div className="overview">
+          <Contentbox />
+          {/* <Activity /> */}
+        </div>
+      </div>
+    </div>
+  );
+};

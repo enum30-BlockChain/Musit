@@ -5,14 +5,12 @@ const { imgUpload, audioUpload } = require("./s3upload");
 const files = express.Router();
 
 files.post("/upload/img", (req, res, next) => {
+  console.log(res)
   try {
     imgUpload(req, res, function (err) {
       if (err instanceof multer.MulterError) {
         return res.send(400, "Upload img failed");
       }
-      console.log(22222222222222);
-      console.log(req.file.location);
-      console.log(22222222222222);
       return res.send(req.file.location);
     });
   } catch (error) {
