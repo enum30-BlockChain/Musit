@@ -57,7 +57,7 @@ export const Mypage = () => {
             </Link>
           </li>
 
-          {artist.nickname == null ? (
+          {artist.nickname !== null ? (
             <></>
           ) : (
             <li>
