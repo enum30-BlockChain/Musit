@@ -59,7 +59,6 @@ import { Test } from "../Test";
 export const Main = () => {
   const user = useSelector((state) => state.user);
   const artist = useSelector((state) => state.artist);
-
   useEffect(() => {
     sidebarToggle();
   }, []);
