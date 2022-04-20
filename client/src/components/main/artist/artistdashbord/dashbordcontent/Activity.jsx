@@ -1,29 +1,49 @@
 import React from "react";
-import "./Contentbox.css";
+import "./Activity.css";
 
-export const Contentbox = () => {
+export const Activity = () => {
   return (
-    <div className="contentbox">
+    <div className="activity">
       <div className="title">
-        <i className="uil uil-create-dashboard"></i>
-        <span className="text">Dashboard</span>
+        <i className="uil uil-history"></i>
+        <span className="text">Recent Activity</span>
       </div>
 
-      <div className="boxes">
-        <div className="box box1">
-          <i className="uil uil-thumbs-up"></i>
-          <span className="text">Total Likes</span>
-          <span className="number">50,120</span>
+      <div className="activity-data">
+        <div className="data names">
+          <span className="data-title">Name</span>
+          <span className="data-list">List</span>
+          <span className="data-list">List</span>
+          <span className="data-list">List</span>
+          <span className="data-list">List</span>
         </div>
-        <div className="box box2">
-          <i className="uil uil-comments"></i>
-          <span className="text">Comments</span>
-          <span className="number">23,123</span>
+        <div className="data email">
+          <span className="data-title">Email</span>
+          <span className="data-list">enum30@gmail.com</span>
+          <span className="data-list">enum30@gmail.com</span>
+          <span className="data-list">enum30@gmail.com</span>
+          <span className="data-list">enum30@gmail.com</span>
         </div>
-        <div className="box box3">
-          <i className="uil uil-share"></i>
-          <span className="text">Total Share</span>
-          <span className="number">23,232</span>
+        <div className="data joined">
+          <span className="data-title">Joined</span>
+          <span className="data-list">2022-03-26</span>
+          <span className="data-list">2022-03-26</span>
+          <span className="data-list">2022-03-26</span>
+          <span className="data-list">2022-03-26</span>
+        </div>
+        <div className="data type">
+          <span className="data-title">Type</span>
+          <span className="data-list">New</span>
+          <span className="data-list">New</span>
+          <span className="data-list">New</span>
+          <span className="data-list">New</span>
+        </div>
+        <div className="data status">
+          <span className="data-title">Status</span>
+          <span className="data-list">Liked</span>
+          <span className="data-list">Liked</span>
+          <span className="data-list">Liked</span>
+          <span className="data-list">Liked</span>
         </div>
       </div>
     </div>
