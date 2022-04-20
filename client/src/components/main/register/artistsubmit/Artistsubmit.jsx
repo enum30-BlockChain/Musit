@@ -7,9 +7,9 @@ import { createArtistData } from "../../../../redux/actions/artistActions";
 import { Link } from "react-router-dom";
 
 export default function Artistsubmit() {
-  useEffect(() => {
-    alert("아티스트 가입해주세요");
-  }, []);
+  // useEffect(() => {
+  //   alert("아티스트 가입해주세요");
+  // }, []);
 
   const [inputs, setInputs] = useState("");
   const [DBdata, setDBdata] = useState({
@@ -73,33 +73,39 @@ export default function Artistsubmit() {
               onChange={onChange}
             />
           </div>
-          <p className="artist-infomation-regi">Profile Image</p>
-          <div className="artist-register-profile-img">
-            {albumCoverImgFile === "" ? (
-              <Avatar alt="Remy Sharp" sx={{ width: 300, height: 300 }} />
-            ) : (
-              <Avatar
-                alt="Remy Sharp"
-                src={URL.createObjectURL(albumCoverImgFile)}
-                sx={{ width: 300, height: 300 }}
-              />
-            )}
+          <div className="artist-name">
+            <p className="artist-infomation-regi">Profile Image</p>
+            <div className="artist-register-profile-img">
+              {albumCoverImgFile === "" ? (
+                <Avatar alt="Remy Sharp" sx={{ width: 330, height: 330 }} />
+              ) : (
+                <Avatar
+                  alt="Remy Sharp"
+                  src={URL.createObjectURL(albumCoverImgFile)}
+                  sx={{ width: 330, height: 330 }}
+                />
+              )}
+            </div>
+            <label htmlFor="artist-register-profile">
+              Choose your profile image
+            </label>
+            <input
+              id="artist-register-profile"
+              style={{ display: "none" }}
+              name="imgUpload"
+              type="file"
+              accept="image/*"
+              onChange={getImg}
+            />
           </div>
-          <label htmlFor="artist-register-profile">
-            Choose your profile image
-          </label>
-          <input
-            id="artist-register-profile"
-            style={{ display: "none" }}
-            name="imgUpload"
-            type="file"
-            accept="image/*"
-            onChange={getImg}
-          />
         </div>
-        <Link to={"/artist"}>
-          <label onClick={submitOnClick}>Artist Registration</label>
-        </Link>
+        <div className="artist-submit-layout">
+          <Link to={"/artist"}>
+            <div className="artist-submit" onClick={submitOnClick}>
+              Artist Submit
+            </div>
+          </Link>
+        </div>
       </div>
     </>
   );

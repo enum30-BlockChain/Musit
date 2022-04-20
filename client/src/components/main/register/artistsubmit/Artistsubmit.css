@@ -1,11 +1,46 @@
+@import "../../../../styles/variables.css";
+
 .artist-nickname {
-  width: 500px;
-  height: 600px;
+  width: 550px;
+  height: 685px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.6);
   text-align: center;
-  padding: 30px;
+  padding: 20px;
 }
 
-.artist-nickname .regi-gridd {
+.artist-nickname .regi-grid .artist-name {
+  margin-top: 20px;
+}
+
+.artist-nickname .regi-grid .artist-register-profile-img {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.artist-infomation-regi {
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.artist-nickname .regi-grid .artist-register-profile-img {
+  display: flex;
+  justify-content: center;
+}
+
+.artist-nickname .artist-submit-layout {
+  display: flex;
+  justify-content: center;
+}
+
+.artist-nickname .artist-submit-layout .artist-submit {
+  margin-top: 25px;
+  width: 200px;
+  height: 45px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  font-size: 25px;
+  font-weight: bolder;
+  margin: 20px auto 20xp auto;
 }
