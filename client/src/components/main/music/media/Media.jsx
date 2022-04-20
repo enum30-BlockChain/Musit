@@ -78,7 +78,9 @@ const Media = () => {
             <div className="listening-layout">
               <div className="ranking-title">
                 <i className="uil uil-headphones-alt"></i>
-                <span className="ranking-title"> Listening Top20 Ranking</span>
+                <span className="ranking-title-text">
+                  Listening Top20 Ranking
+                </span>
               </div>
               <Box
                 sx={{
@@ -152,12 +154,10 @@ const Media = () => {
             </div>
           </Box>
 
-          <div className="listening-box"></div>
-
           <Box sx={{ height: "45%", mt: 1 }}>
-            <div className="ranking-title-div">
+            <div className="ranking-title">
               <i className="uil uil-thumbs-up"></i>
-              <span className="ranking-title"> Like Top20 Ranking</span>
+              <span className="ranking-title-text"> Like Top20 Ranking</span>
             </div>
             <Box
               sx={{
