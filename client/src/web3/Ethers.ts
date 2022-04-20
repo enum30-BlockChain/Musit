@@ -12,9 +12,9 @@ import MarketplaceJson from "./Marketplace.json";
 import AuctionJson from "./Auction.json";
 import { MusitNFT } from "./typechain/MusitNFT";
 import { Marketplace } from "./typechain/Marketplace";
+import { Auction } from "./typechain";
 
 const gwei50 = ethers.utils.parseUnits("50", "gwei").toString();
-
 
 interface Window {
 	ethereum: any;
@@ -36,7 +36,7 @@ const marketplace: ethers.Contract | Marketplace = new ethers.Contract(
 	signer
 );
 
-const auction: ethers.Contract | Marketplace = new ethers.Contract(
+const auction: ethers.Contract | Auction = new ethers.Contract(
 	AuctionJson.contractAddress,
 	AuctionJson.abi,
 	signer
@@ -93,7 +93,9 @@ export default class Ethers {
 				).map(async (event: ethers.Event) => {
 					const item: any = event.args;
 					const tokenURI = await musitNFT.tokenURI(item.tokenId);
-					const metadata = await (await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)).json();
+					const metadata = await (
+						await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
+					).json();
 					const tokenId = item.tokenId.toNumber();
 
 					return {
@@ -109,6 +111,19 @@ export default class Ethers {
 		}
 	}
 
+		// Marketplace/Auction에 NFT 있는지 확인
+		static async isOnMarket(
+			tokenId: string | number
+		): Promise<ContractTransaction | null> {
+			try {
+				const result = await musitNFT.getIsOnMarket(tokenId);
+				return result;
+			} catch (error) {
+				console.log(error);
+				return null;
+			}
+		}
+
 	// NFT 권한 넘기기
 	static async approveMyNFT(
 		contract: string,
@@ -121,7 +136,10 @@ export default class Ethers {
 			} else if (contract === "auction") {
 				contractAddress = auction.address;
 			}
-			const result = await musitNFT.approve(contractAddress, tokenId);
+			const options = {
+				gasPrice: gwei50,
+			};
+			const result = await musitNFT.approve(contractAddress, tokenId, options);
 			return result;
 		} catch (error) {
 			console.log(error);
@@ -132,10 +150,18 @@ export default class Ethers {
 	// Marketplace에 NFT 등록하기
 	static async enrollMarketplace(
 		tokenId: string,
-		sellPrice: number | string,
+		sellPrice: number | string
 	): Promise<ContractTransaction | null> {
 		try {
-			const result = await marketplace.enroll(musitNFT.address, tokenId, this.ethToWei(sellPrice))
+			const options = {
+				gasPrice: gwei50,
+			};
+			const result = await marketplace.enroll(
+				musitNFT.address,
+				tokenId,
+				this.ethToWei(sellPrice),
+				options
+			);
 			return result;
 		} catch (error) {
 			console.log(error);
@@ -143,18 +169,31 @@ export default class Ethers {
 		}
 	}
 
-	// Marketplace/Auction에 NFT 있는지 확인
-	static async isOnMarket(
-		tokenId: string | number,
+	// Auction에 NFT 등록하기
+	static async enrollAuction(
+		tokenId: string,
+		sellPrice: number | string,
+		endAt: number,
 	): Promise<ContractTransaction | null> {
 		try {
-			const result = await musitNFT.getIsOnMarket(tokenId);
+			const options = {
+				gasPrice: gwei50,
+			};
+			const result = await auction.enroll(
+				this.ethToWei(sellPrice),
+				endAt,
+				musitNFT.address,
+				tokenId,
+				options
+			);
 			return result;
 		} catch (error) {
 			console.log(error);
 			return null;
 		}
 	}
+
+
 
 	// 현재 Signer의 private key를 verify하는 함수
 	static async signToVerify(message?: string): Promise<boolean | null> {
@@ -174,7 +213,7 @@ export default class Ethers {
 				result =
 					ethers.utils.verifyMessage(message, singedMessage) ===
 					(await signer.getAddress());
-			};
+			}
 			return result;
 		} catch (error) {
 			console.log(error);

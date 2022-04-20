@@ -7,8 +7,8 @@
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  width: 80%;
-  height: 70%;
+  width: 1300px;
+  height: 600px;
   background-color: var(--third-color);
 }
 
@@ -119,12 +119,12 @@
 
 /* 상세정보 컨테이너 */
 .enroll-container .right-container .info-container {
-  /* background-color: var(--content-bg-color2); */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   width: 50%;
+  height: 100%;
 }
 
 .enroll-container .right-container .info-container > div {
@@ -223,7 +223,7 @@
   padding: 15px;
 }
 
-.enroll-container .right-container .input-container .input-form :is(.ordinary-form, .auction-form) > div {
+.enroll-container .right-container .input-container .input-form :is(.ordinary-form, .auction-form) > :is(div, form)  {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -255,6 +255,13 @@
 .enroll-container .right-container .input-container .input-form h2 {
   font-size: 18px;
   font-weight: 600;
+}
+
+.enroll-container .right-container .input-container .input-form .title-box {
+  display: flex;
+}
+.enroll-container .right-container .input-container .input-form h5 {
+  color: red;
 }
 
 .enroll-container .right-container .input-container .input-form p {
@@ -297,4 +304,12 @@
 
 .enroll-container .right-container .input-container .input-form .auction-form .notice-box {
   background-color: var(--warning-color);
+}
+
+.enroll-container .right-container .input-container.auction .input-form .auction-form .input-box {
+  height: 230px;
+}
+
+.enroll-container .right-container .input-container.auction .input-form .auction-form .input-box input {
+  width: 100%;
 }

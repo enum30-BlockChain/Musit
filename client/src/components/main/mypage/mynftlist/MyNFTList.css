@@ -48,7 +48,7 @@
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
 .mynftlist .item-card-container .item-card:active .content-wrap {
-  transform: rotateX(-10deg);
+  transform: rotateX(-30deg);
 }
 
 .mynftlist .item-card-container .item-card .img-box img{
@@ -67,6 +67,7 @@
   border-radius: 10px;
   overflow: hidden;
   padding-bottom: 10px;
+  transition: var(--tran-05);
 }
 
 .mynftlist .item-card-container .item-card .content-wrap .color-box{

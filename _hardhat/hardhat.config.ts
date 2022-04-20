@@ -8,7 +8,6 @@ import "hardhat-gas-reporter";
 import "solidity-coverage";
 import { ethers } from "hardhat";
 
-
 dotenv.config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -56,7 +55,7 @@ const getPrivateKey = (): string[] => {
   return process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
 };
 
-const gasPrice =  ethers.utils.parseUnits("50", "gwei").toNumber();
+
 
 const config: HardhatUserConfig = {
   solidity: "0.8.4",
@@ -65,7 +64,9 @@ const config: HardhatUserConfig = {
     ropsten: {
       url: getURL("alchemy", "ropsten"),
       accounts: getPrivateKey(),
-      gasPrice: gasPrice,
+      gas:"auto",
+      gasPrice: "auto",
+      minGasPrice: 170000000000
     },
     rinkeby: {
       url: getURL("alchemy", "rinkeby"),

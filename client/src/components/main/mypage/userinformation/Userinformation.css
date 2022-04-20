@@ -1,18 +1,19 @@
 @import "../../../../styles/variables.css";
 
-/* .userinfo-layout {
-} */
+.userinfo-layout {
+  margin-top: 15px;
+}
 
 .userinfo-layout .userinfo-card {
-  margin-top: 10px;
   width: 400px;
   height: 900px;
   border-radius: 10px;
-  background-color: var(--box1-color);
+  background-color: var(--box2-color);
   margin: auto;
 }
 
 .userinfo-layout .userinfo-card .userinfo-image {
+  margin-top: 15px;
   display: flex;
   justify-content: center;
 }

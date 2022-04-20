@@ -12,7 +12,6 @@ import {
   BaseContract,
   ContractTransaction,
   Overrides,
-  PayableOverrides,
   CallOverrides,
 } from "ethers";
 import { BytesLike } from "@ethersproject/bytes";
@@ -20,34 +19,23 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface MusitNFTInterface extends ethers.utils.Interface {
+interface ERC721EnumerableInterface extends ethers.utils.Interface {
   functions: {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
-    "getIsOnMarket(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
-    "mintPrice()": FunctionFragment;
-    "minting(string)": FunctionFragment;
     "name()": FunctionFragment;
-    "owner()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
-    "safeMint(address,uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
-    "setIsOnMarket(uint256,bool)": FunctionFragment;
-    "setMintPrice(uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
     "tokenByIndex(uint256)": FunctionFragment;
-    "tokenCount()": FunctionFragment;
     "tokenOfOwnerByIndex(address,uint256)": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
-    "totalSupplied()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -60,28 +48,13 @@ interface MusitNFTInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "getIsOnMarket",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [string, string]
   ): string;
-  encodeFunctionData(functionFragment: "mintPrice", values?: undefined): string;
-  encodeFunctionData(functionFragment: "minting", values: [string]): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "ownerOf",
     values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "safeMint",
-    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "safeTransferFrom",
@@ -90,14 +63,6 @@ interface MusitNFTInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "setApprovalForAll",
     values: [string, boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setIsOnMarket",
-    values: [BigNumberish, boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMintPrice",
-    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
@@ -109,20 +74,12 @@ interface MusitNFTInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "tokenCount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "tokenOfOwnerByIndex",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "tokenURI",
     values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "totalSupplied",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
@@ -132,10 +89,6 @@ interface MusitNFTInterface extends ethers.utils.Interface {
     functionFragment: "transferFrom",
     values: [string, string, BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [string]
-  ): string;
 
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
@@ -144,37 +97,17 @@ interface MusitNFTInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getIsOnMarket",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "mintPrice", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "minting", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "safeMint", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "safeTransferFrom",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setApprovalForAll",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setIsOnMarket",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMintPrice",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -186,16 +119,11 @@ interface MusitNFTInterface extends ethers.utils.Interface {
     functionFragment: "tokenByIndex",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "tokenCount", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "tokenOfOwnerByIndex",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "totalSupplied",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -204,23 +132,15 @@ interface MusitNFTInterface extends ethers.utils.Interface {
     functionFragment: "transferFrom",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
     "ApprovalForAll(address,address,bool)": EventFragment;
-    "Minted(uint256,string,address)": EventFragment;
-    "OwnershipTransferred(address,address)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Minted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
 
@@ -240,23 +160,11 @@ export type ApprovalForAllEvent = TypedEvent<
   }
 >;
 
-export type MintedEvent = TypedEvent<
-  [BigNumber, string, string] & {
-    tokenId: BigNumber;
-    tokenURI: string;
-    minter: string;
-  }
->;
-
-export type OwnershipTransferredEvent = TypedEvent<
-  [string, string] & { previousOwner: string; newOwner: string }
->;
-
 export type TransferEvent = TypedEvent<
   [string, string, BigNumber] & { from: string; to: string; tokenId: BigNumber }
 >;
 
-export class MusitNFT extends BaseContract {
+export class ERC721Enumerable extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -297,7 +205,7 @@ export class MusitNFT extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: MusitNFTInterface;
+  interface: ERC721EnumerableInterface;
 
   functions: {
     approve(
@@ -313,42 +221,18 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    getIsOnMarket(
-      _tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-
     isApprovedForAll(
       owner: string,
       operator: string,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    mintPrice(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    minting(
-      _tokenURI: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     name(overrides?: CallOverrides): Promise<[string]>;
-
-    owner(overrides?: CallOverrides): Promise<[string]>;
 
     ownerOf(
       tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
-
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    safeMint(
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: string,
@@ -371,17 +255,6 @@ export class MusitNFT extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setIsOnMarket(
-      _tokenId: BigNumberish,
-      _isOnMarket: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setMintPrice(
-      _mintPrice: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -394,10 +267,6 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    tokenCount(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _value: BigNumber }>;
-
     tokenOfOwnerByIndex(
       owner: string,
       index: BigNumberish,
@@ -409,19 +278,12 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    totalSupplied(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transferFrom(
       from: string,
       to: string,
       tokenId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    transferOwnership(
-      newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
@@ -439,39 +301,15 @@ export class MusitNFT extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  getIsOnMarket(
-    _tokenId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
   isApprovedForAll(
     owner: string,
     operator: string,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  mintPrice(overrides?: CallOverrides): Promise<BigNumber>;
-
-  minting(
-    _tokenURI: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   name(overrides?: CallOverrides): Promise<string>;
 
-  owner(overrides?: CallOverrides): Promise<string>;
-
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
-
-  renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  safeMint(
-    to: string,
-    tokenId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
 
   "safeTransferFrom(address,address,uint256)"(
     from: string,
@@ -494,17 +332,6 @@ export class MusitNFT extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setIsOnMarket(
-    _tokenId: BigNumberish,
-    _isOnMarket: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setMintPrice(
-    _mintPrice: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   supportsInterface(
     interfaceId: BytesLike,
     overrides?: CallOverrides
@@ -517,8 +344,6 @@ export class MusitNFT extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  tokenCount(overrides?: CallOverrides): Promise<BigNumber>;
-
   tokenOfOwnerByIndex(
     owner: string,
     index: BigNumberish,
@@ -527,19 +352,12 @@ export class MusitNFT extends BaseContract {
 
   tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  totalSupplied(overrides?: CallOverrides): Promise<BigNumber>;
-
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   transferFrom(
     from: string,
     to: string,
     tokenId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  transferOwnership(
-    newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -557,34 +375,15 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    getIsOnMarket(
-      _tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
     isApprovedForAll(
       owner: string,
       operator: string,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    mintPrice(overrides?: CallOverrides): Promise<BigNumber>;
-
-    minting(_tokenURI: string, overrides?: CallOverrides): Promise<BigNumber>;
-
     name(overrides?: CallOverrides): Promise<string>;
 
-    owner(overrides?: CallOverrides): Promise<string>;
-
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
-
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
-
-    safeMint(
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: string,
@@ -607,17 +406,6 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setIsOnMarket(
-      _tokenId: BigNumberish,
-      _isOnMarket: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setMintPrice(
-      _mintPrice: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -630,8 +418,6 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    tokenCount(overrides?: CallOverrides): Promise<BigNumber>;
-
     tokenOfOwnerByIndex(
       owner: string,
       index: BigNumberish,
@@ -640,19 +426,12 @@ export class MusitNFT extends BaseContract {
 
     tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    totalSupplied(overrides?: CallOverrides): Promise<BigNumber>;
-
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferFrom(
       from: string,
       to: string,
       tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    transferOwnership(
-      newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -694,40 +473,6 @@ export class MusitNFT extends BaseContract {
       { owner: string; operator: string; approved: boolean }
     >;
 
-    "Minted(uint256,string,address)"(
-      tokenId?: null,
-      tokenURI?: null,
-      minter?: string | null
-    ): TypedEventFilter<
-      [BigNumber, string, string],
-      { tokenId: BigNumber; tokenURI: string; minter: string }
-    >;
-
-    Minted(
-      tokenId?: null,
-      tokenURI?: null,
-      minter?: string | null
-    ): TypedEventFilter<
-      [BigNumber, string, string],
-      { tokenId: BigNumber; tokenURI: string; minter: string }
-    >;
-
-    "OwnershipTransferred(address,address)"(
-      previousOwner?: string | null,
-      newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
-
-    OwnershipTransferred(
-      previousOwner?: string | null,
-      newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
-
     "Transfer(address,address,uint256)"(
       from?: string | null,
       to?: string | null,
@@ -761,41 +506,17 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getIsOnMarket(
-      _tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     isApprovedForAll(
       owner: string,
       operator: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    mintPrice(overrides?: CallOverrides): Promise<BigNumber>;
-
-    minting(
-      _tokenURI: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     name(overrides?: CallOverrides): Promise<BigNumber>;
-
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     ownerOf(
       tokenId: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    safeMint(
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "safeTransferFrom(address,address,uint256)"(
@@ -819,17 +540,6 @@ export class MusitNFT extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setIsOnMarket(
-      _tokenId: BigNumberish,
-      _isOnMarket: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setMintPrice(
-      _mintPrice: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -842,8 +552,6 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    tokenCount(overrides?: CallOverrides): Promise<BigNumber>;
-
     tokenOfOwnerByIndex(
       owner: string,
       index: BigNumberish,
@@ -855,19 +563,12 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    totalSupplied(overrides?: CallOverrides): Promise<BigNumber>;
-
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferFrom(
       from: string,
       to: string,
       tokenId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    transferOwnership(
-      newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
@@ -889,41 +590,17 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getIsOnMarket(
-      _tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     isApprovedForAll(
       owner: string,
       operator: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    mintPrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    minting(
-      _tokenURI: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     ownerOf(
       tokenId: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    safeMint(
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "safeTransferFrom(address,address,uint256)"(
@@ -947,17 +624,6 @@ export class MusitNFT extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setIsOnMarket(
-      _tokenId: BigNumberish,
-      _isOnMarket: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setMintPrice(
-      _mintPrice: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -970,8 +636,6 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    tokenCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     tokenOfOwnerByIndex(
       owner: string,
       index: BigNumberish,
@@ -983,19 +647,12 @@ export class MusitNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    totalSupplied(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferFrom(
       from: string,
       to: string,
       tokenId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    transferOwnership(
-      newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
