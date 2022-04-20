@@ -8,7 +8,7 @@ export const Artistdashbord = () => {
     <div className="dashboard">
       <div className="overview">
         <Contentbox />
-        <Activity />
+        {/* <Activity /> */}
       </div>
     </div>
   );
