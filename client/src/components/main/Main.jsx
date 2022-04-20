@@ -9,15 +9,17 @@ import { Route, Router, Routes } from "react-router-dom";
 import { Searchbar } from "./searchbar/Searchbar";
 //bottom
 import { Playbar } from "./playbar/Playbar";
+import Userinformation from "./mypage/userinformation/Userinformation";
 
 //Main-nav
 import Artistsubmit from "./register/artistsubmit/Artistsubmit";
 import RegisterUser from "./register/usersubmit/RegisterUser";
 import Createmain from "./create/Createmain";
 import LandingMainPage from "../landingpage/LandingMainPage";
+
 //Main-nav Mypage
 import { Mypage } from "./mypage/Mypage";
-import Userinformation from "./mypage/userinformation/Userinformation";
+import Userdashboard from "./mypage/userdashboard/Userdashbord";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";
@@ -101,6 +103,7 @@ export const Main = () => {
                 )
               }
             >
+              <Route index element={<Userdashboard />} />
               <Route path="userinformation" element={<Userinformation />} />
               <Route path="playlist" element={<Playlist />} />
               <Route path="subscription" element={<Subscription />} />
@@ -109,8 +112,9 @@ export const Main = () => {
               <Route path="history" element={<History />} />
               <Route path="collection" element={<Collection />} />
               <Route path="favoritartist" element={<FavoriteArtist />} />
-              <Route index element={<FavoriteMusic />} />
+              <Route path="favoritmusic" element={<FavoriteMusic />} />
               <Route path="myplaylist" element={<MyPlayList />} />
+              <Route path="artistsubmit" element={<Artistsubmit />} />
             </Route>
             <Route path="register" element={<RegisterUser />} />
 
