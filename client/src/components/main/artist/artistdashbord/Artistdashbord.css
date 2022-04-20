@@ -1,11 +1,10 @@
 .dashboard {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
 .dashboard .title {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
 }
 
 .dashboard .dashboard-layout {

@@ -15,7 +15,7 @@ export default function LandingMainPage({ address }) {
 
   return (
     <>
-      <div className="landing-layout"></div>
+      <h1 className="landing-layout">철순이 기타자리</h1>
     </>
   );
 }
