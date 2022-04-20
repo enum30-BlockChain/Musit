@@ -136,7 +136,10 @@ export const Musicupload = () => {
   return (
     <>
       <div className="create-mainlayout">
-        <h1 className="create-title">Create your music file</h1>
+        <div className="title">
+          <i className="uil uil-upload-alt"></i>
+          <span className="text"> Create your music file</span>
+        </div>
         <div className="create-layout">
           <div className="create-imgbox">
             <h2>Album Cover Image</h2>
@@ -247,10 +250,9 @@ export const Musicupload = () => {
           </div>
         </div>
         {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
-
       </div>
-        {music.loading && <Progress />}
-        <MessageHandler test={messageState} title={DBdata.title} />
+      {music.loading && <Progress />}
+      <MessageHandler test={messageState} title={DBdata.title} />
     </>
   );
 };

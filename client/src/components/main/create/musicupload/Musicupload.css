@@ -1,7 +1,7 @@
 .create-mainlayout {
-  margin: 30px 80px 30px 80px;
+  margin: 20px 100px 20px 100px;
   padding: 20px;
-  height: 660px;
+  height: 685px;
   background-color: rgba(255, 255, 255, 0.6);
   text-align: center;
   border-radius: 10px;
@@ -40,8 +40,8 @@
   border-radius: 50%;
   object-fit: cover;
   margin-top: 20px;
-  height: 400px;
-  width: 400px;
+  height: 420px;
+  width: 420px;
   left: 0;
   animation: rotate 8s linear infinite;
 }
