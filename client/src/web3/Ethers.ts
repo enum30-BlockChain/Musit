@@ -185,6 +185,13 @@ export default class Ethers {
 			let nftList: object[] = [];
 			for (let i = 0; i < nftBalance; i++) {
 				const tokenId = (await musitNFT.tokenOfOwnerByIndex(marketplace.address, i)).toNumber();
+				const marketItemId = await marketplace.nftToItemId(musitNFT.address, tokenId)
+				const marketItemInfo = await marketplace.items(marketItemId)
+				console.log(111);
+				
+				console.log(marketItemInfo);
+				
+				
 				const tokenURI = await musitNFT.tokenURI(tokenId);
 				const metadata = await (
 					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)

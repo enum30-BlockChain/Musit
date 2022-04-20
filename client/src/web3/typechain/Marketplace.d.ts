@@ -26,9 +26,11 @@ interface MarketplaceInterface extends ethers.utils.Interface {
     "feeAccount()": FunctionFragment;
     "feePercent()": FunctionFragment;
     "getItems(uint256)": FunctionFragment;
+    "getNftToItemId(address,uint256)": FunctionFragment;
     "getTotalPrice(uint256)": FunctionFragment;
     "itemCount()": FunctionFragment;
     "items(uint256)": FunctionFragment;
+    "nftToItemId(address,uint256)": FunctionFragment;
     "purchase(uint256)": FunctionFragment;
   };
 
@@ -49,11 +51,19 @@ interface MarketplaceInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "getNftToItemId",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getTotalPrice",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "itemCount", values?: undefined): string;
   encodeFunctionData(functionFragment: "items", values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: "nftToItemId",
+    values: [string, BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "purchase",
     values: [BigNumberish]
@@ -64,11 +74,19 @@ interface MarketplaceInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "feePercent", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getItems", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "getNftToItemId",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getTotalPrice",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "itemCount", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "items", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "nftToItemId",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "purchase", data: BytesLike): Result;
 
   events: {
@@ -172,6 +190,12 @@ export class Marketplace extends BaseContract {
       ]
     >;
 
+    getNftToItemId(
+      _nft: string,
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     getTotalPrice(
       _itemId: BigNumberish,
       overrides?: CallOverrides
@@ -194,6 +218,12 @@ export class Marketplace extends BaseContract {
         sold: boolean;
       }
     >;
+
+    nftToItemId(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     purchase(
       _itemId: BigNumberish,
@@ -226,6 +256,12 @@ export class Marketplace extends BaseContract {
     }
   >;
 
+  getNftToItemId(
+    _nft: string,
+    _tokenId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   getTotalPrice(
     _itemId: BigNumberish,
     overrides?: CallOverrides
@@ -246,6 +282,12 @@ export class Marketplace extends BaseContract {
       sold: boolean;
     }
   >;
+
+  nftToItemId(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   purchase(
     _itemId: BigNumberish,
@@ -278,6 +320,12 @@ export class Marketplace extends BaseContract {
       }
     >;
 
+    getNftToItemId(
+      _nft: string,
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getTotalPrice(
       _itemId: BigNumberish,
       overrides?: CallOverrides
@@ -298,6 +346,12 @@ export class Marketplace extends BaseContract {
         sold: boolean;
       }
     >;
+
+    nftToItemId(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     purchase(_itemId: BigNumberish, overrides?: CallOverrides): Promise<void>;
   };
@@ -393,6 +447,12 @@ export class Marketplace extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getNftToItemId(
+      _nft: string,
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getTotalPrice(
       _itemId: BigNumberish,
       overrides?: CallOverrides
@@ -401,6 +461,12 @@ export class Marketplace extends BaseContract {
     itemCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     items(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+    nftToItemId(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     purchase(
       _itemId: BigNumberish,
@@ -425,6 +491,12 @@ export class Marketplace extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getNftToItemId(
+      _nft: string,
+      _tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getTotalPrice(
       _itemId: BigNumberish,
       overrides?: CallOverrides
@@ -434,6 +506,12 @@ export class Marketplace extends BaseContract {
 
     items(
       arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    nftToItemId(
+      arg0: string,
+      arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

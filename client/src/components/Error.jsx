@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Error({ error }) {
   const moveToLandingpage = () => {
-    window.location.href = "/landingpage";
+    window.location.href = "/";
   };
   console.log(error);
 
