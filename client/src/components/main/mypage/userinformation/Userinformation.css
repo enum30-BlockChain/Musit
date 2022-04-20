@@ -13,6 +13,7 @@
 }
 
 .userinfo-layout .userinfo-card .userinfo-image {
+  margin-top: 15px;
   display: flex;
   justify-content: center;
 }
