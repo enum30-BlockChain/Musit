@@ -161,7 +161,7 @@ export default function MusicPlayerSlider(props) {
                 color="text.secondary"
                 fontWeight={500}
               >
-                Genre: {props.musicmodal.Genre}
+                Genre: {props.musicmodal.genre}
               </Typography>
               <Typography noWrap>
                 <b> {props.musicmodal.title}</b>
