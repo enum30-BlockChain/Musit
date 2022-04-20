@@ -34,6 +34,12 @@ export const Artist = () => {
               </Link>
             </li>
             <li>
+              <Link to="/artist/createmusic">
+                <i className="uil uil-upload-alt"></i>
+                <span className="link-name"> Create Music</span>
+              </Link>
+            </li>
+            <li>
               <Link to="/artist/myupload">
                 <i className="uil uil-compact-disc"></i>
                 <span className="link-name"> My Album</span>

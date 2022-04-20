@@ -124,6 +124,7 @@ export const Main = () => {
                 artist.artist_name !== null ? <Artist path="artist" /> : <></>
               }
             >
+              <Route path="createmusic" element={<Musicupload />} />
               <Route path="artistinfo" element={<Artistinfo />} />
               <Route index element={<Artistdashbord />} />
               <Route path="myupload" element={<Album />} />
@@ -131,7 +132,6 @@ export const Main = () => {
             </Route>
             <Route path="artistsubmit" element={<Artistsubmit />} />
 
-            <Route path="createmusic" element={<Musicupload />} />
             {/* Create */}
             <Route path="create" element={<Createmain />}>
               <Route path="nft/:ipfs_hash" element={<Minting />} />

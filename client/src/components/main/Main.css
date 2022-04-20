@@ -30,7 +30,7 @@ nav.side-nav.close ~ section {
 .main .top-nav {
   display: flex;
   justify-content: center;
-  /* border-bottom: 2px solid var(--alltime-white); */
+  border-bottom: 2px solid var(--alltime-white);
   padding-bottom: 5px;
 }
 
@@ -46,7 +46,7 @@ nav.side-nav.close ~ section {
 }
 
 .main .top-nav .nav-links li :is(i, .link-name) {
-  font-size: 17px;
+  font-size: 19px;
   color: var(--alltime-white);
   transition: var(--tran-03);
 }

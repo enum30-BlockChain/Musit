@@ -86,12 +86,6 @@ export const Navbar = () => {
               </li>
             )}
             <li>
-              <Link to="/createmusic">
-                <i className="uil uil-upload-alt"></i>
-                <span className="link-name">Create</span>
-              </Link>
-            </li>
-            <li>
               <Link to="/music">
                 <i className="uil uil-music"></i>
                 <span className="link-name">MUSIC</span>
