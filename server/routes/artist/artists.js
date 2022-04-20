@@ -46,7 +46,7 @@ router.get("/:user_address", async (req, res, next) => {
   try {
     const userInfo = await Artist.findOne({
       where: { user_address: req.params.user_address },
-      include: [{ model: User }, { model: ArtistLike }, { model: Music }],
+      include: [{ model: User }, { model: ArtistLike }, { model: Music,include:{model:MusicLike} }],
     });
     res.send(userInfo);
   } catch (err) {
