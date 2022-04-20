@@ -52,7 +52,9 @@ const getURL = (provider: string, network: string): string => {
 };
 
 const getPrivateKey = (): string[] => {
-  return process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
+  return process.env.PRIVATE_KEY !== undefined
+    ? [process.env.PRIVATE_KEY]
+    : ["0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"];
 };
 
 
@@ -64,9 +66,6 @@ const config: HardhatUserConfig = {
     ropsten: {
       url: getURL("alchemy", "ropsten"),
       accounts: getPrivateKey(),
-      gas:"auto",
-      gasPrice: "auto",
-      minGasPrice: 170000000000
     },
     rinkeby: {
       url: getURL("alchemy", "rinkeby"),

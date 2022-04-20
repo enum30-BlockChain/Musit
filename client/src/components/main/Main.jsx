@@ -30,7 +30,6 @@ import MyNFTList from "./mypage/mynftlist/MyNFTList";
 import Music from "./music/Music";
 import Enummusic from "./music/enummusic/Enummusic";
 import Genre from "./music/genre/Genre";
-import MediaSkeleton from "./music/media/MediaSkeleton";
 import Media from "./music/media/Media";
 
 import Search from "./serach/Search";
@@ -144,8 +143,10 @@ export const Main = () => {
               <Route path="ranking" element={<Media />} />
             </Route>
 
-            <Route path="store" element={<Store />}></Route>
-            <Route path="enroll/:tokenId" element={<Enroll />} />
+            {/* Store */}
+            <Route path="store" element={<Store />} />
+            <Route path="store/enroll/:tokenId" element={<Enroll />} />
+
             <Route path="search" element={<Search />} />
           </Route>
           <Route path="error" element={<Error />} />

@@ -43,7 +43,7 @@ export const Navbar = () => {
   return (
     <>
       <nav className="side-nav">
-        <Link to={"/landingpage"}>
+        <Link to={"/"}>
           <div className="logo-name-container">
             <div className="logo-image">
               <h1 className="E">E</h1>
