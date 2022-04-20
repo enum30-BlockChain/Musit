@@ -1,3 +1,7 @@
+.contentbox {
+  margin-bottom: 20px;
+}
+
 .contentbox .boxes {
   display: flex;
   align-items: center;
@@ -18,7 +22,6 @@
 
 .contentbox .boxes .box i {
   font-size: 35px;
-  color: var(--text-color);
 }
 
 .contentbox .boxes .box .text {
