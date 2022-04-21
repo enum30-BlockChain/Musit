@@ -1,4 +1,3 @@
-import "./Artist.css";
 import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 export const Artist = () => {

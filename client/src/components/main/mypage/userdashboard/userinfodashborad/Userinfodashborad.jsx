@@ -32,10 +32,7 @@ export default function Userinformation({}) {
 
           <p>{user.nickname}</p>
           <h2 className="address">Address</h2>
-
           <span>{sliceAddress}</span>
-          <h2 className="subscription">Subscription</h2>
-          <span>{user.subscription}월이용권 </span>
 
           <div>
             <h2 className="Nation">Nation</h2>
