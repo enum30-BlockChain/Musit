@@ -1,8 +1,11 @@
 import {
 	BigNumber,
+	BigNumberish,
 	Contract,
 	ContractTransaction,
 	ethers,
+	Event,
+	EventFilter,
 	Transaction,
 } from "ethers";
 import MusitNftJson from "./MusitNFT.json";
@@ -247,10 +250,19 @@ export default class Ethers {
 		}
 	}
 
-	// 수입 계산 함수
-	// static async getIncome(message?: string): Promise<boolean | null> {
+	// // 수입 계산 함수
+	// static async getIncome(address: string): Promise<boolean | null> {
 	// 	try {
-			
+	// 		const boughtFilter: EventFilter = marketplace.filters.Bought(null, null, null, address, null, null)
+	// 		const sellPrice: BigNumberish = await Promise.all(
+	// 			(
+	// 				await marketplace.queryFilter(boughtFilter)
+	// 			).map(async (event: Event) => {
+	// 				const boughtInfo: any = event.args;
+	// 				const sellPrice = boughtInfo.sellPrice;
+	// 				return sellPrice;
+	// 			}).reduce((a: BigNumberish,b: BigNumberish) => a.add(b), "0")
+	// 		);
 			
 	// 	} catch (error) {
 	// 		console.log(error);
