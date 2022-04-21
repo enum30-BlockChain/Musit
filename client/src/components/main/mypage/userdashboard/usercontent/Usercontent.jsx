@@ -1,9 +1,16 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { readMyNFTList } from "../../../../../redux/actions/contractActions";
 const Usercontent = () => {
+  const user = useSelector((state) => state.user);
   const likeMusic = useSelector((state) => state.likeMusic.data);
   const likeArtist = useSelector((state) => state.likeArtist.data);
+  const mynft = useSelector((state) => state.ownedMusitNFT.data);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(readMyNFTList());
+  }, []);
   return (
     <>
       <div className="contentbox">
@@ -23,28 +30,17 @@ const Usercontent = () => {
         <div className="boxes">
           <div className="box box1">
             <i className="uil uil-bill"></i>
-            <span className="text">Income</span>
-            <span className="number">3023</span>
+            <span className="text">Subscription</span>
+            <span className="number">{user && user.subscription}Month</span>
           </div>
           <div className="box box1">
-            <i className="uil uil-hourglass"></i>
-            <span className="text">Total Music Played Time</span>
-            <span className="number">10</span>
+            <i className="uil uil-capture"></i>
+            <span className="text">Total NFT</span>
+            <span className="number">{mynft && mynft.length}</span>
           </div>
         </div>
 
-        <div className="boxes">
-          <div className="box box1">
-            <i className="uil uil-headphones-alt"></i>
-            <span className="text">Total Music Likes</span>
-            <span className="number">10</span>
-          </div>
-          <div className="box box1">
-            <i className="uil uil-file-upload"></i>
-            <span className="text">Music Upload count</span>
-            <span className="number">1</span>
-          </div>
-        </div>
+        <div className="boxes"></div>
       </div>
     </>
   );
