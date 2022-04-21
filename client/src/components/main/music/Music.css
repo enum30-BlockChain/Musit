@@ -1,11 +1,12 @@
-
-.musicmain-wrap{
-    max-height: 100%;
-    overflow: auto;  
+.musicpage .details {
+  width: 100%;
 }
 
+.musicmain-wrap {
+  max-height: 100%;
+  overflow: auto;
+}
 
 .music-cards-container .music-card.playing {
-    background-color: var(--box1-color);
+  background-color: var(--box1-color);
 }
-
