@@ -94,6 +94,10 @@ export default function Userinformation({}) {
   return (
     <div className="userinfo-layout">
       <div className="userinfo-card">
+        <div className="title">
+          <i className="uil uil-create-dashboard"></i>
+          <span className="text"> Dashboard</span>
+        </div>
         <div className="userinfo-image">
           {user.img === "" ? (
             <Avatar alt="Remy Sharp" sx={{ width: 300, height: 300 }} />

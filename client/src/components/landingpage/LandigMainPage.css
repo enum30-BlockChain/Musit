@@ -15,11 +15,13 @@
 .tracks .title {
   margin-bottom: 5px;
 }
-.tracks .title:before, .tracks .title:after {
+.tracks .title:before,
+.tracks .title:after {
   content: " - ";
 }
 .tracks .track {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/buff-jambox.png") no-repeat -360px -450px;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/buff-jambox.png")
+    no-repeat -360px -450px;
   cursor: pointer;
   display: inline-block;
   height: 65px;
@@ -49,7 +51,8 @@
   width: 342px;
 }
 .buff-jambox .jambox {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/buff-jambox.png") no-repeat 0 0;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/buff-jambox.png")
+    no-repeat 0 0;
   height: 100%;
   left: 0;
   position: absolute;
@@ -104,17 +107,18 @@
 .buff-jambox .arm.left-arm {
   right: 100%;
   -webkit-animation: flex-left 1.5s ease-in-out 0s infinite alternate;
-          animation: flex-left 1.5s ease-in-out 0s infinite alternate;
+  animation: flex-left 1.5s ease-in-out 0s infinite alternate;
   transform-origin: 120px 71px;
 }
 .buff-jambox .arm.right-arm {
   left: 100%;
   transform-origin: 0 71px;
   -webkit-animation: flex-right 2s ease-in-out 0s infinite alternate;
-          animation: flex-right 2s ease-in-out 0s infinite alternate;
+  animation: flex-right 2s ease-in-out 0s infinite alternate;
 }
 .buff-jambox .bicep {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/buff-jambox.png") no-repeat;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/buff-jambox.png")
+    no-repeat;
   height: 100%;
   left: 0;
   position: absolute;
@@ -129,7 +133,8 @@
   background-position: -600px -165px;
 }
 .buff-jambox .forearm {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/buff-jambox.png") no-repeat;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/buff-jambox.png")
+    no-repeat;
   bottom: 22px;
   height: 161px;
   position: absolute;
@@ -141,73 +146,73 @@
   left: 0;
   transform-origin: 0 100%;
   -webkit-animation: flex-left 2s ease-in-out 0s infinite alternate;
-          animation: flex-left 2s ease-in-out 0s infinite alternate;
+  animation: flex-left 2s ease-in-out 0s infinite alternate;
 }
 .buff-jambox .forearm.right-forearm {
   background-position: -585px 0;
   right: 0;
   transform-origin: 100% 100%;
   -webkit-animation: flex-right 1.5s ease-in-out 0s infinite alternate;
-          animation: flex-right 1.5s ease-in-out 0s infinite alternate;
+  animation: flex-right 1.5s ease-in-out 0s infinite alternate;
 }
 .buff-jambox.playing .jambox {
   background-position: 0 -462px;
 }
 .buff-jambox.playing .speaker {
   -webkit-animation: bump-it 0.25s ease-in-out 0s infinite alternate;
-          animation: bump-it 0.25s ease-in-out 0s infinite alternate;
+  animation: bump-it 0.25s ease-in-out 0s infinite alternate;
 }
 .buff-jambox.playing .left-arm {
   -webkit-animation: pump-left 0.25s ease-in-out 0s infinite alternate;
-          animation: pump-left 0.25s ease-in-out 0s infinite alternate;
+  animation: pump-left 0.25s ease-in-out 0s infinite alternate;
 }
 .buff-jambox.playing .right-arm {
   -webkit-animation: pump-right 0.25s ease-in-out 0s infinite alternate;
-          animation: pump-right 0.25s ease-in-out 0s infinite alternate;
+  animation: pump-right 0.25s ease-in-out 0s infinite alternate;
 }
-.buff-jambox[data-genre=metal] .left-arm,
-.buff-jambox[data-genre=metal] .right-arm {
+.buff-jambox[data-genre="metal"] .left-arm,
+.buff-jambox[data-genre="metal"] .right-arm {
   -webkit-animation-duration: 0.15s;
-          animation-duration: 0.15s;
+  animation-duration: 0.15s;
 }
-.buff-jambox[data-genre=metal] .forearm.left-forearm {
+.buff-jambox[data-genre="metal"] .forearm.left-forearm {
   background-position: -695px 0;
 }
-.buff-jambox[data-genre=metal] .forearm.right-forearm {
+.buff-jambox[data-genre="metal"] .forearm.right-forearm {
   background-position: -805px 0;
   height: 301px;
   right: -23px;
   width: 470px;
 }
-.buff-jambox[data-genre=rock] .bicep.left-bicep {
+.buff-jambox[data-genre="rock"] .bicep.left-bicep {
   background-position: -475px -260px;
 }
-.buff-jambox[data-genre=rock] .bicep.right-bicep {
+.buff-jambox[data-genre="rock"] .bicep.right-bicep {
   background-position: -600px -260px;
 }
-.buff-jambox[data-genre=soul] .left-arm,
-.buff-jambox[data-genre=soul] .right-arm {
+.buff-jambox[data-genre="soul"] .left-arm,
+.buff-jambox[data-genre="soul"] .right-arm {
   -webkit-animation-duration: 0.5s;
-          animation-duration: 0.5s;
+  animation-duration: 0.5s;
 }
-.buff-jambox[data-genre=soul] .bicep.left-bicep {
+.buff-jambox[data-genre="soul"] .bicep.left-bicep {
   background-position: -475px -350px;
   height: 97px;
   width: 123px;
 }
-.buff-jambox[data-genre=soul] .bicep.right-bicep {
+.buff-jambox[data-genre="soul"] .bicep.right-bicep {
   background-position: -602px -350px;
   height: 97px;
   width: 123px;
 }
-.buff-jambox[data-genre=soul] .forearm.left-forearm {
+.buff-jambox[data-genre="soul"] .forearm.left-forearm {
   background-position: -745px -305px;
   bottom: 18px;
   height: 170px;
   left: -2px;
   width: 142px;
 }
-.buff-jambox[data-genre=soul] .forearm.right-forearm {
+.buff-jambox[data-genre="soul"] .forearm.right-forearm {
   background-position: -905px -305px;
   bottom: 19px;
   height: 165px;

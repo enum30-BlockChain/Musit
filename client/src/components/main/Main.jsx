@@ -19,7 +19,7 @@ import LandingMainPage from "../landingpage/LandingMainPage";
 
 //Main-nav Mypage
 import { Mypage } from "./mypage/Mypage";
-import Userdashboard from "./mypage/userdashboard/Userdashbord";
+import Userdashboard from "./mypage/userdashboard/Userdashboard";
 import { Playlist } from "./mypage/playlist/Playlist";
 import { Subscription } from "./mypage/subscription/Subscription";
 import { History } from "./mypage/history/History";

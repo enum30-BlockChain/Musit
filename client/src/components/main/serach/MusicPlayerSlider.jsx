@@ -306,7 +306,7 @@ export default function MusicPlayerSlider(props) {
           alignItems="center"
         >
           <VolumeDownRounded htmlColor={lightIconColor} />
-          
+
           <Slider
             aria-label="Volume"
             defaultValue={100}
