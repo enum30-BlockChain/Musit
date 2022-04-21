@@ -36,6 +36,7 @@ export const Musicupload = () => {
     "Rock",
     "Electronic",
     "Dance",
+    "R&B",
   ]);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
@@ -250,9 +251,9 @@ export const Musicupload = () => {
           </div>
         </div>
         {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
+        {music.loading && <Progress />}
+        <MessageHandler test={messageState} title={DBdata.title} />
       </div>
-      {music.loading && <Progress />}
-      <MessageHandler test={messageState} title={DBdata.title} />
     </>
   );
 };

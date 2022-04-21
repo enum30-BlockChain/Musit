@@ -73,8 +73,8 @@ const Media = () => {
       {lodingState ? (
         <SimpleBackdrop />
       ) : (
-        <Box sx={{ height: "100%" }}>
-          <Box sx={{ height: "45%", mb: 2 }}>
+        <Box sx={{ height: "80%" }}>
+          <Box sx={{ height: "40%", mb: 2 }}>
             <div className="listening-layout">
               <div className="ranking-title">
                 <i className="uil uil-headphones-alt"></i>
@@ -90,12 +90,12 @@ const Media = () => {
                 }}
               >
                 <ArrowBackIosIcon
-                  sx={{ fontSize: 65, cursor: "pointer" }}
+                  sx={{ fontSize: 50, cursor: "pointer" }}
                   onClick={listenRankingMoveLeft}
                 />
                 <Grid
                   sx={{
-                    width: "1460px",
+                    width: "1300px",
                     m: "auto",
                     padding: 0,
                     overflow: "hidden",
@@ -113,7 +113,7 @@ const Media = () => {
                     >
                       <Box
                         key={index}
-                        sx={{ cursor: "pointer", width: 210, my: 5, m: 2 }}
+                        sx={{ cursor: "pointer", width: 210, my: 5, m: 1 }}
                         onClick={() => {
                           postInfo(music);
                         }}
@@ -147,7 +147,7 @@ const Media = () => {
                   ))}
                 </Grid>
                 <ArrowForwardIosIcon
-                  sx={{ fontSize: 65, cursor: "pointer" }}
+                  sx={{ fontSize: 50, cursor: "pointer" }}
                   onClick={listenRankingMoveRigth}
                 />
               </Box>
@@ -155,73 +155,79 @@ const Media = () => {
           </Box>
 
           <Box sx={{ height: "45%", mt: 1 }}>
-            <div className="ranking-title">
-              <i className="uil uil-thumbs-up"></i>
-              <span className="ranking-title-text"> Like Top20 Ranking</span>
-            </div>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                px: 2,
-              }}
-            >
-              <ArrowBackIosIcon
-                sx={{ fontSize: 65, cursor: "pointer" }}
-                onClick={likeRankingMoveLeft}
-              />
-              <Grid
+            <div className="like-ranking">
+              <div className="ranking-title">
+                <i className="uil uil-thumbs-up"></i>
+                <span className="ranking-title-text"> Like Top20 Ranking</span>
+              </div>
+              <Box
                 sx={{
-                  width: "1460px",
-                  m: "auto",
-                  padding: 0,
-                  overflow: "hidden",
                   display: "flex",
-                  flexWrap: "nowrap",
+                  alignItems: "center",
+                  px: 2,
                 }}
               >
-                {likeTopList.map((music, index) => (
-                  <div
-                    key={index}
-                    className="glide"
-                    style={{ transform: `translateX(${likeRankingValue}%)` }}
-                  >
-                    <Box
+                <ArrowBackIosIcon
+                  sx={{ fontSize: 50, cursor: "pointer" }}
+                  onClick={likeRankingMoveLeft}
+                />
+                <Grid
+                  sx={{
+                    width: "1300px",
+                    m: "auto",
+                    padding: 0,
+                    overflow: "hidden",
+                    display: "flex",
+                    flexWrap: "nowrap",
+                  }}
+                >
+                  {likeTopList.map((music, index) => (
+                    <div
                       key={index}
-                      sx={{ cursor: "pointer", width: 210, my: 5, m: 2 }}
-                      onClick={() => {
-                        postInfo(music);
-                      }}
+                      className="glide"
+                      style={{ transform: `translateX(${likeRankingValue}%)` }}
                     >
-                      <img
-                        style={{ width: 210, height: 150, objectFit: "cover" }}
-                        alt={music.title}
-                        src={music.img_file}
-                      />
-                      <Box sx={{ pr: 2 }}>
-                        <Typography gutterBottom variant="body2">
-                          {index + 1}. &nbsp; {music.title}
-                        </Typography>
-                        <Typography display="block" variant="caption">
-                          {music.artist_name}
-                        </Typography>
-                        <Typography display="block" variant="overline">
-                          {music.genre}
-                        </Typography>
-                        <Typography variant="caption">
-                          {`${music.play_count} listening `} •{" "}
-                          {`${music.MusicLikes.length} like`}
-                        </Typography>
+                      <Box
+                        key={index}
+                        sx={{ cursor: "pointer", width: 210, my: 5, m: 2 }}
+                        onClick={() => {
+                          postInfo(music);
+                        }}
+                      >
+                        <img
+                          style={{
+                            width: 210,
+                            height: 150,
+                            objectFit: "cover",
+                          }}
+                          alt={music.title}
+                          src={music.img_file}
+                        />
+                        <Box sx={{ pr: 1 }}>
+                          <Typography gutterBottom variant="body2">
+                            {index + 1}. &nbsp; {music.title}
+                          </Typography>
+                          <Typography display="block" variant="caption">
+                            {music.artist_name}
+                          </Typography>
+                          <Typography display="block" variant="overline">
+                            {music.genre}
+                          </Typography>
+                          <Typography variant="caption">
+                            {`${music.play_count} listening `} •{" "}
+                            {`${music.MusicLikes.length} like`}
+                          </Typography>
+                        </Box>
                       </Box>
-                    </Box>
-                  </div>
-                ))}
-              </Grid>
-              <ArrowForwardIosIcon
-                sx={{ fontSize: 65, cursor: "pointer" }}
-                onClick={rigthRankingMoveLeft}
-              />
-            </Box>
+                    </div>
+                  ))}
+                </Grid>
+                <ArrowForwardIosIcon
+                  sx={{ fontSize: 50, cursor: "pointer" }}
+                  onClick={rigthRankingMoveLeft}
+                />
+              </Box>
+            </div>
           </Box>
         </Box>
       )}

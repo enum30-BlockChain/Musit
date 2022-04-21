@@ -1,6 +1,11 @@
 .listening-layout {
-  margin-top: 10px;
+  width: 100%;
   border-bottom: 2px solid var(--alltime-white);
+}
+
+.listening-layout .ranking-title {
+  margin-top: 10px;
+  display: flex;
 }
 
 .listening-layout .ranking-title i {
@@ -16,6 +21,10 @@
   font-size: 24px;
 }
 
+.like-ranking .ranking-title {
+  display: flex;
+}
+
 .listening-layout .ranking-title .ranking-title-text {
   font-size: 24px;
   font-weight: 500;
@@ -23,7 +32,7 @@
   margin-left: 10px;
 }
 
-.ranking-title i {
+.like-ranking .ranking-title i {
   position: relative;
   height: 35px;
   width: 35px;
@@ -36,7 +45,7 @@
   font-size: 24px;
 }
 
-.ranking-title .ranking-title-text {
+.like-ranking .ranking-title .ranking-title-text {
   font-size: 24px;
   font-weight: 500;
   color: var(--text-color);

@@ -12,6 +12,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CloseIcon from "@mui/icons-material/Close";
 import { toggleLikeMusic } from "../../../redux/actions/musicActions";
 import { height } from "@mui/system";
+import "./Playlist.css";
 
 export default function PlayList(props) {
   const dispatch = useDispatch();
@@ -84,19 +85,24 @@ export default function PlayList(props) {
   );
 
   return (
-    <div>
+    <div className="playlist-btn">
       {["bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button
+          <div
+            className="playlist-btn-inner"
             sx={{ color: "black", m: 2 }}
             onClick={toggleDrawer(anchor, true)}
           >
-            Play List
-          </Button>
+            <i className="uil uil-angle-up"></i>
+          </div>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
-            sx={{position:"fixed", bottom: "100px", height:"calc(100vh-100px)"}}
+            sx={{
+              position: "fixed",
+              bottom: "100px",
+              height: "calc(100vh-100px)",
+            }}
             onClose={toggleDrawer(anchor, false)}
           >
             {list(anchor)}

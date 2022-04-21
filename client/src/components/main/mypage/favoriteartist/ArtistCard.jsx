@@ -32,6 +32,7 @@ export default function ArtistCard() {
                   <LikeCard
                     data={data}
                     setArtistModal={setArtistModal}
+                    artistModal={artistModal}
                     key={index}
                   />
                 ))}

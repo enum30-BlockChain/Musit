@@ -1,10 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import { Box, Avatar } from "@mui/material";
+import { Box, Avatar, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import ArtistSongCard from "./ArtistSongCard";
-import zIndex from "@mui/material/styles/zIndex";
+import { useLocation } from "react-router-dom";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useSelector } from "react-redux";
+import SongCardSkeleton from "../../serach/music/SongCardSkeleton";
 
 const WallPaper = styled("div")({
   position: "absolute",
@@ -67,11 +71,78 @@ const CoverImage = styled("div")({
 });
 
 export default function AlbumModel(props) {
-  console.log(props);
-  const TotalCount = props.artistModal.Music.map((e) => e.play_count) //play총합
-    .reduce((prev, curr) => prev + curr, 0);
+  const [findMusic, setFindMusic] = useState("");
+  const [viewMusicCard, setViewMusicCard] = useState(0);
+  const [value, setValue] = useState(0);
+  const location = useLocation();
+  const content = location.state !== null || undefined ? location.state : "";
+
+  const searching = useSelector((state) => state.searching).searching;
 
   const musics = props.artistModal.Music;
+
+  const getmusicList = async () => {
+    //처음에 뮤직검색
+    let searchCount = musics.data.filter(
+      (song) => song.title.indexOf(content) > -1
+    );
+    setFindMusic(searchCount);
+    setViewMusicCard(searchCount.length);
+    //카드 움직임 구해줌
+    if (searchCount.length > 4) {
+      setViewMusicCard(4);
+    } else {
+      setViewMusicCard(searchCount.length);
+    }
+  };
+
+  useEffect(() => {
+    if (!musics.loading) {
+      const init = async () => {
+        await getmusicList();
+      };
+      init();
+    }
+  }, [musics]);
+
+  useEffect(() => {
+    changeSearchPage();
+  }, [searching]);
+
+  const changeSearchPage = () => {
+    console.log(musics);
+    if (musics) {
+      const searchMusicNameData = musics.filter((song) => {
+        return song.title.indexOf(searching) > -1;
+      });
+      setFindMusic(searchMusicNameData);
+
+      if (searchMusicNameData.length > 4) {
+        setViewMusicCard(4);
+        setValue(0);
+      } else {
+        setViewMusicCard(searchMusicNameData.length);
+        setValue(0);
+      }
+    }
+  };
+
+  //카드이동
+  const moveAhead = () => {
+    value === 0
+      ? setValue(-100 * (findMusic.length - viewMusicCard))
+      : setValue(value + 100);
+    console.log(value);
+  };
+  const moveBehind = () => {
+    value === -100 * (findMusic.length - viewMusicCard)
+      ? setValue(0)
+      : setValue(value - 100);
+    console.log(value);
+  };
+
+  console.log(musics);
+
   return (
     <Box sx={{ width: "100%", overflow: "hidden" }}>
       <Widget>
@@ -81,11 +152,6 @@ export default function AlbumModel(props) {
             alignItems: "center",
           }}
         >
-          <Avatar
-            sx={{ ml: 5, mt: 3, width: 250, height: 250 }}
-            alt="Remy Sharp"
-            src={props.artistModal.img}
-          />
           <Box
             sx={{
               width: "100%",
@@ -94,27 +160,7 @@ export default function AlbumModel(props) {
               justifyContent: "space-between",
             }}
           >
-            <Box sx={{ mt: 3 }}>
-              <Typography variant="h3" gutterBottom component="div">
-                <b>{props.artistModal.artist_name}</b>
-              </Typography>
-              <Typography
-                sx={{ mt: 5 }}
-                variant="h4"
-                gutterBottom
-                component="div"
-              >
-                Upload music : {props.artistModal.Music.length}
-              </Typography>
-              <Typography
-                sx={{ mt: 5 }}
-                variant="h5"
-                gutterBottom
-                component="div"
-              >
-                Total paly count : {TotalCount}
-              </Typography>
-            </Box>
+            <Box sx={{ mt: 3 }}></Box>
             <Box sx={{ mt: 1, mr: 3 }}>
               <CloseIcon
                 sx={{ fontSize: 60, cursor: "pointer" }}
@@ -139,16 +185,60 @@ export default function AlbumModel(props) {
               <b>Music List</b>
             </Typography>
           </Box>
-          <Box sx={{ mt: 4, ml: 5, display: "flex", flexDirection: "row" }}>
-            {musics.map((music, index) => {
-              return (
-                <ArtistSongCard
-                  index={index}
-                  music={music}
-                  setmusicmodal={props.setmusicmodal}
-                />
-              );
-            })}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              height: "80%",
+              px: 2,
+            }}
+          >
+            <ArrowBackIosIcon
+              sx={{ fontSize: 65, cursor: "pointer" }}
+              onClick={moveAhead}
+            />
+            <Grid
+              sx={{
+                width: "800px",
+                padding: 0,
+                overflow: "hidden",
+              }}
+            >
+              <Box sx={{ mt: 2, display: "flex", flexDirection: "row" }}>
+                {musics.loading
+                  ? [1, 2, 3, 4].map((music, i) => {
+                      return (
+                        <SongCardSkeleton
+                          key={i}
+                          music={music}
+                          setmusicmodal={setmusicmodal}
+                          address={props.address}
+                        />
+                      );
+                    })
+                  : findMusic &&
+                    findMusic.map((music, i) => {
+                      return (
+                        <Grid sx={{ width: "25%" }} key={i}>
+                          <div
+                            className="glide"
+                            style={{ transform: `translateX(${value}%)` }}
+                          >
+                            <ArtistSongCard
+                              music={music}
+                              address={props.address}
+                              setmusicmodal={props.setmusicmodal}
+                            />
+                          </div>
+                        </Grid>
+                      );
+                    })}
+              </Box>
+            </Grid>
+            <ArrowForwardIosIcon
+              sx={{ fontSize: 65, cursor: "pointer" }}
+              onClick={moveBehind}
+            />
           </Box>
         </Box>
       </Widget>
