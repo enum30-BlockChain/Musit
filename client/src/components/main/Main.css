@@ -19,7 +19,7 @@ nav.side-nav.close ~ section {
 .main .main-content {
   position: absolute;
   width: 100%;
-  height: calc(100% - 55px - 100px);
+  height: calc(100% - 200px);
 
   top: 55px;
   left: 0px;
@@ -28,6 +28,7 @@ nav.side-nav.close ~ section {
 }
 
 .main .top-nav {
+  height: 40px;
   display: flex;
   justify-content: center;
   border-bottom: 2px solid var(--alltime-white);

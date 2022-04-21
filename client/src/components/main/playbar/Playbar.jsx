@@ -4,7 +4,7 @@ import axios from "axios";
 import { Stack, Slider } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
-import myImage from "./retro.png";
+import myImage from "./cd.png";
 
 const fakeFetch = (delay = 1000) =>
   new Promise((res) => setTimeout(res, delay));
@@ -94,7 +94,7 @@ export const Playbar = () => {
 
   function playloadSong(song, index) {
     //play list 노래불러올때
- 
+
     setpalyeCount(song.play_count);
     sethash(song.ipfs_hash);
     setTilte(song.title);
@@ -182,11 +182,11 @@ export const Playbar = () => {
 
   function playSong() {
     const musciCardAudio = document.querySelector("#MusicCardAudio");
-    if(musciCardAudio)musciCardAudio.pause();
+    if (musciCardAudio) musciCardAudio.pause();
     musicContainer.classList.add("play");
     playBtn.querySelector("i.fas").classList.add("fa-pause");
     playBtn.querySelector("i.fas").classList.remove("fa-play");
-    const musicCardPlaying = document.querySelector(" .music-card.playing")
+    const musicCardPlaying = document.querySelector(" .music-card.playing");
     if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
     audio.play();
   }
