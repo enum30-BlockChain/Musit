@@ -20,7 +20,7 @@
   align-items: center;
   border-radius: 10px;
   width: calc(100% / 2 - 10px);
-  padding: 35px;
+  padding: 95px;
   background-color: var(--box1-color);
   transition: var(--tran-05);
 }
@@ -40,4 +40,16 @@
   font-size: 40px;
   font-weight: 500;
   color: var(--text-color);
+}
+
+.contentbox .boxes .box.box1 {
+  background-color: var(--box1-color);
+}
+
+.contentbox .boxes .box.box2 {
+  background-color: var(--box2-color);
+}
+
+.contentbox .boxes .box.box3 {
+  background-color: var(--box3-color);
 }

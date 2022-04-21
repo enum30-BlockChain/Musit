@@ -39,8 +39,6 @@ const Usercontent = () => {
             <span className="number">{mynft && mynft.length}</span>
           </div>
         </div>
-
-        <div className="boxes"></div>
       </div>
     </>
   );
