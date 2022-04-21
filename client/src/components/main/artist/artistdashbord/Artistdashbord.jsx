@@ -5,10 +5,8 @@ import Artistinfodashboard from "./dashbordcontent/Artistinfodashboard";
 export const Artistdashbord = () => {
   return (
     <div className="dashboard">
-      <div className="dashboard-layout">
-        <Artistinfodashboard />
-        <Contentbox />
-      </div>
+      <Artistinfodashboard />
+      <Contentbox />
     </div>
   );
 };
