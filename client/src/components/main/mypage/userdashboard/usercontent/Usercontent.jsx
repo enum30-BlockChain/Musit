@@ -6,6 +6,7 @@ const Usercontent = () => {
   const likeMusic = useSelector((state) => state.likeMusic.data);
   const likeArtist = useSelector((state) => state.likeArtist.data);
   const mynft = useSelector((state) => state.ownedMusitNFT.data);
+  const title = document.getElementById("title");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,6 +38,14 @@ const Usercontent = () => {
             <i className="uil uil-capture"></i>
             <span className="text">Total NFT</span>
             <span className="number">{mynft && mynft.length}</span>
+          </div>
+        </div>
+
+        <div className="boxes">
+          <div className="box box1">
+            <i className="uil uil-headphones-alt"></i>
+            <span className="text">Recently Played Music</span>
+            <span className="number">Title</span>
           </div>
         </div>
       </div>
