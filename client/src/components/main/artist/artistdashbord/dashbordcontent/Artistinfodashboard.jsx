@@ -16,9 +16,11 @@ export default function Artistinfo() {
     <>
       <div className="artist-info-container">
         <div className="artist-card">
-          <div className="title">
-            <i className="uil uil-create-dashboard"></i>
-            <span className="text">Artist Dashboard</span>
+          <div className="title-1">
+            <div className="title">
+              <i className="uil uil-create-dashboard"></i>
+              <span className="text">Artist Dashboard</span>
+            </div>
           </div>
           <div className="artist-image">
             <Avatar
