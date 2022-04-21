@@ -23,12 +23,10 @@ const Usercontent = () => {
             <span className="text">Income</span>
             <span className="number">3023</span>
           </div>
-          <div className="boxes">
-            <div className="box box1">
-              <i className="uil uil-hourglass"></i>
-              <span className="text">Total Music Played Time</span>
-              <span className="number">10</span>
-            </div>
+          <div className="box box1">
+            <i className="uil uil-hourglass"></i>
+            <span className="text">Total Music Played Time</span>
+            <span className="number">10</span>
           </div>
         </div>
 
