@@ -25,6 +25,7 @@ export const Contentbox = () => {
           <span className="number">{artist && artist.ArtistLikes.length}</span>
         </div>
       </div>
+
       <div className="boxes">
         <div className="box box1">
           <i className="uil uil-bill"></i>
