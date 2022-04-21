@@ -19,7 +19,7 @@ export default function MainCard(props) {
           m: "auto",
           mb: 3,
           height: "100%",
-          width: "100%",
+          width: "90%",
           borderBottom: "solid 1px ",
           color: "white",
         }}
