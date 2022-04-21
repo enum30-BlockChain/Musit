@@ -25,13 +25,13 @@ export default function Music() {
           <ul className="nav-links">
             <li>
               <Link to="/music">
-                <i className="uil uil-favorite"></i>
+                <i className="uil uil-music"></i>
                 <span className="link-name"> Enum30 x Music</span>
               </Link>
             </li>
             <li>
               <Link to="/music/ranking">
-                <i className="uil uil-favorite"></i>
+                <i className="uil uil-university"></i>
                 <span className="link-name"> Ranking</span>
               </Link>
             </li>

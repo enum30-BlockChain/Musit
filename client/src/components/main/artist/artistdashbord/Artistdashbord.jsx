@@ -1,5 +1,4 @@
 import React from "react";
-// import { Activity } from "./dashbordcontent/Activity";
 import { Contentbox } from "./dashbordcontent/Contentbox";
 import "./Artistdashbord.css";
 
@@ -14,7 +13,6 @@ export const Artistdashbord = () => {
         </div>
         <div className="overview">
           <Contentbox />
-          {/* <Activity /> */}
         </div>
       </div>
     </div>
