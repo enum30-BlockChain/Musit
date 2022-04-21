@@ -199,12 +199,12 @@ export default function AlbumModel(props) {
             />
             <Grid
               sx={{
-                width: "750px",
+                width: "800px",
                 padding: 0,
                 overflow: "hidden",
               }}
             >
-              <Box sx={{ mt: 4, ml: 5, display: "flex", flexDirection: "row" }}>
+              <Box sx={{ mt: 2, display: "flex", flexDirection: "row" }}>
                 {musics.loading
                   ? [1, 2, 3, 4].map((music, i) => {
                       return (
