@@ -36,6 +36,7 @@ export const Musicupload = () => {
     "Rock",
     "Electronic",
     "Dance",
+    "R&B",
   ]);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
