@@ -1,10 +1,8 @@
 import {
 	BigNumber,
-	BigNumberish,
 	Contract,
 	ContractTransaction,
 	ethers,
-	EventFilter,
 	Transaction,
 } from "ethers";
 import MusitNftJson from "./MusitNFT.json";
@@ -187,18 +185,19 @@ export default class Ethers {
 				const tokenId = (await musitNFT.tokenOfOwnerByIndex(marketplace.address, i)).toNumber();
 				const marketItemId = await marketplace.nftToItemId(musitNFT.address, tokenId)
 				const marketItemInfo = await marketplace.items(marketItemId)
-				console.log(111);
-				
-				console.log(marketItemInfo);
-				
-				
+
 				const tokenURI = await musitNFT.tokenURI(tokenId);
 				const metadata = await (
 					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
 				).json();
 
 				nftList.push({
+					itemId: marketItemId.toNumber(),
 					tokenId,
+					price: ethers.utils.formatEther(marketItemInfo.price),
+					seller: marketItemInfo.seller,
+					nft: await musitNFT.name(),
+					sold: marketItemInfo.sold,
 					...metadata,
 				})
 			}
@@ -217,15 +216,28 @@ export default class Ethers {
 			let nftList: object[] = [];
 			for (let i = 0; i < nftBalance; i++) {
 				const tokenId = (await musitNFT.tokenOfOwnerByIndex(auction.address, i)).toNumber();
+				const auctionItemId = await auction.nftToItemId(musitNFT.address, tokenId)
+				const auctionItemInfo = await auction.items(auctionItemId)
+				console.log(auctionItemId.toNumber())
+				console.log(auctionItemInfo)
 				const tokenURI = await musitNFT.tokenURI(tokenId);
 				const metadata = await (
 					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
 				).json();
 
 				nftList.push({
+					itemId: auctionItemId.toNumber(),
+					nft: await musitNFT.name(),
+					startPrice: ethers.utils.formatEther(auctionItemInfo.startPrice),
+					startAt: auctionItemInfo.startAt.toNumber(),
+					endAt: auctionItemInfo.endAt.toNumber(),
 					tokenId,
+					seller: auctionItemInfo.seller,
+					topBidder: auctionItemInfo.topBidder,
+					topBid: ethers.utils.formatEther(auctionItemInfo.topBid),
+					status: auctionItemInfo.status,
 					...metadata,
-				})
+				});
 			}
 			return nftList;
 
@@ -235,6 +247,16 @@ export default class Ethers {
 		}
 	}
 
+	// 수입 계산 함수
+	// static async getIncome(message?: string): Promise<boolean | null> {
+	// 	try {
+			
+			
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 		return null;
+	// 	}
+	// }
 
 
 	// 현재 Signer의 private key를 verify하는 함수

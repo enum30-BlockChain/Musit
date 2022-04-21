@@ -38,7 +38,7 @@ export const Navbar = () => {
         link.classList.add("active");
       });
     });
-  }, [artist.isArtist]);
+  }, [artist.loading]);
 
   return (
     <>

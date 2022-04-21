@@ -13,60 +13,11 @@
   font-weight: 500;
 }
 
-.store .store-nav {
-  display: flex;
-  justify-content: center;
-
-  border-bottom: 2px solid var(--black-light-color);
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 10px;
-}
-
-.store .store-nav .nav-links {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 700px;
-}
-
-.store .store-nav .nav-links li {
-  position: relative;
-}
-
-.store .store-nav .nav-links li :is(i, .link-name) {
-  font-size: 18px;
-  color: var(--black-light-color);
-  transition: var(--tran-03);
-}
-
-.store-nav .nav-links a:hover :is(i, .link-name) {
-  font-size: 18px;
-  color: var(--primary-color);
-}
-
-.store-nav .nav-links li.active :is(i, .link-name) {
-  font-size: 18px;
-  color: var(--primary-color);
-}
 
 .store .content-container {
   position: relative;
   display: flex;
   justify-items: center;
   width: 100%;
-  height: 100%;
-}
-
-.content-container.ordinary .ordinary-box{
-  display: flex;
-}
-.content-container.ordinary .auction-box{
-  display: none;
-}
-
-.content-container.auction .ordinary-box{
-  display: none;
-}
-.content-container.auction .auction-box{
-  display: flex;
+  height: calc(100% - 45px);
 }
