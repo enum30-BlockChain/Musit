@@ -1,3 +1,4 @@
+import "./Artist.css";
 import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 export const Artist = () => {
@@ -46,7 +47,7 @@ export const Artist = () => {
             </li>
           </ul>
         </nav>
-        <div className="details">
+        <div className="artist-details">
           <Outlet />
         </div>
       </div>

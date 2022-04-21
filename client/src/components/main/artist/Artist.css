@@ -1,0 +1,25 @@
+.artistpage {
+  width: 100%;
+  height: 100%;
+}
+
+.artist-details {
+  display: flex;
+  justify-content: center;
+}
+
+.artistpage .artist-details {
+  width: 100%;
+  height: calc(100% - 40px);
+  padding-top: 20px;
+}
+
+.artistpage .artist-details .dashboard {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.artistpage .artist-details .dashboard .artistinfo-layout {
+  height: 100%;
+}
