@@ -1,7 +1,7 @@
 var express = require("express");
 const router = express.Router();
 
-const { Music, MusicLike } = require("../../models/index");
+const { Music, MusicLike, Artist } = require("../../models/index");
 
 /* Create */
 router.post("/", async (req, res, next) => {
@@ -34,11 +34,18 @@ router.get("/", async (req, res, next) => {
 router.get("/:user_address", async (req, res, next) => {
   try {
     const music = await Music.findAll({
-      include: {
-        model: MusicLike,
-        where: { user_address: req.params.user_address },
-      },
+      include: [
+        {
+          model: MusicLike,
+          where: { user_address: req.params.user_address },
+        },
+        {
+          model: Artist,
+          include: { model: Music },
+        },
+      ],
     });
+    console.log(music);
     res.send(music);
   } catch (err) {
     console.error(err);

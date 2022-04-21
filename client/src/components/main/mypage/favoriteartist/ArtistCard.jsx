@@ -14,7 +14,7 @@ export default function ArtistCard() {
 
   return (
     <>
-      <div className="mynftlist">
+      <div className="likecard">
         <div className="item-card-container">
           {likeArtist.loading ? (
             <>
@@ -32,7 +32,6 @@ export default function ArtistCard() {
                   <LikeCard
                     data={data}
                     setArtistModal={setArtistModal}
-                    artistModal={artistModal}
                     key={index}
                   />
                 ))}

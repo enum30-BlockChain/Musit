@@ -1,135 +1,87 @@
-import * as React from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import Avatar from "@mui/material/Avatar";
+import { Avatar } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
+import { toggleLikeMusic } from "../../../../redux/actions/musicActions";
+import "./css/MusicCard.css";
 
-export default function MusicCard() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(7);
+const MusicCard = ({ data, setArtistModal }) => {
+  const [TotalLike, setTotalLike] = useState();
+  const [musiclike, setMusicLike] = useState("");
+
+  const likeMusic = useSelector((state) => state.likeMusic).data;
   const dispatch = useDispatch();
-  const likeMusic = useSelector((state) => state.likeMusic);
-  React.useEffect(() => {}, []);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  useEffect(() => {
+    if (!likeMusic.loading) {
+      setMusicLike(
+        likeMusic.filter((artist) => {
+          return artist.artist_name.indexOf(data.artist_name) > -1;
+        })
+      );
+    }
+  }, [likeMusic]);
+
+  // 파업창 띄워주는 것
+  const postInfo = () => {
+    setArtistModal(data);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
+  const likeOnclick = async () => {
+    dispatch(toggleLikeMusic(data));
+    alert("좋아요를 취소하였습니다.");
   };
 
-  ///////////////////////////////////////////////////////////////
-  //mui 내용
-  function createColumn(id, label, minWidth, align, format) {
-    return { id, label, minWidth, align, format };
-  }
-
-  //제목리스트 내용
-  const columns = [
-    { id: "number", label: "Number", minWidth: 10 },
-    { id: "albumcover", label: "Album Cover", minWidth: 30 },
-    { id: "music", label: "Music Title", minWidth: 120 },
-    { id: "artist", label: "Artist", minWidth: 120 },
-    {
-      id: "playtime",
-      label: "Play Count",
-      minWidth: 120,
-    },
-    {
-      id: "audio",
-      label: "Audio",
-      minWidth: 50,
-    },
-  ];
-
-  //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, albumcover, music, artist, playtime, audio) {
-    return { number, albumcover, music, artist, playtime, audio };
-  }
-
-  //row 안의 value값
-  const rows = [];
-  likeMusic.data.forEach((favor, index) => {
-    rows.push(
-      createRow(
-        index,
-        <Avatar
-          src={favor.img_file}
-          style={{ width: "50px", height: "50px" }}
-        />,
-        // <LikeSongCard address={address} favor={favor} />,
-        favor.title,
-        favor.artist_name,
-        favor.play_count,
-        <audio
-          src={`https://ipfs.infura.io/ipfs/${favor.ipfs_hash}`}
-          controls
-        ></audio>
-      )
-    );
-  });
-
-  console.log(likeMusic.data);
+  const sliceTitle = data.title && data.title.substr(0, 10) + "...";
 
   return (
-    <Paper
-      className="table-container"
-      sx={{ width: "100%", overflow: "hidden" }}
-    >
-      <TableContainer sx={{ maxHeight: 635, width: "100%" }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column, index) => (
-                <TableCell
-                  key={index}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                    {columns.map((column, index) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={index} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <>
+      <div className="item-card">
+        <div className="img-box" onClick={postInfo}>
+          {data.img === "" ? (
+            <Avatar
+              className="register-avatar"
+              alt="Remy Sharp"
+              sx={{ width: 165, height: 160 }}
+            />
+          ) : (
+            <img src={data.img_file} />
+          )}
+        </div>
+        <div className="content-wrap">
+          <div className="color-box">
+            <h1>
+              <FavoriteBorderIcon
+                onClick={() => {
+                  likeOnclick();
+                  setTotalLike(TotalLike + 1);
+                  setMusicLike(1);
+                }}
+                sx={{ mr: 0.5 }}
+                cursor="pointer"
+                fontSize="large"
+                style={{ position: "absolute", right: "0px" }}
+              />
+            </h1>
+          </div>
+          <div className="content-box">
+            <div className="content">
+              <h2>Title</h2>
+              <h1>{sliceTitle}</h1>
+            </div>
+          </div>
+          <div className="content-box">
+            <div className="content">
+              <audio
+                src={`https://ipfs.infura.io/ipfs/${data.ipfs_hash}`}
+                controls
+              ></audio>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
-}
+};
+
+export default MusicCard;
