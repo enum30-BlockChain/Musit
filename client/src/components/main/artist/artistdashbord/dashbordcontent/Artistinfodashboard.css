@@ -4,10 +4,13 @@
   width: 300px;
 }
 
-.dashboard .title i {
+.artist-info-container .artist-card .title-1 {
+  display: flex;
+}
+.artist-info-container .title i {
   height: 35px;
   width: 35px;
-  background-color: var(--primary-color);
+  background-color: var(--secondary-icon);
   border-radius: 6px;
   color: var(--title-icon-color);
   display: flex;

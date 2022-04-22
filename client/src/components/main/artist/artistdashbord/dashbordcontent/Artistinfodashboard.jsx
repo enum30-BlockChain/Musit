@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
+import "./Artistinfodashboard.css";
 
 export default function Artistinfo() {
   const artist = useSelector((state) => state.artist);

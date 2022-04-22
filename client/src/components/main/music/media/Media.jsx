@@ -73,7 +73,7 @@ const Media = () => {
       {lodingState ? (
         <SimpleBackdrop />
       ) : (
-        <Box sx={{ height: "80%" }}>
+        <Box sx={{ height: "100%" }}>
           <Box sx={{ height: "40%", mb: 2 }}>
             <div className="listening-layout">
               <div className="ranking-title">
