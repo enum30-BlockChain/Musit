@@ -19,7 +19,15 @@
   height: 100%;
   display: flex;
 }
+.artistpage .artist-details .dashboard .artist-info-container {
+  width: 300px;
+}
 
-.artistpage .artist-details .dashboard .artistinfo-layout {
+.artistpage .artist-details .userinfo-layout .userinfo-card {
+  width: 300px;
   height: 100%;
+  padding: 20px;
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
 }

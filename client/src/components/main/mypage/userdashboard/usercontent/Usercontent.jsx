@@ -2,16 +2,18 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { readMyNFTList } from "../../../../../redux/actions/contractActions";
 const Usercontent = () => {
+  // const [tilte, setTilte] = useState("");
+
   const user = useSelector((state) => state.user);
   const likeMusic = useSelector((state) => state.likeMusic.data);
   const likeArtist = useSelector((state) => state.likeArtist.data);
   const mynft = useSelector((state) => state.ownedMusitNFT.data);
-  const title = document.getElementById("title");
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(readMyNFTList());
   }, []);
+
   return (
     <>
       <div className="contentbox">
@@ -45,7 +47,7 @@ const Usercontent = () => {
           <div className="box box1">
             <i className="uil uil-headphones-alt"></i>
             <span className="text">Recently Played Music</span>
-            <span className="number">Title</span>
+            <span className="number">tilte</span>
           </div>
         </div>
       </div>
