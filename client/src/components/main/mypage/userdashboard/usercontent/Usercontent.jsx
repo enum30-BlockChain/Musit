@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Marquee from "react-fast-marquee";
 import { readMyNFTList } from "../../../../../redux/actions/contractActions";
 const Usercontent = () => {
   // const [tilte, setTilte] = useState("");
@@ -47,7 +48,7 @@ const Usercontent = () => {
           <div className="box box1">
             <i className="uil uil-headphones-alt"></i>
             <span className="text">Recently Played Music</span>
-            <span className="number">tilte</span>
+            <Marquee className="number">Resently Played Music</Marquee>
           </div>
         </div>
       </div>

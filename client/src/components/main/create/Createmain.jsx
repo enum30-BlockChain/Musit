@@ -23,9 +23,7 @@ export default function Createmain() {
   return (
     <>
       <div className="createmain-page">
-        <div className="nav-details">
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     </>
   );
