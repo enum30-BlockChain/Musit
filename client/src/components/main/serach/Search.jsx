@@ -36,7 +36,7 @@ function Search(props) {
   const getmusicList = async () => {
     //처음에 뮤직검색
     let searchCount = musicList.data.filter(
-      (song) => song.title.indexOf(content) > -1
+      (song) => song.title.toLowerCase().indexOf(content.toLowerCase()) > -1
     );
     setFindMusic(searchCount);
     setViewMusicCard(searchCount.length);
@@ -51,7 +51,7 @@ function Search(props) {
   const getUser = async () => {
     //유저검색
     let searchCount = artistList.data.filter(
-      (a) => a.artist_name.indexOf(content) > -1
+      (a) => a.artist_name.toLowerCase().indexOf(content.toLowerCase()) > -1
     );
     setFindArtist(searchCount);
     setViewArtistCard(searchCount.length);
@@ -89,10 +89,10 @@ function Search(props) {
   const changeSearchPage = () => {
     if (musicList.data && artistList.data) {
       const searchMusicNameData = musicList.data.filter((song) => {
-        return song.title.indexOf(searching) > -1;
+        return song.title.toLowerCase().indexOf(searching.toLowerCase()) > -1;
       });
       const searchAtistData = artistList.data.filter((a) => {
-        return a.artist_name.indexOf(searching) > -1;
+        return a.artist_name.toLowerCase().indexOf(searching.toLowerCase()) > -1;
       });
       setFindMusic(searchMusicNameData);
       setFindArtist(searchAtistData);
