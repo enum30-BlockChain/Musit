@@ -6,9 +6,9 @@ import { selectedMusitNFT } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
 import Error from "../../../Error";
 
-import "./Buy.css";
+import "./Bid.css";
 
-const Buy = () => {
+const Bid = () => {
 	let { tokenId } = useParams();
 	const dispatch = useDispatch();
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
@@ -42,7 +42,7 @@ const SuccessContent = () => {
 	}
 
 	return (
-		<section className="buy-container">
+		<section className="bid-container">
 			{/* 이미지 박스 */}
 			<div className="image-box">
 				<img src={selectedNFT.img_file} alt="" />
@@ -91,12 +91,12 @@ const SuccessContent = () => {
 						</h2>
 						<h1>{selectedNFT.price}</h1>
 					</div>
-					<button disabled={selectedNFT.sold} onClick={buyOnClick} >Buy</button>
+					<button disabled={selectedNFT.sold} onClick={buyOnClick} >Bid</button>
 				</section>
 				</> : <>
 					<section className="not-available-container">
 						<h1>
-							This item is not available to buy!
+							This item is not available to bid!
 						</h1>
 					</section>
 				</>}
@@ -109,7 +109,7 @@ const SuccessContent = () => {
 /* Loading 화면 */
 const LoadingContent = () => {
 	return (
-		<section className="buy-container">
+		<section className="bid-container">
 			{/* 이미지 박스 */}
 			<div className="image-box">
 				<Skeleton width={"100%"} height={"100%"} variant="circular" />
@@ -179,8 +179,8 @@ const LoadingContent = () => {
 /* Error 화면 */
 const ErrorContent = () => {
 	return <section className="auction-layout">
-		<Error error={{name: "Buy Error", message: "Buy page loading fail"}}/>
+		<Error error={{name: "Bid Error", message: "Bid page loading fail"}}/>
 	</section>;
 };
 
-export default Buy;
+export default Bid;

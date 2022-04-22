@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { selectedMusitNFT } from '../../../../redux/actions/contractActions';
 import "./SellCard.css";
 
 const SellCard = ({data}) => {
 	const navigate = useNavigate()
-	const cardOnClick = () => {
-		// navigate(`/store/enroll/${data.tokenId}`);
-	}
+	const dispatch = useDispatch()
 
-	useEffect(() => {
-		console.log(data)
-	}, []);
+	const cardOnClick = async () => {
+		navigate(`/store/buy/${data.tokenId}`);
+		await dispatch(selectedMusitNFT(data))
+	}
 	
   return (
 		<>

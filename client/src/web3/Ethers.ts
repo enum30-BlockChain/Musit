@@ -1,8 +1,11 @@
 import {
 	BigNumber,
+	BigNumberish,
 	Contract,
 	ContractTransaction,
 	ethers,
+	Event,
+	EventFilter,
 	Transaction,
 } from "ethers";
 import MusitNftJson from "./MusitNFT.json";
@@ -176,8 +179,25 @@ export default class Ethers {
 		}
 	}
 
+	// Marketplace에 등록된 NFT 구매
+	static async purchaseNFT(
+		itemId: number,
+	): Promise<ContractTransaction | null> {
+		try {
+			let price = (await marketplace.getTotalPrice(itemId)).toString()
+			const options = {
+				value: price,
+			};
+			const result = await marketplace.purchase(itemId, options);
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
 	// 마켓에 올라온 NFT 리스트 검색
-	static async onMarketNFTList(): Promise<object[] | null> {
+	static async getMarketNFTList(): Promise<object[] | null> {
 		try {
 			const nftBalance = await musitNFT.balanceOf(marketplace.address);
 			let nftList: object[] = [];
@@ -190,11 +210,11 @@ export default class Ethers {
 				const metadata = await (
 					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
 				).json();
-
+				let price = await marketplace.getTotalPrice(marketItemId)
 				nftList.push({
 					itemId: marketItemId.toNumber(),
 					tokenId,
-					price: ethers.utils.formatEther(marketItemInfo.price),
+					price: ethers.utils.formatEther(price),
 					seller: marketItemInfo.seller,
 					nft: await musitNFT.name(),
 					sold: marketItemInfo.sold,
@@ -209,8 +229,37 @@ export default class Ethers {
 		}
 	}
 
+	// 선택한 마켓 아이템 검색
+	static async getMarketItem(tokenId: number): Promise<object[] | null> {
+		try {
+			const marketItemId = await marketplace.nftToItemId(musitNFT.address, tokenId)
+			const marketItemInfo = await marketplace.items(marketItemId)
+			let price = await marketplace.getTotalPrice(marketItemId)
+			const tokenURI = await musitNFT.tokenURI(tokenId);
+			const metadata = await (
+				await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
+			).json();
+
+			const result = {
+				itemId: marketItemId.toNumber(),
+				tokenId,
+				price: ethers.utils.formatEther(price),
+				seller: marketItemInfo.seller,
+				nft: await musitNFT.name(),
+				sold: ethers.utils.formatEther(price) === "0.0",
+				...metadata,
+			}	
+			
+			return result;
+
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
 	// 경매에 올라온 NFT 리스트 검색
-	static async onAuctionNFTList(): Promise<object[] | null> {
+	static async getAuctionNFTList(): Promise<object[] | null> {
 		try {
 			const nftBalance = await musitNFT.balanceOf(auction.address);
 			let nftList: object[] = [];
@@ -218,8 +267,7 @@ export default class Ethers {
 				const tokenId = (await musitNFT.tokenOfOwnerByIndex(auction.address, i)).toNumber();
 				const auctionItemId = await auction.nftToItemId(musitNFT.address, tokenId)
 				const auctionItemInfo = await auction.items(auctionItemId)
-				console.log(auctionItemId.toNumber())
-				console.log(auctionItemInfo)
+				
 				const tokenURI = await musitNFT.tokenURI(tokenId);
 				const metadata = await (
 					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
@@ -247,10 +295,49 @@ export default class Ethers {
 		}
 	}
 
-	// 수입 계산 함수
-	// static async getIncome(message?: string): Promise<boolean | null> {
+	// 선택한 경매 아이템 검색
+	static async getAuctionItem(tokenId: number): Promise<object[] | null> {
+		try {
+			const auctionItemId = await auction.nftToItemId(musitNFT.address, tokenId)
+			const auctionItemInfo = await auction.items(auctionItemId)
+
+			const tokenURI = await musitNFT.tokenURI(tokenId);
+			const metadata = await (
+				await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
+			).json();
+			const result = {
+				itemId: auctionItemId.toNumber(),
+				tokenId,
+				price: ethers.utils.formatEther(auctionItemInfo.price),
+				seller: auctionItemInfo.seller,
+				nft: await musitNFT.name(),
+				sold: auctionItemInfo.sold,
+				...metadata,
+			}	
+			return result;
+
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	
+	
+
+	//TODO: 수입 계산 함수
+	// static async getIncome(address: string): Promise<boolean | null> {
 	// 	try {
-			
+	// 		const boughtFilter: EventFilter = marketplace.filters.Bought(null, null, null, address, null, null)
+	// 		const sellPrice: BigNumberish = await Promise.all(
+	// 			(
+	// 				await marketplace.queryFilter(boughtFilter)
+	// 			).map(async (event: Event) => {
+	// 				const boughtInfo: any = event.args;
+	// 				const sellPrice = boughtInfo.sellPrice;
+	// 				return sellPrice;
+	// 			}).reduce((a: BigNumberish,b: BigNumberish) => a.add(b), "0")
+	// 		);
 			
 	// 	} catch (error) {
 	// 		console.log(error);
