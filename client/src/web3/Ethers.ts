@@ -300,18 +300,23 @@ export default class Ethers {
 		try {
 			const auctionItemId = await auction.nftToItemId(musitNFT.address, tokenId)
 			const auctionItemInfo = await auction.items(auctionItemId)
-
+			
 			const tokenURI = await musitNFT.tokenURI(tokenId);
 			const metadata = await (
 				await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
 			).json();
+
 			const result = {
 				itemId: auctionItemId.toNumber(),
-				tokenId,
-				price: ethers.utils.formatEther(auctionItemInfo.price),
-				seller: auctionItemInfo.seller,
 				nft: await musitNFT.name(),
-				sold: auctionItemInfo.sold,
+				startPrice: ethers.utils.formatEther(auctionItemInfo.startPrice),
+				startAt: auctionItemInfo.startAt.toNumber(),
+				endAt: auctionItemInfo.endAt.toNumber(),
+				tokenId,
+				seller: auctionItemInfo.seller,
+				topBidder: auctionItemInfo.topBidder,
+				topBid: ethers.utils.formatEther(auctionItemInfo.topBid),
+				status: auctionItemInfo.status,
 				...metadata,
 			}	
 			return result;

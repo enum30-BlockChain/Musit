@@ -8,7 +8,7 @@ const AuctionCard = ({data}) => {
 	const dispatch = useDispatch()
 
 	const cardOnClick = async () => {
-		navigate(`/store/buy/${data.tokenId}`);
+		navigate(`/store/bid/${data.tokenId}`);
 		await dispatch(selectedMusitNFT(data))
 	}
 	

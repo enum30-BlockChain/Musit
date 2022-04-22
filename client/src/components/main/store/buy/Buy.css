@@ -163,6 +163,7 @@
   height: 173px;
 }
 .buy-container .right-container .info-container .description-box p {
+  padding-top: 10px;
   flex: 1;
   overflow: auto;
   word-break: normal;
