@@ -1,38 +1,49 @@
-.user-drawer {
-  width: 430px;
-  text-align: center;
+* {
+  box-sizing: border-box;
 }
 
-body {
-  padding: 10px;
+/* Set height of body and the document to 100% */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
 }
 
-#exTab1 .tab-content {
+/* Style tab links */
+.tablink {
+  background-color: var(--primary-color);
   color: white;
-  background-color: #428bca;
-  padding: 5px 15px;
+  float: left;
+  border: none;
+  outline: none;
+  /* cursor: pointer; */
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 220px;
 }
 
-#exTab2 h3 {
+.tablink:hover {
+  background-color: var(--secondary-icon);
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
   color: white;
-  background-color: #428bca;
-  padding: 5px 15px;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
 }
 
-/* remove border radius for the tab */
-
-#exTab1 .nav-pills > li > a {
-  border-radius: 0;
+#Home {
+  background-color: var(--secondary-icon);
 }
-
-/* change border radius for the tab , apply corners on top*/
-
-#exTab3 .nav-pills > li > a {
-  border-radius: 4px 4px 0 0;
+#News {
+  /* background-color: green; */
 }
-
-#exTab3 .tab-content {
-  color: white;
-  background-color: #428bca;
-  padding: 5px 15px;
+#Contact {
+  background-color: blue;
+}
+#About {
+  background-color: orange;
 }
