@@ -1,18 +1,20 @@
 import { Skeleton } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
+import "./NFTCardSkeleton.css"
 
 const NFTCardSkeleton = () => {
   return (
     <>
-      <Box sx={{margin: "15px"}}>
-        <Skeleton variant='rectangular' width={345} height={200} />
-        <Skeleton variant='text' width={345} height={50} />
-        <Box sx={{ display: 'flex', justifyContent: "space-between" }} >
-          <Skeleton variant='circular' width={40} height={40} />
-          <Skeleton variant='text' width={290} height={40} />
-        </Box>
-      </Box>
+      <div className="item-card">
+				<div className="img-box">
+          <Skeleton variant='circular' width={"100%"} height={"100%"} />
+				</div>
+				<div className="content-wrap">
+          <Skeleton className="color-box" variant='rectangular' width={"100%"} height={"100%"} />
+          <Skeleton className="info-wrap" variant='rectangular' width={"100%"} height={"100%"} />
+				</div>
+			</div>
     </>
   )
 }

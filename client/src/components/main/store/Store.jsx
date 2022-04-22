@@ -1,33 +1,39 @@
 import "./Store.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { readOnAuctionNFTList, readOnMarketNFTList } from "../../../redux/actions/contractActions";
 import SellCard from "./nftcard/SellCard"
 import AuctionCard from "./nftcard/AuctionCard";
 import Error from "../../Error";
+import SimpleBackdrop from "../music/SimpleBackdrop";
+
+const fakeFetch = (delay = 1000) => new Promise((res) => setTimeout(res, delay));
 
 export const Store = () => {
   const dispatch = useDispatch();
+	const [loading, setLoading] = useState(true);
 	const market = useSelector((state) => state.market);
   const auction = useSelector((state) => state.auction);
 
   useEffect(async () => {
     await dispatch(readOnMarketNFTList())
     await dispatch(readOnAuctionNFTList())
+		await fakeFetch()
+		setLoading(false)
   }, []);
 
-	return market && market.loading ||  auction && auction.loading ? (
-		<LoadingContent />
-	) : !market || market.error || !auction || auction.error ? (
+	return !market || market.error || !auction || auction.error ? (
 		<ErrorContent />
 	) : (
 		<>
-			<SuccessContent />
+			<SuccessContent loading={loading} />
 		</>
 	);
 };
 
-const SuccessContent = () => {
+const SuccessContent = ({loading}) => {
+	const market = useSelector((state) => state.market);
+  const auction = useSelector((state) => state.auction);
 
 	useEffect(async () => {
     btnListener()
@@ -73,8 +79,16 @@ const SuccessContent = () => {
 				</ul>
 			</nav>
 			<section className="content-container ordinary">
-				<Ordinary />
-				<Auction />
+				{loading ||
+				(market && market.loading) ||
+				(auction && auction.loading) ? (
+					<LoadingContent />
+				) : (
+					<>
+						<Ordinary />
+						<Auction />
+					</>
+				)}
 			</section>
 		</section>
 	);
@@ -112,7 +126,11 @@ const Auction = () => {
 
 /* Loading 화면 */
 const LoadingContent = () => {
-	return <>Loading..</>;
+	return (
+		<>
+			<SimpleBackdrop />
+		</>
+	);
 };
 
 
