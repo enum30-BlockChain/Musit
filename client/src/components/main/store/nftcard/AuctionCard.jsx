@@ -30,6 +30,17 @@ const AuctionCard = ({data}) => {
 					<div className="color-box"></div>
 					<div className="info-wrap">
 						<div className="first-box">
+						<div className="price-box">
+								<h2>Top Bid</h2>
+								<h1><img src="./images/eth.png"/>{data.topBid}</h1>
+							</div>
+							<div className="tokenid-box">
+								<h2>Token Id</h2>
+								<h1>{data.tokenId}</h1>
+							</div>
+							
+						</div>
+						<div className="second-box">
 							<div className="content">
 								<h2>Title</h2>
 								<h1>{data.title}</h1>
@@ -37,16 +48,6 @@ const AuctionCard = ({data}) => {
 							<div className="content">
 								<h2>Artist</h2>
 								<h1>{data.artist_name}</h1>
-							</div>
-						</div>
-						<div className="second-box">
-							<div className="price-box">
-								<h2>Start Price</h2>
-								<h1>{data.startPrice} ETH</h1>
-							</div>
-							<div className="price-box">
-								<h2>Top Bid</h2>
-								<h1>{data.topBid} ETH</h1>
 							</div>
 						</div>
 					</div>

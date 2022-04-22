@@ -116,3 +116,11 @@
 .store .content-container .auction-box .item-card .content-wrap .second-box > div{
   width: 50%;
 }
+
+.store .content-container .auction-box .item-card .content-wrap .second-box > div{
+  width: 50%;
+}
+
+.store .content-container .auction-box .item-card .content-wrap .price-box img{
+  height: 20px;
+}

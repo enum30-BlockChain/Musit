@@ -16,9 +16,9 @@ export const Store = () => {
   const auction = useSelector((state) => state.auction);
 
   useEffect(async () => {
-    await dispatch(readOnMarketNFTList())
-    await dispatch(readOnAuctionNFTList())
-		await fakeFetch()
+    dispatch(readOnMarketNFTList())
+    dispatch(readOnAuctionNFTList())
+		fakeFetch()
 		setLoading(false)
   }, []);
 
