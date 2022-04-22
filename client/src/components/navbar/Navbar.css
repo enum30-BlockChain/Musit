@@ -12,6 +12,7 @@
 }
 
 .E {
+  font-family: "Poppins";
   font-size: 70px;
 }
 
@@ -47,7 +48,7 @@ body.dark .E {
   color: var(--black-light-color);
   margin-left: 15px;
   transition: var(--tran-05);
-  /* text-decoration: underline var(--text-color); */
+  font-family: "Poppins"; 
 }
 
 .side-nav.close .logo-name {
@@ -96,7 +97,7 @@ body.dark .side-nav .nav-links li a:hover:before {
 
 .menu-items li a .link-name {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--black-light-color);
   transition: var(--tran-05);
 }

@@ -1,22 +1,32 @@
 import "./LandigMainPage.css";
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 export default function LandingMainPage() {
   const audioPlayer = useRef();
-  const [name, setName] = useState("Tracks")
-  const musicBox=[
-    {title:"Jawbreaker - Do You Still Hate Me?" ,track:"https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/rock.m4a"},
-    {title:"Judas Priest - Painkiller" , track:"https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/metal.m4a"},
-    {title:"Stevie Wonder - For Once In My Life", track:"https://raw.githubusercontent.com/ricardoolivaalonso/recursos/master/radio/radio.mp3"},
-  ]
-  const Tape =async (e)=>{
-    audioPlayer.current.src=musicBox[e.target.title].track;
+  const [name, setName] = useState("Tracks");
+  const musicBox = [
+    {
+      title: "Jawbreaker - Do You Still Hate Me?",
+      track: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/rock.m4a",
+    },
+    {
+      title: "Judas Priest - Painkiller",
+      track: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/59639/metal.m4a",
+    },
+    {
+      title: "Stevie Wonder - For Once In My Life",
+      track:
+        "https://raw.githubusercontent.com/ricardoolivaalonso/recursos/master/radio/radio.mp3",
+    },
+  ];
+  const Tape = async (e) => {
+    audioPlayer.current.src = musicBox[e.target.title].track;
     await audioPlayer.current.play();
-  }
+  };
 
   return (
     <>
-    <div class="container">
+      {/* <div class="container">
     <div class="buff-jambox">
         <div class="jambox">
             <div class="speaker top-left"></div>
@@ -43,8 +53,7 @@ export default function LandingMainPage() {
         <audio ref={audioPlayer} />
     </div>
         
-</div>
-
+</div> */}
     </>
   );
 }

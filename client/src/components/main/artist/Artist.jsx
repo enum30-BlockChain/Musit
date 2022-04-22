@@ -47,7 +47,7 @@ export const Artist = () => {
             </li>
           </ul>
         </nav>
-        <div className="details">
+        <div className="artist-details">
           <Outlet />
         </div>
       </div>

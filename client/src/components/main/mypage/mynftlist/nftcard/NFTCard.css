@@ -10,25 +10,38 @@
 
 .mynftlist .item-card-container h2{
   color: var(--black-light-color);
-  font-size: 18px;
+  font-size: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .mynftlist .item-card-container h1{
   color: #000;
-  font-size: 24px;
+  font-size: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .mynftlist .item-card-container .item-card {
   position: relative;
   margin: 15px;
-  width: 330px;
+  width: 280px;
   height: 320px;
   transition: var(--tran-02);
+}
+.mynftlist .item-card-container .item-card:hover{ 
+  animation: infinite alternate-reverse 1s  shake;
+}
+@keyframes shake {
+  0%   {transform: rotateZ(1deg)}
+  100%   {transform: rotateZ(-1deg)}
 }
 
 .mynftlist .item-card-container .item-card .img-box{
   position: relative;
-  width: 50%;
-  height: 50%;
+  width: 160px;
+  height: 160px;
   border: 5px solid var(--content-bg-color1);
   background-color: var(--content-bg-color1);
   border-radius: 50%;
@@ -42,9 +55,7 @@
 }
 .mynftlist .item-card-container .item-card:hover .content-wrap {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-}
-.mynftlist .item-card-container .item-card:active .content-wrap {
-  transform: rotateX(-30deg);
+  transition: var(--tran-10);
 }
 
 .mynftlist .item-card-container .item-card .img-box img{
@@ -56,13 +67,14 @@
 
 .mynftlist .item-card-container .item-card .content-wrap {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   background-color: var(--content-bg-color1);
   width: 100%;
   height: 80%;
   top: 20%;
   border-radius: 10px;
   overflow: hidden;
-  padding-bottom: 10px;
   transition: var(--tran-05);
 }
 
@@ -77,16 +89,16 @@
 .mynftlist .item-card-container .item-card .content-wrap .content-box {
   position: relative;
   display: flex;
-  justify-content: space-evenly;
-  padding-top: 5px;
+  justify-content: flex-start;
+  padding-top: 10px;
   width: 100%;
-  height: 33%;
+  height: 80px;
 }
 
-.mynftlist .item-card-container .item-card .content-wrap .content-box > div{
+.mynftlist .item-card-container .item-card .content-wrap .content-box .content{
   padding: 5px;
   border-radius: 10px;
-  width: 100%;
+  width: 50%;
   text-align: center;
 }
 
@@ -96,8 +108,10 @@
   align-items: center;
   width: 100%;
   height: 25%;
+  background-color: transparent;
 }
 
 .mynftlist .item-card-container .item-card .content-wrap .audio-box audio::-webkit-media-controls-panel {
-  background-color: var(--box1-color);
+  background-color: var(--content-bg-color1);
+  padding: 0 10px;
 }

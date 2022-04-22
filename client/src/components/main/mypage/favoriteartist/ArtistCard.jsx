@@ -14,7 +14,7 @@ export default function ArtistCard() {
 
   return (
     <>
-      <div className="mynftlist">
+      <div className="likecard">
         <div className="item-card-container">
           {likeArtist.loading ? (
             <>

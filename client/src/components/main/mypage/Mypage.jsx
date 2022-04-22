@@ -22,6 +22,8 @@ export const Mypage = () => {
     });
   };
 
+  console.log(artist.artist_name);
+
   return (
     <div className="mypage">
       <nav className="top-nav">
