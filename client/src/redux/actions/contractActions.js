@@ -35,10 +35,10 @@ export const readOnMarketNFTList = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.MUSIT_NFT_MARKET_LIST_REQUEST });
 		try {
-			const onMarketNFTList = await Ethers.onMarketNFTList()
+			const getMarketNFTList = await Ethers.getMarketNFTList()
 			dispatch({
 				type: ActionTypes.MUSIT_NFT_MARKET_LIST_SUCCESS,
-				payload: onMarketNFTList,
+				payload: getMarketNFTList,
 			})
 		} catch (error) {
 			dispatch({
@@ -54,10 +54,10 @@ export const readOnAuctionNFTList = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: ActionTypes.MUSIT_NFT_AUCTION_LIST_REQUEST });
 		try {
-			const onAuctionNFTList = await Ethers.onAuctionNFTList()
+			const getAuctionNFTList = await Ethers.getAuctionNFTList()
 			dispatch({
 				type: ActionTypes.MUSIT_NFT_AUCTION_LIST_SUCCESS,
-				payload: onAuctionNFTList,
+				payload: getAuctionNFTList,
 			})
 		} catch (error) {
 			dispatch({
