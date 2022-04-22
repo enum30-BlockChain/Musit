@@ -8,7 +8,8 @@ import "../css/LikeCard.css";
 const LikeCard = ({ data, setArtistModal, artistModal }) => {
   const [TotalLike, setTotalLike] = useState();
   const [artistlike, setArtistlike] = useState("");
-  const likeArtist = useSelector((state) => state.likeArtist).data;
+  const likeMusic = useSelector((state) => state.likeMusic.data);
+  const likeArtist = useSelector((state) => state.likeArtist.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,6 +34,8 @@ const LikeCard = ({ data, setArtistModal, artistModal }) => {
 
   const TotalCount = data.Music.map((e) => e.play_count) //play총합
     .reduce((prev, curr) => prev + curr, 0);
+
+  const sliceName = data.artist_name && data.artist_name.substr(0, 7) + "...";
 
   return (
     <>
@@ -67,11 +70,11 @@ const LikeCard = ({ data, setArtistModal, artistModal }) => {
           <div className="content-box">
             <div className="content">
               <h2>Artist</h2>
-              <h1>{data.artist_name}</h1>
+              <h1>{sliceName}</h1>
             </div>
             <div className="content">
               <h2>Likes</h2>
-              <h1>{data.likes}</h1>
+              <h1>{likeArtist && likeArtist.length}</h1>
             </div>
           </div>
           <div className="content-box">
