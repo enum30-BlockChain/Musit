@@ -9,9 +9,9 @@ const Usercontent = () => {
   const likeArtist = useSelector((state) => state.likeArtist.data);
   const mynft = useSelector((state) => state.ownedMusitNFT.data);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(readMyNFTList());
+  
+  useEffect( () => {
+      dispatch(readMyNFTList());
   }, []);
 
   return (
@@ -47,7 +47,7 @@ const Usercontent = () => {
           <div className="box box1">
             <i className="uil uil-headphones-alt"></i>
             <span className="text">Recently Played Music</span>
-            <span className="number">tilte</span>
+            <span className="number">{user.recent_played && user.recent_played.split("-")[2]}</span>
           </div>
         </div>
       </div>
