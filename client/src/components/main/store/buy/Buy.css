@@ -1,0 +1,204 @@
+.buy-container {
+  position: relative;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  width: 800px;
+  height: 600px;
+  background-color: var(--third-color);
+}
+
+.buy-container h1 {
+  color: #000;
+}
+.buy-container :is(h2, i, input) {
+  color: var(--black-light-color);
+}
+.buy-container p {
+  color: var(--black-light-color);
+}
+
+
+/* 이미지 박스 */
+.buy-container .image-box {
+  position: absolute;
+  top: -100px;
+  left: 50px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 5px solid var(--content-bg-color1);
+  background-color: var(--content-bg-color1);
+  overflow: hidden;
+  z-index: 30;
+}
+
+.buy-container .image-box img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*** 왼쪽 컨테이너 : 제목, 아티스트 ***/
+.buy-container .left-container {
+  position: absolute;
+  top: 200px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom-left-radius: 25px;
+  width: 400px;
+  height: calc(100% - 200px);
+}
+
+.buy-container .left-container > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--content-bg-color1);
+}
+
+.buy-container .left-container h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.buy-container .left-container h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.buy-container .left-container .genre-box h1{
+  max-height: 70px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.buy-container .left-container .audio-box {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.buy-container .left-container .audio-box audio {
+  background-color: var(--content-bg-color1);
+  border-radius: 10px;
+}
+.buy-container .left-container .audio-box audio::-webkit-media-controls-panel {
+  background-color: var(--content-bg-color1);
+}
+
+
+/*** 오른쪽 컨테이너 ***/
+/** info 컨테이너 **/
+.buy-container .right-container{
+  position: absolute;
+  left: 400px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--content-bg-color1);
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  width: calc(100% - 400px);
+  height: 100%;
+}
+
+
+/* 상세정보 컨테이너 */
+.buy-container .right-container .info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 50px 0;
+}
+
+.buy-container .right-container .info-container > :is(div, button) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 330px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--content-bg-color2);
+  margin-top: 20px;
+}
+
+
+.buy-container .right-container .info-container h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.buy-container .right-container .info-container h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.buy-container .right-container .info-container p {
+  font-size: 16px;
+  font-weight: 600;
+}
+.buy-container .right-container .info-container .title {
+  font-size: 36px;
+}
+
+.buy-container .right-container .info-container .description-box {
+  height: 173px;
+}
+.buy-container .right-container .info-container .description-box p {
+  flex: 1;
+  overflow: auto;
+  word-break: normal;
+  white-space: normal;
+}
+
+
+.buy-container .right-container .info-container button{
+  border: none;
+  font-size: 18px;
+  align-items: center;
+  background-color: var(--third-color);
+  color: var(--content-bg-color1);
+}
+.buy-container .right-container .info-container button:hover{
+  background-color: var(--primary-color);
+  width: 329px;
+  color: var(--black-light-color);
+  cursor: pointer;
+}
+
+/** not-available 컨테이너 **/
+.buy-container .right-container .not-available-container {
+  background-color: var(--error-color);
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.buy-container .right-container .not-available-container h1 {
+  color: var(--black-light-color);
+  font-size: 36px;
+  word-break: normal;
+}

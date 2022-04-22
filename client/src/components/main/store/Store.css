@@ -3,6 +3,8 @@
 .store {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .store .title {
@@ -11,57 +13,11 @@
   font-weight: 500;
 }
 
-.store .store-nav {
-  display: flex;
-  justify-content: center;
 
-  border-bottom: 2px solid var(--black-light-color);
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 10px;
-}
-
-.store .store-nav .nav-links {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 700px;
-}
-
-.store .store-nav .nav-links li {
+.store .content-container {
   position: relative;
-}
-
-.store .store-nav .nav-links li :is(i, .link-name) {
-  font-size: 18px;
-  color: var(--black-light-color);
-  transition: var(--tran-03);
-}
-
-.store-nav .nav-links a:hover :is(i, .link-name) {
-  font-size: 18px;
-  color: var(--primary-color);
-}
-
-.store-nav .nav-links li.active :is(i, .link-name) {
-  font-size: 18px;
-  color: var(--primary-color);
-}
-
-.store .itemcard-container {
+  display: flex;
+  justify-items: center;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  flex-wrap: wrap;
-  transition: var(--tran-05);
+  height: calc(100% - 45px);
 }
-
-.store .itemcard-container .item-box {
-  /* flex: 1;
-  display: flex;
-  justify-content: center; */
-}
-
-/* .store .itemcard-container .item-box .itemCard {
-  margin: 10px 10px;
-} */

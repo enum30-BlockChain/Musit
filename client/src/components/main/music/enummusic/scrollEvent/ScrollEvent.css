@@ -1,0 +1,39 @@
+.scrollEventContant {
+  margin-top: 20px;
+}
+
+.scrollEventContant .scrollBox {
+  height: 100%;
+  overflow: hidden;
+}
+
+.scrollEventContant .scrollBox ::-webkit-scrollbar {
+  width: 3px;
+}
+
+.scrollEventContant .scrollBox::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+}
+
+.scrollEventContant .scrollBox::-webkit-scrollbar-track {
+  background-color: var(--box1-color);
+  border-radius: 10px;
+}
+
+.scrollEventContant .scrollBox .ListItem {
+  height: 600px;
+  width: "80%";
+  border-bottom: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Loading {
+  height: 60px;
+}
+
+.music-card.playing {
+  background-color: var(--box1-color);
+}

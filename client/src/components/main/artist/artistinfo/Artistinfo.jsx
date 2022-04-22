@@ -1,10 +1,9 @@
-import "./Artistinfo.css";
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updateArtistData } from "../../../../redux/actions/artistActions";
 import { Avatar, Button } from "@mui/material";
+import "./Artistinfo.css";
 
 export default function Artistinfo() {
   const [select, setSelect] = useState("");
@@ -54,8 +53,12 @@ export default function Artistinfo() {
 
   return (
     <>
-      <div className="artistpage">
+      <div className="artist-info-container">
         <div className="artist-card">
+          <div className="title">
+            <i className="uil uil-create-dashboard"></i>
+            <span className="text">Artist Dashboard</span>
+          </div>
           <div className="artist-image">
             {artist.img === "" ? (
               <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />

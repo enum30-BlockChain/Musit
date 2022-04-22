@@ -89,6 +89,26 @@ export default class Metamask {
 		}
 	};
 
+	// 지갑 잔고 확인
+	static getBalance = async (address: string): Promise<ResponseType<string[]>> => {
+		const metamask = window.ethereum;
+		if (metamask) {
+			try {
+				const balance = await metamask.request({
+					method: "eth_getBalance",
+				});
+				const message: string = `💰Your Balance is ${balance})`;
+				return new Response(balance, message);
+			} catch (error: any) {
+				const message: string = "🤬 " + error.message;
+				return new Response([], message);
+			}
+		} else {
+			const message: string = "🤬You must install Metamask.";
+			return new Response([], message);
+		}
+	};
+
 	// 연결된 네트워크 아이디 불러오기
 	static getNetwork = async (): Promise<ResponseType<string>> => {
 		const metamask = window.ethereum;

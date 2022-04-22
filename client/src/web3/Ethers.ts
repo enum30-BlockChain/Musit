@@ -4,6 +4,7 @@ import {
 	Contract,
 	ContractTransaction,
 	ethers,
+	Event,
 	EventFilter,
 	Transaction,
 } from "ethers";
@@ -13,8 +14,6 @@ import AuctionJson from "./Auction.json";
 import { MusitNFT } from "./typechain/MusitNFT";
 import { Marketplace } from "./typechain/Marketplace";
 import { Auction } from "./typechain";
-
-const gwei50 = ethers.utils.parseUnits("50", "gwei").toString();
 
 interface Window {
 	ethereum: any;
@@ -70,11 +69,11 @@ export default class Ethers {
 		}
 	}
 
+	// NFT 생성
 	static async minting(tokenURI: string): Promise<Transaction | null> {
 		try {
 			const options = {
 				value: ethers.utils.parseEther("0.0001"),
-				gasPrice: gwei50,
 			};
 
 			return await (await musitNFT.minting(tokenURI, options)).wait();
@@ -84,45 +83,43 @@ export default class Ethers {
 		}
 	}
 
+	// 내 NFT 리스트 검색
 	static async myNFTList(address: string): Promise<object[] | null> {
 		try {
-			const filter: EventFilter = musitNFT.filters.Transfer(null, address);
-			const myNFTList: object[] = await Promise.all(
-				(
-					await musitNFT.queryFilter(filter)
-				).map(async (event: ethers.Event) => {
-					const item: any = event.args;
-					const tokenURI = await musitNFT.tokenURI(item.tokenId);
-					const metadata = await (
-						await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
-					).json();
-					const tokenId = item.tokenId.toNumber();
+			const nftBalance = await musitNFT.balanceOf(address);
+			let nftList: object[] = [];
+			for (let i = 0; i < nftBalance; i++) {
+				const tokenId = (await musitNFT.tokenOfOwnerByIndex(address, i)).toNumber();
+				const tokenURI = await musitNFT.tokenURI(tokenId);
+				const metadata = await (
+					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
+				).json();
 
-					return {
-						tokenId,
-						...metadata,
-					};
+				nftList.push({
+					tokenId,
+					...metadata,
 				})
-			);
-			return myNFTList;
+			}
+			return nftList;
+
 		} catch (error) {
 			console.log(error);
 			return null;
 		}
 	}
 
-		// Marketplace/Auction에 NFT 있는지 확인
-		static async isOnMarket(
-			tokenId: string | number
-		): Promise<ContractTransaction | null> {
-			try {
-				const result = await musitNFT.getIsOnMarket(tokenId);
-				return result;
-			} catch (error) {
-				console.log(error);
-				return null;
-			}
+	// Marketplace/Auction에 NFT 있는지 확인
+	static async isOnMarket(
+		tokenId: string | number
+	): Promise<ContractTransaction | null> {
+		try {
+			const result = await musitNFT.getIsOnMarket(tokenId);
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
 		}
+	}
 
 	// NFT 권한 넘기기
 	static async approveMyNFT(
@@ -136,10 +133,7 @@ export default class Ethers {
 			} else if (contract === "auction") {
 				contractAddress = auction.address;
 			}
-			const options = {
-				gasPrice: gwei50,
-			};
-			const result = await musitNFT.approve(contractAddress, tokenId, options);
+			const result = await musitNFT.approve(contractAddress, tokenId);
 			return result;
 		} catch (error) {
 			console.log(error);
@@ -153,14 +147,10 @@ export default class Ethers {
 		sellPrice: number | string
 	): Promise<ContractTransaction | null> {
 		try {
-			const options = {
-				gasPrice: gwei50,
-			};
 			const result = await marketplace.enroll(
 				musitNFT.address,
 				tokenId,
-				this.ethToWei(sellPrice),
-				options
+				this.ethToWei(sellPrice)
 			);
 			return result;
 		} catch (error) {
@@ -176,15 +166,11 @@ export default class Ethers {
 		endAt: number,
 	): Promise<ContractTransaction | null> {
 		try {
-			const options = {
-				gasPrice: gwei50,
-			};
 			const result = await auction.enroll(
 				this.ethToWei(sellPrice),
 				endAt,
 				musitNFT.address,
-				tokenId,
-				options
+				tokenId
 			);
 			return result;
 		} catch (error) {
@@ -193,6 +179,171 @@ export default class Ethers {
 		}
 	}
 
+	// Marketplace에 등록된 NFT 구매
+	static async purchaseNFT(
+		itemId: number,
+	): Promise<ContractTransaction | null> {
+		try {
+			let price = (await marketplace.getTotalPrice(itemId)).toString()
+			const options = {
+				value: price,
+			};
+			const result = await marketplace.purchase(itemId, options);
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	// 마켓에 올라온 NFT 리스트 검색
+	static async getMarketNFTList(): Promise<object[] | null> {
+		try {
+			const nftBalance = await musitNFT.balanceOf(marketplace.address);
+			let nftList: object[] = [];
+			for (let i = 0; i < nftBalance; i++) {
+				const tokenId = (await musitNFT.tokenOfOwnerByIndex(marketplace.address, i)).toNumber();
+				const marketItemId = await marketplace.nftToItemId(musitNFT.address, tokenId)
+				const marketItemInfo = await marketplace.items(marketItemId)
+
+				const tokenURI = await musitNFT.tokenURI(tokenId);
+				const metadata = await (
+					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
+				).json();
+				let price = await marketplace.getTotalPrice(marketItemId)
+				nftList.push({
+					itemId: marketItemId.toNumber(),
+					tokenId,
+					price: ethers.utils.formatEther(price),
+					seller: marketItemInfo.seller,
+					nft: await musitNFT.name(),
+					sold: marketItemInfo.sold,
+					...metadata,
+				})
+			}
+			return nftList;
+
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	// 선택한 마켓 아이템 검색
+	static async getMarketItem(tokenId: number): Promise<object[] | null> {
+		try {
+			const marketItemId = await marketplace.nftToItemId(musitNFT.address, tokenId)
+			const marketItemInfo = await marketplace.items(marketItemId)
+			let price = await marketplace.getTotalPrice(marketItemId)
+			const tokenURI = await musitNFT.tokenURI(tokenId);
+			const metadata = await (
+				await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
+			).json();
+
+			const result = {
+				itemId: marketItemId.toNumber(),
+				tokenId,
+				price: ethers.utils.formatEther(price),
+				seller: marketItemInfo.seller,
+				nft: await musitNFT.name(),
+				sold: ethers.utils.formatEther(price) === "0.0",
+				...metadata,
+			}	
+			
+			return result;
+
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	// 경매에 올라온 NFT 리스트 검색
+	static async getAuctionNFTList(): Promise<object[] | null> {
+		try {
+			const nftBalance = await musitNFT.balanceOf(auction.address);
+			let nftList: object[] = [];
+			for (let i = 0; i < nftBalance; i++) {
+				const tokenId = (await musitNFT.tokenOfOwnerByIndex(auction.address, i)).toNumber();
+				const auctionItemId = await auction.nftToItemId(musitNFT.address, tokenId)
+				const auctionItemInfo = await auction.items(auctionItemId)
+				
+				const tokenURI = await musitNFT.tokenURI(tokenId);
+				const metadata = await (
+					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
+				).json();
+
+				nftList.push({
+					itemId: auctionItemId.toNumber(),
+					nft: await musitNFT.name(),
+					startPrice: ethers.utils.formatEther(auctionItemInfo.startPrice),
+					startAt: auctionItemInfo.startAt.toNumber(),
+					endAt: auctionItemInfo.endAt.toNumber(),
+					tokenId,
+					seller: auctionItemInfo.seller,
+					topBidder: auctionItemInfo.topBidder,
+					topBid: ethers.utils.formatEther(auctionItemInfo.topBid),
+					status: auctionItemInfo.status,
+					...metadata,
+				});
+			}
+			return nftList;
+
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	// 선택한 경매 아이템 검색
+	static async getAuctionItem(tokenId: number): Promise<object[] | null> {
+		try {
+			const auctionItemId = await auction.nftToItemId(musitNFT.address, tokenId)
+			const auctionItemInfo = await auction.items(auctionItemId)
+
+			const tokenURI = await musitNFT.tokenURI(tokenId);
+			const metadata = await (
+				await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
+			).json();
+			const result = {
+				itemId: auctionItemId.toNumber(),
+				tokenId,
+				price: ethers.utils.formatEther(auctionItemInfo.price),
+				seller: auctionItemInfo.seller,
+				nft: await musitNFT.name(),
+				sold: auctionItemInfo.sold,
+				...metadata,
+			}	
+			return result;
+
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	
+	
+
+	//TODO: 수입 계산 함수
+	// static async getIncome(address: string): Promise<boolean | null> {
+	// 	try {
+	// 		const boughtFilter: EventFilter = marketplace.filters.Bought(null, null, null, address, null, null)
+	// 		const sellPrice: BigNumberish = await Promise.all(
+	// 			(
+	// 				await marketplace.queryFilter(boughtFilter)
+	// 			).map(async (event: Event) => {
+	// 				const boughtInfo: any = event.args;
+	// 				const sellPrice = boughtInfo.sellPrice;
+	// 				return sellPrice;
+	// 			}).reduce((a: BigNumberish,b: BigNumberish) => a.add(b), "0")
+	// 		);
+			
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 		return null;
+	// 	}
+	// }
 
 
 	// 현재 Signer의 private key를 verify하는 함수

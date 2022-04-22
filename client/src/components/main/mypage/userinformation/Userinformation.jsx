@@ -94,15 +94,19 @@ export default function Userinformation({}) {
   return (
     <div className="userinfo-layout">
       <div className="userinfo-card">
+        <div className="title">
+          <i className="uil uil-create-dashboard"></i>
+          <span className="text"> Dashboard</span>
+        </div>
         <div className="userinfo-image">
           {user.img === "" ? (
-            <Avatar alt="Remy Sharp" sx={{ width: 300, height: 300 }} />
+            <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
           ) : (
             <Avatar
               className="userinfo-image"
               alt="Remy Sharp"
               src={user.img}
-              sx={{ width: 300, height: 300 }}
+              sx={{ width: 260, height: 0 }}
             />
           )}
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}

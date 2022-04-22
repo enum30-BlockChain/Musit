@@ -22,19 +22,27 @@ export const Mypage = () => {
     });
   };
 
+  console.log(artist.artist_name);
+
   return (
     <div className="mypage">
       <nav className="top-nav">
         <ul className="nav-links">
           <li>
-            <Link to="/mypage/favoritemusic">
-              <i className="uil uil-favorite"></i>
+            <Link to="/mypage">
+              <i className="uil uil-user"></i>
+              <span className="link-name"> My Dashboard</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/mypage/favoritmusic">
+              <i className="uil uil-thumbs-up"></i>
               <span className="link-name"> Favorite Music</span>
             </Link>
           </li>
           <li>
             <Link to="/mypage/favoritartist">
-              <i className="uil uil-favorite"></i>
+              <i className="uil uil-heart"></i>
               <span className="link-name"> Favorite Artist</span>
             </Link>
           </li>
@@ -46,10 +54,21 @@ export const Mypage = () => {
           </li>
           <li>
             <Link to="/mypage/mynftlist">
-              <i className="uil uil-bitcoin-sign"></i>
+              <i className="uil uil-capture"></i>
               <span className="link-name"> My nft list</span>
             </Link>
           </li>
+
+          {artist.artist_name !== null ? (
+            <></>
+          ) : (
+            <li>
+              <Link to="artistsubmit">
+                <i className="uil uil-user-plus"></i>
+                <span className="link-name"> Artist Register</span>
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
       <section className="details">

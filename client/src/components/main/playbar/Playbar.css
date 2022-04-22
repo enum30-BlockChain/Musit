@@ -45,11 +45,14 @@
 .music-container .img-container {
   position: absolute;
   width: 110px;
+  height: 110px;
   bottom: 25px;
 }
 
 .music-container .img-container img {
-  height: 110px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 50%;
   width: inherit;
   position: absolute;

@@ -161,7 +161,7 @@ export default function MusicPlayerSlider(props) {
                 color="text.secondary"
                 fontWeight={500}
               >
-                Genre: {props.musicmodal.Genre}
+                Genre: {props.musicmodal.genre}
               </Typography>
               <Typography noWrap>
                 <b> {props.musicmodal.title}</b>
@@ -272,6 +272,12 @@ export default function MusicPlayerSlider(props) {
               setPaused(!paused);
               if (paused === true) {
                 audioPlayer.current.play();
+                const musicContainer = document.querySelector(".music-container");
+                const playBtn = document.querySelector("#play");
+                musicContainer.classList.remove("play");
+                playBtn.querySelector("i.fas").classList.add("fa-play");
+                playBtn.querySelector("i.fas").classList.remove("fa-pause");
+                audio.pause();
               } else if (paused === false) {
                 audioPlayer.current.pause();
               }
@@ -300,7 +306,7 @@ export default function MusicPlayerSlider(props) {
           alignItems="center"
         >
           <VolumeDownRounded htmlColor={lightIconColor} />
-          
+
           <Slider
             aria-label="Volume"
             defaultValue={100}

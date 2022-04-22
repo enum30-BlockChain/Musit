@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
+import "./NFTCard.css";
 
 const NFTCard = ({data}) => {
 	const navigate = useNavigate()
 	const cardOnClick = () => {
-		navigate(`/enroll/${data.tokenId}`);
+		navigate(`/store/enroll/${data.tokenId}`);
 	}
 	
   return (

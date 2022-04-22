@@ -28,27 +28,26 @@ export const Artist = () => {
         <nav className="top-nav">
           <ul className="nav-links" onClick={navlinkOnClick}>
             <li>
-              <Link to="/artist/artistdashbord">
-                <i className="uil uil-favorite"></i>
-                <span className="link-name">Artist Dashboard</span>
+              <Link to="/artist">
+                <i className="uil uil-create-dashboard"></i>
+                <span className="link-name"> Artist Dashboard</span>
               </Link>
             </li>
-
+            <li>
+              <Link to="/artist/createmusic">
+                <i className="uil uil-upload-alt"></i>
+                <span className="link-name"> Create Music</span>
+              </Link>
+            </li>
             <li>
               <Link to="/artist/myupload">
-                <i className="uil uil-favorite"></i>
-                <span className="link-name">My Album</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/artist/auctionupload">
-                <i className="uil uil-favorite"></i>
-                <span className="link-name">Auction Upload</span>
+                <i className="uil uil-compact-disc"></i>
+                <span className="link-name"> My Album</span>
               </Link>
             </li>
           </ul>
         </nav>
-        <div className="details">
+        <div className="artist-details">
           <Outlet />
         </div>
       </div>

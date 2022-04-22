@@ -23,16 +23,6 @@ export default function Createmain() {
   return (
     <>
       <div className="createmain-page">
-        <nav className="top-nav">
-          <ul className="nav-links">
-            <li>
-              <Link to="/create/">
-                <i className="uil uil-headphones-alt"></i>
-                <span className="link-name">Music file upload</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
         <div className="nav-details">
           <Outlet />
         </div>

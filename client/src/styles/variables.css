@@ -2,6 +2,7 @@
   /* ===== Colors ===== */
   --primary-color: rgb(241, 185, 112);
   --secondary-color: rgb(85, 81, 164);
+  --secondary-icon: rgb(115, 113, 161);
   --third-color: #616186;
   --panel-color: linear-gradient(
     60deg,
@@ -22,6 +23,7 @@
   --content-bg-color1: #eaeaea;
   --content-bg-color2: #d8d8d8;
   --content-bg-color3: #c1c1c1;
+  --select-color: rgb(241, 185, 112);
 
   /* ====== Transition ====== */
   --tran-02: all 0.2s ease;
@@ -51,4 +53,5 @@ body.dark {
   --content-bg-color1: #eaeaea;
   --content-bg-color2: #d8d8d8;
   --content-bg-color3: #c1c1c1;
+  --select-color: rgb(241, 185, 112);
 }

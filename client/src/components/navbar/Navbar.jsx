@@ -38,12 +38,12 @@ export const Navbar = () => {
         link.classList.add("active");
       });
     });
-  }, [artist.isArtist]);
+  }, [artist.loading]);
 
   return (
     <>
       <nav className="side-nav">
-        <Link to={"/landingpage"}>
+        <Link to={"/"}>
           <div className="logo-name-container">
             <div className="logo-image">
               <h1 className="E">E</h1>
@@ -78,19 +78,8 @@ export const Navbar = () => {
                 </Link>
               </li>
             ) : (
-              <li>
-                <Link to="/artistsubmit">
-                  <i className="uil uil-music"></i>
-                  <span className="link-name"> Artist Register</span>
-                </Link>
-              </li>
+              <></>
             )}
-            <li>
-              <Link to="/create">
-                <i className="uil uil-upload-alt"></i>
-                <span className="link-name">Create</span>
-              </Link>
-            </li>
             <li>
               <Link to="/music">
                 <i className="uil uil-music"></i>

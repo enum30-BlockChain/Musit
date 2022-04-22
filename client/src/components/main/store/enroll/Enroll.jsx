@@ -3,17 +3,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { readMusicData } from "../../../../redux/actions/musicActions";
-import { readMyNFTList, removeSelectedMusitNFT, selectedMusitNFT } from "../../../../redux/actions/musitNFTActions";
+import { readMyNFTList, removeSelectedMusitNFT, selectedMusitNFT } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
 
 import "./Enroll.css";
+import Error from "../../../Error";
 
 const Enroll = () => {
 	let { tokenId } = useParams();
 	const dispatch = useDispatch();
 	const userData = useSelector((state) => state.user);
 	const musicData = useSelector((state) => state.music);
-	const musitNFT = useSelector((state) => state.musitNFT);
+	const musitNFT = useSelector((state) => state.ownedMusitNFT);
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 	
 	useEffect(async () => {
@@ -23,23 +24,21 @@ const Enroll = () => {
 	}, [userData.loading]);
 
 	useEffect(async () => {
-		if(musitNFT.myNFTList.length > 0) {
-			const thisNFT = await musitNFT.myNFTList.filter(
+		if(musitNFT.data && musitNFT.data.length > 0) {
+			const thisNFT = await musitNFT.data.filter(
 				(nft) => parseInt(nft.tokenId) === parseInt(tokenId)
 			)[0];
 			await dispatch(selectedMusitNFT(thisNFT))
 			await dispatch(readMusicData(thisNFT.ipfs_hash));
 		}
-		return async () => {
-			await dispatch(removeSelectedMusitNFT())
-		}
+		// return async () => {
+		// 	await dispatch(removeSelectedMusitNFT())
+		// }
 	}, [musitNFT.loading]);
 
-	return musicData.loading ||
-		musitNFT.loading ||
-		musicData.ipfs_hash === null ? (
+	return (musicData && musicData.loading) || (musitNFT && musitNFT.loading) ? (
 		<LoadingContent />
-	) : musitNFT.error ? (
+	) : !musitNFT || musitNFT.error ? (
 		<ErrorContent />
 	) : (
 		<>
@@ -113,13 +112,13 @@ const SuccessContent = ({nftData}) => {
 						<h2>
 							<i className="uil uil-thumbs-up"></i>Total Likes
 						</h2>
-						<h1>{musicData.MusicLikes.length}</h1>
+						<h1>{musicData.MusicLikes && musicData.MusicLikes.length}</h1>
 					</div>
 					<div className="genre-box">
 						<h2>
 							<i className="uil uil-music"></i> Genre
 						</h2>
-						<h1>{nftData.genre.join(", ")}</h1>
+						<h1>{nftData.genre && nftData.genre.join(", ")}</h1>
 					</div>
 					<div className="description-box">
 						<h2>Description</h2>
@@ -184,7 +183,6 @@ const OrdinaryForm = () => {
 	const submitOnClick = async (e) => {
 		e.preventDefault();
 		let isFormValid = document.querySelector('.input-box').checkValidity();
-		console.log(isFormValid);
     if(!isFormValid) {
 			document.querySelector('.input-box').reportValidity();
 		} else {
@@ -270,13 +268,13 @@ const AuctionForm = () => {
 	const submitOnClick = async (e) => {
 		e.preventDefault();
 		let isFormValid = document.querySelector('.input-box').checkValidity();
-		console.log(isFormValid);
     if(!isFormValid) {
 			document.querySelector('.input-box').reportValidity();
 		} else {
 			const endAt = document.querySelector("#datetime-local").value;
-			console.log(new Date(endAt).getTime())
-			// await Ethers.enrollAuction(tokenId, sellPrice, endAt)
+			const sellPrice = document.querySelector("#sell-price").value;
+			
+			await Ethers.enrollAuction(tokenId, sellPrice, new Date(endAt).getTime())
 		}
 	}
 
@@ -307,7 +305,7 @@ const AuctionForm = () => {
 						<h2>Sell-Price</h2> <h5>*</h5>
 					</div>
 					<p>Please ETH price to sell. (Unit : 0.0001 ETH)</p>
-					<input type="number" defaultValue={0.0001} min={0.0001} step={0.0001} required />
+					<input id="sell-price" type="number" defaultValue={0.0001} min={0.0001} step={0.0001} required />
 				</div>
 				<div className="end-date-box">
 					<div className="title-box">
@@ -320,7 +318,6 @@ const AuctionForm = () => {
 						min={getMinDateTime()}
 						max={getMaxDateTime()}
 						defaultValue={getMinDateTime()}
-						onChange={(e) => console.log((new Date(e.target.value)).getTime())}
 					/>
 				</div>
 				<button onClick={submitOnClick}>submit</button>
@@ -376,7 +373,7 @@ const LoadingContent = () => {
 						<Skeleton width={"100%"} height={"100%"} variant="text" />
 					</div>
 					<div className="description-box">
-						<h2>Description</h2>
+						<h2><i className="uil uil-subject"></i> Description</h2>
 						<Skeleton width={"100%"} height={"100%"} variant="text" />
 					</div>
 				</section>
@@ -401,7 +398,7 @@ const LoadingContent = () => {
 
 /* Error 화면 */
 const ErrorContent = () => {
-	return <section className="auction-layout">ERROR</section>;
+	return <Error error ={{name: "Enroll Page Error", message: "Enroll page loading fail"}} />;
 };
 
 export default Enroll;
