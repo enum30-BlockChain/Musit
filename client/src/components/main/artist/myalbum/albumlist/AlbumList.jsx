@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AlbumCard from "./AlbumCard";
 import AlbumModel from "./AlbumModel";
 import zIndex from "@mui/material/styles/zIndex";
@@ -21,27 +21,25 @@ export default function AlbumList() {
   const location = useLocation();
   const content = location.state !== null || undefined ? location.state : "";
   const artist = useSelector((state) => state.artist);
- 
 
- useEffect(() => {
-   let Box=[...artist.Music]
-   if(content===""){
-     setupLoadMusic(Box)
-    }else{
-      let searchCount = Box.filter(
-        (a) => a.title.indexOf(content) > -1
+  useEffect(() => {
+    let Box = [...artist.Music];
+    if (content === "") {
+      setupLoadMusic(Box);
+    } else {
+      let searchCount = Box.filter((a) => a.title.indexOf(content) > -1);
+
+      searchCount.map((a) => {
+        Box.splice(
+          Box.findIndex((music) => music.ipfs_hash === a.ipfs_hash),
+          1
         );
+      });
+      Box.unshift(...searchCount);
+    }
+    setupLoadMusic(Box);
+  }, [artist]);
 
-        searchCount.map((a)=>{
-          Box.splice(
-            Box.findIndex((music) => music.ipfs_hash === a.ipfs_hash),1
-            )
-          });
-          Box.unshift(...searchCount)
-        }
-    setupLoadMusic(Box)
-  }, [artist])
-  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -69,11 +67,10 @@ export default function AlbumList() {
     return { number, title, artist, albumimg };
   }
 
-
   const rows = [];
 
   upLoadMusic &&
-  upLoadMusic.forEach((song, index) => {
+    upLoadMusic.forEach((song, index) => {
       rows.push(
         createRow(
           index,
@@ -83,7 +80,6 @@ export default function AlbumList() {
         )
       );
     });
-
 
   return (
     <Paper
