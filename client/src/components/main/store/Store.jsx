@@ -4,20 +4,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { readOnAuctionNFTList, readOnMarketNFTList } from "../../../redux/actions/contractActions";
 import SellCard from "./nftcard/SellCard"
 import AuctionCard from "./nftcard/AuctionCard";
+import Error from "../../Error";
 
 export const Store = () => {
-  const user = useSelector((state) => state.user);
-  const market = useSelector((state) => state.market);
-  const auction = useSelector((state) => state.auction);
   const dispatch = useDispatch();
+	const market = useSelector((state) => state.market);
+  const auction = useSelector((state) => state.auction);
 
   useEffect(async () => {
-    btnListener()
     await dispatch(readOnMarketNFTList())
     await dispatch(readOnAuctionNFTList())
   }, []);
 
-  const btnListener = () => {
+	return market && market.loading ||  auction && auction.loading ? (
+		<LoadingContent />
+	) : !market || market.error || !auction || auction.error ? (
+		<ErrorContent />
+	) : (
+		<>
+			<SuccessContent />
+		</>
+	);
+};
+
+const SuccessContent = () => {
+
+	useEffect(async () => {
+    btnListener()
+  }, []);
+
+	const btnListener = () => {
     document
 			.querySelector(".nav-links .ordinary-market")
 			.addEventListener("click", () => {
@@ -57,42 +73,50 @@ export const Store = () => {
 				</ul>
 			</nav>
 			<section className="content-container ordinary">
-				{market.loading || auction.loading ? (
-					<>loading</>
-				) : (
-					<>
-						<Ordinary />
-						<Auction />
-					</>
-				)}
+				<Ordinary />
+				<Auction />
 			</section>
 		</section>
 	);
-};
+}
 
 const Ordinary = () => {
-  const market = useSelector((state) => state.market);
+  const market = useSelector((state) => state.market.data);
   return (
     <section className="ordinary-box">
-      {market.data.map((nft, index) => <>
-        <SellCard data={nft} key={index} />
-      </>)}
+      {market.length > 0 && market.map((nft, index) =>
+        <SellCard data={nft} key={`sell-${nft.itemId}-${index}`} />
+      )}
+			{market.length == 0 && <>
+				Nothing to buy
+			</>}
     </section>
   )
 }
 
 const Auction = () => {
-  const auction = useSelector((state) => state.auction);
-  useEffect(() => {
-    console.log(auction.data)
-  }, [auction.loading])
+  const auction = useSelector((state) => state.auction.data);
 
   return (
     <section className="auction-box">
-      {auction.data.map((nft, index) => <>
-        <AuctionCard data={nft} key={index} />
-      </>)}
+      {auction.length > 0 && auction.map((nft, index) =>
+        <AuctionCard data={nft} key={`auction-${nft.itemId}-${index}`} />
+      )}
+			{auction.length == 0 && <>
+				Nothing to bid
+			</>}
     </section>
   )
 }
 
+
+/* Loading 화면 */
+const LoadingContent = () => {
+	return <>Loading..</>;
+};
+
+
+/* Error 화면 */
+const ErrorContent = () => {
+	return <Error error ={{name: "Error Page Error", message: "Error page loading fail"}} />;;
+};

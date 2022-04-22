@@ -7,6 +7,7 @@ import { readMyNFTList, removeSelectedMusitNFT, selectedMusitNFT } from "../../.
 import Ethers from "../../../../web3/Ethers";
 
 import "./Enroll.css";
+import Error from "../../../Error";
 
 const Enroll = () => {
 	let { tokenId } = useParams();
@@ -35,10 +36,9 @@ const Enroll = () => {
 		// }
 	}, [musitNFT.loading]);
 
-	return musicData.loading ||
-		musitNFT.loading ? (
+	return (musicData && musicData.loading) || (musitNFT && musitNFT.loading) ? (
 		<LoadingContent />
-	) : musitNFT.error ? (
+	) : !musitNFT || musitNFT.error ? (
 		<ErrorContent />
 	) : (
 		<>
@@ -183,7 +183,6 @@ const OrdinaryForm = () => {
 	const submitOnClick = async (e) => {
 		e.preventDefault();
 		let isFormValid = document.querySelector('.input-box').checkValidity();
-		console.log(isFormValid);
     if(!isFormValid) {
 			document.querySelector('.input-box').reportValidity();
 		} else {
@@ -269,13 +268,12 @@ const AuctionForm = () => {
 	const submitOnClick = async (e) => {
 		e.preventDefault();
 		let isFormValid = document.querySelector('.input-box').checkValidity();
-		console.log(isFormValid);
     if(!isFormValid) {
 			document.querySelector('.input-box').reportValidity();
 		} else {
 			const endAt = document.querySelector("#datetime-local").value;
 			const sellPrice = document.querySelector("#sell-price").value;
-			console.log(new Date(endAt).getTime())
+			
 			await Ethers.enrollAuction(tokenId, sellPrice, new Date(endAt).getTime())
 		}
 	}
@@ -320,7 +318,6 @@ const AuctionForm = () => {
 						min={getMinDateTime()}
 						max={getMaxDateTime()}
 						defaultValue={getMinDateTime()}
-						onChange={(e) => console.log((new Date(e.target.value)).getTime())}
 					/>
 				</div>
 				<button onClick={submitOnClick}>submit</button>
@@ -376,7 +373,7 @@ const LoadingContent = () => {
 						<Skeleton width={"100%"} height={"100%"} variant="text" />
 					</div>
 					<div className="description-box">
-						<h2>Description</h2>
+						<h2><i className="uil uil-subject"></i> Description</h2>
 						<Skeleton width={"100%"} height={"100%"} variant="text" />
 					</div>
 				</section>
@@ -401,7 +398,7 @@ const LoadingContent = () => {
 
 /* Error 화면 */
 const ErrorContent = () => {
-	return <section className="auction-layout">ERROR</section>;
+	return <Error error ={{name: "Enroll Page Error", message: "Enroll page loading fail"}} />;
 };
 
 export default Enroll;
