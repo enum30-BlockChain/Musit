@@ -153,7 +153,7 @@ export default function Genre() {
                 />
                 <Grid
                   sx={{
-                    width: "1300px",
+                    width: "1350px",
                     m: "auto",
                     padding: 0,
                     overflow: "hidden",
@@ -170,7 +170,7 @@ export default function Genre() {
                       >
                         <Box
                           key={index}
-                          sx={{ cursor: "pointer", width: 210, my: 5, m: 2 }}
+                          sx={{ cursor: "pointer", width: 210, my: 5, m: 1 }}
                           onClick={() => {
                             postInfo(music);
                           }}
@@ -230,7 +230,7 @@ export default function Genre() {
                 />
                 <Grid
                   sx={{
-                    width: "1300px",
+                    width: "1350px",
                     m: "auto",
                     padding: 0,
                     overflow: "hidden",

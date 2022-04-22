@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  width: 1300px;
+  width: 1350px;
   height: 600px;
   background-color: var(--third-color);
 }
@@ -21,7 +21,6 @@
 .enroll-container p {
   color: var(--black-light-color);
 }
-
 
 /* 이미지 박스 */
 .enroll-container .image-box {
@@ -41,7 +40,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   min-width: 100%;
   height: 100%;
   object-fit: cover;
@@ -81,7 +80,7 @@
   font-weight: 600;
 }
 
-.enroll-container .left-container .genre-box h1{
+.enroll-container .left-container .genre-box h1 {
   max-height: 70px;
   overflow: hidden;
   white-space: nowrap;
@@ -98,13 +97,15 @@
   background-color: var(--content-bg-color1);
   border-radius: 10px;
 }
-.enroll-container .left-container .audio-box audio::-webkit-media-controls-panel {
+.enroll-container
+  .left-container
+  .audio-box
+  audio::-webkit-media-controls-panel {
   background-color: var(--content-bg-color1);
 }
 
-
 /*** 오른쪽 컨테이너 ***/
-.enroll-container .right-container{
+.enroll-container .right-container {
   position: absolute;
   left: 400px;
   display: flex;
@@ -116,7 +117,6 @@
   height: 100%;
   padding: 24px 0;
 }
-
 
 /* 상세정보 컨테이너 */
 .enroll-container .right-container .info-container {
@@ -138,7 +138,6 @@
   background-color: var(--content-bg-color2);
   margin-top: 20px;
 }
-
 
 .enroll-container .right-container .info-container h1 {
   font-size: 18px;
@@ -173,7 +172,7 @@
   padding-right: 50px;
 }
 
-.enroll-container .right-container .input-container input{
+.enroll-container .right-container .input-container input {
   border: none;
   font-size: 20px;
   border-radius: 10px;
@@ -200,23 +199,39 @@
 .enroll-container .right-container .input-container.sell .btn-group .sell-btn {
   background-color: var(--content-bg-color2);
 }
-.enroll-container .right-container .input-container.sell .btn-group .auction-btn {
+.enroll-container
+  .right-container
+  .input-container.sell
+  .btn-group
+  .auction-btn {
   background-color: var(--content-bg-color3);
 }
-.enroll-container .right-container .input-container.auction .btn-group .sell-btn {
+.enroll-container
+  .right-container
+  .input-container.auction
+  .btn-group
+  .sell-btn {
   background-color: var(--content-bg-color3);
 }
-.enroll-container .right-container .input-container.auction .btn-group .auction-btn {
+.enroll-container
+  .right-container
+  .input-container.auction
+  .btn-group
+  .auction-btn {
   background-color: var(--content-bg-color2);
 }
 
-.enroll-container .right-container .input-container:is(.sell, .auction) .btn-group button:hover {
+.enroll-container
+  .right-container
+  .input-container:is(.sell, .auction)
+  .btn-group
+  button:hover {
   background-color: var(--third-color);
   color: #fff;
   cursor: pointer;
 }
 
-.enroll-container .right-container .input-container .input-form{
+.enroll-container .right-container .input-container .input-form {
   background-color: var(--content-bg-color2);
   height: 100%;
   border-radius: 10px;
@@ -224,7 +239,12 @@
   padding: 15px;
 }
 
-.enroll-container .right-container .input-container .input-form :is(.ordinary-form, .auction-form) > :is(div, form)  {
+.enroll-container
+  .right-container
+  .input-container
+  .input-form
+  :is(.ordinary-form, .auction-form)
+  > :is(div, form) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -240,12 +260,12 @@
   color: var(--black-light-color);
   margin-top: 5px;
   height: 40px;
-} 
+}
 
 .enroll-container .right-container .input-container .input-form button:hover {
   cursor: pointer;
   background-color: var(--third-color);
-  color: #FFF;
+  color: #fff;
 }
 
 .enroll-container .right-container .input-container .input-form h1 {
@@ -270,17 +290,29 @@
   font-weight: 300;
 }
 
-.enroll-container .right-container .input-container .input-form .not-available-box {
+.enroll-container
+  .right-container
+  .input-container
+  .input-form
+  .not-available-box {
   background-color: var(--error-color);
   border-radius: 10px;
   padding: 10px;
   height: 100%;
 }
 
-.enroll-container .right-container .input-container.auction .input-form .ordinary-form {
+.enroll-container
+  .right-container
+  .input-container.auction
+  .input-form
+  .ordinary-form {
   display: none;
 }
-.enroll-container .right-container .input-container.sell .input-form .ordinary-form {
+.enroll-container
+  .right-container
+  .input-container.sell
+  .input-form
+  .ordinary-form {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -288,14 +320,27 @@
   height: 100%;
 }
 
-.enroll-container .right-container .input-container .input-form .ordinary-form .notice-box {
+.enroll-container
+  .right-container
+  .input-container
+  .input-form
+  .ordinary-form
+  .notice-box {
   background-color: var(--warning-color);
 }
 
-.enroll-container .right-container .input-container.sell .input-form .auction-form {
+.enroll-container
+  .right-container
+  .input-container.sell
+  .input-form
+  .auction-form {
   display: none;
 }
-.enroll-container .right-container .input-container.auction .input-form .auction-form {
+.enroll-container
+  .right-container
+  .input-container.auction
+  .input-form
+  .auction-form {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -303,14 +348,30 @@
   height: 100%;
 }
 
-.enroll-container .right-container .input-container .input-form .auction-form .notice-box {
+.enroll-container
+  .right-container
+  .input-container
+  .input-form
+  .auction-form
+  .notice-box {
   background-color: var(--warning-color);
 }
 
-.enroll-container .right-container .input-container.auction .input-form .auction-form .input-box {
+.enroll-container
+  .right-container
+  .input-container.auction
+  .input-form
+  .auction-form
+  .input-box {
   height: 230px;
 }
 
-.enroll-container .right-container .input-container.auction .input-form .auction-form .input-box input {
+.enroll-container
+  .right-container
+  .input-container.auction
+  .input-form
+  .auction-form
+  .input-box
+  input {
   width: 100%;
 }
