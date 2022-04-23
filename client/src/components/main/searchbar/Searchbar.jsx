@@ -6,9 +6,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { connectMetamask } from "../../../redux/actions/metamaskActions";
 import { searchingReducer } from "../../../redux/actions/searchingAction";
 import { Drawer } from "@mui/material";
+
+import { Avatar } from "@mui/material";
 import UserDrawer from "./userdrawer/UserDrawer";
 
 export const Searchbar = () => {
+  const user = useSelector((state) => state.user);
   const [searching, setseraching] = useState("");
   const metamask = useSelector((state) => state.metamask);
   const navigate = useNavigate(); //페이지이동하면서 정보담아서 옮길수있따
@@ -61,8 +64,12 @@ export const Searchbar = () => {
                 setOpen(true);
               }}
             >
-              <div className="profile"></div>
-              <div className="address">
+              <Avatar
+                className="searchbar-userinfo-image"
+                alt="Remy Sharp"
+                src={user.img}
+              />
+              <div className="searchbar-address">
                 <p>{sliceAddress}</p>
               </div>
             </div>

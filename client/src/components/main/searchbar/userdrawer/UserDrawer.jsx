@@ -8,25 +8,6 @@ import { updateUserData } from "../../../../redux/actions/userActions";
 import CountryType from "../../register/usersubmit/CountryType";
 
 const UserDrawer = () => {
-  function openPage(pageName, color) {
-    let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].style.backgroundColor = "";
-    }
-    document.getElementById(pageName).style.display = "block";
-    // elmnt.style.backgroundColor = color;
-  }
-
-  useEffect(() => {
-    openPage("News");
-    console.log(1111);
-  }, []);
-
   // user info 기능
   const [select, setSelect] = useState("");
   const [visible, setVisible] = useState(false);
@@ -38,6 +19,8 @@ const UserDrawer = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const metamask = useSelector((state) => state.metamask);
+
+  //----------------artist info 기능---------------------
 
   const idonchange = (e) => {
     setSelect(e.target.value);
@@ -111,23 +94,45 @@ const UserDrawer = () => {
       metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
       "...";
 
-  // Get the element with id="defaultOpen" and click on it
-  const click = document.getElementById("defaultOpen");
-  console.log(click);
+  // -------------------------아티스트 인포------------------------
+
+  //--------------------------penal tab js--------------------------
+  function openPage(pageName, color) {
+    let i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    // elmnt.style.backgroundColor = color;
+  }
+
+  useEffect(() => {
+    openPage("News");
+    console.log(1111);
+  }, []);
+
+  // // Get the element with id="defaultOpen" and click on it
+  // const click = document.getElementById("defaultOpen");
+  // console.log(click);
 
   return (
     <>
       <div className="info-btn">
         <button
-          className="tablink"
+          id="defaultOpen"
+          className="tablink-1"
           onClick={() => openPage("Home", this, "red")}
         >
           User Infomation
         </button>
         <button
-          className="tablink"
+          className="tablink-2"
           onClick={() => openPage("News", this, "green")}
-          id="defaultOpen"
         >
           Artist Infomation
         </button>
@@ -136,10 +141,10 @@ const UserDrawer = () => {
       <div id="Home" className="tabcontent">
         <div className="userinfo-layout">
           <div className="userinfo-card">
-            <div className="title">
+            {/* <div className="title">
               <i className="uil uil-create-dashboard"></i>
               <span className="text"> Dashboard</span>
-            </div>
+            </div> */}
             <div className="userinfo-image">
               {user.img === "" ? (
                 <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
@@ -148,7 +153,7 @@ const UserDrawer = () => {
                   className="userinfo-image"
                   alt="Remy Sharp"
                   src={user.img}
-                  sx={{ width: 260, height: 0 }}
+                  sx={{ width: 260, height: 260 }}
                 />
               )}
               {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}

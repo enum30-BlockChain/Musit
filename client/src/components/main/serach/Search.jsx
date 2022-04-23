@@ -1,3 +1,4 @@
+import "./Search.css";
 import React, { useState, useEffect } from "react";
 import { TextField, Typography, Box, Stack } from "@mui/material";
 import MusicPlayerSlider from "./MusicPlayerSlider";
@@ -9,7 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import Divider from "@mui/material/Divider";
 
 import { readMusicList } from "../../../redux/actions/musicActions";
 import { readArtistList } from "../../../redux/actions/artistActions";
@@ -138,137 +138,143 @@ function Search(props) {
 
   return (
     <Box sx={{ height: "100%" }}>
-      <Box sx={{ height: "40%" }}>
-        <Typography variant="h4" gutterBottom>
-          Music
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            height: "80%",
-            px: 2,
-          }}
-        >
-          <ArrowBackIosIcon
-            sx={{ fontSize: 65, cursor: "pointer" }}
-            onClick={moveAhead}
-          />
-          <Grid
+      <div className="music-searchresult">
+        <Box sx={{ height: "40%" }}>
+          <div className="title">
+            <i className="uil uil-search"></i>
+
+            <span className="text"> Music Search Result</span>
+          </div>
+
+          <Box
             sx={{
-              width: "1480px",
-              m: "auto",
-              padding: 0,
-              overflow: "hidden",
+              display: "flex",
+              alignItems: "center",
+              height: "80%",
+              px: 2,
             }}
           >
+            <ArrowBackIosIcon
+              sx={{ fontSize: 50, cursor: "pointer" }}
+              onClick={moveAhead}
+            />
             <Grid
-              container
-              sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
+              sx={{
+                width: "1480px",
+                m: "auto",
+                padding: 0,
+                overflow: "hidden",
+              }}
             >
-              {musicList.loading
-                ? [1, 2, 3, 4].map((music, i) => {
-                    return (
-                      <SongCardSkeleton
-                        key={i}
-                        music={music}
-                        setmusicmodal={setmusicmodal}
-                        address={props.address}
-                      />
-                    );
-                  })
-                : findMusic &&
-                  findMusic.map((music, i) => {
-                    return (
-                      <Grid xs={{ width: "25%" }} key={i}>
-                        <div
-                          className="glide"
-                          style={{ transform: `translateX(${value}%)` }}
-                        >
-                          <SongCard
-                            music={music}
-                            setmusicmodal={setmusicmodal}
-                            address={props.address}
-                          />
-                        </div>
-                      </Grid>
-                    );
-                  })}
-            </Grid>
-          </Grid>
-          <ArrowForwardIosIcon
-            sx={{ fontSize: 65, cursor: "pointer" }}
-            onClick={moveBehind}
-          />
-        </Box>
-      </Box>
-
-      <Divider sx={{ my: 5 }} />
-
-      <Box sx={{ height: "60%" }}>
-        <Typography variant="h4" gutterBottom>
-          Artist
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            height: "70%",
-            px: 2,
-          }}
-        >
-          <ArrowBackIosIcon
-            sx={{ fontSize: 65, cursor: "pointer" }}
-            onClick={moveAhead2}
-          />
-          <Grid
-            sx={{
-              width: "1480px",
-              m: "auto",
-              padding: 0,
-              overflow: "hidden",
-            }}
-          >
-            <Grid
-              container
-              sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
-            >
-              {artistList.loading
-                ? [1, 2, 3, 4, 5, 6, 7, 8].map((artist, i) => {
-                    return (
-                      <ArtistCardSkeleton
-                        key={i}
-                        artist={artist}
-                        address={props.address}
-                      />
-                    );
-                  })
-                : findArtist &&
-                  findArtist.map((artist, i) => {
-                    return (
-                      <Grid xs={{ width: "25%" }}>
-                        <div
+              <Grid
+                container
+                sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
+              >
+                {musicList.loading
+                  ? [1, 2, 3, 4].map((music, i) => {
+                      return (
+                        <SongCardSkeleton
                           key={i}
-                          className="glide"
-                          style={{ transform: `translateX(${value2}%)` }}
-                        >
-                          <ArtistCard
-                            artist={artist}
-                            setArtistModal={setArtistModal}
-                            address={props.address}
-                          />
-                        </div>
-                      </Grid>
-                    );
-                  })}
+                          music={music}
+                          setmusicmodal={setmusicmodal}
+                          address={props.address}
+                        />
+                      );
+                    })
+                  : findMusic &&
+                    findMusic.map((music, i) => {
+                      return (
+                        <Grid xs={{ width: "25%" }} key={i}>
+                          <div
+                            className="glide"
+                            style={{ transform: `translateX(${value}%)` }}
+                          >
+                            <SongCard
+                              music={music}
+                              setmusicmodal={setmusicmodal}
+                              address={props.address}
+                            />
+                          </div>
+                        </Grid>
+                      );
+                    })}
+              </Grid>
             </Grid>
-          </Grid>
-          <ArrowForwardIosIcon
-            sx={{ fontSize: 65, cursor: "pointer" }}
-            onClick={moveBehind2}
-          />
+            <ArrowForwardIosIcon
+              sx={{ fontSize: 50, cursor: "pointer" }}
+              onClick={moveBehind}
+            />
+          </Box>
         </Box>
-      </Box>
+      </div>
+
+      <div className="music-searchresult-2">
+        <Box sx={{ height: "60%" }}>
+          <div className="title">
+            <i className="uil uil-search"></i>
+            <span className="text"> Artist Search Result</span>
+          </div>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              height: "70%",
+              px: 2,
+            }}
+          >
+            <ArrowBackIosIcon
+              sx={{ fontSize: 50, cursor: "pointer" }}
+              onClick={moveAhead2}
+            />
+            <Grid
+              sx={{
+                width: "1480px",
+                m: "auto",
+                padding: 0,
+                overflow: "hidden",
+              }}
+            >
+              <Grid
+                container
+                sx={{ width: "100%", display: "flex", flexWrap: "nowrap" }}
+              >
+                {artistList.loading
+                  ? [1, 2, 3, 4, 5, 6, 7, 8].map((artist, i) => {
+                      return (
+                        <ArtistCardSkeleton
+                          key={i}
+                          artist={artist}
+                          address={props.address}
+                        />
+                      );
+                    })
+                  : findArtist &&
+                    findArtist.map((artist, i) => {
+                      return (
+                        <Grid xs={{ width: "25%" }}>
+                          <div
+                            key={i}
+                            className="glide"
+                            style={{ transform: `translateX(${value2}%)` }}
+                          >
+                            <ArtistCard
+                              artist={artist}
+                              setArtistModal={setArtistModal}
+                              address={props.address}
+                            />
+                          </div>
+                        </Grid>
+                      );
+                    })}
+              </Grid>
+            </Grid>
+            <ArrowForwardIosIcon
+              sx={{ fontSize: 50, cursor: "pointer" }}
+              onClick={moveBehind2}
+            />
+          </Box>
+        </Box>
+      </div>
 
       {/* 모달창입니당 */}
       {artistModal && (
