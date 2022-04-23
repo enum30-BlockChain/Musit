@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import SongCardSkeleton from "../../serach/music/SongCardSkeleton";
-import ArtistModel from "./ArtistModel";
 import MusicCard from "./MusicCard";
-import MusicPlayerSlider from "./MusicPlayerSlider";
 import "../favoritemusic/css/FavoriteMusic.css";
+import ArtistModel from "./ArtistModel";
 
 const FavoriteMusic = () => {
   const [artistModal, setArtistModal] = useState("");
@@ -31,7 +30,7 @@ const FavoriteMusic = () => {
                 likeMusic.map((data, index) => (
                   <MusicCard
                     data={data}
-                    setArtistModal={setArtistModal}
+                    setmusicmodal={setmusicmodal}
                     key={index}
                   />
                 ))}
@@ -39,19 +38,8 @@ const FavoriteMusic = () => {
           )}
         </div>
       </div>
-
-      {artistModal && (
-        <ArtistModel
-          sx={{ display: "block" }}
-          artistModal={artistModal}
-          setArtistModal={setArtistModal}
-          musicmodal={musicmodal}
-          setmusicmodal={setmusicmodal}
-        />
-      )}
-
       {musicmodal && (
-        <MusicPlayerSlider
+        <ArtistModel
           sx={{ display: "block" }}
           musicmodal={musicmodal}
           setmusicmodal={setmusicmodal}

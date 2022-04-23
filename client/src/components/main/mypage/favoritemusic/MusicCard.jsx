@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleLikeMusic } from "../../../../redux/actions/musicActions";
 import "./css/MusicCard.css";
 
-const MusicCard = ({ data, setArtistModal }) => {
+const MusicCard = ({ data, setmusicmodal }) => {
   const [TotalLike, setTotalLike] = useState();
   const [musiclike, setMusicLike] = useState("");
 
@@ -24,7 +24,7 @@ const MusicCard = ({ data, setArtistModal }) => {
 
   // 파업창 띄워주는 것
   const postInfo = () => {
-    setArtistModal(data);
+    setmusicmodal(data);
   };
 
   const likeOnclick = async () => {
