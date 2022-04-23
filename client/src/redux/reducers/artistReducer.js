@@ -111,6 +111,7 @@ export const artistListReducer = (
 const likeArtistInitialState = {
   loading: false,
   data: [],
+  likeArtist: [],
   error: false,
   errorMsg: "",
 };
@@ -136,6 +137,46 @@ export const likeArtistReducer = (
         errorMsg: "",
       };
     case ActionTypes.LIKE_ARTIST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: true,
+        errorMsg: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+/* Like Artist Reducer */
+const likeArtistDetailInitialState = {
+  loading: false,
+  data: [],
+  error: false,
+  errorMsg: "",
+};
+
+export const likeArtistDetailReducer = (
+  state = likeArtistDetailInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case ActionTypes.LIKE_ARTIST_DETAIL_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+        errorMsg: "",
+      };
+    case ActionTypes.LIKE_ARTIST_DETAIL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: payload,
+        error: false,
+        errorMsg: "",
+      };
+    case ActionTypes.LIKE_ARTIST_DETAIL_FAIL:
       return {
         ...state,
         loading: false,

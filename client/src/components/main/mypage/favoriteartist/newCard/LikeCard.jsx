@@ -2,19 +2,28 @@ import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleLikeArtist } from "../../../../../redux/actions/artistActions";
+import {
+  readLikeArtistDetail,
+  toggleLikeArtist,
+} from "../../../../../redux/actions/artistActions";
 import "../css/LikeCard.css";
+import FastForwardRounded from "@mui/icons-material/FastForwardRounded";
 
-const LikeCard = ({ data, setArtistModal }) => {
+const LikeCard = ({ data, setArtistModal, artistModal }) => {
   const [TotalLike, setTotalLike] = useState("");
   const [artistlike, setArtistlike] = useState("");
   const dispatch = useDispatch();
 
-  console.log(data);
+  const likeArtistDetail = useSelector((state) => state.likeArtistDetail);
 
   // 파업창 띄워주는 것
-  const postInfo = () => {
-    setArtistModal(data);
+  const postInfo = async () => {
+    await dispatch(readLikeArtistDetail(data.user_address));
+    if (likeArtistDetail.loding == true) {
+      return setArtistModal(likeArtistDetail);
+    } else if (likeArtistDetail !== []) {
+      return setArtistModal(likeArtistDetail);
+    }
   };
 
   const likeOnclick = async () => {
@@ -24,8 +33,6 @@ const LikeCard = ({ data, setArtistModal }) => {
 
   const TotalCount = data.Music.map((e) => e.play_count) //play총합
     .reduce((prev, curr) => prev + curr, 0);
-
-  const sliceName = data.artist_name && data.artist_name.substr(0, 7) + "...";
 
   return (
     <>
@@ -60,17 +67,7 @@ const LikeCard = ({ data, setArtistModal }) => {
           <div className="content-box">
             <div className="content">
               <h2>Artist</h2>
-              <h1>{sliceName}</h1>
-            </div>
-          </div>
-          <div className="content-box">
-            <div className="content">
-              <h2>UPLOAD MUSIC</h2>
-              <h1>{data.Music.length}</h1>
-            </div>
-            <div className="content">
-              <h2>TOTAL PLAY COUNT</h2>
-              <h1>{TotalCount}</h1>
+              <h1>{data.artist_name}</h1>
             </div>
           </div>
         </div>
