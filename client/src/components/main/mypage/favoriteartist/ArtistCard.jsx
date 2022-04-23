@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ArtistCardSkeleton from "../../serach/artist/ArtistCardSkeleton";
 import "./css/FavoriteAritst.css";

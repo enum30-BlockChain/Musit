@@ -5,22 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleLikeArtist } from "../../../../../redux/actions/artistActions";
 import "../css/LikeCard.css";
 
-const LikeCard = ({ data, setArtistModal, artistModal }) => {
-  const [TotalLike, setTotalLike] = useState();
+const LikeCard = ({ data, setArtistModal }) => {
+  const [TotalLike, setTotalLike] = useState("");
   const [artistlike, setArtistlike] = useState("");
-  const likeMusic = useSelector((state) => state.likeMusic.data);
-  const likeArtist = useSelector((state) => state.likeArtist.data);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!likeArtist.loading) {
-      setArtistlike(
-        likeArtist.filter((artist) => {
-          return artist.artist_name.indexOf(data.artist_name) > -1;
-        })
-      );
-    }
-  }, [likeArtist]);
+  console.log(data);
 
   // 파업창 띄워주는 것
   const postInfo = () => {
@@ -71,10 +61,6 @@ const LikeCard = ({ data, setArtistModal, artistModal }) => {
             <div className="content">
               <h2>Artist</h2>
               <h1>{sliceName}</h1>
-            </div>
-            <div className="content">
-              <h2>Likes</h2>
-              <h1>{likeArtist && likeArtist.length}</h1>
             </div>
           </div>
           <div className="content-box">

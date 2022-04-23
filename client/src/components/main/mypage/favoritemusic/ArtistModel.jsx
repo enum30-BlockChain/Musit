@@ -71,6 +71,7 @@ const CoverImage = styled("div")({
 });
 
 export default function ArtistModel(props) {
+  console.log(props);
   const [findMusic, setFindMusic] = useState("");
   const [viewMusicCard, setViewMusicCard] = useState(0);
   const [value, setValue] = useState(0);
@@ -199,7 +200,7 @@ export default function ArtistModel(props) {
                   <h4>Artist Name</h4>
                   <p>{artists.artist_name}</p>
                   <h4>Artist likes</h4>
-                  <p>{artists.likes}</p>
+                  <p></p>
                 </div>
               </Typography>
             </Box>
