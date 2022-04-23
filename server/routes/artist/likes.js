@@ -51,9 +51,6 @@ router.get("/:user_address", async (req, res, next) => {
 
 /* Delete */
 router.delete("/:artist_name", async (req, res, next) => {
-  console.log(222222222222222);
-  console.log(req.body);
-  console.log(222222222222222);
   try {
     const result = await ArtistLike.destroy({
       where: {

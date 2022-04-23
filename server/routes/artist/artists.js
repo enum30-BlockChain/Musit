@@ -46,8 +46,13 @@ router.get("/:user_address", async (req, res, next) => {
   try {
     const userInfo = await Artist.findOne({
       where: { user_address: req.params.user_address },
-      include: [{ model: User }, { model: ArtistLike }, { model: Music,include:{model:MusicLike} }],
+      include: [
+        { model: User },
+        { model: ArtistLike },
+        { model: Music, include: { model: MusicLike } },
+      ],
     });
+    console.log(userInfo);
     res.send(userInfo);
   } catch (err) {
     res.send(500, "Read artist info failed");

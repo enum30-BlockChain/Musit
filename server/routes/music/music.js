@@ -54,9 +54,9 @@ router.get("/", async (req, res, next) => {
 router.get("/:ipfs_hash", async (req, res, next) => {
   try {
     const songInfo = await Music.findOne({
-			where: { ipfs_hash: req.params.ipfs_hash },
-			include: [{ model: MusicLike }, { model: Artist }],
-		});
+      where: { ipfs_hash: req.params.ipfs_hash },
+      include: [{ model: MusicLike }, { model: Artist }],
+    });
     res.send(songInfo);
   } catch (err) {
     console.log(err);
@@ -71,7 +71,10 @@ router.patch("/:ipfs_hash", async (req, res, next) => {
       res.send(400, "Cannot change music file");
     } else if (req.body.title !== undefined && req.body.title.trim() === "") {
       res.send(400, "Empty title");
-    } else if (req.body.img_file !== undefined && req.body.img_file.trim() === "") {
+    } else if (
+      req.body.img_file !== undefined &&
+      req.body.img_file.trim() === ""
+    ) {
       res.send(400, "Empty img file");
     } else if (
       req.body.genre !== undefined &&
@@ -79,11 +82,12 @@ router.patch("/:ipfs_hash", async (req, res, next) => {
       req.body.genre.length === 0
     ) {
       res.send(400, "Empty genre");
-    } else if (req.body.artist_name !== undefined && req.body.artist_name.trim() === "") {
+    } else if (
+      req.body.artist_name !== undefined &&
+      req.body.artist_name.trim() === ""
+    ) {
       res.send(400, "Empty artist name");
     } else {
-    console.log(req.params.ipfs_hash);
-    console.log(req.body);
       await Music.update(req.body, {
         where: { ipfs_hash: req.params.ipfs_hash },
       });
