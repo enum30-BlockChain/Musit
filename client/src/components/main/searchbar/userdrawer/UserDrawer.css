@@ -45,15 +45,13 @@ html {
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-  color: white;
-  display: none;
-  padding: 100px 20px;
+  padding: 50px 20px;
   height: 100%;
 }
 
-#Home {
+#Userinfo-drawer {
   background-color: var(--primary-color-background);
 }
-#News {
+#Artist-drawer {
   background-color: var(--secondary-icon-background);
 }

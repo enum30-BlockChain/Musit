@@ -1,9 +1,11 @@
 import "./UserDrawer.css";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Userinformation from "./../../mypage/userinformation/Userinformation";
 import Artistinformation from "./../../artist//artistinfo/Artistinfo";
 
 const UserDrawer = () => {
+  const artist = useSelector((state) => state.artist);
   //--------------------------penal tab js--------------------------
   function openPage(pageName, color) {
     let i, tabcontent, tablinks;
@@ -19,12 +21,12 @@ const UserDrawer = () => {
   }
 
   useEffect(() => {
-    openPage("News");
+    openPage("Userinfo-drawer");
   }, []);
 
-  // // Get the element with id="defaultOpen" and click on it
-  // const click = document.getElementById("defaultOpen");
-  // console.log(click);
+  const cannotopen = () => {
+    alert("You are not a Artist yet. Please be our Artist!");
+  };
 
   return (
     <>
@@ -32,23 +34,27 @@ const UserDrawer = () => {
         <button
           id="defaultOpen"
           className="tablink-1"
-          onClick={() => openPage("Home", this, "red")}
+          onClick={() => openPage("Userinfo-drawer", this, "red")}
         >
           User Infomation
         </button>
         <button
           className="tablink-2"
-          onClick={() => openPage("News", this, "green")}
+          onClick={() => {
+            artist.artist_name !== null
+              ? openPage("Artist-drawer", this, "green")
+              : cannotopen();
+          }}
         >
           Artist Infomation
         </button>
       </div>
 
-      <div id="Home" className="tabcontent">
+      <div id="Userinfo-drawer" className="tabcontent">
         <Userinformation />
       </div>
 
-      <div id="News" className="tabcontent">
+      <div id="Artist-drawer" className="tabcontent">
         <Artistinformation />
       </div>
     </>
