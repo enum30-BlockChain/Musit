@@ -7,7 +7,6 @@ import {
   toggleLikeArtist,
 } from "../../../../../redux/actions/artistActions";
 import "../css/LikeCard.css";
-import FastForwardRounded from "@mui/icons-material/FastForwardRounded";
 
 const LikeCard = ({ data, setArtistModal, artistModal }) => {
   const [TotalLike, setTotalLike] = useState("");
@@ -30,9 +29,6 @@ const LikeCard = ({ data, setArtistModal, artistModal }) => {
     dispatch(toggleLikeArtist(data.artist_name));
     alert("좋아요를 취소하였습니다.");
   };
-
-  const TotalCount = data.Music.map((e) => e.play_count) //play총합
-    .reduce((prev, curr) => prev + curr, 0);
 
   return (
     <>

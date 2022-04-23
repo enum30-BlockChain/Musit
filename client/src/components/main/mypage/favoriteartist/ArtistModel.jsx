@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import { Box, Avatar, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
+import "../favoriteartist/css/LikeCard.css";
 
 const WallPaper = styled("div")({
   position: "absolute",
@@ -106,15 +107,54 @@ export default function ArtistModel(props) {
               alignItems: "flex-start",
             }}
           >
-            <Box sx={{ mt: 4, ml: 5 }}>
-              <Typography variant="h3" component="div">
-                <h1>Artist</h1>
+            <Box>
+              <Typography
+                variant="h3"
+                component="div"
+                sx={{ display: "inline-block" }}
+              >
                 <div>
-                  <div className="img-box"></div>
+                  <h1>Artist</h1>
+                  <div className="img-box">
+                    {artistDetail.img === "" ? (
+                      <Avatar
+                        className="register-avatar"
+                        alt="Remy Sharp"
+                        sx={{ width: 450, height: 450 }}
+                      />
+                    ) : (
+                      <Box
+                        sx={{ width: "450px", height: "450px", mt: 3, mr: 3 }}
+                      >
+                        <img
+                          src={artistDetail.img}
+                          style={{
+                            width: "450px",
+                            height: "450px",
+                            position: "relative",
+                          }}
+                        />
+                      </Box>
+                    )}
+                  </div>
+                </div>
+              </Typography>
+              <Typography
+                variant="h3"
+                component="div"
+                sx={{ display: "inline-block" }}
+              >
+                <div>
                   <h4>Artist Name</h4>
                   <p>{artistDetail.artist_name}</p>
+                </div>
+                <div>
                   <h4>Like Count</h4>
                   <p>{artistDetail.ArtistLikes.length}</p>
+                </div>
+                <div>
+                  <h4>Music upload Count</h4>
+                  <p>{artistDetail.Music.length}</p>
                 </div>
               </Typography>
             </Box>
