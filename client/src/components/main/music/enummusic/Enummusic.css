@@ -9,3 +9,6 @@
   background-color: var(--box1-color);
   border-radius: 10px;
 }
+.enumusiclist .eummusiclist-description .enumusiclist-title {
+  justify-content: center;
+}

@@ -260,7 +260,7 @@ export const Musicupload = () => {
                 }}
                 onClick={submit}
               >
-                up load
+                upload
               </Button>
             </div>
           </div>

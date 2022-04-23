@@ -50,7 +50,7 @@ export const Searchbar = () => {
           <i className="uil uil-search"></i>
           <input
             type="text"
-            placeholder="Search here..."
+            placeholder="Search here.."
             onKeyPress={changehandler}
             onChange={getsSearchWord}
           />
