@@ -59,7 +59,16 @@ function ScrollEvent() {
     return (
       <>
         <div className="scrollEventContant">
-          {/* <MainCardNav/> */}
+          <div className="scroll-title">
+            <span className="enumusiclist-title">Cover</span>
+            <span className="enumusiclist-title">Num</span>
+            <span className="enumusiclist-title">Music Title</span>
+            <span className="enumusiclist-title">Artist Name</span>
+            <span className="enumusiclist-title">Description</span>
+            <span className="enumusiclist-title">Like</span>
+            <span className="enumusiclist-title">Play Count</span>
+            <span className="enumusiclist-title">Duration</span>
+          </div>
           <div className="scrollBox">
             {[...Array(itemCount)].map((_, i) => {
               if (result.length > i) {

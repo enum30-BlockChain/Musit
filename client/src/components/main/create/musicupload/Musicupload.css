@@ -1,7 +1,7 @@
 .create-mainlayout {
   margin: 0px 100px 0px 100px;
   padding: 20px;
-  height: 660px;
+  height: 680px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
@@ -33,7 +33,7 @@
 .create-mainlayout .create-title i {
   height: 35px;
   width: 35px;
-  background-color: var(--primary-color);
+  background-color: var(--secondary-icon);
   border-radius: 6px;
   display: flex;
   color: var(--title-icon-color);
