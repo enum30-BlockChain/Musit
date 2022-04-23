@@ -1,17 +1,9 @@
 @import "../../../../../styles/variables.css";
 
-.artist-info-container {
-  width: 300px;
-  border-radius: 10px;
-  background-color: red;
-}
-/* 
-.artist-info-container .artist-card-1 {
-} */
-.artist-info-container .artist-card .title-1 .title {
+.artist-info-container .artist-card-1 .title-1 .title {
   display: flex;
 }
-.artist-info-container .title i {
+.artist-info-container .artist-card-1 .title-1 .title i {
   height: 35px;
   width: 35px;
   background-color: var(--secondary-icon);
@@ -25,7 +17,7 @@
 
 .dashboard .title .text {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-color);
   margin-left: 10px;
 }

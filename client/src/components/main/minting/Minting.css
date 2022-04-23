@@ -14,13 +14,13 @@
   padding: 30px;
 }
 
-.minting-layout .minting-title {
+.minting-layout .minting-margin .minting-title {
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
 }
 
-.minting-layout .minting-title .minitng-imgcover {
+.minting-layout .minting-margin .minting-title .minitng-imgcover {
   font-size: 30px;
 }
 
@@ -54,8 +54,8 @@
 }
 
 .minting-layout .mintig-input .content-box-minting-img-box img {
-  width: 420px;
-  height: 420px;
+  width: 410px;
+  height: 410px;
   margin-top: 20px;
   border-radius: 50%;
   object-fit: cover;
