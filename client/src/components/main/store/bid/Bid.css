@@ -1,0 +1,276 @@
+.bid-container {
+  position: relative;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  width: 1300px;
+  height: 600px;
+  background-color: var(--primary-color);
+}
+
+.bid-container h1 {
+  color: #000;
+}
+.bid-container :is(h2, i, input) {
+  color: var(--black-light-color);
+}
+.bid-container p {
+  color: var(--black-light-color);
+}
+.bid-container input:active{
+  border: none;
+}
+
+
+/* 이미지 박스 */
+.bid-container .image-box {
+  position: absolute;
+  top: -100px;
+  left: 50px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 5px solid var(--content-bg-color1);
+  background-color: var(--content-bg-color1);
+  overflow: hidden;
+  z-index: 30;
+}
+
+.bid-container .image-box img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*** 왼쪽 컨테이너 : 제목, 아티스트 ***/
+.bid-container .left-container {
+  position: absolute;
+  top: 200px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom-left-radius: 25px;
+  width: 400px;
+  height: calc(100% - 200px);
+}
+
+.bid-container .left-container > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--content-bg-color1);
+}
+
+.bid-container .left-container h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.bid-container .left-container h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.bid-container .left-container .genre-box h1{
+  max-height: 70px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bid-container .left-container .audio-box {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.bid-container .left-container .audio-box audio {
+  background-color: var(--content-bg-color1);
+  border-radius: 10px;
+}
+.bid-container .left-container .audio-box audio::-webkit-media-controls-panel {
+  background-color: var(--content-bg-color1);
+}
+
+
+/*** 오른쪽 컨테이너 ***/
+/** info 컨테이너 **/
+.bid-container .right-container{
+  position: absolute;
+  left: 400px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--content-bg-color1);
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  width: calc(100% - 400px);
+  height: 100%;
+}
+
+
+/* 상세정보 컨테이너 */
+.bid-container .right-container .info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  padding: 50px 0;
+  overflow: hidden;
+}
+
+.bid-container .right-container .info-container > :is(div, button) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 330px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--content-bg-color2);
+  margin-top: 20px;
+}
+
+
+.bid-container .right-container .info-container h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.bid-container .right-container .info-container h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.bid-container .right-container .info-container p {
+  font-size: 16px;
+  font-weight: 600;
+}
+.bid-container .right-container .info-container .title {
+  font-size: 36px;
+}
+
+.bid-container .right-container .info-container .description-box {
+  height: 173px;
+}
+.bid-container .right-container .info-container .description-box p {
+  padding-top: 10px;
+  flex: 1;
+  overflow: auto;
+  word-break: normal;
+  white-space: normal;
+}
+
+/* not-available 컨테이너 */
+.bid-container .right-container .not-available-container {
+  background-color: var(--error-color);
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.bid-container .right-container .not-available-container h1 {
+  color: var(--black-light-color);
+  font-size: 36px;
+  word-break: normal;
+}
+
+/** input 컨테이너 **/
+.bid-container .right-container .input-container {
+  width: 50%;
+  height: 100%;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  overflow: hidden;
+}
+
+.bid-container .right-container .input-container .input-form {
+  width: 100%;
+  height: 100%;
+  background-color: var(--content-bg-color2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 50px 0;
+}
+.bid-container .right-container .input-container .input-form.expired {
+  background-color: var(--error-color);
+}
+
+.bid-container .right-container .input-container .input-form > :is(div, button) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 330px;
+  min-height: 80px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--content-bg-color1);
+  margin-top: 20px;
+}
+
+.bid-container .right-container .input-container .input-form h1 {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.bid-container .right-container .input-container .input-form h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.bid-container .right-container .input-container .input-form h5 {
+  color: red;
+}
+
+.bid-container .right-container .input-container .input-form p {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.bid-container .right-container .input-container .input-form input{
+  border: none;
+  font-size: 20px;
+  border-radius: 10px;
+  text-align: right;
+  background-color: var(--content-bg-color2);
+}
+
+.bid-container .right-container .input-container .input-form .title-box {
+  display: flex;
+}
+
+.bid-container .right-container .input-container .input-form button{
+  border: none;
+  font-size: 18px;
+  min-height: 45px;
+  align-items: center;
+  background-color: var(--third-color);
+  color: var(--content-bg-color1);
+}
+
+.bid-container .right-container .input-container .input-form button:hover{
+  background-color: var(--primary-color);
+  width: 329px;
+  cursor: pointer;
+}

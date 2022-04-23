@@ -1,5 +1,5 @@
 /* Google fonts : Quicksand, Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&display=swap");
 @import "./styles/variables.css";
 
 * {
@@ -10,12 +10,12 @@
   color: var(--text-color);
 }
 
-nav.side-nav.close~.main .searchbar .music-container {
+nav.side-nav.close ~ .main .searchbar .music-container {
   left: 73px;
   width: calc(100% - 73px);
 }
 
-nav.side-nav.open~.main .searchbar .music-container {
+nav.side-nav.open ~ .main .searchbar .music-container {
   left: 220px;
   width: calc(100% - 220px);
 }
@@ -33,4 +33,16 @@ body {
   padding: 0;
   min-height: 100vh;
   background-color: var(--primary-color);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--box1-color);
+  border-radius: 10px;
 }

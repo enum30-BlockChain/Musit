@@ -56,6 +56,8 @@ import { CircularProgress } from "@mui/material";
 
 import Error from "../Error";
 import { Test } from "../Test";
+import Buy from "./store/buy/Buy";
+import Bid from "./store/bid/Bid";
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -146,6 +148,8 @@ export const Main = () => {
             {/* Store */}
             <Route path="store" element={<Store />} />
             <Route path="store/enroll/:tokenId" element={<Enroll />} />
+            <Route path="store/buy/:tokenId" element={<Buy />} />
+            <Route path="store/bid/:tokenId" element={<Bid />} />
 
             <Route path="search" element={<Search />} />
           </Route>

@@ -1,4 +1,4 @@
-.enroll-container {
+.buy-container {
   position: relative;
   top: 80%;
   left: 50%;
@@ -7,24 +7,24 @@
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  width: 1300px;
+  width: 800px;
   height: 600px;
   background-color: var(--third-color);
 }
 
-.enroll-container h1 {
+.buy-container h1 {
   color: #000;
 }
-.enroll-container :is(h2, i, input) {
+.buy-container :is(h2, i, input) {
   color: var(--black-light-color);
 }
-.enroll-container p {
+.buy-container p {
   color: var(--black-light-color);
 }
 
 
 /* 이미지 박스 */
-.enroll-container .image-box {
+.buy-container .image-box {
   position: absolute;
   top: -100px;
   left: 50px;
@@ -37,7 +37,7 @@
   z-index: 30;
 }
 
-.enroll-container .image-box img {
+.buy-container .image-box img {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -48,7 +48,7 @@
 }
 
 /*** 왼쪽 컨테이너 : 제목, 아티스트 ***/
-.enroll-container .left-container {
+.buy-container .left-container {
   position: absolute;
   top: 200px;
   left: 0;
@@ -61,7 +61,7 @@
   height: calc(100% - 200px);
 }
 
-.enroll-container .left-container > div {
+.buy-container .left-container > div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -71,40 +71,41 @@
   background-color: var(--content-bg-color1);
 }
 
-.enroll-container .left-container h1 {
+.buy-container .left-container h1 {
   font-size: 24px;
   font-weight: 600;
 }
 
-.enroll-container .left-container h2 {
+.buy-container .left-container h2 {
   font-size: 18px;
   font-weight: 600;
 }
 
-.enroll-container .left-container .genre-box h1{
+.buy-container .left-container .genre-box h1{
   max-height: 70px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.enroll-container .left-container .audio-box {
+.buy-container .left-container .audio-box {
   background-color: transparent;
   border: none;
   padding: 0;
 }
 
-.enroll-container .left-container .audio-box audio {
+.buy-container .left-container .audio-box audio {
   background-color: var(--content-bg-color1);
   border-radius: 10px;
 }
-.enroll-container .left-container .audio-box audio::-webkit-media-controls-panel {
+.buy-container .left-container .audio-box audio::-webkit-media-controls-panel {
   background-color: var(--content-bg-color1);
 }
 
 
 /*** 오른쪽 컨테이너 ***/
-.enroll-container .right-container{
+/** info 컨테이너 **/
+.buy-container .right-container{
   position: absolute;
   left: 400px;
   display: flex;
@@ -114,21 +115,21 @@
   border-bottom-right-radius: 25px;
   width: calc(100% - 400px);
   height: 100%;
-  padding: 24px 0;
 }
 
 
 /* 상세정보 컨테이너 */
-.enroll-container .right-container .info-container {
+.buy-container .right-container .info-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  width: 50%;
+  width: 100%;
   height: 100%;
+  padding: 50px 0;
 }
 
-.enroll-container .right-container .info-container > div {
+.buy-container .right-container .info-container > :is(div, button) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -140,177 +141,65 @@
 }
 
 
-.enroll-container .right-container .info-container h1 {
+.buy-container .right-container .info-container h1 {
   font-size: 18px;
   font-weight: 600;
 }
 
-.enroll-container .right-container .info-container h2 {
+.buy-container .right-container .info-container h2 {
   font-size: 18px;
   font-weight: 600;
 }
 
-.enroll-container .right-container .info-container p {
+.buy-container .right-container .info-container p {
   font-size: 16px;
   font-weight: 600;
 }
+.buy-container .right-container .info-container .title {
+  font-size: 36px;
+}
 
-.enroll-container .right-container .info-container .description-box {
+.buy-container .right-container .info-container .description-box {
   height: 173px;
 }
-.enroll-container .right-container .info-container .description-box p {
+.buy-container .right-container .info-container .description-box p {
+  padding-top: 10px;
   flex: 1;
   overflow: auto;
-  word-break: break-all;
+  word-break: normal;
   white-space: normal;
 }
 
-/* 팔기/경매 입력 컨테이너 */
-.enroll-container .right-container .input-container {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  padding-right: 50px;
-}
 
-.enroll-container .right-container .input-container input{
+.buy-container .right-container .info-container button{
   border: none;
-  font-size: 20px;
-  border-radius: 10px;
-  text-align: right;
-}
-
-.enroll-container .right-container .input-container .btn-group {
-  display: flex;
-  justify-content: space-between;
-  width: 160px;
-  height: 35px;
-}
-
-.enroll-container .right-container .input-container .btn-group button {
-  width: 80px;
-  color: var(--black-light-color);
-  background-color: var(--content-bg-color3);
-  height: 100%;
-  border: none;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-
-.enroll-container .right-container .input-container.sell .btn-group .sell-btn {
-  background-color: var(--content-bg-color2);
-}
-.enroll-container .right-container .input-container.sell .btn-group .auction-btn {
-  background-color: var(--content-bg-color3);
-}
-.enroll-container .right-container .input-container.auction .btn-group .sell-btn {
-  background-color: var(--content-bg-color3);
-}
-.enroll-container .right-container .input-container.auction .btn-group .auction-btn {
-  background-color: var(--content-bg-color2);
-}
-
-.enroll-container .right-container .input-container:is(.sell, .auction) .btn-group button:hover {
-  background-color: var(--third-color);
-  color: #fff;
-  cursor: pointer;
-}
-
-.enroll-container .right-container .input-container .input-form{
-  background-color: var(--content-bg-color2);
-  height: 100%;
-  border-radius: 10px;
-  border-top-left-radius: 0;
-  padding: 15px;
-}
-
-.enroll-container .right-container .input-container .input-form :is(.ordinary-form, .auction-form) > :is(div, form)  {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 330px;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: var(--content-bg-color1);
-}
-.enroll-container .right-container .input-container .input-form button {
-  background-color: var(--content-bg-color2);
-  border: none;
-  border-radius: 10px;
-  color: var(--black-light-color);
-  margin-top: 5px;
-  height: 40px;
-} 
-
-.enroll-container .right-container .input-container .input-form button:hover {
-  cursor: pointer;
-  background-color: var(--third-color);
-  color: #FFF;
-}
-
-.enroll-container .right-container .input-container .input-form h1 {
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.enroll-container .right-container .input-container .input-form h2 {
   font-size: 18px;
-  font-weight: 600;
+  align-items: center;
+  background-color: var(--third-color);
+  color: var(--content-bg-color1);
+}
+.buy-container .right-container .info-container button:hover{
+  background-color: var(--primary-color);
+  width: 329px;
+  color: var(--black-light-color);
+  cursor: pointer;
 }
 
-.enroll-container .right-container .input-container .input-form .title-box {
-  display: flex;
-}
-.enroll-container .right-container .input-container .input-form h5 {
-  color: red;
-}
-
-.enroll-container .right-container .input-container .input-form p {
-  font-size: 12px;
-  font-weight: 300;
-}
-
-.enroll-container .right-container .input-container .input-form .not-available-box {
+/** not-available 컨테이너 **/
+.buy-container .right-container .not-available-container {
   background-color: var(--error-color);
-  border-radius: 10px;
-  padding: 10px;
-  height: 100%;
-}
-
-.enroll-container .right-container .input-container.auction .input-form .ordinary-form {
-  display: none;
-}
-.enroll-container .right-container .input-container.sell .input-form .ordinary-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
-}
-
-.enroll-container .right-container .input-container .input-form .ordinary-form .notice-box {
-  background-color: var(--warning-color);
-}
-
-.enroll-container .right-container .input-container.sell .input-form .auction-form {
-  display: none;
-}
-.enroll-container .right-container .input-container.auction .input-form .auction-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
-}
-
-.enroll-container .right-container .input-container .input-form .auction-form .notice-box {
-  background-color: var(--warning-color);
-}
-
-.enroll-container .right-container .input-container.auction .input-form .auction-form .input-box {
-  height: 230px;
-}
-
-.enroll-container .right-container .input-container.auction .input-form .auction-form .input-box input {
   width: 100%;
+  height: 100%;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.buy-container .right-container .not-available-container h1 {
+  color: var(--black-light-color);
+  font-size: 36px;
+  word-break: normal;
 }

@@ -2,12 +2,19 @@
 
 .artist-info-container {
   width: 300px;
+  border-radius: 10px;
+  background-color: red;
 }
-
-.dashboard .title i {
+/* 
+.artist-info-container .artist-card-1 {
+} */
+.artist-info-container .artist-card .title-1 .title {
+  display: flex;
+}
+.artist-info-container .title i {
   height: 35px;
   width: 35px;
-  background-color: var(--primary-color);
+  background-color: var(--secondary-icon);
   border-radius: 6px;
   color: var(--title-icon-color);
   display: flex;

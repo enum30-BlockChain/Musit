@@ -4,6 +4,7 @@ import SongCardSkeleton from "../../serach/music/SongCardSkeleton";
 import ArtistModel from "./ArtistModel";
 import MusicCard from "./MusicCard";
 import MusicPlayerSlider from "./MusicPlayerSlider";
+import "../favoritemusic/css/FavoriteMusic.css";
 
 const FavoriteMusic = () => {
   const [artistModal, setArtistModal] = useState("");

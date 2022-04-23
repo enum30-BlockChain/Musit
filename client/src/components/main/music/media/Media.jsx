@@ -73,7 +73,7 @@ const Media = () => {
       {lodingState ? (
         <SimpleBackdrop />
       ) : (
-        <Box sx={{ height: "80%" }}>
+        <Box sx={{ height: "100%" }}>
           <Box sx={{ height: "40%", mb: 2 }}>
             <div className="listening-layout">
               <div className="ranking-title">
@@ -95,7 +95,7 @@ const Media = () => {
                 />
                 <Grid
                   sx={{
-                    width: "1300px",
+                    width: "1350px",
                     m: "auto",
                     padding: 0,
                     overflow: "hidden",
@@ -154,7 +154,7 @@ const Media = () => {
             </div>
           </Box>
 
-          <Box sx={{ height: "45%", mt: 1 }}>
+          <Box sx={{ height: "40%", mt: 1 }}>
             <div className="like-ranking">
               <div className="ranking-title">
                 <i className="uil uil-thumbs-up"></i>
@@ -173,7 +173,7 @@ const Media = () => {
                 />
                 <Grid
                   sx={{
-                    width: "1300px",
+                    width: "1350px",
                     m: "auto",
                     padding: 0,
                     overflow: "hidden",
@@ -189,7 +189,7 @@ const Media = () => {
                     >
                       <Box
                         key={index}
-                        sx={{ cursor: "pointer", width: 210, my: 5, m: 2 }}
+                        sx={{ cursor: "pointer", width: 210, my: 5, m: 1 }}
                         onClick={() => {
                           postInfo(music);
                         }}
@@ -234,7 +234,7 @@ const Media = () => {
 
       {musicmodal && (
         <MusicPlayerSlider
-          sx={{ display: "block" }}
+          sx={{ display: "fixed" }}
           musicmodal={musicmodal}
           setmusicmodal={setmusicmodal}
         />

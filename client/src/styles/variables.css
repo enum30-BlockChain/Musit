@@ -2,6 +2,7 @@
   /* ===== Colors ===== */
   --primary-color: rgb(241, 185, 112);
   --secondary-color: rgb(85, 81, 164);
+  --secondary-icon: rgb(115, 113, 161);
   --third-color: #616186;
   --panel-color: linear-gradient(
     60deg,

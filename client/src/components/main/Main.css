@@ -48,6 +48,7 @@ nav.side-nav.close ~ section {
 
 .main .top-nav .nav-links li :is(i, .link-name) {
   font-size: 19px;
+  font-weight: 500;
   color: var(--alltime-white);
   transition: var(--tran-03);
 }

@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import "./AuctionCard.css";
 
 const AuctionCard = ({data}) => {
 	const navigate = useNavigate()
-	const cardOnClick = () => {
-		// navigate(`/store/enroll/${data.tokenId}`);
-	}
+	const dispatch = useDispatch()
 
+	const cardOnClick = async () => {
+		navigate(`/store/bid/${data.tokenId}`);
+		await dispatch(selectedMusitNFT(data))
+	}
+	
 	const calcDate = (date) => {
 		return (new Date(date*1000)).toISOString().slice(0,10)
 	}
