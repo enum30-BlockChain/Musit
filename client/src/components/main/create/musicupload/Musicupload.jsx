@@ -139,7 +139,7 @@ export const Musicupload = () => {
   return (
     <>
       <div className="create-mainlayout">
-        <div className="title">
+        <div className="create-title">
           <i className="uil uil-upload-alt"></i>
           <span className="text"> Create your music file</span>
         </div>
