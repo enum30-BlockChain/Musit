@@ -9,7 +9,7 @@ import {
 import "../css/LikeCard.css";
 import usernull from "./usernull.png";
 
-const LikeCard = ({ data, setArtistModal, artistModal }) => {
+const LikeCard = ({ data, setArtistModal }) => {
   const [TotalLike, setTotalLike] = useState("");
   const [artistlike, setArtistlike] = useState("");
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const LikeCard = ({ data, setArtistModal, artistModal }) => {
     await dispatch(readLikeArtistDetail(data.user_address));
     if (likeArtistDetail.loding == true) {
       return setArtistModal(likeArtistDetail);
-    } else if (likeArtistDetail !== []) {
+    } else if (likeArtistDetail !== "") {
       return setArtistModal(likeArtistDetail);
     }
   };
