@@ -81,7 +81,7 @@ const SuccessContent = ({ ipfs_hash }) => {
       <div className="minting-margin">
         <div className="minting-title">
           <i className="uil uil-capture"></i>
-          <spen className="text-minting"> NTF-Minting</spen>
+          <span className="text-minting"> NTF-Minting</span>
         </div>
         <div className="mintig-input">
           <div className="content-box-minting-img-box">
@@ -93,19 +93,19 @@ const SuccessContent = ({ ipfs_hash }) => {
 
           <div className="minting-content-container">
             <div className="content-box title-box">
-              <spen className="title-minting">Title</spen>
+              <span className="title-minting">Title</span>
               <p className="content">{musicData.title}</p>
             </div>
             <div className="content-box audio-box">
-              <spen className="title">Audio</spen>
+              <span className="title">Audio</span>
               <audio
                 src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`}
                 controls
               />
             </div>
             <div className="content-box description-box">
-              <spen className="title">Description</spen>
-              <spen className="content">{musicData.description}</spen>
+              <span className="title">Description</span>
+              <span className="content">{musicData.description}</span>
               <div className="minting-btn">
                 <Button
                   onClick={mintingOnClick}

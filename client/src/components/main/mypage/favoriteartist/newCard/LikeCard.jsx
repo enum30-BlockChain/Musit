@@ -7,6 +7,7 @@ import {
   toggleLikeArtist,
 } from "../../../../../redux/actions/artistActions";
 import "../css/LikeCard.css";
+import usernull from "./usernull.png";
 
 const LikeCard = ({ data, setArtistModal, artistModal }) => {
   const [TotalLike, setTotalLike] = useState("");
@@ -35,11 +36,7 @@ const LikeCard = ({ data, setArtistModal, artistModal }) => {
       <div className="item-card">
         <div className="img-box" onClick={postInfo}>
           {data.img === "" ? (
-            <Avatar
-              className="register-avatar"
-              alt="Remy Sharp"
-              sx={{ width: 165, height: 160 }}
-            />
+            <img src={usernull} classNames="register-avatar" />
           ) : (
             <img src={data.img} />
           )}

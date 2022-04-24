@@ -1,38 +1,59 @@
-.user-drawer {
-  width: 430px;
-  text-align: center;
+* {
+  box-sizing: border-box;
 }
 
-body {
-  padding: 10px;
+/* Set height of body and the document to 100% */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
 }
 
-#exTab1 .tab-content {
+/* Style tab links */
+.tablink-1 {
+  background-color: var(--primary-color);
   color: white;
-  background-color: #428bca;
-  padding: 5px 15px;
+  float: left;
+  border: none;
+  outline: none;
+  /* cursor: pointer; */
+  padding: 14px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  width: 220px;
 }
 
-#exTab2 h3 {
+.tablink-2 {
+  background-color: var(--secondary-icon);
   color: white;
-  background-color: #428bca;
-  padding: 5px 15px;
+  float: left;
+  border: none;
+  outline: none;
+  /* cursor: pointer; */
+  padding: 14px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  width: 220px;
 }
 
-/* remove border radius for the tab */
-
-#exTab1 .nav-pills > li > a {
-  border-radius: 0;
+/* .tablink-1:hover {
+  background-color: var(--secondary-icon);
 }
 
-/* change border radius for the tab , apply corners on top*/
+.tablink-2:hover {
+  background-color: var(--secondary-icon);
+} */
 
-#exTab3 .nav-pills > li > a {
-  border-radius: 4px 4px 0 0;
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  padding: 50px 20px;
+  height: 100%;
 }
 
-#exTab3 .tab-content {
-  color: white;
-  background-color: #428bca;
-  padding: 5px 15px;
+#Userinfo-drawer {
+  background-color: var(--primary-color-background);
+}
+#Artist-drawer {
+  background-color: var(--secondary-icon-background);
 }

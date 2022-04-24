@@ -55,18 +55,14 @@ export default function Artistinfo() {
     <>
       <div className="artist-info-container">
         <div className="artist-card">
-          <div className="title">
-            <i className="uil uil-create-dashboard"></i>
-            <span className="text">Artist Dashboard</span>
-          </div>
           <div className="artist-image">
             {artist.img === "" ? (
-              <Avatar alt="Remy Sharp" sx={{ width: 260, height: 260 }} />
+              <Avatar alt="Remy Sharp" sx={{ width: 310, height: 310 }} />
             ) : (
               <Avatar
                 alt="Remy Sharp"
                 src={artist.img}
-                sx={{ width: 260, height: 260 }}
+                sx={{ width: 310, height: 310 }}
               />
             )}
             {visible && (

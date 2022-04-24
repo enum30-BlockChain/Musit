@@ -13,6 +13,8 @@ import Favorite from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import myImage from "../../playbar/cd.png";
+
 // const { create } = require("ipfs-http-client");
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 export const Musicupload = () => {
@@ -137,7 +139,7 @@ export const Musicupload = () => {
   return (
     <>
       <div className="create-mainlayout">
-        <div className="title">
+        <div className="create-title">
           <i className="uil uil-upload-alt"></i>
           <span className="text"> Create your music file</span>
         </div>
@@ -200,7 +202,7 @@ export const Musicupload = () => {
             <h2>Music Title</h2>
             <input
               style={{
-                width: 500,
+                width: 400,
                 backgroundColor: "opacity",
                 fontSize: "25px",
               }}
@@ -214,7 +216,7 @@ export const Musicupload = () => {
               maxRows={4}
               aria-label="maximum height"
               placeholder="Fill your music description"
-              style={{ width: 500, height: 100 }}
+              style={{ width: 400, height: 100 }}
               onChange={getDescription}
             />
             <h2>Genre</h2>
@@ -244,7 +246,20 @@ export const Musicupload = () => {
               </form>
             </Box>
             <div className="create-btn">
-              <Button onClick={submit} sx={{ fontSize: 30, color: "black" }}>
+              <Button
+                // variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  fontSize: 20,
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                    fontSize: 20,
+                  },
+                }}
+                onClick={submit}
+              >
                 upload
               </Button>
             </div>

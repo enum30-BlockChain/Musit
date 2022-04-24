@@ -20,7 +20,7 @@ export default function Artistinfo() {
           <div className="title-1">
             <div className="title">
               <i className="uil uil-create-dashboard"></i>
-              <span className="text">Artist Dashboard</span>
+              <span className="text"> Artist Dashboard</span>
             </div>
           </div>
           <div className="artist-image">
@@ -32,7 +32,7 @@ export default function Artistinfo() {
           </div>
           <div className="artist-info">
             <h2 className="nickname">Artist Name</h2>
-            {artist.artist_name}
+            <span>{artist.artist_name}</span>
 
             <h2 className="address">Address</h2>
             <span>{sliceAddress}</span>
