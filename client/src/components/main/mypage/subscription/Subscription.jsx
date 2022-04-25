@@ -1,13 +1,17 @@
 import "./Subscription.css";
 import React from "react";
 import Button from "@mui/material/Button";
+import Ethers from "../../../../web3/Ethers"
 
 export const Subscription = () => {
   var now = new Date();
   var year = now.getFullYear();   // 연도
   var month = now.getMonth()+1;   // 월    
   var day = now.getDate();        // 일
-   
+
+  const onClick = () => {
+    Ethers.buySubscription(1, 1)
+  }
 
   return (
     <>
