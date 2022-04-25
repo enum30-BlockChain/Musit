@@ -23,6 +23,7 @@ interface SubscriptionInterface extends ethers.utils.Interface {
   functions: {
     "buy(uint8)": FunctionFragment;
     "getDuration(uint8)": FunctionFragment;
+    "getEndAt(address)": FunctionFragment;
     "getPrice(uint8)": FunctionFragment;
   };
 
@@ -31,6 +32,7 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     functionFragment: "getDuration",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "getEndAt", values: [string]): string;
   encodeFunctionData(
     functionFragment: "getPrice",
     values: [BigNumberish]
@@ -41,6 +43,7 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     functionFragment: "getDuration",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "getEndAt", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getPrice", data: BytesLike): Result;
 
   events: {};
@@ -100,6 +103,8 @@ export class Subscription extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    getEndAt(user: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
     getPrice(
       plan: BigNumberish,
       overrides?: CallOverrides
@@ -116,6 +121,8 @@ export class Subscription extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  getEndAt(user: string, overrides?: CallOverrides): Promise<BigNumber>;
+
   getPrice(plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
@@ -125,6 +132,8 @@ export class Subscription extends BaseContract {
       plan: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    getEndAt(user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     getPrice(plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
   };
@@ -142,6 +151,8 @@ export class Subscription extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getEndAt(user: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     getPrice(plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
@@ -153,6 +164,11 @@ export class Subscription extends BaseContract {
 
     getDuration(
       plan: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getEndAt(
+      user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

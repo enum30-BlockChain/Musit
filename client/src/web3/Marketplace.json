@@ -1,5 +1,5 @@
 {
-    "contractAddress": "0x25D7A544009C8e8cF49225C2608CC10B2D29A0b0",
+    "contractAddress": "0x9BC81048af27DB90A9560C389B03A6D0762b62c7",
     "_format": "hh-sol-artifact-1",
     "contractName": "Marketplace",
     "sourceName": "contracts/Marketplace.sol",

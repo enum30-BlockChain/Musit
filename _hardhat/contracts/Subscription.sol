@@ -57,4 +57,9 @@ contract Subscription {
       revert("Cannot get duration for wrong plan");
     }
   }
+  
+  // 구독 종료 시간 불러오기
+  function getEndAt (address user) public view returns(uint) {
+    return endAt[user];
+  }
 }
