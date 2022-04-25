@@ -394,10 +394,10 @@ export default class Ethers {
 	// buy subscription 함수 불러오기
 	static async buySubscription(plan: number): Promise<boolean | null> {
 		try {
-			const price = await subscription.getPrice(plan);
+			const price: BigNumber = await subscription.getPrice(plan);
 			console.log(`option price : ${price}`)
 			const options = {
-				value: ethers.utils.parseEther(String(price)),
+				value: ethers.utils.formatEther(price),
 			};
 			const result = await subscription.buy(plan, options);
 			return result;
