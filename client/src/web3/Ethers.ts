@@ -11,9 +11,10 @@ import {
 import MusitNftJson from "./MusitNFT.json";
 import MarketplaceJson from "./Marketplace.json";
 import AuctionJson from "./Auction.json";
+import SubscriptionJson from "./Subscription.json";
 import { MusitNFT } from "./typechain/MusitNFT";
 import { Marketplace } from "./typechain/Marketplace";
-import { Auction } from "./typechain";
+import { Auction, Subscription } from "./typechain";
 
 interface Window {
 	ethereum: any;
@@ -38,6 +39,12 @@ const marketplace: ethers.Contract | Marketplace = new ethers.Contract(
 const auction: ethers.Contract | Auction = new ethers.Contract(
 	AuctionJson.contractAddress,
 	AuctionJson.abi,
+	signer
+);
+
+const subscription: ethers.Contract | Subscription = new ethers.Contract(
+	SubscriptionJson.contractAddress,
+	SubscriptionJson.abi,
 	signer
 );
 
@@ -370,6 +377,20 @@ export default class Ethers {
 					ethers.utils.verifyMessage(message, singedMessage) ===
 					(await signer.getAddress());
 			}
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	// buy subscription 함수 불러오기
+	static async buySubscription(plan: number, price: number): Promise<boolean | null> {
+		try {
+			const options = {
+				value: ethers.utils.parseEther(String(price)),
+			};
+			const result = await subscription.buy(plan, options)
 			return result;
 		} catch (error) {
 			console.log(error);
