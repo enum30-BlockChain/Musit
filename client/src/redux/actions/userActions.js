@@ -1,5 +1,6 @@
 import { ActionTypes } from "../constants/actionTypes";
 import axios from "axios";
+import Ethers from "../../web3/Ethers";
 
 /**** Create ****/
 /* 유저 생성 */
@@ -39,10 +40,11 @@ export const readUserData = () => {
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
         const url = `http://localhost:5000/users/${accounts[0]}`;
+        const subsEndAt = await Ethers.getSubscriptionEndAt(accounts[0]); // 구독 종료 시점
         const userInfo = (await axios.get(url)).data;
         dispatch({
           type: ActionTypes.USER_READ_SUCCESS,
-          payload: userInfo,
+          payload: {...userInfo, subsEndAt},
         });
       } else {
         dispatch({

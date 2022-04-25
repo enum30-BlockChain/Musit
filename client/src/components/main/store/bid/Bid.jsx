@@ -17,7 +17,6 @@ const Bid = () => {
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 
 	useEffect(async () => {
-		console.log(selectedNFT)
 		if (selectedNFT.itemId === undefined) {
 			const item = await Ethers.getAuctionItem(tokenId)
 			await dispatch(selectedMusitNFT(item))
@@ -43,11 +42,18 @@ const SuccessContent = () => {
 	const [expired, setExpired] = useState(false);
 
 	// NFT 판매 등록
-	const buyOnClick = async (e) => {
+	const bidOnClick = async (e) => {
 		e.preventDefault();
 		await Ethers.purchaseNFT(selectedNFT.itemId)
 	}
 
+	// NFT 판매 등록
+	const withdrawOnClick = async (e) => {
+		e.preventDefault();
+		await Ethers.purchaseNFT(selectedNFT.itemId)
+	}
+
+	// 주소 짧게 만들기
 	const shortAddress = (topBidder) => {
 		return `${topBidder.slice(0,5)}...${topBidder.slice(-4)}`
 	}
@@ -143,7 +149,9 @@ const SuccessContent = () => {
 								</div>
 								<div className="countdown-box">
 									<div className="title-box">
-										<h2><i className="uil uil-schedule"></i>End At</h2>
+										<h2>
+											<i className="uil uil-schedule"></i> End At
+										</h2>
 									</div>
 									<h1 id="countdown"></h1>
 								</div>
@@ -154,6 +162,7 @@ const SuccessContent = () => {
 									<input
 										min={selectedNFT.topBid}
 										defaultValue={selectedNFT.topBid}
+										disabled={expired}
 										step={0.0001}
 										required
 										type="number"
