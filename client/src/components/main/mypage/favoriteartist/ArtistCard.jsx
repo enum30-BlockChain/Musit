@@ -14,7 +14,10 @@ export default function ArtistCard() {
   return (
     <>
       <div className="likecard">
-        <div className="item-card-container">
+        <div
+          className="item-card-container"
+          style={{ justifyContent: "center" }}
+        >
           {likeArtist.loading ? (
             <>
               <ArtistCardSkeleton />

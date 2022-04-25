@@ -13,8 +13,11 @@ const FavoriteMusic = () => {
 
   return (
     <>
-      <div className="musiccard">
-        <div className="item-card-container">
+      <div className="musiccard" style={{ overflow: "hidden" }}>
+        <div
+          className="item-card-container"
+          style={{ overflow: "auto", maxHeight: "700px" }}
+        >
           {likeMusic.loading ? (
             <>
               <SongCardSkeleton />

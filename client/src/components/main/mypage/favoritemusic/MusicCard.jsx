@@ -1,3 +1,4 @@
+import Paper from "@mui/material/Paper";
 import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -35,52 +36,54 @@ const MusicCard = ({ data, setmusicmodal }) => {
   const sliceTitle = data.title && data.title.substr(0, 10) + "...";
 
   return (
-    <>
-      <div className="item-card">
-        <div className="img-box" onClick={postInfo}>
-          {data.img === "" ? (
-            <Avatar
-              className="register-avatar"
-              alt="Remy Sharp"
-              sx={{ width: 165, height: 160 }}
+    <div className="item-card">
+      <div className="img-box" onClick={postInfo}>
+        {data.img === "" ? (
+          <Avatar
+            className="register-avatar"
+            alt="Remy Sharp"
+            sx={{ width: 165, height: 160 }}
+          />
+        ) : (
+          <img src={data.img_file} />
+        )}
+      </div>
+      <div className="content-wrap">
+        <div className="color-box">
+          <h1>
+            <FavoriteBorderIcon
+              onClick={() => {
+                likeOnclick();
+                setTotalLike(TotalLike + 1);
+                setMusicLike(1);
+              }}
+              sx={{ mr: 0.5 }}
+              cursor="pointer"
+              fontSize="large"
+              style={{
+                position: "absolute",
+                right: "0px",
+                alignItems: "flex-start",
+              }}
             />
-          ) : (
-            <img src={data.img_file} />
-          )}
+          </h1>
         </div>
-        <div className="content-wrap">
-          <div className="color-box">
-            <h1>
-              <FavoriteBorderIcon
-                onClick={() => {
-                  likeOnclick();
-                  setTotalLike(TotalLike + 1);
-                  setMusicLike(1);
-                }}
-                sx={{ mr: 0.5 }}
-                cursor="pointer"
-                fontSize="large"
-                style={{ position: "absolute", right: "0px" }}
-              />
-            </h1>
+        <div className="content-box">
+          <div className="content">
+            <h2>Title</h2>
+            <h1>{sliceTitle}</h1>
           </div>
-          <div className="content-box">
-            <div className="content">
-              <h2>Title</h2>
-              <h1>{sliceTitle}</h1>
-            </div>
-          </div>
-          <div className="content-box">
-            <div className="content">
-              <audio
-                src={`https://ipfs.infura.io/ipfs/${data.ipfs_hash}`}
-                controls
-              ></audio>
-            </div>
+        </div>
+        <div className="content-box">
+          <div className="content">
+            <audio
+              src={`https://ipfs.infura.io/ipfs/${data.ipfs_hash}`}
+              controls
+            ></audio>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
