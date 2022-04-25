@@ -7,6 +7,34 @@
   border-radius: 10px;
 }
 
+.register-layout .submit {
+  margin-top: 15px;
+}
+
+.register-layout .register-title {
+  display: flex;
+  justify-content: center;
+}
+
+.register-layout .register-title i {
+  height: 35px;
+  width: 35px;
+  background-color: var(--primary-color);
+  border-radius: 6px;
+  color: var(--title-icon-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.register-layout .text {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-left: 10px;
+}
+
 .register-layout .register-user .address-and-img .profileimage {
   margin-top: 20px;
 }

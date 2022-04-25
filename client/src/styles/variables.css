@@ -1,10 +1,10 @@
 :root {
   /* ===== Colors ===== */
   --primary-color: #f1b970;
-  --primary-color-background: rgba(241, 185, 112, 0.5);
+  --primary-color-background: rgb(255, 212, 157);
   --secondary-color: #5652a3;
   --secondary-icon: rgb(115, 113, 161);
-  --secondary-icon-background: rgba(115, 113, 161, 0.5);
+  --secondary-icon-background: rgb(157, 156, 179);
   --third-color: #616186;
   --panel-color: linear-gradient(
     60deg,
