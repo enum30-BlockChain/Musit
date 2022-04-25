@@ -6,10 +6,10 @@ contract Subscription {
   mapping (address => uint) endAt;
 
   enum Plans {
-    OPTION0,
-    OPTION1,
-    OPTION2,
-    OPTION3
+    OPTION0, // 첫 가입시 옵션
+    OPTION1, // 구매권 옵션1
+    OPTION2, // 구매권 옵션2
+    OPTION3 // 구매권 옵션3
   }
 
   constructor() {
@@ -26,12 +26,14 @@ contract Subscription {
   
   // Plan에 따른 가격
   function getPrice (Plans plan) public pure returns(uint) {
-    if(plan == Plans.OPTION1) {
-      return 1 ether;
+    if(plan == Plans.OPTION0) {
+      return 0 ether; // 첫 가입시에는 무료
+    } else if (plan == Plans.OPTION1) {
+      return 0.01 ether;
     } else if (plan == Plans.OPTION2) {
-      return 2 ether;
+      return 0.02 ether;
     } else if (plan == Plans.OPTION3) {
-      return 3 ether;
+      return 0.03 ether;
     } else {
       revert("Cannot get price for wrong plan");
     }
@@ -39,7 +41,9 @@ contract Subscription {
 
   // Plan에 따른 구독 기간 
   function getDuration (Plans plan) public pure returns(uint) {
-    if(plan == Plans.OPTION1) {
+    if(plan == Plans.OPTION0) {
+      return 30 days;
+    } else if (plan == Plans.OPTION1) {
       return 30 days;
     } else if (plan == Plans.OPTION2) {
       return 60 days;
