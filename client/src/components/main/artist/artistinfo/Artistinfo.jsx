@@ -61,7 +61,7 @@ export default function Artistinfo() {
             ) : (
               <Avatar
                 alt="Remy Sharp"
-                src={artist.img}
+                src={albumCoverImgFile ? albumCoverImgFile : artist.img}
                 sx={{ width: 310, height: 310 }}
               />
             )}
@@ -73,9 +73,6 @@ export default function Artistinfo() {
                   accept="image/*"
                   onChange={getImg}
                 ></input>
-                {albumCoverImgFile && (
-                  <img style={{ width: "100px" }} src={albumCoverImgFile}></img>
-                )}
               </div>
             )}
           </div>

@@ -3,13 +3,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArtistCard from "../../serach/artist/ArtistCard";
 import ArtistModal from "../../serach/artist/ArtistModal";
 import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
-import Divider from "@mui/material/Divider";
 import SimpleBackdrop from "../SimpleBackdrop";
 import "./Genre.css";
 

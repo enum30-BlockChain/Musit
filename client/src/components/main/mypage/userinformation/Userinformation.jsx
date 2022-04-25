@@ -10,7 +10,8 @@ import CountryType from "../../register/usersubmit/CountryType";
 export default function Userinformation({}) {
   const [select, setSelect] = useState("");
   const [visible, setVisible] = useState(false);
-  const [albumCoverImgFile, setAlbumCoverImgFile] = useState("");
+
+  const [userImg, setUserImg] = useState("");
   const [img, setImg] = useState("");
   const [checkedInputs, setCheckedInputs] = useState("");
   const [selected, setSelected] = useState("KS");
@@ -53,7 +54,7 @@ export default function Userinformation({}) {
   };
 
   const getImg = (e) => {
-    setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
+    setUserImg(URL.createObjectURL(e.target.files[0]));
     setImg(e.target.files[0]);
   };
 
@@ -85,11 +86,10 @@ export default function Userinformation({}) {
     "Dance",
   ]);
 
-  const sliceAddress =
-    metamask.accounts[0] &&
-    metamask.accounts[0].substr(0, 5) +
-      metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
-      "...";
+  const sliceAddress = metamask.accounts[0] && df;
+  metamask.accounts[0].substr(0, 5) +
+    metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
+    "...";
 
   return (
     <div className="userinfo-layout">
@@ -99,30 +99,31 @@ export default function Userinformation({}) {
             <Avatar alt="Remy Sharp" sx={{ width: 310, height: 310 }} />
           ) : (
             <Avatar
-              className="userinfo-image"
               alt="Remy Sharp"
-              src={user.img}
+              src={userImg ? userImg : user.img}
               sx={{ width: 310, height: 310 }}
             />
           )}
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>
+              <label className="input-Image" for="input-userimg">
+                Choose your Profile Image
+              </label>
               <input
+                id="input-userimg"
                 type="file"
+                style={{ display: "none" }}
                 name="imgUpload"
                 accept="image/*"
                 onChange={getImg}
                 // style="none"
               ></input>
-              {albumCoverImgFile && (
-                <img style={{ width: "100px" }} src={albumCoverImgFile}></img>
-              )}
             </div>
           )}
         </div>
         <div className="userinfo-info">
-          <h2 className="nickname">Nickname</h2>
+          <h1 className="nickname">Nickname</h1>
 
           {visible ? (
             <div>
@@ -137,9 +138,9 @@ export default function Userinformation({}) {
           ) : (
             <p>{user.nickname}</p>
           )}
-          <h2 className="address">Address</h2>
+          <h1 className="address">Address</h1>
           <span>{metamask.accounts[0]}</span>
-          <h2 className="subscription">Subscription</h2>
+          <h1 className="subscription">Subscription</h1>
           <span>{user.subscription}월이용권 </span>
           {visible ? (
             <div>
@@ -182,44 +183,45 @@ export default function Userinformation({}) {
             <span>{user.genre}</span>
           )}
 
-          {visible ? (
-            <Button
-              variant="contained"
-              sx={{
-                color: "var(--black-light-color)",
-                backgroundColor: "var(--box1-color)",
-                ":hover": {
-                  background: "var(--primary-color)",
-                  color: "var(--text-color)",
-                },
-              }}
-              onClick={async () => {
-                setVisible(!visible);
-                await ChangeUser();
-              }}
-            >
-              Submit
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              sx={{
-                color: "var(--black-light-color)",
-                backgroundColor: "var(--box1-color)",
-                ":hover": {
-                  background: "var(--primary-color)",
-                  color: "var(--text-color)",
-                },
-              }}
-              onClick={async () => {
-                setVisible(!visible);
-                await BaseOnClick();
-              }}
-            >
-              Edit
-            </Button>
-          )}
-          <div className="setting-btn"></div>
+          <div className="setting-btn">
+            {visible ? (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+                onClick={async () => {
+                  setVisible(!visible);
+                  await ChangeUser();
+                }}
+              >
+                Submit
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+                onClick={async () => {
+                  setVisible(!visible);
+                  await BaseOnClick();
+                }}
+              >
+                Edit
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>

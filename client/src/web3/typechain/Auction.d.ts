@@ -32,8 +32,6 @@ interface AuctionInterface extends ethers.utils.Interface {
     "forceCancel(uint256)": FunctionFragment;
     "forceEnd(uint256)": FunctionFragment;
     "getBlockTimestamp()": FunctionFragment;
-    "getItems(uint256)": FunctionFragment;
-    "getNftToItemId(address,uint256)": FunctionFragment;
     "getPendingBids(uint256,address)": FunctionFragment;
     "itemCounter()": FunctionFragment;
     "items(uint256)": FunctionFragment;
@@ -80,14 +78,6 @@ interface AuctionInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "getBlockTimestamp",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getItems",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getNftToItemId",
-    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getPendingBids",
@@ -145,11 +135,6 @@ interface AuctionInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "forceEnd", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getBlockTimestamp",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "getItems", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getNftToItemId",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -330,41 +315,6 @@ export class Auction extends BaseContract {
 
     getBlockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getItems(
-      _itemId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<
-      [
-        [
-          BigNumber,
-          BigNumber,
-          BigNumber,
-          BigNumber,
-          string,
-          string,
-          BigNumber,
-          number,
-          string
-        ] & {
-          startPrice: BigNumber;
-          startAt: BigNumber;
-          endAt: BigNumber;
-          tokenId: BigNumber;
-          seller: string;
-          topBidder: string;
-          topBid: BigNumber;
-          status: number;
-          nft: string;
-        }
-      ]
-    >;
-
-    getNftToItemId(
-      _nft: string,
-      _tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
     getPendingBids(
       _itemId: BigNumberish,
       _addr: string,
@@ -482,39 +432,6 @@ export class Auction extends BaseContract {
 
   getBlockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getItems(
-    _itemId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<
-    [
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      string,
-      string,
-      BigNumber,
-      number,
-      string
-    ] & {
-      startPrice: BigNumber;
-      startAt: BigNumber;
-      endAt: BigNumber;
-      tokenId: BigNumber;
-      seller: string;
-      topBidder: string;
-      topBid: BigNumber;
-      status: number;
-      nft: string;
-    }
-  >;
-
-  getNftToItemId(
-    _nft: string,
-    _tokenId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
   getPendingBids(
     _itemId: BigNumberish,
     _addr: string,
@@ -617,39 +534,6 @@ export class Auction extends BaseContract {
     forceEnd(_itemId: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     getBlockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getItems(
-      _itemId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<
-      [
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        string,
-        string,
-        BigNumber,
-        number,
-        string
-      ] & {
-        startPrice: BigNumber;
-        startAt: BigNumber;
-        endAt: BigNumber;
-        tokenId: BigNumber;
-        seller: string;
-        topBidder: string;
-        topBid: BigNumber;
-        status: number;
-        nft: string;
-      }
-    >;
-
-    getNftToItemId(
-      _nft: string,
-      _tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     getPendingBids(
       _itemId: BigNumberish,
@@ -896,17 +780,6 @@ export class Auction extends BaseContract {
 
     getBlockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getItems(
-      _itemId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getNftToItemId(
-      _nft: string,
-      _tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     getPendingBids(
       _itemId: BigNumberish,
       _addr: string,
@@ -997,17 +870,6 @@ export class Auction extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getBlockTimestamp(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getItems(
-      _itemId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getNftToItemId(
-      _nft: string,
-      _tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
 
     getPendingBids(
       _itemId: BigNumberish,
