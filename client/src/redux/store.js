@@ -14,6 +14,7 @@ import {
   likeMusicReducer,
   musicListReducer,
   musicReducer,
+  recentMusicReducer,
   selectedMusicReducer,
 } from "./reducers/musicReducer";
 import { searchingReducer } from "./reducers/searchingReducer";
