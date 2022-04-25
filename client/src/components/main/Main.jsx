@@ -157,7 +157,7 @@ export const Main = () => {
           <Route path="test" element={<Test />} />
         </Routes>
       </div>
-      {user.address && <Playbar />}
+      {user.address && user.subsEndAt && <Playbar />}
     </section>
   );
 };

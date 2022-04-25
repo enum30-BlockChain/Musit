@@ -76,20 +76,16 @@ const RegisterUser = () => {
   };
 
   const UserHandleOnClick = async (e) => {
-    if (e.target.value === "") {
-      alert("닉네임 적어주세요");
-    } else {
-      await postImg();
-      const userdata = {
-        address: metamask.accounts[0],
-        genre: checkedInputs,
-        nation: selectd,
-        nickname: nickname,
-        img: DBdata.cover_img_link,
-      };
-      await dispatch(createUserData(userdata));
-      // window.location.reload();
-    }
+    await postImg();
+    const userdata = {
+      address: metamask.accounts[0],
+      genre: checkedInputs,
+      nation: selectd,
+      nickname: nickname,
+      img: DBdata.cover_img_link,
+    };
+    await dispatch(createUserData(userdata));
+    window.location.reload();
   };
 
   const getImg = (e) => {
@@ -136,14 +132,9 @@ const RegisterUser = () => {
               {metamask.accounts[0] === undefined ? (
                 <>
                   <div>
-                    <label htmlFor="bringyouraddress">
+                    <a id="bringyouraddress" onClick={connectOnclick}>
                       Bring your Wallet Address
-                    </label>
-                    <button
-                      id="bringyouraddress"
-                      style={{ display: "none" }}
-                      onClick={connectOnclick}
-                    ></button>
+                    </a>
                   </div>
                 </>
               ) : (
