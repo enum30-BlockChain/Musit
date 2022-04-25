@@ -407,10 +407,10 @@ export default class Ethers {
 	}
 	
 	// subscription EndAt 불러오기
-	static async getSubscriptionEndAt(): Promise<string | null> {
+	static async getSubscriptionEndAt(address: string): Promise<string | null> {
 		try {
-			const endAt = await subscription.getEndAt();	
-			return endAt;
+			const endAt = await subscription.getEndAt(address);	
+			return endAt.toNumber();
 		} catch (error) {
 			console.log(error);
 			return null;

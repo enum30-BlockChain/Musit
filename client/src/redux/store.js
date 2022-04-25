@@ -41,6 +41,7 @@ const rootReducer = combineReducers({
   musicList: musicListReducer,
   likeMusic: likeMusicReducer,
   selectedMusic: selectedMusicReducer,
+  recentMusic: recentMusicReducer,
 
   // Search Reducer
   searching: searchingReducer,

@@ -1,10 +1,10 @@
 :root {
   /* ===== Colors ===== */
   --primary-color: #f1b970;
-  --primary-color-background: rgba(241, 185, 112, 0.5);
+  --primary-color-background: rgb(255, 212, 157);
   --secondary-color: #5652a3;
   --secondary-icon: rgb(115, 113, 161);
-  --secondary-icon-background: rgba(115, 113, 161, 0.5);
+  --secondary-icon-background: rgb(187, 185, 221);
   --third-color: #616186;
   --panel-color: linear-gradient(
     60deg,
@@ -37,8 +37,14 @@
 
 body.dark {
   /* ===== Dark Colors ===== */
+
   --alltime-white: white;
-  --primary-color: #eee;
+  --primary-color: rgb(194, 194, 194);
+  --secondary-icon: rgb(158, 158, 158);
+  --secondary-icon-background: rgb(158, 158, 158);
+
+  --primary-color-background: rgb(194, 194, 194);
+
   --secondary-color: rgb(85, 81, 164);
   --third-color: #616186;
   --panel-color: #252626;

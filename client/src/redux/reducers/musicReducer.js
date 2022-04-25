@@ -159,3 +159,15 @@ export const selectedMusicReducer = (state = {}, { type, payload }) => {
       return state;
   }
 };
+
+/* Recent Music Reducer */
+export const recentMusicReducer = (state = "", { type, payload }) => {
+  switch (type) {
+    case ActionTypes.RECENT_MUSIC:
+      return payload;
+    case ActionTypes.REMOVE_RECENT_MUSIC:
+      return "";
+    default:
+      return state;
+  }
+};
