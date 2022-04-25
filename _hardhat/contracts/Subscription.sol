@@ -19,8 +19,12 @@ contract Subscription {
   // 구독권 구매 함수
   function buy (Plans plan) external payable {
     require(msg.value >= getPrice(plan));
-    uint startAt = block.timestamp; // 현재 시간
-    endAt[msg.sender] = startAt + getDuration(plan);
+    if (endAt[msg.sender] > block.timestamp) { // 이용 중인 경우는 기간 연장
+      endAt[msg.sender] += getDuration(plan);
+    } else { // 만료 되면 현재 시간에서부터 구독기간 시작
+      uint startAt = block.timestamp; // 현재 시간
+      endAt[msg.sender] = startAt + getDuration(plan);
+    }
     payable(owner).transfer(msg.value); // 구매한 금액 우리가 받아가기
   }
   
