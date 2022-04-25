@@ -10,12 +10,15 @@ import {
   readLikeArtistList,
 } from "./redux/actions/artistActions";
 import { readMetamaskData } from "./redux/actions/metamaskActions";
-import { readMusicList, readLikeMusicList } from "./redux/actions/musicActions";
+import { getRecentMusic, readMusicList, readLikeMusicList } from "./redux/actions/musicActions";
 import { readUserData } from "./redux/actions/userActions";
 import Metamask from "./web3/Metamask";
 
 const App = () => {
   const dispatch = useDispatch();
+  const musicList = useSelector((state) => state.musicList).data;
+  const user = useSelector((state) => state.user);
+
   useEffect(() => {
     const init = async () => {
       await dispatch(readMetamaskData());
@@ -29,6 +32,14 @@ const App = () => {
     };
     init();
   }, []);
+
+  useEffect(() => {
+    if (user.recent_played) {
+      const songTitle = user.recent_played.split("-").pop()
+      console.log(songTitle)
+      dispatch(getRecentMusic(songTitle))
+    }
+  }, [user.loading])
 
   return (
     <>
