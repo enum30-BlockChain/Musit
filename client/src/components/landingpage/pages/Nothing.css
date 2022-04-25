@@ -1,0 +1,16 @@
+.nothing .nothing-ex {
+  font-size: 4rem;
+  font-weight: bold;
+  color: rgb(236, 236, 236);
+
+  text-shadow: -0.05em 0.03em 0 rgba(85, 81, 164, 0.75),
+    0.06em 0.04em 0 rgba(241, 185, 112, 0.75);
+}
+.nothing .nothing-message {
+  font-size: 4rem;
+  font-weight: bold;
+  color: rgb(236, 236, 236);
+
+  text-shadow: -0.05em 0.03em 0 rgba(85, 81, 164, 0.75),
+    0.06em 0.04em 0 rgba(241, 185, 112, 0.75);
+}
