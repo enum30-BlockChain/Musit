@@ -9,6 +9,7 @@ const initialState = {
   recent_played: null,
   img: null,
   subscription: null,
+  subsEndAt: null,
   ArtistLikes: [],
   MusicLikes: [],
   error: false,

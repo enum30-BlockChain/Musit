@@ -202,6 +202,25 @@ export default class Ethers {
 		}
 	}
 
+	// Auction에 올라온 NFT 입찰하기
+	static async bid(
+		itemId: number,
+		price: number
+	): Promise<ContractTransaction | null> {
+		try {
+
+			let bidPrice = (await auction.calPriceWithFee(price)).toString();
+			const options = {
+				value: bidPrice,
+			};
+			const result = await auction.bid(itemId, options);
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
 	// 마켓에 올라온 NFT 리스트 검색
 	static async getMarketNFTList(): Promise<object[] | null> {
 		try {

@@ -10,7 +10,7 @@ import AuctionCard from "./nftcard/AuctionCard";
 import Error from "../../Error";
 import SimpleBackdrop from "../music/SimpleBackdrop";
 
-const fakeFetch = (delay = 1000) =>
+const fakeFetch = (delay = 500) =>
   new Promise((res) => setTimeout(res, delay));
 
 export const Store = () => {
@@ -20,9 +20,9 @@ export const Store = () => {
   const auction = useSelector((state) => state.auction);
 
   useEffect(async () => {
-    dispatch(readOnMarketNFTList());
-    dispatch(readOnAuctionNFTList());
-    fakeFetch();
+    await dispatch(readOnMarketNFTList());
+    await dispatch(readOnAuctionNFTList());
+    await fakeFetch();
     setLoading(false);
   }, []);
 
