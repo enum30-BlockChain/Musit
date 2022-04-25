@@ -23,6 +23,19 @@ const SellCard = ({data}) => {
 					<div className="color-box"></div>
 					<div className="info-wrap">
 						<div className="first-box">
+							<div className="price-box">
+								<h2>Price</h2>
+								<h1>
+									<img src="./images/eth.png" />
+									{data.price}
+								</h1>
+							</div>
+							<div className="tokenid-box">
+								<h2>Token Id</h2>
+								<h1>{data.tokenId}</h1>
+							</div>
+						</div>
+						<div className="second-box">
 							<div className="content">
 								<h2>Title</h2>
 								<h1>{data.title}</h1>
@@ -31,13 +44,6 @@ const SellCard = ({data}) => {
 								<h2>Artist</h2>
 								<h1>{data.artist_name}</h1>
 							</div>
-						</div>
-						<div className="second-box">
-							<div className="price-box">
-								<h2>Price</h2>
-								<h1>{data.price} ETH</h1>
-							</div>
-							<div></div>
 						</div>
 					</div>
 				</div>

@@ -139,7 +139,7 @@ function Search(props) {
   return (
     <Box sx={{ height: "100%" }}>
       <div className="music-searchresult">
-        <Box sx={{ height: "40%" }}>
+        <Box sx={{ height: "300px" }}>
           <div className="title">
             <i className="uil uil-search"></i>
 
@@ -218,7 +218,7 @@ function Search(props) {
             sx={{
               display: "flex",
               alignItems: "center",
-              height: "70%",
+              height: "400px",
               px: 2,
             }}
           >

@@ -43,15 +43,20 @@ export default function MainCard(props) {
     const musicContainer = document.querySelector(".music-container");
     const playBtn = document.querySelector("#play");
     const audio = document.querySelector("#audio");
-    musicContainer.classList.remove("play");
-    playBtn.querySelector("i.fas").classList.add("fa-play");
-    playBtn.querySelector("i.fas").classList.remove("fa-pause");
-    audio.pause();
+    if (musicContainer) {
+      musicContainer.classList.remove("play");
+      playBtn.querySelector("i.fas").classList.add("fa-play");
+      playBtn.querySelector("i.fas").classList.remove("fa-pause");
+      audio.pause();
+    } else {
+      throw Error("Login first")
+    }
   }
 
   const musicCardOnClick = async () => {
     const musicCard = document.querySelector(`.music-card.card-${props.id}`);
-    const musicCardPlaying = document.querySelector(" .music-card.playing");
+    const musicCardPlaying = document.querySelector(".music-card.playing");
+    if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
     musicCard.classList.toggle("playing");
     const audio = document.querySelector("#MusicCardAudio");
     const playingState = document.querySelector(
@@ -64,7 +69,6 @@ export default function MainCard(props) {
     } else {
       audio.pause();
     }
-    if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
   };
 
   const palyCountAdd = async () => {

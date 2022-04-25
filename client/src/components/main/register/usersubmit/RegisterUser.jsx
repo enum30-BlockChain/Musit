@@ -119,7 +119,8 @@ const RegisterUser = () => {
   return (
     <>
       <div className="register-layout">
-        <h1 className="register-user-tilte">Sign up to Enum30 Music</h1>
+        <i className="uil uil-upload-alt"></i>
+        <span className="text"> Sign up to Enum30 Music</span>
         <div className="register-user">
           <div className="address-and-img">
             <h1>Your Wallet Address</h1>
@@ -181,7 +182,7 @@ const RegisterUser = () => {
                 type="text"
                 placeholder="Nickname"
                 sx={{ width: 400 }}
-                inputProps={{ fontSize: "30px" }}
+                inputProps={{ style: { fontSize: 30 } }}
                 onChange={onChangeNick}
               ></Input>
             </li>
