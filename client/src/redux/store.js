@@ -4,7 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { userReducer } from "./reducers/userReducer";
 import { metaMaskReducer } from "./reducers/metamaskReducer";
 import { artistListReducer, likeArtistReducer, artistReducer, selectedArtistReducer } from "./reducers/artistReducer";
-import { likeMusicReducer, musicListReducer, musicReducer, selectedMusicReducer } from "./reducers/musicReducer";
+import { likeMusicReducer, musicListReducer, musicReducer, recentMusicReducer, selectedMusicReducer } from "./reducers/musicReducer";
 import { searchingReducer } from "./reducers/searchingReducer";
 import { onAuctionMusitNFTReducer, onMarketMusitNFTReducer, ownedMusitNFTReducer, selectedMusitNFTReducer } from "./reducers/contractReducer";
 
@@ -27,6 +27,7 @@ const rootReducer = combineReducers({
   musicList: musicListReducer,
   likeMusic: likeMusicReducer,
   selectedMusic: selectedMusicReducer,
+  recentMusic: recentMusicReducer,
 
   // Search Reducer
   searching: searchingReducer,

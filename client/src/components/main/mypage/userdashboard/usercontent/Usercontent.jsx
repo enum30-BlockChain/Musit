@@ -7,6 +7,7 @@ import Ethers from "../../../../../web3/Ethers";
 
 const Usercontent = () => {
   const user = useSelector((state) => state.user);
+  const recentMusic = useSelector((state) => state.recentMusic);
   const likeMusic = useSelector((state) => state.likeMusic.data);
   const likeArtist = useSelector((state) => state.likeArtist.data);
   const mynft = useSelector((state) => state.ownedMusitNFT.data);
@@ -16,26 +17,24 @@ const Usercontent = () => {
     await dispatch(readMyNFTList());
     const subsEndAt = await Ethers.getSubscriptionEndAt(user.address);
     const countDown = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = subsEndAt * 1000 - now;
-
-      console.log(distance);
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").innerHTML =
-        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-      // 남은 시간이 0보다 작으면 종료
-      if (distance < 0 || distance == NaN) {
-        clearInterval(countDown);
-        document.getElementById("countdown").innerHTML = "EXPIRED";
-      }
-    }, 1000);
+			const now = new Date().getTime();
+			const distance = (subsEndAt*1000) - now;
+			const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			const hours = Math.floor(
+				(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+			);
+			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	
+			document.getElementById("countdown").innerHTML =
+				days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+	
+			// 남은 시간이 0보다 작으면 종료
+			if (distance < 0 || distance == NaN) {
+				clearInterval(countDown);
+				document.getElementById("countdown").innerHTML = "EXPIRED";
+			}
+		}, 1000);
   }, []);
 
   return (
@@ -71,7 +70,7 @@ const Usercontent = () => {
           <Link to={"/"} className="box box1">
             <i className="uil uil-headphones-alt"></i>
             <span className="text">Recently Played Music</span>
-            <Marquee className="number">Resently Played Music</Marquee>
+            <Marquee className="number">{recentMusic}</Marquee>
           </Link>
           <Link to={"/mypage/subscription"} className="box box1">
             <i className="uil uil-hourglass"></i>
