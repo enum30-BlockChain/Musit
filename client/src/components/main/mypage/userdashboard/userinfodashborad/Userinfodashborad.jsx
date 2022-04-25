@@ -20,12 +20,14 @@ export default function Userinformation({}) {
           <span className="text"> Dashboard</span>
         </div>
         <div className="userinfo-image">
-          <Avatar
-            className="userinfo-image"
-            alt="Remy Sharp"
-            src={user.img}
-            sx={{ width: 260, height: 260 }}
-          />
+          <div>
+            <Avatar
+              className="userinfo-image"
+              alt="Remy Sharp"
+              src={user.img}
+              sx={{ width: 260, height: 260 }}
+            />
+          </div>
         </div>
         <div className="userinfo-info">
           <h2 className="nickname">Nickname</h2>
