@@ -47,12 +47,12 @@ export const Playbar = () => {
         if (user.recent_played === null) {
           // console.log("회원인데 리센트없는사람 ")
           //recent_played 없으면 바로 배열 0번째 ㄱ하고
-          setpalyeCount(song.play_count);
-          sethash(song.ipfs_hash);
-          setSongTitle(song.title);
-          title.innerText = song.title;
-          audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
-          cover.src = song.img_file;
+          // setpalyeCount(song.play_count);
+          // sethash(song.ipfs_hash);
+          // setSongTitle(song.title);
+          // title.innerText = song.title;
+          // audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
+          // cover.src = song.img_file;
         } else {
           // console.log("회원인데 리센트있는사람 ")
           // recent_played 있으면
