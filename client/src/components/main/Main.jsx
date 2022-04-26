@@ -42,7 +42,6 @@ import { Artist } from "./artist/Artist";
 import Artistinfo from "./artist/artistinfo/Artistinfo";
 import { Artistdashbord } from "./artist/artistdashbord/Artistdashbord";
 import Album from "./artist/myalbum/Album";
-import Auctionupload from "./artist/auctionupload/Auctionupload";
 
 //Main-nav Create
 import { Musicupload } from "./create/musicupload/Musicupload";
@@ -131,7 +130,6 @@ export const Main = () => {
               <Route path="artistinfo" element={<Artistinfo />} />
               <Route index element={<Artistdashbord />} />
               <Route path="myupload" element={<Album />} />
-              <Route path="auctionupload" element={<Auctionupload />} />
             </Route>
             <Route path="artistsubmit" element={<Artistsubmit />} />
 

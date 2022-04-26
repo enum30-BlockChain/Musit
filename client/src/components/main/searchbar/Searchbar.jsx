@@ -90,6 +90,7 @@ export const Searchbar = () => {
             </Button>
           )}
         </div>
+
         <Drawer
           anchor="right"
           open={open}
