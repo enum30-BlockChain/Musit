@@ -33,6 +33,7 @@ export default function Artistsubmit() {
     };
     dispatch(createArtistData(artistsdata));
     alert("아티스트 등록이 완료되었습니다");
+    window.location.reload();
   };
 
   const onChange = (e) => {

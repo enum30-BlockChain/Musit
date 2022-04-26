@@ -21,7 +21,7 @@ const Img = styled("img")({
 });
 
 export default function AlbumCard({ song, setmusicmodal }) {
-  const [TotalLike, setTotalLike] = useState("");
+  const [TotalLike, setTotalLike] = useState(song.MusicLikes.length);
   const [findlike, setFindlike] = useState("");
   const likeList = useSelector((state) => state.likeMusic);
   const dispatch = useDispatch();
@@ -42,9 +42,11 @@ export default function AlbumCard({ song, setmusicmodal }) {
 
   const likecountpost = async () => {
     dispatch(toggleLikeMusic({ ipfs_hash: song.ipfs_hash }));
+    setTotalLike(likeList);
   };
 
-  const sellmusic = () => {};
+  console.log(song);
+
   return (
     <Paper
       sx={{
@@ -99,7 +101,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
           {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
           <Grid item>
             {findlike.length === 0 ? (
-              <Box>
+              <Box style={{ display: "flex" }}>
                 <FavoriteBorderIcon
                   sx={{ color: pink[300] }}
                   cursor="pointer"
@@ -107,14 +109,14 @@ export default function AlbumCard({ song, setmusicmodal }) {
                   value={song.ipfs_hash}
                   onClick={() => {
                     likecountpost();
-                    setTotalLike();
+                    setTotalLike(TotalLike + 1);
                     setFindlike(1);
                   }}
                 />
-                {TotalLike}
+                <h1>{TotalLike}</h1>
               </Box>
             ) : (
-              <Box>
+              <Box style={{ display: "flex" }}>
                 <FavoriteIcon
                   sx={{ color: pink[300] }}
                   cursor="pointer"
@@ -122,11 +124,11 @@ export default function AlbumCard({ song, setmusicmodal }) {
                   value={song.ipfs_hash}
                   onClick={() => {
                     likecountpost();
-                    setTotalLike();
+                    setTotalLike(TotalLike - 1);
                     setFindlike("");
                   }}
                 />
-                {TotalLike}
+                <h1>{TotalLike}</h1>
               </Box>
             )}
           </Grid>

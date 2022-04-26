@@ -60,12 +60,11 @@ export default function AlbumList() {
     { id: "title", label: "Title", minWidth: 30 },
     { id: "artist", label: "Artist Name", minWidth: 30 },
     { id: "albumimg", label: "Album Cover", minWidth: 120 },
-    { id: "likes", label: "Like Count", minWidth: 30 },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, title, artist, albumimg, likes) {
-    return { number, title, artist, albumimg, likes };
+  function createRow(number, title, artist, albumimg) {
+    return { number, title, artist, albumimg };
   }
 
   const rows = [];
@@ -77,13 +76,10 @@ export default function AlbumList() {
           index,
           song.title,
           song.artist_name,
-          <AlbumCard song={song} setmusicmodal={setmusicmodal} />,
-          song.MusicLikes.length
+          <AlbumCard song={song} setmusicmodal={setmusicmodal} />
         )
       );
     });
-
-  console.log(upLoadMusic);
 
   return (
     <Paper

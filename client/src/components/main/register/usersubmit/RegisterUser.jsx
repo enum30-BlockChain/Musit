@@ -62,21 +62,16 @@ const RegisterUser = () => {
   const formData = new FormData();
 
   const onChangeNick = (e) => {
-    console.log(e.target.value.length);
     setNickname(e.target.value);
     if (e.target.value.length < 2 || e.target.value.length > 5) {
       setnicknameMessage("2글자 이상 5글자 이하로 작성해주세요");
-
-      false;
     } else {
       setnicknameMessage("올바른 방식입니다.");
-
-      true;
     }
   };
 
   const UserHandleOnClick = async (e) => {
-    if (e.target.value === "") {
+    if (nickname === "") {
       alert("닉네임 적어주세요");
     } else {
       await postImg();
@@ -88,7 +83,7 @@ const RegisterUser = () => {
         img: DBdata.cover_img_link,
       };
       await dispatch(createUserData(userdata));
-      // window.location.reload();
+      window.location.reload();
     }
   };
 
