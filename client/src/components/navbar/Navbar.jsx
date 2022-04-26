@@ -54,37 +54,45 @@ export const Navbar = () => {
 
         <div className="menu-items">
           <ul className="nav-links">
-            {user.nickname !== null ? (
-              <li>
-                <Link to="/mypage">
-                  <i className="uil uil-create-dashboard"></i>
-                  <span className="link-name">MYPAGE</span>
-                </Link>
-              </li>
-            ) : (
+            {user.nickname === null ? (
               <li>
                 <Link to="/register">
                   <i className="uil uil-create-dashboard"></i>
                   <span className="link-name">REGISTER</span>
                 </Link>
               </li>
+            ) : artist.artist_name !== null ? (
+              <>
+                <li>
+                  <Link to="/mypage">
+                    <i className="uil uil-create-dashboard"></i>
+                    <span className="link-name">MYPAGE</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/artist">
+                    <i className="uil uil-palette"></i>
+                    <span className="link-name">ARTIST</span>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/mypage">
+                    <i className="uil uil-create-dashboard"></i>
+                    <span className="link-name">MYPAGE</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/artistsubmit">
+                    <i className="uil uil-user-plus"></i>
+                    <span className="link-name"> Artist Register</span>
+                  </Link>
+                </li>
+              </>
             )}
 
-            {artist.artist_name !== null ? (
-              <li>
-                <Link to="/artist">
-                  <i className="uil uil-palette"></i>
-                  <span className="link-name">ARTIST</span>
-                </Link>
-              </li>
-            ) : (
-              <li>
-                <Link to="/artistsubmit">
-                  <i className="uil uil-user-plus"></i>
-                  <span className="link-name"> Artist Register</span>
-                </Link>
-              </li>
-            )}
             <li>
               <Link to="/music">
                 <i className="uil uil-music"></i>
@@ -99,13 +107,6 @@ export const Navbar = () => {
             </li>
           </ul>
           <ul className="logout-mode">
-            <li>
-              <Link to="#">
-                <i className="uil uil-signout"></i>
-                <span className="link-name">Logout</span>
-              </Link>
-            </li>
-
             <li className="mode">
               <Link to="#">
                 <i className="uil uil-moon"></i>
