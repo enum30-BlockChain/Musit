@@ -96,8 +96,10 @@ const SuccessContent = () => {
 				setExpired(true)
 			}
 		}, 1000);
+		return () => {
+			clearInterval(countDown);
+		}
 	}, [])
-
 
 	return (
 		<section className="bid-container">
@@ -178,13 +180,10 @@ const SuccessContent = () => {
 										step={0.0001}
 										required
 										type="number"
-										onChange={(e) => {
-											setBidPrice(e.target.value)
-											console.log(bidPrice)
-										}}
+										onChange={(e) => {setBidPrice(e.target.value)}}
 									/>
 								</div>
-								{expired ? <button>Withdraw</button> : <button>Submit</button>}
+								{expired ? <button onClick={withdrawOnClick}>Withdraw</button> : <button onClick={bidOnClick}>Submit</button>}
 							</form>
 						</section>
 					</>

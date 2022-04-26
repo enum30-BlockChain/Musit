@@ -68,8 +68,6 @@ router.patch("/:address", async (req, res, next) => {
       res.send(400, "Empty nickname");
     } else if (req.body.nation !== undefined && req.body.nation.trim() === "") {
       res.send(400, "Empty nation");
-    } else if (req.body.img !== undefined && req.body.img.trim() === "") {
-      res.send(400, "Empty nation");
     } else {
       const result = await User.update(req.body, {
         where: {

@@ -13,28 +13,40 @@ const Usercontent = () => {
   const mynft = useSelector((state) => state.ownedMusitNFT.data);
   const dispatch = useDispatch();
 
+  const twoDigit = (number) => {
+		return ("0" + number).slice(-2)
+	}
+
   useEffect(async () => {
     await dispatch(readMyNFTList());
     const subsEndAt = await Ethers.getSubscriptionEndAt(user.address);
-    const countDown = setInterval(() => {
+    const countdown = document.getElementById("subs-countdown")
+    const subscription = setInterval(() => {
 			const now = new Date().getTime();
-			const distance = (subsEndAt*1000) - now;
-			const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-			const hours = Math.floor(
-				(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-			);
-			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-			const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-	
-			document.getElementById("countdown").innerHTML =
-				days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-	
-			// 남은 시간이 0보다 작으면 종료
-			if (distance < 0 || distance == NaN) {
-				clearInterval(countDown);
-				document.getElementById("countdown").innerHTML = "EXPIRED";
-			}
+			const distance = subsEndAt * 1000 - now;
+
+      if (distance !== NaN) {
+        const days = twoDigit(Math.floor(distance / (1000 * 60 * 60 * 24)));
+        const hours = twoDigit(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+				const minutes = twoDigit(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+				const seconds = twoDigit(Math.floor((distance % (1000 * 60)) / 1000));
+    
+        countdown.innerHTML =
+          days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+    
+        // 남은 시간이 0보다 작으면 종료
+        if (distance < 0 ) {
+          clearInterval(subscription);
+          countdown.innerHTML = "EXPIRED";
+        }
+      } else {
+        clearInterval(subscription);
+      }
 		}, 1000);
+
+    return () => {
+			clearInterval(subscription);
+    }
   }, []);
 
   return (
@@ -57,7 +69,7 @@ const Usercontent = () => {
         <Link to={"/mypage/subscription"} className="box box1">
             <i className="uil uil-hourglass"></i>
             <span className="text">Subscription</span>
-            <span className="number" id="countdown">EXPIRED</span>
+            <span className="number" id="subs-countdown">EXPIRED</span>
           </Link>
           <Link to={"/mypage/mynftlist"} className="box box1">
             <i className="uil uil-capture"></i>

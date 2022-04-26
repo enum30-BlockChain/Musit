@@ -48,20 +48,21 @@ export default function AlbumCard({ song, setmusicmodal }) {
   return (
     <Paper
       sx={{
-        maxWidth: 160,
-        flexGrow: 1,
-        backgroundColor: (theme) =>
-          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        width: 250,
+        height:150,
+        bgcolor:"var(--box1-color)"
       }}
+
     >
       <Grid
         container
-        direction="column"
-        justifyContent="flex-start"
+        direction="row"
+        justifyContent="space-between"
         alignItems="center"
+        sx={{p:1}}
       >
         <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128, borderRadius: "50%" }}>
+          <ButtonBase sx={{ borderRadius: "50%" }}>
             <Avatar
               alt="Remy Sharp"
               sx={{ width: 128, height: 128 }}
@@ -70,17 +71,19 @@ export default function AlbumCard({ song, setmusicmodal }) {
             />
           </ButtonBase>
         </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
+
+        <Grid 
+         direction="column"
+         justifyContent="space-between"
+         alignItems="center"
+         >
+          <Grid direction="column">
             <Grid
-              item
-              xs
-              container
               direction="column"
               justifyContent="center"
               alignItems="flex-start"
             >
-              <div style={{ width: 150, whiteSpace: "nowrap" }}>
+              <div style={{  whiteSpace: "nowrap" }}>
                 <Typography
                   sx={{ textOverflow: "ellipsis", overflow: "hidden" }}
                   gutterBottom
@@ -89,7 +92,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
                 ></Typography>
               </div>
             </Grid>
-            <Grid item>
+            <Grid >
               <Typography
                 sx={{ cursor: "pointer" }}
                 variant="body2"
@@ -97,7 +100,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
             </Grid>
           </Grid>
           {/* 내가 좋아요 버튼과 싫어요 버튼을 눌렀을때 상태변화 */}
-          <Grid item>
+          <Grid >
             {findlike.length === 0 ? (
               <Box>
                 <FavoriteBorderIcon
@@ -130,6 +133,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
               </Box>
             )}
           </Grid>
+
           <Grid>
             <Link to={`/create/nft/${song.ipfs_hash}`}>
               <Button
@@ -147,6 +151,7 @@ export default function AlbumCard({ song, setmusicmodal }) {
               </Button>
             </Link>
           </Grid>
+
         </Grid>
       </Grid>
     </Paper>
