@@ -221,6 +221,38 @@ export default class Ethers {
 		}
 	}
 
+	// 경매 종료 후 회수 
+	static async endAuction(
+		itemId: number,
+		price: number
+	): Promise<ContractTransaction | null> {
+		try {
+			let priceWei = ethers.utils.parseEther(String(price));
+			let bidPrice = (await auction.calPriceWithFee(priceWei)).toString();
+			const options = {
+				value: bidPrice,
+			};
+			const result = await auction.bid(itemId, options);
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+	
+	// Bid Price + Fee 계산 함수
+	static async bidPriceWithFee(price: number) {
+		try {
+			let priceWei = ethers.utils.parseEther(String(price));
+			let bidPrice = (await auction.calPriceWithFee(priceWei)).toString();
+
+			return ethers.utils.formatEther(bidPrice)
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
 	// 마켓에 올라온 NFT 리스트 검색
 	static async getMarketNFTList(): Promise<object[] | null> {
 		try {
@@ -240,11 +272,15 @@ export default class Ethers {
 				const metadata = await (
 					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
 				).json();
-				let price = await marketplace.getTotalPrice(marketItemId);
+				
+				const priceWei = marketItemInfo.price.toString()
+
+				let totalPrice = await marketplace.getTotalPrice(marketItemId);
 				nftList.push({
 					itemId: marketItemId.toNumber(),
 					tokenId,
-					price: ethers.utils.formatEther(price),
+					price: ethers.utils.formatEther(priceWei),
+					totalPrice: ethers.utils.formatEther(totalPrice),
 					seller: marketItemInfo.seller,
 					nft: await musitNFT.name(),
 					sold: marketItemInfo.sold,

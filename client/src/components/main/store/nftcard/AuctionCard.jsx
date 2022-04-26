@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { selectedMusitNFT } from '../../../../redux/actions/contractActions';
 import "./AuctionCard.css";
 
 const AuctionCard = ({data}) => {
@@ -8,16 +9,17 @@ const AuctionCard = ({data}) => {
 	const dispatch = useDispatch()
 
 	const cardOnClick = async () => {
-		navigate(`/store/bid/${data.tokenId}`);
+		navigate(`/bid/${data.tokenId}`);
 		await dispatch(selectedMusitNFT(data))
 	}
 	
-	const calcDate = (date) => {
-		return (new Date(date*1000)).toISOString().slice(0,10)
+	const isEnd = () => {
+		const distance = data.endAt * 1000 - Date.now()
+		return !(distance > 0)
 	}
 
 	useEffect(() => {
-		calcDate(data.endAt)
+		
 	}, []);
 	
   return (
@@ -27,12 +29,14 @@ const AuctionCard = ({data}) => {
 					<img src={data.img_file} />
 				</div>
 				<div className="content-wrap">
-					<div className="color-box"></div>
+					<div className={`color-box ${isEnd() && "end"}`}>
+						{isEnd() && <div className='end-mark'>End</div>}
+					</div>
 					<div className="info-wrap">
 						<div className="first-box">
 						<div className="price-box">
 								<h2>Top Bid</h2>
-								<h1><img src="./images/eth.png"/>{data.topBid}</h1>
+								<h1>{data.topBid} ETH</h1>
 							</div>
 							<div className="tokenid-box">
 								<h2>Token Id</h2>

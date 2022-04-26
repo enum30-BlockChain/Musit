@@ -9,6 +9,9 @@ import SellCard from "./nftcard/SellCard";
 import AuctionCard from "./nftcard/AuctionCard";
 import Error from "../../Error";
 import SimpleBackdrop from "../../SimpleBackdrop";
+import Nothing from "../../landingpage/pages/Nothing";
+import { Outlet } from "react-router";
+import { Link } from "react-router-dom";
 
 
 const fakeFetch = (delay = 500) =>
@@ -41,7 +44,7 @@ const SuccessContent = ({ loading }) => {
   const auction = useSelector((state) => state.auction);
 
   useEffect(async () => {
-    btnListener();
+    // btnListener();
   }, []);
 
   const btnListener = () => {
@@ -51,8 +54,9 @@ const SuccessContent = ({ loading }) => {
         const contentContainer = document.querySelector(
           ".store .content-container"
         );
-        contentContainer.classList.add("ordinary");
+        contentContainer.classList.remove("mybids");
         contentContainer.classList.remove("auction");
+        contentContainer.classList.add("ordinary");
       });
     document
       .querySelector(".nav-links .auction-market")
@@ -61,7 +65,18 @@ const SuccessContent = ({ loading }) => {
           ".store .content-container"
         );
         contentContainer.classList.remove("ordinary");
+        contentContainer.classList.remove("mybids");
         contentContainer.classList.add("auction");
+      });
+    document
+      .querySelector(".nav-links .my-bids")
+      .addEventListener("click", () => {
+        const contentContainer = document.querySelector(
+          ".store .content-container"
+        );
+        contentContainer.classList.remove("ordinary");
+        contentContainer.classList.remove("auction");
+        contentContainer.classList.add("mybids");
       });
   };
 
@@ -70,16 +85,22 @@ const SuccessContent = ({ loading }) => {
       <nav className="top-nav">
         <ul className="nav-links">
           <li className="ordinary-market">
-            <a>
+            <Link to="/store">
               <i className="uil uil-shopping-cart"></i>
               <span className="link-name"> Ordinary Market</span>
-            </a>
+            </Link>
           </li>
           <li className="auction-market">
-            <a>
+            <Link to="/store/auction">
               <i className="uil uil-arrow-growth"></i>
               <span className="link-name"> Auction Market</span>
-            </a>
+            </Link>
+          </li>
+          <li className="my-bids">
+            <Link to="/store/mybids">
+              <i className="uil uil-transaction"></i>
+              <span className="link-name"> My Bids</span>
+            </Link>
           </li>
         </ul>
       </nav>
@@ -90,8 +111,7 @@ const SuccessContent = ({ loading }) => {
           <LoadingContent />
         ) : (
           <>
-            <Ordinary />
-            <Auction />
+            <Outlet/>
           </>
         )}
       </section>
@@ -99,32 +119,8 @@ const SuccessContent = ({ loading }) => {
   );
 };
 
-const Ordinary = () => {
-  const market = useSelector((state) => state.market.data);
-  return (
-    <section className="ordinary-box">
-      {market.length > 0 &&
-        market.map((nft, index) => (
-          <SellCard data={nft} key={`sell-${nft.itemId}-${index}`} />
-        ))}
-      {market.length == 0 && <>Nothing to buy</>}
-    </section>
-  );
-};
 
-const Auction = () => {
-  const auction = useSelector((state) => state.auction.data);
 
-  return (
-    <section className="auction-box">
-      {auction.length > 0 &&
-        auction.map((nft, index) => (
-          <AuctionCard data={nft} key={`auction-${nft.itemId}-${index}`} />
-        ))}
-      {auction.length == 0 && <>Nothing to bid</>}
-    </section>
-  );
-};
 
 /* Loading 화면 */
 const LoadingContent = () => {
