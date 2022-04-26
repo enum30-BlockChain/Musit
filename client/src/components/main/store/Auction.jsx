@@ -1,20 +1,38 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { readOnAuctionNFTList } from '../../../redux/actions/contractActions';
 import Nothing from '../../landingpage/pages/Nothing';
-import AuctionCard from './nftcard/AuctionCard';
+import SimpleBackdrop from '../../SimpleBackdrop';
+import AuctionCard from './cards/AuctionCard';
+
+
+const fakeFetch = (delay = 500) =>
+  new Promise((res) => setTimeout(res, delay));
 
 const Auction = () => {
-  const auction = useSelector((state) => state.auction.data);
+	const [loading, setLoading] = useState(true);
 
+  const auction = useSelector((state) => state.auction.data);
+  const dispatch = useDispatch();
+
+  useEffect(async () => {
+    await dispatch(readOnAuctionNFTList());
+    await fakeFetch()
+    setLoading(false)
+  }, []);
+
+  if (loading) return (<SimpleBackdrop/>)
   return (
-    <section className="auction-box">
-      {auction.length > 0 &&
-        auction.map((nft, index) => (
-          <AuctionCard data={nft} key={`auction-${nft.itemId}-${index}`} />
-        ))}
-      {auction.length == 0 && <><Nothing /></>}
-    </section>
-  );
+		<section className="auction-box">
+			{auction.length > 0 ? (
+				auction.map((nft, index) => (
+					<AuctionCard data={nft} key={`auction-${nft.itemId}-${index}`} />
+				))
+			) : (
+				<Nothing />
+			)}
+		</section>
+	);
 };
 
 export default Auction

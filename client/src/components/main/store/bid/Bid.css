@@ -129,7 +129,7 @@
   align-items: center;
   width: 50%;
   height: 100%;
-  padding: 50px 0;
+  padding: 30px 0;
   overflow: hidden;
 }
 
@@ -210,7 +210,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding: 50px 0;
+  padding: 30px 0;
 }
 .bid-container .right-container .input-container .input-form.expired {
   background-color: var(--error-color);
@@ -256,8 +256,28 @@
   background-color: var(--content-bg-color2);
 }
 
+.bid-container .right-container .input-container .input-form .title-box{
+  display: flex;
+}
+
+.bid-container .right-container .input-container .input-form :is(.total-bid-box, .total-price-box){
+  display: flex;
+  justify-content: space-between;
+}
+
 .bid-container .right-container .input-container .input-form .title-box {
   display: flex;
+}
+
+.bid-container .right-container .input-container .input-form .total-bid-box :is(h3, h4){
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.bid-container .right-container .input-container .input-form .total-price-box :is(h3, h4){
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--error-color);
 }
 
 .bid-container .right-container .input-container .input-form button{

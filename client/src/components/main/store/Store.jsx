@@ -1,86 +1,27 @@
 import "./Store.css";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  readOnAuctionNFTList,
-  readOnMarketNFTList,
-} from "../../../redux/actions/contractActions";
-import SellCard from "./nftcard/SellCard";
-import AuctionCard from "./nftcard/AuctionCard";
+import { useSelector } from "react-redux";
 import Error from "../../Error";
 import SimpleBackdrop from "../../SimpleBackdrop";
-import Nothing from "../../landingpage/pages/Nothing";
 import { Outlet } from "react-router";
 import { Link } from "react-router-dom";
 
-
-const fakeFetch = (delay = 500) =>
-  new Promise((res) => setTimeout(res, delay));
-
 export const Store = () => {
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
   const market = useSelector((state) => state.market);
   const auction = useSelector((state) => state.auction);
 
-  useEffect(async () => {
-    await dispatch(readOnMarketNFTList());
-    await dispatch(readOnAuctionNFTList());
-    await fakeFetch();
-    setLoading(false);
-  }, []);
 
   return !market || market.error || !auction || auction.error ? (
     <ErrorContent />
   ) : (
     <>
-      <SuccessContent loading={loading} />
+      <SuccessContent />
     </>
   );
 };
 
-const SuccessContent = ({ loading }) => {
-  const market = useSelector((state) => state.market);
-  const auction = useSelector((state) => state.auction);
-
-  useEffect(async () => {
-    // btnListener();
-  }, []);
-
-  const btnListener = () => {
-    document
-      .querySelector(".nav-links .ordinary-market")
-      .addEventListener("click", () => {
-        const contentContainer = document.querySelector(
-          ".store .content-container"
-        );
-        contentContainer.classList.remove("mybids");
-        contentContainer.classList.remove("auction");
-        contentContainer.classList.add("ordinary");
-      });
-    document
-      .querySelector(".nav-links .auction-market")
-      .addEventListener("click", () => {
-        const contentContainer = document.querySelector(
-          ".store .content-container"
-        );
-        contentContainer.classList.remove("ordinary");
-        contentContainer.classList.remove("mybids");
-        contentContainer.classList.add("auction");
-      });
-    document
-      .querySelector(".nav-links .my-bids")
-      .addEventListener("click", () => {
-        const contentContainer = document.querySelector(
-          ".store .content-container"
-        );
-        contentContainer.classList.remove("ordinary");
-        contentContainer.classList.remove("auction");
-        contentContainer.classList.add("mybids");
-      });
-  };
-
-  return (
+const SuccessContent = () => {
+    return (
     <section className="store">
       <nav className="top-nav">
         <ul className="nav-links">
@@ -104,30 +45,10 @@ const SuccessContent = ({ loading }) => {
           </li>
         </ul>
       </nav>
-      <section className="content-container ordinary">
-        {loading ||
-        (market && market.loading) ||
-        (auction && auction.loading) ? (
-          <LoadingContent />
-        ) : (
-          <>
-            <Outlet/>
-          </>
-        )}
+      <section className="content-container">
+        <Outlet/>
       </section>
     </section>
-  );
-};
-
-
-
-
-/* Loading 화면 */
-const LoadingContent = () => {
-  return (
-    <>
-      <SimpleBackdrop />
-    </>
   );
 };
 

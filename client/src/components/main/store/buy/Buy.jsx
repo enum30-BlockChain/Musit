@@ -98,7 +98,8 @@ const SuccessContent = () => {
 						<h1>{selectedNFT.price} ETH</h1>
 						<h3>(Price with fee : {selectedNFT.totalPrice} ETH)</h3>
 					</div>
-					<button disabled={selectedNFT.sold} onClick={buyOnClick} >Buy</button>
+					{!selectedNFT.sold && <button onClick={buyOnClick} >Buy</button>}
+					{selectedNFT.sold && <div className="sold-box">Sold</div>}
 				</section>
 				</> : <>
 					<section className="not-available-container">
