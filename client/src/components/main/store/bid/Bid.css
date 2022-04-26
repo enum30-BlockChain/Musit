@@ -1,6 +1,6 @@
 .bid-container {
   position: relative;
-  top: 80%;
+  top: 85%;
   left: 50%;
   transform: translate(-50%, -80%);
   display: flex;

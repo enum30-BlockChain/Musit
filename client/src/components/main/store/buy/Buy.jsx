@@ -95,7 +95,8 @@ const SuccessContent = () => {
 						<h2>
 							<i className="uil uil-bill"></i> Sell Price
 						</h2>
-						<h1>{selectedNFT.price}</h1>
+						<h1>{selectedNFT.price} ETH</h1>
+						<h3>(Price with fee : {selectedNFT.totalPrice} ETH)</h3>
 					</div>
 					<button disabled={selectedNFT.sold} onClick={buyOnClick} >Buy</button>
 				</section>

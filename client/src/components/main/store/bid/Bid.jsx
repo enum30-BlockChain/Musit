@@ -1,4 +1,5 @@
 import { Skeleton } from "@mui/material";
+import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -42,6 +43,7 @@ const SuccessContent = () => {
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 	const [expired, setExpired] = useState(false);
 	const [bidPrice, setBidPrice] = useState(selectedNFT.topBid);
+	const [bidPriceWithFee, setBidPriceWithFee] = useState(0);
 
 	// NFT 판매 등록
 	const bidOnClick = async (e) => {
@@ -68,7 +70,9 @@ const SuccessContent = () => {
 		return ("0" + number).slice(-2)
 	}
 
-	useEffect(() => {
+	useEffect(async () => {
+		setBidPriceWithFee(await Ethers.bidPriceWithFee(selectedNFT.topBid))
+		const bidCountdown = document.getElementById("countdown");
 		// 1초마다 카운트 다운
 		const countDown = setInterval(() => {
 			const now = new Date().getTime();
@@ -80,14 +84,14 @@ const SuccessContent = () => {
 				const minutes = twoDigit(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
 				const seconds = twoDigit(Math.floor((distance % (1000 * 60)) / 1000));
 		
-				document.getElementById("countdown").innerHTML =
+				bidCountdown.innerHTML =
 					days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 		
 				// 남은 시간이 0보다 작으면 종료
 				if (distance < 0) {
 					clearInterval(countDown);
-					document.getElementById("countdown").innerHTML = "EXPIRED";
-					document.getElementById("countdown").style.color = "red";
+					bidCountdown.innerHTML = "EXPIRED";
+					bidCountdown.style.color = "red";
 					document.querySelector('.bid-container .input-form').classList.add("expired")
 					setExpired(true)
 				}
@@ -96,6 +100,7 @@ const SuccessContent = () => {
 				setExpired(true)
 			}
 		}, 1000);
+		
 		return () => {
 			clearInterval(countDown);
 		}
@@ -180,9 +185,17 @@ const SuccessContent = () => {
 										step={0.0001}
 										required
 										type="number"
-										onChange={(e) => {setBidPrice(e.target.value)}}
+										onChange={async (e) => {
+											setBidPrice(e.target.value)
+											if (e.target.value > 0) {
+												setBidPriceWithFee(await Ethers.bidPriceWithFee(e.target.value))
+											} else {
+												setBidPriceWithFee(0)
+											}
+										}}
 									/>
 								</div>
+								{!expired && <h3>Price with fee : {bidPriceWithFee}</h3>}
 								{expired ? <button onClick={withdrawOnClick}>Withdraw</button> : <button onClick={bidOnClick}>Submit</button>}
 							</form>
 						</section>
