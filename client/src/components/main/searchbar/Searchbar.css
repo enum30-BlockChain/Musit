@@ -70,6 +70,10 @@
   border-radius: 50%;
 }
 
+.searchbar-address {
+  margin-left: 10px;
+}
+
 .searchbar-right-box .user-info {
   height: 100%;
   display: flex;

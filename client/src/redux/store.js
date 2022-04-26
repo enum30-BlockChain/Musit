@@ -3,30 +3,46 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userReducer } from "./reducers/userReducer";
 import { metaMaskReducer } from "./reducers/metamaskReducer";
-import { artistListReducer, likeArtistReducer, artistReducer, selectedArtistReducer } from "./reducers/artistReducer";
-import { likeMusicReducer, musicListReducer, musicReducer, selectedMusicReducer } from "./reducers/musicReducer";
+import {
+  artistListReducer,
+  likeArtistReducer,
+  artistReducer,
+  selectedArtistReducer,
+  likeArtistDetailReducer,
+} from "./reducers/artistReducer";
+import {
+  likeMusicReducer,
+  musicListReducer,
+  musicReducer,
+  recentMusicReducer,
+  selectedMusicReducer,
+} from "./reducers/musicReducer";
 import { searchingReducer } from "./reducers/searchingReducer";
-import { onAuctionMusitNFTReducer, onMarketMusitNFTReducer, ownedMusitNFTReducer, selectedMusitNFTReducer } from "./reducers/contractReducer";
-
-
-
+import {
+  onAuctionMusitNFTReducer,
+  onMarketMusitNFTReducer,
+  ownedMusitNFTReducer,
+  selectedMusitNFTReducer,
+} from "./reducers/contractReducer";
 
 // combineReducers Reducer들 합치는 곳
 const rootReducer = combineReducers({
   // User Reducer
   user: userReducer,
-  
+
   // Artist Reducer
   artist: artistReducer,
   artistList: artistListReducer,
   selectedArtist: selectedArtistReducer,
   likeArtist: likeArtistReducer,
-  
+  likeArtistDetail: likeArtistDetailReducer,
+
   // Music Reducer
   music: musicReducer,
   musicList: musicListReducer,
   likeMusic: likeMusicReducer,
   selectedMusic: selectedMusicReducer,
+  recentMusic: recentMusicReducer,
 
   // Search Reducer
   searching: searchingReducer,

@@ -7,9 +7,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  width: 800px;
+  width: 1300px;
   height: 600px;
-  background-color: var(--third-color);
+  background-color: var(--primary-color);
 }
 
 .bid-container h1 {
@@ -20,6 +20,9 @@
 }
 .bid-container p {
   color: var(--black-light-color);
+}
+.bid-container input:active{
+  border: none;
 }
 
 
@@ -124,9 +127,10 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  width: 100%;
+  width: 50%;
   height: 100%;
   padding: 50px 0;
+  overflow: hidden;
 }
 
 .bid-container .right-container .info-container > :is(div, button) {
@@ -163,28 +167,14 @@
   height: 173px;
 }
 .bid-container .right-container .info-container .description-box p {
+  padding-top: 10px;
   flex: 1;
   overflow: auto;
   word-break: normal;
   white-space: normal;
 }
 
-
-.bid-container .right-container .info-container button{
-  border: none;
-  font-size: 18px;
-  align-items: center;
-  background-color: var(--third-color);
-  color: var(--content-bg-color1);
-}
-.bid-container .right-container .info-container button:hover{
-  background-color: var(--primary-color);
-  width: 329px;
-  color: var(--black-light-color);
-  cursor: pointer;
-}
-
-/** not-available 컨테이너 **/
+/* not-available 컨테이너 */
 .bid-container .right-container .not-available-container {
   background-color: var(--error-color);
   width: 100%;
@@ -201,4 +191,86 @@
   color: var(--black-light-color);
   font-size: 36px;
   word-break: normal;
+}
+
+/** input 컨테이너 **/
+.bid-container .right-container .input-container {
+  width: 50%;
+  height: 100%;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  overflow: hidden;
+}
+
+.bid-container .right-container .input-container .input-form {
+  width: 100%;
+  height: 100%;
+  background-color: var(--content-bg-color2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 50px 0;
+}
+.bid-container .right-container .input-container .input-form.expired {
+  background-color: var(--error-color);
+}
+
+.bid-container .right-container .input-container .input-form > :is(div, button) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 330px;
+  min-height: 80px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--content-bg-color1);
+  margin-top: 20px;
+}
+
+.bid-container .right-container .input-container .input-form h1 {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.bid-container .right-container .input-container .input-form h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.bid-container .right-container .input-container .input-form h5 {
+  color: red;
+}
+
+.bid-container .right-container .input-container .input-form p {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.bid-container .right-container .input-container .input-form input{
+  border: none;
+  font-size: 20px;
+  border-radius: 10px;
+  text-align: right;
+  background-color: var(--content-bg-color2);
+}
+
+.bid-container .right-container .input-container .input-form .title-box {
+  display: flex;
+}
+
+.bid-container .right-container .input-container .input-form button{
+  border: none;
+  font-size: 18px;
+  min-height: 45px;
+  align-items: center;
+  background-color: var(--third-color);
+  color: var(--content-bg-color1);
+}
+
+.bid-container .right-container .input-container .input-form button:hover{
+  background-color: var(--primary-color);
+  width: 329px;
+  cursor: pointer;
 }

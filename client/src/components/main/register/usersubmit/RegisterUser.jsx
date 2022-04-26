@@ -75,17 +75,21 @@ const RegisterUser = () => {
     }
   };
 
-  const UserHandleOnClick = async () => {
-    await postImg();
-    const userdata = {
-      address: metamask.accounts[0],
-      genre: checkedInputs,
-      nation: selectd,
-      nickname: nickname,
-      img: DBdata.cover_img_link,
-    };
-    await dispatch(createUserData(userdata));
-    window.location.reload();
+  const UserHandleOnClick = async (e) => {
+    if (e.target.value === "") {
+      alert("닉네임 적어주세요");
+    } else {
+      await postImg();
+      const userdata = {
+        address: metamask.accounts[0],
+        genre: checkedInputs,
+        nation: selectd,
+        nickname: nickname,
+        img: DBdata.cover_img_link,
+      };
+      await dispatch(createUserData(userdata));
+      // window.location.reload();
+    }
   };
 
   const getImg = (e) => {
@@ -116,10 +120,15 @@ const RegisterUser = () => {
     }
   };
 
+  //---------Error------
+
   return (
     <>
       <div className="register-layout">
-        <h1 className="register-user-tilte">Sign up to Enum30 Music</h1>
+        <div className="register-title">
+          <i className="uil uil-upload-alt"></i>
+          <span className="text"> Sign up to Enum30 Music</span>
+        </div>
         <div className="register-user">
           <div className="address-and-img">
             <h1>Your Wallet Address</h1>
@@ -174,62 +183,76 @@ const RegisterUser = () => {
             </div>
           </div>
 
-          <div className="register-input">
-            <h1>Nickname</h1>
-            <li>
-              <Input
-                type="text"
-                placeholder="Nickname"
-                sx={{ width: 400 }}
-                inputProps={{ fontSize: "30px" }}
-                onChange={onChangeNick}
-              ></Input>
-            </li>
-            <li>
-              {nickname.length > 0 && (
-                <span className={`message ${isName ? "success" : "error"}`}>
-                  {nicknameMessage}
-                </span>
-              )}
-            </li>
-            <div>
-              <h2>Nations</h2>
-              <CountryType
-                inputProps={{ width: "400px" }}
-                setSelected={setSelected}
-                // style={{ display: "none" }}
-              />
-            </div>
-            <h1>Genre</h1>
-            <div className="genre">
-              {genre.map((musictype, i) => {
-                return (
-                  <div className="music-type-container" key={i}>
-                    <div className="music-type-name">{musictype}</div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        musictype="musicType"
-                        onChange={(e) => {
-                          changeHandler(e.currentTarget.checked, musictype);
-                        }}
-                        checked={
-                          checkedInputs.includes(musictype) ? true : false
-                        }
-                      />
+          <form>
+            <div className="register-input">
+              <h1>Nickname</h1>
+              <li>
+                <Input
+                  required={true}
+                  type="text"
+                  placeholder="Nickname"
+                  sx={{ width: 400 }}
+                  inputProps={{ style: { fontSize: 30 } }}
+                  onChange={onChangeNick}
+                ></Input>
+              </li>
+              <li>
+                {nickname.length > 0 && (
+                  <span className={`message ${isName ? "success" : "error"}`}>
+                    {nicknameMessage}
+                  </span>
+                )}
+              </li>
+              <div>
+                <h2>Nations</h2>
+                <CountryType
+                  required
+                  inputProps={{ width: "400px" }}
+                  setSelected={setSelected}
+                  // style={{ display: "none" }}
+                />
+              </div>
+              <h1>Genre</h1>
+              <div className="genre">
+                {genre.map((musictype, i) => {
+                  return (
+                    <div className="music-type-container" key={i}>
+                      <div className="music-type-name">{musictype}</div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          musictype="musicType"
+                          onChange={(e) => {
+                            changeHandler(e.currentTarget.checked, musictype);
+                          }}
+                          checked={
+                            checkedInputs.includes(musictype) ? true : false
+                          }
+                        />
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </div>
 
-        <Link to="/">
-          <Button className="submit" onClick={UserHandleOnClick}>
-            Submit
-          </Button>
-        </Link>
+            <Button
+              className="submit"
+              variant="contained"
+              sx={{
+                color: "var(--black-light-color)",
+                backgroundColor: "var(--box1-color)",
+                ":hover": {
+                  background: "var(--primary-color)",
+                  color: "var(--text-color)",
+                },
+              }}
+              onClick={UserHandleOnClick}
+            >
+              Submit
+            </Button>
+          </form>
+        </div>
       </div>
     </>
   );

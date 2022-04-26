@@ -1,12 +1,11 @@
 import "./LandigMainPage.css";
 import React from "react";
-
+import Nothing from "./pages/Nothing";
 export default function LandingMainPage() {
   return (
     <>
-      <div className="code">
-        <h1>We are music</h1>
-      </div>
+      landing page
+      <Nothing />
     </>
   );
 }

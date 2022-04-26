@@ -8,7 +8,6 @@ export const createArtistData = (inputs) => {
     dispatch({ type: ActionTypes.ARTIST_DATA_REQUEST });
     try {
       // 메타마스크 reducer에서 주소 가져옴
-      console.log(inputs);
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
         const url = "http://localhost:5000/artists/";
@@ -105,6 +104,35 @@ export const readLikeArtistList = () => {
     } catch (error) {
       dispatch({
         type: ActionTypes.LIKE_ARTIST_FAIL,
+        payload: "Read like artist request fail",
+      });
+    }
+  };
+};
+
+/* 내가 좋아요 누른 아티스트 디테일 정보 불러오기 */
+export const readLikeArtistDetail = (user_address) => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: ActionTypes.LIKE_ARTIST_DETAIL_REQUEST,
+    });
+    try {
+      if (user_address > 0) {
+        const url = `http://localhost:5000/artists/${user_address}`;
+        const likeArtistDetail = (await axios.get(url)).data;
+        dispatch({
+          type: ActionTypes.LIKE_ARTIST_DETAIL_SUCCESS,
+          payload: likeArtistDetail,
+        });
+      } else {
+        dispatch({
+          type: ActionTypes.LIKE_ARTIST_DETAIL_FAIL,
+          payload: "Account is not found",
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.LIKE_ARTIST_DETAIL_FAIL,
         payload: "Read like artist request fail",
       });
     }

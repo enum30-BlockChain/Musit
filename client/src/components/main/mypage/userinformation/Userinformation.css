@@ -1,1 +1,11 @@
-@import "../../../../styles/variables.css";
+.userinfo-layout {
+  width: 380px;
+  height: 100%;
+  background-color: var(--box1-color);
+  margin: auto;
+  border-radius: 10px;
+}
+
+.userinfo-layout .userinfo-card {
+  text-align: center;
+}

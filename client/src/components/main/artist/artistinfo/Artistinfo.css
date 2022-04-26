@@ -1,12 +1,26 @@
 .artist-info-container {
+  width: 380px;
+  height: 100%;
+  background-color: var(--box1-color);
+  margin: auto;
+  border-radius: 10px;
 }
 
-.artist-info-container .artist-card {
-  width: 300px;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
-  align-items: center;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
+.artist-info-container .artist-card-1 .artist-image {
+  margin-top: 20px;
+  height: 280px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.artist-info-container .artist-card-1 .artist-info {
+  margin-top: 20px;
+}
+
+.artist-info-container .artist-card-1 .artist-info h2 {
+  font-size: 30px;
+}
+
+.artist-info-container .artist-card-1 .artist-info span {
+  font-size: 20px;
+  font-weight: 500;
 }

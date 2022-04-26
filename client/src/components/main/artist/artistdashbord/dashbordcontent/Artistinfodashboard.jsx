@@ -16,11 +16,11 @@ export default function Artistinfo() {
   return (
     <>
       <div className="artist-info-container">
-        <div className="artist-card">
+        <div className="artist-card-1">
           <div className="title-1">
             <div className="title">
               <i className="uil uil-create-dashboard"></i>
-              <span className="text">Artist Dashboard</span>
+              <span className="text"> Artist Dashboard</span>
             </div>
           </div>
           <div className="artist-image">
@@ -31,8 +31,8 @@ export default function Artistinfo() {
             />
           </div>
           <div className="artist-info">
-            <h2 className="nickname">ArtistName</h2>
-            {artist.artist_name}
+            <h2 className="nickname">Artist Name</h2>
+            <span>{artist.artist_name}</span>
 
             <h2 className="address">Address</h2>
             <span>{sliceAddress}</span>

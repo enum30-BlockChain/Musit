@@ -10,12 +10,15 @@ import {
   readLikeArtistList,
 } from "./redux/actions/artistActions";
 import { readMetamaskData } from "./redux/actions/metamaskActions";
-import { readMusicList, readLikeMusicList } from "./redux/actions/musicActions";
+import { setRecentMusic, readMusicList, readLikeMusicList } from "./redux/actions/musicActions";
 import { readUserData } from "./redux/actions/userActions";
 import Metamask from "./web3/Metamask";
 
 const App = () => {
   const dispatch = useDispatch();
+  const musicList = useSelector((state) => state.musicList).data;
+  const user = useSelector((state) => state.user);
+
   useEffect(() => {
     const init = async () => {
       await dispatch(readMetamaskData());
@@ -29,6 +32,14 @@ const App = () => {
     };
     init();
   }, []);
+
+  useEffect(() => {
+    // 최근 재생목록 불러오기
+    if (user.recent_played) {
+      const songTitle = user.recent_played.split("-").pop()
+      dispatch(setRecentMusic(songTitle))
+    }
+  }, [user.loading])
 
   return (
     <>

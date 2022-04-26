@@ -5,6 +5,7 @@ import { Stack, Slider } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import myImage from "./cd.png";
+import { setRecentMusic } from "../../../redux/actions/musicActions";
 
 const fakeFetch = (delay = 1000) =>
   new Promise((res) => setTimeout(res, delay));
@@ -14,7 +15,7 @@ export const Playbar = () => {
   const [count, setCount] = useState(0);
   const [palyeCount, setpalyeCount] = useState(0);
   const [hash, sethash] = useState("");
-  const [tilte, setTilte] = useState("");
+  const [songTitle, setSongTitle] = useState("");
   const [currentTime, setcurrentTime] = useState(0);
   const [value, setValue] = useState(100);
   const musicContainer = document.querySelector(".music-container");
@@ -28,6 +29,8 @@ export const Playbar = () => {
   const likeMusic = useSelector((state) => state.likeMusic).data;
   const user = useSelector((state) => state.user);
   const musicList = useSelector((state) => state.musicList).data;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     //첫로딩시 리센트 가져와서 세팅
@@ -46,7 +49,7 @@ export const Playbar = () => {
           //recent_played 없으면 바로 배열 0번째 ㄱ하고
           setpalyeCount(song.play_count);
           sethash(song.ipfs_hash);
-          setTilte(song.title);
+          setSongTitle(song.title);
           title.innerText = song.title;
           audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
           cover.src = song.img_file;
@@ -61,7 +64,7 @@ export const Playbar = () => {
             // console.log("회원인데 리센트있는데 못찾는사람 ")
             // setpalyeCount(song.play_count);
             // sethash(song.ipfs_hash);
-            // setTilte(song.title);
+            // setSongTitle(song.title);
             // title.innerText = song.title;
             // audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
             // cover.src = song.img_file;
@@ -70,7 +73,7 @@ export const Playbar = () => {
             // console.log("회원인데 리센트있는데 찾은사람 ")
             setpalyeCount(firstSetting.play_count);
             sethash(firstSetting.ipfs_hash);
-            setTilte(firstSetting.title);
+            setSongTitle(firstSetting.title);
             title.innerText = firstSetting.title;
             audio.src = `https://ipfs.infura.io/ipfs/${firstSetting.ipfs_hash}`;
             cover.src = firstSetting.img_file;
@@ -85,7 +88,7 @@ export const Playbar = () => {
     //노래불러올때
     setpalyeCount(song.play_count);
     sethash(song.ipfs_hash);
-    setTilte(song.title);
+    setSongTitle(song.title);
     setcurrentTime(0);
     title.innerText = song.title;
     audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
@@ -97,7 +100,7 @@ export const Playbar = () => {
 
     setpalyeCount(song.play_count);
     sethash(song.ipfs_hash);
-    setTilte(song.title);
+    setSongTitle(song.title);
     setcurrentTime(0);
     title.innerText = song.title;
     audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
@@ -114,6 +117,7 @@ export const Playbar = () => {
     }
     setCount(num);
     loadSong(likeMusic[num]);
+    dispatch(setRecentMusic(likeMusic[num].title))
     playSong();
   }
 
@@ -130,6 +134,7 @@ export const Playbar = () => {
     }
     setCount(num);
     loadSong(likeMusic[num]);
+    dispatch(setRecentMusic(likeMusic[num].title))
     playSong();
   }
 
@@ -301,10 +306,11 @@ export const Playbar = () => {
 
   const postTime = async (saveTime) => {
     let sendInt = savePoint % 20; //20으로 나누면 5초정도됨
-    const content = [hash, saveTime, tilte];
+    const content = [hash, saveTime, songTitle];
 
     if (!sendInt) {
       setSavePoint(savePoint + 1);
+      dispatch(setRecentMusic(songTitle))
       await axios.patch(`http://localhost:5000/users/${user.address}`, {
         recent_played: content.join("-"),
       });

@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AlbumCard from "./AlbumCard";
 import AlbumModel from "./AlbumModel";
 import zIndex from "@mui/material/styles/zIndex";
@@ -21,27 +21,25 @@ export default function AlbumList() {
   const location = useLocation();
   const content = location.state !== null || undefined ? location.state : "";
   const artist = useSelector((state) => state.artist);
- 
 
- useEffect(() => {
-   let Box=[...artist.Music]
-   if(content===""){
-     setupLoadMusic(Box)
-    }else{
-      let searchCount = Box.filter(
-        (a) => a.title.indexOf(content) > -1
+  useEffect(() => {
+    let Box = [...artist.Music];
+    if (content === "") {
+      setupLoadMusic(Box);
+    } else {
+      let searchCount = Box.filter((a) => a.title.indexOf(content) > -1);
+
+      searchCount.map((a) => {
+        Box.splice(
+          Box.findIndex((music) => music.ipfs_hash === a.ipfs_hash),
+          1
         );
+      });
+      Box.unshift(...searchCount);
+    }
+    setupLoadMusic(Box);
+  }, [artist]);
 
-        searchCount.map((a)=>{
-          Box.splice(
-            Box.findIndex((music) => music.ipfs_hash === a.ipfs_hash),1
-            )
-          });
-          Box.unshift(...searchCount)
-        }
-    setupLoadMusic(Box)
-  }, [artist])
-  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -62,33 +60,35 @@ export default function AlbumList() {
     { id: "title", label: "Title", minWidth: 30 },
     { id: "artist", label: "Artist Name", minWidth: 30 },
     { id: "albumimg", label: "Album Cover", minWidth: 120 },
+    { id: "likes", label: "Like Count", minWidth: 30 },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, title, artist, albumimg) {
-    return { number, title, artist, albumimg };
+  function createRow(number, title, artist, albumimg, likes) {
+    return { number, title, artist, albumimg, likes };
   }
-
 
   const rows = [];
 
   upLoadMusic &&
-  upLoadMusic.forEach((song, index) => {
+    upLoadMusic.forEach((song, index) => {
       rows.push(
         createRow(
           index,
           song.title,
           song.artist_name,
-          <AlbumCard song={song} setmusicmodal={setmusicmodal} />
+          <AlbumCard song={song} setmusicmodal={setmusicmodal} />,
+          song.MusicLikes.length
         )
       );
     });
 
+  console.log(upLoadMusic);
 
   return (
     <Paper
       className="table-container"
-      sx={{ width: "100%", overflow: "hidden" }}
+      sx={{ width: "1240px", overflow: "hidden" }}
     >
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
@@ -98,7 +98,10 @@ export default function AlbumList() {
                 <TableCell
                   key={index}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{
+                    minWidth: column.minWidth,
+                    textAlign: "center",
+                  }}
                 >
                   {column.label}
                 </TableCell>
@@ -114,7 +117,11 @@ export default function AlbumList() {
                     {columns.map((column, index) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={index} align={column.align}>
+                        <TableCell
+                          key={index}
+                          align={column.align}
+                          style={{ textAlign: "-webkit-center" }}
+                        >
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}

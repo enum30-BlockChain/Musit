@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Box from "@mui/material/Box";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import HeadsetIcon from "@mui/icons-material/Headset";
-import { useSelector, useDispatch } from "react-redux";
-import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
-import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
-import { toggleLikeMusic } from "../../../../redux/actions/musicActions";
 
 export default function MainCard(props) {
   return (

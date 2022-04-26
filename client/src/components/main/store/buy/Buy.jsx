@@ -5,11 +5,14 @@ import { useParams } from "react-router";
 import { selectedMusitNFT } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
 import Error from "../../../Error";
+import SimpleBackdrop from "../../music/SimpleBackdrop";
 
 import "./Buy.css";
+const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
 
 const Buy = () => {
 	let { tokenId } = useParams();
+	const [loading, setLoading] = useState(true);
 	const dispatch = useDispatch();
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 
@@ -18,11 +21,13 @@ const Buy = () => {
 			const item = await Ethers.getMarketItem(tokenId)
 			await dispatch(selectedMusitNFT(item))
 		}
+		await fakeFetch()
+		setLoading(false)
 	}, []);
 
-	return selectedNFT && selectedNFT.loading ? (
+	return loading ? (
 		<LoadingContent />
-	) : !selectedNFT || selectedNFT.error || selectedNFT === undefined ? (
+	) : !selectedNFT ? (
 		<ErrorContent />
 	) : (
 		<>
@@ -109,70 +114,58 @@ const SuccessContent = () => {
 /* Loading 화면 */
 const LoadingContent = () => {
 	return (
-		<section className="buy-container">
-			{/* 이미지 박스 */}
-			<div className="image-box">
-				<Skeleton width={"100%"} height={"100%"} variant="circular" />
-			</div>
+		<>
+			<section className="buy-container">
+				{/* 이미지 박스 */}
+				<div className="image-box">
+					<Skeleton width={"100%"} height={"100%"} variant="circular" />
+				</div>
 
-			{/*** 왼쪽 컨테이너 ***/}
-			<section className="left-container">
-				<div className="title-box">
-					<h2>Title</h2>
-					<Skeleton width={"100%"} height={"100%"} variant="text" />
-				</div>
-				<div className="artist-name-box">
-					<h2>Artist Name</h2>
-					<Skeleton width={"100%"} height={"100%"} variant="text" />
-				</div>
-				<div>
-					<Skeleton width={"100%"} height={"100%"} variant="text" />
-				</div>
-			</section>
+				{/*** 왼쪽 컨테이너 ***/}
+				<section className="left-container">
+					<div className="title-box">
+						<h2>Title</h2>
+						<Skeleton width={"100%"} height={"100%"} variant="text" />
+					</div>
+					<div className="artist-name-box">
+						<h2>Artist Name</h2>
+						<Skeleton width={"100%"} height={"100%"} variant="text" />
+					</div>
 
-			{/*** 오른쪽 컨테이너 ***/}
-			<section className="right-container">
-				{/* 상세정보 컨테이너 */}
-				<section className="info-container">
-					<div className="total-play-time-box">
-						<h2>
-							<i className="uil uil-clock"></i> Total Play Time
-						</h2>
-						<Skeleton width={"100%"} height={"100%"} variant="text" />
-					</div>
-					<div className="total-play-time-box">
-						<h2>
-							<i className="uil uil-thumbs-up"></i>Total Likes
-						</h2>
-						<Skeleton width={"100%"} height={"100%"} variant="text" />
-					</div>
-					<div className="genre-box">
-						<h2>
-							<i className="uil uil-music"></i> Genre
-						</h2>
-						<Skeleton width={"100%"} height={"100%"} variant="text" />
-					</div>
-					<div className="description-box">
-						<h2>Description</h2>
-						<Skeleton width={"100%"} height={"100%"} variant="text" />
+					<div className="audio-box">
+						<audio src={``} controls></audio>
 					</div>
 				</section>
 
-				{/* 입력 컨테이너 */}
-				<section className="input-container sell">
-					<div className="btn-group">
-						<button className="sell-btn" >
-							Sell
-						</button>
-						<button className="auction-btn" >
-							Auction
-						</button>
-					</div>
-					<div className="input-form">
-					</div>
+				{/*** 오른쪽 컨테이너 ***/}
+				<section className="right-container">
+					{/* 상세정보 컨테이너 */}
+					<section className="info-container">
+						<h1 className="title">BUY NFT</h1>
+						<div className="genre-box">
+							<h2>
+								<i className="uil uil-music"></i> Genre
+							</h2>
+							<Skeleton width={"100%"} height={"100%"} variant="text" />
+						</div>
+						<div className="description-box">
+							<h2>
+								<i className="uil uil-subject"></i> Description
+							</h2>
+							<Skeleton width={"100%"} height={"100%"} variant="text" />
+						</div>
+						<div className="sell-price-box">
+							<h2>
+								<i className="uil uil-bill"></i> Sell Price
+							</h2>
+							<Skeleton width={"100%"} height={"100%"} variant="text" />
+						</div>
+						<button>Buy</button>
+					</section>
 				</section>
 			</section>
-		</section>
+			<SimpleBackdrop/>
+		</>
 	);
 };
 

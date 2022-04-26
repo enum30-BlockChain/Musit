@@ -23,10 +23,16 @@ async function main() {
   const auction = await (await Auction.deploy(1)).deployed();
   console.log("Auction address:", auction.address);
 
+  console.log("Deploying Subscription");
+  const Subscription = await ethers.getContractFactory("Subscription");
+  const subscription = await (await Subscription.deploy()).deployed();
+  console.log("Subscription address:", subscription.address);
+
 
   saveJsonFilesToClientFolder(musitNFT, "MusitNFT");
   saveJsonFilesToClientFolder(marketplace, "Marketplace");
   saveJsonFilesToClientFolder(auction, "Auction");
+  saveJsonFilesToClientFolder(subscription, "Subscription");
 }
 
 function saveJsonFilesToClientFolder(contract: Contract, name: string) {

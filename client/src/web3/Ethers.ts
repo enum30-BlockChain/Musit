@@ -11,9 +11,8 @@ import {
 import MusitNftJson from "./MusitNFT.json";
 import MarketplaceJson from "./Marketplace.json";
 import AuctionJson from "./Auction.json";
-import { MusitNFT } from "./typechain/MusitNFT";
-import { Marketplace } from "./typechain/Marketplace";
-import { Auction } from "./typechain";
+import SubscriptionJson from "./Subscription.json";
+import { MusitNFT, Auction, Marketplace, Subscription } from "./typechain";
 
 interface Window {
 	ethereum: any;
@@ -38,6 +37,12 @@ const marketplace: ethers.Contract | Marketplace = new ethers.Contract(
 const auction: ethers.Contract | Auction = new ethers.Contract(
 	AuctionJson.contractAddress,
 	AuctionJson.abi,
+	signer
+);
+
+const subscription: ethers.Contract | Subscription = new ethers.Contract(
+	SubscriptionJson.contractAddress,
+	SubscriptionJson.abi,
 	signer
 );
 
@@ -89,7 +94,9 @@ export default class Ethers {
 			const nftBalance = await musitNFT.balanceOf(address);
 			let nftList: object[] = [];
 			for (let i = 0; i < nftBalance; i++) {
-				const tokenId = (await musitNFT.tokenOfOwnerByIndex(address, i)).toNumber();
+				const tokenId = (
+					await musitNFT.tokenOfOwnerByIndex(address, i)
+				).toNumber();
 				const tokenURI = await musitNFT.tokenURI(tokenId);
 				const metadata = await (
 					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
@@ -98,10 +105,9 @@ export default class Ethers {
 				nftList.push({
 					tokenId,
 					...metadata,
-				})
+				});
 			}
 			return nftList;
-
 		} catch (error) {
 			console.log(error);
 			return null;
@@ -163,7 +169,7 @@ export default class Ethers {
 	static async enrollAuction(
 		tokenId: string,
 		sellPrice: number | string,
-		endAt: number,
+		endAt: number
 	): Promise<ContractTransaction | null> {
 		try {
 			const result = await auction.enroll(
@@ -181,14 +187,33 @@ export default class Ethers {
 
 	// Marketplace에 등록된 NFT 구매
 	static async purchaseNFT(
-		itemId: number,
+		itemId: number
 	): Promise<ContractTransaction | null> {
 		try {
-			let price = (await marketplace.getTotalPrice(itemId)).toString()
+			let price = (await marketplace.getTotalPrice(itemId)).toString();
 			const options = {
 				value: price,
 			};
 			const result = await marketplace.purchase(itemId, options);
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	// Auction에 올라온 NFT 입찰하기
+	static async bid(
+		itemId: number,
+		price: number
+	): Promise<ContractTransaction | null> {
+		try {
+
+			let bidPrice = (await auction.calPriceWithFee(price)).toString();
+			const options = {
+				value: bidPrice,
+			};
+			const result = await auction.bid(itemId, options);
 			return result;
 		} catch (error) {
 			console.log(error);
@@ -202,15 +227,20 @@ export default class Ethers {
 			const nftBalance = await musitNFT.balanceOf(marketplace.address);
 			let nftList: object[] = [];
 			for (let i = 0; i < nftBalance; i++) {
-				const tokenId = (await musitNFT.tokenOfOwnerByIndex(marketplace.address, i)).toNumber();
-				const marketItemId = await marketplace.nftToItemId(musitNFT.address, tokenId)
-				const marketItemInfo = await marketplace.items(marketItemId)
+				const tokenId = (
+					await musitNFT.tokenOfOwnerByIndex(marketplace.address, i)
+				).toNumber();
+				const marketItemId = await marketplace.nftToItemId(
+					musitNFT.address,
+					tokenId
+				);
+				const marketItemInfo = await marketplace.items(marketItemId);
 
 				const tokenURI = await musitNFT.tokenURI(tokenId);
 				const metadata = await (
 					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
 				).json();
-				let price = await marketplace.getTotalPrice(marketItemId)
+				let price = await marketplace.getTotalPrice(marketItemId);
 				nftList.push({
 					itemId: marketItemId.toNumber(),
 					tokenId,
@@ -219,10 +249,9 @@ export default class Ethers {
 					nft: await musitNFT.name(),
 					sold: marketItemInfo.sold,
 					...metadata,
-				})
+				});
 			}
 			return nftList;
-
 		} catch (error) {
 			console.log(error);
 			return null;
@@ -232,9 +261,12 @@ export default class Ethers {
 	// 선택한 마켓 아이템 검색
 	static async getMarketItem(tokenId: number): Promise<object[] | null> {
 		try {
-			const marketItemId = await marketplace.nftToItemId(musitNFT.address, tokenId)
-			const marketItemInfo = await marketplace.items(marketItemId)
-			let price = await marketplace.getTotalPrice(marketItemId)
+			const marketItemId = await marketplace.nftToItemId(
+				musitNFT.address,
+				tokenId
+			);
+			const marketItemInfo = await marketplace.items(marketItemId);
+			let price = await marketplace.getTotalPrice(marketItemId);
 			const tokenURI = await musitNFT.tokenURI(tokenId);
 			const metadata = await (
 				await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
@@ -248,10 +280,9 @@ export default class Ethers {
 				nft: await musitNFT.name(),
 				sold: ethers.utils.formatEther(price) === "0.0",
 				...metadata,
-			}	
-			
-			return result;
+			};
 
+			return result;
 		} catch (error) {
 			console.log(error);
 			return null;
@@ -264,10 +295,15 @@ export default class Ethers {
 			const nftBalance = await musitNFT.balanceOf(auction.address);
 			let nftList: object[] = [];
 			for (let i = 0; i < nftBalance; i++) {
-				const tokenId = (await musitNFT.tokenOfOwnerByIndex(auction.address, i)).toNumber();
-				const auctionItemId = await auction.nftToItemId(musitNFT.address, tokenId)
-				const auctionItemInfo = await auction.items(auctionItemId)
-				
+				const tokenId = (
+					await musitNFT.tokenOfOwnerByIndex(auction.address, i)
+				).toNumber();
+				const auctionItemId = await auction.nftToItemId(
+					musitNFT.address,
+					tokenId
+				);
+				const auctionItemInfo = await auction.items(auctionItemId);
+
 				const tokenURI = await musitNFT.tokenURI(tokenId);
 				const metadata = await (
 					await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
@@ -288,7 +324,6 @@ export default class Ethers {
 				});
 			}
 			return nftList;
-
 		} catch (error) {
 			console.log(error);
 			return null;
@@ -298,32 +333,36 @@ export default class Ethers {
 	// 선택한 경매 아이템 검색
 	static async getAuctionItem(tokenId: number): Promise<object[] | null> {
 		try {
-			const auctionItemId = await auction.nftToItemId(musitNFT.address, tokenId)
-			const auctionItemInfo = await auction.items(auctionItemId)
+			const auctionItemId = await auction.nftToItemId(
+				musitNFT.address,
+				tokenId
+			);
+			const auctionItemInfo = await auction.items(auctionItemId);
 
 			const tokenURI = await musitNFT.tokenURI(tokenId);
 			const metadata = await (
 				await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
 			).json();
+
 			const result = {
 				itemId: auctionItemId.toNumber(),
-				tokenId,
-				price: ethers.utils.formatEther(auctionItemInfo.price),
-				seller: auctionItemInfo.seller,
 				nft: await musitNFT.name(),
-				sold: auctionItemInfo.sold,
+				startPrice: ethers.utils.formatEther(auctionItemInfo.startPrice),
+				startAt: auctionItemInfo.startAt.toNumber(),
+				endAt: auctionItemInfo.endAt.toNumber(),
+				tokenId,
+				seller: auctionItemInfo.seller,
+				topBidder: auctionItemInfo.topBidder,
+				topBid: ethers.utils.formatEther(auctionItemInfo.topBid),
+				status: auctionItemInfo.status,
 				...metadata,
-			}	
+			};
 			return result;
-
 		} catch (error) {
 			console.log(error);
 			return null;
 		}
 	}
-
-	
-	
 
 	//TODO: 수입 계산 함수
 	// static async getIncome(address: string): Promise<boolean | null> {
@@ -338,13 +377,12 @@ export default class Ethers {
 	// 				return sellPrice;
 	// 			}).reduce((a: BigNumberish,b: BigNumberish) => a.add(b), "0")
 	// 		);
-			
+
 	// 	} catch (error) {
 	// 		console.log(error);
 	// 		return null;
 	// 	}
 	// }
-
 
 	// 현재 Signer의 private key를 verify하는 함수
 	static async signToVerify(message?: string): Promise<boolean | null> {
@@ -366,6 +404,32 @@ export default class Ethers {
 					(await signer.getAddress());
 			}
 			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
+	// buy subscription 함수 불러오기
+	static async buySubscription(plan: number): Promise<boolean | null> {
+		try {
+			const price = await subscription.getPrice(plan);
+			const options = {
+				value: price,
+			};
+			const result = await subscription.buy(plan, options);
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+	
+	// subscription EndAt 불러오기
+	static async getSubscriptionEndAt(address: string): Promise<string | null> {
+		try {
+			const endAt = await subscription.getEndAt(address);	
+			return endAt.toNumber();
 		} catch (error) {
 			console.log(error);
 			return null;

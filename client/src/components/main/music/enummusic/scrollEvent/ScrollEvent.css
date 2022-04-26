@@ -2,9 +2,18 @@
   margin-top: 20px;
 }
 
-.scrollEventContant .scrollBox {
+.scrollEventContant .scroll-title {
   height: 100%;
   overflow: hidden;
+}
+
+.scrollEventContant .scroll-title {
+  justify-content: space-evenly;
+}
+
+.scrollEventContant .scroll-title span {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .scrollEventContant .scrollBox ::-webkit-scrollbar {

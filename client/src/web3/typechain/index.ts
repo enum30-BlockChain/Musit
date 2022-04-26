@@ -14,6 +14,7 @@ export type { IERC165 } from "./IERC165";
 export type { Auction } from "./Auction";
 export type { Marketplace } from "./Marketplace";
 export type { MusitNFT } from "./MusitNFT";
+export type { Subscription } from "./Subscription";
 
 export { Ownable__factory } from "./factories/Ownable__factory";
 export { ERC721__factory } from "./factories/ERC721__factory";
@@ -28,3 +29,4 @@ export { IERC165__factory } from "./factories/IERC165__factory";
 export { Auction__factory } from "./factories/Auction__factory";
 export { Marketplace__factory } from "./factories/Marketplace__factory";
 export { MusitNFT__factory } from "./factories/MusitNFT__factory";
+export { Subscription__factory } from "./factories/Subscription__factory";

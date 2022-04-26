@@ -208,3 +208,17 @@ export const removeSelectedMusic = () => {
     type: ActionTypes.REMOVE_SELECTED_MUSIC,
   };
 };
+
+/**** Recent Music ****/
+export const setRecentMusic = (music) => {
+  return {
+    type: ActionTypes.RECENT_MUSIC,
+    payload: music,
+  };
+};
+
+export const removeRecentMusic = () => {
+  return {
+    type: ActionTypes.REMOVE_RECENT_MUSIC,
+  };
+};

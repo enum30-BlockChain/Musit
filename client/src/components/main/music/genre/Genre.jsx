@@ -3,13 +3,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArtistCard from "../../serach/artist/ArtistCard";
 import ArtistModal from "../../serach/artist/ArtistModal";
 import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
-import Divider from "@mui/material/Divider";
 import SimpleBackdrop from "../SimpleBackdrop";
 import "./Genre.css";
 
@@ -153,7 +151,7 @@ export default function Genre() {
                 />
                 <Grid
                   sx={{
-                    width: "1300px",
+                    width: "1350px",
                     m: "auto",
                     padding: 0,
                     overflow: "hidden",
@@ -170,7 +168,7 @@ export default function Genre() {
                       >
                         <Box
                           key={index}
-                          sx={{ cursor: "pointer", width: 210, my: 5, m: 2 }}
+                          sx={{ cursor: "pointer", width: 210, my: 5, m: 1 }}
                           onClick={() => {
                             postInfo(music);
                           }}
@@ -230,7 +228,7 @@ export default function Genre() {
                 />
                 <Grid
                   sx={{
-                    width: "1300px",
+                    width: "1350px",
                     m: "auto",
                     padding: 0,
                     overflow: "hidden",
