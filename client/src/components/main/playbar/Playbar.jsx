@@ -117,6 +117,7 @@ export const Playbar = () => {
     }
     setCount(num);
     loadSong(likeMusic[num]);
+    dispatch(setRecentMusic(likeMusic[num].title))
     playSong();
   }
 
@@ -133,6 +134,7 @@ export const Playbar = () => {
     }
     setCount(num);
     loadSong(likeMusic[num]);
+    dispatch(setRecentMusic(likeMusic[num].title))
     playSong();
   }
 
