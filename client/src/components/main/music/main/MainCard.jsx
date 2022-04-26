@@ -74,7 +74,7 @@ export default function MainCard(props) {
   const palyCountAdd = async () => {
     const content = { play_count: props.music.play_count + 1 };
     await axios.patch(
-      `http://localhost:5000/music/${props.music.ipfs_hash}`,
+      `http://54.180.145.5/music/${props.music.ipfs_hash}`,
       content
     );
     // .then((res) => console.log(res))

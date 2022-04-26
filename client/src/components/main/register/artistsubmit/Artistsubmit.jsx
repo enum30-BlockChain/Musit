@@ -43,7 +43,7 @@ export default function Artistsubmit() {
     if (albumCoverImgFile !== "") {
       formData.append("img", albumCoverImgFile);
       await axios
-        .post("http://localhost:5000/files/upload/img", formData)
+        .post("http://54.180.145.5/files/upload/img", formData)
         .then((res) => (DBdata.cover_img_link = res.data))
         .catch((err) => alert(err));
       return DBdata;
