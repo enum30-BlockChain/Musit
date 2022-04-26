@@ -208,8 +208,8 @@ export default class Ethers {
 		price: number
 	): Promise<ContractTransaction | null> {
 		try {
-
-			let bidPrice = (await auction.calPriceWithFee(price)).toString();
+			let priceWei = ethers.utils.parseEther(String(price));
+			let bidPrice = (await auction.calPriceWithFee(priceWei)).toString();
 			const options = {
 				value: bidPrice,
 			};
