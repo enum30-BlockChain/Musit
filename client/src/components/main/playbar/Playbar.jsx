@@ -47,12 +47,12 @@ export const Playbar = () => {
         if (user.recent_played === null) {
           // console.log("회원인데 리센트없는사람 ")
           //recent_played 없으면 바로 배열 0번째 ㄱ하고
-          setpalyeCount(song.play_count);
-          sethash(song.ipfs_hash);
-          setSongTitle(song.title);
-          title.innerText = song.title;
-          audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
-          cover.src = song.img_file;
+          // setpalyeCount(song.play_count);
+          // sethash(song.ipfs_hash);
+          // setSongTitle(song.title);
+          // title.innerText = song.title;
+          // audio.src = `https://ipfs.infura.io/ipfs/${song.ipfs_hash}`;
+          // cover.src = song.img_file;
         } else {
           // console.log("회원인데 리센트있는사람 ")
           // recent_played 있으면
@@ -117,6 +117,7 @@ export const Playbar = () => {
     }
     setCount(num);
     loadSong(likeMusic[num]);
+    dispatch(setRecentMusic(likeMusic[num].title))
     playSong();
   }
 
@@ -133,6 +134,7 @@ export const Playbar = () => {
     }
     setCount(num);
     loadSong(likeMusic[num]);
+    dispatch(setRecentMusic(likeMusic[num].title))
     playSong();
   }
 
@@ -296,7 +298,7 @@ export const Playbar = () => {
   const palyCountAdd = async () => {
     setpalyeCount(palyeCount + 1);
     const content = { play_count: palyeCount + 1 };
-    await axios.patch(`http://localhost:5000/music/${hash}`, content);
+    await axios.patch(`http://54.180.145.5/music/${hash}`, content);
     // .then((res) => console.log(res))
   };
 
@@ -309,7 +311,7 @@ export const Playbar = () => {
     if (!sendInt) {
       setSavePoint(savePoint + 1);
       dispatch(setRecentMusic(songTitle))
-      await axios.patch(`http://localhost:5000/users/${user.address}`, {
+      await axios.patch(`http://54.180.145.5/users/${user.address}`, {
         recent_played: content.join("-"),
       });
       // .then((res) => console.log(res))

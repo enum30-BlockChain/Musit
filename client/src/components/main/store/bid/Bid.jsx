@@ -5,7 +5,8 @@ import { useParams } from "react-router";
 import { selectedMusitNFT } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
 import Error from "../../../Error";
-import SimpleBackdrop from "../../music/SimpleBackdrop";
+import SimpleBackdrop from "../../../SimpleBackdrop";
+
 
 import "./Bid.css";
 const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
@@ -40,11 +41,12 @@ const Bid = () => {
 const SuccessContent = () => {
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 	const [expired, setExpired] = useState(false);
+	const [bidPrice, setBidPrice] = useState(selectedNFT.topBid);
 
 	// NFT 판매 등록
 	const bidOnClick = async (e) => {
 		e.preventDefault();
-		await Ethers.purchaseNFT(selectedNFT.itemId)
+		await Ethers.bid(selectedNFT.itemId, bidPrice)
 	}
 
 	// NFT 판매 등록
@@ -55,32 +57,42 @@ const SuccessContent = () => {
 
 	// 주소 짧게 만들기
 	const shortAddress = (topBidder) => {
-		return `${topBidder.slice(0,5)}...${topBidder.slice(-4)}`
+		if(topBidder) {
+			return `${topBidder.slice(0,5)}...${topBidder.slice(-4)}`
+		} else {
+			return "Cannot found"
+		}
 	}
 	
+	const twoDigit = (number) => {
+		return ("0" + number).slice(-2)
+	}
+
 	useEffect(() => {
 		// 1초마다 카운트 다운
 		const countDown = setInterval(() => {
 			const now = new Date().getTime();
 			const distance = (selectedNFT.endAt*1000) - now;
 	
-			console.log(distance)
-			const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-			const hours = Math.floor(
-				(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-			);
-			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-			const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-	
-			document.getElementById("countdown").innerHTML =
-				days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-	
-			// 남은 시간이 0보다 작으면 종료
-			if (distance < 0) {
+			if (distance !== NaN) {
+				const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				const hours = twoDigit(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+				const minutes = twoDigit(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+				const seconds = twoDigit(Math.floor((distance % (1000 * 60)) / 1000));
+		
+				document.getElementById("countdown").innerHTML =
+					days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+		
+				// 남은 시간이 0보다 작으면 종료
+				if (distance < 0) {
+					clearInterval(countDown);
+					document.getElementById("countdown").innerHTML = "EXPIRED";
+					document.getElementById("countdown").style.color = "red";
+					document.querySelector('.bid-container .input-form').classList.add("expired")
+					setExpired(true)
+				}
+			} else {
 				clearInterval(countDown);
-				document.getElementById("countdown").innerHTML = "EXPIRED";
-				document.getElementById("countdown").style.color = "red";
-				document.querySelector('.bid-container .input-form').classList.add("expired")
 				setExpired(true)
 			}
 		}, 1000);
@@ -166,6 +178,10 @@ const SuccessContent = () => {
 										step={0.0001}
 										required
 										type="number"
+										onChange={(e) => {
+											setBidPrice(e.target.value)
+											console.log(bidPrice)
+										}}
 									/>
 								</div>
 								{expired ? <button>Withdraw</button> : <button>Submit</button>}

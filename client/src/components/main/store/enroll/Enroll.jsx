@@ -182,9 +182,9 @@ const OrdinaryForm = () => {
 	// NFT 판매 등록
 	const submitOnClick = async (e) => {
 		e.preventDefault();
-		let isFormValid = document.querySelector('.input-box').checkValidity();
+		let isFormValid = document.querySelector('.ordinary-form .input-box').checkValidity();
     if(!isFormValid) {
-			document.querySelector('.input-box').reportValidity();
+			document.querySelector('.ordinary-form .input-box').reportValidity();
 		} else {
 			await Ethers.enrollMarketplace(tokenId, sellPrice)
 		}
@@ -242,19 +242,19 @@ const AuctionForm = () => {
 		const time = (new Date(ms).toTimeString().slice(0,5))
 		let year = minDateTime.getFullYear();
 		let month = ("0" + (minDateTime.getMonth() + 1)).slice(-2);
-		let date = minDateTime.getDate();
+		let date = ("0" + (minDateTime.getDate() + 1)).slice(-2);
 		const result = `${year}-${month}-${date}T${time}`
 		return result;
 	}
 	
 	// 입력 최대 시간 => 현재 시간 + 7일
 	const getMaxDateTime = () => {
-		const now = Date.now();
-		const today = (new Date(now))
-		const time = (new Date(now).toTimeString().slice(0,5))
-		let year = today.getFullYear();
-		let month = ("0" + (today.getMonth() + 1)).slice(-2);
-		let date = today.getDate() + 7;
+		const ms = Date.now() + 1000 * 60 * 60 * 24 * 7;
+		const maxDateTime = (new Date(ms))
+		const time = (new Date(ms).toTimeString().slice(0,5))
+		let year = maxDateTime.getFullYear();
+		let month = ("0" + (maxDateTime.getMonth() + 1)).slice(-2);
+		let date = ("0" + (maxDateTime.getDate() + 1)).slice(-2);
 		const result = `${year}-${month}-${date}T${time}`
 		return result;
 	}
@@ -267,12 +267,13 @@ const AuctionForm = () => {
 	// NFT 경매 등록
 	const submitOnClick = async (e) => {
 		e.preventDefault();
-		let isFormValid = document.querySelector('.input-box').checkValidity();
+		let isFormValid = document.querySelector('.auction-form .input-box').checkValidity();
+		console.log(isFormValid);
     if(!isFormValid) {
-			document.querySelector('.input-box').reportValidity();
+			document.querySelector('.auction-form .input-box').reportValidity();
 		} else {
 			const endAt = document.querySelector("#datetime-local").value;
-			const sellPrice = document.querySelector("#sell-price").value;
+			const sellPrice = document.querySelector("#bid-price").value;
 			
 			await Ethers.enrollAuction(tokenId, sellPrice, new Date(endAt).getTime())
 		}
@@ -302,22 +303,29 @@ const AuctionForm = () => {
 			<form className="input-box">
 				<div className="price-box">
 					<div className="title-box">
-						<h2>Sell-Price</h2> <h5>*</h5>
+						<h2>Bid-Price</h2> <h5>*</h5>
 					</div>
 					<p>Please ETH price to sell. (Unit : 0.0001 ETH)</p>
-					<input id="sell-price" type="number" defaultValue={0.0001} min={0.0001} step={0.0001} required />
+					<input
+						id="bid-price"
+						type="number"
+						defaultValue={0.0001}
+						min={0.0001}
+						step={0.0001}
+						required
+					/>
 				</div>
 				<div className="end-date-box">
 					<div className="title-box">
 						<h2>End-Date</h2> <h5>*</h5>
 					</div>
 					<input
-						required
 						id="datetime-local"
 						type="datetime-local"
 						min={getMinDateTime()}
 						max={getMaxDateTime()}
 						defaultValue={getMinDateTime()}
+						required
 					/>
 				</div>
 				<button onClick={submitOnClick}>submit</button>

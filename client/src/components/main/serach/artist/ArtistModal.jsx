@@ -1,70 +1,27 @@
 import "./ArtistModel.css";
 import React, { useEffect, useRef, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import { Box, Avatar } from "@mui/material";
+import { Box, Avatar, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import ArtistSongCard from "./ArtistSongCard";
-
-const WallPaper = styled("div")({
-  position: "absolute",
-  width: "100%",
-  height: "100%",
-  top: 0,
-  left: 0,
-  overflow: "hidden",
-  background: "linear-gradient(rgb(255, 38, 142) 0%, rgb(255, 105, 79) 100%)",
-  transition: "all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s",
-  "&:before": {
-    content: '""',
-    width: "140%",
-    height: "140%",
-    position: "absolute",
-    top: "-40%",
-    right: "-50%",
-    background:
-      "radial-gradient(at center center, rgb(62, 79, 249) 0%, rgba(62, 79, 249, 0) 64%)",
-  },
-  "&:after": {
-    content: '""',
-    width: "140%",
-    height: "140%",
-    position: "absolute",
-    bottom: "-50%",
-    left: "-30%",
-    background:
-      "radial-gradient(at center center, rgb(247, 237, 225) 0%, rgba(247, 237, 225, 0) 70%)",
-    transform: "rotate(30deg)",
-  },
-});
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const Widget = styled("div")(({ theme }) => ({
   padding: 16,
   borderRadius: 16,
-  width: "75%",
+  width: "80%",
   maxWidth: "100%",
   margin: "auto",
   position: "absolute",
-  top: "15%",
+  top: "10%",
   left: "10%",
   zIndex: 1,
   backgroundColor:
     theme.palette.mode === "dark" ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.4)",
   backdropFilter: "blur(40px)",
 }));
-
-const CoverImage = styled("div")({
-  width: 100,
-  height: 100,
-  objectFit: "cover",
-  overflow: "hidden",
-  flexShrink: 0,
-  borderRadius: 8,
-  backgroundColor: "rgba(0,0,0,0.08)",
-  "& > img": {
-    width: "100%",
-  },
-});
 
 const Slider = styled("div")({
   position: "relative",
@@ -73,38 +30,39 @@ const Slider = styled("div")({
   alignItems: "center",
 });
 
-const SliderBox = styled("div")({
-  position: "relative",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  borderRadius: "10px",
-});
 
 export default function ArtistModal(props) {
-  const [current, setCurrent] = useState(0);
-
+  const [value, setValue] = useState(0);
+  const [viewMusicCard, setViewMusicCard] = useState(0);
   const TotalCount = props.artistModal.Music.map((e) => e.play_count) //play총합
     .reduce((prev, curr) => prev + curr, 0);
 
   const musics = props.artistModal.Music;
+  useEffect(() => {
+    if (musics.length > 3) {
+      setViewMusicCard(3);
+    } else {
+      setViewMusicCard(musics.length);
+    }
+  }, []);
 
-  const length = musics.length;
-
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
+  const moveAhead = () => {
+    value === 0
+      ? setValue(-100 * (musics.length - viewMusicCard))
+      : setValue(value + 100);
+  };
+  const moveBehind = () => {
+    value === -100 * (musics.length - viewMusicCard)
+      ? setValue(0)
+      : setValue(value - 100);
   };
 
-  const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
-
-  if (!Array.isArray(musics) || musics.length <= 0) {
-    return null;
-  }
+  // if (!Array.isArray(musics) || musics.length <= 0) {
+  //   return null;
+  // }
 
   return (
-    <Box sx={{ width: "100%", overflow: "hidden" }}>
+    <Box sx={{ width: "10%", overflow: "hidden" }}>
       <Widget>
         <Box
           sx={{
@@ -165,34 +123,47 @@ export default function ArtistModal(props) {
             alignItems: "flex-start",
           }}
         >
-          <Box sx={{ mt: 4, ml: 5 }}>
+          <Box sx={{ mt: 8, mx: 5 }}>
             <Typography variant="h3" component="div">
               <b>Music List</b>
             </Typography>
           </Box>
-          <Slider>
-            <i className="uil uil-angle-double-left" onClick={prevSlide}></i>
-            <SliderBox
-              sx={{ mt: 4, ml: 5, display: "flex", flexDirection: "row" }}
+          <Slider  
+          sx={{
+             display: "flex",
+              alignItems: "center",
+              height: "80%",
+              px: 2,
+              my:5,
+              mx:'auto'
+            }}>
+              <ArrowBackIosIcon
+                 sx={{ fontSize: 50, cursor: "pointer" }}
+                 onClick={moveAhead}
+               />
+            <Grid
+             container
+             sx={{ width: "1100px",m:'auto', display: "flex", flexWrap: "nowrap", overflow: "hidden", }}
             >
-              {musics.map((music, i) => {
+              {musics && musics.map((music, i) => {
                 return (
-                  <div
-                    className={i === current ? "slide active" : "slide"}
-                    key={i}
-                  >
-                    {i === current && (
-                      <ArtistSongCard
-                        key={i}
-                        music={music}
-                        setmusicmodal={props.setmusicmodal}
-                      />
-                    )}
-                  </div>
+                    <div
+                      className="glide"
+                      style={{ transform: `translateX(${value}%)` }}
+                    >
+                        <ArtistSongCard
+                          index={i}
+                          music={music}
+                          setmusicmodal={props.setmusicmodal}
+                        />
+                    </div>
                 );
               })}
-            </SliderBox>
-            <i className="uil uil-angle-double-right" onClick={nextSlide}></i>
+              </Grid>
+               <ArrowForwardIosIcon
+                sx={{ fontSize: 50, cursor: "pointer" }}
+                onClick={moveBehind}
+              />
           </Slider>
         </Box>
       </Widget>

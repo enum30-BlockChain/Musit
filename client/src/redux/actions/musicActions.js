@@ -9,12 +9,12 @@ export const createMusicData = (imgFormData, audioFormData, input) => {
       const artistInfo = getState().myArtist;
 
       const imgUrl = (
-        await axios.post("http://localhost:5000/files/upload/img", imgFormData)
+        await axios.post("http://54.180.145.5/files/upload/img", imgFormData)
       ).data;
 
       const audioIpfsHash = (
         await axios.post(
-          "http://localhost:5000/files/upload/audio",
+          "http://54.180.145.5/files/upload/audio",
           audioFormData
         )
       ).data;
@@ -25,7 +25,7 @@ export const createMusicData = (imgFormData, audioFormData, input) => {
         ipfs_hash: audioIpfsHash,
       };
       const createData = await axios.post(
-        "http://localhost:5000/music/",
+        "http://54.180.145.5/music/",
         musicData
       );
       console.log(createData);
@@ -44,7 +44,7 @@ export const readMusicList = () => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_LIST_REQUEST });
     try {
-      const url = "http://localhost:5000/music/";
+      const url = "http://54.180.145.5/music/";
       const musicList = (await axios.get(url)).data;
       dispatch({
         type: ActionTypes.MUSIC_LIST_SUCCESS,
@@ -64,7 +64,7 @@ export const readMusicData = (ipfs_hash) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
     try {
       if (ipfs_hash) {
-        const url = `http://localhost:5000/music/${ipfs_hash}`;
+        const url = `http://54.180.145.5/music/${ipfs_hash}`;
         const musicList = (await axios.get(url)).data;
         dispatch({
           type: ActionTypes.MUSIC_READ_SUCCESS,
@@ -90,7 +90,7 @@ export const readLikeMusicList = () => {
     dispatch({ type: ActionTypes.LIKE_MUSIC_REQUEST });
     try {
       let accounts = getState().metamask.accounts;
-      const url = `http://localhost:5000/music/likes/${accounts[0]}`;
+      const url = `http://54.180.145.5/music/likes/${accounts[0]}`;
       const musicList = (await axios.get(url)).data;
       dispatch({
         type: ActionTypes.LIKE_MUSIC_SUCCESS,
@@ -110,7 +110,7 @@ export const updateMusicList = (input) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
     try {
-      const url = "http://localhost:5000/music/";
+      const url = "http://54.180.145.5/music/";
       const musicList = (await axios.patch(url, input)).data;
       dispatch({
         type: ActionTypes.MUSIC_UPDATE_SUCCESS,
@@ -139,7 +139,7 @@ export const toggleLikeMusic = (music) => {
         // user 정보, 선택한 아티스트 이름이 있을 때만 실행
         if (0 >= likeFilter.length) {
           // 좋아요를 안눌렀으면 생성
-          const url = `http://localhost:5000/music/likes`;
+          const url = `http://54.180.145.5/music/likes`;
           await axios.post(url, {
             ipfs_hash: music.ipfs_hash,
             user_address: user.address,
@@ -150,7 +150,7 @@ export const toggleLikeMusic = (music) => {
           });
         } else {
           // 좋아요를 눌렀으면 다시 삭제
-          const url = `http://localhost:5000/music/likes/${music.ipfs_hash}`;
+          const url = `http://54.180.145.5/music/likes/${music.ipfs_hash}`;
           await axios.delete(url, { data: { user_address: user.address } });
 
           const newMySonglist = likeMusic.data.filter((song) => {
@@ -181,7 +181,7 @@ export const deleteMusic = (input) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
     try {
-      const url = "http://localhost:5000/music/";
+      const url = "http://54.180.145.5/music/";
       await axios.delete(url, input);
       dispatch({
         type: ActionTypes.MUSIC_DELETE_SUCCESS,

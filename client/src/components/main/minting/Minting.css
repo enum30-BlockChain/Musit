@@ -5,8 +5,17 @@
   justify-content: center;
   align-items: center;
 }
+.minting-layout h1 {
+  color: #000;
+}
+.minting-layout :is(h2, i, input) {
+  color: var(--black-light-color);
+}
+.minting-layout p {
+  color: var(--black-light-color);
+}
 
-.minting-layout .minting-margin {
+.minting-layout .minting-container {
   width: 85%;
   border-radius: 15px;
   background-color: var(--box1-color);
@@ -14,13 +23,12 @@
   padding: 30px;
 }
 
-.minting-layout .minting-margin .minting-title {
-  margin-bottom: 20px;
+.minting-layout .minting-container .minting-title {
   display: flex;
   justify-content: center;
 }
 
-.minting-layout .minting-margin .minting-title .minitng-imgcover {
+.minting-layout .minting-container .minting-title .minitng-imgcover {
   font-size: 30px;
 }
 
@@ -40,45 +48,84 @@
   font-size: 35px;
   font-weight: 600;
   color: var(--text-color);
+  height: 10%;
+  align-items: center;
 }
 
-.minting-layout .mintig-input {
+.minting-layout .mintig-content-wrap {
   display: flex;
+  height: 90%;
 }
 
-.minting-layout .mintig-input .content-box-minting-img-box {
-  text-align: center;
-  border-right: 2px solid var(--border-color);
+.minting-layout .mintig-content-wrap > section {
   width: 50%;
-  height: 520px;
+  height: 100%;
+  padding: 20px;
 }
 
-.minting-layout .mintig-input .content-box-minting-img-box img {
-  width: 410px;
-  height: 410px;
-  margin-top: 20px;
+.minting-layout .mintig-content-wrap .left-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-right: 2px solid var(--border-color);
+}
+
+.minting-layout .mintig-content-wrap .left-container .img-box {
+  width: 60%;
+  border-radius: 50%;
+}
+.minting-layout .mintig-content-wrap .left-container .img-box img {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  overflow: hidden;
-  animation: rotate 8s linear infinite;
+}
+.minting-layout .mintig-content-wrap .left-container .img-title-box {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.minting-layout .mintig-input .content-box-minting-img-box span {
-  font-size: 35px;
+.minting-layout .mintig-content-wrap .right-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.minting-layout .mintig-content-wrap .right-container h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.minting-layout .mintig-content-wrap .right-container h1 {
+  font-size: 30px;
   font-weight: 600;
 }
 
-.minting-layout .mintig-input .content-box .minting-content-container {
-  width: 50%;
+.minting-layout .mintig-content-wrap .right-container .content-box {
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.minting-layout .mintig-content-wrap .right-container .description-box {
+  height: 200px;
+}
+
+.minting-layout .mintig-content-wrap .right-container .description-box p{
+  height: 150px;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: auto;
+  word-break: break-all;
+  white-space: normal;
+}
+
+.minting-layout .mintig-content-wrap .right-container .minting-btn {
   display: flex;
   justify-content: center;
-}
-
-.minting-layout .mintig-input .minting-content-container .content-box {
-  font-size: 40px;
-  font-weight: 600;
-}
-
-.minting-layout .mintig-input .minting-content-container .content-box p {
-  font-size: 30px;
+  align-items: center;
+  margin: 0;
 }

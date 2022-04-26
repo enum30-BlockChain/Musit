@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 					this.setDataValue("genre", val.join(","));
 				},
 			},
-			description: { type: DataTypes.STRING, allowNull: true },
+			description: { type: DataTypes.TEXT, allowNull: true },
 			play_time: { type: DataTypes.INTEGER, allowNull: false },
 			play_count: {
 				type: DataTypes.INTEGER,

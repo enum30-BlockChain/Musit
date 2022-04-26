@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { readMusicData } from "../../../redux/actions/musicActions";
 import { mintingMusitNFT } from "../../../redux/actions/contractActions";
 import "./Minting.css";
+import SimpleBackdrop from "../../SimpleBackdrop";
 
 const Minting = () => {
   let { ipfs_hash } = useParams();
@@ -28,33 +29,9 @@ const Minting = () => {
 
 const LoadingContent = () => {
   return (
-    <></>
-    // <section className="minting-layout">
-    //   <div className="content-box minting-img-box">
-    //     <h2>Album Cover Image</h2>
-    //     <Skeleton
-    //       width={400}
-    //       height={400}
-    //       sx={{ marginTop: "20px" }}
-    //       variant="circular"
-    //     />
-    //   </div>
-
-    //   <div className="minting-content-container">
-    //     <div className="content-box title-box">
-    //       <h2 className="title">Title</h2>
-    //       <Skeleton width={400} height={50} variant="text" />
-    //     </div>
-    //     <div className="content-box audio-box">
-    //       <h2 className="title">Audio</h2>
-    //       <Skeleton width={400} height={50} variant="text" />
-    //     </div>
-    //     <div className="content-box description-box">
-    //       <h2 className="title">Description</h2>
-    //       <Skeleton width={400} height={200} variant="text" />
-    //     </div>
-    //   </div>
-    // </section>
+    <>
+      <SimpleBackdrop/>
+    </>
   );
 };
 
@@ -78,53 +55,58 @@ const SuccessContent = ({ ipfs_hash }) => {
 
   return (
     <section className="minting-layout">
-      <div className="minting-margin">
-        <div className="minting-title">
+      <section className="minting-container">
+        <header className="minting-title">
           <i className="uil uil-capture"></i>
           <span className="text-minting"> NTF-Minting</span>
-        </div>
-        <div className="mintig-input">
-          <div className="content-box-minting-img-box">
-            <div>
+        </header>
+
+        <main className="mintig-content-wrap">
+          <section className="left-container">
+            <div className="img-title-box">
               <span className="minitng-imgcover">Album Cover Image</span>
             </div>
-            <img src={musicData.img_file} />
-          </div>
-
-          <div className="minting-content-container">
-            <div className="content-box title-box">
-              <span className="title-minting">Title</span>
-              <p className="content">{musicData.title}</p>
+            <div className="img-box">
+              <img src={musicData.img_file} />
             </div>
+          </section>
+
+          <section className="right-container">
+            <div className="content-box title-box">
+              <h2 className="title-minting">Title</h2>
+              <h1 className="content">{musicData.title}</h1>
+            </div>
+
             <div className="content-box audio-box">
-              <span className="title">Audio</span>
+              <h2 className="title">Audio</h2>
               <audio
                 src={`https://ipfs.infura.io/ipfs/${ipfs_hash}`}
                 controls
               />
             </div>
+
             <div className="content-box description-box">
-              <span className="title">Description</span>
-              <span className="content">{musicData.description}</span>
-              <div className="minting-btn">
-                <Button
-                  onClick={mintingOnClick}
-                  sx={{
-                    color: "var(--black-light-color)",
-                    backgroundColor: "var(--box1-color)",
-                    ":hover": {
-                      background: "var(--primary-color)",
-                      color: "var(--text-color)",
-                    },
-                  }}
-                >
-                  Minting
-                </Button>
-              </div>
+              <h2 className="title">Description</h2>
+              <p>{musicData.description}</p>
             </div>
-          </div>
-        </div>
-      </div>
+            <div className="content-box minting-btn">
+              <Button
+                onClick={mintingOnClick}
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+              >
+                Minting
+              </Button>
+            </div>
+          </section>
+        </main>
+      </section>
     </section>
   );
 };

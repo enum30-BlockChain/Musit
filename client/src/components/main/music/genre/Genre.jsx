@@ -8,8 +8,9 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArtistCard from "../../serach/artist/ArtistCard";
 import ArtistModal from "../../serach/artist/ArtistModal";
 import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
-import SimpleBackdrop from "../SimpleBackdrop";
+
 import "./Genre.css";
+import SimpleBackdrop from "../../../SimpleBackdrop";
 
 const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
 
@@ -228,7 +229,7 @@ export default function Genre() {
                 />
                 <Grid
                   sx={{
-                    width: "1350px",
+                    width: "1460px",
                     m: "auto",
                     padding: 0,
                     overflow: "hidden",
