@@ -1,13 +1,19 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { CircularProgress } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import ArtistCard from "./ArtistCard";
+import { readLikeArtistList } from "../../../../redux/actions/artistActions";
 
 const FavoriteArtist = () => {
+  const dispatch = useDispatch();
   const likeArtist = useSelector((state) => state.likeArtist);
-
+ 
+  useEffect(() => {
+    dispatch(readLikeArtistList());
+  }, [])
+  
   return (
-    <div className="favorite" style={{ overflow: "hidden" }}>
+    <div className="favorite" style={{ overflow: "hidden"}}>
       <div
         className="artistfavorite"
         style={{ overflow: "auto", maxHeight: "700px" }}
