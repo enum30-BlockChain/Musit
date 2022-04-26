@@ -94,20 +94,15 @@ export default function Userinformation({}) {
     metamask.accounts[0].substr(0, 5) +
       metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
       "...";
-
   return (
     <div className="userinfo-layout">
       <div className="userinfo-card">
         <div className="userinfo-image">
-          {user.img === "" ? (
-            <Avatar alt="Remy Sharp" sx={{mx:'auto', width: 310, height: 310 }} />
-          ) : (
             <Avatar
               alt="Remy Sharp"
               src={userImg ? userImg : user.img}
               sx={{mx:'auto', width: 310, height: 310 }}
             />
-          )}
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>
@@ -201,24 +196,45 @@ export default function Userinformation({}) {
 
           <div className="setting-btn">
             {visible ? (
-              <Button
-                variant="contained"
-                sx={{
-                  width:100,
-                  color: "var(--black-light-color)",
-                  backgroundColor: "var(--box1-color)",
-                  ":hover": {
-                    background: "var(--primary-color)",
-                    color: "var(--text-color)",
-                  },
-                }}
-                onClick={async () => {
-                  setVisible(!visible);
-                  await ChangeUser();
-                }}
-              >
-                Submit
-              </Button>
+              <>
+                <Button
+                  variant="contained"
+                  sx={{
+                    mx:1,
+                    width:100,
+                    color: "var(--black-light-color)",
+                    backgroundColor: "var(--box1-color)",
+                    ":hover": {
+                      background: "var(--primary-color)",
+                      color: "var(--text-color)",
+                    },
+                  }}
+                  onClick={async () => {
+                    setVisible(!visible);
+                    await ChangeUser();
+                  }}
+                >
+                  Submit
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{
+                    mx:1,
+                    width:100,
+                    color: "var(--black-light-color)",
+                    backgroundColor: "var(--box1-color)",
+                    ":hover": {
+                      background: "var(--primary-color)",
+                      color: "var(--text-color)",
+                    },
+                  }}
+                  onClick={async () => {
+                    setVisible(!visible);
+                  }}
+                >
+                  cancel
+                </Button>
+              </>
             ) : (
               <Button
                 variant="contained"
