@@ -41,7 +41,7 @@ const Widget = styled("div")(({ theme }) => ({
   padding: 16,
   borderRadius: 16,
   width: "75%",
-  maxWidth: "100%",
+  maxWidth: "1200px",
   margin: "auto",
   position: "absolute",
   top: "15%",
