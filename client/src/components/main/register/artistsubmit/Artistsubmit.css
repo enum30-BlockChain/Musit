@@ -1,19 +1,34 @@
 @import "../../../../styles/variables.css";
 
-.artist-nickname {
+.artist-submit-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.artist-submit-form .artist-submit-container {
   width: 550px;
   height: 685px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.6);
   text-align: center;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.artist-nickname .regi-grid .artist-name {
-  margin-top: 20px;
+.artist-submit-form .artist-submit-container .content-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-.artist-nickname .regi-grid .artist-register-profile-img {
+.artist-submit-form .artist-submit-container .content-container .artist-register-profile-img {
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -23,24 +38,30 @@
   font-weight: bolder;
 }
 
-.artist-nickname .regi-grid .artist-register-profile-img {
+.artist-submit-form .artist-submit-container .content-container .artist-register-profile-img {
   display: flex;
   justify-content: center;
 }
 
-.artist-nickname .artist-submit-layout {
+.artist-submit-form .artist-submit-container .submit-container {
   display: flex;
   justify-content: center;
 }
 
-.artist-nickname .artist-submit-layout .artist-submit {
+.artist-submit-form .artist-submit-container .submit-container .submit-btn {
   margin-top: 25px;
   width: 200px;
   height: 45px;
+  border: none;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
   font-size: 25px;
   font-weight: bolder;
   margin: 20px auto 20xp auto;
+}
+
+.artist-submit-form .artist-submit-container .submit-container .submit-btn:hover {
+  cursor: pointer;
+  background-color: var(--primary-color);
 }

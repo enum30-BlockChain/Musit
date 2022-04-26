@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input, Button, Avatar } from "@mui/material";
 import axios from "axios";
 import { createArtistData } from "../../../../redux/actions/artistActions";
-import { Link } from "react-router-dom";
 
 export default function Artistsubmit() {
   // useEffect(() => {
@@ -21,18 +20,32 @@ export default function Artistsubmit() {
 
   const metamask = useSelector((state) => state.metamask);
   const user = useSelector((state) => state.user);
+  const artist = useSelector((state) => state.artist);
 
   const dispatch = useDispatch();
 
-  const submitOnClick = async () => {
-    await postImg();
-    const artistsdata = {
-      user_address: metamask.accounts[0],
-      artist_name: inputs,
-      img: DBdata.cover_img_link,
-    };
-    dispatch(createArtistData(artistsdata));
-    alert("아티스트 등록이 완료되었습니다");
+  const submitOnClick = async (e) => {
+    e.preventDefault();
+		let isFormValid = document.querySelector(".artist-submit-form input").checkValidity();
+    if (!isFormValid) {
+			document.querySelector(".artist-submit-form input").reportValidity();
+		} else {
+			await postImg();
+			const artistsdata = {
+				user_address: metamask.accounts[0],
+				artist_name: inputs,
+				img: DBdata.cover_img_link,
+			};
+			const result = await dispatch(createArtistData(artistsdata));
+
+			if (result !== undefined) {
+				alert("아티스트 등록이 완료되었습니다.");
+			} else {
+        alert("아티스트 등록에 실패했습니다.");
+      }
+      window.location.href ="/"
+		}
+    
   };
 
   const onChange = (e) => {
@@ -57,12 +70,13 @@ export default function Artistsubmit() {
   };
 
   return (
-    <>
-      <div className="artist-nickname">
-        <div className="regi-grid">
-          <div className="artist-name">
+    <form className="artist-submit-form">
+      <div className="artist-submit-container">
+        <div className="content-container">
+          <div className="content-box">
             <p className="artist-infomation-regi">Artist Nickname</p>
             <Input
+              className="input-box"
               required
               placeholder="Please enter your Nickname."
               inputProps={{ style: { fontSize: 30 } }}
@@ -73,7 +87,7 @@ export default function Artistsubmit() {
               onChange={onChange}
             />
           </div>
-          <div className="artist-name">
+          <div className="content-box">
             <p className="artist-infomation-regi">Profile Image</p>
             <div className="artist-register-profile-img">
               {albumCoverImgFile === "" ? (
@@ -99,14 +113,12 @@ export default function Artistsubmit() {
             />
           </div>
         </div>
-        <div className="artist-submit-layout">
-          <Link to={"/artist"}>
-            <div className="artist-submit" onClick={submitOnClick}>
-              Artist Submit
-            </div>
-          </Link>
+        <div className="submit-container">
+          <button className="submit-btn" onClick={submitOnClick}>
+            Artist Submit
+          </button>
         </div>
       </div>
-    </>
+    </form>
   );
 }
