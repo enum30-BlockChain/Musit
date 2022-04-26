@@ -24,7 +24,7 @@ const Usercontent = () => {
       const subsEndAt = await Ethers.getSubscriptionEndAt(user.address);
       const countdown = document.getElementById("subs-countdown")
       const subscription = setInterval(() => {
-        if (subsEndAt !== null) {
+        if (subsEndAt !== null && countdown !== null ) {
           const now = new Date().getTime();
           const distance = subsEndAt * 1000 - now;
   

@@ -1,8 +1,7 @@
 import "./Store.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Error from "../../Error";
-import SimpleBackdrop from "../../SimpleBackdrop";
 import { Outlet } from "react-router";
 import { Link } from "react-router-dom";
 
@@ -21,11 +20,27 @@ export const Store = () => {
 };
 
 const SuccessContent = () => {
+    useEffect(() => {
+      topNavToggle();
+    }, []);
+
+    const topNavToggle = () => {
+      const links = document.querySelectorAll(".top-nav .nav-links li");
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          links.forEach((link) => {
+            link.classList.remove("active");
+          });
+          link.classList.add("active");
+        });
+      });
+    };
+
     return (
     <section className="store">
       <nav className="top-nav">
         <ul className="nav-links">
-          <li className="ordinary-market">
+          <li className="ordinary-market active">
             <Link to="/store">
               <i className="uil uil-shopping-cart"></i>
               <span className="link-name"> Ordinary Market</span>

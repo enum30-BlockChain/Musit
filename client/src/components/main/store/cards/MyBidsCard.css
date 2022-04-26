@@ -1,4 +1,4 @@
-.store .content-container .auction-box {
+.store .content-container .mybids-box {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -7,14 +7,14 @@
   overflow: auto;
 }
 
-.store .content-container .auction-box h2{
+.store .content-container .mybids-box h2{
   color: var(--black-light-color);
   font-size: 15px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.store .content-container .auction-box h1{
+.store .content-container .mybids-box h1{
   color: #000;
   font-size: 20px;
   white-space: nowrap;
@@ -22,7 +22,7 @@
   overflow: hidden;
 }
 
-.store .content-container .auction-box .item-card {
+.store .content-container .mybids-box .item-card {
   position: relative;
   margin: 15px;
   width: 280px;
@@ -30,11 +30,7 @@
   transition: var(--tran-02);
 }
 
-.store .content-container .auction-box .item-card:hover{ 
-  transform: rotateZ(1deg);
-}
-
-.store .content-container .auction-box .item-card .img-box{
+.store .content-container .mybids-box .item-card .img-box{
   position: relative;
   width: 160px;
   height: 160px;
@@ -46,19 +42,19 @@
   z-index: 10;
 }
 
-.store .content-container .auction-box .item-card:hover .content-wrap {
+.store .content-container .mybids-box .item-card:hover .content-wrap {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
   transition: var(--tran-10);
 }
 
-.store .content-container .auction-box .item-card .img-box img{
+.store .content-container .mybids-box .item-card .img-box img{
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.store .content-container .auction-box .item-card .content-wrap {
+.store .content-container .mybids-box .item-card .content-wrap {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -71,15 +67,15 @@
   transition: var(--tran-05);
 }
 
-.store .content-container .auction-box .item-card .content-wrap .color-box{
-  background-color: var(--primary-color);
+.store .content-container .mybids-box .item-card .content-wrap .color-box{
+  background-color: var(--forth-color);
   width: 100%;
   height: 42%;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
 
-.store .content-container .auction-box .item-card .content-wrap .color-box.end {
+.store .content-container .mybids-box .item-card .content-wrap .color-box.end {
   background-color: var(--error-color);
   color: var(--content-bg-color1);
   display: flex;
@@ -87,7 +83,7 @@
   align-items: center;
 }
 
-.store .content-container .auction-box .item-card .content-wrap .end-mark{
+.store .content-container .mybids-box .item-card .content-wrap .end-mark{
   z-index: 1000;
   font-size: 60px;
   font-weight: 700;
@@ -96,13 +92,13 @@
     0.06em 0.04em 0 var(--error-color);
 }
 
-.store .content-container .auction-box .item-card .content-wrap .info-wrap{
+.store .content-container .mybids-box .item-card .content-wrap .info-wrap{
   width: 100%;
   height: 58%;
   text-align: center;
 }
 
-.store .content-container .auction-box .item-card .content-wrap .first-box {
+.store .content-container .mybids-box .item-card .content-wrap .first-box {
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -111,11 +107,11 @@
   height: 50%;
 }
 
-.store .content-container .auction-box .item-card .content-wrap .first-box > div{
+.store .content-container .mybids-box .item-card .content-wrap .first-box > div{
   width: 50%;
 }
 
-.store .content-container .auction-box .item-card .content-wrap .second-box {
+.store .content-container .mybids-box .item-card .content-wrap .second-box {
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -123,10 +119,29 @@
   height: 50%;
 }
 
-.store .content-container .auction-box .item-card .content-wrap .second-box > div{
+.store .content-container .mybids-box .item-card .content-wrap .second-box > div{
   width: 50%;
 }
 
-.store .content-container .auction-box .item-card .content-wrap .second-box > div{
+.store .content-container .mybids-box .item-card .content-wrap .second-box > div{
   width: 50%;
+}
+
+.store .content-container .mybids-box .item-card .content-wrap .second-box .btn-box {
+  padding: 3px;
+}
+
+.store .content-container .mybids-box .item-card .content-wrap .second-box .btn-box button{
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--black-light-color);
+  background-color: var(--content-bg-color2);
+}
+
+.store .content-container .mybids-box .item-card .content-wrap .second-box .btn-box button:hover {
+  color: var(--content-bg-color1);
+  background-color: var(--forth-color);
 }

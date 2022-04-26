@@ -100,7 +100,6 @@ export default class Ethers {
 		}
 	}
 
-
 	/*** Musit NFT Contract ***/
 	// NFT 생성
 	static async minting(tokenURI: string): Promise<Transaction | null> {
@@ -175,7 +174,6 @@ export default class Ethers {
 		}
 	}
 
-
 	/*** Marketplace Contract ***/
 	// Marketplace에 NFT 등록하기
 	static async enrollMarketplace(
@@ -212,7 +210,6 @@ export default class Ethers {
 		}
 	}
 
-	
 	// 마켓에 올라온 NFT 리스트 검색
 	static async getMarketNFTList(): Promise<object[] | null> {
 		try {
@@ -222,9 +219,10 @@ export default class Ethers {
 				const tokenId = (
 					await musitNFT.tokenOfOwnerByIndex(marketplace.address, i)
 				).toNumber();
-				
-				const itemInfo = await this.getMarketItem(tokenId)
-				if (itemInfo === null) throw Error(`Fetching market : error : token ${tokenId}`)
+
+				const itemInfo = await this.getMarketItem(tokenId);
+				if (itemInfo === null)
+					throw Error(`Fetching market : error : token ${tokenId}`);
 				else nftList.push(itemInfo);
 			}
 			return nftList;
@@ -241,11 +239,11 @@ export default class Ethers {
 				musitNFT.address,
 				tokenId
 			);
-			
+
 			const marketItemInfo = await marketplace.items(marketItemId);
-			const priceWei = marketItemInfo.price.toString()
+			const priceWei = marketItemInfo.price.toString();
 			const totalPrice = await marketplace.getTotalPrice(marketItemId);
-			
+
 			const tokenURI = await musitNFT.tokenURI(tokenId);
 			const metadata = await (
 				await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
@@ -309,7 +307,7 @@ export default class Ethers {
 		}
 	}
 
-	// 경매 종료 후 회수 
+	// 경매 종료 후 회수
 	static async endAuction(
 		itemId: number,
 		price: number
@@ -327,14 +325,14 @@ export default class Ethers {
 			return null;
 		}
 	}
-	
+
 	// Bid Price + Fee 계산 함수
 	static async bidPriceWithFee(price: number) {
 		try {
 			let priceWei = ethers.utils.parseEther(String(price));
 			let bidPrice = (await auction.calPriceWithFee(priceWei)).toString();
 
-			return ethers.utils.formatEther(bidPrice)
+			return ethers.utils.formatEther(bidPrice);
 		} catch (error) {
 			console.log(error);
 			return null;
@@ -342,9 +340,12 @@ export default class Ethers {
 	}
 
 	// pending bids 불러오기
-	static async getPendingBids(itmeId: number, address: string): Promise<string | null> {
+	static async getPendingBids(
+		itmeId: number,
+		address: string
+	): Promise<string | null> {
 		try {
-			const pendingBids = await auction.pendingBids(itmeId, address)
+			const pendingBids = await auction.pendingBids(itmeId, address);
 			return ethers.utils.formatEther(pendingBids);
 		} catch (error) {
 			console.log(error);
@@ -357,19 +358,28 @@ export default class Ethers {
 		try {
 			const userAddress = await signer.getAddress();
 			const nftBalance = await musitNFT.balanceOf(auction.address);
-			const mybids = []
+			const mybids = [];
 			for (let i = 0; i < nftBalance; i++) {
-				const pendingBids = await auction.pendingBids(i, userAddress)
-				if (pendingBids) {
-					const tokenId = (
-						await musitNFT.tokenOfOwnerByIndex(auction.address, i)
-					).toNumber();
-				const itemInfo = await this.getAuctionItem(tokenId)
-				if (itemInfo === null) throw Error(`Fetching error : auction item token ${tokenId}`)
-				else mybids.push({...itemInfo, pendingBids: ethers.utils.formatEther(pendingBids)})
+				const tokenId = (
+					await musitNFT.tokenOfOwnerByIndex(auction.address, i)
+				).toNumber();
+				const itemInfo: any = await this.getAuctionItem(tokenId);
+				if (itemInfo === null) {
+					throw Error(`Fetching error : auction item token ${tokenId}`);
+				} else {
+					const pendingBids = await auction.pendingBids(
+						itemInfo.itemId,
+						userAddress
+					);
+					if (pendingBids > 0) {
+						mybids.push({
+							...itemInfo,
+							pendingBids: ethers.utils.formatEther(pendingBids),
+						});
+					}
 				}
 			}
-			return mybids
+			return mybids;
 		} catch (error) {
 			console.log(error);
 			return null;
@@ -385,8 +395,9 @@ export default class Ethers {
 				const tokenId = (
 					await musitNFT.tokenOfOwnerByIndex(auction.address, i)
 				).toNumber();
-				const itemInfo = await this.getAuctionItem(tokenId)
-				if (itemInfo === null) throw Error(`Fetching error : auction item token ${tokenId}`)
+				const itemInfo = await this.getAuctionItem(tokenId);
+				if (itemInfo === null)
+					throw Error(`Fetching error : auction item token ${tokenId}`);
 				else nftList.push(itemInfo);
 			}
 			return nftList;
@@ -445,11 +456,11 @@ export default class Ethers {
 			return null;
 		}
 	}
-	
+
 	// subscription EndAt 불러오기
 	static async getSubscriptionEndAt(address: string): Promise<string | null> {
 		try {
-			const endAt = await subscription.getEndAt(address);	
+			const endAt = await subscription.getEndAt(address);
 			return endAt.toNumber();
 		} catch (error) {
 			console.log(error);
@@ -458,7 +469,7 @@ export default class Ethers {
 	}
 
 	/*** Other Functions ***/
-		//TODO: 수입 계산 함수
+	//TODO: 수입 계산 함수
 	// static async getIncome(address: string): Promise<boolean | null> {
 	// 	try {
 	// 		const boughtFilter: EventFilter = marketplace.filters.Bought(null, null, null, address, null, null)

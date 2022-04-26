@@ -53,6 +53,11 @@ nav.side-nav.close ~ section {
   transition: var(--tran-03);
 }
 
+.main .top-nav .nav-links .active :is(i, .link-name) {
+  color: var(--primary-color);
+  text-shadow: 2px 2px 1px var(--black-light-color);
+}
+
 .top-nav .nav-links a:hover :is(i, .link-name) {
   color: var(--primary-color);
 }

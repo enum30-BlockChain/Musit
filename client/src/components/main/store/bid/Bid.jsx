@@ -78,17 +78,13 @@ const SuccessContent = () => {
 		const bidCountdown = document.getElementById("countdown");
 		// 1초마다 카운트 다운
 		const countDown = setInterval(() => {
-			if (selectedNFT.endAt !== null) {
+			if (selectedNFT.endAt !== null && bidCountdown !== null) {
 				const now = new Date().getTime();
 				const distance = selectedNFT.endAt * 1000 - now;
 
 				const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-				const hours = twoDigit(
-					Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-				);
-				const minutes = twoDigit(
-					Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-				);
+				const hours = twoDigit(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+				const minutes = twoDigit(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
 				const seconds = twoDigit(Math.floor((distance % (1000 * 60)) / 1000));
 
 				bidCountdown.innerHTML =
@@ -98,7 +94,6 @@ const SuccessContent = () => {
 				if (distance < 0) {
 					clearInterval(countDown);
 					bidCountdown.innerHTML = "EXPIRED";
-					bidCountdown.style.color = "red";
 					document
 						.querySelector(".bid-container .input-form")
 						.classList.add("expired");
@@ -203,7 +198,7 @@ const SuccessContent = () => {
 											}
 										}}
 									/>
-
+								
 								{!expired && <div className="total-bid-box"><h3>My Total Bids will be </h3> <h4>{(Number(pendingBids)+Number(bidPrice)).toFixed(6)} ETH</h4> </div> }
 								{!expired && <div className="total-price-box"><h3>Price with fee : </h3><h4>{Number(bidPriceWithFee).toFixed(6)} ETH</h4></div>}
 								</div>
@@ -253,7 +248,6 @@ const LoadingContent = () => {
 				<section className="right-container">
 					{/* 상세정보 컨테이너 */}
 					<section className="info-container">
-						<h1 className="title">Be the top bidder!</h1>
 						<div className="genre-box">
 							<h2>
 								<i className="uil uil-music"></i> Genre
@@ -266,17 +260,46 @@ const LoadingContent = () => {
 							</h2>
 							<Skeleton width={"100%"} height={"100%"} variant="text" />
 						</div>
-						<div className="sell-price-box">
-							<h2>
-								<i className="uil uil-bill"></i> Sell Price
-							</h2>
-							<Skeleton width={"100%"} height={"100%"} variant="text" />
-						</div>
-						<button>Bid</button>
+					</section>
+					<section className="input-container">
+						<form className="input-form">
+							<h1 className="title">Be the top bidder!</h1>
+							<div className="top-bidder-box">
+								<h2>
+									<i className="uil uil-game-structure"></i> Top Bidder
+								</h2>
+								<Skeleton width={"100%"} height={"100%"} variant="text" />
+							</div>
+							<div className="top-bid-box">
+								<h2>
+									<i className="uil uil-trophy"></i> Top Bid
+								</h2>
+								<Skeleton width={"100%"} height={"100%"} variant="text" />
+							</div>
+							<div className="countdown-box">
+								<div className="title-box">
+									<h2>
+										<i className="uil uil-schedule"></i> End At
+									</h2>
+								</div>
+								<h1 id="countdown">
+									<Skeleton width={"100%"} height={"100%"} variant="text" />
+								</h1>
+							</div>
+							<div className="price-box">
+								<div className="title-box">
+									<h2>Bid Price</h2> <h5>*</h5>
+								</div>
+								<Skeleton width={"100%"} height={"100%"} variant="text" />
+								<Skeleton width={"100%"} height={"100%"} variant="text" />
+								<Skeleton width={"100%"} height={"100%"} variant="text" />
+							</div>
+							<button >Submit</button>
+						</form>
 					</section>
 				</section>
 			</section>
-			<SimpleBackdrop/>
+			<SimpleBackdrop />
 		</>
 	);
 };

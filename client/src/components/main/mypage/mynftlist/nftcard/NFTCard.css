@@ -31,11 +31,7 @@
   transition: var(--tran-02);
 }
 .mynftlist .item-card-container .item-card:hover{ 
-  animation: infinite alternate-reverse 1s  shake;
-}
-@keyframes shake {
-  0%   {transform: rotateZ(1deg)}
-  100%   {transform: rotateZ(-1deg)}
+  transform: rotateZ(1deg);
 }
 
 .mynftlist .item-card-container .item-card .img-box{
@@ -50,9 +46,6 @@
   z-index: 10;
 }
 
-.mynftlist .item-card-container .item-card:hover .img-box {
-  border: 5px solid var(--select-color);
-}
 .mynftlist .item-card-container .item-card:hover .content-wrap {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
   transition: var(--tran-10);

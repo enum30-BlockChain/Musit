@@ -215,6 +215,9 @@
 .bid-container .right-container .input-container .input-form.expired {
   background-color: var(--error-color);
 }
+.bid-container .right-container .input-container .input-form.expired #countdown {
+  color: var(--error-color);
+}
 
 .bid-container .right-container .input-container .input-form > :is(div, button) {
   display: flex;
@@ -272,6 +275,7 @@
 .bid-container .right-container .input-container .input-form .total-bid-box :is(h3, h4){
   font-size: 16px;
   font-weight: 600;
+  color: var(--black-light-color);
 }
 
 .bid-container .right-container .input-container .input-form .total-price-box :is(h3, h4){
@@ -291,6 +295,5 @@
 
 .bid-container .right-container .input-container .input-form button:hover{
   background-color: var(--primary-color);
-  width: 329px;
   cursor: pointer;
 }
