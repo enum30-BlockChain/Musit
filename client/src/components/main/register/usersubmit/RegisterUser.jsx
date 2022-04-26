@@ -62,17 +62,16 @@ const RegisterUser = () => {
   const formData = new FormData();
 
   const onChangeNick = (e) => {
-      setNickname(e.target.value);
+    setNickname(e.target.value);
   };
 
   const UserHandleOnClick = async (e) => {
-    console.log(checkedInputs.length)
+    console.log(checkedInputs.length);
     if (nickname === "") {
       alert("닉네임 적어주세요");
-    }else if(checkedInputs.length === 0){
+    } else if (checkedInputs.length === 0) {
       alert("장르를 1개이상 3개이하로 체크해주세요");
-    }
-     else {
+    } else {
       await postImg();
       const userdata = {
         address: metamask.accounts[0],
@@ -133,14 +132,9 @@ const RegisterUser = () => {
               {metamask.accounts[0] === undefined ? (
                 <>
                   <div>
-                    <label htmlFor="bringyouraddress">
+                    <a id="bringyouraddress" onClick={connectOnclick}>
                       Bring your Wallet Address
-                    </label>
-                    <button
-                      id="bringyouraddress"
-                      style={{ display: "none" }}
-                      onClick={connectOnclick}
-                    ></button>
+                    </a>
                   </div>
                 </>
               ) : (

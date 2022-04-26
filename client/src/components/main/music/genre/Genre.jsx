@@ -8,8 +8,9 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArtistCard from "../../serach/artist/ArtistCard";
 import ArtistModal from "../../serach/artist/ArtistModal";
 import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
-import SimpleBackdrop from "../SimpleBackdrop";
+
 import "./Genre.css";
+import SimpleBackdrop from "../../../SimpleBackdrop";
 
 const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
 

@@ -28,33 +28,35 @@ const Minting = () => {
 
 const LoadingContent = () => {
   return (
-    <></>
-    // <section className="minting-layout">
-    //   <div className="content-box minting-img-box">
-    //     <h2>Album Cover Image</h2>
-    //     <Skeleton
-    //       width={400}
-    //       height={400}
-    //       sx={{ marginTop: "20px" }}
-    //       variant="circular"
-    //     />
-    //   </div>
+    <>
+    
+    <section className="minting-layout">
+      <div className="content-box minting-img-box">
+        <h2>Album Cover Image</h2>
+        <Skeleton
+          width={400}
+          height={400}
+          sx={{ marginTop: "20px" }}
+          variant="circular"
+        />
+      </div>
 
-    //   <div className="minting-content-container">
-    //     <div className="content-box title-box">
-    //       <h2 className="title">Title</h2>
-    //       <Skeleton width={400} height={50} variant="text" />
-    //     </div>
-    //     <div className="content-box audio-box">
-    //       <h2 className="title">Audio</h2>
-    //       <Skeleton width={400} height={50} variant="text" />
-    //     </div>
-    //     <div className="content-box description-box">
-    //       <h2 className="title">Description</h2>
-    //       <Skeleton width={400} height={200} variant="text" />
-    //     </div>
-    //   </div>
-    // </section>
+      <div className="minting-content-container">
+        <div className="content-box title-box">
+          <h2 className="title">Title</h2>
+          <Skeleton width={400} height={50} variant="text" />
+        </div>
+        <div className="content-box audio-box">
+          <h2 className="title">Audio</h2>
+          <Skeleton width={400} height={50} variant="text" />
+        </div>
+        <div className="content-box description-box">
+          <h2 className="title">Description</h2>
+          <Skeleton width={400} height={200} variant="text" />
+        </div>
+      </div>
+    </section>
+    </>
   );
 };
 
