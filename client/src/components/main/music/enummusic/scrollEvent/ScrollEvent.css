@@ -5,10 +5,32 @@
 .scrollEventContant .scroll-title {
   height: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
 }
-
-.scrollEventContant .scroll-title {
-  justify-content: space-evenly;
+.scrollEventContant .scroll-title :nth-child(1){
+  margin: 0;
+}
+.scrollEventContant .scroll-title :nth-child(2){
+  margin-left: 0;
+}
+.scrollEventContant .scroll-title :nth-child(3){
+  margin-left: 8%;
+}
+.scrollEventContant .scroll-title :nth-child(4){
+  margin-left: 12%;
+}
+.scrollEventContant .scroll-title :nth-child(5){
+  margin-left: 12%;
+}
+.scrollEventContant .scroll-title :nth-child(6){
+  margin-left: 16%;
+}
+.scrollEventContant .scroll-title :nth-child(7){
+  margin: 0;
+}
+.scrollEventContant .scroll-title :nth-child(8){
+  margin: 0;
 }
 
 .scrollEventContant .scroll-title span {
@@ -16,6 +38,10 @@
   font-weight: bold;
 }
 
+.scrollEventContant .scrollBox{
+  max-height: 680px;
+  overflow: auto;
+}
 .scrollEventContant .scrollBox ::-webkit-scrollbar {
   width: 3px;
 }
