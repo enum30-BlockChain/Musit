@@ -45,10 +45,10 @@ export default function PlayList(props) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <List sx={{height:"600px"}}>
         {likeMusic &&
           likeMusic.map((song, index) => (
-            <ListItem button key={song}>
+            <ListItem button key={song} sx={{height:"70px"}}>
               <ListItem
                 sx={{ width: "100%" }}
                 key={song}

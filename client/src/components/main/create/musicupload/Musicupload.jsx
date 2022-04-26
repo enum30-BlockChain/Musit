@@ -215,29 +215,36 @@ export const Musicupload = () => {
               onChange={getDescription}
             />
             <h2>Genre</h2>
-            <Box sx={{ mx: "auto", width: "500px" }}>
+            <Box
+             sx={{ mx: "auto", width: "500px" }}>
               <form>
-                {genre.map((MusicType, index) => {
-                  return (
-                    <>
-                      <label id={index} key={index}>
-                        <Checkbox
-                          className="checkbox-musicupload"
-                          type={"checkbox"}
-                          name={"MusicType"}
-                          value={MusicType}
-                          onChange={(e) => {
-                            changeHandler(e.currentTarget.checked, MusicType);
-                          }}
-                          checked={
-                            checkedInputs.includes(MusicType) ? true : false
-                          }
-                        />
-                        {MusicType}
-                      </label>
-                    </>
-                  );
-                })}
+
+                <Box 
+                display='flex'
+                flexWrap="wrap"
+                justifyContent='flex-start'>
+                  {genre.map((MusicType, index) => {
+                    return (
+                      <Box sx={{ width: "33%" ,textAlign:'left'}}>
+                        <label id={index} key={index}>
+                          <Checkbox
+                            className="checkbox-musicupload"
+                            type={"checkbox"}
+                            name={"MusicType"}
+                            value={MusicType}
+                            onChange={(e) => {
+                              changeHandler(e.currentTarget.checked, MusicType);
+                            }}
+                            checked={
+                              checkedInputs.includes(MusicType) ? true : false
+                            }
+                          />
+                          {MusicType}
+                        </label>
+                      </Box>
+                    );
+                  })}
+                </Box>
               </form>
             </Box>
             <div className="create-btn">

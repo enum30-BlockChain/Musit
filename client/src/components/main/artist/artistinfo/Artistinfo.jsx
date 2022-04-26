@@ -28,7 +28,6 @@ export default function Artistinfo() {
 
   const NickNameOnClick = async () => {
     let newImg = img !== artist.img ? await postImg() : img;
-    console.log(select, newImg)
     await dispatch(updateArtistData({ artist_name: select, img: newImg }));
   };
 
