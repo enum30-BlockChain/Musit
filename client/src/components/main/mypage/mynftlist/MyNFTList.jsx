@@ -27,11 +27,6 @@ export default function MyNFTList() {
           {ownedMusitNFTList.loading ? (
             <>
               <NFTCardSkeleton />
-              <NFTCardSkeleton />
-              <NFTCardSkeleton />
-              <NFTCardSkeleton />
-              <NFTCardSkeleton />
-              <NFTCardSkeleton />
             </>
           ) : (
             <>

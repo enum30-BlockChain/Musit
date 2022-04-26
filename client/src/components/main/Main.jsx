@@ -36,6 +36,11 @@ import Search from "./serach/Search";
 
 //Main-nav Store
 import { Store } from "./store/Store";
+import Buy from "./store/buy/Buy";
+import Bid from "./store/bid/Bid";
+import Auction from "./store/Auction";
+import Ordinary from "./store/Ordinary";
+import MyBids from "./store/mybids/MyBids";
 
 //Main-nav Artist page
 import { Artist } from "./artist/Artist";
@@ -55,10 +60,7 @@ import { CircularProgress } from "@mui/material";
 
 import Error from "../Error";
 import { Test } from "../Test";
-import Buy from "./store/buy/Buy";
-import Bid from "./store/bid/Bid";
-import Auction from "./store/Auction";
-import Ordinary from "./store/Ordinary";
+
 
 export const Main = () => {
   const user = useSelector((state) => state.user);
@@ -149,6 +151,7 @@ export const Main = () => {
             <Route path="store/*" element={<Store />}>
               <Route index element={<Ordinary />} />
               <Route path="auction" element={<Auction />} />
+              <Route path="mybids" element={<MyBids />} />
             </Route>
             <Route path="enroll/:tokenId" element={<Enroll />} />
             <Route path="buy/:tokenId" element={<Buy />} />

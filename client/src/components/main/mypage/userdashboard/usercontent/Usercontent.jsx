@@ -4,6 +4,7 @@ import Marquee from "react-fast-marquee";
 import { readMyNFTList } from "../../../../../redux/actions/contractActions";
 import { Link } from "react-router-dom";
 import Ethers from "../../../../../web3/Ethers";
+import { CircularProgress } from "@mui/material";
 
 const Usercontent = () => {
   const user = useSelector((state) => state.user);
@@ -19,35 +20,37 @@ const Usercontent = () => {
 
   useEffect(async () => {
     await dispatch(readMyNFTList());
-    const subsEndAt = await Ethers.getSubscriptionEndAt(user.address);
-    const countdown = document.getElementById("subs-countdown")
-    const subscription = setInterval(() => {
-			const now = new Date().getTime();
-			const distance = subsEndAt * 1000 - now;
-
-      if (distance !== NaN) {
-        const days = twoDigit(Math.floor(distance / (1000 * 60 * 60 * 24)));
-        const hours = twoDigit(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-				const minutes = twoDigit(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
-				const seconds = twoDigit(Math.floor((distance % (1000 * 60)) / 1000));
-    
-        countdown.innerHTML =
-          days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-    
-        // 남은 시간이 0보다 작으면 종료
-        if (distance < 0 ) {
+    if(user) {
+      const subsEndAt = await Ethers.getSubscriptionEndAt(user.address);
+      const countdown = document.getElementById("subs-countdown")
+      const subscription = setInterval(() => {
+        if (subsEndAt !== null && countdown !== null ) {
+          const now = new Date().getTime();
+          const distance = subsEndAt * 1000 - now;
+  
+          const days = twoDigit(Math.floor(distance / (1000 * 60 * 60 * 24)));
+          const hours = twoDigit(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+          const minutes = twoDigit(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+          const seconds = twoDigit(Math.floor((distance % (1000 * 60)) / 1000));
+      
+          countdown.innerHTML =
+            days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+      
+          // 남은 시간이 0보다 작으면 종료
+          if (distance < 0 ) {
+            clearInterval(subscription);
+            countdown.innerHTML = "EXPIRED";
+          }
+        } else {
           clearInterval(subscription);
-          countdown.innerHTML = "EXPIRED";
         }
-      } else {
+      }, 1000);
+  
+      return () => {
         clearInterval(subscription);
       }
-		}, 1000);
-
-    return () => {
-			clearInterval(subscription);
     }
-  }, []);
+  }, [user.loading]);
 
   return (
     <>
@@ -69,7 +72,7 @@ const Usercontent = () => {
         <Link to={"/mypage/subscription"} className="box box1">
             <i className="uil uil-hourglass"></i>
             <span className="text">Subscription</span>
-            <span className="number" id="subs-countdown">EXPIRED</span>
+            <span className="number" id="subs-countdown"><CircularProgress/> </span>
           </Link>
           <Link to={"/mypage/mynftlist"} className="box box1">
             <i className="uil uil-capture"></i>

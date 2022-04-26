@@ -18,16 +18,12 @@ export const Artist = () => {
     });
   };
 
-  function navlinkOnClick(e) {
-    console.log(e.target);
-  }
-
   return (
     <>
       <div className="artistpage">
         <nav className="top-nav">
-          <ul className="nav-links" onClick={navlinkOnClick}>
-            <li>
+          <ul className="nav-links">
+            <li className="active">
               <Link to="/artist">
                 <i className="uil uil-create-dashboard"></i>
                 <span className="link-name"> Artist Dashboard</span>

@@ -26,7 +26,7 @@ export const Mypage = () => {
     <div className="mypage">
       <nav className="top-nav">
         <ul className="nav-links">
-          <li>
+          <li className="active">
             <Link to="/mypage">
               <i className="uil uil-user"></i>
               <span className="link-name"> My Dashboard</span>
