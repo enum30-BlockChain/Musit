@@ -45,8 +45,6 @@ export default function AlbumCard({ song, setmusicmodal }) {
     setTotalLike(likeList);
   };
 
-  console.log(song);
-
   return (
     <Paper
       sx={{
