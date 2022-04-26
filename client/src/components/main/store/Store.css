@@ -21,3 +21,10 @@
   width: 100%;
   height: calc(100% - 45px);
 }
+.store .content-container .ordinary-box{
+  display: none;
+}
+
+.store .content-container .auction-box{
+  display: none;
+}
