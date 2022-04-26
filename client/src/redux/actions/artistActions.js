@@ -11,9 +11,9 @@ export const createArtistData = (inputs) => {
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
         const url = "http://54.180.145.5/artists/";
-        await axios.post(url, { ...inputs, user_address: accounts[0] });
-
+        const result = await axios.post(url, { ...inputs, user_address: accounts[0] });
         dispatch({ type: ActionTypes.ARTIST_CREATE_SUCCESS });
+        return result
       } else {
         dispatch({
           type: ActionTypes.ARTIST_DATA_FAIL,
