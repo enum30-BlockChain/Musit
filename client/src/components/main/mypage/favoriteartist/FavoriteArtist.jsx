@@ -7,8 +7,11 @@ const FavoriteArtist = () => {
   const likeArtist = useSelector((state) => state.likeArtist);
 
   return (
-    <div className="favorite">
-      <div className="artistfavorite">
+    <div className="favorite" style={{ overflow: "hidden" }}>
+      <div
+        className="artistfavorite"
+        style={{ overflow: "auto", maxHeight: "700px" }}
+      >
         {likeArtist.loading ? (
           <CircularProgress />
         ) : (

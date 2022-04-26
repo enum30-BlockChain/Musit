@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ArtistCardSkeleton from "../../serach/artist/ArtistCardSkeleton";
+import ArtistModel from "./ArtistModel";
 import "./css/FavoriteAritst.css";
 import LikeCard from "./newCard/LikeCard";
-import AlbumModel from "./AlbumModel";
-import MusicPlayerSlider from "./MusicPlayerSlider";
 
 export default function ArtistCard() {
   const [artistModal, setArtistModal] = useState("");
   const [musicmodal, setmusicmodal] = useState("");
-
   const likeArtist = useSelector((state) => state.likeArtist).data;
+  const likeArtistDetail = useSelector((state) => state.likeArtistDetail);
 
   return (
     <>
       <div className="likecard">
-        <div className="item-card-container">
+        <div
+          className="item-card-container"
+          style={{ justifyContent: "center" }}
+        >
           {likeArtist.loading ? (
             <>
               <ArtistCardSkeleton />
@@ -31,8 +33,9 @@ export default function ArtistCard() {
                 likeArtist.map((data, index) => (
                   <LikeCard
                     data={data}
-                    setArtistModal={setArtistModal}
                     key={index}
+                    setArtistModal={setArtistModal}
+                    artistModal={artistModal}
                   />
                 ))}
             </>
@@ -40,20 +43,11 @@ export default function ArtistCard() {
         </div>
       </div>
       {artistModal && (
-        <AlbumModel
+        <ArtistModel
           sx={{ display: "block" }}
           artistModal={artistModal}
+          likeArtistDetail={likeArtistDetail}
           setArtistModal={setArtistModal}
-          musicmodal={musicmodal}
-          setmusicmodal={setmusicmodal}
-        />
-      )}
-
-      {musicmodal && (
-        <MusicPlayerSlider
-          sx={{ display: "block" }}
-          musicmodal={musicmodal}
-          setmusicmodal={setmusicmodal}
         />
       )}
     </>

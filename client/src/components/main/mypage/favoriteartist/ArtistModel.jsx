@@ -66,10 +66,9 @@ const CoverImage = styled("div")({
 });
 
 export default function ArtistModel(props) {
-  console.log(props);
-  const Musics = props.musicmodal;
+  const artistDetail = props.likeArtistDetail.data;
+  console.log(artistDetail);
 
-  const sliceTitle = Musics.title && Musics.title.substr(0, 40);
   return (
     <>
       <Box sx={{ width: "100%", overflow: "hidden" }}>
@@ -93,7 +92,7 @@ export default function ArtistModel(props) {
                 <CloseIcon
                   sx={{ fontSize: 60, cursor: "pointer" }}
                   onClick={() => {
-                    props.setmusicmodal("");
+                    props.setArtistModal("");
                   }}
                 />
               </Box>
@@ -115,9 +114,9 @@ export default function ArtistModel(props) {
                 sx={{ display: "inline-block" }}
               >
                 <div>
-                  <h1>Music</h1>
+                  <h1>Artist</h1>
                   <div className="img-box">
-                    {Musics.img_file === "" ? (
+                    {artistDetail.img === "" ? (
                       <Avatar
                         className="register-avatar"
                         alt="Remy Sharp"
@@ -128,7 +127,7 @@ export default function ArtistModel(props) {
                         sx={{ width: "450px", height: "450px", mt: 3, mr: 3 }}
                       >
                         <img
-                          src={Musics.img_file}
+                          src={artistDetail.img}
                           style={{
                             width: "450px",
                             height: "450px",
@@ -146,20 +145,16 @@ export default function ArtistModel(props) {
                 sx={{ display: "inline-block" }}
               >
                 <div>
-                  <h4>Title</h4>
-                  <p>{sliceTitle}</p>
+                  <h4>Artist Name</h4>
+                  <p>{artistDetail.artist_name}</p>
                 </div>
                 <div>
-                  <h4>Total Play Count</h4>
-                  <p>{Musics.play_count}</p>
+                  <h4>Like Count</h4>
+                  <p>{artistDetail.ArtistLikes.length}</p>
                 </div>
                 <div>
-                  <h4>Genre</h4>
-                  <p>{Musics.genre}</p>
-                </div>
-                <div>
-                  <h4>Likes</h4>
-                  <p>{Musics.MusicLikes.length}</p>
+                  <h4>Music upload Count</h4>
+                  <p>{artistDetail.Music.length}</p>
                 </div>
               </Typography>
             </Box>

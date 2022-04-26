@@ -45,7 +45,6 @@ router.get("/:user_address", async (req, res, next) => {
         },
       ],
     });
-    console.log(music);
     res.send(music);
   } catch (err) {
     console.error(err);

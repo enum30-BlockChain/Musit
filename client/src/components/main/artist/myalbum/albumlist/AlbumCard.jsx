@@ -15,7 +15,6 @@ import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Img = styled("img")({
-  margin: "auto",
   display: "block",
   maxWidth: "100%",
   maxHeight: "100%",
@@ -49,8 +48,6 @@ export default function AlbumCard({ song, setmusicmodal }) {
   return (
     <Paper
       sx={{
-        p: 2,
-        ml: 5,
         maxWidth: 160,
         flexGrow: 1,
         backgroundColor: (theme) =>
