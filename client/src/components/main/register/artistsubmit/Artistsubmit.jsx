@@ -90,7 +90,7 @@ export default function Artistsubmit() {
           <div className="content-box">
             <p className="artist-infomation-regi">Profile Image</p>
             <div className="artist-register-profile-img">
-              {albumCoverImgFile === "" ? (
+              {albumCoverImgFile === "" || !albumCoverImgFile ? (
                 <Avatar alt="Remy Sharp" sx={{ width: 330, height: 330 }} />
               ) : (
                 <Avatar

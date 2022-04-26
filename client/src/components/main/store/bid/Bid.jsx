@@ -5,7 +5,8 @@ import { useParams } from "react-router";
 import { selectedMusitNFT } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
 import Error from "../../../Error";
-import SimpleBackdrop from "../../music/SimpleBackdrop";
+import SimpleBackdrop from "../../../SimpleBackdrop";
+
 
 import "./Bid.css";
 const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
