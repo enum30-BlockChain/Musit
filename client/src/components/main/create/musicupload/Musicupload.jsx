@@ -8,12 +8,7 @@ import { createMusicData } from "../../../../redux/actions/musicActions";
 import Progress from "./progress/Progress";
 import MessageHandler from "./progress/MessageHandler";
 import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
-import myImage from "../../playbar/cd.png";
+
 
 // const { create } = require("ipfs-http-client");
 const label = { inputProps: { "aria-label": "Checkbox demo" } };

@@ -54,20 +54,23 @@ export default function MainCard(props) {
   }
 
   const musicCardOnClick = async () => {
-    const musicCard = document.querySelector(`.music-card.card-${props.id}`);
-    const musicCardPlaying = document.querySelector(".music-card.playing");
-    if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
-    musicCard.classList.toggle("playing");
-    const audio = document.querySelector("#MusicCardAudio");
-    const playingState = document.querySelector(
-      ` .music-card.card-${props.id}.music-card.playing`
-    );
-    if (playingState) {
-      audio.src = `https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`;
-      await playBarPauseSong();
-      audio.play();
-    } else {
-      audio.pause();
+    const musicContainer = document.querySelector(".music-container");
+    if(musicContainer){
+      const musicCard = document.querySelector(`.music-card.card-${props.id}`);
+      const musicCardPlaying = document.querySelector(".music-card.playing");
+      if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
+      musicCard.classList.toggle("playing");
+      const audio = document.querySelector("#MusicCardAudio");
+      const playingState = document.querySelector(
+        ` .music-card.card-${props.id}.music-card.playing`
+      );
+      if (playingState) {
+        audio.src = `https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`;
+        await playBarPauseSong();
+        audio.play();
+      } else {
+        audio.pause();
+      }
     }
   };
 

@@ -10,10 +10,10 @@ export const createArtistData = (inputs) => {
       // 메타마스크 reducer에서 주소 가져옴
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
-        const url = "http://localhost:5000/artists/";
-        await axios.post(url, { ...inputs, user_address: accounts[0] });
-
+        const url = "http://54.180.145.5/artists/";
+        const result = await axios.post(url, { ...inputs, user_address: accounts[0] });
         dispatch({ type: ActionTypes.ARTIST_CREATE_SUCCESS });
+        return result
       } else {
         dispatch({
           type: ActionTypes.ARTIST_DATA_FAIL,
@@ -35,7 +35,7 @@ export const readArtistList = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.ARTIST_LIST_REQUEST });
     try {
-      const url = "http://localhost:5000/artists/";
+      const url = "http://54.180.145.5/artists/";
       const artistList = (await axios.get(url)).data;
       dispatch({
         type: ActionTypes.ARTIST_LIST_READ_SUCCESS,
@@ -59,7 +59,7 @@ export const readArtistData = () => {
       // 메타마스크 reducer에서 주소 가져옴
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
-        const url = `http://localhost:5000/artists/${accounts[0]}`;
+        const url = `http://54.180.145.5/artists/${accounts[0]}`;
         const artistInfo = (await axios.get(url)).data;
         dispatch({
           type: ActionTypes.ARTIST_READ_SUCCESS,
@@ -89,7 +89,7 @@ export const readLikeArtistList = () => {
     try {
       const accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
-        const url = `http://localhost:5000/artists/likes/${accounts[0]}`;
+        const url = `http://54.180.145.5/artists/likes/${accounts[0]}`;
         const likeArtistList = (await axios.get(url)).data;
         dispatch({
           type: ActionTypes.LIKE_ARTIST_SUCCESS,
@@ -118,7 +118,7 @@ export const readLikeArtistDetail = (user_address) => {
     });
     try {
       if (user_address > 0) {
-        const url = `http://localhost:5000/artists/${user_address}`;
+        const url = `http://54.180.145.5/artists/${user_address}`;
         const likeArtistDetail = (await axios.get(url)).data;
         dispatch({
           type: ActionTypes.LIKE_ARTIST_DETAIL_SUCCESS,
@@ -149,7 +149,7 @@ export const updateArtistData = (inputs) => {
       let accounts = getState().metamask.accounts;
 
       if (accounts.length > 0) {
-        const url = `http://localhost:5000/artists/${accounts[0]}`;
+        const url = `http://54.180.145.5/artists/${accounts[0]}`;
         await axios.patch(url, inputs);
 
         dispatch({
@@ -180,7 +180,7 @@ export const deleteArtist = () => {
       // 메타마스크 reducer에서 주소 가져옴
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
-        const url = `http://localhost:5000/artists/${accounts[0]}`;
+        const url = `http://54.180.145.5/artists/${accounts[0]}`;
         await axios.delete(url);
         dispatch({
           type: ActionTypes.ARTIST_DELETE_SUCCESS,
@@ -214,7 +214,7 @@ export const toggleLikeArtist = (artist_name) => {
       if (likeArtist && artist_name) {
         if (0 >= update.length) {
           // 좋아요를 안눌렀으면 생성
-          const url = `http://localhost:5000/artists/likes`;
+          const url = `http://54.180.145.5/artists/likes`;
           await axios.post(url, {
             artist_name: artist_name,
             user_address: userInfo.address,
@@ -228,7 +228,7 @@ export const toggleLikeArtist = (artist_name) => {
           });
         } else {
           // 좋아요를 눌렀으면 다시 삭제
-          const url = `http://localhost:5000/artists/likes/${artist_name}`;
+          const url = `http://54.180.145.5/artists/likes/${artist_name}`;
           await axios.delete(url, { data: { user_address: userInfo.address } });
           const update = likeArtist.data.filter((like) => {
             return like.artist_name.indexOf(artist_name) < 0;

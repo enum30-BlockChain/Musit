@@ -8,7 +8,8 @@ import {
 import SellCard from "./nftcard/SellCard";
 import AuctionCard from "./nftcard/AuctionCard";
 import Error from "../../Error";
-import SimpleBackdrop from "../music/SimpleBackdrop";
+import SimpleBackdrop from "../../SimpleBackdrop";
+
 
 const fakeFetch = (delay = 500) =>
   new Promise((res) => setTimeout(res, delay));

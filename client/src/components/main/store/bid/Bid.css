@@ -137,7 +137,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 330px;
+  width: 350px;
   border-radius: 10px;
   padding: 10px;
   background-color: var(--content-bg-color2);
@@ -164,7 +164,7 @@
 }
 
 .bid-container .right-container .info-container .description-box {
-  height: 173px;
+  height: 300px;
 }
 .bid-container .right-container .info-container .description-box p {
   padding-top: 10px;

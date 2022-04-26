@@ -25,7 +25,7 @@ export default function ArtistSongCard(props) {
 
   const likecountpost = async () => {
     await axios
-      .post("http://localhost:5000/music/like", {
+      .post("http://54.180.145.5/music/like", {
         address: props.address,
         audio: props.music.ipfs_hash,
       })
@@ -35,10 +35,10 @@ export default function ArtistSongCard(props) {
   return (
     <Paper
       sx={{
+        mx:1,
         p: 2,
-        maxWidth: 350,
-        backgroundColor: (theme) =>
-          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        width: 350,
+        bgcolor: "var(--box1-color)",
       }}
     >
       <Grid container spacing={2}>
@@ -63,7 +63,7 @@ export default function ArtistSongCard(props) {
                 variant="title"
                 component="div"
               >
-                {props.music.title}
+                {props.index+1} . {props.music.title}
               </Typography>
             </div>
             <Typography variant="body2" gutterBottom>

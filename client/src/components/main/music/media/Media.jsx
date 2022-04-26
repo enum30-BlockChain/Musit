@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
-import SimpleBackdrop from "../SimpleBackdrop";
+
 
 import "./Media.css";
+import SimpleBackdrop from "../../../SimpleBackdrop";
 
 const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
 
