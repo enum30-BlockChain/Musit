@@ -62,30 +62,27 @@ const RegisterUser = () => {
   const formData = new FormData();
 
   const onChangeNick = (e) => {
-    console.log(e.target.value.length);
     setNickname(e.target.value);
-    if (e.target.value.length < 2 || e.target.value.length > 5) {
-      setnicknameMessage("2글자 이상 5글자 이하로 작성해주세요");
-
-      false;
-    } else {
-      setnicknameMessage("올바른 방식입니다.");
-
-      true;
-    }
   };
 
   const UserHandleOnClick = async (e) => {
-    await postImg();
-    const userdata = {
-      address: metamask.accounts[0],
-      genre: checkedInputs,
-      nation: selectd,
-      nickname: nickname,
-      img: DBdata.cover_img_link,
-    };
-    await dispatch(createUserData(userdata));
-    window.location.reload();
+    console.log(checkedInputs.length);
+    if (nickname === "") {
+      alert("닉네임 적어주세요");
+    } else if (checkedInputs.length === 0) {
+      alert("장르를 1개이상 3개이하로 체크해주세요");
+    } else {
+      await postImg();
+      const userdata = {
+        address: metamask.accounts[0],
+        genre: checkedInputs,
+        nation: selectd,
+        nickname: nickname,
+        img: DBdata.cover_img_link,
+      };
+      await dispatch(createUserData(userdata));
+      window.location.href = "/mypage";
+    }
   };
 
   const getImg = (e) => {
@@ -98,7 +95,7 @@ const RegisterUser = () => {
     if (albumCoverImgFile !== "") {
       formData.append("img", albumCoverImgFile);
       await axios
-        .post("http://localhost:5000/files/upload/img", formData)
+        .post("http://54.180.145.5/files/upload/img", formData)
         .then((res) => (DBdata.cover_img_link = res.data))
         .catch((err) => alert(err));
       return DBdata;
@@ -109,6 +106,9 @@ const RegisterUser = () => {
 
   const changeHandler = (checked, name) => {
     if (checked) {
+      if ([...checkedInputs, name].length >= 4) {
+        return alert("3개까지만 check 해주세요");
+      }
       setCheckedInputs([...checkedInputs, name]);
     } else {
       // 체크 해제
@@ -163,12 +163,12 @@ const RegisterUser = () => {
               <label htmlFor="register-fileupload">
                 Choose your profile image
               </label>
-              <Input
+              <input
                 id="register-fileupload"
-                type="file"
                 name="imgUpload"
-                style={{ display: "none" }}
+                type="file"
                 accept="image/*"
+                style={{ display: "none" }}
                 onChange={getImg}
               />
             </div>

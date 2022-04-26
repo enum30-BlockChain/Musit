@@ -108,7 +108,7 @@ export default function AlbumModel(props) {
   const palyCountAdd = async () => {
     const content = { play_count: props.musicmodal.play_count + 1 };
     await axios.patch(
-      `http://localhost:5000/music/${props.musicmodal.ipfs_hash}`,
+      `http://54.180.145.5/music/${props.musicmodal.ipfs_hash}`,
       content
     );
     // .then((res) => {        console.log(res);      })

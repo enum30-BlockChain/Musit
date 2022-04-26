@@ -54,10 +54,10 @@ const Usercontent = () => {
         </div>
 
         <div className="boxes">
-          <Link to={"/mypage/subscription"} className="box box1">
-            <i className="uil uil-bill"></i>
+        <Link to={"/mypage/subscription"} className="box box1">
+            <i className="uil uil-hourglass"></i>
             <span className="text">Subscription</span>
-            <span className="number">{user && user.subscription}Month</span>
+            <span className="number" id="countdown">EXPIRED</span>
           </Link>
           <Link to={"/mypage/mynftlist"} className="box box1">
             <i className="uil uil-capture"></i>
@@ -71,11 +71,6 @@ const Usercontent = () => {
             <i className="uil uil-headphones-alt"></i>
             <span className="text">Recently Played Music</span>
             <Marquee className="number">{recentMusic}</Marquee>
-          </Link>
-          <Link to={"/mypage/subscription"} className="box box1">
-            <i className="uil uil-hourglass"></i>
-            <span className="text">Subscription</span>
-            <span className="number" id="countdown"></span>
           </Link>
         </div>
       </div>
