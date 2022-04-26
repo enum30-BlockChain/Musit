@@ -6,6 +6,7 @@
   --secondary-icon: rgb(115, 113, 161);
   --secondary-icon-background: rgb(187, 185, 221);
   --third-color: #616186;
+  --forth-color: #81a34e;
   --panel-color: linear-gradient(
     60deg,
     var(--primary-color) 0%,
@@ -45,8 +46,9 @@ body.dark {
 
   --primary-color-background: rgb(194, 194, 194);
 
-  --secondary-color: rgb(85, 81, 164);
-  --third-color: #616186;
+  --secondary-color:  rgb(176, 176, 176);;
+  --third-color:  rgb(151, 151, 151);;
+  --forth-color:  rgb(129, 129, 129);;
   --panel-color: #252626;
   --text-color: rgb(255, 255, 255);
   --black-light-color: #333;
@@ -56,7 +58,7 @@ body.dark {
   --mode-switch-color: #252626;
   --title-icon-color: #252626;
   --playbar-base-color: rgb(117, 113, 113);
-  --error-color: #eb6f6f;
+  --error-color: #c18d8d;
   --warning-color: #e5d489;
   --content-bg-color1: #eaeaea;
   --content-bg-color2: #d8d8d8;

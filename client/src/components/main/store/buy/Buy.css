@@ -190,6 +190,14 @@
   cursor: pointer;
 }
 
+.buy-container .right-container .info-container .sold-box {
+  border: none;
+  font-size: 18px;
+  align-items: center;
+  background-color: var(--error-color);
+  color: var(--content-bg-color1);
+}
+
 /** not-available 컨테이너 **/
 .buy-container .right-container .not-available-container {
   background-color: var(--error-color);
