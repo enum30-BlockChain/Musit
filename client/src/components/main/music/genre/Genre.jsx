@@ -229,7 +229,7 @@ export default function Genre() {
                 />
                 <Grid
                   sx={{
-                    width: "1350px",
+                    width: "1460px",
                     m: "auto",
                     padding: 0,
                     overflow: "hidden",

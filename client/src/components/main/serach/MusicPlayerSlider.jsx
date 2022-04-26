@@ -269,17 +269,22 @@ export default function MusicPlayerSlider(props) {
           <IconButton
             aria-label={paused ? "play" : "pause"}
             onClick={() => {
-              setPaused(!paused);
-              if (paused === true) {
-                audioPlayer.current.play();
-                const musicContainer = document.querySelector(".music-container");
-                const playBtn = document.querySelector("#play");
-                musicContainer.classList.remove("play");
-                playBtn.querySelector("i.fas").classList.add("fa-play");
-                playBtn.querySelector("i.fas").classList.remove("fa-pause");
-                audio.pause();
-              } else if (paused === false) {
-                audioPlayer.current.pause();
+              const musicContainer = document.querySelector(".music-container");
+              if(musicContainer){
+                setPaused(!paused);
+                if (paused === true) {
+                  audioPlayer.current.play();
+                  const musicContainer = document.querySelector(".music-container");
+                  const playBtn = document.querySelector("#play");
+                  musicContainer.classList.remove("play");
+                  playBtn.querySelector("i.fas").classList.add("fa-play");
+                  playBtn.querySelector("i.fas").classList.remove("fa-pause");
+                  audio.pause();
+                } else if (paused === false) {
+                  audioPlayer.current.pause();
+                }
+              }else {
+                alert('이용권을 구매하세요')
               }
             }}
           >
