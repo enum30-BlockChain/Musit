@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import ArtistCardSkeleton from "../../serach/artist/ArtistCardSkeleton";
+import LikeCardSkeleton from "./LikeCardSkeleton";
 import ArtistModel from "./ArtistModel";
 import "./css/FavoriteAritst.css";
 import LikeCard from "./newCard/LikeCard";
 
 export default function ArtistCard() {
   const [artistModal, setArtistModal] = useState("");
-  const [musicmodal, setmusicmodal] = useState("");
-  const likeArtist = useSelector((state) => state.likeArtist).data;
+  const likeArtist = useSelector((state) => state.likeArtist);
   const likeArtistDetail = useSelector((state) => state.likeArtistDetail);
 
   return (
@@ -18,28 +17,21 @@ export default function ArtistCard() {
           className="item-card-container"
           style={{ justifyContent: "center" }}
         >
-          {likeArtist.loading ? (
-            <>
-              <ArtistCardSkeleton />
-              <ArtistCardSkeleton />
-              <ArtistCardSkeleton />
-              <ArtistCardSkeleton />
-              <ArtistCardSkeleton />
-              <ArtistCardSkeleton />
-            </>
-          ) : (
-            <>
-              {likeArtist !== null &&
-                likeArtist.map((data, index) => (
+          {likeArtist.loading
+            ? [1, 2, 3, 4].map((like, i) => {
+                return <LikeCardSkeleton key={i} like={like} />;
+              })
+            : likeArtist.data !== null &&
+              likeArtist.data.map((data, index) => {
+                return (
                   <LikeCard
                     data={data}
                     key={index}
                     setArtistModal={setArtistModal}
                     artistModal={artistModal}
                   />
-                ))}
-            </>
-          )}
+                );
+              })}
         </div>
       </div>
       {artistModal && (
