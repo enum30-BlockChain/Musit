@@ -58,6 +58,15 @@ nav.side-nav.close ~ section {
   text-shadow: 2px 2px 1px var(--black-light-color);
 }
 
+body.dark .main .top-nav .nav-links .active :is(i, .link-name) {
+  color: var(--primary-color);
+  text-shadow: 3px 3px 2px var(--forth-color);
+}
+
+body.dark .main .top-nav .nav-links .active :is(i, .link-name) {
+  color: var(--text-color);
+}
+
 .top-nav .nav-links a:hover :is(i, .link-name) {
   color: var(--primary-color);
 }
