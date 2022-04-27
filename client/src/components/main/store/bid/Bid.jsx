@@ -51,8 +51,6 @@ const SuccessContent = () => {
 
 	// 경매 입찰
 	const bidOnClick = async (e) => {
-		console.log(bidPrice + pendingBids);
-		console.log(selectedNFT.topBid);
 		e.preventDefault();
 		if (bidPrice + pendingBids >= selectedNFT.topBid) {
 			setBidLoading(true)
