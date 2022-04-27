@@ -64,8 +64,6 @@ export default function ArtistListCard() {
     );
   });
 
-  console.log(artistList);
-
   return (
     <Paper
       className="table-container"

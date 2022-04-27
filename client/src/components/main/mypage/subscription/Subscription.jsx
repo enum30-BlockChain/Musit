@@ -19,7 +19,6 @@ export const Subscription = () => {
     setLoadingState(true);
     const result = await Ethers.buySubscription(e.target.id);
     setLoadingState(false);
-    console.log(result);
     if (result && result.confirmation === 1) {
       window.alert("구매에 성공했습니다");
       navigate("/mypage");

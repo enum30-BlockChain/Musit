@@ -142,7 +142,6 @@ export const Playbar = () => {
     let num = count;
     if (repeatState) {
       // 여긴 한곡만재생
-      console.log("한곡만재생중");
       loadSong(likeMusic[num]);
       playSong();
     } else {
@@ -298,7 +297,6 @@ export const Playbar = () => {
     setpalyeCount(palyeCount + 1);
     const content = { play_count: palyeCount + 1 };
     await axios.patch(`http://54.180.145.5/music/${hash}`, content);
-    // .then((res) => console.log(res))
   };
 
   const [savePoint, setSavePoint] = useState(0);
@@ -313,7 +311,6 @@ export const Playbar = () => {
       await axios.patch(`http://54.180.145.5/users/${user.address}`, {
         recent_played: content.join("-"),
       });
-      // .then((res) => console.log(res))
     }
     setSavePoint(savePoint + 1);
   };

@@ -53,8 +53,6 @@ export const Musicupload = () => {
   const audioFormData = new FormData();
 
   const getImg = (e) => {
-    console.log(111111111111111);
-    console.log(e.target);
     setAlbumCoverImgFile(e.target.files[0]);
   };
   const getAudio = (e) => {
@@ -186,10 +184,8 @@ export const Musicupload = () => {
                   src={URL.createObjectURL(audiofile)}
                   onLoadedData={(e) => {
                     setDuration(Math.floor(e.currentTarget.duration));
-                    // console.log(e.currentTarget.duration);
                   }}
                   // onTimeUpdate= {(e) =>{
-                  //   console.log(e.currentTarget.currentTime)
                   // }}
                   autoplay
                   loop
@@ -249,8 +245,8 @@ export const Musicupload = () => {
                 <Box display="flex" flexWrap="wrap" justifyContent="flex-start">
                   {genre.map((MusicType, index) => {
                     return (
-                      <Box sx={{ width: "20%", textAlign: "left" }}>
-                        <label id={index} key={index}>
+                      <Box key={index} sx={{ width: "20%", textAlign: "left" }}>
+                        <label id={index} >
                           <Checkbox
                             className="checkbox-musicupload"
                             type={"checkbox"}

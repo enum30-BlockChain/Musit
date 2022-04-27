@@ -59,7 +59,6 @@ export default function Genre() {
     } else {
       setViewGenreCard(GenreRecommendHandler().length);
     }
-    // console.log(result.sort((a,b)=>a-b))
   }, [likeMusic]);
 
   useEffect(() => {

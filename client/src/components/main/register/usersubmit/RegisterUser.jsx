@@ -67,7 +67,6 @@ const RegisterUser = () => {
   };
 
   const UserHandleOnClick = async (e) => {
-    console.log(checkedInputs.length);
     if (nickname === "") {
       alert("닉네임 적어주세요");
     } else if (checkedInputs.length === 0) {

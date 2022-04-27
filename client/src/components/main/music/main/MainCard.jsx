@@ -86,7 +86,6 @@ export default function MainCard(props) {
       `http://54.180.145.5/music/${props.music.ipfs_hash}`,
       content
     );
-    // .then((res) => console.log(res))
     const musicCardPlaying = document.querySelector(" .music-card.playing");
     if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
   };

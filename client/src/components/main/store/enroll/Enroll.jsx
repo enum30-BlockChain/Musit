@@ -304,7 +304,6 @@ const AuctionForm = () => {
 	const submitOnClick = async (e) => {
 		e.preventDefault();
 		let isFormValid = document.querySelector('.auction-form .input-box').checkValidity();
-		console.log(isFormValid);
     if(!isFormValid) {
 			document.querySelector('.auction-form .input-box').reportValidity();
 		} else {

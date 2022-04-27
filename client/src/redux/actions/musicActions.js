@@ -28,7 +28,6 @@ export const createMusicData = (imgFormData, audioFormData, input) => {
         "http://54.180.145.5/music/",
         musicData
       );
-      console.log(createData);
       dispatch({ type: ActionTypes.MUSIC_CREATE_SUCCESS });
     } catch (error) {
       dispatch({
