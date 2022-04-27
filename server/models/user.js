@@ -1,5 +1,5 @@
 "use strict";
-const { Model, Sequelize } = require("sequelize");
+const { Model } = require("sequelize");
 const db = require(".");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -47,9 +47,9 @@ module.exports = (sequelize, DataTypes) => {
 			recent_played: { type: DataTypes.STRING, allowNull: true },
 			img: { type: DataTypes.STRING, allowNull: true },
 			register_date: {
-				type: DataTypes.DATETIME,
+				type: DataTypes.TIME,
 				allowNull: true,
-				defaultValue: Sequelize.fn('now'),
+				defaultValue: sequelize.NOW,
 			},
 		},
 		{
