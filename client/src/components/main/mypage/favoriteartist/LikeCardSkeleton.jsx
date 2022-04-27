@@ -3,7 +3,6 @@ import { Box } from "@mui/system";
 import React from "react";
 
 const LikeCardSkeleton = () => {
-  console.log(1111111111111111111);
   return (
     <>
       <Box sx={{ margin: "15px" }}>

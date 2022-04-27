@@ -67,7 +67,6 @@ const CoverImage = styled("div")({
 
 export default function ArtistModel(props) {
   const artistDetail = props.likeArtistDetail.data;
-  console.log(artistDetail);
 
   return (
     <>

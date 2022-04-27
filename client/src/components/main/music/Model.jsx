@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function Modal({ props, onClose }) {
-  console.log(props)
   const [albumCoverImgFile, setAlbumCoverImgFile] = useState(props.img_file);
   const [img, setImg] = useState("");
   const [musicTitle, setMusicTitle] = useState(props.title);
@@ -37,7 +36,6 @@ function Modal({ props, onClose }) {
   const postImg = async () => {
     //multer하고 s3저장후 링크가져오기
     if (props.img_file === albumCoverImgFile) {
-      console.log("바뀐게없네");
       return albumCoverImgFile;
     } else if (props.img_file !== albumCoverImgFile) {
       formData.append("img", img);
@@ -69,11 +67,9 @@ function Modal({ props, onClose }) {
     contents.music_title = musicTitle;
     contents.genre = checkedInputs;
     await postImg();
-    console.log(contents);
     await axios
       .post("http://54.180.145.5/files/modify", contents)
       .then((res) => {
-        console.log(res);
         if ((res.data.result = 0)) {
           // alert(res.data.message);
           window.location.href = "/musicsearch";

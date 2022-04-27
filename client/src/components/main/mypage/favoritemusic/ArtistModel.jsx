@@ -66,7 +66,6 @@ const CoverImage = styled("div")({
 });
 
 export default function ArtistModel(props) {
-  console.log(props);
   const Musics = props.musicmodal;
 
   const sliceTitle = Musics.title && Musics.title.substr(0, 40);

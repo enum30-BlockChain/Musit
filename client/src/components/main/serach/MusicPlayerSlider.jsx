@@ -111,7 +111,6 @@ export default function MusicPlayerSlider(props) {
       `http://54.180.145.5/music/${props.musicmodal.ipfs_hash}`,
       content
     );
-    // .then((res) => {        console.log(res);      })
   };
 
   function formatDuration(value) {

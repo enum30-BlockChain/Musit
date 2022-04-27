@@ -1,13 +1,14 @@
 import { Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { readMusicData } from "../../../../redux/actions/musicActions";
 import { readMyNFTList, removeSelectedMusitNFT, selectedMusitNFT } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
 
 import "./Enroll.css";
 import Error from "../../../Error";
+import SimpleBackdrop from "../../../SimpleBackdrop";
 
 const Enroll = () => {
 	let { tokenId } = useParams();
@@ -168,10 +169,26 @@ const SuccessContent = ({nftData}) => {
 const OrdinaryForm = () => {
 	let { tokenId } = useParams();
 	const [sellPrice, setSellPrice] = useState("0.0001");
+	const [permissionLoading, setPermissionLoading] = useState(false);
+	const [isApproved, setIsApproved] = useState(false);
+	const navigate = useNavigate()
+
+	useEffect(async ()=>{
+		setIsApproved(await Ethers.checkApprovedAddress("marketplace", tokenId))
+	}, [])
 
 	// Marketplace 컨트랙트에 내 NFT를 접근 권한 허용하기
 	const setPermissionOnClick = async () => {
-		await Ethers.approveMyNFT("marketplace", tokenId)
+		setPermissionLoading(true)
+		const result = await (await Ethers.approveMyNFT("marketplace", tokenId)).wait()
+		setPermissionLoading(false)
+		if (result && result.confirmations === 1) {
+			window.alert("권한 승인 요청에 성공했습니다.")
+			setIsApproved(await Ethers.checkApprovedAddress("marketplace", tokenId))
+		} else {
+			window.alert("권한 승인 요청이 실패했습니다.")
+			navigate(`/mypage/mynftlist`);
+		}
 	}
 
 	// 판매 가격 입력
@@ -191,42 +208,46 @@ const OrdinaryForm = () => {
 	}
 
 	return (
-		<div className="ordinary-form">
-			<div className="notice-box">
-				<h2>
-					<i className="uil uil-exclamation-triangle"></i> Must Read
-				</h2>
-				<p>
-					Before you enroll nft to marketplace, you have to give us the
-					permission to access your items.
-				</p>
-				<p>
-					Please click below button to give us permission first and then input
-					sell price
-				</p>
-			</div>
-			<div className="permission-box">
-				<div className="title-box">
-					<h2>Permission</h2> <h5>*</h5>
+		<>
+			<div className="ordinary-form">
+				<div className="notice-box">
+					<h2>
+						<i className="uil uil-exclamation-triangle"></i> Must Read
+					</h2>
+					<p>
+						Before you enroll nft to marketplace, you have to give us the
+						permission to access your items.
+					</p>
+					<p>
+						Please click below button to give us permission first and then input
+						sell price
+					</p>
 				</div>
-				<button onClick={setPermissionOnClick}>Give Permission</button>
-			</div>
-			<form className="input-box">
-				<div className="title-box">
-					<h2>Sell-Price</h2> <h5>*</h5>
+				<div className="permission-box">
+					<div className="title-box">
+						<h2>Permission</h2> <h5>*</h5>
+					</div>
+					<button onClick={setPermissionOnClick}>Give Permission</button>
 				</div>
-				<p>Please ETH price to sell.(Unit: 0.0001 ETH)</p>
-				<input
-					type="number"
-					defaultValue={0.0001}
-					min={0.0001}
-					step={0.0001}
-					onChange={sellPriceOnChange}
-					required
-				/>
-				<button onClick={submitOnClick}>submit</button>
-			</form>
-		</div>
+				<form className="input-box">
+					<div className="title-box">
+						<h2>Sell-Price</h2> <h5>*</h5>
+					</div>
+					<p>Please ETH price to sell.(Unit: 0.0001 ETH)</p>
+					<input
+						type="number"
+						defaultValue={0.0001}
+						min={0.0001}
+						step={0.0001}
+						onChange={sellPriceOnChange}
+						required
+					/>
+					{isApproved && <button onClick={submitOnClick}>submit</button>}
+					{!isApproved && <button className="disabled-btn">submit</button>}
+				</form>
+			</div>
+			{permissionLoading && <SimpleBackdrop />}
+		</>
 	);
 };
 
@@ -234,6 +255,26 @@ const OrdinaryForm = () => {
 /* 경매 */
 const AuctionForm = () => {
 	let { tokenId } = useParams();
+	const [permissionLoading, setPermissionLoading] = useState(false);
+	const [isApproved, setIsApproved] = useState(false);
+
+	useEffect(async ()=>{
+		setIsApproved(await Ethers.checkApprovedAddress("auction", tokenId))
+	}, [])
+
+	// Auction 컨트랙트에 내 NFT를 접근 권한 허용하기
+	const setPermissionOnClick = async () => {
+		setPermissionLoading(true)
+		const result = await (await Ethers.approveMyNFT("auction", tokenId)).wait()
+		setPermissionLoading(false)
+		if (result && result.confirmations === 1) {
+			window.alert("권한 승인 요청에 성공했습니다.")
+			setIsApproved(await Ethers.checkApprovedAddress("auction", tokenId))
+		} else {
+			window.alert("권한 승인 요청이 실패했습니다.")
+			navigate(`/mypage/mynftlist`);
+		}
+	}
 
 	// 입력 최소 시간 => 현재 시간 + 5분
 	const getMinDateTime = () => {
@@ -259,16 +300,10 @@ const AuctionForm = () => {
 		return result;
 	}
 
-	// Auction 컨트랙트에 내 NFT를 접근 권한 허용하기
-	const setPermissionOnClick = async () => {
-		await Ethers.approveMyNFT("auction", tokenId)
-	}
-
 	// NFT 경매 등록
 	const submitOnClick = async (e) => {
 		e.preventDefault();
 		let isFormValid = document.querySelector('.auction-form .input-box').checkValidity();
-		console.log(isFormValid);
     if(!isFormValid) {
 			document.querySelector('.auction-form .input-box').reportValidity();
 		} else {
@@ -280,57 +315,61 @@ const AuctionForm = () => {
 	}
 
 	return (
-		<div className="auction-form">
-			<div className="notice-box">
-				<h2>
-					<i className="uil uil-exclamation-triangle"></i> Must Read
-				</h2>
-				<p>
-					Before you enroll nft to auction market, you have to give us the
-					permission to access your items.
-				</p>
-				<p>
-					Please click below button to give us permission first and then input
-					sell price
-				</p>
-			</div>
-			<div className="permission-box">
-				<div className="title-box">
-					<h2>Permission</h2> <h5>*</h5>
+		<>
+			<div className="auction-form">
+				<div className="notice-box">
+					<h2>
+						<i className="uil uil-exclamation-triangle"></i> Must Read
+					</h2>
+					<p>
+						Before you enroll nft to auction market, you have to give us the
+						permission to access your items.
+					</p>
+					<p>
+						Please click below button to give us permission first and then input
+						sell price
+					</p>
 				</div>
-				<button onClick={setPermissionOnClick}>Give Permission</button>
-			</div>
-			<form className="input-box">
-				<div className="price-box">
+				<div className="permission-box">
 					<div className="title-box">
-						<h2>Bid-Price</h2> <h5>*</h5>
+						<h2>Permission</h2> <h5>*</h5>
 					</div>
-					<p>Please ETH price to sell. (Unit : 0.0001 ETH)</p>
-					<input
-						id="bid-price"
-						type="number"
-						defaultValue={0.0001}
-						min={0.0001}
-						step={0.0001}
-						required
-					/>
+					<button onClick={setPermissionOnClick}>Give Permission</button>
 				</div>
-				<div className="end-date-box">
-					<div className="title-box">
-						<h2>End-Date</h2> <h5>*</h5>
+				<form className="input-box">
+					<div className="price-box">
+						<div className="title-box">
+							<h2>Bid-Price</h2> <h5>*</h5>
+						</div>
+						<p>Please ETH price to sell. (Unit : 0.0001 ETH)</p>
+						<input
+							id="bid-price"
+							type="number"
+							defaultValue={0.0001}
+							min={0.0001}
+							step={0.0001}
+							required
+						/>
 					</div>
-					<input
-						id="datetime-local"
-						type="datetime-local"
-						min={getMinDateTime()}
-						max={getMaxDateTime()}
-						defaultValue={getMinDateTime()}
-						required
-					/>
-				</div>
-				<button onClick={submitOnClick}>submit</button>
-			</form>
-		</div>
+					<div className="end-date-box">
+						<div className="title-box">
+							<h2>End-Date</h2> <h5>*</h5>
+						</div>
+						<input
+							id="datetime-local"
+							type="datetime-local"
+							min={getMinDateTime()}
+							max={getMaxDateTime()}
+							defaultValue={getMinDateTime()}
+							required
+						/>
+					</div>
+					{isApproved && <button onClick={submitOnClick}>submit</button>}
+					{!isApproved && <button className="disabled-btn">submit</button>}
+				</form>
+			</div>
+			{permissionLoading && <SimpleBackdrop />}
+		</>
 	);
 };
 

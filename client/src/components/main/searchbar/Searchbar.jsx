@@ -97,9 +97,9 @@ export const Searchbar = () => {
           onClose={() => {
             setOpen(false);
           }}
-          onOpen={() => {
-            setOpen(true);
-          }}
+          // onOpen={() => {
+          //   setOpen(true);
+          // }}
           PaperProps={{ style: { backgroundColor: "rgba(225,225,225,0.8)" } }}
         >
           <UserDrawer />

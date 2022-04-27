@@ -14,7 +14,6 @@ const MyBids = () => {
 
   useEffect(async () => {
     setData(await Ethers.getMyBids())
-		console.log(await Ethers.getMyBids());
     await fakeFetch()
     setLoading(false)
   }, []);
