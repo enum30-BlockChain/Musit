@@ -1,5 +1,5 @@
 import "./Subscription.css";
-import React from "react";
+import React, { useEffect } from "react";
 import Ethers from "../../../../web3/Ethers"
 
 export const Subscription = () => {
@@ -8,10 +8,15 @@ export const Subscription = () => {
     const dayAfter90 = new Date(nowDate + 1000 * 60 * 60 * 24 * 90)
     const dayAfter180 = new Date(nowDate + 1000 * 60 * 60 * 24 * 180)
   
-  const Subscription = (e) => {
-    Ethers.buySubscription(e.target.id)
- }
+    const getBuySubscription = (e) => {
+        Ethers.buySubscription(e.target.id)
+    }
 
+    useEffect(async () => {
+      const t = await Ethers.getIsFreeCouponUsed()
+      console.log(t)
+    }, [])
+    
   return (
     <>
      <div className="wrapper">
@@ -31,7 +36,7 @@ export const Subscription = () => {
                         <li><h1>~{dayAfter30.getYear()+1900} . {dayAfter30.getMonth() + 1} . {dayAfter30.getDate()}</h1></li>
                     </ul>
                 <div className="sign-up">
-                    <a onClick={Subscription} id='0' className="btn bordered radius">Buy Now</a>
+                    <a onClick={getBuySubscription} id='0' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
         </div>
@@ -51,7 +56,7 @@ export const Subscription = () => {
                         <li><h1>~{dayAfter30.getYear()+1900} . {dayAfter30.getMonth() + 1} . {dayAfter30.getDate()}</h1></li>
                     </ul>
                 <div className="sign-up">
-                    <a onClick={Subscription} id='1' className="btn bordered radius">Buy Now</a>
+                    <a onClick={getBuySubscription} id='1' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
         </div>
@@ -71,7 +76,7 @@ export const Subscription = () => {
                     <li><h1>~{dayAfter90.getYear()+1900} . {dayAfter90.getMonth() + 1} . {dayAfter90.getDate()}</h1></li>
                 </ul>
                 <div className="sign-up">
-                    <a onClick={Subscription} id='2' className="btn bordered radius">Buy Now</a>
+                    <a onClick={getBuySubscription} id='2' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
         </div>
@@ -91,7 +96,7 @@ export const Subscription = () => {
                 <li><h1>~{dayAfter180.getYear()+1900} . {dayAfter180.getMonth() + 1} . {dayAfter180.getDate()}</h1></li>
             </ul>
                 <div className="sign-up">
-                    <a onClick={Subscription} id='3' className="btn bordered radius">Buy Now</a>
+                    <a onClick={getBuySubscription} id='3' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
         </div>

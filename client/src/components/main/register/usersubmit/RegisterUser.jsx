@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-import { Input, Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import CountryType from "./CountryType.jsx";
+import { Box, Button, Input, Checkbox } from "@mui/material";
 
 import { Link } from "react-router-dom";
 import { createUserData } from "../../../../redux/actions/userActions";
@@ -198,30 +198,31 @@ const RegisterUser = () => {
                 <h2>Nations</h2>
                 <CountryType
                   required
-                  inputProps={{ width: "400px" }}
                   setSelected={setSelected}
                   // style={{ display: "none" }}
                 />
               </div>
               <h1>Genre</h1>
               <div className="genre">
-                {genre.map((musictype, i) => {
+                {genre.map((MusicType, index) => {
                   return (
-                    <div className="music-type-container" key={i}>
-                      <div className="music-type-name">{musictype}</div>
-                      <div>
-                        <input
-                          type="checkbox"
-                          musictype="musicType"
+                    <Box sx={{ width: "33%" ,textAlign:'left'}}>
+                      <label id={index} key={index}>
+                        <Checkbox
+                          className="checkbox-musicupload"
+                          type={"checkbox"}
+                          name={"MusicType"}
+                          value={MusicType}
                           onChange={(e) => {
-                            changeHandler(e.currentTarget.checked, musictype);
+                            changeHandler(e.currentTarget.checked, MusicType);
                           }}
                           checked={
-                            checkedInputs.includes(musictype) ? true : false
+                            checkedInputs.includes(MusicType) ? true : false
                           }
                         />
-                      </div>
-                    </div>
+                        {MusicType}
+                      </label>
+                    </Box>
                   );
                 })}
               </div>

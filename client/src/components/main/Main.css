@@ -70,7 +70,3 @@ body.dark .main .top-nav .nav-links .active :is(i, .link-name) {
 .top-nav .nav-links a:hover :is(i, .link-name) {
   color: var(--primary-color);
 }
-
-.top-nav .nav-links a:active :is(i, .link-name) {
-  color: var(--error-color);
-}
