@@ -20,14 +20,14 @@ export const Musicupload = () => {
   const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
-    "Classical Music",
+    "Classic",
     "Jazz",
     "Trot",
     "Hip-pop",
     "CCM",
     "Ballad",
-    "Contry Music",
-    "Folk Music",
+    "Contry ",
+    "Folk ",
     "Reggae",
     "Disco",
     "Rock",
@@ -194,19 +194,24 @@ export const Musicupload = () => {
                 </audio>
               )}
             </div>
-            <label className="create-file-btn" for="input-file">
-              Music file Upload
-            </label>
+
             <Button
-              id="input-file"
-              type="file"
-              inputProps={{ accept: "audio/*" }}
-              style={{ display: "none" }}
-              onChange={getAudio}
-              Address
-              sx={{ width: 400 }}
+              component="label"
+              sx={{
+                color: "var(--black-light-color)",
+                fontSize: 15,
+                backgroundColor: "var(--box1-color)",
+              }}
             >
               Music file Upload
+              <input
+                type="file"
+                hidden
+                accept={"audio/*"}
+                style={{ display: "none" }}
+                onChange={getAudio}
+                Address
+              />
             </Button>
 
             <h2>Music Title</h2>
@@ -230,12 +235,12 @@ export const Musicupload = () => {
               onChange={getDescription}
             />
             <h2>Genre</h2>
-            <Box sx={{ mx: "auto", width: "500px" }}>
+            <Box sx={{ mx: "auto", width: "550px" }}>
               <form>
                 <Box display="flex" flexWrap="wrap" justifyContent="flex-start">
                   {genre.map((MusicType, index) => {
                     return (
-                      <Box sx={{ width: "33%", textAlign: "left" }}>
+                      <Box sx={{ width: "20%", textAlign: "left" }}>
                         <label id={index} key={index}>
                           <Checkbox
                             className="checkbox-musicupload"

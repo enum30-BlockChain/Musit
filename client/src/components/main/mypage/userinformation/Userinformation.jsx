@@ -74,19 +74,20 @@ export default function Userinformation({}) {
   const [genre, setgenre] = useState([
     "Pop",
     "K-pop",
-    "Classical Music",
+    "Classic",
     "Jazz",
     "Trot",
     "Hip-pop",
     "CCM",
     "Ballad",
-    "Contry Music",
-    "Folk Music",
+    "Contry ",
+    "Folk ",
     "Reggae",
     "Disco",
     "Rock",
     "Electronic",
     "Dance",
+    "R&B",
   ]);
 
   const sliceAddress =
@@ -98,11 +99,11 @@ export default function Userinformation({}) {
     <div className="userinfo-layout">
       <div className="userinfo-card">
         <div className="userinfo-image">
-            <Avatar
-              alt="Remy Sharp"
-              src={userImg ? userImg : user.img}
-              sx={{mx:'auto', width: 310, height: 310 }}
-            />
+          <Avatar
+            alt="Remy Sharp"
+            src={userImg ? userImg : user.img}
+            sx={{ mx: "auto", width: 310, height: 310 }}
+          />
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>
@@ -122,52 +123,50 @@ export default function Userinformation({}) {
           )}
         </div>
         <div className="userinfo-info">
-          
           <div className="nickname-box">
-          <h1 className="nickname">Nickname</h1>
-          {visible ? (
-            <div>
-              <Input
-                inputProps={{ style: { fontSize: 30 } }}
-                type="text"
-                sx={{ width: 300 }}
-                defaultValue={user.nickname}
-                onChange={idonchange}
-              />
-            </div>
-          ) : (
-            <p>{user.nickname}</p>
-          )}
+            <h1 className="nickname">Nickname</h1>
+            {visible ? (
+              <div>
+                <Input
+                  inputProps={{ style: { fontSize: 30 } }}
+                  type="text"
+                  sx={{ width: 300 }}
+                  defaultValue={user.nickname}
+                  onChange={idonchange}
+                />
+              </div>
+            ) : (
+              <p>{user.nickname}</p>
+            )}
           </div>
 
           <div className="address-box">
             <h1 className="address">Address</h1>
             <span>{metamask.accounts[0]}</span>
           </div>
-         
-         <div  className="nation-box">
-          {visible ? (
-            <div>
-              <h2 className="Nation"> Nation</h2>
-              <CountryType
-                inputProps={{ width: "400px" }}
-                setSelected={setSelected}
-              />
-            </div>
-          ) : (
-            <div>
-              <h2 className="Nation"> Nation</h2>
-              <p>국가 : {user.nation}</p>
-            </div>
-          )}
-         </div>
 
-         <div className="genre-box">
+          <div className="nation-box">
+            {visible ? (
+              <div>
+                <h2 className="Nation"> Nation</h2>
+                <CountryType
+                  inputProps={{ width: "400px" }}
+                  setSelected={setSelected}
+                />
+              </div>
+            ) : (
+              <div>
+                <h2 className="Nation"> Nation</h2>
+                <p>국가 : {user.nation}</p>
+              </div>
+            )}
+          </div>
+
+          <div className="genre-box">
             <h2 className="userinfo-Genre">Genre</h2>
-            
+
             {visible ? (
               <div className="type-container">
-                
                 {genre.map((MusicType, index) => {
                   return (
                     <div className="type-box">
@@ -192,7 +191,7 @@ export default function Userinformation({}) {
             ) : (
               <span>{user.genre}</span>
             )}
-         </div>
+          </div>
 
           <div className="setting-btn">
             {visible ? (
@@ -200,8 +199,8 @@ export default function Userinformation({}) {
                 <Button
                   variant="contained"
                   sx={{
-                    mx:1,
-                    width:100,
+                    mx: 1,
+                    width: 100,
                     color: "var(--black-light-color)",
                     backgroundColor: "var(--box1-color)",
                     ":hover": {
@@ -219,8 +218,8 @@ export default function Userinformation({}) {
                 <Button
                   variant="contained"
                   sx={{
-                    mx:1,
-                    width:100,
+                    mx: 1,
+                    width: 100,
                     color: "var(--black-light-color)",
                     backgroundColor: "var(--box1-color)",
                     ":hover": {
@@ -239,7 +238,7 @@ export default function Userinformation({}) {
               <Button
                 variant="contained"
                 sx={{
-                  width:100,
+                  width: 100,
                   color: "var(--black-light-color)",
                   backgroundColor: "var(--box1-color)",
                   ":hover": {
