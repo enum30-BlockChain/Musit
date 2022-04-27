@@ -49,7 +49,7 @@ export const mintingMusitNFTReducer = (state = initialState, { type, payload }) 
       return {
         ...state,
         loading: false,
-        data: [...payload],
+        data: payload,
         error: false,
         errorMsg: "",
       };

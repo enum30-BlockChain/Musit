@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { readOnMarketNFTList } from '../../../redux/actions/contractActions';
 import Nothing from '../../landingpage/pages/Nothing';
 import SimpleBackdrop from '../../SimpleBackdrop';
+import CardSkeleton from './cards/CardSkeleton';
 import SellCard from './cards/SellCard';
 
 const fakeFetch = (delay = 500) =>
@@ -20,7 +21,11 @@ const Ordinary = () => {
     setLoading(false)
   }, []);
 
-  if (loading) return (<SimpleBackdrop/>)
+  if (loading) return (
+		<>
+			<CardSkeleton />
+		</>
+	)
   return (
     <section className="ordinary-box">
       {market.length > 0 &&

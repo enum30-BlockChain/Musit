@@ -4,7 +4,7 @@ import { readMyNFTList } from "../../../../redux/actions/contractActions";
 import Nothing from "../../../landingpage/pages/Nothing";
 import "./MyNFTList.css";
 import NFTCard from "./nftcard/NFTCard";
-import NFTCardSkeleton from "./nftcard/NFTCardSkeleton";
+import NFTCardSkeleton from "../../store/cards/CardSkeleton";
 
 export default function MyNFTList() {
   const ownedMusitNFTList = useSelector((state) => state.ownedMusitNFT);

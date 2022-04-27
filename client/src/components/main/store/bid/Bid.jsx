@@ -1,7 +1,7 @@
 import { LinearProgress, Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { selectedMusitNFT } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
 import Error from "../../../Error";
@@ -41,23 +41,82 @@ const Bid = () => {
 const SuccessContent = () => {
 	const user = useSelector((state) => state.user);
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
-	
+	const navigate = useNavigate();
+
 	const [expired, setExpired] = useState(false);
-	const [bidPrice, setBidPrice] = useState(selectedNFT.topBid);
+	const [bidPrice, setBidPrice] = useState(0.0001);
 	const [pendingBids, setPendingBids] = useState(0);
 	const [bidPriceWithFee, setBidPriceWithFee] = useState(0);
+	const [bidLoading, setBidLoading] = useState(false);
 
-	// NFT 판매 등록
+	// 경매 입찰
 	const bidOnClick = async (e) => {
+		console.log(bidPrice + pendingBids);
+		console.log(selectedNFT.topBid);
 		e.preventDefault();
-		await Ethers.bid(selectedNFT.itemId, bidPrice)
+		if (bidPrice + pendingBids >= selectedNFT.topBid) {
+			setBidLoading(true)
+			const result = await Ethers.bidAuction(selectedNFT.itemId, bidPrice)
+			setBidLoading(false)
+			if(result && result.confirmations == 1) {
+				window.alert("입찰에 성공했습니다!")
+				navigate('/store/mybids')
+			} else {
+				window.alert("입찰에 실패했습니다.")
+				window.location.reload();
+			}
+		} else {
+			window.alert("입찰 금액을 확인해주세요")
+		}
 	}
 
-	// NFT 판매 등록
+	// 입찰금 회수 하기
 	const withdrawOnClick = async (e) => {
 		e.preventDefault();
-		await Ethers.purchaseNFT(selectedNFT.itemId)
+		if (pendingBids > 0) {
+			if(selectedNFT.topBidder.toLowerCase() === user.address.toLowerCase()) {
+				window.alert("최고 입찰자는 출금할 수 없습니다.")
+				return
+			}
+			setBidLoading(true)
+			const result = await Ethers.withdrawAuction(selectedNFT.itemId)
+			setBidLoading(false)
+			if(result && result.confirmations == 1) {
+				window.alert("입찰금액의 출금이 완료되었습니다.")
+				navigate('/store/mybids')
+			} else {
+				window.alert("입찰금액의 출금에 실패했습니다.")
+				window.location.reload();
+			}
+		} else {
+			window.alert("입찰한 기록이 없습니다.")
+		}
 	}
+
+	// 경매 종료 후 Top bidder가 NFT 받기
+	const getNFTOnClick = async (e) => {
+		e.preventDefault();
+		if (pendingBids > 0) {
+			if(selectedNFT.topBidder.toLowerCase() !== user.address.toLowerCase()) {
+				window.alert("오직 최고 입찰자만 NFT를 회수 할 수 있습니다.")
+				return
+			}
+			setBidLoading(true)
+			const result = await Ethers.endAuction(selectedNFT.itemId)
+			console.log(result);
+			setBidLoading(false)
+			if(result && result.confirmations == 1) {
+				window.alert("축하합니다! NFT를 획득했습니다.")
+				navigate('/store/mybids')
+			} else {
+				window.alert("NFT 획득에 실패했습니다.")
+				// window.location.reload();
+			}
+		} else {
+			window.alert("입찰한 기록이 없습니다.")
+		}
+	}
+
 
 	// 주소 짧게 만들기
 	const shortAddress = (topBidder) => {
@@ -73,15 +132,14 @@ const SuccessContent = () => {
 	}
 
 	useEffect(async () => {
-		setBidPriceWithFee(await Ethers.bidPriceWithFee(selectedNFT.topBid))
-		setPendingBids(await Ethers.getPendingBids(selectedNFT.itemId, user.address))
+		setBidPriceWithFee(Number(await Ethers.bidPriceWithFee(selectedNFT.topBid)))
+		setPendingBids(Number(await Ethers.getPendingBids(selectedNFT.itemId, user.address)))
 		const bidCountdown = document.getElementById("countdown");
 		// 1초마다 카운트 다운
 		const countDown = setInterval(() => {
 			if (selectedNFT.endAt !== null && bidCountdown !== null) {
-				const now = new Date().getTime();
-				const distance = selectedNFT.endAt * 1000 - now;
-
+				const now = Date.now();
+				const distance = new Date(selectedNFT.endAt * 1000 - now);
 				const days = Math.floor(distance / (1000 * 60 * 60 * 24));
 				const hours = twoDigit(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
 				const minutes = twoDigit(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
@@ -112,6 +170,7 @@ const SuccessContent = () => {
 
 	return (
 		<section className="bid-container">
+			{bidLoading && <SimpleBackdrop />}
 			{/* 이미지 박스 */}
 			<div className="image-box">
 				<img src={selectedNFT.img_file} alt="" />
@@ -119,6 +178,10 @@ const SuccessContent = () => {
 
 			{/*** 왼쪽 컨테이너 ***/}
 			<section className="left-container">
+				<div>
+					<h2>Token Id</h2>
+					<h1>{selectedNFT.tokenId}</h1>
+				</div>
 				<div className="title-box">
 					<h2>Title</h2>
 					<h1>{selectedNFT.title}</h1>
@@ -127,7 +190,6 @@ const SuccessContent = () => {
 					<h2>Artist Name</h2>
 					<h1>{selectedNFT.artist_name}</h1>
 				</div>
-
 				<div className="audio-box">
 					<audio
 						src={`https://ipfs.infura.io/ipfs/${selectedNFT.ipfs_hash}`}
@@ -142,6 +204,10 @@ const SuccessContent = () => {
 				{!selectedNFT.sold ? (
 					<>
 						<section className="info-container">
+							<div>
+								<h2>Auction Item Id</h2>
+								<h1>{selectedNFT.itemId}</h1>
+							</div>
 							<div className="genre-box">
 								<h2>
 									<i className="uil uil-music"></i> Genre
@@ -162,13 +228,17 @@ const SuccessContent = () => {
 									<h2>
 										<i className="uil uil-game-structure"></i> Top Bidder
 									</h2>
-									<h1>{shortAddress(selectedNFT.topBidder)}</h1>
+									<h1>
+										{Ethers.zeroAddress() == selectedNFT.topBidder
+											? "None"
+											: shortAddress(selectedNFT.topBidder)}
+									</h1>
 								</div>
 								<div className="top-bid-box">
 									<h2>
 										<i className="uil uil-trophy"></i> Top Bid
 									</h2>
-									<h1>{selectedNFT.topBid}</h1>
+									<h1>{selectedNFT.topBid} ETH</h1>
 								</div>
 								<div className="countdown-box">
 									<div className="title-box">
@@ -176,33 +246,84 @@ const SuccessContent = () => {
 											<i className="uil uil-schedule"></i> End At
 										</h2>
 									</div>
-									<h1 id="countdown"><LinearProgress color="inherit"/></h1>
+									<h1 id="countdown">
+										<LinearProgress color="inherit" />
+									</h1>
 								</div>
 								<div className="price-box">
 									<div className="title-box">
 										<h2>Bid Price</h2> <h5>*</h5>
 									</div>
 									<input
-										min={selectedNFT.topBid}
-										defaultValue={selectedNFT.topBid}
+										defaultValue={0.0001}
 										disabled={expired}
 										step={0.0001}
 										required
 										type="number"
 										onChange={async (e) => {
-											setBidPrice(e.target.value)
+											setBidPrice(e.target.value);
 											if (e.target.value > 0) {
-												setBidPriceWithFee(await Ethers.bidPriceWithFee(e.target.value))
+												setBidPriceWithFee(
+													await Ethers.bidPriceWithFee(e.target.value)
+												);
 											} else {
-												setBidPriceWithFee(0)
+												setBidPriceWithFee(0);
 											}
 										}}
 									/>
-								
-								{!expired && <div className="total-bid-box"><h3>My Total Bids will be </h3> <h4>{(Number(pendingBids)+Number(bidPrice)).toFixed(6)} ETH</h4> </div> }
-								{!expired && <div className="total-price-box"><h3>Price with fee : </h3><h4>{Number(bidPriceWithFee).toFixed(6)} ETH</h4></div>}
+
+									{!expired && (
+										<>
+											<div className="total-bid-box">
+												<h3>My Total Bids will be </h3>{" "}
+												<h4>
+													{(Number(pendingBids) + Number(bidPrice)).toFixed(6)}{" "}
+													ETH
+												</h4>{" "}
+											</div>
+											<div className="total-price-box">
+												<h3>Price with fee : </h3>
+												<h4>{Number(bidPriceWithFee).toFixed(6)} ETH</h4>
+											</div>
+										</>
+									)}
 								</div>
-								{expired ? <button onClick={withdrawOnClick}>Withdraw</button> : <button onClick={bidOnClick}>Submit</button>}
+								<div className="btn-box">
+									{expired ? (
+										<>
+											{pendingBids > 0 &&
+												selectedNFT.topBidder.toLowerCase() !==
+													user.address.toLowerCase() && (
+													<button
+														className="withdraw-btn"
+														onClick={withdrawOnClick}
+													>
+														Withdraw
+													</button>
+												)}
+											{selectedNFT.topBidder.toLowerCase() ===
+												user.address.toLowerCase() && (
+												<button onClick={getNFTOnClick}>Get NFT</button>
+											)}
+										</>
+									) : (
+										<>
+											{pendingBids > 0 &&
+												selectedNFT.topBidder.toLowerCase() !==
+													user.address.toLowerCase() && (
+													<button
+														className="withdraw-btn"
+														onClick={withdrawOnClick}
+													>
+														Withdraw
+													</button>
+												)}
+											<button className="submit-btn" onClick={bidOnClick}>
+												Submit
+											</button>
+										</>
+									)}
+								</div>
 							</form>
 						</section>
 					</>
@@ -294,7 +415,9 @@ const LoadingContent = () => {
 								<Skeleton width={"100%"} height={"100%"} variant="text" />
 								<Skeleton width={"100%"} height={"100%"} variant="text" />
 							</div>
-							<button >Submit</button>
+							<div className="btn-box">
+								<button >Submit</button>
+							</div>
 						</form>
 					</section>
 				</section>

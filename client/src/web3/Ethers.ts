@@ -60,6 +60,10 @@ export default class Ethers {
     return ethers.utils.parseUnits(wei.toString());
   }
 
+  static zeroAddress(): string {
+    return ethers.constants.AddressZero;
+  }
+
   static loadContracts(): Contracts | null {
     try {
       const contracts = {
@@ -108,7 +112,7 @@ export default class Ethers {
         value: ethers.utils.parseEther("0.0001"),
       };
 
-      return await (await musitNFT.minting(tokenURI, options)).wait();
+      return await musitNFT.minting(tokenURI, options);
     } catch (error) {
       console.log(error);
       return null;
@@ -203,11 +207,11 @@ export default class Ethers {
     sellPrice: number | string
   ): Promise<ContractTransaction | null> {
     try {
-      const result = await marketplace.enroll(
+      const result = await(await marketplace.enroll(
         musitNFT.address,
         tokenId,
         this.ethToWei(sellPrice)
-      );
+      )).wait();
       return result;
     } catch (error) {
       console.log(error);
@@ -297,12 +301,12 @@ export default class Ethers {
     endAt: number
   ): Promise<ContractTransaction | null> {
     try {
-      const result = await auction.enroll(
+      const result = await (await auction.enroll(
         this.ethToWei(sellPrice),
         endAt,
         musitNFT.address,
         tokenId
-      );
+      )).wait();
       return result;
     } catch (error) {
       console.log(error);
@@ -311,7 +315,7 @@ export default class Ethers {
   }
 
   // Auction에 올라온 NFT 입찰하기
-  static async bid(
+  static async bidAuction(
     itemId: number,
     price: number
   ): Promise<ContractTransaction | null> {
@@ -321,7 +325,7 @@ export default class Ethers {
       const options = {
         value: bidPrice,
       };
-      const result = await auction.bid(itemId, options);
+      const result = await (await auction.bid(itemId, options)).wait();
       return result;
     } catch (error) {
       console.log(error);
@@ -329,18 +333,27 @@ export default class Ethers {
     }
   }
 
-  // 경매 종료 후 회수
-  static async endAuction(
+  // Auction에 올라온 NFT 입찰하기
+  static async withdrawAuction(
     itemId: number,
-    price: number
   ): Promise<ContractTransaction | null> {
     try {
-      let priceWei = ethers.utils.parseEther(String(price));
-      let bidPrice = (await auction.calPriceWithFee(priceWei)).toString();
-      const options = {
-        value: bidPrice,
-      };
-      const result = await auction.bid(itemId, options);
+      const result = await (await auction.withdraw(itemId)).wait();
+      return result;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  // 경매 종료 후 NFT 회수
+  static async endAuction(
+    itemId: number,
+  ): Promise<ContractTransaction | null> {
+    try {
+      const result = await auction.end(itemId);
+      console.log(result.data);
+      
       return result;
     } catch (error) {
       console.log(error);
