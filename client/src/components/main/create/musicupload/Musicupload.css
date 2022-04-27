@@ -1,8 +1,8 @@
 .create-mainlayout {
-  /* margin: 0px 100px 0px 100px; */
+  margin: auto;
   padding: 20px;
   height: 680px;
-  width: 100%;
+  width: 90%;
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
   border-radius: 10px;
@@ -77,8 +77,3 @@
   margin-top: 40px;
   width: 100%;
 }
-/* 
-.create-mainlayout .create-layout .create-inputbox .checkbox-musicupload {
-  background-color: white;
-  color: var(--error-color);
-} */
