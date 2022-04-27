@@ -108,7 +108,7 @@ const SuccessContent = () => {
 					</div>
 					<div className="description-box">
 						<h2><i className="uil uil-subject"></i> Description</h2>
-						<p>{selectedNFT.description}</p>
+						<pre>{selectedNFT.description}</pre>
 					</div>
 					<div className="sell-price-box">
 						<h2>
