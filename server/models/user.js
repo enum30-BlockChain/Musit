@@ -47,8 +47,14 @@ module.exports = (sequelize, DataTypes) => {
 			recent_played: { type: DataTypes.STRING, allowNull: true },
 			img: { type: DataTypes.STRING, allowNull: true },
 			register_date: {
-				type: DataTypes.DATETIME,
-				allowNull: false,
+				type: DataTypes.TIME,
+				allowNull: true,
+				defaultValue: sequelize.NOW,
+			},
+			coupon_used: {
+				type: DataTypes.TINYINT,
+				allowNull: true,
+				defaultValue: false,
 			},
 		},
 		{

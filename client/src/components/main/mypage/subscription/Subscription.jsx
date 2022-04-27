@@ -1,14 +1,13 @@
 import "./Subscription.css";
 import React from "react";
-import Button from "@mui/material/Button";
 import Ethers from "../../../../web3/Ethers"
 
 export const Subscription = () => {
-  var now = new Date();
-  var year = now.getFullYear();   // 연도
-  var month = now.getMonth()+1;   // 월    
-  var day = now.getDate();        // 일
-
+    const nowDate = Date.now()
+    const dayAfter30 = new Date(nowDate + 1000 * 60 * 60 * 24 * 30)
+    const dayAfter90 = new Date(nowDate + 1000 * 60 * 60 * 24 * 90)
+    const dayAfter180 = new Date(nowDate + 1000 * 60 * 60 * 24 * 180)
+  
   const Subscription = (e) => {
     Ethers.buySubscription(e.target.id)
  }
@@ -16,6 +15,27 @@ export const Subscription = () => {
   return (
     <>
      <div className="wrapper">
+         
+        <div className="pricing-table gprice-single">
+            <div className="head">
+                 <h4 className="title">30 days Free Supscription</h4> 
+            </div>
+            <div className="content">
+                <div className="price">
+                    <h1>Free</h1>
+                </div>
+                <ul style={{height:"200px"}}>
+                        <li><h1>첫 가입시 1달무료 쿠폰 증정</h1></li>
+                        <li><h1>Music free pass</h1></li>
+                        <li><h1>Music upLoad free</h1></li>
+                        <li><h1>~{dayAfter30.getYear()+1900} . {dayAfter30.getMonth() + 1} . {dayAfter30.getDate()}</h1></li>
+                    </ul>
+                <div className="sign-up">
+                    <a onClick={Subscription} id='0' className="btn bordered radius">Buy Now</a>
+                </div>
+            </div>
+        </div>
+
         <div className="pricing-table gprice-single">
             <div className="head">
                  <h4 className="title">30 days Supscription</h4> 
@@ -28,51 +48,53 @@ export const Subscription = () => {
                         <li><h1>Music free pass</h1></li>
                         <li><h1>Music upLoad free</h1></li>
                         <li><h1></h1></li>
-                        <li><h1>~{year} . {month+1} . {day}</h1></li>
+                        <li><h1>~{dayAfter30.getYear()+1900} . {dayAfter30.getMonth() + 1} . {dayAfter30.getDate()}</h1></li>
                     </ul>
                 <div className="sign-up">
                     <a onClick={Subscription} id='1' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
         </div>
-            <div className="pricing-table gprice-single">
-                <div className="head">
-                    <h4 className="title">90 days Supscription</h4>
+
+        <div className="pricing-table gprice-single">
+            <div className="head">
+                <h4 className="title">90 days Supscription</h4>
+            </div>
+            <div className="content">
+                <div className="price">
+                    <h1>0.02eth</h1>
                 </div>
-                <div className="content">
-                    <div className="price">
-                      <h1>0.02eth</h1>
-                    </div>
-                    <ul style={{height:"200px"}}>
-                        <li><h1>Music free pass</h1></li>
-                        <li><h1>Music upLoad free</h1></li>
-                        <li><h1></h1></li>
-                        <li><h1>~{year} . {month+3} . {day}</h1></li>
-                    </ul>
-                    <div className="sign-up">
-                        <a onClick={Subscription} id='2' className="btn bordered radius">Buy Now</a>
-                    </div>
+                <ul style={{height:"200px"}}>
+                    <li><h1>Music free pass</h1></li>
+                    <li><h1>Music upLoad free</h1></li>
+                    <li><h1></h1></li>
+                    <li><h1>~{dayAfter90.getYear()+1900} . {dayAfter90.getMonth() + 1} . {dayAfter90.getDate()}</h1></li>
+                </ul>
+                <div className="sign-up">
+                    <a onClick={Subscription} id='2' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
-                <div className="pricing-table gprice-single">
-                    <div className="head">  
-                        <h4 className="title">180 days Supscription</h4>
-                    </div>
-                    <div className="content">
-                        <div className="price">
-                            <h1>0.03eth</h1>
-                        </div>
-                        <ul style={{height:"200px"}}>
-                        <li><h1>Music free pass</h1></li>
-                        <li><h1>Music upLoad free</h1></li>
-                        <li><h1></h1></li>
-                        <li><h1>~{year} . {month+6} . {day}</h1></li>
-                    </ul>
-                        <div className="sign-up">
-                            <a onClick={Subscription} id='3' className="btn bordered radius">Buy Now</a>
-                        </div>
-                    </div>
+        </div>
+
+        <div className="pricing-table gprice-single">
+            <div className="head">  
+                <h4 className="title">180 days Supscription</h4>
+            </div>
+            <div className="content">
+                <div className="price">
+                    <h1>0.03eth</h1>
                 </div>
+                <ul style={{height:"200px"}}>
+                <li><h1>Music free pass</h1></li>
+                <li><h1>Music upLoad free</h1></li>
+                <li><h1></h1></li>
+                <li><h1>~{dayAfter180.getYear()+1900} . {dayAfter180.getMonth() + 1} . {dayAfter180.getDate()}</h1></li>
+            </ul>
+                <div className="sign-up">
+                    <a onClick={Subscription} id='3' className="btn bordered radius">Buy Now</a>
+                </div>
+            </div>
+        </div>
     </div>
     </>
   );

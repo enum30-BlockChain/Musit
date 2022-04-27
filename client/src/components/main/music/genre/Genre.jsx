@@ -214,7 +214,7 @@ export default function Genre() {
             <div className="Genre-layout">
               <div className="Recommend-title">
                 <i className="uil uil-headphones-alt"></i>
-                <span className="Recommend-title-text"> Like Ranking</span>
+                <span className="Recommend-title-text"> Artist Recommend</span>
               </div>
               <Box
                 sx={{
