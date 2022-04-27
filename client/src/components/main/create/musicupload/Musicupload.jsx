@@ -53,6 +53,8 @@ export const Musicupload = () => {
   const audioFormData = new FormData();
 
   const getImg = (e) => {
+    console.log(111111111111111);
+    console.log(e.target);
     setAlbumCoverImgFile(e.target.files[0]);
   };
   const getAudio = (e) => {
@@ -152,6 +154,7 @@ export const Musicupload = () => {
 
             <div className="create-img-upload-btn">
               <Button
+                component="label"
                 sx={{
                   color: "var(--black-light-color)",
                   fontSize: 15,
@@ -159,16 +162,18 @@ export const Musicupload = () => {
                   ":hover": {
                     background: "var(--primary-color)",
                     color: "var(--text-color)",
-                    fontSize: 15,
                   },
                 }}
-                id="coverupload"
-                name="imgUpload"
-                type="file"
-                accept="image/*"
-                onChange={getImg}
               >
-                Upload ImageFile
+                Image Upload
+                <input
+                  hidden
+                  id="coverupload"
+                  name="imgUpload"
+                  type="file"
+                  accept="image/*"
+                  onChange={getImg}
+                />
               </Button>
             </div>
           </div>
@@ -197,10 +202,15 @@ export const Musicupload = () => {
 
             <Button
               component="label"
+              variant="contained"
               sx={{
                 color: "var(--black-light-color)",
                 fontSize: 15,
                 backgroundColor: "var(--box1-color)",
+                ":hover": {
+                  background: "var(--primary-color)",
+                  color: "var(--text-color)",
+                },
               }}
             >
               Music file Upload
@@ -210,7 +220,6 @@ export const Musicupload = () => {
                 accept={"audio/*"}
                 style={{ display: "none" }}
                 onChange={getAudio}
-                Address
               />
             </Button>
 
@@ -264,7 +273,7 @@ export const Musicupload = () => {
             </Box>
             <div className="create-btn">
               <Button
-                // variant="contained"
+                variant="contained"
                 sx={{
                   color: "var(--black-light-color)",
                   fontSize: 15,
