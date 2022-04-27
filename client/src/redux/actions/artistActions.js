@@ -11,9 +11,12 @@ export const createArtistData = (inputs) => {
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
         const url = "http://54.180.145.5/artists/";
-        const result = await axios.post(url, { ...inputs, user_address: accounts[0] });
+        const result = await axios.post(url, {
+          ...inputs,
+          user_address: accounts[0],
+        });
         dispatch({ type: ActionTypes.ARTIST_CREATE_SUCCESS });
-        return result
+        return result;
       } else {
         dispatch({
           type: ActionTypes.ARTIST_DATA_FAIL,
@@ -75,65 +78,6 @@ export const readArtistData = () => {
       dispatch({
         type: ActionTypes.ARTIST_DATA_FAIL,
         payload: "Read artist request fail",
-      });
-    }
-  };
-};
-
-/* 내가 좋아요 누른 아티스트 리스트 불러오기 */
-export const readLikeArtistList = () => {
-  return async (dispatch, getState) => {
-    dispatch({
-      type: ActionTypes.LIKE_ARTIST_REQUEST,
-    });
-    try {
-      const accounts = getState().metamask.accounts;
-      if (accounts.length > 0) {
-        const url = `http://54.180.145.5/artists/likes/${accounts[0]}`;
-        const likeArtistList = (await axios.get(url)).data;
-        dispatch({
-          type: ActionTypes.LIKE_ARTIST_SUCCESS,
-          payload: likeArtistList,
-        });
-      } else {
-        dispatch({
-          type: ActionTypes.LIKE_ARTIST_FAIL,
-          payload: "Account is not found",
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: ActionTypes.LIKE_ARTIST_FAIL,
-        payload: "Read like artist request fail",
-      });
-    }
-  };
-};
-
-/* 내가 좋아요 누른 아티스트 디테일 정보 불러오기 */
-export const readLikeArtistDetail = (user_address) => {
-  return async (dispatch, getState) => {
-    dispatch({
-      type: ActionTypes.LIKE_ARTIST_DETAIL_REQUEST,
-    });
-    try {
-      if (user_address > 0) {
-        const url = `http://54.180.145.5/artists/${user_address}`;
-        const likeArtistDetail = (await axios.get(url)).data;
-        dispatch({
-          type: ActionTypes.LIKE_ARTIST_DETAIL_SUCCESS,
-          payload: likeArtistDetail,
-        });
-      } else {
-        dispatch({
-          type: ActionTypes.LIKE_ARTIST_DETAIL_FAIL,
-          payload: "Account is not found",
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: ActionTypes.LIKE_ARTIST_DETAIL_FAIL,
-        payload: "Read like artist request fail",
       });
     }
   };
@@ -202,6 +146,7 @@ export const deleteArtist = () => {
 
 /**** Other actions ****/
 /* 좋아요 눌렀을 때 동작 */
+/* Create and Delete*/
 export const toggleLikeArtist = (artist_name) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.LIKE_ARTIST_REQUEST });
@@ -265,5 +210,64 @@ export const selectedArtist = (artist) => {
 export const removeSelectedArtist = () => {
   return {
     type: ActionTypes.REMOVE_SELECTED_ARTIST,
+  };
+};
+
+/* 내가 좋아요 누른 아티스트 리스트 불러오기 */
+export const readLikeArtistList = () => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: ActionTypes.LIKE_ARTIST_REQUEST,
+    });
+    try {
+      const accounts = getState().metamask.accounts;
+      if (accounts.length > 0) {
+        const url = `http://54.180.145.5/artists/likes/${accounts[0]}`;
+        const likeArtistList = (await axios.get(url)).data;
+        dispatch({
+          type: ActionTypes.LIKE_ARTIST_SUCCESS,
+          payload: likeArtistList,
+        });
+      } else {
+        dispatch({
+          type: ActionTypes.LIKE_ARTIST_FAIL,
+          payload: "Account is not found",
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.LIKE_ARTIST_FAIL,
+        payload: "Read like artist request fail",
+      });
+    }
+  };
+};
+
+/* 내가 좋아요 누른 아티스트 디테일 정보 불러오기 */
+export const readLikeArtistDetail = (user_address) => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: ActionTypes.LIKE_ARTIST_DETAIL_REQUEST,
+    });
+    try {
+      if (user_address > 0) {
+        const url = `http://54.180.145.5/artists/${user_address}`;
+        const likeArtistDetail = (await axios.get(url)).data;
+        dispatch({
+          type: ActionTypes.LIKE_ARTIST_DETAIL_SUCCESS,
+          payload: likeArtistDetail,
+        });
+      } else {
+        dispatch({
+          type: ActionTypes.LIKE_ARTIST_DETAIL_FAIL,
+          payload: "Account is not found",
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.LIKE_ARTIST_DETAIL_FAIL,
+        payload: "Read like artist request fail",
+      });
+    }
   };
 };

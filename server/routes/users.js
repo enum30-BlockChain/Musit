@@ -88,6 +88,7 @@ router.patch("/:address", async (req, res, next) => {
 });
 
 /* Delete */
+/*기능 삭제 */
 router.delete("/:address", async (req, res, next) => {
   try {
     const result = await User.destroy({

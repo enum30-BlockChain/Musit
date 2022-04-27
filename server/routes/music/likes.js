@@ -54,9 +54,6 @@ router.get("/:user_address", async (req, res, next) => {
 
 /* Delete */
 router.delete("/:ipfs_hash", async (req, res, next) => {
-  console.log(22222222222222222);
-  console.log(req.body);
-  console.log(22222222222222222);
   try {
     const result = await MusicLike.destroy({
       where: {

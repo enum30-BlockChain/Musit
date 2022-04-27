@@ -28,7 +28,6 @@ export const createMusicData = (imgFormData, audioFormData, input) => {
         "http://54.180.145.5/music/",
         musicData
       );
-      console.log(createData);
       dispatch({ type: ActionTypes.MUSIC_CREATE_SUCCESS });
     } catch (error) {
       dispatch({
@@ -85,6 +84,27 @@ export const readMusicData = (ipfs_hash) => {
   };
 };
 
+/**** Update ****/
+/*기능 삭제 */
+export const updateMusicList = (input) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
+    try {
+      const url = "http://54.180.145.5/music/";
+      const musicList = (await axios.patch(url, input)).data;
+      dispatch({
+        type: ActionTypes.MUSIC_UPDATE_SUCCESS,
+        payload: musicList,
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.MUSIC_DATA_FAIL,
+        payload: "Read music list request fail",
+      });
+    }
+  };
+};
+
 export const readLikeMusicList = () => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.LIKE_MUSIC_REQUEST });
@@ -105,16 +125,16 @@ export const readLikeMusicList = () => {
   };
 };
 
-/**** Update ****/
-export const updateMusicList = (input) => {
+/**** Delete ****/
+/*기능삭제 */
+export const deleteMusic = (input) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
     try {
       const url = "http://54.180.145.5/music/";
-      const musicList = (await axios.patch(url, input)).data;
+      await axios.delete(url, input);
       dispatch({
-        type: ActionTypes.MUSIC_UPDATE_SUCCESS,
-        payload: musicList,
+        type: ActionTypes.MUSIC_DELETE_SUCCESS,
       });
     } catch (error) {
       dispatch({
@@ -124,6 +144,7 @@ export const updateMusicList = (input) => {
     }
   };
 };
+
 /**** Other music ****/
 /* 좋아요 눌렀을 때 동작 */
 export const toggleLikeMusic = (music) => {
@@ -172,24 +193,6 @@ export const toggleLikeMusic = (music) => {
       dispatch({
         type: ActionTypes.LIKE_MUSIC_FAIL,
         payload: "Like music request fail",
-      });
-    }
-  };
-};
-/**** Delete ****/
-export const deleteMusic = (input) => {
-  return async (dispatch, getState) => {
-    dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
-    try {
-      const url = "http://54.180.145.5/music/";
-      await axios.delete(url, input);
-      dispatch({
-        type: ActionTypes.MUSIC_DELETE_SUCCESS,
-      });
-    } catch (error) {
-      dispatch({
-        type: ActionTypes.MUSIC_DATA_FAIL,
-        payload: "Read music list request fail",
       });
     }
   };

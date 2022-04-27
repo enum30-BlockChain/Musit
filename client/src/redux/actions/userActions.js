@@ -44,7 +44,7 @@ export const readUserData = () => {
         const userInfo = (await axios.get(url)).data;
         dispatch({
           type: ActionTypes.USER_READ_SUCCESS,
-          payload: {...userInfo, subsEndAt},
+          payload: { ...userInfo, subsEndAt },
         });
       } else {
         dispatch({
@@ -95,6 +95,7 @@ export const updateUserData = (inputs) => {
 
 /**** Delete ****/
 /* 유저 삭제 */
+/* 기능 삭제 */
 export const deleteUser = () => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.USER_DATA_REQUEST });
