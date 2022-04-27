@@ -16,7 +16,6 @@ const getNowDate = () => {
   const result = `${year}-${month}-${date}T${time}`
   console.log(result)
   time
-  
 }
 console.log(getNowDate())
 
@@ -28,17 +27,10 @@ for ([k,v] of formData) {
   formDataToJson[k] = v;
 }
 
-const x= "123";
-console.log(x.length)
-console.log(formDataToJson)
-console.log(json)
 
-const y = {
-  one: "",
-}
 
-if(y.one == undefined) {
-  console.log(1)
-} else {
-  console.log(2)
-}
+const nowDate = Date.now()
+const days = 10
+const dayAfter = new Date(nowDate + 1000 * 60 * 60 * 24 * days)
+console.log(dayAfter.getDate())
+console.log(dayAfter.getMonth() + 1)

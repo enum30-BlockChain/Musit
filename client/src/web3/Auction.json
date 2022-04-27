@@ -1,5 +1,5 @@
 {
-    "contractAddress": "0x873b8B708b1E73603eB587b080410f8b8F799806",
+    "contractAddress": "0x55FB237Ad208419f36C1251475E1a7b7497d1F25",
     "_format": "hh-sol-artifact-1",
     "contractName": "Auction",
     "sourceName": "contracts/Auction.sol",
