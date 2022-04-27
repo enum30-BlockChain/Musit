@@ -170,17 +170,16 @@ export const Playbar = () => {
   }
   async function changeRandom() {
     setShuffle({ isLoading: true });
-    const firstSong = likeMusic[count]; //넣을꺼
-    //지금재생 찾아서 삭제
-    likeMusic.splice(
-      likeMusic.findIndex((music) => music.ipfs_hash === firstSong.ipfs_hash),
-      1
-    );
-    //섞어주고
-    shuffle(likeMusic);
-    //넣어주고
-    likeMusic.unshift(firstSong);
-    setCount(0);
+    if(likeMusic.length > 1){
+      const firstSong = likeMusic[count]; //넣을꺼
+      //지금재생 찾아서 삭제
+      likeMusic.splice( likeMusic.findIndex((music) => music.ipfs_hash === firstSong.ipfs_hash), 1);
+      //섞어주고
+      shuffle(likeMusic);
+      //넣어주고
+      likeMusic.unshift(firstSong);
+      setCount(0);
+    }
     await fakeFetch();
     setShuffle({ isLoading: false });
   }

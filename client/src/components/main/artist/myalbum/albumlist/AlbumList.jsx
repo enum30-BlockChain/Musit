@@ -84,7 +84,7 @@ export default function AlbumList() {
   return (
     <Paper
       className="table-container"
-      sx={{ width: "1400px", overflow: "hidden", bgcolor: "var(--box1-color)" }}
+      sx={{mx:'auto', width: "100%", overflow: "hidden", bgcolor: "var(--box1-color)" }}
     >
       <TableContainer sx={{ maxHeight: 600 }}>
         <Table stickyHeader aria-label="sticky table">

@@ -4,7 +4,7 @@
 }
 
 .Album .list {
-  margin: 5px;
+  margin: auto;
   width: 100%;
   z-index: 1;
 }
