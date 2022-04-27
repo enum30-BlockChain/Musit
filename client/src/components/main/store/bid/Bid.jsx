@@ -422,7 +422,6 @@ const LoadingContent = () => {
 					</section>
 				</section>
 			</section>
-			<SimpleBackdrop />
 		</>
 	);
 };

@@ -1,7 +1,7 @@
 import { Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { selectedMusitNFT } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
 import Error from "../../../Error";
@@ -40,11 +40,22 @@ const Buy = () => {
 /* 페이지 로딩 Success 화면 */
 const SuccessContent = () => {
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
+	const [buyLoading, setbuyLoading] = useState(false);
+	const navigate = useNavigate();
 
 	// NFT 판매 등록
 	const buyOnClick = async (e) => {
+		setbuyLoading(true)
 		e.preventDefault();
-		await Ethers.purchaseNFT(selectedNFT.itemId)
+		const result = await Ethers.purchaseNFT(selectedNFT.itemId)
+		setbuyLoading(false)
+		if(result && result.confirmations == 1) {
+			window.alert("구매에 성공했습니다!")
+			navigate('/mypage/mynftlist')
+		} else {
+			window.alert("구매에 실패했습니다.")
+			navigate('/store/')
+		}
 	}
 
 	return (
@@ -116,8 +127,8 @@ const SuccessContent = () => {
 						</h1>
 					</section>
 				</>}
-				
 			</section>
+			{buyLoading && <SimpleBackdrop/>}
 		</section>
 	);
 };
@@ -175,7 +186,6 @@ const LoadingContent = () => {
 					</section>
 				</section>
 			</section>
-			<SimpleBackdrop/>
 		</>
 	);
 };
