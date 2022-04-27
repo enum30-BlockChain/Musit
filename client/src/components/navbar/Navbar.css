@@ -116,6 +116,10 @@ body.dark .side-nav .nav-links li a:hover:before {
   text-shadow: 2px 2px 1px var(--black-light-color);
 }
 
+body.dark .side-nav .nav-links li.active :is(i, .link-name) {
+  color: var(--text-color);
+}
+
 body.dark .side-nav .nav-links li a:hover :is(i, .link-name) {
   color: var(--text-color);
 }

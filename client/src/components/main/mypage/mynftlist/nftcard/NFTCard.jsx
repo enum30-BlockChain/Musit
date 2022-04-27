@@ -5,7 +5,7 @@ import "./NFTCard.css";
 const NFTCard = ({data}) => {
 	const navigate = useNavigate()
 	const cardOnClick = () => {
-		navigate(`/store/enroll/${data.tokenId}`);
+		navigate(`/enroll/${data.tokenId}`);
 	}
 	
   return (

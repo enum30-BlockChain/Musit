@@ -1,6 +1,6 @@
 .buy-container {
   position: relative;
-  top: 80%;
+  top: 85%;
   left: 50%;
   transform: translate(-50%, -80%);
   display: flex;
@@ -17,6 +17,11 @@
 }
 .buy-container :is(h2, i, input) {
   color: var(--black-light-color);
+}
+.buy-container h3 {
+  color: var(--error-color);
+  text-align: left;
+  
 }
 .buy-container p {
   color: var(--black-light-color);
@@ -183,6 +188,14 @@
   width: 329px;
   color: var(--black-light-color);
   cursor: pointer;
+}
+
+.buy-container .right-container .info-container .sold-box {
+  border: none;
+  font-size: 18px;
+  align-items: center;
+  background-color: var(--error-color);
+  color: var(--content-bg-color1);
 }
 
 /** not-available 컨테이너 **/

@@ -42,7 +42,7 @@ body {
 }
 
 .pricing-table .content .price {
-  background: linear-gradient(to right, #f1b970 0%, #5652a3 100%);
+  background: var(--panel-color);
   width: 90px;
   height: 90px;
   margin: auto;
@@ -74,7 +74,7 @@ body {
 }
 
 .pricing-table .content .sign-up {
-  background: linear-gradient(to right, #f1b970 0%, #5652a3 100%);
+  background: var(--panel-color);
   border-radius: 40px;
   font-weight: 500;
   position: relative;
@@ -103,6 +103,7 @@ body {
 
 .pricing-table .btn:hover {
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
 .pricing-table .btn.bordered {

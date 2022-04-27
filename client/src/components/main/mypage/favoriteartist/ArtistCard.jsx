@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LikeCardSkeleton from "./LikeCardSkeleton";
 import ArtistModel from "./ArtistModel";
-import "./css/FavoriteAritst.css";
 import LikeCard from "./newCard/LikeCard";
+import "./css/FavoriteAritst.css";
 
 export default function ArtistCard() {
   const [artistModal, setArtistModal] = useState("");

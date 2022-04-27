@@ -4,7 +4,7 @@
 }
 
 .artist-details {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
 }
 
@@ -26,6 +26,21 @@
   align-items: center;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
+}
+.artistpage .artist-details .dashboard .artist-info-container .artist-info {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.artistpage .artist-details .dashboard .artist-info-container .nickname-box {
+  margin-top: 15px;
+  background-color: var(--box1-color);
+  border-radius: 10px;
+}
+.artistpage .artist-details .dashboard .artist-info-container .address-box {
+  margin-top: 15px;
+  background-color: var(--box1-color);
+  border-radius: 10px;
 }
 
 .artistpage .artist-details .userinfo-layout .userinfo-card {

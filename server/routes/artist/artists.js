@@ -70,8 +70,6 @@ router.patch("/:user_address", async (req, res, next) => {
       req.body.artist_name.trim() === ""
     ) {
       res.send(400, "Empty artist_name");
-    } else if (req.body.img !== undefined && req.body.img.trim() === "") {
-      res.send(400, "Empty img");
     } else {
       const result = await Artist.update(req.body, {
         where: { user_address: req.params.user_address },

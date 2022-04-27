@@ -12,13 +12,14 @@ const Album = () => {
   useEffect(() => {
     dispatch(readArtistData());
   }, []);
-
-  console.log(artist);
-
   return (
     <>
       <div className="Album">
         <div className="list">
+          <div className="title">
+            <i className="uil uil-compact-disc"></i>
+            <span className="text"> Album List</span>
+          </div>
           {artist.loading ? (
             <CircularProgress />
           ) : artist.Music == "" ? (

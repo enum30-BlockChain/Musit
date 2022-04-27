@@ -9,7 +9,7 @@ const SellCard = ({data}) => {
 	const dispatch = useDispatch()
 
 	const cardOnClick = async () => {
-		navigate(`/store/buy/${data.tokenId}`);
+		navigate(`/buy/${data.tokenId}`);
 		await dispatch(selectedMusitNFT(data))
 	}
 	
@@ -25,10 +25,7 @@ const SellCard = ({data}) => {
 						<div className="first-box">
 							<div className="price-box">
 								<h2>Price</h2>
-								<h1>
-									<img src="./images/eth.png" />
-									{data.price}
-								</h1>
+								<h1>{data.price} ETH</h1>
 							</div>
 							<div className="tokenid-box">
 								<h2>Token Id</h2>
