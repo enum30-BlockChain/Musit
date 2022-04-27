@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MusicPlayerSlider from "../../serach/MusicPlayerSlider";
+import ArtistModel from "./ArtistModel";
 
 import "./Media.css";
 import SimpleBackdrop from "../../../SimpleBackdrop";
@@ -36,6 +37,7 @@ const Media = () => {
   const [likeArtistRankingValue, setLikeArtistRankingValue] = useState(0);
   const [veiwCard, setVeiwCard] = useState(0);
   const [musicmodal, setmusicmodal] = useState("");
+  const [artistModal, setArtistModal] = useState("");
 
   useEffect(async () => {
     if (musicList.length > 6) {
@@ -74,6 +76,11 @@ const Media = () => {
     setmusicmodal(music);
   };
 
+  const ArtistPostInfo = (e) => {
+    console.log(e);
+    setArtistModal(e);
+  };
+
   const likeArtistRankingMoveLeft = () => {
     likeArtistRankingValue === 0
       ? setLikeArtistRankingValue(-100 * (likeArtistTopList.length - veiwCard))
@@ -85,14 +92,21 @@ const Media = () => {
       : setLikeArtistRankingValue(likeArtistRankingValue - 100);
   };
 
+  console.log(likeArtistTopList);
+
   return (
     <>
       {lodingState ? (
         <SimpleBackdrop />
       ) : (
         <Box sx={{ overflow: "hidden" }}>
-          <Box sx={{ maxHeight: "800px", overflow: "auto" }}>
-            <Box sx={{ height: "40%", mb: 2 }}>
+          <Box
+            sx={{
+              height: "800px",
+              overflow: "auto",
+            }}
+          >
+            <Box sx={{ height: "400px", mb: 2 }}>
               <div className="listening-layout">
                 <div className="ranking-title">
                   <i className="uil uil-headphones-alt"></i>
@@ -172,7 +186,7 @@ const Media = () => {
               </div>
             </Box>
 
-            <Box sx={{ height: "40%", mt: 1 }}>
+            <Box sx={{ height: "400px", mt: 1 }}>
               <div className="listening-layout">
                 <div className="like-ranking">
                   <div className="ranking-title">
@@ -254,7 +268,7 @@ const Media = () => {
               </div>
             </Box>
 
-            <Box sx={{ height: "40%", mt: 1 }}>
+            <Box sx={{ height: "400px", mt: 1 }}>
               <div className="like-ranking">
                 <div className="ranking-title">
                   <i className="uil uil-thumbs-up"></i>
@@ -295,7 +309,7 @@ const Media = () => {
                           key={index}
                           sx={{ cursor: "pointer", width: 210, my: 5, m: 1 }}
                           onClick={() => {
-                            postInfo(artist);
+                            ArtistPostInfo(artist);
                           }}
                         >
                           {artist.img == "" ? (
@@ -328,7 +342,10 @@ const Media = () => {
                               display="block"
                               variant="overline"
                             ></Typography>
-                            <Typography variant="caption"></Typography>
+                            <Typography variant="caption">
+                              {`${artist.Music.length} MusicUpload `} •{" "}
+                              {`${artist.ArtistLikes.length} like`}
+                            </Typography>
                           </Box>
                         </Box>
                       </div>
@@ -350,6 +367,15 @@ const Media = () => {
           sx={{ display: "fixed" }}
           musicmodal={musicmodal}
           setmusicmodal={setmusicmodal}
+        />
+      )}
+
+      {/* 모달창입니당 */}
+      {artistModal && (
+        <ArtistModel
+          sx={{ display: "block" }}
+          artistModal={artistModal}
+          setArtistModal={setArtistModal}
         />
       )}
     </>
