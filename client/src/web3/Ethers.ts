@@ -468,6 +468,17 @@ export default class Ethers {
 		}
 	}
 
+	// subscription EndAt 불러오기
+	static async getIsFreeCouponUsed(address: string): Promise<boolean | null> {
+		try {
+			const isFreeCouponUsed = await subscription.getIsFreeCouponUsed(address);
+			return isFreeCouponUsed;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
 	/*** Other Functions ***/
 	//TODO: 수입 계산 함수
 	// static async getIncome(address: string): Promise<boolean | null> {
