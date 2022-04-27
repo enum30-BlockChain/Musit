@@ -161,6 +161,28 @@ export default class Ethers {
 		}
 	}
 
+	// NFT 권한 확인
+	static async checkApprovedAddress(
+		contract: string,
+		tokenId: string
+	): Promise<boolean | null> {
+		try {
+			let contractAddress;
+			if (contract === "marketplace") {
+				contractAddress = marketplace.address;
+			} else if (contract === "auction") {
+				contractAddress = auction.address;
+			}
+			const approvedAddress = await musitNFT.getApproved(tokenId)
+			
+			const result = (approvedAddress === contractAddress)
+			return result;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	}
+
 	// Marketplace/Auction에 NFT 있는지 확인
 	static async isOnMarket(
 		tokenId: string | number
