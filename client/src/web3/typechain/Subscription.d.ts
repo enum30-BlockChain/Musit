@@ -24,6 +24,7 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     "buy(uint8)": FunctionFragment;
     "getDuration(uint8)": FunctionFragment;
     "getEndAt(address)": FunctionFragment;
+    "getIsFreeCouponUsed(address)": FunctionFragment;
     "getPrice(uint8)": FunctionFragment;
   };
 
@@ -33,6 +34,10 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "getEndAt", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "getIsFreeCouponUsed",
+    values: [string]
+  ): string;
   encodeFunctionData(
     functionFragment: "getPrice",
     values: [BigNumberish]
@@ -44,6 +49,10 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getEndAt", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getIsFreeCouponUsed",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getPrice", data: BytesLike): Result;
 
   events: {};
@@ -105,6 +114,11 @@ export class Subscription extends BaseContract {
 
     getEndAt(user: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    getIsFreeCouponUsed(
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     getPrice(
       plan: BigNumberish,
       overrides?: CallOverrides
@@ -123,6 +137,11 @@ export class Subscription extends BaseContract {
 
   getEndAt(user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+  getIsFreeCouponUsed(
+    user: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   getPrice(plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
@@ -134,6 +153,11 @@ export class Subscription extends BaseContract {
     ): Promise<BigNumber>;
 
     getEndAt(user: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    getIsFreeCouponUsed(
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     getPrice(plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
   };
@@ -153,6 +177,11 @@ export class Subscription extends BaseContract {
 
     getEndAt(user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    getIsFreeCouponUsed(
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getPrice(plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
@@ -168,6 +197,11 @@ export class Subscription extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getEndAt(
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getIsFreeCouponUsed(
       user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;

@@ -69,4 +69,9 @@ contract Subscription {
   function getEndAt (address user) public view returns(uint) {
     return endAt[user];
   }
+
+  // 구독 종료 시간 불러오기
+  function getIsFreeCouponUsed (address user) public view returns(bool) {
+    return isFreeCouponUsed[user];
+  }
 }
