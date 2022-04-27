@@ -1,6 +1,7 @@
 import { Skeleton } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
+import SimpleBackdrop from '../../../../SimpleBackdrop'
 
 const NFTCardSkeleton = () => {
   
@@ -20,6 +21,7 @@ const NFTCardSkeleton = () => {
   return (
     <>
       {array}
+      <SimpleBackdrop />
     </>
   )
 }
