@@ -74,25 +74,25 @@
   height: 100%;
   border-radius: 50%;
 } */
-.userinfo-info .nickname-box{
+.mypage .userinfo-info .nickname-box{
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
 }
 
-.userinfo-info .address-box{
+.mypage .userinfo-info .address-box{
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
 }
 
-.userinfo-info .Nation-box{
+.mypage .userinfo-info .Nation-box{
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
 }
 
-.userinfo-info .Genre-box{
+.mypage .userinfo-info .Genre-box{
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;

@@ -44,6 +44,11 @@ export default function Artistinfo() {
     setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
     setImg(e.target.files[0]);
   };
+
+  const sliceAddress =
+    metamask.accounts[0] &&
+    metamask.accounts[0].slice(0,5) +"..."+metamask.accounts[0].slice(-4)
+
   return (
     <>
       <div className="artist-info-container">
@@ -76,7 +81,7 @@ export default function Artistinfo() {
           <div className="artist-info">
 
             <div className="artistname-box">
-              <h1 className="nickname">ArtistName</h1>
+              <h2 className="nickname">ArtistName</h2>
               {visible ? (
                 <div>
                   <Input
@@ -88,18 +93,18 @@ export default function Artistinfo() {
                   />
                 </div>
               ):(
-                <p>{artist.artist_name}</p>
+                <h3>{artist.artist_name}</h3>
               )}
             </div>
 
             <div className="address-box">
-              <h1 className="address">Address</h1>
-              <span>{metamask.accounts[0]}</span>
+              <h2 className="address">Address</h2>
+              <h3>{sliceAddress}</h3>
             </div>
 
             <div className="like-box">
-              <h1 className="likes">Like</h1>
-              <span>좋아요 : {artist.likes} </span>
+              <h2 className="likes">Likes</h2>
+              <h3>{artist.likes} </h3>
             </div>
             
             <div className="setting-btn">

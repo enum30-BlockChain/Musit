@@ -92,9 +92,7 @@ export default function Userinformation({}) {
 
   const sliceAddress =
     metamask.accounts[0] &&
-    metamask.accounts[0].substr(0, 5) +
-      metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
-      "...";
+    metamask.accounts[0].slice(0,5) +"..."+metamask.accounts[0].slice(-4) ;
   return (
     <div className="userinfo-layout">
       <div className="userinfo-card">
@@ -124,7 +122,7 @@ export default function Userinformation({}) {
         </div>
         <div className="userinfo-info">
           <div className="nickname-box">
-            <h1 className="nickname">Nickname</h1>
+            <h2 className="nickname">Nickname</h2>
             {visible ? (
               <div>
                 <Input
@@ -136,13 +134,13 @@ export default function Userinformation({}) {
                 />
               </div>
             ) : (
-              <p>{user.nickname}</p>
+              <h3>{user.nickname}</h3>
             )}
           </div>
 
           <div className="address-box">
-            <h1 className="address">Address</h1>
-            <span>{metamask.accounts[0]}</span>
+            <h2 className="address">Address</h2>
+            <h3>{sliceAddress}</h3>
           </div>
 
           <div className="nation-box">
@@ -157,7 +155,7 @@ export default function Userinformation({}) {
             ) : (
               <div>
                 <h2 className="Nation"> Nation</h2>
-                <p>국가 : {user.nation}</p>
+                <h3>{user.nation}</h3>
               </div>
             )}
           </div>
@@ -189,7 +187,7 @@ export default function Userinformation({}) {
                 })}
               </div>
             ) : (
-              <span>{user.genre}</span>
+              <h3>{user.genre.join(', ')}</h3>
             )}
           </div>
 
