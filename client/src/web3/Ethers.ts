@@ -469,9 +469,10 @@ export default class Ethers {
 	}
 
 	// subscription EndAt 불러오기
-	static async getIsFreeCouponUsed(address: string): Promise<boolean | null> {
+	static async getIsFreeCouponUsed(): Promise<boolean | null> {
 		try {
-			const isFreeCouponUsed = await subscription.getIsFreeCouponUsed(address);
+			const userAddress = await signer.getAddress();
+			const isFreeCouponUsed = await subscription.getIsFreeCouponUsed(userAddress);
 			return isFreeCouponUsed;
 		} catch (error) {
 			console.log(error);
