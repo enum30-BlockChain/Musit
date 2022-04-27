@@ -52,7 +52,8 @@ function Search(props) {
   const getUser = async () => {
     //유저검색
     let searchCount = artistList.data.filter(
-      (a) => a.artist_name.toLowerCase().indexOf(content.toLowerCase()) > -1
+      (artist) =>
+        artist.artist_name.toLowerCase().indexOf(content.toLowerCase()) > -1
     );
     setFindArtist(searchCount);
     setViewArtistCard(searchCount.length);
@@ -62,18 +63,17 @@ function Search(props) {
     } else {
       setViewArtistCard(searchCount.length);
     }
-    //TODO 아티스트 길이 조절해서 카드넘기는거 해봐야지
   };
 
   useEffect(() => {
-    if (!musicList.loading) {
+    if (!musicList.loading && artistList.loading) {
       const init = async () => {
         await getUser();
         await getmusicList();
       };
       init();
     }
-  }, [musicList]);
+  }, [musicList, artistList]);
 
   useEffect(() => {
     changeSearchPage();
@@ -92,9 +92,9 @@ function Search(props) {
       const searchMusicNameData = musicList.data.filter((song) => {
         return song.title.toLowerCase().indexOf(searching.toLowerCase()) > -1;
       });
-      const searchAtistData = artistList.data.filter((a) => {
+      const searchAtistData = artistList.data.filter((artist) => {
         return (
-          a.artist_name.toLowerCase().indexOf(searching.toLowerCase()) > -1
+          artist.artist_name.toLowerCase().indexOf(searching.toLowerCase()) > -1
         );
       });
       setFindMusic(searchMusicNameData);
@@ -108,8 +108,8 @@ function Search(props) {
         setValue(0);
       }
 
-      if (searchAtistData.length > 8) {
-        setViewArtistCard(8);
+      if (searchAtistData.length > 4) {
+        setViewArtistCard(0);
         setValue2(0);
       } else {
         setViewArtistCard(searchAtistData.length);
@@ -139,6 +139,7 @@ function Search(props) {
     value2 === -100 * (findArtist.length - viewArtistCard)
       ? setValue2(0)
       : setValue2(value2 - 100);
+    console.log(value2);
   };
 
   return (

@@ -9,7 +9,6 @@ import Progress from "./progress/Progress";
 import MessageHandler from "./progress/MessageHandler";
 import Checkbox from "@mui/material/Checkbox";
 
-
 // const { create } = require("ipfs-http-client");
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 export const Musicupload = () => {
@@ -215,17 +214,12 @@ export const Musicupload = () => {
               onChange={getDescription}
             />
             <h2>Genre</h2>
-            <Box
-             sx={{ mx: "auto", width: "500px" }}>
+            <Box sx={{ mx: "auto", width: "500px" }}>
               <form>
-
-                <Box 
-                display='flex'
-                flexWrap="wrap"
-                justifyContent='flex-start'>
+                <Box display="flex" flexWrap="wrap" justifyContent="flex-start">
                   {genre.map((MusicType, index) => {
                     return (
-                      <Box sx={{ width: "33%" ,textAlign:'left'}}>
+                      <Box sx={{ width: "33%", textAlign: "left" }}>
                         <label id={index} key={index}>
                           <Checkbox
                             className="checkbox-musicupload"
