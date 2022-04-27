@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 const db = require(".");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -48,7 +48,8 @@ module.exports = (sequelize, DataTypes) => {
 			img: { type: DataTypes.STRING, allowNull: true },
 			register_date: {
 				type: DataTypes.DATETIME,
-				allowNull: false,
+				allowNull: true,
+				defaultValue: Sequelize.fn('now'),
 			},
 		},
 		{
