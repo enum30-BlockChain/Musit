@@ -1,22 +1,35 @@
 import "./Subscription.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Ethers from "../../../../web3/Ethers"
+import SimpleBackdrop from "../../../SimpleBackdrop";
+
+const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
 
 export const Subscription = () => {
+    const [lodingState, setLoadingState] = useState(true);
     const nowDate = Date.now()
     const dayAfter30 = new Date(nowDate + 1000 * 60 * 60 * 24 * 30)
     const dayAfter90 = new Date(nowDate + 1000 * 60 * 60 * 24 * 90)
     const dayAfter180 = new Date(nowDate + 1000 * 60 * 60 * 24 * 180)
-  
-  const Subscription = (e) => {
-    Ethers.buySubscription(e.target.id)
- }
+    const [couponUsedState, setCouponUsedState] = useState(false)
+    const getBuySubscription = (e) => {
+        Ethers.buySubscription(e.target.id)
+    }
 
+    useEffect(async () => {
+      const state = await Ethers.getIsFreeCouponUsed()
+      setCouponUsedState(state)
+      await fakeFetch();
+      setLoadingState(false);
+    }, [])
+    
   return (
     <>
+    {lodingState ? (
+        <SimpleBackdrop />
+      ) : (
      <div className="wrapper">
-         
-        <div className="pricing-table gprice-single">
+         {!couponUsedState && <div className="pricing-table gprice-single">
             <div className="head">
                  <h4 className="title">30 days Free Supscription</h4> 
             </div>
@@ -31,10 +44,10 @@ export const Subscription = () => {
                         <li><h1>~{dayAfter30.getYear()+1900} . {dayAfter30.getMonth() + 1} . {dayAfter30.getDate()}</h1></li>
                     </ul>
                 <div className="sign-up">
-                    <a onClick={Subscription} id='0' className="btn bordered radius">Buy Now</a>
+                    <a onClick={getBuySubscription} id='0' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
-        </div>
+        </div>}
 
         <div className="pricing-table gprice-single">
             <div className="head">
@@ -51,7 +64,7 @@ export const Subscription = () => {
                         <li><h1>~{dayAfter30.getYear()+1900} . {dayAfter30.getMonth() + 1} . {dayAfter30.getDate()}</h1></li>
                     </ul>
                 <div className="sign-up">
-                    <a onClick={Subscription} id='1' className="btn bordered radius">Buy Now</a>
+                    <a onClick={getBuySubscription} id='1' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
         </div>
@@ -71,7 +84,7 @@ export const Subscription = () => {
                     <li><h1>~{dayAfter90.getYear()+1900} . {dayAfter90.getMonth() + 1} . {dayAfter90.getDate()}</h1></li>
                 </ul>
                 <div className="sign-up">
-                    <a onClick={Subscription} id='2' className="btn bordered radius">Buy Now</a>
+                    <a onClick={getBuySubscription} id='2' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
         </div>
@@ -91,11 +104,11 @@ export const Subscription = () => {
                 <li><h1>~{dayAfter180.getYear()+1900} . {dayAfter180.getMonth() + 1} . {dayAfter180.getDate()}</h1></li>
             </ul>
                 <div className="sign-up">
-                    <a onClick={Subscription} id='3' className="btn bordered radius">Buy Now</a>
+                    <a onClick={getBuySubscription} id='3' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
         </div>
-    </div>
+    </div>)}
     </>
   );
 };

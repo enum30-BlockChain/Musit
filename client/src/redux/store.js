@@ -19,6 +19,7 @@ import {
 } from "./reducers/musicReducer";
 import { searchingReducer } from "./reducers/searchingReducer";
 import {
+  mintingMusitNFTReducer,
   onAuctionMusitNFTReducer,
   onMarketMusitNFTReducer,
   ownedMusitNFTReducer,
@@ -52,6 +53,7 @@ const rootReducer = combineReducers({
 
   // Contracts Reducer
   ownedMusitNFT: ownedMusitNFTReducer,
+  mintingMusitNFT: mintingMusitNFTReducer,
   market: onMarketMusitNFTReducer,
   auction: onAuctionMusitNFTReducer,
   selectedMusitNFT: selectedMusitNFTReducer,

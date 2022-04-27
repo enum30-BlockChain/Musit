@@ -22,6 +22,12 @@ const NFTCard = ({data}) => {
 							<h1>{data.title}</h1>
 						</div>
 						<div className="content">
+							<h2>Token Id</h2>
+							<h1>{data.tokenId}</h1>
+						</div>
+					</div>
+					<div className="content-box">
+						<div className="content">
 							<h2>Artist</h2>
 							<h1>{data.artist_name}</h1>
 						</div>
