@@ -193,9 +193,10 @@ function Search(props) {
                   findMusic &&
                   findMusic.map((music, i) => {
                     return (
-                      <Grid xs={{ width: "25%" }} key={i}>
+                      <Grid sx={{ width: "25%" }} key={i}>
                         <div
                           className="glide"
+                          key={i}
                           style={{ transform: `translateX(${value}%)` }}
                         >
                           <SongCard
@@ -264,9 +265,8 @@ function Search(props) {
                   findArtist &&
                   findArtist.map((artist, i) => {
                     return (
-                      <Grid xs={{ width: "25%" }}>
+                      <Grid sx={{ width: "25%" }} key={i}>
                         <div
-                          key={i}
                           className="glide"
                           style={{ transform: `translateX(${value2}%)` }}
                         >
