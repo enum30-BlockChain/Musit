@@ -19,8 +19,7 @@ export const Subscription = () => {
     setLoadingState(true);
     const result = await Ethers.buySubscription(e.target.id);
     setLoadingState(false);
-    console.log(result);
-    if (result && result.confirmation === 1) {
+    if (result && result.confirmations == 1) {
       window.alert("구매에 성공했습니다");
       navigate("/mypage");
     } else {
@@ -37,9 +36,7 @@ export const Subscription = () => {
 
   return (
     <>
-      {lodingState ? (
-        <SimpleBackdrop />
-      ) : (
+
         <div className="wrapper">
           {!couponUsedState && (
             <div className="pricing-table gprice-single">
@@ -191,7 +188,7 @@ export const Subscription = () => {
             </div>
           </div>
         </div>
-      )}
+        {lodingState && <SimpleBackdrop />}
     </>
   );
 };

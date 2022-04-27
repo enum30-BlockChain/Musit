@@ -4,6 +4,8 @@ import { readOnAuctionNFTList } from '../../../redux/actions/contractActions';
 import Nothing from '../../landingpage/pages/Nothing';
 import SimpleBackdrop from '../../SimpleBackdrop';
 import AuctionCard from './cards/AuctionCard';
+import CardSkeleton from './cards/CardSkeleton';
+
 
 
 const fakeFetch = (delay = 500) =>
@@ -21,7 +23,11 @@ const Auction = () => {
     setLoading(false)
   }, []);
 
-  if (loading) return (<SimpleBackdrop/>)
+  if (loading) return (
+		<>
+			<CardSkeleton />
+		</>
+	)
   return (
 		<section className="auction-box">
 			{auction.length > 0 ? (

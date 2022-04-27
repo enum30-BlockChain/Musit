@@ -56,6 +56,10 @@ const SuccessContent = () => {
 
 			{/*** 왼쪽 컨테이너 ***/}
 			<section className="left-container">
+				<div>
+					<h2>Token Id</h2>
+					<h1>{selectedNFT.tokenId}</h1>
+				</div>
 				<div className="title-box">
 					<h2>Title</h2>
 					<h1>{selectedNFT.title}</h1>
@@ -78,9 +82,13 @@ const SuccessContent = () => {
 				{/* 상세정보 컨테이너 */}
 				{!selectedNFT.sold ? <>
 					<section className="info-container">
-					<h1 className="title">
+					<h5 className="title">
 						BUY NFT
-					</h1>
+					</h5>
+					<div>
+						<h2>Auction Item Id</h2>
+						<h1>{selectedNFT.itemId}</h1>
+					</div>
 					<div className="genre-box">
 						<h2>
 							<i className="uil uil-music"></i> Genre

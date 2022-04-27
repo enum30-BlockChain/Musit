@@ -14,12 +14,20 @@ export const readMetamaskData = () => {
 				const network = await metamask.request({
 					method: "eth_chainId",
 				});
-				
+				const balance = await metamask.request({
+					method: "eth_getBalance",
+					params: [
+						accounts[0],
+						'latest'
+					],
+				});
+
 				dispatch({
 					type: ActionTypes.METAMASK_DATA_SUCCESS,
 					payload: {
 						accounts: accounts,
 						network: chainIdToNetworkName(network),
+						balance: parseInt(balance, 16)
 					},
 				});
 			} else {

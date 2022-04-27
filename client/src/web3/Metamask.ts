@@ -96,6 +96,9 @@ export default class Metamask {
 			try {
 				const balance = await metamask.request({
 					method: "eth_getBalance",
+					params: [
+						address,
+						'latest']
 				});
 				const message: string = `💰Your Balance is ${balance})`;
 				return new Response(balance, message);

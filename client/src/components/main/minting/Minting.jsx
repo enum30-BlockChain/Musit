@@ -40,7 +40,7 @@ const SuccessContent = ({ ipfs_hash }) => {
   const musicData = useSelector((state) => state.music);
   const minting = useSelector((state) => state.mintingMusitNFT);
   const dispatch = useDispatch();
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
   const mintingOnClick = async () => {
     const metadata = {
@@ -52,7 +52,8 @@ const SuccessContent = ({ ipfs_hash }) => {
       artist_name: musicData.artist_name,
       artist_address: artistData.user_address,
     };
-    const result = await dispatch(mintingMusitNFT(metadata));
+    await dispatch(mintingMusitNFT(metadata));
+    
     if (result !== null) {
       window.alert("Minting 정상적으로 완료 되었습니다.")
       navigate(`/mypage/mynftlist`);

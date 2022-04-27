@@ -1,9 +1,9 @@
 import { Skeleton } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
-import SimpleBackdrop from '../../../../SimpleBackdrop'
+import SimpleBackdrop from '../../../SimpleBackdrop'
 
-const NFTCardSkeleton = () => {
+const CardSkeleton = () => {
   
   const array = []
   for (let i = 0; i < 8; i++) {
@@ -26,4 +26,4 @@ const NFTCardSkeleton = () => {
   )
 }
 
-export default NFTCardSkeleton
+export default CardSkeleton

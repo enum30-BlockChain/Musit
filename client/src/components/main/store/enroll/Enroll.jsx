@@ -170,6 +170,7 @@ const OrdinaryForm = () => {
 	let { tokenId } = useParams();
 	const [sellPrice, setSellPrice] = useState("0.0001");
 	const [permissionLoading, setPermissionLoading] = useState(false);
+	const [submitLoading, setSubmitLoading] = useState(false);
 	const [isApproved, setIsApproved] = useState(false);
 	const navigate = useNavigate()
 
@@ -182,7 +183,7 @@ const OrdinaryForm = () => {
 		setPermissionLoading(true)
 		const result = await (await Ethers.approveMyNFT("marketplace", tokenId)).wait()
 		setPermissionLoading(false)
-		if (result && result.confirmations === 1) {
+		if (result && result.confirmations == 1) {
 			window.alert("권한 승인 요청에 성공했습니다.")
 			setIsApproved(await Ethers.checkApprovedAddress("marketplace", tokenId))
 		} else {
@@ -203,7 +204,16 @@ const OrdinaryForm = () => {
     if(!isFormValid) {
 			document.querySelector('.ordinary-form .input-box').reportValidity();
 		} else {
-			await Ethers.enrollMarketplace(tokenId, sellPrice)
+			setSubmitLoading(true)
+			const result = await Ethers.enrollMarketplace(tokenId, sellPrice)
+			if (result && result.confirmations == 1) {
+				window.alert("NFT 판매 등록에 성공했습니다.")
+				navigate(`/store`);
+			} else {
+				window.alert("판매 등록에 실패했습니다.")
+				navigate(`/mypage/mynftlist`);
+			}
+			setSubmitLoading(false)
 		}
 	}
 
@@ -243,10 +253,11 @@ const OrdinaryForm = () => {
 						required
 					/>
 					{isApproved && <button onClick={submitOnClick}>submit</button>}
-					{!isApproved && <button className="disabled-btn">submit</button>}
+					{!isApproved && <button disabled={true} className="disabled-btn">submit</button>}
 				</form>
 			</div>
 			{permissionLoading && <SimpleBackdrop />}
+			{submitLoading && <SimpleBackdrop />}
 		</>
 	);
 };
@@ -257,17 +268,20 @@ const AuctionForm = () => {
 	let { tokenId } = useParams();
 	const [permissionLoading, setPermissionLoading] = useState(false);
 	const [isApproved, setIsApproved] = useState(false);
+	const [submitLoading, setSubmitLoading] = useState(false);
+	const navigate = useNavigate()
 
 	useEffect(async ()=>{
 		setIsApproved(await Ethers.checkApprovedAddress("auction", tokenId))
 	}, [])
 
 	// Auction 컨트랙트에 내 NFT를 접근 권한 허용하기
+	// Auction 컨트랙트에 내 NFT를 접근 권한 허용하기
 	const setPermissionOnClick = async () => {
 		setPermissionLoading(true)
 		const result = await (await Ethers.approveMyNFT("auction", tokenId)).wait()
 		setPermissionLoading(false)
-		if (result && result.confirmations === 1) {
+		if (result && result.confirmations == 1) {
 			window.alert("권한 승인 요청에 성공했습니다.")
 			setIsApproved(await Ethers.checkApprovedAddress("auction", tokenId))
 		} else {
@@ -283,7 +297,7 @@ const AuctionForm = () => {
 		const time = (new Date(ms).toTimeString().slice(0,5))
 		let year = minDateTime.getFullYear();
 		let month = ("0" + (minDateTime.getMonth() + 1)).slice(-2);
-		let date = ("0" + (minDateTime.getDate() + 1)).slice(-2);
+		let date = ("0" + (minDateTime.getDate())).slice(-2);
 		const result = `${year}-${month}-${date}T${time}`
 		return result;
 	}
@@ -295,7 +309,7 @@ const AuctionForm = () => {
 		const time = (new Date(ms).toTimeString().slice(0,5))
 		let year = maxDateTime.getFullYear();
 		let month = ("0" + (maxDateTime.getMonth() + 1)).slice(-2);
-		let date = ("0" + (maxDateTime.getDate() + 1)).slice(-2);
+		let date = ("0" + (maxDateTime.getDate())).slice(-2);
 		const result = `${year}-${month}-${date}T${time}`
 		return result;
 	}
@@ -308,10 +322,20 @@ const AuctionForm = () => {
     if(!isFormValid) {
 			document.querySelector('.auction-form .input-box').reportValidity();
 		} else {
+			setSubmitLoading(true)
 			const endAt = document.querySelector("#datetime-local").value;
 			const sellPrice = document.querySelector("#bid-price").value;
 			
-			await Ethers.enrollAuction(tokenId, sellPrice, new Date(endAt).getTime())
+			const result = await Ethers.enrollAuction(tokenId, sellPrice, new Date(endAt).getTime())
+			setSubmitLoading(false)
+
+			if (result && result.confirmations == 1) {
+				window.alert("경매 등록에 성공했습니다.")
+				navigate(`/store/auction`);
+			} else {
+				window.alert("경매 등록에 실패했습니다.")
+				navigate(`/mypage/mynftlist`);
+			}
 		}
 	}
 
@@ -366,10 +390,11 @@ const AuctionForm = () => {
 						/>
 					</div>
 					{isApproved && <button onClick={submitOnClick}>submit</button>}
-					{!isApproved && <button className="disabled-btn">submit</button>}
+					{!isApproved && <button disabled={true} className="disabled-btn">submit</button>}
 				</form>
-			</div>
+ 		</div>
 			{permissionLoading && <SimpleBackdrop />}
+			{submitLoading && <SimpleBackdrop />}
 		</>
 	);
 };

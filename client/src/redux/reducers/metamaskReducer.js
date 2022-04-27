@@ -4,6 +4,7 @@ const initialState = {
 	loading: false,
   accounts: [],
   network: null,
+  balance: null,
   error: false,
   errorMsg: "",
 };
