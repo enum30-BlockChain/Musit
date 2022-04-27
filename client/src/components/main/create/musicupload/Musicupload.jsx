@@ -187,7 +187,6 @@ export const Musicupload = () => {
                   }}
                   // onTimeUpdate= {(e) =>{
                   // }}
-                  autoplay
                   loop
                   controls
                 >
