@@ -10,7 +10,7 @@ export const Contentbox = () => {
   artist.Music.forEach((music) => {
     totalMusicPlayTime += music.play_count * music.play_time;
   });
-  console.log(artist);
+  
   return (
     <div className="contentbox">
       <div className="boxes">

@@ -92,7 +92,9 @@ function Search(props) {
         return song.title.toLowerCase().indexOf(searching.toLowerCase()) > -1;
       });
       const searchAtistData = artistList.data.filter((a) => {
-        return a.artist_name.toLowerCase().indexOf(searching.toLowerCase()) > -1;
+        return (
+          a.artist_name.toLowerCase().indexOf(searching.toLowerCase()) > -1
+        );
       });
       setFindMusic(searchMusicNameData);
       setFindArtist(searchAtistData);
@@ -107,8 +109,10 @@ function Search(props) {
 
       if (searchAtistData.length > 8) {
         setViewArtistCard(8);
+        setValue2(0);
       } else {
         setViewArtistCard(searchAtistData.length);
+        setValue2(0);
       }
     }
   };

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import useIntersect from "./UseIntersect";
 import "./ScrollEvent.css";
 import MainCard from "../../main/MainCard";
-import MainCardNav from "../../main/MainCardNav";
 import { useSelector } from "react-redux";
 import SimpleBackdrop from "../../../../SimpleBackdrop";
 

@@ -50,9 +50,9 @@ contract Subscription {
     } else if (plan == Plans.OPTION1) {
       return 30 days;
     } else if (plan == Plans.OPTION2) {
-      return 60 days;
-    } else if (plan == Plans.OPTION3) {
       return 90 days;
+    } else if (plan == Plans.OPTION3) {
+      return 180 days;
     } else {
       revert("Cannot get duration for wrong plan");
     }

@@ -27,15 +27,19 @@ export default function Artistinfo() {
             <Avatar
               alt="Remy Sharp"
               src={artist.img}
-              sx={{ width: 260, height: 260 }}
+              sx={{ my:1, width: 260, height: 260 }}
             />
           </div>
           <div className="artist-info">
-            <h2 className="nickname">Artist Name</h2>
-            <span>{artist.artist_name}</span>
+            <div className="nickname-box">
+              <h2 className="nickname">Artist Name</h2>
+              <span>{artist.artist_name}</span>
+            </div>
 
-            <h2 className="address">Address</h2>
-            <span>{sliceAddress}</span>
+            <div className="address-box">
+              <h2 className="address">Address</h2>
+              <span>{sliceAddress}</span>
+            </div>
           </div>
         </div>
       </div>

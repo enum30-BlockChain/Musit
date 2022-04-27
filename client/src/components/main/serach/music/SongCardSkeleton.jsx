@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -43,21 +43,21 @@ export default function SongCardSkeleton() {
                 gutterBottom
                 variant="title"
                 component="div"
-              > 
-              <Skeleton variant="rectangular" width="90%" />
+              >
+                <Skeleton variant="rectangular" width="90%" />
               </Typography>
-            <Typography variant="body2" gutterBottom>
-              <Skeleton variant="rectangular" width="40%" />
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              <Skeleton variant="rectangular" width="40%" />
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              <Skeleton variant="rectangular" width="40%" />
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              <Skeleton variant="rectangular" width="40%" />
-            </Typography>
+              <Typography variant="body2" gutterBottom>
+                <Skeleton variant="rectangular" width="40%" />
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                <Skeleton variant="rectangular" width="40%" />
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                <Skeleton variant="rectangular" width="40%" />
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                <Skeleton variant="rectangular" width="40%" />
+              </Typography>
             </div>
           </Grid>
         </Grid>

@@ -36,7 +36,7 @@ const LikeCard = ({ data, setArtistModal }) => {
       <div className="item-card">
         <div className="img-box" onClick={postInfo}>
           {data.img === "" ? (
-            <img src={usernull} classNames="register-avatar" />
+            <img src={usernull} className="register-avatar" />
           ) : (
             <img src={data.img} />
           )}

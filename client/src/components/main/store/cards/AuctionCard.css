@@ -1,0 +1,132 @@
+.store .content-container .auction-box {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.store .content-container .auction-box h2{
+  color: var(--black-light-color);
+  font-size: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.store .content-container .auction-box h1{
+  color: #000;
+  font-size: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.store .content-container .auction-box .item-card {
+  position: relative;
+  margin: 15px;
+  width: 280px;
+  height: 320px;
+  transition: var(--tran-02);
+}
+
+.store .content-container .auction-box .item-card:hover{ 
+  transform: rotateZ(1deg);
+}
+
+.store .content-container .auction-box .item-card .img-box{
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border: 5px solid var(--content-bg-color1);
+  background-color: var(--content-bg-color1);
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.store .content-container .auction-box .item-card:hover .content-wrap {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  transition: var(--tran-10);
+}
+
+.store .content-container .auction-box .item-card .img-box img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.store .content-container .auction-box .item-card .content-wrap {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--content-bg-color1);
+  width: 100%;
+  height: 80%;
+  top: 20%;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: var(--tran-05);
+}
+
+.store .content-container .auction-box .item-card .content-wrap .color-box{
+  background-color: var(--primary-color);
+  width: 100%;
+  height: 42%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.store .content-container .auction-box .item-card .content-wrap .color-box.end {
+  background-color: var(--sold-color);
+  color: var(--content-bg-color1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.store .content-container .auction-box .item-card .content-wrap .end-mark{
+  z-index: 1000;
+  font-size: 60px;
+  font-weight: 700;
+  color: rgb(236, 236, 236);
+  text-shadow: -0.05em 0.03em 0 var(--sold-color),
+    0.06em 0.04em 0 var(--black-light-color);
+}
+
+.store .content-container .auction-box .item-card .content-wrap .info-wrap{
+  width: 100%;
+  height: 58%;
+  text-align: center;
+}
+
+.store .content-container .auction-box .item-card .content-wrap .first-box {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  padding: 15px 10px;
+  width: 100%;
+  height: 50%;
+}
+
+.store .content-container .auction-box .item-card .content-wrap .first-box > div{
+  width: 50%;
+}
+
+.store .content-container .auction-box .item-card .content-wrap .second-box {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  padding: 15px 10px;
+  height: 50%;
+}
+
+.store .content-container .auction-box .item-card .content-wrap .second-box > div{
+  width: 50%;
+}
+
+.store .content-container .auction-box .item-card .content-wrap .second-box > div{
+  width: 50%;
+}

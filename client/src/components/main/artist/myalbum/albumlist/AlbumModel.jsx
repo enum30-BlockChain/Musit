@@ -76,6 +76,7 @@ const CoverImage = styled("div")({
   backgroundColor: "rgba(0,0,0,0.08)",
   "& > img": {
     width: "100%",
+    height: "100%",
   },
 });
 
@@ -128,6 +129,9 @@ export default function AlbumModel(props) {
     dispatch(toggleLikeMusic(props.musicmodal));
   };
 
+  const sliceTitle =
+    props.musicmodal.title && props.musicmodal.title.substr(0, 5) + "...";
+
   return (
     <Box sx={{ width: "100%", overflow: "hidden" }}>
       <Widget>
@@ -161,13 +165,22 @@ export default function AlbumModel(props) {
                 color="text.secondary"
                 fontWeight={500}
               >
-                Genre: {props.musicmodal.Genre}
+                <div style={{ display: "flex" }}>
+                  <h3>Genre: </h3>
+                  <p>{props.musicmodal.genre}</p>
+                </div>
               </Typography>
               <Typography noWrap>
-                <b> {props.musicmodal.title}</b>
+                <div style={{ display: "flex" }}>
+                  <h3>Title : </h3>
+                  <b> {sliceTitle}</b>
+                </div>
               </Typography>
               <Typography noWrap letterSpacing={-0.25}>
-                {props.musicmodal.artist_name}
+                <div style={{ display: "flex" }}>
+                  <h3>Artist Name : </h3>
+                  <b> {props.musicmodal.artist_name}</b>
+                </div>
               </Typography>
             </Box>
             <Box

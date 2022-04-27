@@ -60,6 +60,9 @@ export default function Userinformation({}) {
 
   const changeHandler = (checked, value) => {
     if (checked) {
+      if ([...checkedInputs, value].length >= 4) {
+        return alert("3개까지만 check 해주세요");
+      }
       setCheckedInputs([...checkedInputs, value]);
     } else {
       setCheckedInputs(checkedInputs.filter((el) => el !== value));
@@ -91,20 +94,15 @@ export default function Userinformation({}) {
     metamask.accounts[0].substr(0, 5) +
       metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
       "...";
-
   return (
     <div className="userinfo-layout">
       <div className="userinfo-card">
         <div className="userinfo-image">
-          {user.img === "" ? (
-            <Avatar alt="Remy Sharp" sx={{ width: 310, height: 310 }} />
-          ) : (
             <Avatar
               alt="Remy Sharp"
               src={userImg ? userImg : user.img}
-              sx={{ width: 310, height: 310 }}
+              sx={{mx:'auto', width: 310, height: 310 }}
             />
-          )}
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>
@@ -124,8 +122,9 @@ export default function Userinformation({}) {
           )}
         </div>
         <div className="userinfo-info">
+          
+          <div className="nickname-box">
           <h1 className="nickname">Nickname</h1>
-
           {visible ? (
             <div>
               <Input
@@ -139,12 +138,17 @@ export default function Userinformation({}) {
           ) : (
             <p>{user.nickname}</p>
           )}
-          <h1 className="address">Address</h1>
-          <span>{metamask.accounts[0]}</span>
-          <h1 className="subscription">Subscription</h1>
-          <span>{user.subscription}월이용권 </span>
+          </div>
+
+          <div className="address-box">
+            <h1 className="address">Address</h1>
+            <span>{metamask.accounts[0]}</span>
+          </div>
+         
+         <div  className="nation-box">
           {visible ? (
             <div>
+              <h2 className="Nation"> Nation</h2>
               <CountryType
                 inputProps={{ width: "400px" }}
                 setSelected={setSelected}
@@ -152,61 +156,90 @@ export default function Userinformation({}) {
             </div>
           ) : (
             <div>
-              <h2 className="Nation">Nation</h2>
+              <h2 className="Nation"> Nation</h2>
               <p>국가 : {user.nation}</p>
             </div>
           )}
-          <h2 className="userinfo-Genre">Genre</h2>
-          {visible ? (
-            <div>
-              {genre.map((MusicType, index) => {
-                return (
-                  <>
-                    <label>
-                      {MusicType}
-                      <input
-                        type={"checkbox"}
-                        name={"MusicType"}
-                        value={MusicType}
-                        onChange={(e) => {
-                          changeHandler(e.currentTarget.checked, MusicType);
-                        }}
-                        checked={
-                          checkedInputs.includes(MusicType) ? true : false
-                        }
-                      />
-                    </label>
-                  </>
-                );
-              })}
-            </div>
-          ) : (
-            <span>{user.genre}</span>
-          )}
+         </div>
+
+         <div className="genre-box">
+            <h2 className="userinfo-Genre">Genre</h2>
+            
+            {visible ? (
+              <div className="type-container">
+                
+                {genre.map((MusicType, index) => {
+                  return (
+                    <div className="type-box">
+                      <label>
+                        <input
+                          type={"checkbox"}
+                          name={"MusicType"}
+                          value={MusicType}
+                          onChange={(e) => {
+                            changeHandler(e.currentTarget.checked, MusicType);
+                          }}
+                          checked={
+                            checkedInputs.includes(MusicType) ? true : false
+                          }
+                        />
+                        {MusicType}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <span>{user.genre}</span>
+            )}
+         </div>
 
           <div className="setting-btn">
             {visible ? (
-              <Button
-                variant="contained"
-                sx={{
-                  color: "var(--black-light-color)",
-                  backgroundColor: "var(--box1-color)",
-                  ":hover": {
-                    background: "var(--primary-color)",
-                    color: "var(--text-color)",
-                  },
-                }}
-                onClick={async () => {
-                  setVisible(!visible);
-                  await ChangeUser();
-                }}
-              >
-                Submit
-              </Button>
+              <>
+                <Button
+                  variant="contained"
+                  sx={{
+                    mx:1,
+                    width:100,
+                    color: "var(--black-light-color)",
+                    backgroundColor: "var(--box1-color)",
+                    ":hover": {
+                      background: "var(--primary-color)",
+                      color: "var(--text-color)",
+                    },
+                  }}
+                  onClick={async () => {
+                    setVisible(!visible);
+                    await ChangeUser();
+                  }}
+                >
+                  Submit
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{
+                    mx:1,
+                    width:100,
+                    color: "var(--black-light-color)",
+                    backgroundColor: "var(--box1-color)",
+                    ":hover": {
+                      background: "var(--primary-color)",
+                      color: "var(--text-color)",
+                    },
+                  }}
+                  onClick={async () => {
+                    setVisible(!visible);
+                  }}
+                >
+                  cancel
+                </Button>
+              </>
             ) : (
               <Button
                 variant="contained"
                 sx={{
+                  width:100,
                   color: "var(--black-light-color)",
                   backgroundColor: "var(--box1-color)",
                   ":hover": {

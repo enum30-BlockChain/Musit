@@ -37,7 +37,7 @@ export const Subscription = () => {
         </div>
             <div className="pricing-table gprice-single">
                 <div className="head">
-                    <h4 className="title">60 days Supscription</h4>
+                    <h4 className="title">90 days Supscription</h4>
                 </div>
                 <div className="content">
                     <div className="price">
@@ -56,7 +56,7 @@ export const Subscription = () => {
             </div>
                 <div className="pricing-table gprice-single">
                     <div className="head">  
-                        <h4 className="title">90 days Supscription</h4>
+                        <h4 className="title">180 days Supscription</h4>
                     </div>
                     <div className="content">
                         <div className="price">

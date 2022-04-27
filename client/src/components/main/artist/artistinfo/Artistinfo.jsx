@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updateArtistData } from "../../../../redux/actions/artistActions";
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Button,Input } from "@mui/material";
 import "./Artistinfo.css";
 
 export default function Artistinfo() {
@@ -44,87 +44,126 @@ export default function Artistinfo() {
     setAlbumCoverImgFile(URL.createObjectURL(e.target.files[0]));
     setImg(e.target.files[0]);
   };
-
-  const sliceAddress =
-    metamask.accounts[0] &&
-    metamask.accounts[0].substr(0, 5) +
-      metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
-      "...";
-
   return (
     <>
       <div className="artist-info-container">
         <div className="artist-card">
           <div className="artist-image">
-            {artist.img === "" ? (
-              <Avatar alt="Remy Sharp" sx={{ width: 310, height: 310 }} />
-            ) : (
               <Avatar
                 alt="Remy Sharp"
                 src={albumCoverImgFile ? albumCoverImgFile : artist.img}
-                sx={{ width: 310, height: 310 }}
+                sx={{mx:'auto', width: 310, height: 310 }}
               />
-            )}
             {visible && (
-              <div>
-                <input
-                  type="file"
-                  name="imgUpload"
-                  accept="image/*"
-                  onChange={getImg}
-                ></input>
-              </div>
-            )}
+            <div>
+              <label className="input-Image" for="input-userimg">
+                Choose your Profile Image
+              </label>
+              <input
+                id="input-userimg"
+                type="file"
+                style={{ display: "none" }}
+                name="imgUpload"
+                accept="image/*"
+                onChange={getImg}
+                // style="none"
+              ></input>
+            </div>
+          )}
+
           </div>
+
           <div className="artist-info">
-            <h2 className="nickname">ArtistName</h2>
-            {artist.artist_name}
-            {visible && (
-              <div>
-                <input type="text" onChange={idonchange}></input>
-              </div>
-            )}
-            <h2 className="address">Address</h2>
-            <span>{sliceAddress}</span>
-            <h2 className="likes">Like</h2>
-            <span>좋아요 : {artist.likes} </span>
-            {visible ? (
-              <Button
-                variant="contained"
-                sx={{
-                  color: "var(--black-light-color)",
-                  backgroundColor: "var(--box1-color)",
-                  ":hover": {
-                    background: "var(--primary-color)",
-                    color: "var(--text-color)",
-                  },
-                }}
-                onClick={async () => {
-                  setVisible(!visible);
-                  await NickNameOnClick();
-                }}
-              >
-                Submit
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                sx={{
-                  color: "var(--black-light-color)",
-                  backgroundColor: "var(--box1-color)",
-                  ":hover": {
-                    background: "var(--primary-color)",
-                    color: "var(--text-color)",
-                  },
-                }}
-                onClick={async () => {
-                  setVisible(!visible);
-                  await BaseOnClick();
-                }}
-              >
-                Edit
-              </Button>
-            )}
+
+            <div className="artistname-box">
+              <h1 className="nickname">ArtistName</h1>
+              {visible ? (
+                <div>
+                  <Input
+                    inputProps={{ style: { fontSize: 30 } }}
+                    type="text"
+                    sx={{ width: 300 }}
+                    defaultValue={artist.artist_name}
+                    onChange={idonchange}
+                  />
+                </div>
+              ):(
+                <p>{artist.artist_name}</p>
+              )}
+            </div>
+
+            <div className="address-box">
+              <h1 className="address">Address</h1>
+              <span>{metamask.accounts[0]}</span>
+            </div>
+
+            <div className="like-box">
+              <h1 className="likes">Like</h1>
+              <span>좋아요 : {artist.likes} </span>
+            </div>
+            
+            <div className="setting-btn">
+              {visible ? (
+                <>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      mx:1,
+                      width:100,
+                      color: "var(--black-light-color)",
+                      backgroundColor: "var(--box1-color)",
+                      ":hover": {
+                        background: "var(--primary-color)",
+                        color: "var(--text-color)",
+                      },
+                    }}
+                    onClick={async () => {
+                      setVisible(!visible);
+                      await NickNameOnClick();
+                    }}
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      mx:1,
+                      width:100,
+                      color: "var(--black-light-color)",
+                      backgroundColor: "var(--box1-color)",
+                      ":hover": {
+                        background: "var(--primary-color)",
+                        color: "var(--text-color)",
+                      },
+                    }}
+                    onClick={async () => {
+                      setVisible(!visible);
+                    }}
+                  >
+                    cancel
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  variant="contained"
+                  sx={{
+                    width:100,
+                    color: "var(--black-light-color)",
+                    backgroundColor: "var(--box1-color)",
+                    ":hover": {
+                      background: "var(--primary-color)",
+                      color: "var(--text-color)",
+                    },
+                  }}
+                  onClick={async () => {
+                    setVisible(!visible);
+                    await BaseOnClick();
+                  }}
+                >
+                  Edit
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

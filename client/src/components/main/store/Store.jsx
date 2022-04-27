@@ -1,137 +1,69 @@
 import "./Store.css";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  readOnAuctionNFTList,
-  readOnMarketNFTList,
-} from "../../../redux/actions/contractActions";
-import SellCard from "./nftcard/SellCard";
-import AuctionCard from "./nftcard/AuctionCard";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Error from "../../Error";
-import SimpleBackdrop from "../../SimpleBackdrop";
-
-
-const fakeFetch = (delay = 500) =>
-  new Promise((res) => setTimeout(res, delay));
+import { Outlet } from "react-router";
+import { Link } from "react-router-dom";
 
 export const Store = () => {
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
   const market = useSelector((state) => state.market);
   const auction = useSelector((state) => state.auction);
 
-  useEffect(async () => {
-    await dispatch(readOnMarketNFTList());
-    await dispatch(readOnAuctionNFTList());
-    await fakeFetch();
-    setLoading(false);
-  }, []);
 
   return !market || market.error || !auction || auction.error ? (
     <ErrorContent />
   ) : (
     <>
-      <SuccessContent loading={loading} />
+      <SuccessContent />
     </>
   );
 };
 
-const SuccessContent = ({ loading }) => {
-  const market = useSelector((state) => state.market);
-  const auction = useSelector((state) => state.auction);
+const SuccessContent = () => {
+    useEffect(() => {
+      topNavToggle();
+    }, []);
 
-  useEffect(async () => {
-    btnListener();
-  }, []);
-
-  const btnListener = () => {
-    document
-      .querySelector(".nav-links .ordinary-market")
-      .addEventListener("click", () => {
-        const contentContainer = document.querySelector(
-          ".store .content-container"
-        );
-        contentContainer.classList.add("ordinary");
-        contentContainer.classList.remove("auction");
+    const topNavToggle = () => {
+      const links = document.querySelectorAll(".top-nav .nav-links li");
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          links.forEach((link) => {
+            link.classList.remove("active");
+          });
+          link.classList.add("active");
+        });
       });
-    document
-      .querySelector(".nav-links .auction-market")
-      .addEventListener("click", () => {
-        const contentContainer = document.querySelector(
-          ".store .content-container"
-        );
-        contentContainer.classList.remove("ordinary");
-        contentContainer.classList.add("auction");
-      });
-  };
+    };
 
-  return (
+    return (
     <section className="store">
       <nav className="top-nav">
         <ul className="nav-links">
-          <li className="ordinary-market">
-            <a>
+          <li className="ordinary-market active">
+            <Link to="/store">
               <i className="uil uil-shopping-cart"></i>
               <span className="link-name"> Ordinary Market</span>
-            </a>
+            </Link>
           </li>
           <li className="auction-market">
-            <a>
+            <Link to="/store/auction">
               <i className="uil uil-arrow-growth"></i>
               <span className="link-name"> Auction Market</span>
-            </a>
+            </Link>
+          </li>
+          <li className="my-bids">
+            <Link to="/store/mybids">
+              <i className="uil uil-transaction"></i>
+              <span className="link-name"> My Bids</span>
+            </Link>
           </li>
         </ul>
       </nav>
-      <section className="content-container ordinary">
-        {loading ||
-        (market && market.loading) ||
-        (auction && auction.loading) ? (
-          <LoadingContent />
-        ) : (
-          <>
-            <Ordinary />
-            <Auction />
-          </>
-        )}
+      <section className="content-container">
+        <Outlet/>
       </section>
     </section>
-  );
-};
-
-const Ordinary = () => {
-  const market = useSelector((state) => state.market.data);
-  return (
-    <section className="ordinary-box">
-      {market.length > 0 &&
-        market.map((nft, index) => (
-          <SellCard data={nft} key={`sell-${nft.itemId}-${index}`} />
-        ))}
-      {market.length == 0 && <>Nothing to buy</>}
-    </section>
-  );
-};
-
-const Auction = () => {
-  const auction = useSelector((state) => state.auction.data);
-
-  return (
-    <section className="auction-box">
-      {auction.length > 0 &&
-        auction.map((nft, index) => (
-          <AuctionCard data={nft} key={`auction-${nft.itemId}-${index}`} />
-        ))}
-      {auction.length == 0 && <>Nothing to bid</>}
-    </section>
-  );
-};
-
-/* Loading 화면 */
-const LoadingContent = () => {
-  return (
-    <>
-      <SimpleBackdrop />
-    </>
   );
 };
 

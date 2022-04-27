@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import SongCardSkeleton from "../../serach/music/SongCardSkeleton";
+import LikeCardSkeleton from "./LikeCardSkeleton";
 import MusicCard from "./MusicCard";
 import "../favoritemusic/css/FavoriteMusic.css";
 import ArtistModel from "./ArtistModel";
+import Nothing from "../../../landingpage/pages/Nothing";
 
 const FavoriteMusic = () => {
   const [artistModal, setArtistModal] = useState("");
   const [musicmodal, setmusicmodal] = useState("");
 
-  const likeMusic = useSelector((state) => state.likeMusic).data;
+  const likeMusic = useSelector((state) => state.likeMusic);
+
+  console.log(likeMusic);
 
   return (
     <>
@@ -19,25 +22,30 @@ const FavoriteMusic = () => {
           style={{ overflow: "auto", maxHeight: "700px" }}
         >
           {likeMusic.loading ? (
+            [1, 2, 3, 4, 5, 6, 7, 8].map((like, i) => {
+              return (
+                <LikeCardSkeleton
+                  key={i}
+                  like={like}
+                  setmusicmodal={setmusicmodal}
+                />
+              );
+            })
+          ) : likeMusic.data == "" ? (
             <>
-              <SongCardSkeleton />
-              <SongCardSkeleton />
-              <SongCardSkeleton />
-              <SongCardSkeleton />
-              <SongCardSkeleton />
-              <SongCardSkeleton />
+              <Nothing />
             </>
           ) : (
-            <>
-              {likeMusic !== null &&
-                likeMusic.map((data, index) => (
-                  <MusicCard
-                    data={data}
-                    setmusicmodal={setmusicmodal}
-                    key={index}
-                  />
-                ))}
-            </>
+            likeMusic.data !== null &&
+            likeMusic.data.map((data, index) => {
+              return (
+                <MusicCard
+                  data={data}
+                  setmusicmodal={setmusicmodal}
+                  key={index}
+                />
+              );
+            })
           )}
         </div>
       </div>

@@ -26,26 +26,27 @@ export default function Artistsubmit() {
 
   const submitOnClick = async (e) => {
     e.preventDefault();
-		let isFormValid = document.querySelector(".artist-submit-form input").checkValidity();
+    let isFormValid = document
+      .querySelector(".artist-submit-form input")
+      .checkValidity();
     if (!isFormValid) {
-			document.querySelector(".artist-submit-form input").reportValidity();
-		} else {
-			await postImg();
-			const artistsdata = {
-				user_address: metamask.accounts[0],
-				artist_name: inputs,
-				img: DBdata.cover_img_link,
-			};
-			const result = await dispatch(createArtistData(artistsdata));
+      document.querySelector(".artist-submit-form input").reportValidity();
+    } else {
+      await postImg();
+      const artistsdata = {
+        user_address: metamask.accounts[0],
+        artist_name: inputs,
+        img: DBdata.cover_img_link,
+      };
+      const result = await dispatch(createArtistData(artistsdata));
 
-			if (result !== undefined) {
-				alert("아티스트 등록이 완료되었습니다.");
-			} else {
+      if (result !== undefined) {
+        alert("아티스트 등록이 완료되었습니다.");
+      } else {
         alert("아티스트 등록에 실패했습니다.");
       }
-      window.location.href ="/"
-		}
-    
+      window.location.href = "/";
+    }
   };
 
   const onChange = (e) => {
