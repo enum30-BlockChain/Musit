@@ -30,11 +30,10 @@ const Slider = styled("div")({
   alignItems: "center",
 });
 
-
 export default function ArtistModal(props) {
   const [value, setValue] = useState(0);
   const [viewMusicCard, setViewMusicCard] = useState(0);
-  const TotalCount = props.artistModal.Music.map((e) => e.play_count) //play총합
+  const TotalCount = props.artistModal.Music.map((e, i) => e.play_count) //play총합
     .reduce((prev, curr) => prev + curr, 0);
 
   const musics = props.artistModal.Music;
@@ -128,42 +127,51 @@ export default function ArtistModal(props) {
               <b>Music List</b>
             </Typography>
           </Box>
-          <Slider  
-          sx={{
-             display: "flex",
+          <Slider
+            sx={{
+              display: "flex",
               alignItems: "center",
               height: "80%",
               px: 2,
-              my:5,
-              mx:'auto'
-            }}>
-              <ArrowBackIosIcon
-                 sx={{ fontSize: 50, cursor: "pointer" }}
-                 onClick={moveAhead}
-               />
+              my: 5,
+              mx: "auto",
+            }}
+          >
+            <ArrowBackIosIcon
+              sx={{ fontSize: 50, cursor: "pointer" }}
+              onClick={moveAhead}
+            />
             <Grid
-             container
-             sx={{ width: "1100px",m:'auto', display: "flex", flexWrap: "nowrap", overflow: "hidden", }}
+              container
+              sx={{
+                width: "1100px",
+                m: "auto",
+                display: "flex",
+                flexWrap: "nowrap",
+                overflow: "hidden",
+              }}
             >
-              {musics && musics.map((music, i) => {
-                return (
+              {musics &&
+                musics.map((music, i) => {
+                  return (
                     <div
                       className="glide"
                       style={{ transform: `translateX(${value}%)` }}
+                      key={i}
                     >
-                        <ArtistSongCard
-                          index={i}
-                          music={music}
-                          setmusicmodal={props.setmusicmodal}
-                        />
+                      <ArtistSongCard
+                        index={i}
+                        music={music}
+                        setmusicmodal={props.setmusicmodal}
+                      />
                     </div>
-                );
-              })}
-              </Grid>
-               <ArrowForwardIosIcon
-                sx={{ fontSize: 50, cursor: "pointer" }}
-                onClick={moveBehind}
-              />
+                  );
+                })}
+            </Grid>
+            <ArrowForwardIosIcon
+              sx={{ fontSize: 50, cursor: "pointer" }}
+              onClick={moveBehind}
+            />
           </Slider>
         </Box>
       </Widget>
