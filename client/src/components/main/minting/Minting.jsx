@@ -1,7 +1,7 @@
 import { Button, Skeleton } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { readMusicData } from "../../../redux/actions/musicActions";
 import { mintingMusitNFT } from "../../../redux/actions/contractActions";
 import "./Minting.css";
@@ -38,7 +38,9 @@ const LoadingContent = () => {
 const SuccessContent = ({ ipfs_hash }) => {
   const artistData = useSelector((state) => state.artist);
   const musicData = useSelector((state) => state.music);
+  const minting = useSelector((state) => state.mintingMusitNFT);
   const dispatch = useDispatch();
+	const navigate = useNavigate()
 
   const mintingOnClick = async () => {
     const metadata = {
@@ -50,7 +52,14 @@ const SuccessContent = ({ ipfs_hash }) => {
       artist_name: musicData.artist_name,
       artist_address: artistData.user_address,
     };
-    await dispatch(mintingMusitNFT(metadata));
+    const result = await dispatch(mintingMusitNFT(metadata));
+    if (result !== null) {
+      window.alert("Minting 정상적으로 완료 되었습니다.")
+      navigate(`/mypage/mynftlist`);
+    } else {
+      window.alert("Minting이 완료되지 않았습니다.");
+      navigate(`/artist/myupload`);
+    }
   };
 
   return (
@@ -107,6 +116,7 @@ const SuccessContent = ({ ipfs_hash }) => {
           </section>
         </main>
       </section>
+      {minting.loading && <SimpleBackdrop/>}
     </section>
   );
 };

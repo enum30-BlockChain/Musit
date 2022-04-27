@@ -81,17 +81,20 @@ export const mintingMusitNFT = (inputs) => {
 					type: ActionTypes.MUSIT_NFT_MINTING_SUCCESS,
 					payload: result,
 				});
+				return result
 			} else {
 				dispatch({
 					type: ActionTypes.MUSIT_NFT_MINTING_FAIL,
 					payload: "Improper metadata",
 				});
+				return null
 			}
 		} catch (error) {
 			dispatch({
 				type: ActionTypes.MUSIT_NFT_MINTING_FAIL,
 				payload: "Musit NFT Minting request fail",
 			});
+			return null
 		}
 	};
 };
