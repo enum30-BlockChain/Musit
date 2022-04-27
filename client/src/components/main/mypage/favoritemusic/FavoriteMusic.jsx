@@ -12,8 +12,6 @@ const FavoriteMusic = () => {
 
   const likeMusic = useSelector((state) => state.likeMusic);
 
-  console.log(likeMusic);
-
   return (
     <>
       <div className="musiccard" style={{ overflow: "hidden" }}>
