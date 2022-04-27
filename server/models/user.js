@@ -46,10 +46,9 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			recent_played: { type: DataTypes.STRING, allowNull: true },
 			img: { type: DataTypes.STRING, allowNull: true },
-			subscription: {
-				type: DataTypes.TINYINT,
-				allowNull: true,
-				defaultValue: false,
+			register_date: {
+				type: DataTypes.DATETIME,
+				allowNull: false,
 			},
 		},
 		{
