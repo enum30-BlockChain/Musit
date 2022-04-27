@@ -14,6 +14,7 @@ import { toggleLikeMusic } from "../../../../redux/actions/musicActions";
 export default function MainCard(props) {
   const [TotalLike, setTotalLike] = useState(props.music.MusicLikes.length);
   const [findlike, setFindlike] = useState("");
+  const [playState, setPlayStete] = useState(true);
   const likeList = useSelector((state) => state.likeMusic);
   const dispatch = useDispatch();
   const slicedescription = () => {
@@ -61,13 +62,18 @@ export default function MainCard(props) {
       if (musicCardPlaying) musicCardPlaying.classList.remove("playing");
       musicCard.classList.toggle("playing");
       const audio = document.querySelector("#MusicCardAudio");
-      const playingState = document.querySelector(
-        ` .music-card.card-${props.id}.music-card.playing`
-      );
-      if (playingState) {
-        audio.src = `https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`;
-        await playBarPauseSong();
-        audio.play();
+      const playingState = document.querySelector(` .music-card.card-${props.id}.music-card.playing`);
+        if (playingState) {
+          if(audio.src===`https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}` && playState){//지금재생하는 노래랑 같다면 정지
+            musicCardPlaying.classList.remove("playing");  
+            audio.pause();
+            setPlayStete(false);
+          }else{
+            audio.src = `https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`;
+            await playBarPauseSong();
+            audio.play();
+            setPlayStete(true);
+          }
       } else {
         audio.pause();
       }
