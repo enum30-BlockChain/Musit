@@ -27,19 +27,20 @@ const RegisterUser = () => {
   const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
-    "Classical Music",
+    "Classic",
     "Jazz",
     "Trot",
     "Hip-pop",
     "CCM",
     "Ballad",
-    "Contry Music",
-    "Folk Music",
+    "Contry ",
+    "Folk ",
     "Reggae",
     "Disco",
     "Rock",
     "Electronic",
     "Dance",
+    "R&B",
   ]);
 
   //국가의 종류
