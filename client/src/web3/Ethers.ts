@@ -228,7 +228,7 @@ export default class Ethers {
       const options = {
         value: price,
       };
-      const result = await marketplace.purchase(itemId, options);
+      const result = await (await marketplace.purchase(itemId, options)).wait();
       return result;
     } catch (error) {
       console.log(error);
@@ -239,6 +239,17 @@ export default class Ethers {
   // 마켓에 올라온 NFT 리스트 검색
   static async getMarketNFTList(): Promise<object[] | null> {
     try {
+      // const enrollFilter: EventFilter = auction.filters.Enrolled(null, null, null, null,)
+  		// await Promise.all(
+			// 	(
+			// 		await auction.queryFilter(enrollFilter)
+			// 	)
+			// 		.map(async (event: Event) => {
+			// 			const boughtInfo: any = event.args;
+			// 			const sellPrice = boughtInfo.sellPrice;
+			// 			return sellPrice;
+			// 		})
+			// );
       const nftBalance = await musitNFT.balanceOf(marketplace.address);
       let nftList: object[] = [];
       for (let i = 0; i < nftBalance; i++) {
@@ -281,7 +292,6 @@ export default class Ethers {
         price: ethers.utils.formatEther(priceWei),
         totalPrice: ethers.utils.formatEther(totalPrice),
         seller: marketItemInfo.seller,
-        nft: await musitNFT.name(),
         sold: marketItemInfo.sold,
         ...metadata,
       };
@@ -458,7 +468,6 @@ export default class Ethers {
 
       const result = {
         itemId: auctionItemId.toNumber(),
-        nft: await musitNFT.name(),
         startPrice: ethers.utils.formatEther(auctionItemInfo.startPrice),
         startAt: auctionItemInfo.startAt.toNumber(),
         endAt: auctionItemInfo.endAt.toNumber(),
