@@ -1,27 +1,35 @@
 import "./Subscription.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Ethers from "../../../../web3/Ethers"
+import SimpleBackdrop from "../../../SimpleBackdrop";
+
+const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
 
 export const Subscription = () => {
+    const [lodingState, setLoadingState] = useState(true);
     const nowDate = Date.now()
     const dayAfter30 = new Date(nowDate + 1000 * 60 * 60 * 24 * 30)
     const dayAfter90 = new Date(nowDate + 1000 * 60 * 60 * 24 * 90)
     const dayAfter180 = new Date(nowDate + 1000 * 60 * 60 * 24 * 180)
-  
+    const [couponUsedState, setCouponUsedState] = useState(false)
     const getBuySubscription = (e) => {
         Ethers.buySubscription(e.target.id)
     }
 
     useEffect(async () => {
-      const t = await Ethers.getIsFreeCouponUsed()
-      console.log(t)
+      const state = await Ethers.getIsFreeCouponUsed()
+      setCouponUsedState(state)
+      await fakeFetch();
+      setLoadingState(false);
     }, [])
     
   return (
     <>
+    {lodingState ? (
+        <SimpleBackdrop />
+      ) : (
      <div className="wrapper">
-         
-        <div className="pricing-table gprice-single">
+         {!couponUsedState && <div className="pricing-table gprice-single">
             <div className="head">
                  <h4 className="title">30 days Free Supscription</h4> 
             </div>
@@ -39,7 +47,7 @@ export const Subscription = () => {
                     <a onClick={getBuySubscription} id='0' className="btn bordered radius">Buy Now</a>
                 </div>
             </div>
-        </div>
+        </div>}
 
         <div className="pricing-table gprice-single">
             <div className="head">
@@ -100,7 +108,7 @@ export const Subscription = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </div>)}
     </>
   );
 };
