@@ -4,6 +4,7 @@ pragma solidity ^0.8.4;
 contract Subscription {
   address owner;
   mapping (address => uint) endAt;
+  mapping (address => bool) isFreeCouponUsed;
 
   enum Plans {
     OPTION0, // 첫 가입시 옵션
@@ -18,7 +19,10 @@ contract Subscription {
 
   // 구독권 구매 함수
   function buy (Plans plan) external payable {
-    require(msg.value >= getPrice(plan));
+    require(msg.value >= getPrice(plan)); // 구독권 구매 금액 확인
+    if (plan == Plans.OPTION0) {  // 무료 쿠폰 사용하는 경우에는
+      require(!isFreeCouponUsed[msg.sender], "Free coupon is already used"); // 무료 쿠폰 사용 여부 확인
+    }
     if (endAt[msg.sender] > block.timestamp) { // 이용 중인 경우는 기간 연장
       endAt[msg.sender] += getDuration(plan);
     } else { // 만료 되면 현재 시간에서부터 구독기간 시작
@@ -26,6 +30,9 @@ contract Subscription {
       endAt[msg.sender] = startAt + getDuration(plan);
     }
     payable(owner).transfer(msg.value); // 구매한 금액 우리가 받아가기
+    if (plan == Plans.OPTION0) {  // 쿠폰으로 구매한 경우
+      isFreeCouponUsed[msg.sender] = true; // 사용했다고 수정
+    }
   }
   
   // Plan에 따른 가격

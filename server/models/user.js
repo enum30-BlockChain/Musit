@@ -51,6 +51,11 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: true,
 				defaultValue: sequelize.NOW,
 			},
+			coupon_used: {
+				type: DataTypes.TINYINT,
+				allowNull: true,
+				defaultValue: false,
+			},
 		},
 		{
 			sequelize,
