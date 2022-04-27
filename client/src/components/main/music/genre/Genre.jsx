@@ -47,7 +47,6 @@ export default function Genre() {
         .sort(([, a], [, b]) => b - a)
         .reduce((r, [k]) => [...r, k], []);
       if (topGenre.length > 0) {
-        console.log("best like genre : ", topGenre[0]);
         setLikeTopGenre(topGenre[0]);
         return musicList.filter((song) => song.genre.indexOf(topGenre[0]) > -1);
       } else {
@@ -240,9 +239,8 @@ export default function Genre() {
                   {artistRecommend &&
                     artistRecommend.map((artist, i) => {
                       return (
-                        <Grid xs={{ width: "25%" }}>
+                        <Grid  key={i}>
                           <div
-                            key={i}
                             className="glide"
                             style={{ transform: `translateX(${value}%)` }}
                           >

@@ -169,7 +169,7 @@ export default function Userinformation({}) {
               <div className="type-container">
                 {genre.map((MusicType, index) => {
                   return (
-                    <div className="type-box">
+                    <div key={index} className="type-box">
                       <label>
                         <input
                           type={"checkbox"}
