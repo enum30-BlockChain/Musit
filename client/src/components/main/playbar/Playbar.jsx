@@ -82,7 +82,7 @@ export const Playbar = () => {
         }
       }
     }
-  }, [user]);
+  }, []);
 
   function loadSong(song) {
     //노래불러올때

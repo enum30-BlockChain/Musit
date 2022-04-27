@@ -92,8 +92,6 @@ const Media = () => {
       : setLikeArtistRankingValue(likeArtistRankingValue - 100);
   };
 
-  console.log(likeArtistTopList);
-
   return (
     <>
       {lodingState ? (
