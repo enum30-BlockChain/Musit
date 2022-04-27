@@ -8,7 +8,7 @@ import { createMusicData } from "../../../../redux/actions/musicActions";
 import Progress from "./progress/Progress";
 import MessageHandler from "./progress/MessageHandler";
 import Checkbox from "@mui/material/Checkbox";
-
+import Usernull from "./usernull.png";
 
 // const { create } = require("ipfs-http-client");
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -20,14 +20,14 @@ export const Musicupload = () => {
   const [genre, setGenre] = useState([
     "Pop",
     "K-pop",
-    "Classical Music",
+    "Classic",
     "Jazz",
     "Trot",
     "Hip-pop",
     "CCM",
     "Ballad",
-    "Contry Music",
-    "Folk Music",
+    "Contry ",
+    "Folk ",
     "Reggae",
     "Disco",
     "Rock",
@@ -141,22 +141,35 @@ export const Musicupload = () => {
         <div className="create-layout">
           <div className="create-imgbox">
             <h2>Album Cover Image</h2>
-            {albumCoverImgFile && (
-              <img src={URL.createObjectURL(albumCoverImgFile)}></img>
-            )}
+
+            <img
+              src={
+                albumCoverImgFile
+                  ? URL.createObjectURL(albumCoverImgFile)
+                  : Usernull
+              }
+            ></img>
 
             <div className="create-img-upload-btn">
-              <label className="create-coverupload-btn" for="coverupload">
-                Choose your cover image
-              </label>
-              <input
+              <Button
+                sx={{
+                  color: "var(--black-light-color)",
+                  fontSize: 15,
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                    fontSize: 15,
+                  },
+                }}
                 id="coverupload"
                 name="imgUpload"
                 type="file"
                 accept="image/*"
-                style={{ display: "none" }}
                 onChange={getImg}
-              />
+              >
+                Upload ImageFile
+              </Button>
             </div>
           </div>
 
@@ -181,18 +194,25 @@ export const Musicupload = () => {
                 </audio>
               )}
             </div>
-            <label className="create-file-btn" for="input-file">
+
+            <Button
+              component="label"
+              sx={{
+                color: "var(--black-light-color)",
+                fontSize: 15,
+                backgroundColor: "var(--box1-color)",
+              }}
+            >
               Music file Upload
-            </label>
-            <input
-              id="input-file"
-              type="file"
-              inputProps={{ accept: "audio/*" }}
-              style={{ display: "none" }}
-              onChange={getAudio}
-              Address
-              sx={{ width: 400 }}
-            />
+              <input
+                type="file"
+                hidden
+                accept={"audio/*"}
+                style={{ display: "none" }}
+                onChange={getAudio}
+                Address
+              />
+            </Button>
 
             <h2>Music Title</h2>
             <input
@@ -215,17 +235,12 @@ export const Musicupload = () => {
               onChange={getDescription}
             />
             <h2>Genre</h2>
-            <Box
-             sx={{ mx: "auto", width: "500px" }}>
+            <Box sx={{ mx: "auto", width: "550px" }}>
               <form>
-
-                <Box 
-                display='flex'
-                flexWrap="wrap"
-                justifyContent='flex-start'>
+                <Box display="flex" flexWrap="wrap" justifyContent="flex-start">
                   {genre.map((MusicType, index) => {
                     return (
-                      <Box sx={{ width: "33%" ,textAlign:'left'}}>
+                      <Box sx={{ width: "20%", textAlign: "left" }}>
                         <label id={index} key={index}>
                           <Checkbox
                             className="checkbox-musicupload"
@@ -252,12 +267,11 @@ export const Musicupload = () => {
                 // variant="contained"
                 sx={{
                   color: "var(--black-light-color)",
-                  fontSize: 20,
+                  fontSize: 15,
                   backgroundColor: "var(--box1-color)",
                   ":hover": {
                     background: "var(--primary-color)",
                     color: "var(--text-color)",
-                    fontSize: 20,
                   },
                 }}
                 onClick={submit}
