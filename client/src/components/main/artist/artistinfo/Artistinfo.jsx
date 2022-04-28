@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updateArtistData } from "../../../../redux/actions/artistActions";
-import { Avatar, Button,Input } from "@mui/material";
+import { Avatar, Button, Input } from "@mui/material";
 import "./Artistinfo.css";
 
 export default function Artistinfo() {
@@ -47,39 +47,37 @@ export default function Artistinfo() {
 
   const sliceAddress =
     metamask.accounts[0] &&
-    metamask.accounts[0].slice(0,5) +"..."+metamask.accounts[0].slice(-4)
+    metamask.accounts[0].slice(0, 5) + "..." + metamask.accounts[0].slice(-4);
 
   return (
     <>
       <div className="artist-info-container">
         <div className="artist-card">
           <div className="artist-image">
-              <Avatar
-                alt="Remy Sharp"
-                src={albumCoverImgFile ? albumCoverImgFile : artist.img}
-                sx={{mx:'auto', width: 310, height: 310 }}
-              />
+            <Avatar
+              alt="Remy Sharp"
+              src={albumCoverImgFile ? albumCoverImgFile : artist.img}
+              sx={{ mx: "auto", width: 310, height: 310 }}
+            />
             {visible && (
-            <div>
-              <label className="input-Image" for="input-userimg">
-                Choose your Profile Image
-              </label>
-              <input
-                id="input-userimg"
-                type="file"
-                style={{ display: "none" }}
-                name="imgUpload"
-                accept="image/*"
-                onChange={getImg}
-                // style="none"
-              ></input>
-            </div>
-          )}
-
+              <div>
+                <label className="input-Image" htmlFor="input-userimg">
+                  Choose your Profile Image
+                </label>
+                <input
+                  id="input-userimg"
+                  type="file"
+                  style={{ display: "none" }}
+                  name="imgUpload"
+                  accept="image/*"
+                  onChange={getImg}
+                  // style="none"
+                ></input>
+              </div>
+            )}
           </div>
 
           <div className="artist-info">
-
             <div className="artistname-box">
               <h2 className="nickname">ArtistName</h2>
               {visible ? (
@@ -92,7 +90,7 @@ export default function Artistinfo() {
                     onChange={idonchange}
                   />
                 </div>
-              ):(
+              ) : (
                 <h3>{artist.artist_name}</h3>
               )}
             </div>
@@ -106,15 +104,15 @@ export default function Artistinfo() {
               <h2 className="likes">Likes</h2>
               <h3>{artist.likes} </h3>
             </div>
-            
+
             <div className="setting-btn">
               {visible ? (
                 <>
                   <Button
                     variant="contained"
                     sx={{
-                      mx:1,
-                      width:100,
+                      mx: 1,
+                      width: 100,
                       color: "var(--black-light-color)",
                       backgroundColor: "var(--box1-color)",
                       ":hover": {
@@ -132,8 +130,8 @@ export default function Artistinfo() {
                   <Button
                     variant="contained"
                     sx={{
-                      mx:1,
-                      width:100,
+                      mx: 1,
+                      width: 100,
                       color: "var(--black-light-color)",
                       backgroundColor: "var(--box1-color)",
                       ":hover": {
@@ -152,7 +150,7 @@ export default function Artistinfo() {
                 <Button
                   variant="contained"
                   sx={{
-                    width:100,
+                    width: 100,
                     color: "var(--black-light-color)",
                     backgroundColor: "var(--box1-color)",
                     ":hover": {

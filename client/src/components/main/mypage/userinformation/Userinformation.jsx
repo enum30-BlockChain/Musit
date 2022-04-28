@@ -92,7 +92,7 @@ export default function Userinformation({}) {
 
   const sliceAddress =
     metamask.accounts[0] &&
-    metamask.accounts[0].slice(0,5) +"..."+metamask.accounts[0].slice(-4) ;
+    metamask.accounts[0].slice(0, 5) + "..." + metamask.accounts[0].slice(-4);
   return (
     <div className="userinfo-layout">
       <div className="userinfo-card">
@@ -105,7 +105,7 @@ export default function Userinformation({}) {
           {/* 버튼 클릭 클릭시 setVisible로 state 변경*/}
           {visible && (
             <div>
-              <label className="input-Image" for="input-userimg">
+              <label className="input-Image" htmlFor="input-userimg">
                 Choose your Profile Image
               </label>
               <input
@@ -146,7 +146,7 @@ export default function Userinformation({}) {
           <div className="nation-box">
             {visible ? (
               <div>
-                <h2 className="Nation"> Nation</h2>
+                <h2 className="Nation"> Nation : {user.nation}</h2>
                 <CountryType
                   inputProps={{ width: "400px" }}
                   setSelected={setSelected}
@@ -160,7 +160,7 @@ export default function Userinformation({}) {
             )}
           </div>
 
-          <div className="genre-box">
+          <div className="genre-box" style={{ display: "block" }}>
             <h2 className="userinfo-Genre">Genre</h2>
 
             {visible ? (
@@ -187,7 +187,7 @@ export default function Userinformation({}) {
                 })}
               </div>
             ) : (
-              <h3>{user.genre.join(', ')}</h3>
+              <h3>{user.genre.join(", ")}</h3>
             )}
           </div>
 

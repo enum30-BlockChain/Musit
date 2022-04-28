@@ -10,7 +10,6 @@ import TableRow from "@mui/material/TableRow";
 import { useSelector, useDispatch } from "react-redux";
 import AlbumCard from "./AlbumCard";
 import AlbumModel from "./AlbumModel";
-import zIndex from "@mui/material/styles/zIndex";
 import { useLocation } from "react-router-dom";
 
 export default function AlbumList() {
@@ -84,7 +83,12 @@ export default function AlbumList() {
   return (
     <Paper
       className="table-container"
-      sx={{mx:'auto', width: "100%", overflow: "hidden", bgcolor: "var(--box1-color)" }}
+      sx={{
+        mx: "auto",
+        width: "100%",
+        overflow: "hidden",
+        bgcolor: "var(--box1-color)",
+      }}
     >
       <TableContainer sx={{ maxHeight: 600 }}>
         <Table stickyHeader aria-label="sticky table">
