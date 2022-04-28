@@ -8,6 +8,12 @@
 
 .userinfo-layout .userinfo-card {
   text-align: center;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.userinfo-layout .userinfo-card *{
+  color: var(--black-light-color);
 }
 
 .userinfo-layout .userinfo-card .type-container {
@@ -23,19 +29,33 @@
   width: 33%;
   text-align: left;
 }
-.userinfo-info .nickname-box{
+.userinfo-layout .userinfo-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.userinfo-layout .userinfo-info > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 60px;
+}
+.userinfo-layout .userinfo-info .nickname-box{
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
 }
 
-.userinfo-info .address-box{
+.userinfo-layout .userinfo-info .address-box{
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
 }
 
-.userinfo-info .nation-box{
+.userinfo-layout .userinfo-info .nation-box{
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
@@ -44,12 +64,12 @@
   justify-content: center;
 }
 
-.userinfo-info .genre-box{
+.userinfo-layout .userinfo-info .genre-box{
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
 }
-.userinfo-info .setting-btn{
+.userinfo-layout .userinfo-info .setting-btn{
   margin-top: 25px;
   border-radius: 10px;
 }

@@ -20,8 +20,9 @@ const CardSkeleton = () => {
   }
   return (
     <>
-      {array}
-      <SimpleBackdrop />
+      <Box sx={{display: "flex", flexDirection: "row", flexWrap: "wrap"}}>
+        {array}
+      </Box>
     </>
   )
 }

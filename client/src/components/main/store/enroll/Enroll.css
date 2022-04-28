@@ -157,11 +157,10 @@
 .enroll-container .right-container .info-container .description-box {
   height: 300px;
 }
-.enroll-container .right-container .info-container .description-box p {
+.enroll-container .right-container .info-container .description-box pre {
   flex: 1;
   overflow: auto;
-  word-break: break-all;
-  white-space: normal;
+  white-space: pre-wrap;
 }
 
 /* 팔기/경매 입력 컨테이너 */

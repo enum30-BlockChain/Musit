@@ -166,12 +166,11 @@
 .bid-container .right-container .info-container .description-box {
   height: 300px;
 }
-.bid-container .right-container .info-container .description-box p {
+.bid-container .right-container .info-container .description-box pre {
   padding-top: 10px;
   flex: 1;
   overflow: auto;
-  word-break: normal;
-  white-space: normal;
+  white-space: pre-wrap;
 }
 
 /* not-available 컨테이너 */

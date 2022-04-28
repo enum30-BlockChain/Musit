@@ -1,11 +1,13 @@
 import { Button, Skeleton } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { readMusicData } from "../../../redux/actions/musicActions";
 import { mintingMusitNFT } from "../../../redux/actions/contractActions";
 import "./Minting.css";
 import SimpleBackdrop from "../../SimpleBackdrop";
+import axios from "axios";
+import Ethers from "../../../web3/Ethers";
 
 const Minting = () => {
   let { ipfs_hash } = useParams();
@@ -38,8 +40,7 @@ const LoadingContent = () => {
 const SuccessContent = ({ ipfs_hash }) => {
   const artistData = useSelector((state) => state.artist);
   const musicData = useSelector((state) => state.music);
-  const minting = useSelector((state) => state.mintingMusitNFT);
-  const dispatch = useDispatch();
+  const [mintingLoading, setMintingLoading] = useState(false);
 	const navigate = useNavigate();
 
   const mintingOnClick = async () => {
@@ -52,9 +53,13 @@ const SuccessContent = ({ ipfs_hash }) => {
       artist_name: musicData.artist_name,
       artist_address: artistData.user_address,
     };
-    await dispatch(mintingMusitNFT(metadata));
-    
-    if (result !== null) {
+    setMintingLoading(true)
+    const url = "http://54.180.145.5/files/upload/metadata";
+    const uploadResult = ((await axios.post(url, metadata))).data;
+    const result = await (await Ethers.minting(uploadResult.path)).wait()
+    setMintingLoading(false)
+    console.log(result);
+    if (result && result.confirmations == 1) {
       window.alert("Minting 정상적으로 완료 되었습니다.")
       navigate(`/mypage/mynftlist`);
     } else {
@@ -117,7 +122,7 @@ const SuccessContent = ({ ipfs_hash }) => {
           </section>
         </main>
       </section>
-      {minting.loading && <SimpleBackdrop/>}
+      {mintingLoading && <SimpleBackdrop/>}
     </section>
   );
 };

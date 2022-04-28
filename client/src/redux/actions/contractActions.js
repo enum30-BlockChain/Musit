@@ -76,7 +76,6 @@ export const mintingMusitNFT = (inputs) => {
 			if (inputs.artist_address !== undefined && inputs.ipfs_hash !== undefined ) {
 				const url = "http://54.180.145.5/files/upload/metadata";
 				const uploadResult = ((await axios.post(url, inputs))).data;
-				console.log(1111);
 				const result = await (await Ethers.minting(uploadResult.path)).wait()
 				dispatch({
 					type: ActionTypes.MUSIT_NFT_MINTING_SUCCESS,

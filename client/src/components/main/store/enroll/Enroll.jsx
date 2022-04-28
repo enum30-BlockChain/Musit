@@ -123,7 +123,7 @@ const SuccessContent = ({nftData}) => {
 					</div>
 					<div className="description-box">
 						<h2><i className="uil uil-subject"></i> Description</h2>
-						<p>{nftData.description}</p>
+						<pre>{nftData.description}</pre>
 					</div>
 				</section>
 
