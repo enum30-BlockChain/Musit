@@ -121,7 +121,7 @@ const SuccessContent = ({ ipfs_hash }) => {
           </section>
         </main>
       </section>
-      {mintingLoading && <SimpleBackdrop/>}
+      {mintingLoading ? <SimpleBackdrop/> : <></>}
     </section>
   );
 };

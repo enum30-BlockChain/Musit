@@ -45,7 +45,7 @@ contract Auction is ReentrancyGuard, Ownable {
   );
 
   event Bid (uint indexed itemId, address indexed topBidder, uint topBid);
-  event End(uint indexed itemId, address indexed buyer, uint buyingPrice, uint fee);
+  event End(uint indexed itemId, address indexed buyer, address indexed seller, uint price, uint fee);
   event Cancel(uint indexed itemId, address indexed seller);
   event Withdraw (uint indexed itemId, address indexed bidder, uint balance);
 
@@ -140,7 +140,7 @@ contract Auction is ReentrancyGuard, Ownable {
     
     nftToItemId[address(auctionItem.nft)][auctionItem.tokenId] = 0;
 
-    emit End(_itemId, auctionItem.topBidder, auctionItem.topBid, fee);
+    emit End(_itemId, auctionItem.topBidder, auctionItem.seller, auctionItem.topBid, fee);
 
     musitNft = MusitNFT(address(auctionItem.nft));
     musitNft.setIsOnMarket(auctionItem.tokenId, false);
@@ -164,7 +164,7 @@ contract Auction is ReentrancyGuard, Ownable {
 
     nftToItemId[address(auctionItem.nft)][auctionItem.tokenId] = 0;
     
-    emit End(_itemId, auctionItem.topBidder, auctionItem.topBid, fee);
+    emit End(_itemId, auctionItem.topBidder,  auctionItem.seller, auctionItem.topBid, fee);
     musitNft = MusitNFT(address(auctionItem.nft));
     musitNft.setIsOnMarket(auctionItem.tokenId, false);
   }

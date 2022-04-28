@@ -113,13 +113,13 @@ const SuccessContent = ({nftData}) => {
 						<h2>
 							<i className="uil uil-thumbs-up"></i>Total Likes
 						</h2>
-						<h1>{musicData.MusicLikes && musicData.MusicLikes.length}</h1>
+						<h1>{musicData.MusicLikes ? musicData.MusicLikes.length : 0}</h1>
 					</div>
 					<div className="genre-box">
 						<h2>
 							<i className="uil uil-music"></i> Genre
 						</h2>
-						<h1>{nftData.genre && nftData.genre.join(", ")}</h1>
+						<h1>{nftData.genre ? nftData.genre.join(", ") : <></>}</h1>
 					</div>
 					<div className="description-box">
 						<h2><i className="uil uil-subject"></i> Description</h2>
@@ -183,6 +183,7 @@ const OrdinaryForm = () => {
 		setPermissionLoading(true)
 		const result = await (await Ethers.approveMyNFT("marketplace", tokenId)).wait()
 		setPermissionLoading(false)
+		console.log(result);
 		if (result && result.confirmations > 0) {
 			window.alert("권한 승인 요청에 성공했습니다.")
 			setIsApproved(await Ethers.checkApprovedAddress("marketplace", tokenId))
@@ -252,12 +253,16 @@ const OrdinaryForm = () => {
 						onChange={sellPriceOnChange}
 						required
 					/>
-					{isApproved && <button onClick={submitOnClick}>submit</button>}
-					{!isApproved && <button disabled={true} className="disabled-btn">submit</button>}
+					{isApproved ? (
+						<button onClick={submitOnClick}>submit</button>
+					) : (
+						<button disabled={true} className="disabled-btn">
+							submit
+						</button>
+					)}
 				</form>
 			</div>
-			{permissionLoading && <SimpleBackdrop />}
-			{submitLoading && <SimpleBackdrop />}
+			{submitLoading || permissionLoading ? <SimpleBackdrop /> : <></>}
 		</>
 	);
 };
@@ -388,12 +393,16 @@ const AuctionForm = () => {
 							required
 						/>
 					</div>
-					{isApproved && <button onClick={submitOnClick}>submit</button>}
-					{!isApproved && <button disabled={true} className="disabled-btn">submit</button>}
+					{isApproved ? (
+						<button onClick={submitOnClick}>submit</button>
+					) : (
+						<button disabled={true} className="disabled-btn">
+							submit
+						</button>
+					)}
 				</form>
- 		</div>
-			{permissionLoading && <SimpleBackdrop />}
-			{submitLoading && <SimpleBackdrop />}
+			</div>
+			{submitLoading || permissionLoading ? <SimpleBackdrop /> : <></>}
 		</>
 	);
 };

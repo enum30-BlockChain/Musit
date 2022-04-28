@@ -91,44 +91,49 @@ const SuccessContent = () => {
 			{/*** 오른쪽 컨테이너 ***/}
 			<section className="right-container">
 				{/* 상세정보 컨테이너 */}
-				{!selectedNFT.sold ? <>
-					<section className="info-container">
-					<h5 className="title">
-						BUY NFT
-					</h5>
-					<div>
-						<h2>Auction Item Id</h2>
-						<h1>{selectedNFT.itemId}</h1>
-					</div>
-					<div className="genre-box">
-						<h2>
-							<i className="uil uil-music"></i> Genre
-						</h2>
-						<h1>{selectedNFT.genre && selectedNFT.genre.join(", ")}</h1>
-					</div>
-					<div className="description-box">
-						<h2><i className="uil uil-subject"></i> Description</h2>
-						<pre>{selectedNFT.description}</pre>
-					</div>
-					<div className="sell-price-box">
-						<h2>
-							<i className="uil uil-bill"></i> Sell Price
-						</h2>
-						<h1>{selectedNFT.price} ETH</h1>
-						<h3>(Price with fee : {selectedNFT.totalPrice} ETH)</h3>
-					</div>
-					{!selectedNFT.sold && <button onClick={buyOnClick} >Buy</button>}
-					{selectedNFT.sold && <div className="sold-box">Sold</div>}
-				</section>
-				</> : <>
-					<section className="not-available-container">
-						<h1>
-							This item is not available to buy!
-						</h1>
-					</section>
-				</>}
+				{!selectedNFT.sold ? (
+					<>
+						<section className="info-container">
+							<h5 className="title">BUY NFT</h5>
+							<div>
+								<h2>Auction Item Id</h2>
+								<h1>{selectedNFT.itemId}</h1>
+							</div>
+							<div className="genre-box">
+								<h2>
+									<i className="uil uil-music"></i> Genre
+								</h2>
+								<h1>{selectedNFT.genre && selectedNFT.genre.join(", ")}</h1>
+							</div>
+							<div className="description-box">
+								<h2>
+									<i className="uil uil-subject"></i> Description
+								</h2>
+								<pre>{selectedNFT.description}</pre>
+							</div>
+							<div className="sell-price-box">
+								<h2>
+									<i className="uil uil-bill"></i> Sell Price
+								</h2>
+								<h1>{selectedNFT.price} ETH</h1>
+								<h3>(Price with fee : {selectedNFT.totalPrice} ETH)</h3>
+							</div>
+							{!selectedNFT.sold ? (
+								<button onClick={buyOnClick}>Buy</button>
+							) : (
+								<div className="sold-box">Sold</div>
+							)}
+						</section>
+					</>
+				) : (
+					<>
+						<section className="not-available-container">
+							<h1>This item is not available to buy!</h1>
+						</section>
+					</>
+				)}
 			</section>
-			{buyLoading && <SimpleBackdrop/>}
+			{buyLoading ? <SimpleBackdrop /> : <></>}
 		</section>
 	);
 };

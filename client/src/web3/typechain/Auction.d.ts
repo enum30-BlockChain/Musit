@@ -170,7 +170,7 @@ interface AuctionInterface extends ethers.utils.Interface {
   events: {
     "Bid(uint256,address,uint256)": EventFragment;
     "Cancel(uint256,address)": EventFragment;
-    "End(uint256,address,uint256,uint256)": EventFragment;
+    "End(uint256,address,address,uint256,uint256)": EventFragment;
     "Enrolled(uint256,uint256,address,uint256,address)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "Withdraw(uint256,address,uint256)": EventFragment;
@@ -197,10 +197,11 @@ export type CancelEvent = TypedEvent<
 >;
 
 export type EndEvent = TypedEvent<
-  [BigNumber, string, BigNumber, BigNumber] & {
+  [BigNumber, string, string, BigNumber, BigNumber] & {
     itemId: BigNumber;
     buyer: string;
-    buyingPrice: BigNumber;
+    seller: string;
+    price: BigNumber;
     fee: BigNumber;
   }
 >;
@@ -642,17 +643,19 @@ export class Auction extends BaseContract {
       { itemId: BigNumber; seller: string }
     >;
 
-    "End(uint256,address,uint256,uint256)"(
+    "End(uint256,address,address,uint256,uint256)"(
       itemId?: BigNumberish | null,
       buyer?: string | null,
-      buyingPrice?: null,
+      seller?: string | null,
+      price?: null,
       fee?: null
     ): TypedEventFilter<
-      [BigNumber, string, BigNumber, BigNumber],
+      [BigNumber, string, string, BigNumber, BigNumber],
       {
         itemId: BigNumber;
         buyer: string;
-        buyingPrice: BigNumber;
+        seller: string;
+        price: BigNumber;
         fee: BigNumber;
       }
     >;
@@ -660,14 +663,16 @@ export class Auction extends BaseContract {
     End(
       itemId?: BigNumberish | null,
       buyer?: string | null,
-      buyingPrice?: null,
+      seller?: string | null,
+      price?: null,
       fee?: null
     ): TypedEventFilter<
-      [BigNumber, string, BigNumber, BigNumber],
+      [BigNumber, string, string, BigNumber, BigNumber],
       {
         itemId: BigNumber;
         buyer: string;
-        buyingPrice: BigNumber;
+        seller: string;
+        price: BigNumber;
         fee: BigNumber;
       }
     >;

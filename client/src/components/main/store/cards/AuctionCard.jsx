@@ -9,7 +9,7 @@ const AuctionCard = ({data}) => {
 	const dispatch = useDispatch()
 
 	const cardOnClick = async () => {
-		navigate(`/bid/${data.itemId}`);
+		navigate(`/bid/${data.tokenId}`);
 		await dispatch(selectedMusitNFT(data))
 	}
 	
@@ -30,7 +30,7 @@ const AuctionCard = ({data}) => {
 				</div>
 				<div className="content-wrap">
 					<div className={`color-box ${isEnd() && "end"}`}>
-						{isEnd() && <div className='end-mark'>End</div>}
+						{isEnd() ? <div className='end-mark'>End</div> : <></>}
 					</div>
 					<div className="info-wrap">
 						<div className="first-box">

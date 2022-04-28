@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector } from "react-redux";
+import Ethers from "../../../../../web3/Ethers";
 import "./Contentbox.css";
 
 export const Contentbox = () => {
+  const [auctionIncome, setAuctionIncome] = useState(0);
+  const [marketplaceIncome, setMarketplaceIncome] = useState(0);
   const artist = useSelector((state) => state.artist);
   let totalMusicLikes = 0;
   let totalMusicPlayTime = 0;
@@ -10,6 +13,11 @@ export const Contentbox = () => {
   artist.Music.forEach((music) => {
     totalMusicPlayTime += music.play_count * music.play_time;
   });
+
+  useEffect(async () => {
+    setAuctionIncome(await Ethers.getAuctionIncome())
+    setMarketplaceIncome(await Ethers.getMarketplaceIncome())
+  }, []);
 
   return (
     <div className="contentbox">
@@ -49,13 +57,13 @@ export const Contentbox = () => {
       <div className="boxes">
         <div className="box box1">
           <i className="uil uil-bill"></i>
-          <span className="text"> NFT Income</span>
-          <span className="number">3023</span>
+          <span className="text"> Marketplace Income</span>
+          <span className="number">{marketplaceIncome} ETH</span>
         </div>
         <div className="box box1">
           <i className="uil uil-arrow-growth"></i>
-          <span className="text"> NFT Auction Income</span>
-          <span className="number">10</span>
+          <span className="text"> Auction Income</span>
+          <span className="number">{auctionIncome} ETH</span>
         </div>
       </div>
     </div>

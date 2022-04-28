@@ -11,14 +11,14 @@ import "./Bid.css";
 const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
 
 const Bid = () => {
-	let { itemId } = useParams();
+	let { tokenId } = useParams();
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 	const [loading, setLoading] = useState(true);
 	const dispatch = useDispatch();
 
 	useEffect(async () => {
 		if (selectedNFT.itemId === undefined) {
-			const item = await Ethers.getAuctionItem(itemId);
+			const item = await Ethers.getAuctionItem(tokenId);
 			await dispatch(selectedMusitNFT(item));
 		}
 		await fakeFetch();
@@ -55,7 +55,7 @@ const SuccessContent = () => {
 			setBidLoading(true);
 			const result = await Ethers.bidAuction(selectedNFT.itemId, bidPrice);
 			setBidLoading(false);
-			if (result && result.confirmations > 0) {
+			if (result && result.confirmations == 1) {
 				window.alert("입찰에 성공했습니다!");
 				navigate("/store/mybids");
 			} else {
@@ -78,7 +78,7 @@ const SuccessContent = () => {
 			setBidLoading(true);
 			const result = await Ethers.withdrawAuction(selectedNFT.itemId);
 			setBidLoading(false);
-			if (result && result.confirmations > 0) {
+			if (result && result.confirmations == 1) {
 				window.alert("보류 중인 입찰금이 성공적으로 회수 되었습니다.");
 				navigate("/store/mybids");
 			} else {
@@ -100,7 +100,7 @@ const SuccessContent = () => {
 		setBidLoading(true);
 		const result = await Ethers.endAuction(selectedNFT.itemId);
 		setBidLoading(false);
-		if (result && result.confirmations > 0) {
+		if (result && result.confirmations == 1) {
 			window.alert("해당 경매가 완료되었습니다.");
 			navigate("/store/mybids");
 		} else {
@@ -181,7 +181,7 @@ const SuccessContent = () => {
 
 	return (
 		<section className="bid-container">
-			{bidLoading && <SimpleBackdrop />}
+			{bidLoading ? <SimpleBackdrop /> : <></>}
 			{/* 이미지 박스 */}
 			<div className="image-box">
 				<img src={selectedNFT.img_file} alt="" />
@@ -229,7 +229,7 @@ const SuccessContent = () => {
 								<h2>
 									<i className="uil uil-music"></i> Genre
 								</h2>
-								<h1>{selectedNFT.genre && selectedNFT.genre.join(", ")}</h1>
+								<h1>{selectedNFT.genre ? selectedNFT.genre.join(", ") : <></>}</h1>
 							</div>
 							<div className="description-box">
 								<h2>
@@ -290,7 +290,7 @@ const SuccessContent = () => {
 										}}
 									/>
 
-									{!expired && (
+									{!expired ? (
 										<>
 											<div className="total-bid-box">
 												<h3>My Total Bids will be </h3>{" "}
@@ -304,33 +304,33 @@ const SuccessContent = () => {
 												<h4>{Number(bidPriceWithFee).toFixed(6)} ETH</h4>
 											</div>
 										</>
-									)}
+									) : <></>}
 								</div>
 								<div className="btn-box">
 									{expired ? (
 										<>
-											{pendingBids > 0 && !isTopBidder() && (
+											{pendingBids > 0 && !isTopBidder() ? (
 												<button
 													className="withdraw-btn"
 													onClick={withdrawOnClick}
 												>
 													Withdraw
 												</button>
-											)}
-											{isTopBidderOrSeller() && (
+											) : <></> }
+											{isTopBidderOrSeller() ? (
 												<button onClick={finishOnClick}>Finish</button>
-											)}
+											) : <></>}
 										</>
 									) : (
 										<>
-											{pendingBids > 0 && !isTopBidder() && (
+											{pendingBids > 0 && !isTopBidder() ? (
 												<button
 													className="withdraw-btn"
 													onClick={withdrawOnClick}
 												>
 													Withdraw
 												</button>
-											)}
+											) : <></>}
 											<button className="submit-btn" onClick={bidOnClick}>
 												Submit
 											</button>
