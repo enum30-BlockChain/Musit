@@ -9,53 +9,41 @@
 .userinfo-layout .userinfo-card {
   text-align: center;
   height: 100%;
-  padding-top: 50px;
+  padding-top: 30px;
 }
 
-.userinfo-layout .userinfo-card *{
+.userinfo-layout .userinfo-card * {
   color: var(--black-light-color);
 }
 
 .userinfo-layout .userinfo-card .type-container {
   margin-top: 15px;
   margin-bottom: 15px;
+  margin-left: 30px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 
-.userinfo-layout .userinfo-card .type-container .type-box{
+.userinfo-layout .userinfo-card .type-container .type-box {
   width: 33%;
   text-align: left;
 }
-.userinfo-layout .userinfo-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.userinfo-layout .userinfo-info > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 90%;
-  height: 60px;
-}
-.userinfo-layout .userinfo-info .nickname-box{
+
+.userinfo-info .nickname-box {
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
 }
 
-.userinfo-layout .userinfo-info .address-box{
+.userinfo-info .address-box {
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
 }
 
-.userinfo-layout .userinfo-info .nation-box{
+.userinfo-info .nation-box {
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
@@ -64,13 +52,12 @@
   justify-content: center;
 }
 
-.userinfo-layout .userinfo-info .genre-box{
+.userinfo-info .genre-box {
   margin-top: 15px;
   background-color: var(--box1-color);
   border-radius: 10px;
 }
-.userinfo-layout .userinfo-info .setting-btn{
+.userinfo-info .setting-btn {
   margin-top: 25px;
   border-radius: 10px;
 }
-
