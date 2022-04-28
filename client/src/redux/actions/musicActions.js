@@ -84,27 +84,6 @@ export const readMusicData = (ipfs_hash) => {
   };
 };
 
-/**** Update ****/
-/*기능 삭제 */
-export const updateMusicList = (input) => {
-  return async (dispatch, getState) => {
-    dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
-    try {
-      const url = "http://54.180.145.5/music/";
-      const musicList = (await axios.patch(url, input)).data;
-      dispatch({
-        type: ActionTypes.MUSIC_UPDATE_SUCCESS,
-        payload: musicList,
-      });
-    } catch (error) {
-      dispatch({
-        type: ActionTypes.MUSIC_DATA_FAIL,
-        payload: "Read music list request fail",
-      });
-    }
-  };
-};
-
 export const readLikeMusicList = () => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.LIKE_MUSIC_REQUEST });
@@ -125,14 +104,13 @@ export const readLikeMusicList = () => {
   };
 };
 
-/**** Delete ****/
-/*기능삭제 */
-export const deleteMusic = (input) => {
+/**** Update ****/
+export const updateMusicList = (input, hash) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
     try {
-      const url = "http://54.180.145.5/music/";
-      await axios.delete(url, input);
+      const url = `http://54.180.145.5/music/${hash}`;
+      const musicList = (await axios.patch(url, input)).data;
       dispatch({
         type: ActionTypes.MUSIC_DELETE_SUCCESS,
       });

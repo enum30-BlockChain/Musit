@@ -77,7 +77,6 @@ const Media = () => {
   };
 
   const ArtistPostInfo = (e) => {
-    console.log(e);
     setArtistModal(e);
   };
 
