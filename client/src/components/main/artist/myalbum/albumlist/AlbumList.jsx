@@ -10,13 +10,15 @@ import TableRow from "@mui/material/TableRow";
 import { useSelector, useDispatch } from "react-redux";
 import AlbumCard from "./AlbumCard";
 import AlbumModel from "./AlbumModel";
-import zIndex from "@mui/material/styles/zIndex";
+import Model from "./Model";
 import { useLocation } from "react-router-dom";
+import { Button } from "@mui/material";
 
 export default function AlbumList() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [musicmodal, setmusicmodal] = React.useState("");
+  const [musicEditModal, setMusicEditModal] = React.useState(false);
   const [upLoadMusic, setupLoadMusic] = React.useState([]);
   const location = useLocation();
   const content = location.state !== null || undefined ? location.state : "";
@@ -48,6 +50,10 @@ export default function AlbumList() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  
+  const openModal = (song) =>{
+    setMusicEditModal(song)
+  }
 
   //mui 내용
   function createColumn(id, label, minWidth, align, format) {
@@ -60,11 +66,12 @@ export default function AlbumList() {
     { id: "title", label: "Title", minWidth: 30 },
     { id: "artist", label: "Artist Name", minWidth: 30 },
     { id: "albumimg", label: "Album Cover", minWidth: 120 },
+    { id: "edit", label: "edit", minWidth: 50 },
   ];
 
   //재목안에 넣는 내용 columns 기둥의 id랑 똑같이 적어줘야된다.
-  function createRow(number, title, artist, albumimg) {
-    return { number, title, artist, albumimg };
+  function createRow(number, title, artist, albumimg, edit) {
+    return { number, title, artist, albumimg, edit };
   }
 
   const rows = [];
@@ -76,7 +83,20 @@ export default function AlbumList() {
           index,
           song.title,
           song.artist_name,
-          <AlbumCard song={song} setmusicmodal={setmusicmodal} />
+          <AlbumCard song={song} setmusicmodal={setmusicmodal} />,
+         <Button
+          variant="contained"
+          onClick={()=>{openModal(song)}}
+          sx={{
+            width: 100,
+            color: "var(--black-light-color)",
+            backgroundColor: "var(--box1-color)",
+            ":hover": {
+              background: "var(--primary-color)",
+              color: "var(--text-color)",
+            },
+          }}>Edit 
+          </Button>
         )
       );
     });
@@ -144,6 +164,13 @@ export default function AlbumList() {
           sx={{ display: "block" }}
           musicmodal={musicmodal}
           setmusicmodal={setmusicmodal}
+        />
+      )}
+
+      {musicEditModal && (
+        <Model
+          music={musicEditModal}
+          setMusicEditModal={setMusicEditModal}
         />
       )}
     </Paper>

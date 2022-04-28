@@ -67,8 +67,9 @@ router.get("/:ipfs_hash", async (req, res, next) => {
 /* Update */
 router.patch("/:ipfs_hash", async (req, res, next) => {
   try {
+    console.log(req.body.ipfs_hash)
     if (req.body.ipfs_hash) {
-      res.send(400, "Cannot change music file");
+      res.send(444, "Cannot change music file");
     } else if (req.body.title !== undefined && req.body.title.trim() === "") {
       res.send(400, "Empty title");
     } else if (
