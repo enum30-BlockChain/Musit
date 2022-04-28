@@ -105,11 +105,11 @@ export const readLikeMusicList = () => {
 };
 
 /**** Update ****/
-export const updateMusicList = (input) => {
+export const updateMusicList = (input,hash) => {
   return async (dispatch, getState) => {
     dispatch({ type: ActionTypes.MUSIC_DATA_REQUEST });
     try {
-      const url = "http://54.180.145.5/music/";
+      const url = `http://54.180.145.5/music/${hash}`;
       const musicList = (await axios.patch(url, input)).data;
       dispatch({
         type: ActionTypes.MUSIC_UPDATE_SUCCESS,
