@@ -239,30 +239,6 @@ export default class Ethers {
   // 마켓에 올라온 NFT 리스트 검색
   static async getMarketNFTList(): Promise<object[] | null> {
     try {
-      // const filter = marketplace.filters.Enrolled(null, null, null, null,  musitNFT.address);
-      // const enrolledList = await Promise.all(
-      //   (
-      //     await marketplace.queryFilter(filter)
-      //   ).map(async (event: any) => {
-      //     const enrolled = event.args;
-          
-      //     const tokenURI = await musitNFT.tokenURI(enrolled.tokenId.toNumber());
-      //     const tokenId = enrolled.tokenId.toNumber();
-      //     const itemId = enrolled.itemId.toNumber();
-      //     const price = ethers.utils.formatEther(enrolled.price);
-          
-      //     const metadata = await (await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)).json();
-      //     return {
-      //       tokenId,
-      //       itemId,
-      //       price,
-      //       ...metadata,
-      //     };
-      //   })
-      // );
-
-      // console.log(enrolledList);
-    
       const nftBalance = await musitNFT.balanceOf(marketplace.address);
       const nftList: object[] = [];
       const array: number[] = []
@@ -320,6 +296,29 @@ export default class Ethers {
       return null;
     }
   }
+
+  // 마켓에서 판매한 수익 계산
+  static async getMarketIncome(): Promise<number | null> {
+    try {
+      const boughtFilter: EventFilter = marketplace.filters.Bought(null, null, null, await signer.getAddress(), null, null)
+      
+      const incomeArray: number[] = await Promise.all(
+        (
+          await marketplace.queryFilter(boughtFilter)
+        ).map(async (event: Event) => {
+          const boughtInfo: any = event.args;          
+          const sellPrice: BigNumber = boughtInfo.price;
+          return sellPrice.toNumber();
+        })
+      );
+      const sumIncome: number = Number(ethers.utils.formatEther(incomeArray.reduce((a,b) => (a+b), 0)))
+      return sumIncome
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  
 
   /*** Auction Contract ***/
   // Auction에 NFT 등록하기
@@ -456,8 +455,6 @@ export default class Ethers {
           })
         }
       }))
-      // console.log(mybids);
-      
 
       return mybids.sort((prev:any, next:any) => {
         return prev.tokenId - next.tokenId
@@ -526,6 +523,29 @@ export default class Ethers {
     }
   }
 
+  // 경매로 얻은 수익
+  static async getAuctionIncome(): Promise<number | null> {
+    try {
+      const boughtFilter: EventFilter = auction.filters.End(null, null, await signer.getAddress(), null, null)
+      
+      const incomeArray: number[] = await Promise.all(
+        (
+          await auction.queryFilter(boughtFilter)
+        ).map(async (event: Event) => {
+          const boughtInfo: any = event.args;
+          const sellPrice: BigNumber = boughtInfo.price;
+          return sellPrice.toNumber();
+        })
+      );
+      
+      const sumIncome: number = Number(ethers.utils.formatEther(incomeArray.reduce((a,b) => (a+b), 0)))
+      return sumIncome
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
   /*** Subscription Contract ***/
   // buy subscription 함수 불러오기
   static async buySubscription(plan: number): Promise<boolean | null> {
@@ -566,25 +586,4 @@ export default class Ethers {
       return null;
     }
   }
-
-  /*** Other Functions ***/
-  //TODO: 수입 계산 함수
-  // static async getIncome(address: string): Promise<boolean | null> {
-  // 	try {
-  // 		const boughtFilter: EventFilter = marketplace.filters.Bought(null, null, null, address, null, null)
-  // 		const sellPrice: BigNumberish = await Promise.all(
-  // 			(
-  // 				await marketplace.queryFilter(boughtFilter)
-  // 			).map(async (event: Event) => {
-  // 				const boughtInfo: any = event.args;
-  // 				const sellPrice = boughtInfo.sellPrice;
-  // 				return sellPrice;
-  // 			}).reduce((a: BigNumberish,b: BigNumberish) => a.add(b), "0")
-  // 		);
-
-  // 	} catch (error) {
-  // 		console.log(error);
-  // 		return null;
-  // 	}
-  // }
 }

@@ -30,7 +30,7 @@ const MyBidsCard = ({data}) => {
 				</div>
 				<div className="content-wrap">
 					<div className={`color-box ${isEnd() && "end"}`}>
-						{isEnd() && <div className="end-mark">End</div>}
+						{isEnd() ? <div className="end-mark">End</div> : <></>}
 					</div>
 					<div className="info-wrap">
 						<div className="first-box">
