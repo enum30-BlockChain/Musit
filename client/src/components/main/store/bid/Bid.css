@@ -292,7 +292,7 @@
 }
 
 .bid-container .right-container .input-container .input-form .btn-box .withdraw-btn{
-  background-color: var(--error-color);
+  background-color: var(--content-bg-color3);
 }
 
 .bid-container .right-container .input-container .input-form .btn-box button{

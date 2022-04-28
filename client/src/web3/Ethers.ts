@@ -112,7 +112,7 @@ export default class Ethers {
         value: ethers.utils.parseEther("0.0001"),
       };
 
-      return await musitNFT.minting(tokenURI, options);
+      return await (await musitNFT.minting(tokenURI, options)).wait();
     } catch (error) {
       console.log(error);
       return null;
@@ -420,37 +420,48 @@ export default class Ethers {
   static async getMyBids(): Promise<object[] | null> {
     try {
       const userAddress = await signer.getAddress();
-      const nftBalance = await musitNFT.balanceOf(auction.address);
+      const auctionItemCount = (await auction.itemCounter()).toNumber();
+      
       const mybids: any = [];
       const array = []
-      for (let i = 0; i < nftBalance; i++) {
+      for (let i = 1; i < auctionItemCount+1; i++) {
         array.push(i)
       }
       
       await Promise.all(array.map(async (el: number) => {
-        const tokenId = (
-          await musitNFT.tokenOfOwnerByIndex(auction.address, el)
-        ).toNumber();
-        
-        const itemInfo: any = await this.getAuctionItem(tokenId);
+        const itemInfo = await auction.items(el);
+        const pendingBids = await auction.pendingBids(
+          itemInfo.itemId,
+          userAddress
+        );
 
-        if (itemInfo !== null) {
-          const pendingBids = await auction.pendingBids(
-            itemInfo.itemId,
-            userAddress
-          );
-          if (pendingBids > 0) {
-            mybids.push({
-              ...itemInfo,
-              pendingBids: ethers.utils.formatEther(pendingBids),
-            })
-          }
-        } else {
-          return {}
+        const tokenURI = await musitNFT.tokenURI(itemInfo.tokenId.toNumber());
+        const metadata = await (
+          await fetch(`https://ipfs.infura.io/ipfs/${tokenURI}`)
+        ).json();
+
+        if (pendingBids > 0) {
+          mybids.push({
+            itemId: itemInfo.itemId.toNumber(),
+            startPrice: ethers.utils.formatEther(itemInfo.startPrice),
+            startAt: itemInfo.startAt.toNumber(),
+            endAt: itemInfo.endAt.toNumber(),
+            tokenId: itemInfo.tokenId.toNumber(),
+            seller: itemInfo.seller,
+            topBidder: itemInfo.topBidder,
+            topBid: ethers.utils.formatEther(itemInfo.topBid),
+            status: itemInfo.topBid.toNumber(),
+            pendingBids: ethers.utils.formatEther(pendingBids),
+            ...metadata,
+          })
         }
       }))
+      // console.log(mybids);
+      
 
-      return mybids;
+      return mybids.sort((prev:any, next:any) => {
+        return prev.tokenId - next.tokenId
+      });
     } catch (error) {
       console.log(error);
       return null;
@@ -542,7 +553,7 @@ export default class Ethers {
     }
   }
 
-  // subscription EndAt 불러오기
+  // subscription 무료 쿠폰 사용여부 확인
   static async getIsFreeCouponUsed(): Promise<boolean | null> {
     try {
       const userAddress = await signer.getAddress();

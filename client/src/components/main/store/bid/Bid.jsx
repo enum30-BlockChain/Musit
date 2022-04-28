@@ -11,14 +11,14 @@ import "./Bid.css";
 const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
 
 const Bid = () => {
-	let { tokenId } = useParams();
+	let { itemId } = useParams();
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 	const [loading, setLoading] = useState(true);
 	const dispatch = useDispatch();
 
 	useEffect(async () => {
 		if (selectedNFT.itemId === undefined) {
-			const item = await Ethers.getAuctionItem(tokenId);
+			const item = await Ethers.getAuctionItem(itemId);
 			await dispatch(selectedMusitNFT(item));
 		}
 		await fakeFetch();
@@ -55,7 +55,7 @@ const SuccessContent = () => {
 			setBidLoading(true);
 			const result = await Ethers.bidAuction(selectedNFT.itemId, bidPrice);
 			setBidLoading(false);
-			if (result && result.confirmations == 1) {
+			if (result && result.confirmations > 0) {
 				window.alert("입찰에 성공했습니다!");
 				navigate("/store/mybids");
 			} else {
@@ -78,11 +78,11 @@ const SuccessContent = () => {
 			setBidLoading(true);
 			const result = await Ethers.withdrawAuction(selectedNFT.itemId);
 			setBidLoading(false);
-			if (result && result.confirmations == 1) {
-				window.alert("보류 중인 입찰이 철회 되었습니다.");
+			if (result && result.confirmations > 0) {
+				window.alert("보류 중인 입찰금이 성공적으로 회수 되었습니다.");
 				navigate("/store/mybids");
 			} else {
-				window.alert("입찰 철회에 실패했습니다.");
+				window.alert("보류 중인 입찰금 회수에 실패했습니다.");
 				window.location.reload();
 			}
 		} else {
@@ -100,7 +100,7 @@ const SuccessContent = () => {
 		setBidLoading(true);
 		const result = await Ethers.endAuction(selectedNFT.itemId);
 		setBidLoading(false);
-		if (result && result.confirmations == 1) {
+		if (result && result.confirmations > 0) {
 			window.alert("해당 경매가 완료되었습니다.");
 			navigate("/store/mybids");
 		} else {

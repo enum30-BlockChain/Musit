@@ -49,7 +49,7 @@ const SuccessContent = () => {
 		e.preventDefault();
 		const result = await Ethers.purchaseNFT(selectedNFT.itemId)
 		setbuyLoading(false)
-		if(result && result.confirmations == 1) {
+		if(result && result.confirmations > 0) {
 			window.alert("구매에 성공했습니다!")
 			navigate('/mypage/mynftlist')
 		} else {

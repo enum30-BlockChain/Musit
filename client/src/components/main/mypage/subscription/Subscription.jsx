@@ -19,7 +19,7 @@ export const Subscription = () => {
     setLoadingState(true);
     const result = await Ethers.buySubscription(e.target.id);
     setLoadingState(false);
-    if (result && result.confirmations == 1) {
+    if (result && result.confirmations > 0) {
       window.alert("구매에 성공했습니다");
       navigate("/mypage");
     } else {
