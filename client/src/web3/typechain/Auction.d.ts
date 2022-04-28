@@ -334,12 +334,14 @@ export class Auction extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
+        BigNumber,
         string,
         string,
         BigNumber,
         number,
         string
       ] & {
+        itemId: BigNumber;
         startPrice: BigNumber;
         startAt: BigNumber;
         endAt: BigNumber;
@@ -449,12 +451,14 @@ export class Auction extends BaseContract {
       BigNumber,
       BigNumber,
       BigNumber,
+      BigNumber,
       string,
       string,
       BigNumber,
       number,
       string
     ] & {
+      itemId: BigNumber;
       startPrice: BigNumber;
       startAt: BigNumber;
       endAt: BigNumber;
@@ -552,12 +556,14 @@ export class Auction extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
+        BigNumber,
         string,
         string,
         BigNumber,
         number,
         string
       ] & {
+        itemId: BigNumber;
         startPrice: BigNumber;
         startAt: BigNumber;
         endAt: BigNumber;

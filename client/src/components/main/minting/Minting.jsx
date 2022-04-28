@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { readMusicData } from "../../../redux/actions/musicActions";
-import { mintingMusitNFT } from "../../../redux/actions/contractActions";
 import "./Minting.css";
 import SimpleBackdrop from "../../SimpleBackdrop";
 import axios from "axios";
@@ -56,10 +55,10 @@ const SuccessContent = ({ ipfs_hash }) => {
     setMintingLoading(true)
     const url = "http://54.180.145.5/files/upload/metadata";
     const uploadResult = ((await axios.post(url, metadata))).data;
-    const result = await (await Ethers.minting(uploadResult.path)).wait()
+    const result = await Ethers.minting(uploadResult.path)
     setMintingLoading(false)
-    console.log(result);
-    if (result && result.confirmations == 1) {
+    
+    if (result && result.confirmations > 0) {
       window.alert("Minting 정상적으로 완료 되었습니다.")
       navigate(`/mypage/mynftlist`);
     } else {

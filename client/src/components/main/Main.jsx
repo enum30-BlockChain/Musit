@@ -155,7 +155,7 @@ export const Main = () => {
             </Route>
             <Route path="enroll/:tokenId" element={<Enroll />} />
             <Route path="buy/:tokenId" element={<Buy />} />
-            <Route path="bid/:tokenId" element={<Bid />} />
+            <Route path="bid/:itemId" element={<Bid />} />
 
             <Route path="search" element={<Search />} />
           </Route>

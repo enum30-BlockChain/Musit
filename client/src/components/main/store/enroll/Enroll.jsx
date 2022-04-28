@@ -183,7 +183,7 @@ const OrdinaryForm = () => {
 		setPermissionLoading(true)
 		const result = await (await Ethers.approveMyNFT("marketplace", tokenId)).wait()
 		setPermissionLoading(false)
-		if (result && result.confirmations == 1) {
+		if (result && result.confirmations > 0) {
 			window.alert("권한 승인 요청에 성공했습니다.")
 			setIsApproved(await Ethers.checkApprovedAddress("marketplace", tokenId))
 		} else {
@@ -206,7 +206,7 @@ const OrdinaryForm = () => {
 		} else {
 			setSubmitLoading(true)
 			const result = await Ethers.enrollMarketplace(tokenId, sellPrice)
-			if (result && result.confirmations == 1) {
+			if (result && result.confirmations > 0) {
 				window.alert("NFT 판매 등록에 성공했습니다.")
 				navigate(`/store`);
 			} else {
@@ -281,7 +281,7 @@ const AuctionForm = () => {
 		setPermissionLoading(true)
 		const result = await (await Ethers.approveMyNFT("auction", tokenId)).wait()
 		setPermissionLoading(false)
-		if (result && result.confirmations == 1) {
+		if (result && result.confirmations > 0) {
 			window.alert("권한 승인 요청에 성공했습니다.")
 			setIsApproved(await Ethers.checkApprovedAddress("auction", tokenId))
 		} else {
@@ -328,7 +328,7 @@ const AuctionForm = () => {
 			const result = await Ethers.enrollAuction(tokenId, sellPrice, new Date(endAt).getTime())
 			setSubmitLoading(false)
 
-			if (result && result.confirmations == 1) {
+			if (result && result.confirmations > 0) {
 				window.alert("경매 등록에 성공했습니다.")
 				navigate(`/store/auction`);
 			} else {

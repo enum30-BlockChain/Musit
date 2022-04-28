@@ -23,6 +23,7 @@ contract Auction is ReentrancyGuard, Ownable {
   enum StatusType { ENROLLED, CLOSED, CANCELLED }
 
   struct Item {
+    uint itemId;
     uint startPrice;
     uint startAt;
     uint endAt;
@@ -79,6 +80,7 @@ contract Auction is ReentrancyGuard, Ownable {
     itemCounter.increment();
     uint itemId = itemCounter.current();
     items[itemId] = Item(
+      itemId,
       _startPrice, 
       block.timestamp,
       _endAt/1000, 
