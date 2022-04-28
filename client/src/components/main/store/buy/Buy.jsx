@@ -1,7 +1,7 @@
 import { Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { selectedMusitNFT } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
 import Error from "../../../Error";
@@ -40,11 +40,22 @@ const Buy = () => {
 /* 페이지 로딩 Success 화면 */
 const SuccessContent = () => {
 	const selectedNFT = useSelector((state) => state.selectedMusitNFT);
+	const [buyLoading, setbuyLoading] = useState(false);
+	const navigate = useNavigate();
 
 	// NFT 판매 등록
 	const buyOnClick = async (e) => {
+		setbuyLoading(true)
 		e.preventDefault();
-		await Ethers.purchaseNFT(selectedNFT.itemId)
+		const result = await Ethers.purchaseNFT(selectedNFT.itemId)
+		setbuyLoading(false)
+		if(result && result.confirmations == 1) {
+			window.alert("구매에 성공했습니다!")
+			navigate('/mypage/mynftlist')
+		} else {
+			window.alert("구매에 실패했습니다.")
+			navigate('/store/')
+		}
 	}
 
 	return (
@@ -56,6 +67,10 @@ const SuccessContent = () => {
 
 			{/*** 왼쪽 컨테이너 ***/}
 			<section className="left-container">
+				<div>
+					<h2>Token Id</h2>
+					<h1>{selectedNFT.tokenId}</h1>
+				</div>
 				<div className="title-box">
 					<h2>Title</h2>
 					<h1>{selectedNFT.title}</h1>
@@ -78,9 +93,13 @@ const SuccessContent = () => {
 				{/* 상세정보 컨테이너 */}
 				{!selectedNFT.sold ? <>
 					<section className="info-container">
-					<h1 className="title">
+					<h5 className="title">
 						BUY NFT
-					</h1>
+					</h5>
+					<div>
+						<h2>Auction Item Id</h2>
+						<h1>{selectedNFT.itemId}</h1>
+					</div>
 					<div className="genre-box">
 						<h2>
 							<i className="uil uil-music"></i> Genre
@@ -89,7 +108,7 @@ const SuccessContent = () => {
 					</div>
 					<div className="description-box">
 						<h2><i className="uil uil-subject"></i> Description</h2>
-						<p>{selectedNFT.description}</p>
+						<pre>{selectedNFT.description}</pre>
 					</div>
 					<div className="sell-price-box">
 						<h2>
@@ -108,8 +127,8 @@ const SuccessContent = () => {
 						</h1>
 					</section>
 				</>}
-				
 			</section>
+			{buyLoading && <SimpleBackdrop/>}
 		</section>
 	);
 };
@@ -167,7 +186,6 @@ const LoadingContent = () => {
 					</section>
 				</section>
 			</section>
-			<SimpleBackdrop/>
 		</>
 	);
 };

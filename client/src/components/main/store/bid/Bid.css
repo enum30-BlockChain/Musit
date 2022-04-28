@@ -99,7 +99,7 @@
 
 .bid-container .left-container .audio-box audio {
   background-color: var(--content-bg-color1);
-  border-radius: 10px;
+  border-radius: 30px;
 }
 .bid-container .left-container .audio-box audio::-webkit-media-controls-panel {
   background-color: var(--content-bg-color1);
@@ -129,7 +129,7 @@
   align-items: center;
   width: 50%;
   height: 100%;
-  padding: 30px 0;
+  padding: 20px 0;
   overflow: hidden;
 }
 
@@ -166,12 +166,11 @@
 .bid-container .right-container .info-container .description-box {
   height: 300px;
 }
-.bid-container .right-container .info-container .description-box p {
+.bid-container .right-container .info-container .description-box pre {
   padding-top: 10px;
   flex: 1;
   overflow: auto;
-  word-break: normal;
-  white-space: normal;
+  white-space: pre-wrap;
 }
 
 /* not-available 컨테이너 */
@@ -210,7 +209,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding: 30px 0;
+  padding: 20px 0;
 }
 .bid-container .right-container .input-container .input-form.expired {
   background-color: var(--error-color);
@@ -268,8 +267,8 @@
   justify-content: space-between;
 }
 
-.bid-container .right-container .input-container .input-form .title-box {
-  display: flex;
+.bid-container .right-container .input-container .input-form .price-box {
+  height: 300px;
 }
 
 .bid-container .right-container .input-container .input-form .total-bid-box :is(h3, h4){
@@ -284,16 +283,33 @@
   color: var(--error-color);
 }
 
-.bid-container .right-container .input-container .input-form button{
+.bid-container .right-container .input-container .input-form .btn-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 350px;
+  background-color: transparent;
+}
+
+.bid-container .right-container .input-container .input-form .btn-box .withdraw-btn{
+  background-color: var(--error-color);
+}
+
+.bid-container .right-container .input-container .input-form .btn-box button{
   border: none;
+  margin: 5px;
+  width: 50%;
+  height: 50px;
   font-size: 18px;
+  font-weight: 500;
   min-height: 45px;
   align-items: center;
   background-color: var(--third-color);
-  color: var(--content-bg-color1);
+  color: var(--text-color2);
+  border-radius: 10px;
 }
 
-.bid-container .right-container .input-container .input-form button:hover{
+.bid-container .right-container .input-container .input-form .btn-box button:hover{
   background-color: var(--primary-color);
   cursor: pointer;
 }

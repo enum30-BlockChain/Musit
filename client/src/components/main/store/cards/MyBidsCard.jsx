@@ -1,22 +1,30 @@
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { selectedMusitNFT } from '../../../../redux/actions/contractActions';
 import "./MyBidsCard.css";
 
 const MyBidsCard = ({data}) => {
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
   const isEnd = () => {
 		const distance = data.endAt * 1000 - Date.now()
 		return !(distance > 0)
 	}
 
-  const bidMoreOnClick = () => {
+  const bidMoreOnClick = async () => {
     navigate(`/bid/${data.tokenId}`);
+		await dispatch(selectedMusitNFT(data))
+  }
+	
+  const cancelOnClick = async () => {
+    navigate(`/store/mybids`);
   }
 	
   return (
 		<>
-			<div className="item-card">
+			<div className="item-card" onClick={bidMoreOnClick}>
 				<div className="img-box">
 					<img src={data.img_file} />
 				</div>
@@ -36,22 +44,14 @@ const MyBidsCard = ({data}) => {
 							</div>
 						</div>
 						<div className="second-box">
-							{isEnd() ? (
-								<>
-									<div className="btn-box">
-										<button>Bid More</button>
-									</div>
-								</>
-							) : (
-								<>
-									<div className="btn-box">
-										<button onClick={bidMoreOnClick}>Bid More</button>
-									</div>
-									<div className="btn-box">
-										<button>Cancel</button>
-									</div>
-								</>
-							)}
+							<div className="top-bid-box">
+								<h2>Top Bid</h2>
+								<h1>{data.topBid} ETH</h1>
+							</div>
+							<div className="top-bidder-box">
+								<h2>Top Bidder</h2>
+								<h1>{data.topBidder}</h1>
+							</div>
               {/* TODO: top bidder는 취소 못하게 막아야함 */}
 						</div>
 					</div>

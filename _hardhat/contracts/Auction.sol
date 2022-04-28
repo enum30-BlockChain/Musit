@@ -60,8 +60,9 @@ contract Auction is ReentrancyGuard, Ownable {
     require(msg.sender == _nft.ownerOf(_tokenId), "Only owner can enroll nft");
     _;
   }
-  modifier onlySeller (uint _itemId) {
-    require(msg.sender == items[_itemId].seller, "Only seller can end it.");
+  modifier onlySellerTopBidder (uint _itemId) {
+    require(msg.sender == items[_itemId].seller || msg.sender == items[_itemId].topBidder, 
+            "Only seller or top bidder can end it.");
     _;
   }
 
@@ -119,7 +120,7 @@ contract Auction is ReentrancyGuard, Ownable {
   }
 
   // 경매 종료 함수
-  function end(uint _itemId) external nonReentrant onlySeller(_itemId) {
+  function end(uint _itemId) external nonReentrant onlySellerTopBidder(_itemId) {
     Item storage auctionItem = items[_itemId];
     require(auctionItem.status == StatusType.ENROLLED, "This item hasn't been enrolled");
     require(block.timestamp > auctionItem.endAt, "It is not the time to close auction");
