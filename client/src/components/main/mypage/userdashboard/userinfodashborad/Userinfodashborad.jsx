@@ -11,7 +11,7 @@ export default function Userinformation({}) {
     metamask.accounts[0].substr(0, 5) +
       metamask.accounts[0].substr(metamask.accounts[0].length - 4, 4) +
       "...";
-
+  console.log(user);
   return (
     <div className="userinfo-layout">
       <div className="userinfo-card">
@@ -49,7 +49,7 @@ export default function Userinformation({}) {
 
           <div className="Genre-box">
             <h2 className="userinfo-Genre">Genre</h2>
-            <span> {user && user.genre.join(", ")}</span>
+            <span> {user.genre && user.genre.join(",")}</span>
           </div>
 
           <div className="setting-btn"></div>

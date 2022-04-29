@@ -287,7 +287,7 @@ export const Musicupload = () => {
         </div>
         {/* <audio src="" autoplay loop controls>오디오 지원되지 않는 브라우저</audio> */}
         {music.loading && <Progress />}
-        <MessageHandler test={messageState} title={DBdata.title} />
+        <MessageHandler onOff={messageState} title={DBdata.title} />
       </div>
     </>
   );

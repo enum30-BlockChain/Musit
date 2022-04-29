@@ -90,20 +90,23 @@ export const Searchbar = () => {
             </Button>
           )}
         </div>
-
-        <Drawer
-          anchor="right"
-          open={open}
-          onClose={() => {
-            setOpen(false);
-          }}
-          // onOpen={() => {
-          //   setOpen(true);
-          // }}
-          PaperProps={{ style: { backgroundColor: "rgba(225,225,225,0.8)" } }}
-        >
-          <UserDrawer />
-        </Drawer>
+        {user && user.nickname !== null ? (
+          <Drawer
+            anchor="right"
+            open={open}
+            onClose={() => {
+              setOpen(false);
+            }}
+            // onOpen={() => {
+            //   setOpen(true);
+            // }}
+            PaperProps={{ style: { backgroundColor: "rgba(225,225,225,0.8)" } }}
+          >
+            <UserDrawer />
+          </Drawer>
+        ) : (
+          !open
+        )}
       </div>
     </>
   );

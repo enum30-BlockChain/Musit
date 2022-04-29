@@ -84,7 +84,7 @@ export default function ArtistModal(props) {
           >
             <Box sx={{ mt: 3 }}>
               <Typography variant="h3" gutterBottom component="div">
-                <b>{props.artistModal.artist_name}</b>
+                <b>Artist Name:{props.artistModal.artist_name}</b>
               </Typography>
               <Typography
                 sx={{ mt: 5 }}
@@ -92,15 +92,24 @@ export default function ArtistModal(props) {
                 gutterBottom
                 component="div"
               >
-                Upload music : {props.artistModal.Music.length}
+                <b>Artist Like:{props.artistModal.ArtistLikes.length}</b>
               </Typography>
+
               <Typography
                 sx={{ mt: 5 }}
-                variant="h5"
+                variant="h4"
                 gutterBottom
                 component="div"
               >
-                Total paly count : {TotalCount}
+                <b>Upload music : {props.artistModal.Music.length}</b>
+              </Typography>
+              <Typography
+                sx={{ mt: 5 }}
+                variant="h4"
+                gutterBottom
+                component="div"
+              >
+                Total play count : {TotalCount}
               </Typography>
             </Box>
             <Box sx={{ mt: 1, mr: 3 }}>

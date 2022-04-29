@@ -198,7 +198,7 @@ const RegisterUser = () => {
               </li>
               <div style={{ margin: "20px" }}>
                 <h2>Nations</h2>
-                <Box sx={{ ml: "35%" }}>
+                <Box sx={{ ml: "35%", display: "contents" }}>
                   <CountryType
                     required
                     setSelected={setSelected}

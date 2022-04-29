@@ -72,7 +72,7 @@ const SuccessContent = ({ ipfs_hash }) => {
       <section className="minting-container">
         <header className="minting-title">
           <i className="uil uil-capture"></i>
-          <span className="text-minting"> NTF-Minting</span>
+          <span className="text-minting"> NFT-Minting</span>
         </header>
 
         <main className="mintig-content-wrap">
