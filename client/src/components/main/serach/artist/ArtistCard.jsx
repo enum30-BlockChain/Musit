@@ -9,7 +9,7 @@ import { borderRadius } from "@mui/system";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
 import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleLikeArtist } from "../../../../redux/actions/artistActions";
+import { toggleLikeArtist,readLikeArtistList } from "../../../../redux/actions/artistActions";
 import { Box } from "@mui/material";
 
 export default function ArtistCard(props) {
@@ -35,6 +35,7 @@ export default function ArtistCard(props) {
 
   const likeOnclick = async () => {
     await dispatch(toggleLikeArtist(props.artist.artist_name));
+    await dispatch(readLikeArtistList());
   };
 
   return (
