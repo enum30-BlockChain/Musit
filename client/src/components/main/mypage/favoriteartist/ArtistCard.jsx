@@ -36,7 +36,6 @@ export default function ArtistCard() {
       </div>
       {artistModal && (
         <ArtistModel
-          sx={{ display: "block" }}
           artistModal={artistModal}
           likeArtistDetail={likeArtistDetail}
           setArtistModal={setArtistModal}
