@@ -60,7 +60,6 @@ import { CircularProgress } from "@mui/material";
 
 import Error from "../Error";
 import { Test } from "../Test";
-import AletMessage from "../AletMessage";
 
 
 export const Main = () => {
@@ -165,7 +164,6 @@ export const Main = () => {
         </Routes>
       </div>
       {user.address && user.subsEndAt !== 0 && <Playbar />}
-      <AletMessage />
     </section>
   );
 };

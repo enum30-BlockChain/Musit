@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import { readMusicData } from "../../../redux/actions/musicActions";
 import "./Minting.css";
 import SimpleBackdrop from "../../SimpleBackdrop";
-import AletMessage from "../../AletMessage";
+import AlertMessage from "../../AlertMessage";
 import axios from "axios";
 import Ethers from "../../../web3/Ethers";
 
