@@ -13,8 +13,8 @@ const Alert = forwardRef(function Alert(props, ref) {   //먼지잘모르겠음
 });
 
 export default function AletMessage(props) {
-  const [open, setOpen] = useState(true);
-  const [secondopen, setSecondOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [secondopen, setSecondOpen] = useState(flase);
   const navigate = useNavigate();
 
   const handleClick = () => {
