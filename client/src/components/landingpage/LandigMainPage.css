@@ -1,0 +1,52 @@
+
+body {
+  overflow: hidden;
+  font-family: "Quicksand";
+}
+
+#content {
+  position: relative;
+  height: 75vh;
+  width: 75vh;
+  margin: 5vh auto;
+  border-radius: 50%;
+  border: 5px solid #7571e5;
+  transform-origin: center;
+  animation: backgroundOnMusic linear infinite 1s;
+}
+
+svg {
+  height: 100%;
+  width: 100%;
+}
+
+#headphones,
+#dj {
+  animation: moveOnMusic linear infinite alternate 0.5s;
+}
+
+@keyframes moveOnMusic {
+  from {
+    transform: rotate(0deg) translateY(-2px);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes backgroundOnMusic {
+  25% {
+    background: #274743;
+  }
+  50% {
+    background: #2b3057;
+  }
+  75% {
+    background: #250628;
+  }
+  100% {
+    background: #1a090d;
+  }
+}
+
+

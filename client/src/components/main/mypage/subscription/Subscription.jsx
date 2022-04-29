@@ -2,8 +2,6 @@ import "./Subscription.css";
 import React, { useEffect, useState } from "react";
 import Ethers from "../../../../web3/Ethers";
 import SimpleBackdrop from "../../../SimpleBackdrop";
-import { useNavigate } from "react-router-dom";
-
 const fakeFetch = (delay = 500) => new Promise((res) => setTimeout(res, delay));
 
 export const Subscription = () => {
@@ -13,7 +11,6 @@ export const Subscription = () => {
   const dayAfter90 = new Date(nowDate + 1000 * 60 * 60 * 24 * 90);
   const dayAfter180 = new Date(nowDate + 1000 * 60 * 60 * 24 * 180);
   const [couponUsedState, setCouponUsedState] = useState(false);
-  const navigate = useNavigate();
 
   const getBuySubscription = async (e) => {
     setLoadingState(true);
@@ -21,7 +18,7 @@ export const Subscription = () => {
     setLoadingState(false);
     if (result && result.confirmations > 0) {
       window.alert("구매에 성공했습니다");
-      navigate("/mypage");
+      window.location.href="/mypage";
     } else {
       window.alert("구매에 실패했습니다");
     }
