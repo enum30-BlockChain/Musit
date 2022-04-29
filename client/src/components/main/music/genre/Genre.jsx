@@ -135,7 +135,7 @@ export default function Genre() {
             <div className="Recommend-layout">
               <div className="Recommend-title">
                 <i className="uil uil-headphones-alt"></i>
-                <span className="Recommend-title-text">Genre Recommend</span>
+                <span className="Recommend-title-text">Music Recommend</span>
               </div>
               <Box
                 sx={{
@@ -238,7 +238,7 @@ export default function Genre() {
                   {artistRecommend &&
                     artistRecommend.map((artist, i) => {
                       return (
-                        <Grid  key={i}>
+                        <Grid key={i}>
                           <div
                             className="glide"
                             style={{ transform: `translateX(${value}%)` }}
