@@ -49,7 +49,7 @@ export default function Userinformation({}) {
 
           <div className="Genre-box">
             <h2 className="userinfo-Genre">Genre</h2>
-            <span> {user.genre.join(", ")}</span>
+            <span> {user && user.genre.join(", ")}</span>
           </div>
 
           <div className="setting-btn"></div>
