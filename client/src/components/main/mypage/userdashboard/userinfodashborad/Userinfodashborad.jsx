@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
-import "./Userinfodashborad.css"
+import "./Userinfodashborad.css";
 export default function Userinformation({}) {
   const user = useSelector((state) => state.user);
   const metamask = useSelector((state) => state.metamask);
@@ -26,13 +26,12 @@ export default function Userinformation({}) {
               className="userinfo-image"
               alt="Remy Sharp"
               src={user.img}
-              sx={{ my:1, width: 260, height: 260 }}
+              sx={{ my: 1, width: 260, height: 260 }}
             />
           </div>
         </div>
 
         <div className="userinfo-info">
-
           <div className="nickname-box">
             <h2 className="nickname">Nickname</h2>
             <p>{user.nickname}</p>
@@ -47,10 +46,10 @@ export default function Userinformation({}) {
             <h2 className="Nation">Nation</h2>
             <p>국가 : {user.nation}</p>
           </div>
-          
+
           <div className="Genre-box">
             <h2 className="userinfo-Genre">Genre</h2>
-            <span>{user.genre}</span>
+            <span> {user.genre.join(", ")}</span>
           </div>
 
           <div className="setting-btn"></div>
