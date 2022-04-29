@@ -75,100 +75,98 @@ const SuccessContent = ({ nftData }) => {
   };
 
   return (
-    <div style={{ height: "100%" }}>
-      <section className="enroll-container">
-        {/* 이미지 박스 */}
-        <div className="image-box">
-          <img src={nftData.img_file} alt="" />
+    <section className="enroll-container">
+      {/* 이미지 박스 */}
+      <div className="image-box">
+        <img src={nftData.img_file} alt="" />
+      </div>
+
+      {/*** 왼쪽 컨테이너 ***/}
+      <section className="left-container">
+        <div className="title-box">
+          <h2>Title</h2>
+          <h1>{nftData.title}</h1>
+        </div>
+        <div className="artist-name-box">
+          <h2>Artist Name</h2>
+          <h1>{nftData.artist_name}</h1>
         </div>
 
-        {/*** 왼쪽 컨테이너 ***/}
-        <section className="left-container">
-          <div className="title-box">
-            <h2>Title</h2>
-            <h1>{nftData.title}</h1>
-          </div>
-          <div className="artist-name-box">
-            <h2>Artist Name</h2>
-            <h1>{nftData.artist_name}</h1>
-          </div>
+        <div className="audio-box">
+          <audio
+            src={`https://ipfs.infura.io/ipfs/${nftData.ipfs_hash}`}
+            controls
+          ></audio>
+        </div>
+      </section>
 
-          <div className="audio-box">
-            <audio
-              src={`https://ipfs.infura.io/ipfs/${nftData.ipfs_hash}`}
-              controls
-            ></audio>
+      {/*** 오른쪽 컨테이너 ***/}
+      <section className="right-container">
+        {/* 상세정보 컨테이너 */}
+        <section className="info-container">
+          <div className="total-play-time-box">
+            <h2>
+              <i className="uil uil-clock"></i> Total Play Time
+            </h2>
+            <h1>
+              {Math.floor((musicData.play_time * musicData.play_count) / 60)}{" "}
+              minutes
+            </h1>
+          </div>
+          <div className="total-play-time-box">
+            <h2>
+              <i className="uil uil-thumbs-up"></i>Total Likes
+            </h2>
+            <h1>{musicData.MusicLikes ? musicData.MusicLikes.length : 0}</h1>
+          </div>
+          <div className="genre-box">
+            <h2>
+              <i className="uil uil-music"></i> Genre
+            </h2>
+            <h1>{nftData.genre ? nftData.genre.join(", ") : <></>}</h1>
+          </div>
+          <div className="description-box">
+            <h2>
+              <i className="uil uil-subject"></i> Description
+            </h2>
+            <pre>{nftData.description}</pre>
           </div>
         </section>
 
-        {/*** 오른쪽 컨테이너 ***/}
-        <section className="right-container">
-          {/* 상세정보 컨테이너 */}
-          <section className="info-container">
-            <div className="total-play-time-box">
-              <h2>
-                <i className="uil uil-clock"></i> Total Play Time
-              </h2>
-              <h1>
-                {Math.floor((musicData.play_time * musicData.play_count) / 60)}{" "}
-                minutes
-              </h1>
-            </div>
-            <div className="total-play-time-box">
-              <h2>
-                <i className="uil uil-thumbs-up"></i>Total Likes
-              </h2>
-              <h1>{musicData.MusicLikes ? musicData.MusicLikes.length : 0}</h1>
-            </div>
-            <div className="genre-box">
-              <h2>
-                <i className="uil uil-music"></i> Genre
-              </h2>
-              <h1>{nftData.genre ? nftData.genre.join(", ") : <></>}</h1>
-            </div>
-            <div className="description-box">
-              <h2>
-                <i className="uil uil-subject"></i> Description
-              </h2>
-              <pre>{nftData.description}</pre>
-            </div>
-          </section>
-
-          {/* 입력 컨테이너 */}
-          <section className="input-container sell">
-            <div className="btn-group">
-              <button className="sell-btn" onClick={selectSellOnClick}>
-                Sell
-              </button>
-              <button className="auction-btn" onClick={selectAuctionOnClick}>
-                Auction
-              </button>
-            </div>
-            <div className="input-form">
-              {isOnMarket ? (
-                <>
-                  <div className="not-available-box">
-                    <h2>
-                      <i className="uil uil-exclamation-triangle"></i> Not
-                      available
-                    </h2>
-                    <p>This item is already on the market.</p>
-                    <p>You cannot enroll items on the market.</p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* 일반 판매 */}
-                  <OrdinaryForm isOnMarket={isOnMarket} />
-                  {/* 경매 */}
-                  <AuctionForm isOnMarket={isOnMarket} />
-                </>
-              )}
-            </div>
-          </section>
+        {/* 입력 컨테이너 */}
+        <section className="input-container sell">
+          <div className="btn-group">
+            <button className="sell-btn" onClick={selectSellOnClick}>
+              Sell
+            </button>
+            <button className="auction-btn" onClick={selectAuctionOnClick}>
+              Auction
+            </button>
+          </div>
+          <div className="input-form">
+            {isOnMarket ? (
+              <>
+                <div className="not-available-box">
+                  <h2>
+                    <i className="uil uil-exclamation-triangle"></i> Not
+                    available
+                  </h2>
+                  <p>This item is already on the market.</p>
+                  <p>You cannot enroll items on the market.</p>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* 일반 판매 */}
+                <OrdinaryForm isOnMarket={isOnMarket} />
+                {/* 경매 */}
+                <AuctionForm isOnMarket={isOnMarket} />
+              </>
+            )}
+          </div>
         </section>
       </section>
-    </div>
+    </section>
   );
 };
 
@@ -230,7 +228,7 @@ const OrdinaryForm = () => {
   };
 
   return (
-    <div>
+    <>
       <div className="ordinary-form">
         <div className="notice-box">
           <h2>
@@ -274,7 +272,7 @@ const OrdinaryForm = () => {
         </form>
       </div>
       {submitLoading || permissionLoading ? <SimpleBackdrop /> : <></>}
-    </div>
+    </>
   );
 };
 
