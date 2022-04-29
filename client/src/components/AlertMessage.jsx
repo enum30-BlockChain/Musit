@@ -2,20 +2,14 @@ import React, { useEffect, useState, forwardRef } from "react";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
-const fakeFetch = (delay = 1500) =>
-  new Promise((res) => setTimeout(res, delay));
-
-const Alert = forwardRef(function Alert(props, ref) {   //먼지잘모르겠음
+const Alert = forwardRef(function Alert(props, ref) {  
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function AletMessage(props) {
   const [open, setOpen] = useState(false);
   const [secondopen, setSecondOpen] = useState(flase);
-  const navigate = useNavigate();
 
   const handleClick = () => {
     setOpen(true);
@@ -34,13 +28,10 @@ export default function AletMessage(props) {
 
   useEffect(() => {
     const init = async () => {
-      if (props.onoff) {  //modal띄우게 해줄값
-        if (music.errorMsg.length > 0) {
-          handleClick();
-        } else {
-          handleClick2();
-          await fakeFetch();
-        }
+      if (props.error) {
+        handleClick();
+      } else {
+        handleClick2();
       }
     };
     init();

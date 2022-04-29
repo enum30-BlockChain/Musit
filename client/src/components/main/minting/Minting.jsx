@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import { readMusicData } from "../../../redux/actions/musicActions";
 import "./Minting.css";
 import SimpleBackdrop from "../../SimpleBackdrop";
+import AletMessage from "../../AletMessage";
 import axios from "axios";
 import Ethers from "../../../web3/Ethers";
 
@@ -59,11 +60,12 @@ const SuccessContent = ({ ipfs_hash }) => {
     setMintingLoading(false)
     
     if (result && result.confirmations > 0) {
+      <AlertMessage />
       window.alert("Minting 정상적으로 완료 되었습니다.")
-      navigate(`/mypage/mynftlist`);
+      // navigate(`/mypage/mynftlist`);
     } else {
       window.alert("Minting이 완료되지 않았습니다.");
-      navigate(`/artist/myupload`);
+      // navigate(`/artist/myupload`);
     }
   };
 
