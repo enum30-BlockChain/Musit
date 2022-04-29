@@ -196,11 +196,14 @@ const RegisterUser = () => {
               </li>
               <div>
                 <h2>Nations</h2>
-                <CountryType
-                  required
-                  setSelected={setSelected}
-                  // style={{ display: "none" }}
-                />
+                <Box 
+                sx={{ml:'35%'}}>
+                  <CountryType
+                    required
+                    setSelected={setSelected}
+                    // style={{ display: "none" }}
+                  />
+                </Box>
               </div>
               <h1>Genre</h1>
               <div className="genre">
