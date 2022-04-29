@@ -176,6 +176,7 @@ describe("Auction contract", () => {
             .withArgs(
               1,
               addr2.address,
+              addr1.address,
               ethToWei(0.0005),
               ethToWei(0.000005)
             );
