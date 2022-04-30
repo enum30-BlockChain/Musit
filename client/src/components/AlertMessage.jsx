@@ -9,7 +9,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 
 export default function AletMessage(props) {
   const [open, setOpen] = useState(false);
-  const [secondopen, setSecondOpen] = useState(flase);
+  const [secondopen, setSecondOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(true);
