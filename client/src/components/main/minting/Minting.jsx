@@ -111,32 +111,38 @@ const SuccessContent = ({ ipfs_hash }) => {
               </p>
             </div>
             <div className="content-box minting-btn">
-              <Button
-                onClick={() => history.back()}
-                sx={{
-                  color: "var(--black-light-color)",
-                  backgroundColor: "var(--box1-color)",
-                  ":hover": {
-                    background: "var(--primary-color)",
-                    color: "var(--text-color)",
-                  },
-                }}
-              >
-                Cancle
-              </Button>
-              <Button
-                onClick={mintingOnClick}
-                sx={{
-                  color: "var(--black-light-color)",
-                  backgroundColor: "var(--box1-color)",
-                  ":hover": {
-                    background: "var(--primary-color)",
-                    color: "var(--text-color)",
-                  },
-                }}
-              >
-                Minting
-              </Button>
+              <div className="content-box minting-btn1">
+                <Button
+                  onClick={() => history.back()}
+                  sx={{
+                    width: "100%",
+                    color: "var(--black-light-color)",
+                    backgroundColor: "var(--box1-color)",
+                    ":hover": {
+                      background: "var(--primary-color)",
+                      color: "var(--text-color)",
+                    },
+                  }}
+                >
+                  Cancle
+                </Button>
+              </div>
+              <div className="content-box minting-btn2">
+                <Button
+                  onClick={mintingOnClick}
+                  sx={{
+                    width: "100%",
+                    color: "var(--black-light-color)",
+                    backgroundColor: "var(--box1-color)",
+                    ":hover": {
+                      background: "var(--primary-color)",
+                      color: "var(--text-color)",
+                    },
+                  }}
+                >
+                  Minting
+                </Button>
+              </div>
             </div>
           </section>
         </main>

@@ -111,7 +111,7 @@
 }
 
 .minting-layout .mintig-content-wrap .right-container .description-box {
-  height: 170px;
+  height: 200px;
 }
 
 .minting-layout .mintig-content-wrap .right-container .description-box p {
@@ -129,16 +129,23 @@
   .right-container
   .content-box-warning {
   width: 100%;
-  height: 80px;
+  padding: 5px;
   background-color: var(--warning-color);
   border-radius: 10px;
+  text-align: center;
 }
 
 .minting-layout .mintig-content-wrap .right-container .minting-btn {
   display: flex;
-  margin: 10px;
+  margin-top: 10px;
   justify-content: center;
-  align-items: center;
+}
+.minting-layout .mintig-content-wrap .right-container .minting-btn1 {
+  margin-right: 5px;
+  width: 100%;
+}
 
-  margin: 0;
+.minting-layout .mintig-content-wrap .right-container .minting-btn2 {
+  margin-left: 5px;
+  width: 100%;
 }
