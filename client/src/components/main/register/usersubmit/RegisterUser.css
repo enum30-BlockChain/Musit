@@ -1,7 +1,7 @@
 .register-layout {
   margin: 80px 80px 30px 80px;
   padding: 20px;
-  height: 660px;
+  height: 700px;
   background-color: rgba(255, 255, 255, 0.6);
   text-align: center;
   border-radius: 10px;
@@ -9,6 +9,7 @@
 
 .register-layout .submit {
   margin-top: 0px;
+  width: 200px;
 }
 
 .register-layout .register-title {
