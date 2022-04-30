@@ -70,6 +70,12 @@ contract Subscription {
     return endAt[_user];
   }
 
+  // 구독 종료 시간 바꾸기
+  function setEndAt (address _user, uint _endAt) public returns(uint) {
+    require(msg.sender == owner, "Only owner can access it");
+    return endAt[_user] = _endAt;
+  }
+
   // 무료 쿠폰 사용 여부 확인
   function getIsFreeCouponUsed (address _user) public view returns(bool) {
     return isFreeCouponUsed[_user];
