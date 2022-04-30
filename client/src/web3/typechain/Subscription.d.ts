@@ -27,6 +27,7 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     "getEndAt(address)": FunctionFragment;
     "getIsFreeCouponUsed(address)": FunctionFragment;
     "getPrice(uint8)": FunctionFragment;
+    "setEndAt(address,uint256)": FunctionFragment;
     "setIsFreeCouponUsed(address,bool)": FunctionFragment;
   };
 
@@ -45,6 +46,10 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "setEndAt",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setIsFreeCouponUsed",
     values: [string, boolean]
   ): string;
@@ -60,6 +65,7 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getPrice", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setEndAt", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setIsFreeCouponUsed",
     data: BytesLike
@@ -134,6 +140,12 @@ export class Subscription extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    setEndAt(
+      _user: string,
+      _endAt: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     setIsFreeCouponUsed(
       _user: string,
       _change: boolean,
@@ -160,6 +172,12 @@ export class Subscription extends BaseContract {
 
   getPrice(_plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
+  setEndAt(
+    _user: string,
+    _endAt: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   setIsFreeCouponUsed(
     _user: string,
     _change: boolean,
@@ -183,6 +201,12 @@ export class Subscription extends BaseContract {
 
     getPrice(
       _plan: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    setEndAt(
+      _user: string,
+      _endAt: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -218,6 +242,12 @@ export class Subscription extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    setEndAt(
+      _user: string,
+      _endAt: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     setIsFreeCouponUsed(
       _user: string,
       _change: boolean,
@@ -249,6 +279,12 @@ export class Subscription extends BaseContract {
     getPrice(
       _plan: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    setEndAt(
+      _user: string,
+      _endAt: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setIsFreeCouponUsed(
