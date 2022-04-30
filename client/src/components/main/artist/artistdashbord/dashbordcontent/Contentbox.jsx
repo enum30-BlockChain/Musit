@@ -16,7 +16,7 @@ export const Contentbox = () => {
 
   useEffect(async () => {
     setAuctionIncome(await Ethers.getAuctionIncome())
-    setMarketplaceIncome(await Ethers.getMarketplaceIncome())
+    setMarketplaceIncome(await Ethers.getMarketIncome())
   }, []);
 
   return (

@@ -5,7 +5,6 @@ import ArtistCard from "./ArtistCard";
 
 const FavoriteArtist = () => {
   const likeArtist = useSelector((state) => state.likeArtist);
-  console.log(likeArtist)
   return (
     <div
       className="favorite"
