@@ -107,9 +107,7 @@ const SuccessContent = ({ ipfs_hash }) => {
 
             <div className="content-box-warning">
               <h2 className="title">Warning</h2>
-              <p>
-                Minting이 시작되면 더 이상 음원상세 내역이 수정이 불가합니다.
-              </p>
+              <p>Minting이 시작되면 더 이상 음원상세 내역수정이 불가합니다.</p>
             </div>
             <div className="content-box minting-btn">
               <div className="content-box minting-btn1">
