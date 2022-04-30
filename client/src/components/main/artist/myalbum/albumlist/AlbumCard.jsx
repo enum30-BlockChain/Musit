@@ -56,12 +56,11 @@ export default function AlbumCard({ song, setmusicmodal }) {
     >
       <Grid
         container
-        direction="row"
         justifyContent="space-between"
         alignItems="center"
         sx={{p:1}}
       >
-        <Grid item>
+        <Grid >
           <ButtonBase sx={{ borderRadius: "50%" }}>
             <Avatar
               alt="Remy Sharp"
@@ -73,13 +72,11 @@ export default function AlbumCard({ song, setmusicmodal }) {
         </Grid>
 
         <Grid 
-         direction="column"
          justifyContent="space-between"
          alignItems="center"
          >
-          <Grid direction="column">
+          <Grid >
             <Grid
-              direction="column"
               justifyContent="center"
               alignItems="flex-start"
             >

@@ -15,41 +15,10 @@ import VolumeDownRounded from "@mui/icons-material/VolumeDownRounded";
 import CloseIcon from "@mui/icons-material/Close";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { pink } from "@mui/material/colors";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { toggleLikeMusic } from "../../../../../redux/actions/musicActions";
 
-const WallPaper = styled("div")({
-  position: "absolute",
-  width: "100%",
-  height: "100%",
-  top: 0,
-  left: 0,
-  overflow: "hidden",
-  background: "linear-gradient(rgb(255, 38, 142) 0%, rgb(255, 105, 79) 100%)",
-  transition: "all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s",
-  "&:before": {
-    content: '""',
-    width: "140%",
-    height: "140%",
-    position: "absolute",
-    top: "-40%",
-    right: "-50%",
-    background:
-      "radial-gradient(at center center, rgb(62, 79, 249) 0%, rgba(62, 79, 249, 0) 64%)",
-  },
-  "&:after": {
-    content: '""',
-    width: "140%",
-    height: "140%",
-    position: "absolute",
-    bottom: "-50%",
-    left: "-30%",
-    background:
-      "radial-gradient(at center center, rgb(247, 237, 225) 0%, rgba(247, 237, 225, 0) 70%)",
-    transform: "rotate(30deg)",
-  },
-});
+
 
 const Widget = styled("div")(({ theme }) => ({
   padding: 16,
@@ -112,7 +81,6 @@ export default function AlbumModel(props) {
       `http://54.180.145.5/music/${props.musicmodal.ipfs_hash}`,
       content
     );
-    // .then((res) => {        console.log(res);      })
   };
 
   function formatDuration(value) {
@@ -130,7 +98,7 @@ export default function AlbumModel(props) {
   };
 
   const sliceTitle =
-    props.musicmodal.title && props.musicmodal.title.substr(0, 5) + "...";
+    props.musicmodal.title 
 
   return (
     <Box sx={{ width: "100%", overflow: "hidden" }}>
@@ -160,28 +128,15 @@ export default function AlbumModel(props) {
             sx={{ m: 1.5, width: "80%" }}
           >
             <Box sx={{ m: 1.5, minWidth: 0 }}>
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                fontWeight={500}
-              >
                 <div style={{ display: "flex" }}>
-                  <h3>Genre: </h3>
-                  <p>{props.musicmodal.genre}</p>
+                  <h3>Genre:{props.musicmodal.genre} </h3>
                 </div>
-              </Typography>
-              <Typography noWrap>
                 <div style={{ display: "flex" }}>
-                  <h3>Title : </h3>
-                  <b> {sliceTitle}</b>
+                  <h3>Title : {sliceTitle}</h3>
                 </div>
-              </Typography>
-              <Typography noWrap letterSpacing={-0.25}>
                 <div style={{ display: "flex" }}>
-                  <h3>Artist Name : </h3>
-                  <b> {props.musicmodal.artist_name}</b>
+                  <h3>Artist Name :{props.musicmodal.artist_name}</h3>
                 </div>
-              </Typography>
             </Box>
             <Box
               sx={{

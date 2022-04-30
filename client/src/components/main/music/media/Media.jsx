@@ -353,9 +353,7 @@ const Media = () => {
                     onClick={rigthArtistRankingMove}
                   />
                 </Box>
-                g
               </div>
-              g
             </Box>
           </Box>
         </Box>

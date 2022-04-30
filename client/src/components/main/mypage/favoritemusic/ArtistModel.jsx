@@ -41,11 +41,12 @@ const Widget = styled("div")(({ theme }) => ({
   padding: 16,
   borderRadius: 16,
   width: "75%",
-  maxWidth: "100%",
+  maxWidth: "1200px",
   margin: "auto",
   position: "absolute",
+  textAlign: "center",
   top: "15%",
-  left: "10%",
+  left: "15%",
   zIndex: 10,
   backgroundColor:
     theme.palette.mode === "dark" ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.4)",
@@ -107,11 +108,11 @@ export default function ArtistModel(props) {
               alignItems: "flex-start",
             }}
           >
-            <Box>
+            <Box style={{ display: "inline-flex" }}>
               <Typography
                 variant="h3"
                 component="div"
-                sx={{ display: "inline-block" }}
+                style={{ display: "inline-block", marginLeft: "130px" }}
               >
                 <div>
                   <h1>Music</h1>
@@ -142,21 +143,21 @@ export default function ArtistModel(props) {
               <Typography
                 variant="h3"
                 component="div"
-                sx={{ display: "inline-block" }}
+                style={{ display: "inline-block", marginTop: "auto" }}
               >
-                <div>
+                <div style={{ padding: "15px" }}>
                   <h4>Title</h4>
                   <p>{sliceTitle}</p>
                 </div>
-                <div>
+                <div style={{ padding: "15px" }}>
                   <h4>Total Play Count</h4>
                   <p>{Musics.play_count}</p>
                 </div>
-                <div>
+                <div style={{ padding: "15px" }}>
                   <h4>Genre</h4>
                   <p>{Musics.genre}</p>
                 </div>
-                <div>
+                <div style={{ padding: "15px" }}>
                   <h4>Likes</h4>
                   <p>{Musics.MusicLikes.length}</p>
                 </div>

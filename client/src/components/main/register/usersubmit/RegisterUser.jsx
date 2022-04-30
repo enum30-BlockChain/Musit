@@ -176,17 +176,19 @@ const RegisterUser = () => {
 
           <form>
             <div className="register-input">
-              <h1>Nickname</h1>
-              <li>
-                <Input
-                  required={true}
-                  type="text"
-                  placeholder="Nickname"
-                  sx={{ width: 400 }}
-                  inputProps={{ style: { fontSize: 30 } }}
-                  onChange={onChangeNick}
-                ></Input>
-              </li>
+              <div style={{ margin: "20px" }}>
+                <h1>Nickname</h1>
+                <li>
+                  <Input
+                    required={true}
+                    type="text"
+                    placeholder="Nickname"
+                    sx={{ width: 400 }}
+                    inputProps={{ style: { fontSize: 30 } }}
+                    onChange={onChangeNick}
+                  ></Input>
+                </li>
+              </div>
               <li>
                 {nickname.length > 0 && (
                   <span className={`message ${isName ? "success" : "error"}`}>
@@ -194,37 +196,41 @@ const RegisterUser = () => {
                   </span>
                 )}
               </li>
-              <div>
+              <div style={{ margin: "20px" }}>
                 <h2>Nations</h2>
-                <CountryType
-                  required
-                  setSelected={setSelected}
-                  // style={{ display: "none" }}
-                />
+                <Box sx={{ ml: "35%", display: "contents" }}>
+                  <CountryType
+                    required
+                    setSelected={setSelected}
+                    // style={{ display: "none" }}
+                  />
+                </Box>
               </div>
-              <h1>Genre</h1>
-              <div className="genre">
-                {genre.map((MusicType, index) => {
-                  return (
-                    <Box sx={{ width: "33%" ,textAlign:'left'}}>
-                      <label id={index} key={index}>
-                        <Checkbox
-                          className="checkbox-musicupload"
-                          type={"checkbox"}
-                          name={"MusicType"}
-                          value={MusicType}
-                          onChange={(e) => {
-                            changeHandler(e.currentTarget.checked, MusicType);
-                          }}
-                          checked={
-                            checkedInputs.includes(MusicType) ? true : false
-                          }
-                        />
-                        {MusicType}
-                      </label>
-                    </Box>
-                  );
-                })}
+              <div style={{ margin: "20px" }}>
+                <h1>Genre</h1>
+                <div className="genre">
+                  {genre.map((MusicType, index) => {
+                    return (
+                      <Box sx={{ width: "33%", textAlign: "left" }}>
+                        <label id={index} key={index}>
+                          <Checkbox
+                            className="checkbox-musicupload"
+                            type={"checkbox"}
+                            name={"MusicType"}
+                            value={MusicType}
+                            onChange={(e) => {
+                              changeHandler(e.currentTarget.checked, MusicType);
+                            }}
+                            checked={
+                              checkedInputs.includes(MusicType) ? true : false
+                            }
+                          />
+                          {MusicType}
+                        </label>
+                      </Box>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 

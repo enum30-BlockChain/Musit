@@ -256,7 +256,7 @@ export default class Ethers {
       }))
 
 
-      return nftList;
+      return nftList.sort((prev:any, next:any) => prev.tokenId - next.tokenId);
     } catch (error) {
       console.log(error);
       return null;
@@ -456,9 +456,7 @@ export default class Ethers {
         }
       }))
 
-      return mybids.sort((prev:any, next:any) => {
-        return prev.tokenId - next.tokenId
-      });
+      return mybids.sort((prev:any, next:any) => prev.tokenId - next.tokenId);
     } catch (error) {
       console.log(error);
       return null;
@@ -483,7 +481,7 @@ export default class Ethers {
         const itemInfo = await this.getAuctionItem(tokenId);
         if (itemInfo !== null) nftList.push(itemInfo);
       }))
-      return nftList;
+      return nftList.sort((prev:any, next:any) => prev.tokenId - next.tokenId);
     } catch (error) {
       console.log(error);
       return null;

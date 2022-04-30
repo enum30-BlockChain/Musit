@@ -110,10 +110,6 @@ contract Auction is ReentrancyGuard, Ownable {
     require(removeFee(msg.value) + pendingBids[_itemId][msg.sender] >= auctionItem.topBid + minBidUnit,
       "Bid amount should be bigger than prev top bid as much as minumum bid amount");
 
-    // if(auctionItem.topBidder != address(0)) {
-    //   pendingBids[_itemId][auctionItem.topBidder] += auctionItem.topBid;
-    // }
-
     pendingBids[_itemId][msg.sender] += removeFee(msg.value);
     auctionItem.topBid = pendingBids[_itemId][msg.sender];
     auctionItem.topBidder = msg.sender;
@@ -226,5 +222,9 @@ contract Auction is ReentrancyGuard, Ownable {
   
   function getPendingBids(uint _itemId, address _addr) public view returns (uint) {
     return pendingBids[_itemId][_addr];
+  }
+
+  function getNftToItemId(address _nft, uint256 _tokenId) public view returns (uint256) {
+    return nftToItemId[_nft][_tokenId];
   }
 }

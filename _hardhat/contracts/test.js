@@ -17,3 +17,7 @@ console.log(sortable);
 const rank = Object.values(maxSpeed).sort((a,b) => a-b)
 
 rank
+
+if (undefined) {
+  console.log("1111")
+}
