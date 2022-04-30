@@ -22,7 +22,7 @@ export default function ArtistCard(props) {
     if (!likeArtist.loading) {
       setArtistlike(
         likeArtist.filter((artist) => {
-          return artist.artist_name.indexOf(props.artist.artist_name) > -1;
+          return artist.artist_name === props.artist.artist_name
         })
       );
     }
@@ -35,7 +35,7 @@ export default function ArtistCard(props) {
 
   const likeOnclick = async () => {
     await dispatch(toggleLikeArtist(props.artist.artist_name));
-    await dispatch(readLikeArtistList());
+    // await dispatch(readLikeArtistList());
   };
 
   return (

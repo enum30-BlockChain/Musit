@@ -154,8 +154,9 @@ export const toggleLikeArtist = (artist_name) => {
       const userInfo = getState().user;
       const likeArtist = getState().likeArtist;
       const update = likeArtist.data.filter(
-        (like) => like.artist_name.indexOf(artist_name) > -1
+        (like) => like.artist_name === artist_name
       );
+
       if (likeArtist && artist_name) {
         if (0 >= update.length) {
           // 좋아요를 안눌렀으면 생성
@@ -175,12 +176,11 @@ export const toggleLikeArtist = (artist_name) => {
           // 좋아요를 눌렀으면 다시 삭제
           const url = `http://54.180.145.5/artists/likes/${artist_name}`;
           await axios.delete(url, { data: { user_address: userInfo.address } });
-          const update = likeArtist.data.filter((like) => {
-            return like.artist_name.indexOf(artist_name) < 0;
-          });
+          likeArtist.data.splice(likeArtist.data.findIndex((like) =>like.artist_name === artist_name),1) ;
+
           dispatch({
             type: ActionTypes.LIKE_ARTIST_SUCCESS,
-            payload: [...update],
+            payload: [...likeArtist.data],
           });
         }
       } else {
