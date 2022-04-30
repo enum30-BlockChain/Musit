@@ -1,11 +1,10 @@
-import { Skeleton } from "@mui/material";
+import { Button, Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { readMusicData } from "../../../../redux/actions/musicActions";
 import {
   readMyNFTList,
-  removeSelectedMusitNFT,
   selectedMusitNFT,
 } from "../../../../redux/actions/contractActions";
 import Ethers from "../../../../web3/Ethers";
@@ -94,7 +93,10 @@ const SuccessContent = ({ nftData }) => {
 
         <div className="audio-box">
           <audio
-            src={`https://ipfs.infura.io/ipfs/${nftData.ipfs_hash}`}
+            src={
+              nftData.ipfs_hash &&
+              `https://ipfs.infura.io/ipfs/${nftData.ipfs_hash}`
+            }
             controls
           ></audio>
         </div>
@@ -269,6 +271,19 @@ const OrdinaryForm = () => {
               submit
             </button>
           )}
+          <Button
+            onClick={() => history.back()}
+            sx={{
+              color: "var(--black-light-color)",
+              backgroundColor: "var(--box1-color)",
+              ":hover": {
+                background: "var(--primary-color)",
+                color: "var(--text-color)",
+              },
+            }}
+          >
+            Cancle
+          </Button>
         </form>
       </div>
       {submitLoading || permissionLoading ? <SimpleBackdrop /> : <></>}
@@ -414,6 +429,19 @@ const AuctionForm = () => {
               submit
             </button>
           )}
+          <Button
+            onClick={() => history.back()}
+            sx={{
+              color: "var(--black-light-color)",
+              backgroundColor: "var(--box1-color)",
+              ":hover": {
+                background: "var(--primary-color)",
+                color: "var(--text-color)",
+              },
+            }}
+          >
+            Cancle
+          </Button>
         </form>
       </div>
       {submitLoading || permissionLoading ? <SimpleBackdrop /> : <></>}
