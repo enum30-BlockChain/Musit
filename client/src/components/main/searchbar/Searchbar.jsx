@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Searchbar.css";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { connectMetamask } from "../../../redux/actions/metamaskActions";
 import { searchingReducer } from "../../../redux/actions/searchingAction";
@@ -91,19 +91,20 @@ export const Searchbar = () => {
           )}
         </div>
 
-        <Drawer
-          anchor="right"
-          open={open}
-          onClose={() => {
-            setOpen(false);
-          }}
-          // onOpen={() => {
-          //   setOpen(true);
-          // }}
-          PaperProps={{ style: { backgroundColor: "rgba(225,225,225,0.8)" } }}
-        >
-          <UserDrawer />
-        </Drawer>
+        {user && user.nickname !== null ? (
+          <Drawer
+            anchor="right"
+            open={open}
+            onClose={() => {
+              setOpen(false);
+            }}
+            PaperProps={{ style: { backgroundColor: "rgba(225,225,225,0.8)" } }}
+          >
+            <UserDrawer />
+          </Drawer>
+        ) : (
+          !open
+        )}
       </div>
     </>
   );

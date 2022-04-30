@@ -161,7 +161,10 @@ export const selectedMusicReducer = (state = {}, { type, payload }) => {
 };
 
 /* Recent Music Reducer */
-export const recentMusicReducer = (state = "Login required", { type, payload }) => {
+export const recentMusicReducer = (
+  state = "Subscription required",
+  { type, payload }
+) => {
   switch (type) {
     case ActionTypes.RECENT_MUSIC:
       return payload;

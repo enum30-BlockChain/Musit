@@ -31,7 +31,7 @@ const Minting = () => {
 const LoadingContent = () => {
   return (
     <>
-      <SimpleBackdrop/>
+      <SimpleBackdrop />
     </>
   );
 };
@@ -40,7 +40,7 @@ const SuccessContent = ({ ipfs_hash }) => {
   const artistData = useSelector((state) => state.artist);
   const musicData = useSelector((state) => state.music);
   const [mintingLoading, setMintingLoading] = useState(false);
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const mintingOnClick = async () => {
     const metadata = {
@@ -52,14 +52,14 @@ const SuccessContent = ({ ipfs_hash }) => {
       artist_name: musicData.artist_name,
       artist_address: artistData.user_address,
     };
-    setMintingLoading(true)
+    setMintingLoading(true);
     const url = "http://54.180.145.5/files/upload/metadata";
-    const uploadResult = ((await axios.post(url, metadata))).data;
-    const result = await Ethers.minting(uploadResult.path)
-    setMintingLoading(false)
-    
+    const uploadResult = (await axios.post(url, metadata)).data;
+    const result = await Ethers.minting(uploadResult.path);
+    setMintingLoading(false);
+
     if (result && result.confirmations > 0) {
-      window.alert("Minting 정상적으로 완료 되었습니다.")
+      window.alert("Minting 정상적으로 완료 되었습니다.");
       navigate(`/mypage/mynftlist`);
     } else {
       window.alert("Minting이 완료되지 않았습니다.");
@@ -103,7 +103,27 @@ const SuccessContent = ({ ipfs_hash }) => {
               <h2 className="title">Description</h2>
               <p>{musicData.description}</p>
             </div>
+
+            <div className="content-box-warning">
+              <h2 className="title">Warning</h2>
+              <p>
+                Minting이 시작되면 더 이상 음원상세 내역이 수정이 불가합니다.
+              </p>
+            </div>
             <div className="content-box minting-btn">
+              <Button
+                onClick={() => history.back()}
+                sx={{
+                  color: "var(--black-light-color)",
+                  backgroundColor: "var(--box1-color)",
+                  ":hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  },
+                }}
+              >
+                Cancle
+              </Button>
               <Button
                 onClick={mintingOnClick}
                 sx={{
@@ -121,7 +141,7 @@ const SuccessContent = ({ ipfs_hash }) => {
           </section>
         </main>
       </section>
-      {mintingLoading ? <SimpleBackdrop/> : <></>}
+      {mintingLoading ? <SimpleBackdrop /> : <></>}
     </section>
   );
 };
