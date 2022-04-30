@@ -49,6 +49,7 @@ export default function Artistinfo() {
     metamask.accounts[0] &&
     metamask.accounts[0].slice(0, 5) + "..." + metamask.accounts[0].slice(-4);
 
+  console.log(artist);
   return (
     <>
       <div className="artist-info-container">
@@ -102,7 +103,7 @@ export default function Artistinfo() {
 
             <div className="like-box">
               <h2 className="likes">Likes</h2>
-              <h3>{artist.likes} </h3>
+              <h3>{artist.ArtistLikes.length}</h3>
             </div>
 
             <div className="setting-btn">
