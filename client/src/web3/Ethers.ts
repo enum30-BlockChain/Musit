@@ -449,13 +449,13 @@ export default class Ethers {
             seller: itemInfo.seller,
             topBidder: itemInfo.topBidder,
             topBid: ethers.utils.formatEther(itemInfo.topBid),
-            status: itemInfo.topBid.toNumber(),
             pendingBids: ethers.utils.formatEther(pendingBids),
             ...metadata,
           })
         }
       }))
-
+      console.log(mybids);
+      
       return mybids.sort((prev:any, next:any) => prev.tokenId - next.tokenId);
     } catch (error) {
       console.log(error);
