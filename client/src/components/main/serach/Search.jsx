@@ -139,7 +139,6 @@ function Search(props) {
     value2 === -100 * (findArtist.length - viewArtistCard)
       ? setValue2(0)
       : setValue2(value2 - 100);
-    console.log(value2);
   };
 
   return (
