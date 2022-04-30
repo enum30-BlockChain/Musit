@@ -21,10 +21,9 @@ const Usercontent = () => {
     return ("0" + number).slice(-2);
   };
 
-  const balance = (metamask) => {
-    console.log(metamask.balance);
-  };
+  const balance = (metamask.balance / 10 ** 18).toFixed(4);
 
+  console.log(balance);
   useEffect(async () => {
     await dispatch(readMyNFTList());
     if(user.address) {
