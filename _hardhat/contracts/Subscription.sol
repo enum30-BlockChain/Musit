@@ -77,6 +77,7 @@ contract Subscription {
 
   // 무료 쿠폰 사용 여부 변경
   function setIsFreeCouponUsed (address _user, bool _change) public returns(bool) {
+    require(msg.sender == owner, "Only owner can access it");
     return isFreeCouponUsed[_user] = _change;
   }  
 }
