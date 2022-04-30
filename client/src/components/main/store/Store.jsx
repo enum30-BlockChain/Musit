@@ -9,7 +9,6 @@ export const Store = () => {
   const market = useSelector((state) => state.market);
   const auction = useSelector((state) => state.auction);
 
-
   return !market || market.error || !auction || auction.error ? (
     <ErrorContent />
   ) : (
@@ -20,23 +19,23 @@ export const Store = () => {
 };
 
 const SuccessContent = () => {
-    useEffect(() => {
-      topNavToggle();
-    }, []);
+  useEffect(() => {
+    topNavToggle();
+  }, []);
 
-    const topNavToggle = () => {
-      const links = document.querySelectorAll(".top-nav .nav-links li");
-      links.forEach((link) => {
-        link.addEventListener("click", () => {
-          links.forEach((link) => {
-            link.classList.remove("active");
-          });
-          link.classList.add("active");
+  const topNavToggle = () => {
+    const links = document.querySelectorAll(".top-nav .nav-links li");
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        links.forEach((link) => {
+          link.classList.remove("active");
         });
+        link.classList.add("active");
       });
-    };
+    });
+  };
 
-    return (
+  return (
     <section className="store">
       <nav className="top-nav">
         <ul className="nav-links">
@@ -61,7 +60,7 @@ const SuccessContent = () => {
         </ul>
       </nav>
       <section className="content-container">
-        <Outlet/>
+        <Outlet />
       </section>
     </section>
   );

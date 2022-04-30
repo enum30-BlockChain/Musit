@@ -67,7 +67,10 @@ const SuccessContent = ({ nftData }) => {
     const init = async () => {
       setIsOnMarket(await Ethers.isOnMarket(tokenId));
     };
-    init();
+    if (musicData.artist_name !== null) {
+      init();
+    }
+    return false;
   }, []);
 
   // Sell, Auction 입력창 변경
