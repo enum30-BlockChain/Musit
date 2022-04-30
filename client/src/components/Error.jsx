@@ -5,7 +5,7 @@ export default function Error({ error }) {
   const moveToLandingpage = () => {
     window.location.href = "/";
   };
-  console.log(error);
+  // console.log(error);
 
   return (
     <>

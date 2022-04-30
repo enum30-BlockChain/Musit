@@ -8,7 +8,7 @@ export const Test = () => {
     try {
       await axios.post("localhostasdfasdf");
     } catch (error) {
-      console.log(error.state);
+      // console.log(error.state);
       setErr(error);
     }
   }, []);
