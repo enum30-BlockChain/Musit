@@ -24,7 +24,7 @@ contract MusitNFT is ERC721URIStorage, ERC721Enumerable, Ownable {
     mintPrice = _mintPrice;
   }
 
-  /* override functions */
+  /* override functions related to ERC721*/
   function _beforeTokenTransfer(address from, address to, uint256 tokenId)
     internal
     override(ERC721, ERC721Enumerable)

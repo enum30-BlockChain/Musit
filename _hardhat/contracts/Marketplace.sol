@@ -76,7 +76,6 @@ contract Marketplace is ReentrancyGuard {
     );
     
     nftToItemId[address(_nft)][_tokenId] = itemId;
-
     musitNft.setIsOnMarket(_tokenId, true);
   }
 
@@ -115,5 +114,9 @@ contract Marketplace is ReentrancyGuard {
 
   function getTotalPrice(uint256 _itemId) public view returns (uint256) {
     return (items[_itemId].price * (100 + feePercent)) /100;
+  }
+
+  function getNftToItemId(address _nft, uint256 _tokenId) public view returns (uint256) {
+    return nftToItemId[_nft][_tokenId];
   }
 }
