@@ -11,6 +11,7 @@ import {
   PopulatedTransaction,
   BaseContract,
   ContractTransaction,
+  Overrides,
   PayableOverrides,
   CallOverrides,
 } from "ethers";
@@ -26,6 +27,7 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     "getEndAt(address)": FunctionFragment;
     "getIsFreeCouponUsed(address)": FunctionFragment;
     "getPrice(uint8)": FunctionFragment;
+    "setIsFreeCouponUsed(address,bool)": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "buy", values: [BigNumberish]): string;
@@ -42,6 +44,10 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     functionFragment: "getPrice",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "setIsFreeCouponUsed",
+    values: [string, boolean]
+  ): string;
 
   decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
   decodeFunctionResult(
@@ -54,6 +60,10 @@ interface SubscriptionInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getPrice", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setIsFreeCouponUsed",
+    data: BytesLike
+  ): Result;
 
   events: {};
 }
@@ -103,112 +113,148 @@ export class Subscription extends BaseContract {
 
   functions: {
     buy(
-      plan: BigNumberish,
+      _plan: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getDuration(
-      plan: BigNumberish,
+      _plan: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    getEndAt(user: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    getEndAt(_user: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getIsFreeCouponUsed(
-      user: string,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     getPrice(
-      plan: BigNumberish,
+      _plan: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
+
+    setIsFreeCouponUsed(
+      _user: string,
+      _change: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
 
   buy(
-    plan: BigNumberish,
+    _plan: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getDuration(
-    plan: BigNumberish,
+    _plan: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  getEndAt(user: string, overrides?: CallOverrides): Promise<BigNumber>;
+  getEndAt(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   getIsFreeCouponUsed(
-    user: string,
+    _user: string,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  getPrice(plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+  getPrice(_plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+  setIsFreeCouponUsed(
+    _user: string,
+    _change: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   callStatic: {
-    buy(plan: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    buy(_plan: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     getDuration(
-      plan: BigNumberish,
+      _plan: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getEndAt(user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getEndAt(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     getIsFreeCouponUsed(
-      user: string,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    getPrice(plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    getPrice(
+      _plan: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    setIsFreeCouponUsed(
+      _user: string,
+      _change: boolean,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
   };
 
   filters: {};
 
   estimateGas: {
     buy(
-      plan: BigNumberish,
+      _plan: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getDuration(
-      plan: BigNumberish,
+      _plan: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getEndAt(user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getEndAt(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     getIsFreeCouponUsed(
-      user: string,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getPrice(plan: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    getPrice(
+      _plan: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    setIsFreeCouponUsed(
+      _user: string,
+      _change: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     buy(
-      plan: BigNumberish,
+      _plan: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getDuration(
-      plan: BigNumberish,
+      _plan: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getEndAt(
-      user: string,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getIsFreeCouponUsed(
-      user: string,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getPrice(
-      plan: BigNumberish,
+      _plan: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    setIsFreeCouponUsed(
+      _user: string,
+      _change: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
