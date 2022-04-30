@@ -92,7 +92,6 @@
 .minting-layout .mintig-content-wrap .right-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
 .minting-layout .mintig-content-wrap .right-container h2 {
@@ -107,7 +106,7 @@
 }
 
 .minting-layout .mintig-content-wrap .right-container .content-box {
-  height: 100px;
+  height: 70px;
   margin-bottom: 20px;
 }
 
@@ -115,7 +114,7 @@
   height: 200px;
 }
 
-.minting-layout .mintig-content-wrap .right-container .description-box p{
+.minting-layout .mintig-content-wrap .right-container .description-box p {
   height: 150px;
   font-size: 16px;
   font-weight: 600;
@@ -124,9 +123,29 @@
   white-space: normal;
 }
 
+.minting-layout
+  .minting-container
+  .mintig-content-wrap
+  .right-container
+  .content-box-warning {
+  width: 100%;
+  padding: 5px;
+  background-color: var(--warning-color);
+  border-radius: 10px;
+  text-align: center;
+}
+
 .minting-layout .mintig-content-wrap .right-container .minting-btn {
   display: flex;
+  margin-top: 10px;
   justify-content: center;
-  align-items: center;
-  margin: 0;
+}
+.minting-layout .mintig-content-wrap .right-container .minting-btn1 {
+  margin-right: 5px;
+  width: 100%;
+}
+
+.minting-layout .mintig-content-wrap .right-container .minting-btn2 {
+  margin-left: 5px;
+  width: 100%;
 }
