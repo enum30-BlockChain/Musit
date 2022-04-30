@@ -265,7 +265,7 @@ function Search(props) {
                   findArtist &&
                   findArtist.map((artist, i) => {
                     return (
-                      <Grid sx={{ width: "25%" }} key={i}>
+                      <Grid key={i}>
                         <div
                           className="glide"
                           style={{ transform: `translateX(${value2}%)` }}
