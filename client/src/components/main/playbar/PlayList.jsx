@@ -48,10 +48,9 @@ export default function PlayList(props) {
       <List sx={{maxHeight:"600px"}}>
         {likeMusic &&
           likeMusic.map((song, index) => (
-            <ListItem button key={song} sx={{height:"70px"}}>
+            <ListItem button key={index} sx={{height:"70px"}}>
               <ListItem
                 sx={{ width: "100%" }}
-                key={song}
                 onClick={() => {
                   playsong(song, index);
                 }}

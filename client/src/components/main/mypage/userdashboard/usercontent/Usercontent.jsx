@@ -20,7 +20,7 @@ const Usercontent = () => {
 
   useEffect(async () => {
     await dispatch(readMyNFTList());
-    if(user) {
+    if(user.address) {
       const subsEndAt = await Ethers.getSubscriptionEndAt(user.address);
       const countdown = document.getElementById("subs-countdown")
       const subscription = setInterval(() => {

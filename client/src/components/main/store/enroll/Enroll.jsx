@@ -22,23 +22,29 @@ const Enroll = () => {
   const musitNFT = useSelector((state) => state.ownedMusitNFT);
   const selectedNFT = useSelector((state) => state.selectedMusitNFT);
 
-  useEffect(async () => {
-    if (userData.address) {
-      await dispatch(readMyNFTList());
+  useEffect(() => {
+    const init = async () => {
+      if (userData.address) {
+        await dispatch(readMyNFTList());
+      }
     }
+    init()
   }, [userData.loading]);
 
-  useEffect(async () => {
-    if (musitNFT.data && musitNFT.data.length > 0) {
-      const thisNFT = await musitNFT.data.filter(
-        (nft) => parseInt(nft.tokenId) === parseInt(tokenId)
-      )[0];
-      await dispatch(selectedMusitNFT(thisNFT));
-      await dispatch(readMusicData(thisNFT.ipfs_hash));
+  useEffect( () => {
+    const init = async () => {
+      if (musitNFT.data && musitNFT.data.length > 0) {
+        const thisNFT = await musitNFT.data.filter(
+          (nft) => parseInt(nft.tokenId) === parseInt(tokenId)
+        )[0];
+        await dispatch(selectedMusitNFT(thisNFT));
+        await dispatch(readMusicData(thisNFT.ipfs_hash));
+      }
+      // return async () => {
+      // 	await dispatch(removeSelectedMusitNFT())
+      // }
     }
-    // return async () => {
-    // 	await dispatch(removeSelectedMusitNFT())
-    // }
+    init()
   }, [musitNFT.loading]);
 
   return (musicData && musicData.loading) || (musitNFT && musitNFT.loading) ? (
@@ -58,8 +64,11 @@ const SuccessContent = ({ nftData }) => {
   const musicData = useSelector((state) => state.music);
   const [isOnMarket, setIsOnMarket] = useState(true);
 
-  useEffect(async () => {
-    setIsOnMarket(await Ethers.isOnMarket(tokenId));
+  useEffect( () => {
+    const init = async () => {
+      setIsOnMarket(await Ethers.isOnMarket(tokenId));
+    }
+    init()
   }, []);
 
   // Sell, Auction 입력창 변경
@@ -94,7 +103,7 @@ const SuccessContent = ({ nftData }) => {
 
         <div className="audio-box">
           <audio
-            src={`https://ipfs.infura.io/ipfs/${nftData.ipfs_hash}`}
+            src={nftData.ipfs_hash && `https://ipfs.infura.io/ipfs/${nftData.ipfs_hash}`}
             controls
           ></audio>
         </div>
@@ -179,8 +188,11 @@ const OrdinaryForm = () => {
   const [isApproved, setIsApproved] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    setIsApproved(await Ethers.checkApprovedAddress("marketplace", tokenId));
+  useEffect( () => {
+    const init = async () => {
+      setIsApproved(await Ethers.checkApprovedAddress("marketplace", tokenId));
+    }
+    init()
   }, []);
 
   // Marketplace 컨트랙트에 내 NFT를 접근 권한 허용하기
@@ -190,7 +202,6 @@ const OrdinaryForm = () => {
       await Ethers.approveMyNFT("marketplace", tokenId)
     ).wait();
     setPermissionLoading(false);
-    console.log(result);
     if (result && result.confirmations > 0) {
       window.alert("권한 승인 요청에 성공했습니다.");
       setIsApproved(await Ethers.checkApprovedAddress("marketplace", tokenId));
@@ -284,8 +295,11 @@ const AuctionForm = () => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    setIsApproved(await Ethers.checkApprovedAddress("auction", tokenId));
+  useEffect( () => {
+    const init = async () => {
+      setIsApproved(await Ethers.checkApprovedAddress("auction", tokenId));
+    }
+    init()
   }, []);
 
   // Auction 컨트랙트에 내 NFT를 접근 권한 허용하기

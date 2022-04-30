@@ -12,6 +12,7 @@ const MyBids = () => {
 		setLoading(true)
     setData(await Ethers.getMyBids())
     setLoading(false)
+	console.log(await Ethers.getMyBids())
   }, []);
   if (loading) return <CardSkeleton />;
 	else
