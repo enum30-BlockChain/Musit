@@ -26,11 +26,11 @@ const Enroll = () => {
       if (userData.address) {
         await dispatch(readMyNFTList());
       }
-    }
-    init()
+    };
+    init();
   }, [userData.loading]);
 
-  useEffect( () => {
+  useEffect(() => {
     const init = async () => {
       if (musitNFT.data && musitNFT.data.length > 0) {
         const thisNFT = await musitNFT.data.filter(
@@ -42,8 +42,8 @@ const Enroll = () => {
       // return async () => {
       // 	await dispatch(removeSelectedMusitNFT())
       // }
-    }
-    init()
+    };
+    init();
   }, [musitNFT.loading]);
 
   return (musicData && musicData.loading) || (musitNFT && musitNFT.loading) ? (
@@ -63,11 +63,11 @@ const SuccessContent = ({ nftData }) => {
   const musicData = useSelector((state) => state.music);
   const [isOnMarket, setIsOnMarket] = useState(true);
 
-  useEffect( () => {
+  useEffect(() => {
     const init = async () => {
       setIsOnMarket(await Ethers.isOnMarket(tokenId));
-    }
-    init()
+    };
+    init();
   }, []);
 
   // Sell, Auction 입력창 변경
@@ -102,14 +102,10 @@ const SuccessContent = ({ nftData }) => {
 
         <div className="audio-box">
           <audio
-<<<<<<< HEAD
             src={
               nftData.ipfs_hash &&
               `https://ipfs.infura.io/ipfs/${nftData.ipfs_hash}`
             }
-=======
-            src={nftData.ipfs_hash && `https://ipfs.infura.io/ipfs/${nftData.ipfs_hash}`}
->>>>>>> main2
             controls
           ></audio>
         </div>
@@ -194,11 +190,11 @@ const OrdinaryForm = () => {
   const [isApproved, setIsApproved] = useState(false);
   const navigate = useNavigate();
 
-  useEffect( () => {
+  useEffect(() => {
     const init = async () => {
       setIsApproved(await Ethers.checkApprovedAddress("marketplace", tokenId));
-    }
-    init()
+    };
+    init();
   }, []);
 
   // Marketplace 컨트랙트에 내 NFT를 접근 권한 허용하기
@@ -314,11 +310,11 @@ const AuctionForm = () => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect( () => {
+  useEffect(() => {
     const init = async () => {
       setIsApproved(await Ethers.checkApprovedAddress("auction", tokenId));
-    }
-    init()
+    };
+    init();
   }, []);
 
   // Auction 컨트랙트에 내 NFT를 접근 권한 허용하기
