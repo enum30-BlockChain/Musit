@@ -10,7 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import { useSelector, useDispatch } from "react-redux";
 import AlbumCard from "./AlbumCard";
 import AlbumModel from "./AlbumModel";
-import Model from "./Model";
+import Modal from "./Modal";
 import { useLocation } from "react-router-dom";
 import { Button } from "@mui/material";
 
@@ -177,7 +177,7 @@ export default function AlbumList() {
       )}
 
       {musicEditModal && (
-        <Model music={musicEditModal} setMusicEditModal={setMusicEditModal} />
+        <Modal music={musicEditModal} setMusicEditModal={setMusicEditModal} />
       )}
     </Paper>
   );

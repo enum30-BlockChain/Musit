@@ -130,9 +130,6 @@
           <audio
             style={{ width: "100%",marginTop:'20px' ,height:'50px' }}
             src={`https://ipfs.infura.io/ipfs/${props.music.ipfs_hash}`}
-            on
-            autoplay
-            loop
             controls
           ></audio>
           <Box
@@ -151,6 +148,7 @@
           {genre.map((MusicType, index) => {
             return (
               <Box
+              key={index}
               sx={{
                 width: "25%",
                 textAlign:'left'}}
