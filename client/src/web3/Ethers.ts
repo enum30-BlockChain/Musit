@@ -532,11 +532,10 @@ export default class Ethers {
         ).map(async (event: Event) => {
           const boughtInfo: any = event.args;
           const sellPrice: BigNumber = boughtInfo.price;
-          return sellPrice.toNumber();
+          return Number(ethers.utils.formatEther(sellPrice));
         })
       );
-      
-      const sumIncome: number = Number(ethers.utils.formatEther(incomeArray.reduce((a,b) => (a+b), 0)))
+      const sumIncome: number = incomeArray.reduce((a,b) => (a+b), 0)
       return sumIncome
     } catch (error) {
       console.log(error);
