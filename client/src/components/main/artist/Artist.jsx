@@ -41,6 +41,12 @@ export const Artist = () => {
                 <span className="link-name"> My Album</span>
               </Link>
             </li>
+            <li>
+              <Link to="/artist/myupload">
+                <i className="uil uil-compact-disc"></i>
+                <span className="link-name"> My Mingting NFT</span>
+              </Link>
+            </li>
           </ul>
         </nav>
         <div className="artist-details">
