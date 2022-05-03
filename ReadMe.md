@@ -2,7 +2,7 @@
 
 > 이더리움 기반 NFT 음원 스트리밍 사이트
 
-메인 이미지 캡쳐
+![image](https://user-images.githubusercontent.com/89626182/166390125-b8d7194d-c992-4af3-a51c-fa0255e8df22.png)
 
 ### 기간 : `2022-03-08 ~ 2022-05-02`
 
