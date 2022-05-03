@@ -65,8 +65,7 @@
 ---
 
 ## DB 테이블 관계도🧾
-
-[DB EER Diagram](https://user-images.githubusercontent.com/89626182/166389442-876bb2b5-f508-4ef8-bf71-b80005f9b806.png)
+![DB EER Diagram](https://user-images.githubusercontent.com/89626182/166389973-e636ed03-2881-4d57-9e86-1e20a606166c.png)
 
 ## Issue
 
