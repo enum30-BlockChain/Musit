@@ -8,13 +8,13 @@
 
 ### 팀원 및 역할
 
-- [Haemin Park](https://github.com/euphratesriver0216)
+- [Haemin Park](https://github.com/euphratesriver0216) : UI/UX 설계, 디자인 총괄
     
-- [Seokhun Yoon](https://github.com/imysh578)
+- [Seokhun Yoon](https://github.com/imysh578) : 스마트 컨트랙트, 리덕스
     
-- [Cheolsoon Lim](https://github.com/POcodingWER)
+- [Cheolsoon Lim](https://github.com/POcodingWER) : 음원 스트리밍 서비스, 음원 검색 및 추천 알고리즘
     
-- [Jin-young Jeon](https://github.com/jeonjinoung)
+- [Jin-young Jeon](https://github.com/jeonjinoung) : 회원가입, 서버 설계
 
 ***
 
