@@ -54,7 +54,7 @@ const SuccessContent = ({ ipfs_hash }) => {
       artist_address: artistData.user_address,
     };
     setMintingLoading(true);
-    const url = "http://54.180.145.5/files/upload/metadata";
+    const url = "http://localhost:5000/files/upload/metadata";
     const uploadResult = (await axios.post(url, metadata)).data;
     const result = await Ethers.minting(uploadResult.path);
     setMintingLoading(false);

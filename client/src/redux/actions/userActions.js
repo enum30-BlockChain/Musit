@@ -11,7 +11,7 @@ export const createUserData = (inputs) => {
       // 메타마스크 reducer에서 주소 가져옴
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
-        const url = "http://54.180.145.5/users/";
+        const url = "http://localhost:5000/users/";
         await axios.post(url, { ...inputs, address: accounts[0] });
 
         dispatch({ type: ActionTypes.USER_CREATE_SUCCESS });
@@ -39,7 +39,7 @@ export const readUserData = () => {
       // 메타마스크 reducer에서 주소 가져옴
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
-        const url = `http://54.180.145.5/users/${accounts[0]}`;
+        const url = `http://localhost:5000/users/${accounts[0]}`;
         const subsEndAt = await Ethers.getSubscriptionEndAt(accounts[0]); // 구독 종료 시점
         const userInfo = (await axios.get(url)).data;
         dispatch({
@@ -70,7 +70,7 @@ export const updateUserData = (inputs) => {
       // 메타마스크 reducer에서 주소 가져옴
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
-        const url = `http://54.180.145.5/users/${accounts[0]}`;
+        const url = `http://localhost:5000/users/${accounts[0]}`;
 
         await axios.patch(url, inputs);
 
@@ -103,7 +103,7 @@ export const deleteUser = () => {
       // 메타마스크 reducer에서 주소 가져옴
       let accounts = getState().metamask.accounts;
       if (accounts.length > 0) {
-        const url = `http://54.180.145.5/users/${accounts[0]}`;
+        const url = `http://localhost:5000/users/${accounts[0]}`;
         await axios.delete(url);
 
         dispatch({

@@ -25,7 +25,7 @@ export default function ArtistSongCard(props) {
 
   const likecountpost = async () => {
     await axios
-      .post("http://54.180.145.5/music/like", {
+      .post("http://localhost:5000/music/like", {
         address: props.address,
         audio: props.music.ipfs_hash,
       })
