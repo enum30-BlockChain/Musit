@@ -296,7 +296,7 @@ export const Playbar = () => {
   const palyCountAdd = async () => {
     setpalyeCount(palyeCount + 1);
     const content = { play_count: palyeCount + 1 };
-    await axios.patch(`http://localhost:5000/music/${hash}`, content);
+    await axios.patch(`http://15.164.164.38/music/${hash}`, content);
   };
 
   const [savePoint, setSavePoint] = useState(0);
@@ -308,7 +308,7 @@ export const Playbar = () => {
     if (!sendInt) {
       setSavePoint(savePoint + 1);
       dispatch(setRecentMusic(songTitle))
-      await axios.patch(`http://localhost:5000/users/${user.address}`, {
+      await axios.patch(`http://15.164.164.38/users/${user.address}`, {
         recent_played: content.join("-"),
       });
     }

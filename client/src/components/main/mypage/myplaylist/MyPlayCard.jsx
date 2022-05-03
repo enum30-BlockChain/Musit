@@ -27,7 +27,7 @@ export default function MyplayCard() {
 
   // const getLikeList = async () => {
   //   //내가 좋아요누른 노래 카운트 증가
-  //   const url = "http://localhost:5000/music/likes/like";
+  //   const url = "http://15.164.164.38/music/likes/like";
   //   await axios
   //     .post(url, { address })
   //     .then((res) => {
