@@ -34,7 +34,7 @@ export default function Artistinfo() {
   const postImg = async () => {
     if (img !== "") {
       formData.append("img", img);
-      const url = "http://localhost:5000/files/upload/img";
+      const url = "http://15.164.164.38/files/upload/img";
       const result = await axios.post(url, formData);
       return result.data;
     }

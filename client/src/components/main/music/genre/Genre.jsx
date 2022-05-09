@@ -32,6 +32,7 @@ export default function Genre() {
     await fakeFetch();
     setLoadingState(false);
   }, []);
+
   useEffect(() => {
     const likeGenre = [...likeMusic];
     const GenreBox = [];
@@ -53,6 +54,7 @@ export default function Genre() {
         return musicList;
       }
     };
+    
     setGenreRecommend(GenreRecommendHandler());
     if (GenreRecommendHandler().length > 6) {
       setViewGenreCard(6);
