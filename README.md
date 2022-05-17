@@ -1,6 +1,7 @@
 # **ENUM30 x Musit**
 > 기업협약 프로젝트
 이더리움 기반 NFT 음원 스트리밍 플랫폼 개발
+### http://3.39.234.167/
 
 <img src="https://user-images.githubusercontent.com/33863016/166650160-c70ede98-3bf7-4c28-b2ff-aa1009aab19d.gif" />
 
